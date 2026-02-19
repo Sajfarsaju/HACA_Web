@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular;
+  --font-rethink: var(--font-rethink-sans);
 
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);

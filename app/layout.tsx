@@ -1,10 +1,10 @@
 "use client"
 
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Rethink_Sans } from "next/font/google";
 import "../styles/globals.css";
 import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { usePathname } from "next/navigation";
+import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,6 +13,11 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const rethinkSans = Rethink_Sans({
+  variable: "--font-rethink-sans",
   subsets: ["latin"],
 });
 
@@ -27,13 +32,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} ${rethinkSans.variable} antialiased min-h-screen flex flex-col`}
       >
         {!isTechSchool && <Navbar />}
         <main className="flex-grow">
           {children}
         </main>
-        {!isTechSchool && <Footer />}
+        <ConditionalFooter />
       </body>
     </html>
   );
