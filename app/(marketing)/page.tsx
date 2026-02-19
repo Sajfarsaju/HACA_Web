@@ -2,6 +2,7 @@ import { Hero } from "@/components/sections/Hero"
 import { Features } from "@/components/sections/Features"
 import { Stats } from "@/components/sections/Stats"
 import { CTA } from "@/components/sections/CTA"
+import { HeroBottom } from "@/components/sections/HeroBottom"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function HomePage() {
       <Stats />
       <Features />
       <CTA />
+      <HeroBottom />
     </>
   )
 }
