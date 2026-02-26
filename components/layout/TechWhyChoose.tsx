@@ -1,0 +1,328 @@
+"use client";
+import React, { useState, useEffect, useCallback } from "react";
+
+// ── Responsive card width ──────────────────────────────────────────────────
+function useIsMobile() {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener("resize", check);
+        return () => window.removeEventListener("resize", check);
+    }, []);
+    return isMobile;
+}
+
+// ── Gradient border (softer orange → purple) ────────────────────────────
+const CARD_GRAD = `linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
+    linear-gradient(90deg, rgba(255,86,0,0.3) 0%, rgba(132,0,255,0.3) 100%)`;
+
+// ── Card data ─────────────────────────────────────────────────────────────
+const CARDS = [
+    {
+        title: "AI-Integrated Learning",
+        description: "Every course uses real AI tools to solve real problems. You don't just learn about AI; you use it.",
+        icon: (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <path d="M24 4L29 13H39L32 20L35 30L24 24L13 30L16 20L9 13H19L24 4Z" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
+                <circle cx="24" cy="24" r="5" stroke="white" strokeWidth="1.5" />
+                <line x1="20" y1="24" x2="28" y2="24" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="24" y1="20" x2="24" y2="28" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+        ),
+    },
+    {
+        title: "Project-First Approach",
+        description: "50+ projects to build a strong portfolio from day one.",
+        icon: (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="6" y="10" width="36" height="28" rx="4" stroke="white" strokeWidth="1.5" />
+                <path d="M14 26L20 32L34 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        ),
+    },
+    {
+        title: "Cohort-Based Learning",
+        description: "Study in small groups of 6–12 with live discussions and mentor feedback.",
+        icon: (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="16" r="6" stroke="white" strokeWidth="1.5" />
+                <path d="M12 38C12 31.4 17.4 26 24 26C30.6 26 36 31.4 36 38" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                <circle cx="10" cy="18" r="4" stroke="white" strokeWidth="1.2" />
+                <path d="M3 36C3 31.6 6.2 28 10 28" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
+                <circle cx="38" cy="18" r="4" stroke="white" strokeWidth="1.2" />
+                <path d="M45 36C45 31.6 41.8 28 38 28" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
+            </svg>
+        ),
+    },
+    {
+        title: "Confidence & Career Growth",
+        description: "We help you grow as a person, communicate effectively, and think like a techpreneur.",
+        icon: (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="18" r="7" stroke="white" strokeWidth="1.5" />
+                <path d="M16 42C16 36.5 19.6 32 24 32C28.4 32 32 36.5 32 42" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M37 8L38.5 12L43 13L39.5 16.5L40.5 21L37 19L33.5 21L34.5 16.5L31 13L35.5 12Z" stroke="white" strokeWidth="1.2" strokeLinejoin="round" />
+            </svg>
+        ),
+    },
+    {
+        title: "Industry Exposure & Guest Sessions",
+        description: "Guest sessions, business talks, and real-world advice to help gain industry updates and insights.",
+        icon: (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="16" stroke="white" strokeWidth="1.5" />
+                <path d="M24 8C18 14 18 34 24 40" stroke="white" strokeWidth="1.2" />
+                <path d="M24 8C30 14 30 34 24 40" stroke="white" strokeWidth="1.2" />
+                <line x1="8" y1="24" x2="40" y2="24" stroke="white" strokeWidth="1.2" />
+                <line x1="10" y1="16" x2="38" y2="16" stroke="white" strokeWidth="1.2" />
+                <line x1="10" y1="32" x2="38" y2="32" stroke="white" strokeWidth="1.2" />
+            </svg>
+        ),
+    },
+    {
+        title: "Team Up Across Campuses",
+        description: "Work with students from other schools to build even better projects and get fresh perspectives.",
+        icon: (
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="4" y="18" width="18" height="14" rx="3" stroke="white" strokeWidth="1.5" />
+                <rect x="26" y="18" width="18" height="14" rx="3" stroke="white" strokeWidth="1.5" />
+                <line x1="22" y1="25" x2="26" y2="25" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                <circle cx="13" cy="12" r="4" stroke="white" strokeWidth="1.2" />
+                <circle cx="35" cy="12" r="4" stroke="white" strokeWidth="1.2" />
+            </svg>
+        ),
+    },
+];
+
+const TOTAL = CARDS.length;
+// Card width + gap
+const CARD_W = 400;
+const GAP = 20;
+const STEP = CARD_W + GAP; // 420px
+
+// ── Single card shell ────────────────────────────────────────────────────
+function FeatureCard({
+    card,
+    isCenter,
+}: {
+    card: (typeof CARDS)[0];
+    isCenter: boolean;
+}) {
+    return (
+        <div style={{
+            position: "relative",
+            width: CARD_W,
+            height: 312,
+            borderRadius: 22,
+            flexShrink: 0,
+            transition: "all 0.5s ease",
+        }}>
+            {/* Gradient border ring */}
+            <div
+                style={{
+                    position: "absolute", inset: 0, borderRadius: 22,
+                    padding: "1px", background: CARD_GRAD,
+                    WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                    WebkitMaskComposite: "xor", maskComposite: "exclude",
+                    pointerEvents: "none", zIndex: 2,
+                    opacity: isCenter ? 1 : 0.75,
+                    transition: "opacity 0.5s ease",
+                }}
+            />
+            {/* Card content */}
+            <div
+                style={{
+                    position: "absolute", inset: 0, borderRadius: 22,
+                    background: isCenter ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.04)",
+                    backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)",
+                    paddingTop: 40, paddingBottom: 40, paddingLeft: 42, paddingRight: 42,
+                    display: "flex", flexDirection: "column", gap: 20, zIndex: 1,
+                    transition: "all 0.5s ease",
+                    border: "0.5px solid rgba(255,255,255,0.1)",
+                }}
+            >
+                <div style={{ width: 48, height: 48, flexShrink: 0 }}>{card.icon}</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                    <h3 style={{
+                        fontFamily: "var(--font-outfit)", fontWeight: 600,
+                        fontSize: 20, lineHeight: "26px", letterSpacing: "-0.01em",
+                        color: "#FFFFFF", margin: 0,
+                    }}>{card.title}</h3>
+                    <p style={{
+                        fontFamily: "var(--font-outfit)", fontWeight: 400,
+                        fontSize: 14, lineHeight: "21px", letterSpacing: "-0.1px",
+                        color: "#A7A7A7", margin: 0,
+                    }}>{card.description}</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ── Main Section ─────────────────────────────────────────────────────────
+export function TechWhyChoose() {
+    const [active, setActive] = useState(0);
+    const isMobile = useIsMobile();
+
+    const advance = useCallback(() => setActive(p => (p + 1) % TOTAL), []);
+
+    useEffect(() => {
+        const t = setInterval(advance, 3500);
+        return () => clearInterval(t);
+    }, [advance]);
+
+    const prevIdx = (active - 1 + TOTAL) % TOTAL;
+    const nextIdx = (active + 1) % TOTAL;
+
+    // Container is 1320px wide. Three cards (400×3 + 20×2 = 1240px) centred inside.
+    // Left offset = (1320 - 1240) / 2 = 40px → same as Figma spec.
+    // Vertical: center card at translateY(0), side cards at translateY(136px)
+    //   so all three fit within the 448px container (136 + 312 = 448).
+    // When active changes we shift the X offset of the whole track by ±STEP.
+    // We render [prevIdx, active, nextIdx] always → no track needed; just swap content.
+
+    return (
+        <section
+            className="w-full flex flex-col items-center relative"
+            style={{ minHeight: 940, paddingTop: "clamp(60px, 10vw, 140px)", paddingRight: "clamp(16px, 4vw, 60px)", paddingBottom: 80, paddingLeft: "clamp(16px, 4vw, 60px)", gap: 60 }}
+        >
+            {/* ── Header ── */}
+            <div style={{ zIndex: 10, position: "relative" }}
+                className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center"
+            >
+                <h2 style={{
+                    fontFamily: "var(--font-outfit)", fontWeight: 400,
+                    fontSize: "clamp(32px, 5vw, 60px)", lineHeight: "62px",
+                    letterSpacing: "-0.02em", color: "#FFFFFF", textAlign: "center",
+                    textTransform: "capitalize", maxWidth: 938, margin: 0,
+                }}>
+                    Why Choose Smarter Learning with<br className="hidden md:block" /> Us?
+                </h2>
+                <p style={{
+                    fontFamily: "var(--font-outfit)", fontWeight: 400,
+                    fontSize: "clamp(16px, 2vw, 24px)", lineHeight: "33.6px",
+                    letterSpacing: "-0.2px", color: "#A7A7A7", textAlign: "center",
+                    maxWidth: 1128, margin: 0,
+                }}>
+                    Tech School by Haris&amp;Co Academy is a beginner-friendly, industry-aligned tech learning program
+                    designed to help students and professionals build strong foundations in software, design, and digital skills.
+                </p>
+            </div>
+
+            {/* ── Card row ── */}
+            {isMobile ? (
+                /* Mobile: single full-width card, swipe via arrows */
+                <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+                    <div style={{ width: "100%", maxWidth: 360 }}>
+                        <FeatureCard card={CARDS[active]} isCenter={true} />
+                    </div>
+                    {/* Mobile nav arrows */}
+                    <div style={{ display: "flex", gap: 16 }}>
+                        <button
+                            onClick={() => setActive(p => (p - 1 + TOTAL) % TOTAL)}
+                            style={{ width: 40, height: 40, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)", cursor: "pointer", color: "white", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}
+                        >‹</button>
+                        <button
+                            onClick={() => setActive(p => (p + 1) % TOTAL)}
+                            style={{ width: 40, height: 40, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)", cursor: "pointer", color: "white", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}
+                        >›</button>
+                    </div>
+                </div>
+            ) : (
+                /* Desktop: 3-card stagger carousel */
+                <div style={{
+                    position: "relative", zIndex: 10,
+                    width: "100%", maxWidth: 1320,
+                    height: 448, overflow: "hidden",
+                }}>
+                    <TrackCarousel active={active} prevIdx={prevIdx} nextIdx={nextIdx} />
+                </div>
+            )}
+
+        </section>
+    );
+}
+
+// ── Track component handles the sliding animation ─────────────────────────
+function TrackCarousel({
+    active,
+    prevIdx,
+    nextIdx,
+}: {
+    active: number;
+    prevIdx: number;
+    nextIdx: number;
+}) {
+    // We always show exactly 3 cards in the fixed stagger layout.
+    // Left slot (index 0) → prevIdx card  → translateY(136px)
+    // Center slot (index 1) → active card → translateY(0)
+    // Right slot (index 2) → nextIdx card → translateY(136px)
+    // The WHOLE row slides left on each tick to give the illusion of scrolling.
+
+    // translateX of the track shifts left by STEP on every advance.
+    // We reset when we've gone TOTAL steps.
+    const [trackOffset, setTrackOffset] = useState(0);
+    const prevActiveRef = React.useRef(active);
+
+    useEffect(() => {
+        const prev = prevActiveRef.current;
+        if (prev !== active) {
+            // Determine slide direction
+            const fwd = (active - prev + TOTAL) % TOTAL === 1;
+            setTrackOffset(o => o + (fwd ? -STEP : STEP));
+            prevActiveRef.current = active;
+        }
+    }, [active]);
+
+    // Reset large offsets without visible jump (happens when wrapping)
+    const resetOffset = trackOffset % (TOTAL * STEP);
+
+    return (
+        <div
+            style={{
+                // Three-card fixed stagger: positions are static, only content changes.
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+                gap: GAP,
+                justifyContent: "center",
+                height: 448,
+            }}
+        >
+            {/* LEFT */}
+            <div style={{
+                transform: "translateY(136px)",
+                opacity: 1,
+                transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+                flexShrink: 0,
+            }}>
+                <FeatureCard card={CARDS[prevIdx]} isCenter={true} />
+            </div>
+
+            {/* CENTER (elevated) */}
+            <div style={{
+                transform: "translateY(0px)",
+                opacity: 1,
+                transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+                flexShrink: 0,
+            }}>
+                <FeatureCard card={CARDS[active]} isCenter={true} />
+            </div>
+
+            {/* RIGHT */}
+            <div style={{
+                transform: "translateY(136px)",
+                opacity: 1,
+                transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+                flexShrink: 0,
+            }}>
+                <FeatureCard card={CARDS[nextIdx]} isCenter={true} />
+            </div>
+        </div>
+    );
+}

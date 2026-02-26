@@ -1,6 +1,6 @@
 "use client"
 
-import { Geist, Geist_Mono, Rethink_Sans } from "next/font/google";
+import { Geist, Geist_Mono, Rethink_Sans, Outfit } from "next/font/google";
 import "../styles/globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { usePathname } from "next/navigation";
@@ -21,6 +21,11 @@ const rethinkSans = Rethink_Sans({
   subsets: ["latin"],
 });
 
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${rethinkSans.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} ${rethinkSans.variable} ${outfit.variable} antialiased min-h-screen flex flex-col overflow-x-hidden`}
       >
         {!isTechSchool && <Navbar />}
         <main className="flex-grow">
