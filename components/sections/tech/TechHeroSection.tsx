@@ -21,7 +21,7 @@ export default function TechHero() {
 
     useEffect(() => {
         const update = () => {
-            const containerWidth = Math.min(window.innerWidth, 1440);
+            const containerWidth = window.innerWidth;
             setDesktopScale(containerWidth / DESIGN_W);
             setMobileScale(window.innerWidth / MOBILE_DESIGN_W);
         };
@@ -260,7 +260,7 @@ export default function TechHero() {
 
                         {/* Stat 2 */}
                         <div className="tech-main-hero-stat-item tech-main-hero-stat-14">
-                            <Image src="/photos/Tech/100%.svg" alt="100%" width={93} height={30} style={{ objectFit: "contain" }} priority />
+                            <Image src="/photos/Tech/100-percent.svg" alt="100%" width={93} height={30} style={{ objectFit: "contain" }} priority />
                             <span className="tech-stat-label">Placement Support</span>
                         </div>
 
@@ -415,7 +415,7 @@ export default function TechHero() {
                                     <span className="tech-mobile-stat-label">Students Learned</span>
                                 </div>
                                 <div className="tech-mobile-stat-row tech-mobile-stat-row-2">
-                                    <Image src="/photos/Tech/100%.svg" alt="100%" width={70} height={22} style={{ objectFit: "contain" }} priority />
+                                    <Image src="/photos/Tech/100-percent.svg" alt="100%" width={70} height={22} style={{ objectFit: "contain" }} priority />
                                     <span className="tech-mobile-stat-label">Placement Support</span>
                                 </div>
                                 <div className="tech-mobile-stat-row tech-mobile-stat-row-3">

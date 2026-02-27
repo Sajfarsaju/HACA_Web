@@ -37,7 +37,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         {/* ── Global Page Top Gradient ── */}
-        <div className="page-top-gradient-wrap" style={{ position: "relative" }}>
+        <div className="page-top-gradient-wrap">
           <Image
             src="/photos/main/bg-gradient-top.svg"
             alt=""
