@@ -1,10 +1,9 @@
-"use client"
-
 import { Geist, Geist_Mono, Rethink_Sans, Outfit } from "next/font/google";
 import "../styles/globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { usePathname } from "next/navigation";
+import "../styles/haca-360.css";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
+import { ClientLayoutProvider } from "@/components/layout/ClientLayoutProvider";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,18 +30,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const isTechSchool = pathname === "/schools/tech";
-
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${rethinkSans.variable} ${outfit.variable} antialiased min-h-screen flex flex-col overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} ${rethinkSans.variable} ${outfit.variable} antialiased min-h-screen flex flex-col overflow-x-hidden relative isolation-isolate`}
+        suppressHydrationWarning
       >
-        {!isTechSchool && <Navbar />}
-        <main className="flex-grow">
+        {/* ── Global Page Top Gradient ── */}
+        <div className="page-top-gradient-wrap" style={{ position: "relative" }}>
+          <Image
+            src="/photos/main/bg-gradient-top.svg"
+            alt=""
+            fill
+            className="page-top-gradient-img"
+            priority
+          />
+        </div>
+
+        <ClientLayoutProvider>
           {children}
-        </main>
+        </ClientLayoutProvider>
+
         <ConditionalFooter />
       </body>
     </html>

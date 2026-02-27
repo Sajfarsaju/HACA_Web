@@ -21,7 +21,7 @@ export function Header() {
                 <div className="flex items-center gap-2">
                     <Link href="/" className="flex items-center gap-2">
                         <Image
-                            src="/photos/Logo_Desktop.png"
+                            src="/photos/common/Logo_Desktop.png"
                             alt="HACA Logo"
                             width={106}
                             height={31}

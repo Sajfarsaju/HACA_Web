@@ -2,6 +2,11 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { PhotoGallery } from "./PhotoGallery"
+import { PressLogos } from "./PressLogos"
+import { StatsSection } from "./StatsSection"
+import { AboutHacaSection } from './AboutHacaSection'
+import { Haca360Section } from './Haca360Section'
 
 export function Hero() {
     return (
@@ -21,10 +26,10 @@ export function Hero() {
                         {/* Info Button */}
                         <div className="hero-info-btn-wrap">
                             <Image
-                                src="/photos/Info Button.svg"
+                                src="/photos/main/Info Button.svg"
                                 alt="Info"
-                                width={349}
-                                height={42}
+                                width={371}
+                                height={64}
                                 className="hero-info-btn"
                                 priority
                             />
@@ -53,7 +58,7 @@ export function Hero() {
                     <div className="hero-btn-group hero-btn-group--desktop">
                         <Link href="/courses" className="hero-btn-link">
                             <Image
-                                src="/photos/explore course btn.svg"
+                                src="/photos/main/explore course btn.svg"
                                 alt="Explore Courses"
                                 width={174}
                                 height={55}
@@ -62,7 +67,7 @@ export function Hero() {
                         </Link>
                         <Link href="/contact" className="hero-btn-link">
                             <Image
-                                src="/photos/call back btn.svg"
+                                src="/photos/common/call back btn.svg"
                                 alt="Call Back"
                                 width={166}
                                 height={55}
@@ -75,7 +80,7 @@ export function Hero() {
                     <div className="hero-btn-group hero-btn-group--mobile">
                         <Link href="/schools" className="hero-btn-link">
                             <Image
-                                src="/photos/explore school btn.svg"
+                                src="/photos/main/explore school btn.svg"
                                 alt="Explore Schools"
                                 width={137}
                                 height={46}
@@ -87,43 +92,37 @@ export function Hero() {
                     {/* ── Additional SVGs (World Education Summit & Admission Open) ── */}
                     <div className="hero-awards-container">
                         <Image
-                            src="/photos/World-Education-Summit 1.svg"
+                            src="/photos/main/World-Education-Summit 1.svg"
                             alt="World Education Summit"
                             width={341}
                             height={63}
                             className="hero-award-summit"
                         />
                         <Image
-                            src="/photos/admisn opn.svg"
+                            src="/photos/main/admisn opn.svg"
                             alt="Admission Open"
                             width={196}
                             height={20}
                             className="hero-award-admission"
                         />
                     </div>
-
-                    {/* ── WhatsApp Button Integration ── */}
-                    <Link
-                        href="https://wa.me/your-number"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hero-whatsapp-btn"
-                        aria-label="Contact us on WhatsApp"
-                    >
-                        <div className="hero-whatsapp-wrapper">
-                            <Image
-                                src="/photos/ic_baseline-whatsapp.svg"
-                                alt="WhatsApp"
-                                width={70}
-                                height={70}
-                                className="hero-whatsapp-icon"
-                            />
-                        </div>
-                    </Link>
-
                 </div>
                 {/* END hero-upper */}
 
+                {/* Photo Card Scrolling Gallery */}
+                <PhotoGallery />
+
+                {/* Press Logos Section */}
+                <PressLogos />
+
+                {/* Stats Section */}
+                <StatsSection />
+
+                {/* About HACA Section */}
+                <AboutHacaSection />
+
+                {/* HACA 360 Section */}
+                <Haca360Section />
             </div>
             {/* END hero-inner */}
         </section>

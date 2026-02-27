@@ -3,9 +3,13 @@
 import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { MobileMenu } from "./MobileMenu"
 
 export function Navbar() {
+    const pathname = usePathname()
     const [isSchoolsOpen, setIsSchoolsOpen] = React.useState(false)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
     const dropdownRef = React.useRef<HTMLDivElement>(null)
 
     React.useEffect(() => {
@@ -30,7 +34,7 @@ export function Navbar() {
                 {/* Logo */}
                 <Link href="/" className="navbar-logo-link" onClick={closeDropdown}>
                     <Image
-                        src="/photos/haca logo.svg"
+                        src="/photos/common/haca logo.svg"
                         alt="HACA Logo"
                         width={106}
                         height={31}
@@ -41,13 +45,21 @@ export function Navbar() {
 
                 {/* Desktop Nav Buttons Container */}
                 <nav className="navbar-nav-desktop navbar-nav-pill">
-                    {/* Home - Active */}
-                    <Link href="/" className="navbar-nav-item navbar-nav-item--active" onClick={closeDropdown}>
+                    {/* Home */}
+                    <Link
+                        href="/"
+                        className={`navbar-nav-item ${pathname === "/" ? "navbar-nav-item--active" : ""}`}
+                        onClick={closeDropdown}
+                    >
                         <span>Home</span>
                     </Link>
 
                     {/* About Us */}
-                    <Link href="/about" className="navbar-nav-item" onClick={closeDropdown}>
+                    <Link
+                        href="/about"
+                        className={`navbar-nav-item ${pathname === "/about" ? "navbar-nav-item--active" : ""}`}
+                        onClick={closeDropdown}
+                    >
                         <span>About Us</span>
                     </Link>
 
@@ -59,7 +71,7 @@ export function Navbar() {
                         >
                             <span>Schools</span>
                             <Image
-                                src="/photos/down arrow.svg"
+                                src="/photos/common/down arrow.svg"
                                 alt="dropdown"
                                 width={12}
                                 height={12}
@@ -87,12 +99,20 @@ export function Navbar() {
                     </div>
 
                     {/* Success Story */}
-                    <Link href="/success-story" className="navbar-nav-item" onClick={closeDropdown}>
+                    <Link
+                        href="/success-story"
+                        className={`navbar-nav-item ${pathname === "/success-story" ? "navbar-nav-item--active" : ""}`}
+                        onClick={closeDropdown}
+                    >
                         <span>Success Story</span>
                     </Link>
 
                     {/* Blogs */}
-                    <Link href="/blog" className="navbar-nav-item" onClick={closeDropdown}>
+                    <Link
+                        href="/blog"
+                        className={`navbar-nav-item ${pathname === "/blog" ? "navbar-nav-item--active" : ""}`}
+                        onClick={closeDropdown}
+                    >
                         <span>Blogs</span>
                     </Link>
                 </nav>
@@ -100,7 +120,7 @@ export function Navbar() {
                 {/* Enquire Now Button - Desktop only */}
                 <Link href="/contact" className="navbar-enquire-desktop navbar-enquire-btn" onClick={closeDropdown}>
                     <Image
-                        src="/photos/enqr button.svg"
+                        src="/photos/common/enqr button.svg"
                         alt="Enquire Now"
                         width={143}
                         height={55}
@@ -112,15 +132,19 @@ export function Navbar() {
                 <button
                     className="navbar-menu-mobile"
                     aria-label="Open menu"
+                    onClick={() => setIsMobileMenuOpen(true)}
                 >
                     <Image
-                        src="/photos/menu btn.svg"
+                        src="/photos/common/menu btn.svg"
                         alt="Menu"
                         width={24}
                         height={15}
                     />
                 </button>
             </div>
+
+            {/* Mobile Menu Overlay */}
+            <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
         </header>
     )
 }
