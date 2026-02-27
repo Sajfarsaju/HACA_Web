@@ -91,6 +91,10 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .isolation-isolate {
+    isolation: isolate;
+  }
 }
 
 /* ── Navbar Full Component Styles ── */
@@ -102,6 +106,13 @@
   padding-top: 10px;
   padding-bottom: 0px;
   background-color: transparent;
+}
+
+@media (max-width: 1024px) {
+  .navbar-mobile-padding {
+    padding-top: 25px;
+    /* Added space above navbar on mobile */
+  }
 }
 
 .navbar-inner {
@@ -132,6 +143,10 @@
   padding: 8px;
   gap: 0px;
   flex-shrink: 0;
+  /* Glassmorphism Blur Effect */
+  background-color: rgba(13, 17, 45, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 /* Individual Nav Items */
@@ -239,8 +254,9 @@
 /* Mobile Menu Button - Specific to mobile but needs a class */
 .navbar-menu-mobile {
   display: none !important;
-  background: none;
-  border: none;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
   cursor: pointer;
   padding: 0;
   align-items: center;
@@ -377,7 +393,39 @@
   margin: 0 auto;
   padding-top: 100px;
   padding-bottom: 60px;
-  background-color: #000210;
+  background-color: transparent;
+  /* Changed from #000210 to allow gradient through */
+  position: relative;
+}
+
+/* ── Global Page Top Gradient ── */
+.page-top-gradient-wrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1920px;
+  /* Precisely scales between 183px height at 375px width and 870px height at 1920px width */
+  height: clamp(183px, 16.2px + 44.4vw, 870px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.page-top-gradient-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Mobile Override for Global Top Gradient (≤ 767px) */
+@media (max-width: 767px) {
+  .page-top-gradient-wrap {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 /* The main inner column */
@@ -416,8 +464,9 @@
 }
 
 .hero-info-btn {
-  width: 349px;
-  height: 42px;
+  width: 371px;
+  /* SVG: 371px (contains 349px pill + shadows) */
+  height: 64px;
   object-fit: contain;
 }
 
@@ -543,7 +592,8 @@
 
   /* First block (mobile) */
   .hero-upper {
-    max-width: 375px;
+    width: 100%;
+    max-width: 100%;
     padding-top: 0;
     padding-left: 20px;
     padding-right: 20px;
@@ -557,8 +607,9 @@
 
   /* Info Button — mobile */
   .hero-info-btn {
-    width: 256px;
-    height: auto;
+    width: 271px;
+    /* Proportional: 371 * 0.73 */
+    height: 46px;
   }
 
   /* Text container */
@@ -606,56 +657,40 @@
   }
 }
 
-/* ── WhatsApp Hero Button ── */
+/* ── WhatsApp Floating Button ── */
 
-.hero-whatsapp-btn {
+.whatsapp-float-btn {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
   transition: transform 0.3s ease;
-  background-color: #25D366;
-  border-radius: 82.55px;
-  /* Matches desktop border-radius spec */
-  margin-top: 10px;
-  /* Subtle spacing from awards */
+  user-select: none;
 }
 
-.hero-whatsapp-btn:hover {
-  transform: scale(1.05);
+.whatsapp-float-btn:hover {
+  transform: scale(1.1);
 }
 
-.hero-whatsapp-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 69.8px;
+.whatsapp-float-icon {
+  width: 70px;
   height: 70px;
-  padding: 14.48px;
-  border-radius: 82.55px;
-  gap: 7.24px;
-}
-
-.hero-whatsapp-icon {
-  width: 100%;
-  height: 100%;
   object-fit: contain;
 }
 
 /* Mobile Overrides (≤ 767px) */
 @media (max-width: 767px) {
-  .hero-whatsapp-btn {
-    border-radius: 59.14px;
-    /* Matches mobile border-radius spec */
-    margin-top: 8px;
+  .whatsapp-float-btn {
+    bottom: 25px;
+    right: 25px;
   }
 
-  .hero-whatsapp-wrapper {
+  .whatsapp-float-icon {
     width: 50px;
-    height: 50.15px;
-    padding: 10.38px;
-    border-radius: 59.14px;
-    gap: 5.19px;
+    height: 50px;
   }
 }
 
@@ -763,5 +798,3402 @@
   .hb-button-img {
     width: 200px;
     height: auto;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   MOBILE MENU OVERLAY
+   ────────────────────────────────────────────────────────── */
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  /* Use dynamic viewport height for mobile browsers */
+  background-color: #000210;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(40px, 8vh, 55px) clamp(16px, 5vw, 20px);
+  gap: clamp(20px, 5vh, 40px);
+  overflow-y: auto;
+}
+
+
+
+
+/* Upper container of menu */
+.mobile-menu-upper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 4vh, 40px);
+}
+
+/* First container in upper container (Header) */
+.mobile-menu-header {
+  width: 100%;
+  height: 46px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Close button */
+.mobile-menu-close-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Enquire button wrapper */
+.mobile-menu-enquire-btn {
+  width: 121px;
+  /* approx 120.45 */
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* styling matches image, wrapper just holds it */
+}
+
+/* Navigation buttons container */
+.mobile-menu-nav-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Nav Button Styling */
+.mobile-menu-nav-btn {
+  width: fit-content;
+  min-width: 98px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  gap: 10px;
+  border-radius: 18px;
+  border: 1px solid transparent;
+  background: transparent;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.mobile-menu-nav-btn span {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(20px, 6vw, 24px);
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #A7ADBE;
+}
+
+/* Active state */
+.mobile-menu-nav-btn.active {
+  background: #131839;
+  border: 1px solid #232D6B;
+}
+
+.mobile-menu-nav-btn.active span {
+  color: #FFFFFF;
+}
+
+/* Mobile Dropdown Styles */
+.mobile-menu-dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-menu-dropdown {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  gap: 5px;
+}
+
+.mobile-menu-dropdown-item {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu-dropdown-item:hover {
+  background-color: #131839;
+}
+
+.mobile-menu-dropdown-text {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #A7ADBE;
+}
+
+.mobile-menu-dropdown-item:hover .mobile-menu-dropdown-text {
+  color: #FFFFFF;
+}
+
+
+
+
+/* Bottom container of menu */
+.mobile-menu-bottom {
+  max-width: 335px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* mobile-menu-bottom-legal (Upper row) */
+.mobile-menu-bottom-legal {
+  width: 100%;
+  /* 335 */
+  height: 16px;
+  display: flex;
+  align-items: center;
+  gap: 53px;
+  /* Gap specific */
+}
+
+.mobile-menu-legal-link {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  color: #A7ADBE;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mobile-menu-legal-link:first-child {
+  width: 102px;
+  /* Specified width for Privacy Policy */
+}
+
+/* mobile-menu-bottom-social (Bottom row) */
+.mobile-menu-bottom-social {
+  width: 100%;
+  /* 290 mentioned, but flex container can be 100% */
+  height: 16px;
+  display: flex;
+  align-items: center;
+  gap: 65px;
+}
+
+.mobile-menu-social-link {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  color: #A7ADBE;
+  text-decoration: none;
+}
+
+.mobile-menu-social-link:first-child {
+  width: 90px;
+  /* Specified width for Instagram */
+}
+
+/* ──────────────────────────────────────────────────────────
+   PHOTO GALLERY SECTION
+   ────────────────────────────────────────────────────────── */
+
+.gallery-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  /* desktop: height 354, mobile: height 225 */
+  height: 354px;
+}
+
+.gallery-container {
+  width: 100%;
+  max-width: 1440px;
+  height: 354px;
+  position: relative;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.gallery-scroll-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  padding: 0 40px;
+}
+
+.gallery-scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-card {
+  flex: 0 0 auto;
+  width: 440px;
+  height: 100%;
+  border-radius: 20px;
+  opacity: 1;
+}
+
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(89.96deg, #01051C 0.03%, rgba(0, 0, 0, 0) 39.57%, rgba(0, 0, 0, 0) 72.75%, #01051C 101.57%);
+}
+
+/* ── Hero Mobile Styles (≤ 767px) ── */
+@media (max-width: 767px) {
+
+  /* Section: two stacked blocks */
+  .hero-section {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .hero-inner {
+    gap: 34px;
+  }
+
+  /* First block (mobile) */
+  .hero-upper {
+    width: 100%;
+    max-width: 100%;
+    padding-top: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 26px;
+    margin: 0 auto;
+  }
+}
+
+/* Tablet adjustments (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hero-upper {
+    max-width: 95%;
+    /* Expand on tablet */
+  }
+}
+
+/* Photo Gallery Tablet Expansion */
+@media (max-width: 1024px) {
+  .gallery-section {
+    height: 330px;
+  }
+
+  .gallery-container {
+    height: 310px;
+    width: 95%;
+    max-width: 1100px;
+    /* Tablet width expanded */
+  }
+
+  .gallery-card {
+    width: 400px;
+  }
+}
+
+@media (max-width: 767px) {
+  .gallery-section {
+    height: 225px;
+  }
+
+  .gallery-container {
+    height: 203px;
+    top: -0.91px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .gallery-scroll-area {
+    gap: 12px;
+    padding: 0 20px;
+  }
+
+  .gallery-card {
+    width: 280px;
+    height: 203px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   PRESS LOGOS SECTION
+   ────────────────────────────────────────────────────────── */
+
+.press-logos-section {
+  width: 100%;
+  max-width: 1180px;
+  height: 91.81px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 26px;
+  opacity: 1;
+  position: relative;
+}
+
+.press-logos-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  /* Allow more width on tablets */
+  max-width: 1100px;
+  /* Increased from 758px */
+  height: auto;
+  gap: clamp(20px, 5vw, 68.76px);
+  opacity: 0.5;
+  flex-wrap: wrap;
+}
+
+.press-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.press-logo-toi {
+  width: clamp(140px, 15vw, 229.81px);
+  /* Increased min from 120px */
+  height: auto;
+}
+
+.press-logo-manorama {
+  width: clamp(120px, 13vw, 192.21px);
+  /* Increased min from 100px */
+  height: auto;
+}
+
+.press-logo-express {
+  width: clamp(120px, 13vw, 198.46px);
+  /* Increased min from 100px */
+  height: auto;
+}
+
+.press-logo-img {
+  width: 100%;
+  height: auto;
+}
+
+/* Press Logos Mobile Expansion */
+@media (max-width: 767px) {
+  .press-logos-section {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 14px;
+    padding: 10px 0;
+    gap: 15px;
+    opacity: 0.5;
+    margin: 0 auto;
+  }
+
+  .press-logos-inner {
+    gap: clamp(15px, 6vw, 27.12px);
+  }
+
+  .press-logo-toi {
+    width: 100px;
+  }
+
+  .press-logo-manorama {
+    width: 85px;
+  }
+
+  .press-logo-express {
+    width: 90px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   WHY HACA SECTION
+   ──────────────────────────────────────────────────────/* ── Why HACA Base Styles ── */
+
+.why-haca-section {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 576px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 80px) clamp(20px, 4.2vw, 60px);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(24px, 3vw, 40px);
+  opacity: 1;
+}
+
+/* ── Left Column ── */
+.why-haca-left {
+  width: 100%;
+  max-width: 453px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.why-haca-badge-btn {
+  width: 175px;
+  /* SVG: 175px (contains 153px pill + shadows) */
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  cursor: default;
+}
+
+.why-haca-badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.why-haca-text-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.why-haca-heading {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(22px, 2.5vw, 32px);
+  line-height: 110%;
+  letter-spacing: 0%;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.why-haca-para {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.5vw, 20px);
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #A7ADBE;
+  margin: 0;
+  max-width: 461px;
+}
+
+/* ── Right: 2×2 Flip Card Grid ── */
+.why-haca-cards {
+  width: 100%;
+  max-width: 644px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(14px, 2.2vw, 22px);
+  flex-shrink: 0;
+  border-radius: 24px;
+  /* Blue radial glow centered at grid intersection */
+  background: radial-gradient(ellipse 80% 80% at 50% 50%,
+      rgba(30, 80, 255, 0.55) 0%,
+      rgba(15, 30, 120, 0.35) 35%,
+      rgba(0, 3, 25, 0.0) 70%);
+}
+
+/* Flip card container */
+.why-haca-card {
+  width: 100%;
+  height: clamp(140px, 14vw, 193px);
+  border-radius: 20px;
+  border: 1px solid rgba(35, 45, 107, 0.8);
+  /* Slightly transparent so grid gradient bleeds into card corners */
+  background: rgba(0, 3, 25, 0.88);
+  padding: clamp(14px, 1.5vw, 20px);
+  overflow: hidden;
+  position: relative;
+  cursor: default;
+  /* Subtle inner glow on borders */
+  box-shadow: inset 0 0 30px rgba(20, 60, 200, 0.07);
+}
+
+/* Inner container for the slide animation */
+.why-haca-card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Heading layer */
+.why-haca-card-heading-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.why-haca-card-heading {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 600;
+  font-size: clamp(18px, 1.8vw, 24px);
+  line-height: 110%;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* Paragraph layer - hidden below by default  */
+.why-haca-card-para-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.why-haca-card-para {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 500;
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  color: #A7ADBE;
+  margin: 0;
+}
+
+/* Hover: slide heading up, paragraph in from below (desktop only) */
+.why-haca-card:hover .why-haca-card-heading-wrap {
+  transform: translateY(-110%);
+  opacity: 0;
+}
+
+.why-haca-card:hover .why-haca-card-para-wrap {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ── Tablet (≤ 1100px): Stack to single column ── */
+@media (max-width: 1100px) {
+  .why-haca-section {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: auto;
+    padding: 60px 40px;
+    gap: 36px;
+  }
+
+  .why-haca-left {
+    max-width: 100%;
+  }
+
+  .why-haca-heading {
+    font-size: 28px;
+  }
+
+  .why-haca-para {
+    font-size: 17px;
+    max-width: 100%;
+  }
+
+  .why-haca-cards {
+    max-width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .why-haca-card {
+    height: auto;
+    min-height: 193px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .why-haca-card-heading {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .why-haca-card-para {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* Show heading AND paragraph statically on Tablet (no hover needed) */
+  .why-haca-card-inner {
+    position: static;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: auto;
+    width: 100%;
+  }
+
+  .why-haca-card:hover .why-haca-card-heading-wrap,
+  .why-haca-card-heading-wrap {
+    position: static;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .why-haca-card:hover .why-haca-card-para-wrap,
+  .why-haca-card-para-wrap {
+    position: static;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ── Mobile (≤ 767px) ── */
+@media (max-width: 767px) {
+  .why-haca-section {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: auto;
+    padding: clamp(20px, 5vw, 40px) clamp(14px, 5vw, 24px);
+    gap: clamp(18px, 4vw, 26px);
+  }
+
+  .why-haca-left {
+    max-width: 100%;
+    gap: clamp(8px, 2vw, 12px);
+    width: 100%;
+  }
+
+  .why-haca-badge-btn {
+    width: 130px;
+    /* Proportional: 175 * 0.74 */
+    height: 48px;
+    padding: 0;
+  }
+
+  .why-haca-text-wrap {
+    gap: clamp(10px, 3vw, 16px);
+  }
+
+  .why-haca-heading {
+    font-size: clamp(20px, 5.5vw, 26px);
+    max-width: 100%;
+  }
+
+  .why-haca-para {
+    font-size: clamp(13px, 3.5vw, 16px);
+    max-width: 100%;
+    text-align: left;
+  }
+
+  /* Cards: single column on mobile */
+  .why-haca-cards {
+    max-width: 100%;
+    grid-template-columns: 1fr;
+    gap: clamp(12px, 3vw, 18px);
+    width: 100%;
+    border-radius: 20px;
+    /* Gradient BEHIND the cards */
+    background: radial-gradient(ellipse 90% 70% at 50% 50%,
+        rgba(30, 80, 255, 0.55) 0%,
+        rgba(15, 30, 120, 0.35) 35%,
+        rgba(0, 3, 25, 0.0) 70%);
+  }
+
+  .why-haca-card {
+    height: auto;
+    min-height: clamp(160px, 42vw, 210px);
+    background: rgba(0, 3, 25, 0.88);
+    border: 2px solid #232D6B;
+    border-top: 2px solid #1A3CA8;
+    box-shadow: inset 0 0 30px rgba(20, 60, 200, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: clamp(14px, 4vw, 22px);
+  }
+
+  /* On mobile, show both heading and paragraph statically */
+  .why-haca-card-inner {
+    justify-content: center;
+    align-items: center;
+    gap: clamp(8px, 2.5vw, 12px);
+    position: static;
+    height: auto;
+  }
+
+  .why-haca-card-heading-wrap {
+    position: static;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .why-haca-card-para-wrap {
+    position: static;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .why-haca-card-heading {
+    font-size: clamp(17px, 4.5vw, 22px);
+    text-align: center;
+  }
+
+  .why-haca-card-para {
+    font-size: clamp(12px, 3.2vw, 15px);
+    text-align: center;
+    max-width: 100%;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   SCHOOLS SECTION
+   ────────────────────────────────────────────────────────── */
+
+/* ── Section wrapper ── */
+.schools-section {
+  width: 100%;
+  max-width: 1440px;
+  height: 673px;
+  margin: 0 auto;
+  padding: 36px 60px 40px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 57px;
+  opacity: 1;
+  overflow: hidden;
+}
+
+/* ── Header (badge + heading) ── */
+.schools-header {
+  width: 100%;
+  max-width: 1320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.schools-badge-btn {
+  width: 152px;
+  /* SVG: 152px (contains 130px pill + shadows) */
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.schools-badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.schools-heading {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* ── 4-card row grid ── */
+.schools-cards {
+  width: 100%;
+  max-width: 1320px;
+  height: 444px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: clamp(12px, 1.6vw, 20px);
+}
+
+/* ── Individual card ── */
+.schools-card {
+  flex: 1 1 0;
+  /* all 4 cards share width equally */
+  min-width: 0;
+  max-width: 317px;
+  height: 444px;
+  border-radius: 20px;
+  border: 1px solid #25317D;
+  /* Blue radial glow from top-left and bottom-right — matches reference */
+  background:
+    radial-gradient(ellipse 60% 40% at 0% 0%,
+      rgba(30, 80, 255, 0.35) 0%,
+      rgba(10, 20, 100, 0.15) 45%,
+      transparent 75%),
+    radial-gradient(ellipse 85% 65% at 100% 100%,
+      rgba(30, 80, 255, 0.45) 0%,
+      rgba(10, 20, 100, 0.25) 45%,
+      rgba(0, 3, 25, 1) 75%);
+  padding: 20px 16px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* logo top, button bottom */
+  align-items: flex-start;
+}
+
+/* School logo — top left */
+.schools-card-logo-wrap {
+  width: 158px;
+  height: 65px;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.schools-card-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Explore CTA — bottom right */
+.schools-card-cta {
+  width: 162px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  /* push to right edge */
+  flex-shrink: 0;
+}
+
+.schools-card-cta-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ── Tablet (768–1100px): 2×2 grid ── */
+@media (max-width: 1100px) {
+  .schools-section {
+    height: auto;
+    padding: clamp(28px, 4vw, 50px) clamp(24px, 4vw, 50px);
+    gap: clamp(28px, 4vw, 48px);
+  }
+
+  .schools-heading {
+    font-size: clamp(24px, 3vw, 30px);
+  }
+
+  .schools-cards {
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(16px, 2vw, 24px);
+  }
+
+  .schools-card {
+    flex: unset;
+    max-width: 100%;
+    width: 100%;
+    height: clamp(280px, 38vw, 380px);
+  }
+
+  .schools-card-logo-wrap {
+    width: clamp(110px, 16vw, 158px);
+    height: clamp(45px, 7vw, 65px);
+  }
+
+  .schools-card-cta {
+    width: clamp(120px, 17vw, 162px);
+    height: clamp(20px, 3vw, 26px);
+  }
+}
+
+/* ── Mobile (≤ 767px): single column ── */
+@media (max-width: 767px) {
+  .schools-section {
+    height: auto;
+    padding: clamp(24px, 6vw, 40px) clamp(16px, 5vw, 24px);
+    gap: clamp(20px, 7vw, 28px);
+    align-items: flex-start;
+  }
+
+  .schools-header {
+    width: 100%;
+    gap: clamp(6px, 2.1vw, 10px);
+    align-items: flex-start;
+  }
+
+  .schools-badge-btn {
+    width: 106px;
+    /* Proportional: 152 * 0.7 */
+    height: 45px;
+    padding: 0;
+  }
+
+  .schools-heading {
+    font-size: clamp(20px, 5.8vw, 24px);
+    text-align: left;
+  }
+
+  .schools-cards {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    gap: clamp(16px, 5.3vw, 22px);
+  }
+
+  .schools-card {
+    flex: unset;
+    max-width: 100%;
+    width: 100%;
+    height: clamp(140px, 41.6vw, 160px);
+    padding: 20px 16px 16px 16px;
+  }
+
+  .schools-card-logo-wrap {
+    width: clamp(80px, 24.9vw, 96px);
+    height: clamp(32px, 10.2vw, 40px);
+  }
+
+  .schools-card-cta {
+    width: clamp(115px, 35.2vw, 135px);
+    height: clamp(15px, 4.8vw, 19px);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   MENTORS SECTION
+   ────────────────────────────────────────────────────────── */
+
+/* ── Section wrapper ── */
+.mentors-section {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 32px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  opacity: 1;
+}
+
+/* ── Header (badge + heading) ── */
+.mentors-header {
+  width: 100%;
+  max-width: 1320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.mentors-badge-btn {
+  width: 184px;
+  /* SVG: 184px (contains 162px pill + shadows) */
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.mentors-badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mentors-heading {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* ── 4-card row grid ── */
+.mentors-cards {
+  width: 100%;
+  max-width: 1320px;
+  height: 428px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(12px, 1.6vw, 20px);
+}
+
+/* ── Individual mentor card ── */
+.mentors-card {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 317px;
+  height: 428px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Photo card */
+.mentors-photo-card {
+  position: relative;
+  width: 100%;
+  height: 367px;
+  /* Figma: 367px on desktop (428px card - 47px info - 14px gap) */
+  border-radius: 20px;
+  border: 1px solid #25317D;
+  background: linear-gradient(340.87deg,
+      rgba(0, 2, 15, 0) 23.42%,
+      rgba(15, 47, 153, 0.2) 74.9%,
+      rgba(26, 79, 255, 0.2) 90.34%);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mentors-photo {
+  object-fit: cover;
+  object-position: top center;
+  /* always align photo from top */
+}
+
+/* Name & Position block */
+.mentors-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.mentors-position {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #6D7792;
+  margin: 0;
+}
+
+.mentors-name {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* ── Tablet (768–1100px): 2×2 grid ── */
+@media (max-width: 1100px) {
+  .mentors-section {
+    padding: clamp(28px, 4vw, 50px) clamp(24px, 4vw, 50px);
+    gap: clamp(28px, 4vw, 40px);
+  }
+
+  .mentors-heading {
+    font-size: clamp(24px, 3vw, 30px);
+  }
+
+  .mentors-cards {
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(16px, 2vw, 24px);
+  }
+
+  .mentors-card {
+    flex: unset;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+
+  .mentors-photo-card {
+    height: clamp(280px, 38vw, 370px);
+    /* explicit height for fill image to work */
+  }
+
+  .mentors-name {
+    font-size: clamp(18px, 2.5vw, 24px);
+  }
+}
+
+/* ── Mobile (≤ 767px): 2-card single column ── */
+@media (max-width: 767px) {
+  .mentors-section {
+    padding: clamp(20px, 5vw, 32px) clamp(16px, 5vw, 22px);
+    gap: 26px;
+    align-items: flex-start;
+  }
+
+  .mentors-header {
+    width: 100%;
+    gap: clamp(6px, 2.1vw, 10px);
+    align-items: flex-start;
+  }
+
+  .mentors-badge-btn {
+    width: 132px;
+    /* Proportional: 184 * 0.71 */
+    height: 46px;
+    padding: 0;
+  }
+
+  .mentors-heading {
+    font-size: clamp(20px, 5.8vw, 24px);
+    text-align: left;
+  }
+
+  /* Only 2 cards on mobile, stacked column */
+  .mentors-cards {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    gap: clamp(16px, 5.3vw, 22px);
+  }
+
+  /* Hide 3rd and 4th cards on mobile */
+  .mentors-card:nth-child(n+3) {
+    display: none;
+  }
+
+  .mentors-card {
+    flex: unset;
+    width: 100%;
+    height: auto;
+    gap: clamp(12px, 3.9vw, 16px);
+  }
+
+  .mentors-photo-card {
+    height: clamp(340px, 103.4vw, 400px);
+    border-radius: 21px;
+  }
+
+  .mentors-name {
+    font-size: clamp(18px, 5.3vw, 22px);
+  }
+
+  .mentors-position {
+    font-size: 12px;
+  }
+
+  /* Footer Button Mobile Override */
+  .mentors-footer {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 5px;
+  }
+
+  .mentors-view-more-btn {
+    width: 159px;
+    height: 46px;
+    padding: 0;
+    border-radius: 82px;
+  }
+}
+
+/* ── Footer Button Desktop ── */
+.mentors-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.mentors-view-more-btn {
+  width: 198px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.mentors-view-more-btn:hover {
+  transform: scale(1.02);
+}
+
+.mentors-view-more-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ──────────────────────────────────────────────────────────
+   PLACEMENT SECTION
+   ────────────────────────────────────────────────────────── */
+
+.placement-section {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 1074px;
+  margin: 0 auto;
+  padding: 84px 60px 32px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  opacity: 1;
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.placement-header {
+  width: 100%;
+  max-width: 1320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Badge Button */
+.placement-badge-btn {
+  width: 242px;
+  /* SVG: 242px (contains 220px pill + shadows) */
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  cursor: default;
+}
+
+.placement-badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Heading */
+.placement-heading {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: 0%;
+  color: #FFFFFF;
+  text-align: center;
+  margin: 0;
+}
+
+/* ── Card Grid ── */
+.placement-card-grid {
+  width: 100%;
+  max-width: 1320px;
+  /* Auto height — overflow is clipped by the section container */
+  max-height: 700px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  overflow: hidden;
+  align-items: start;
+}
+
+.placement-card-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Offset alternating columns for a staggered effect */
+.placement-card-col:nth-child(even) {
+  margin-top: -30px;
+}
+
+.placement-card {
+  position: relative;
+  width: 100%;
+  /* Maintain the 248×270 aspect ratio — do NOT change height directly */
+  aspect-ratio: 248 / 270;
+  flex-shrink: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  overflow: hidden;
+  background: #1a1a2e;
+}
+
+.placement-card-img {
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* ── Tablet: 4 columns (≤ 1200px) ── */
+@media (max-width: 1200px) {
+  .placement-card-grid {
+    grid-template-columns: repeat(4, 1fr);
+    max-height: 750px;
+  }
+
+  /* Hide the 5th column */
+  .placement-card-col:nth-child(5) {
+    display: none;
+  }
+}
+
+/* ── Small Tablet: 3 columns (≤ 900px) ── */
+@media (max-width: 900px) {
+  .placement-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-height: 100%;
+  }
+
+  /* Hide columns 4 and 5 */
+  .placement-card-col:nth-child(n+4) {
+    display: none;
+  }
+
+  .placement-card-col:nth-child(even) {
+    margin-top: -25px;
+  }
+}
+
+/* ── View More CTA ── */
+.placement-cta-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.placement-view-btn {
+  width: 227px;
+  height: 55px;
+  padding: 0;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placement-view-btn-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ── Mobile (≤ 600px) ── */
+@media (max-width: 600px) {
+  .placement-section {
+    max-width: 100%;
+    min-height: 666px;
+    padding: 20px;
+    gap: 26px;
+  }
+
+  .placement-header {
+    max-width: 335px;
+    gap: 7.97px;
+  }
+
+  .placement-badge-btn {
+    width: 175px;
+    /* Proportional: 242 * 0.72 */
+    height: 46px;
+    padding: 0;
+  }
+
+  .placement-heading {
+    font-size: 22px;
+    max-width: 253px;
+  }
+
+  .placement-card-grid {
+    max-width: 335px;
+    max-height: 500px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+  }
+
+  /* Hide columns 3–5 on mobile */
+  .placement-card-col:nth-child(n+3) {
+    display: none;
+  }
+
+  .placement-card-col:nth-child(even) {
+    margin-top: -20px;
+  }
+
+  .placement-card {
+    /* Mobile card: 161×176px ratio */
+    aspect-ratio: 161 / 176;
+    border-bottom-left-radius: 6.52px;
+    border-bottom-right-radius: 6.52px;
+  }
+
+  .placement-view-btn {
+    width: 182px;
+    height: 46px;
+    padding: 0;
+    border-radius: 82px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   STATS SECTION
+   ────────────────────────────────────────────────────────── */
+
+.stats-section {
+  width: 100%;
+  max-width: 1100px;
+  /* Reduced from 1440 for better tablet centering */
+  margin: 0 auto;
+  padding: clamp(35px, 5vw, 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stats-grid {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(30px, 4vw, 51px);
+  position: relative;
+  opacity: 1;
+  flex-wrap: nowrap;
+}
+
+/* Desktop vertical separator lines */
+.stats-divider {
+  flex-shrink: 0;
+  width: 1px;
+  height: 43px;
+  background: linear-gradient(180deg, #4C75FF 0%, #1A4FFF 100%);
+  border-radius: 100px;
+  opacity: 1;
+}
+
+/* Mobile junction plus: hidden by default */
+.stats-plus-wrap {
+  display: none;
+}
+
+@media (max-width: 900px) {
+
+  /* Slightly higher break for wrap */
+  .stats-grid {
+    flex-wrap: wrap;
+    /* Wrap on smaller tablets */
+  }
+}
+
+.stats-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: clamp(100px, 15vw, 200px);
+}
+
+.stats-number {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 600;
+  font-size: clamp(30px, 4.5vw, 58px);
+  /* More generous scaling */
+  line-height: 110%;
+  color: #FFFFFF;
+  display: block;
+}
+
+.stats-label {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 600;
+  font-size: clamp(14px, 2vw, 18px);
+  /* More generous scaling */
+  line-height: 110%;
+  color: #A7ADBE;
+  white-space: pre-line;
+  display: block;
+  margin-top: 5px;
+}
+
+@media (max-width: 900px) {
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    row-gap: 40px;
+    column-gap: 20px;
+    width: 95%;
+  }
+
+  /* Hide desktop vertical lines on mobile/tablet grid */
+  .stats-divider {
+    display: none;
+  }
+
+  /* Show the plus crosshair at the 2×2 grid junction */
+  .stats-plus-wrap {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 41px;
+    height: 41px;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Vertical bar of the plus */
+  .stats-plus-v {
+    position: absolute;
+    width: 0.68px;
+    height: 70.955px;
+    background: linear-gradient(180deg, #4C75FF 0%, #1A4FFF 100%);
+    border-radius: 68.26px;
+    opacity: 1;
+  }
+
+  /* Horizontal bar of the plus */
+  .stats-plus-h {
+    position: absolute;
+    width: 70.955px;
+    height: 0.68px;
+    background: linear-gradient(90deg, #4C75FF 0%, #1A4FFF 100%);
+    border-radius: 68.26px;
+    opacity: 1;
+  }
+}
+
+/* Stats Section Mobile Expansion */
+@media (max-width: 767px) {
+  .stats-section {
+    width: 100%;
+    max-width: 100%;
+    padding: 35px 20px;
+    margin: 0 auto;
+  }
+
+  .stats-item {
+    align-items: flex-start;
+    text-align: left;
+    min-width: unset;
+    width: 100%;
+    max-width: 120px;
+  }
+
+  /* Shift right column items slightly right for more central breathing room */
+  .stats-item:nth-of-type(even) {
+    margin-left: 30px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   ABOUT HACA SECTION
+   ────────────────────────────────────────────────────────── */
+
+.about-haca-section {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 472px;
+  margin: 0 auto;
+  padding: 121px 60px 80px 60px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  opacity: 1;
+}
+
+.about-haca-inner {
+  width: 100%;
+  max-width: 1320px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* Left Column */
+.about-haca-left {
+  width: 100%;
+  max-width: 455px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 1;
+}
+
+.about-haca-badge-container {
+  width: 100%;
+}
+
+.about-haca-badge-btn {
+  width: 165px;
+  height: 42px;
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 8px 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.about-haca-badge-img {
+  width: 100%;
+  height: auto;
+}
+
+.about-haca-heading {
+  width: 100%;
+  max-width: 455px;
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: left;
+}
+
+/* Right Column */
+.about-haca-right {
+  width: 100%;
+  max-width: 581px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  opacity: 1;
+}
+
+.about-haca-content-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.about-haca-text {
+  width: 100%;
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 140%;
+  color: #A7ADBE;
+  margin: 0;
+  text-align: left;
+}
+
+.know-more-btn {
+  width: 212px;
+  height: 55px;
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.know-more-img {
+  width: 100%;
+  height: auto;
+}
+
+/* Tablet refinements (768px - 1024px) */
+@media (max-width: 1024px) {
+  .about-haca-section {
+    width: 95%;
+    /* Expanded width for tablets */
+    max-width: 1100px;
+    padding: clamp(60px, 8vw, 121px) 20px clamp(40px, 6vw, 80px);
+    /* Reduced side padding to 20px */
+    min-height: auto;
+    margin: 0 auto;
+  }
+
+  .about-haca-inner {
+    flex-direction: row;
+    /* Keep side-by-side on tablet */
+    align-items: flex-start;
+    text-align: left;
+    gap: clamp(20px, 4vw, 40px);
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  .about-haca-left {
+    max-width: 45%;
+    /* Proportionate split */
+    align-items: flex-start;
+  }
+
+  .about-haca-right {
+    max-width: 55%;
+    /* Proportionate split */
+    align-items: flex-start;
+  }
+
+  .about-haca-heading {
+    font-size: clamp(22px, 3vw, 32px);
+    text-align: left;
+  }
+
+  .about-haca-text {
+    font-size: clamp(14px, 2vw, 20px);
+    text-align: left;
+  }
+}
+
+/* About Haca Mobile Expansion (Stacked) */
+@media (max-width: 767px) {
+  .about-haca-section {
+    min-height: 398px;
+    padding: 28px 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .about-haca-inner {
+    flex-direction: column;
+    /* Stack on mobile only */
+    gap: 26px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-haca-left,
+  .about-haca-right {
+    max-width: 335px;
+    align-items: center;
+  }
+
+  .about-haca-badge-btn {
+    width: 118px;
+    height: 31.8px;
+    border-radius: 100px;
+  }
+
+  .about-haca-heading {
+    max-width: 335px;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .about-haca-right {
+    gap: 20px;
+  }
+
+  .about-haca-content-wrap {
+    gap: 20px;
+    align-items: center;
+  }
+
+  .about-haca-text {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .know-more-btn {
+    width: 170px;
+    height: 46px;
+    padding: 10px 18px;
+    border-radius: 82px;
+  }
+}
+
+/* ====================================================
+   ENQUIRE CTA SECTION
+   ==================================================== */
+
+/* ─── Outer: 1440 × 428, padding 32px 60px ─── */
+.enq-outer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 60px;
+  background: #000210;
+  border-radius: 20px;
+}
+
+/* ─── Inner: 1320 × 364, padding 25px 29px, border-radius 20px ─── */
+.enq-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1320px;
+  min-height: 364px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 29px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* ─── Background radial gradient: 1333 × 364, border 1.11px ─── */
+.enq-bg {
+  position: absolute;
+  width: 100%;
+  height: 800px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  background: radial-gradient(40% 50% at 50% 50%, rgba(18, 67, 228, 1) 0%, rgba(0, 0, 0, 0.6) 100%);
+  backdrop-filter: blur(0px);
+  z-index: 0;
+}
+
+/* ─── Content container: 569 × 167, gap 20px ─── */
+.enq-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 900px;
+  /* Increased to allow 2-line layout */
+  text-align: center;
+}
+
+/* ─── Headline ─── */
+.enq-heading {
+  width: 100%;
+  max-width: 750px;
+  /* Wide enough for 2 lines as per Figma screenshot */
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 110%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* ─── Enquire Button ─── */
+.enq-btn {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enq-btn-img {
+  display: block;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.hb-btn-img {
+  width: 272px;
+}
+
+@media (max-width: 767px) {
+  .hb-btn-img {
+    width: 212px;
+    /* Balanced scale for mobile */
+  }
+}
+
+/* ====================================================
+   ENQUIRE CTA — MOBILE  (≤ 767px)
+   ==================================================== */
+@media (max-width: 767px) {
+
+  /* Outer: Increased height for more impact on mobile */
+  .enq-outer {
+    padding: 32px 20px;
+    min-height: 170px;
+    height: auto;
+    border-radius: 5.08px;
+  }
+
+  /* Inner: Flexible height with centered content */
+  .enq-inner {
+    max-width: 352px;
+    min-height: 150px;
+    height: auto;
+    padding: 0;
+    border-radius: 5.08px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Background gradient mobile: Significantly taller glow */
+  .enq-bg {
+    width: 355px;
+    height: 380px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    bottom: auto;
+    right: auto;
+    border-radius: 5.08px;
+    background: radial-gradient(40% 50% at 50% 50%, #1A4FFF 0%, #000210 100%);
+    backdrop-filter: blur(41.72px);
+    border: none;
+  }
+
+  /* Content: Adjusted gap for taller layout */
+  .enq-content {
+    width: 100%;
+    max-width: 352px;
+    gap: 16px;
+  }
+
+  /* Heading: mobile 20px SemiBold, 110% line-height */
+  .enq-heading {
+    width: 100%;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 110%;
+    text-align: center;
+  }
+
+  /* Button: mobile 116 × 46 */
+  .enq-btn {
+    width: auto;
+    height: auto;
+    padding: 0;
+    border-radius: 82px;
+  }
+
+  .enq-btn-img {
+    width: 116px;
+    height: 46px;
+  }
+}
+
+
+/* ====================================================
+   LIFE @ HACA — PHOTO GALLERY SECTION
+   ==================================================== */
+
+/* ─── Outer Section ─── */
+.lah-outer {
+  width: 100%;
+  background: #000210;
+  padding: 36px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  box-sizing: border-box;
+}
+
+/* ─── Header Container: 1312×141 desktop ─── */
+.lah-header {
+  width: 100%;
+  max-width: 1312px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.lah-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Visual pill is 158x42, SVG with shadows is 180x64 */
+  width: 180px;
+  height: 64px;
+  transition: transform 0.2s ease;
+}
+
+/* ─── Pill Button SVG ─── */
+.lah-btn-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ─── Section Heading ─── */
+.lah-heading {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0;
+  max-width: 453px;
+}
+
+/* ─── Photo Grid Container ─── */
+.lah-grid {
+  width: 100%;
+  max-width: 1320px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ─── Row shared styles ─── */
+.lah-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0;
+}
+
+/* ─── Individual Photo Card ─── */
+.lah-photo {
+  border: 1px solid #25317D;
+  border-radius: 10px;
+  overflow: hidden;
+  /* Gradient fallback until real photos are provided */
+  background: linear-gradient(135deg, #0a1035 0%, #1a3080 50%, #0a1035 100%);
+  flex-shrink: 0;
+}
+
+/* ─── Row 1 photo widths & heights (desktop) ─── */
+/* Photo 1: 449/1320 ≈ 34.02% */
+.lah-p1-1 {
+  width: calc(449 / 1320 * 100%);
+  aspect-ratio: 449 / 302;
+}
+
+/* Photo 2: 341/1320 ≈ 25.83% */
+.lah-p1-2 {
+  width: calc(341 / 1320 * 100%);
+  aspect-ratio: 341 / 302;
+}
+
+/* Photo 3: 490/1320 ≈ 37.12% */
+.lah-p1-3 {
+  width: calc(490 / 1320 * 100%);
+  aspect-ratio: 490 / 302;
+}
+
+/* ─── Row 2 photo widths & heights (desktop) ─── */
+/* Photo 1: 214/1320 ≈ 16.21% */
+.lah-p2-1 {
+  width: calc(214 / 1320 * 100%);
+  aspect-ratio: 214 / 305;
+}
+
+/* Photo 2: 350/1320 ≈ 26.52% */
+.lah-p2-2 {
+  width: calc(350 / 1320 * 100%);
+  aspect-ratio: 350 / 305;
+}
+
+/* Photo 3: 350/1320 ≈ 26.52% */
+.lah-p2-3 {
+  width: calc(350 / 1320 * 100%);
+  aspect-ratio: 350 / 305;
+}
+
+/* Photo 4: 350/1320 ≈ 26.52% */
+.lah-p2-4 {
+  width: calc(350 / 1320 * 100%);
+  aspect-ratio: 350 / 305;
+}
+
+/* ====================================================
+   LIFE @ HACA — MOBILE  (≤ 767px)
+   ==================================================== */
+@media (max-width: 767px) {
+
+  .lah-outer {
+    padding: 20px;
+    gap: 26px;
+  }
+
+  .lah-header {
+    width: 100%;
+    gap: 7.97px;
+  }
+
+  .lah-btn {
+    /* Visual pill is 113x32. SVG scale (180/158)*113 ≈ 128.7px */
+    width: 128.73px;
+    height: auto;
+  }
+
+  .lah-btn-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .lah-heading {
+    font-size: 22px;
+    max-width: 317px;
+  }
+
+  .lah-grid {
+    width: 100%;
+    gap: 10.14px;
+  }
+
+  .lah-row {
+    gap: 10.14px;
+  }
+
+  .lah-photo {
+    border-radius: 5.76px;
+    border-width: 0.58px;
+    flex-shrink: 0;
+  }
+
+  /* ─── Row 1 (mobile): 2 photos ─── */
+  /* Proportions based on available space minus 10.14px gap */
+  .lah-p1-1 {
+    width: calc((100% - 10.14px) * (196.42 / 324.15));
+    aspect-ratio: 196.42 / 173.95;
+  }
+
+  .lah-p1-2 {
+    width: calc((100% - 10.14px) * (127.73 / 324.15));
+    aspect-ratio: 127.73 / 174.37;
+  }
+
+  /* ─── Row 2 (mobile): 2 photos ─── */
+  .lah-p2-1 {
+    width: calc((100% - 10.14px) * (123.26 / 324.86));
+    aspect-ratio: 123.26 / 175.68;
+  }
+
+  .lah-p2-2 {
+    width: calc((100% - 10.14px) * (201.60 / 324.86));
+    aspect-ratio: 201.60 / 175.68;
+  }
+
+  /* ─── Hide desktop-only photos ─── */
+  .lah-desktop-only {
+    display: none;
+  }
+}
+
+
+/* ====================================================
+   STAY CONNECTED — SOCIAL SECTION
+   ==================================================== */
+
+/* ─── Outer Section ─── */
+.sc-outer {
+  width: 100%;
+  background: #000210;
+  padding: 26px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  box-sizing: border-box;
+}
+
+/* ─── Header: 332×131 desktop ─── */
+.sc-header {
+  width: 100%;
+  max-width: 332px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: flex-start;
+}
+
+/* Pill button wrapper: viewBox 201×61, inner pill 190×42 */
+.sc-pill-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 201px;
+  height: 61px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.sc-pill-btn:hover {
+  transform: scale(1.04);
+}
+
+.sc-pill-btn:active {
+  transform: scale(0.96);
+}
+
+.sc-pill-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Heading: 332×70 */
+.sc-heading {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  color: #FFFFFF;
+  margin: 0;
+  max-width: 332px;
+  text-align: left;
+}
+
+/* ─── Cards Container: 1320×344 desktop ─── */
+.sc-cards {
+  width: 100%;
+  max-width: 1320px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ─── Row: 1320×163, space-between ─── */
+.sc-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0;
+}
+
+/* ─── Individual Card: 430×163 desktop ─── */
+.sc-card {
+  width: calc((430 / 1320) * 100%);
+  min-height: 163px;
+  background: #000319;
+  border: 1px solid #25317D;
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* Center logo and button group vertically */
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* ─── Logo wrapper ─── */
+.sc-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  /* Occupy remaining space */
+  min-width: 0;
+}
+
+.sc-logo {
+  width: auto;
+  height: 33px;
+  /* Exact height from spec */
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ─── Buttons container: 156×123 desktop, shrinks fluidly ─── */
+.sc-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: flex-end;
+  justify-content: center;
+  flex-basis: 156px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  min-width: 100px;
+}
+
+.sc-btn-link {
+  display: block;
+  line-height: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+
+.sc-btn-link:hover {
+  transform: scale(1.04);
+}
+
+.sc-btn-link:active {
+  transform: scale(0.96);
+}
+
+.sc-btn-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Insta: scalable based on container. Base scale factor from 178.5/156 ≈ 1.144 */
+.sc-btn-img.sc-insta {
+  width: 114.4%;
+  margin-right: -7.2%;
+  /* Align pill by compensating for shadow */
+}
+
+/* YouTube: scalable. Base scale factor from 178/156 ≈ 1.141 */
+.sc-btn-img.sc-yt {
+  width: 114.1%;
+  margin-right: -7.05%;
+  /* Align pill */
+}
+
+/* Tablet Override: Increase logo size when columns compress by shrinking buttons */
+@media (min-width: 768px) and (max-width: 1200px) {
+  .sc-card {
+    padding: 12px;
+    /* Reclaim space on tablet */
+  }
+
+  .sc-btns {
+    flex-basis: 110px;
+    /* Force buttons smaller to make room */
+  }
+
+  .sc-logo {
+    height: 54px;
+    /* Significantly larger for tablet legibility */
+  }
+}
+
+/* ====================================================
+   STAY CONNECTED — MOBILE (≤ 767px)
+   ==================================================== */
+@media (max-width: 767px) {
+
+  .sc-outer {
+    padding: 20px;
+    gap: 26px;
+    align-items: center;
+  }
+
+  .sc-header {
+    width: 100%;
+    max-width: 335px;
+    align-self: center;
+    align-items: center;
+    gap: 7.97px;
+  }
+
+  .sc-pill-btn {
+    /* Scale factor: 136/190 ≈ 0.7158; viewBox 201×61 × 0.7158 ≈ 143.9 × 43.7 */
+    width: 143.9px;
+    height: auto;
+  }
+
+  .sc-heading {
+    font-size: 22px;
+    max-width: 317px;
+    text-align: center;
+  }
+
+  .sc-cards {
+    max-width: 335px;
+    gap: 20px;
+  }
+
+  /* On mobile: rows become single-column stacks */
+  .sc-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Each card: 335×127 mobile */
+  .sc-card {
+    width: 100%;
+    min-height: 126.98px;
+    border-radius: 15.58px;
+    border-width: 0.78px;
+    padding: 15.58px;
+  }
+
+  .sc-logo {
+    height: 25.66px;
+  }
+
+  .sc-btns {
+    gap: 5.45px;
+  }
+
+  /* Insta: inner pill 121.53×45.18 → viewBox scale ≈ 139/121.53 × 121.53 = 139 wide */
+  .sc-btn-img.sc-insta {
+    width: 139px;
+  }
+
+  /* YouTube: inner pill 121.53×45.18 → use same scale. viewBox 178×80 × (121.53/156) ≈ 138.7 */
+  .sc-btn-img.sc-yt {
+    width: 138.7px;
+  }
+}
+
+
+/* ====================================================
+   TESTIMONIALS SECTION
+   ==================================================== */
+
+/* ─── Outer Section ─── */
+.tst-outer {
+  width: 100%;
+  background: #000210;
+  padding: 36px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* Critical: clip side-card overflow */
+}
+
+/* ─── Header ─── */
+.tst-header {
+  width: 100%;
+  max-width: 1440px;
+  padding: 0 60px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Pill button: viewBox 185×64, inner pill 163×42 */
+.tst-pill-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 185px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.tst-pill-btn:hover {
+  transform: scale(1.04);
+}
+
+.tst-pill-btn:active {
+  transform: scale(0.96);
+}
+
+.tst-pill-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Heading */
+.tst-heading {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+/* ─── Slide container ─── */
+.tst-slide-outer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ─── Viewport: clips overflow of side cards ─── */
+.tst-viewport {
+  width: 100%;
+  overflow: hidden;
+  /* clips side cards on narrow screens */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  /* vertical breathing room for box shadows */
+  box-sizing: border-box;
+}
+
+/* ─── Side slot — dim peek ─── */
+.tst-slot {
+  cursor: pointer;
+  user-select: none;
+}
+
+.tst-slot--side {
+  flex-shrink: 0;
+  width: clamp(80px, 12vw, 200px);
+  height: clamp(170px, 22.6vw, 325px);
+  border-radius: clamp(16px, 2vw, 27px);
+  overflow: hidden;
+}
+
+.tst-slot--side:first-child {
+  margin-right: clamp(8px, 1.5vw, 20px);
+}
+
+.tst-slot--side:last-child {
+  margin-left: clamp(8px, 1.5vw, 20px);
+}
+
+/* ─── Center slot ─── */
+.tst-slot--center {
+  flex: 0 0 auto;
+  width: clamp(280px, 72vw, 1037px);
+  height: clamp(220px, 27.6vw, 398px);
+  border-radius: clamp(14px, 2.3vw, 33px);
+  overflow: hidden;
+}
+
+/* ─── Shared card frame (motion.div with layoutId) ─── */
+.tst-card-frame {
+  width: 100%;
+  height: 100%;
+  background: #000319;
+  border: clamp(0.7px, 0.11vw, 1.64px) solid #25317D;
+  border-radius: inherit;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ─── Active card inner content — positioned absolutely from Figma specs ─── */
+/* Card desktop: 1037 × 398. All % = px / card-dimension.                     */
+/* Card mobile:   335 × 205. Positions given via media query.                  */
+.tst-active-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* Anchor for absolutely-positioned children */
+  overflow: hidden;
+}
+
+/* ── Quote SVG: desktop 210×142, top -38.52, left 30.79 ── */
+.tst-quote-mark {
+  position: absolute;
+  /* Desktop: top = -38.52/398 = -9.68%, left = 30.79/1037 = 2.97% */
+  top: -9.68%;
+  left: 2.97%;
+  /* Desktop: width = 210/1037 = 20.25% of card width */
+  width: 20.25%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  display: block;
+}
+
+/* ── Review paragraph: desktop top 135.44, left 49.23 ── */
+.tst-review-text {
+  position: absolute;
+  /* Desktop: top = 135.44/398 = 34.03%, left = 49.23/1037 = 4.75% */
+  top: 34.03%;
+  left: 4.75%;
+  /* Desktop: width = 938.7/1037 = 90.5% */
+  width: 90.5%;
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 600;
+  /* clamp: 14px mobile → 26px desktop */
+  font-size: clamp(14px, 1.8vw, 26px);
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* ── Author lockup: desktop top 292.36, left 49.23 ── */
+.tst-author-lockup {
+  position: absolute;
+  /* Desktop: top = 292.36/398 = 73.46%, left = 49.23/1037 = 4.75% */
+  top: 73.46%;
+  left: 4.75%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2px, 0.3vw, 5px);
+}
+
+.tst-author-name {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 600;
+  /* clamp: 16px mobile → 30px desktop */
+  font-size: clamp(16px, 2.08vw, 30px);
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.tst-author-title {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  /* clamp: 10px mobile → 20px desktop */
+  font-size: clamp(10px, 1.38vw, 20px);
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #A7ADBE;
+  margin: 0;
+}
+
+/* ─── Navigation buttons ─── */
+.tst-nav-btns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.tst-nav-btn {
+  width: clamp(40px, 4.2vw, 60px);
+  height: clamp(40px, 4.2vw, 60px);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.tst-nav-btn:hover {
+  transform: scale(1.1);
+}
+
+.tst-nav-btn:active {
+  transform: scale(0.9);
+}
+
+.tst-nav-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ====================================================
+   TESTIMONIALS — MOBILE (≤ 767px)
+   ==================================================== */
+@media (max-width: 767px) {
+
+  .tst-outer {
+    padding: 20px 0;
+    gap: 26px;
+  }
+
+  .tst-header {
+    padding: 0 20px;
+    gap: 7.97px;
+  }
+
+  .tst-pill-btn {
+    /* Scale: 116/163 ≈ 0.7117 → viewBox 185×64 × 0.7117 ≈ 131.7 */
+    width: 131.7px;
+    height: auto;
+  }
+
+  .tst-heading {
+    font-size: 22px;
+    max-width: 317px;
+  }
+
+  /* Hide side cards on mobile */
+  .tst-slot--side {
+    display: none;
+  }
+
+  /* Center card: 335×205 mobile, or available width */
+  .tst-slot--center {
+    width: min(335px, calc(100vw - 40px));
+    height: min(205.32px, calc((100vw - 40px) * 0.613));
+    border-radius: 10.6px;
+  }
+
+  .tst-card-frame {
+    border-width: 0.53px;
+  }
+
+  .tst-active-content {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  /* Nav buttons: 40px mobile */
+  .tst-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .tst-nav-btns {
+    gap: 6.67px;
+  }
+}
+
+
+/* ====================================================
+   BLOGS / LEARNING SPACE SECTION
+   ==================================================== */
+
+/* ─── Outer section: 1440×832 desktop ─── */
+.blg-outer {
+  width: 100%;
+  background: #000210;
+  padding: 36px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  box-sizing: border-box;
+}
+
+/* ─── Header ─── */
+.blg-header {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Pill button: viewBox 133×64, inner pill 111×42 */
+.blg-pill-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 133px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.blg-pill-btn:hover {
+  transform: scale(1.04);
+}
+
+.blg-pill-btn:active {
+  transform: scale(0.96);
+}
+
+.blg-pill-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Heading */
+.blg-heading {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: center;
+}
+
+/* ─── Cards container: 1320×504 desktop ─── */
+.blg-cards {
+  width: 100%;
+  max-width: 1320px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0;
+}
+
+/* ─── Individual Card: 407×504 desktop ─── */
+.blg-card {
+  width: calc((407 / 1320) * 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: transparent;
+  border: 1px solid #25317D;
+  border-radius: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ─── Cover image wrapper: 387×287.72 ─── */
+.blg-cover-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 387 / 287.72;
+  border-radius: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.blg-cover-img {
+  object-fit: cover;
+}
+
+/* ─── Card body ─── */
+.blg-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  padding: 0 16px 20px 16px;
+  box-sizing: border-box;
+}
+
+/* ─── Content group: meta + title ─── */
+.blg-content-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── Meta row: category + date ─── */
+.blg-meta-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Category frosted pill: 144×31 */
+.blg-category {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  color: #A7ADBE;
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0px 1px 1px 0px rgba(0, 3, 18, 0.30),
+    0px 8px 10.9px 0px rgba(0, 3, 18, 0.12);
+  padding: 8px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* Date */
+.blg-date {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19.2px;
+  color: #6D7792;
+  white-space: nowrap;
+}
+
+/* ─── Blog title ─── */
+.blg-title {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* ─── Read Full Blog link ─── */
+.blg-read-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  width: fit-content;
+}
+
+.blg-read-link:hover {
+  transform: scale(1.04);
+}
+
+.blg-read-link:active {
+  transform: scale(0.97);
+}
+
+.blg-read-img {
+  display: block;
+  height: 26px;
+  width: auto;
+}
+
+/* ─── Bottom CTA wrapper ─── */
+.blg-cta-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+/* "Read More Blogs" button: viewBox 176×55 */
+.blg-cta-btn {
+  display: inline-flex;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.blg-cta-btn:hover {
+  transform: scale(1.05);
+}
+
+.blg-cta-btn:active {
+  transform: scale(0.97);
+}
+
+.blg-cta-img {
+  display: block;
+  width: 176px;
+  height: auto;
+}
+
+/* ====================================================
+   BLOGS — TABLET (768px - 1200px)
+   ==================================================== */
+@media (min-width: 768px) and (max-width: 1200px) {
+  .blg-card:nth-child(3) {
+    display: none;
+  }
+
+  .blg-cards {
+    justify-content: center;
+    gap: 26px;
+  }
+
+  .blg-card {
+    width: calc(50% - 13px);
+    max-width: 407px;
+  }
+}
+
+/* ====================================================
+   BLOGS — MOBILE (≤ 767px)
+   ==================================================== */
+@media (max-width: 767px) {
+
+  /* Hide 3rd card on mobile as well (user spec: "only 2 cards in column") */
+  .blg-card:nth-child(n+3) {
+    display: none;
+  }
+
+  .blg-outer {
+    padding: 20px;
+    gap: 26px;
+  }
+
+  .blg-header {
+    max-width: 335px;
+    align-self: flex-start;
+    align-items: flex-start;
+    gap: 7.97px;
+  }
+
+  .blg-pill-btn {
+    /* Scale: 78/111 ≈ 0.703 → viewBox 133×64 × 0.703 ≈ 93.5 */
+    width: 93.5px;
+    height: auto;
+  }
+
+  .blg-heading {
+    font-size: 22px;
+    text-align: left;
+  }
+
+  /* 2 cards stacked in a column on mobile */
+  .blg-cards {
+    flex-direction: column;
+    gap: 20px;
+    max-width: 335px;
+    align-self: center;
+  }
+
+  /* Each card takes full mobile width */
+  .blg-card {
+    width: 100%;
+    padding: 8.23px;
+    gap: 16.46px;
+    border-radius: 16.46px;
+    border-width: 0.82px;
+  }
+
+  /* Cover image: mobile aspect ratio 318.54×236.82 ≈ same ratio */
+  .blg-cover-wrap {
+    border-radius: 16.46px;
+    aspect-ratio: 318.54 / 236.82;
+  }
+
+  .blg-body {
+    padding: 0 13.17px 16.46px 13.17px;
+    gap: 18.93px;
+  }
+
+  .blg-content-group {
+    gap: 13.17px;
+  }
+
+  .blg-meta-row {
+    gap: 8.23px;
+  }
+
+  .blg-category {
+    font-size: 13px;
+    padding: 6.58px 13.17px;
+    border-radius: 82.31px;
+  }
+
+  .blg-date {
+    font-size: 13px;
+  }
+
+  .blg-title {
+    font-size: 16px;
+    line-height: 24.69px;
+  }
+
+  .blg-read-img {
+    height: 21px;
+  }
+
+  /* Mobile CTA button — width auto, height 46 */
+  .blg-cta-img {
+    width: auto;
+    height: 46px;
+  }
+}
+
+
+/* ====================================================
+   FAQ SECTION
+   ==================================================== */
+
+/* ─── Outer section: 1440×540 desktop ─── */
+.faq-outer {
+  width: 100%;
+  background: #000210;
+  padding: 40px 60px 70px 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* ─── Left: header 420×124 ─── */
+.faq-header {
+  width: 420px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* ── Pill button (111×42 inner pill) ── */
+.faq-pill-btn {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0px 1px 1px 0px rgba(0, 3, 18, 0.30),
+    0px 8px 10.9px 0px rgba(0, 3, 18, 0.12);
+  padding: 8px 8px 8px 16px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  height: 42px;
+  transition: transform 0.2s ease;
+}
+
+.faq-pill-btn:hover {
+  transform: scale(1.04);
+}
+
+.faq-pill-btn:active {
+  transform: scale(0.96);
+}
+
+.faq-pill-text {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  color: #A7ADBE;
+  white-space: nowrap;
+}
+
+.faq-pill-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Heading ── */
+.faq-heading {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 110%;
+  color: #FFFFFF;
+  margin: 0;
+  width: 420px;
+  text-align: left;
+}
+
+/* ─── Right: FAQ accordion list  800×430 ─── */
+.faq-list {
+  width: 800px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ─── Individual FAQ card: 800×70 ─── */
+.faq-card {
+  width: 100%;
+  border: 1px solid #25317D;
+  border-radius: 20px;
+  background: #000319;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Full-width button inside card */
+.faq-card-btn {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 16px 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  box-sizing: border-box;
+  min-height: 70px;
+}
+
+/* Question text */
+.faq-question {
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  flex: 1;
+  text-align: left;
+}
+
+/* Plus icon wrapper — rotates 45° when open */
+.faq-icon-wrap {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.faq-icon-wrap--open {
+  transform: rotate(45deg);
+}
+
+.faq-icon {
+  width: 38px;
+  height: 38px;
+  display: block;
+}
+
+/* ── FAQ Answer ── */
+.faq-answer-wrap {
+  overflow: hidden;
+}
+
+.faq-answer {
+  padding: 0 30px 20px 30px;
+  font-family: 'Rethink Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 160%;
+  color: #A7ADBE;
+  box-sizing: border-box;
+}
+
+/* ====================================================
+   FAQ — MOBILE (≤ 767px)
+   ==================================================== */
+@media (max-width: 767px) {
+
+  .faq-outer {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 16px;
+    /* slightly less side padding on smallest screens if needed */
+    gap: 26px;
+  }
+
+  .faq-header {
+    width: 100%;
+    max-width: 335px;
+    align-items: center;
+    gap: 7.97px;
+  }
+
+  /* Pill: mobile scale 77/111 ≈ 0.694 → 42px height → 32px */
+  .faq-pill-btn {
+    height: 32px;
+    padding: 3px 6px 3px 12px;
+    gap: 6px;
+  }
+
+  .faq-pill-text {
+    font-size: 13px;
+  }
+
+  .faq-pill-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .faq-heading {
+    font-size: 22px;
+    width: 100%;
+    max-width: 317px;
+    text-align: center;
+  }
+
+  .faq-list {
+    width: 100%;
+    max-width: 335px;
+    gap: 10px;
+  }
+
+  .faq-card {
+    width: 100%;
+    border-radius: 6.7px;
+    border-width: 0.42px;
+  }
+
+  .faq-card-btn {
+    padding: 10px 12px;
+    gap: 12.56px;
+    min-height: 54px;
+  }
+
+  .faq-question {
+    font-size: 14px;
+  }
+
+  /* Plus icon: 20×20 mobile */
+  .faq-icon-wrap {
+    width: 20px;
+    height: 20px;
+  }
+
+  .faq-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .faq-answer {
+    padding: 0 12px 14px 12px;
+    font-size: 13px;
   }
 }

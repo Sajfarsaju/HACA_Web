@@ -1,0 +1,217 @@
+/* ──────────────────────────────────────────────────────────
+   HACA 360 SECTION
+   ────────────────────────────────────────────────────────── */
+
+/* ── Outer Section ── */
+.haca-360-section {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 32px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    position: relative;
+}
+
+/* ── Inner (max 1320px centres content) ── */
+.haca-360-inner {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+/* ── Upper Container: badge + heading ── */
+.haca-360-upper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    position: relative;
+    isolation: isolate;
+}
+
+/* ── Badge Button ── */
+.haca-360-badge-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 148px;
+    height: 42px;
+    padding: 8px 8px 8px 16px;
+    gap: 10px;
+    border-radius: 100px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.haca-360-badge-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* ── Heading ── */
+.haca-360-heading {
+    font-family: 'Rethink Sans', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 110%;
+    letter-spacing: 0%;
+    color: #ffffff;
+    margin: 0;
+    width: 1320px;
+    max-width: 100%;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* ──────────────────────────────────────────────────────────
+   VIDEO WRAPPER
+   Uses aspect-ratio so the video scales proportionally
+   at every breakpoint — only padding changes per screen.
+   Desktop ratio: 1320 / 619 ≈ 2.133
+   ────────────────────────────────────────────────────────── */
+.haca-360-video-wrapper {
+    width: 100%;
+    aspect-ratio: 1320 / 619;
+    /* locks proportions everywhere */
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    /* A visible gradient background so gradient overlays show up */
+    background: linear-gradient(135deg, #0d1540 0%, #1a2a6c 50%, #0d1540 100%);
+}
+
+.haca-360-video-fallback {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* ── Background Gradient SVG Wrap (Moved behind heading) ── */
+.haca-360-bg-gradient-img-wrap {
+    position: absolute;
+    top: 150%;
+    /* Centered horizontally relative to parent */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    /* Allow it to spread as wide as the screen if needed */
+    max-width: 1440px;
+    /* But keep it within the main layout bounds if preferred */
+    height: clamp(180px, 33vw, 480px);
+    /* Scales linearly with screen width */
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ── Center overlay holds the pause button ── */
+.haca-360-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* ── Pause Button ── */
+.haca-360-pause-btn {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.haca-360-pause-btn:hover {
+    transform: scale(1.1);
+    opacity: 0.85;
+}
+
+.haca-360-pause-svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ──────────────────────────────────────────────────────────
+   TABLET (768px – 1024px)
+   Keep desktop horizontal layout, just tighten side padding.
+   The aspect-ratio handles video height automatically.
+   ────────────────────────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .haca-360-section {
+        padding: 32px 20px;
+    }
+
+    .haca-360-bg-gradient-img-wrap {
+        top: 150%;
+        /* Sync with desktop */
+        width: 100vw;
+        max-width: 100%;
+        /* Allow overlap without side clipping */
+    }
+}
+
+/* ──────────────────────────────────────────────────────────
+   MOBILE (≤ 767px)
+   Only padding and typography change — aspect-ratio stays.
+   ────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+    .haca-360-section {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px 20px 20px 20px;
+        gap: 26px;
+    }
+
+    .haca-360-inner {
+        gap: 26px;
+    }
+
+    .haca-360-upper {
+        gap: 7.97px;
+    }
+
+    .haca-360-badge-btn {
+        width: 105px;
+        height: 32px;
+        padding: 3px 6px 3px 12px;
+        gap: 6px;
+    }
+
+    .haca-360-heading {
+        font-size: 22px;
+        width: 335px;
+        max-width: 100%;
+        white-space: nowrap;
+    }
+
+    .haca-360-video-wrapper {
+        border-radius: 12px;
+        /* aspect-ratio still 1320/619, no height override needed */
+    }
+
+    .haca-360-bg-gradient-img-wrap {
+        top: 150%;
+        /* Sync with desktop/tablet */
+        width: 100%;
+    }
+
+    .haca-360-pause-btn {
+        width: 27.91px;
+        height: 27.91px;
+    }
+}
