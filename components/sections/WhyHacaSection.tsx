@@ -28,24 +28,24 @@ const cards = [
 
 export function WhyHacaSection() {
     return (
-        <section className="why-haca-section">
+        <section className="w-full max-w-[1440px] min-h-[576px] mx-auto p-[clamp(40px,6vw,80px)_clamp(20px,4.2vw,60px)] flex flex-row justify-between items-center gap-[clamp(24px,3vw,40px)] opacity-100 max-[1100px]:flex-col max-[1100px]:items-start max-[1100px]:min-h-auto max-[1100px]:p-[60px_40px] max-[1100px]:gap-[36px] max-md:p-[clamp(20px,5vw,40px)_clamp(14px,5vw,24px)] max-md:gap-[clamp(18px,4vw,26px)]">
             {/* ── Left Column ── */}
-            <div className="why-haca-left">
+            <div className="w-full max-w-[453px] flex flex-col items-center text-center gap-[20px] shrink-0 max-[1100px]:max-w-full max-md:gap-[clamp(8px,2vw,12px)] max-md:w-full">
                 {/* Badge */}
-                <button className="why-haca-badge-btn" aria-label="Why HACA">
+                <button className="w-[175px] h-[64px] flex items-center justify-center p-0 rounded-[100px] border-none bg-transparent cursor-default max-md:w-[130px] max-md:h-[48px]" aria-label="Why HACA">
                     <Image
                         src="/photos/main/why haca.svg"
                         alt="Why HACA"
                         width={175}
                         height={64}
-                        className="why-haca-badge-img"
+                        className="w-full h-full object-contain"
                     />
                 </button>
 
                 {/* Heading + Paragraph */}
-                <div className="why-haca-text-wrap">
-                    <h2 className="why-haca-heading">The &apos;Why&apos; Behind HACA</h2>
-                    <p className="why-haca-para">
+                <div className="flex flex-col items-center text-center gap-[16px] max-md:gap-[clamp(10px,3vw,16px)]">
+                    <h2 className="font-rethink font-bold text-[clamp(22px,2.5vw,32px)] leading-[110%] tracking-[0%] text-[#ffffff] m-0 max-[1100px]:text-[28px] max-md:text-[clamp(20px,5.5vw,26px)] max-md:max-w-full">The &apos;Why&apos; Behind HACA</h2>
+                    <p className="font-rethink font-medium text-[clamp(14px,1.5vw,20px)] leading-[140%] tracking-[0%] text-[#A7ADBE] m-0 max-w-[461px] max-[1100px]:text-[17px] max-[1100px]:max-w-full max-md:text-[clamp(13px,3.5vw,16px)] max-md:text-left">
                         You&apos;ll learn real skills, gain real experience, and get real
                         opportunities, all in one place. That&apos;s what HACA is all about.
                     </p>
@@ -53,13 +53,15 @@ export function WhyHacaSection() {
             </div>
 
             {/* ── Right: 2×2 Flip Card Grid ── */}
-            <div className="why-haca-cards">
+            {/* Note: In tailwind we use group on the parent to accomplish the hover effects for the layers inside. The CSS logic for the glow background on mobile and desktop has been maintained using arbitrary values. */}
+            <div className="w-full max-w-[644px] grid grid-cols-2 gap-[clamp(14px,2.2vw,22px)] shrink-0 rounded-[24px] bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,rgba(30,80,255,0.55)_0%,rgba(15,30,120,0.35)_35%,rgba(0,3,25,0.0)_70%)] max-[1100px]:max-w-full max-[1100px]:gap-[20px] max-md:grid-cols-1 max-md:gap-[clamp(12px,3vw,18px)] max-md:w-full max-md:rounded-[20px] max-md:bg-[radial-gradient(ellipse_90%_70%_at_50%_50%,rgba(30,80,255,0.55)_0%,rgba(15,30,120,0.35)_35%,rgba(0,3,25,0.0)_70%)]">
                 {cards.map((card, i) => (
-                    <div key={i} className="why-haca-card">
-                        <div className="why-haca-card-inner">
-                            {/* Heading layer (always visible, slides up on hover) */}
-                            <div className="why-haca-card-heading-wrap">
-                                <h3 className="why-haca-card-heading">
+                    <div key={i} className="group w-full h-[clamp(140px,14vw,193px)] rounded-[20px] border border-[rgba(35,45,107,0.8)] bg-[rgba(0,3,25,0.88)] p-[clamp(14px,1.5vw,20px)] overflow-hidden relative cursor-default shadow-[inset_0_0_30px_rgba(20,60,200,0.07)] max-[1100px]:h-auto max-[1100px]:min-h-[193px] max-[1100px]:p-[20px] max-[1100px]:flex max-[1100px]:flex-col max-[1100px]:justify-center max-[1100px]:items-center max-[1100px]:text-center max-md:min-h-[clamp(160px,42vw,210px)] max-md:border-2 max-md:border-[#232D6B] max-md:border-t-[#1A3CA8] max-md:shadow-[inset_0_0_30px_rgba(20,60,200,0.06)] max-md:p-[clamp(14px,4vw,22px)]">
+                        <div className="w-full h-full relative flex flex-col justify-end max-[1100px]:static max-[1100px]:justify-center max-[1100px]:items-center max-[1100px]:gap-[10px] max-[1100px]:h-auto max-[1100px]:w-full max-md:gap-[clamp(8px,2.5vw,12px)]">
+                            {/* Heading layer */}
+                            {/* Slide up on hover (desktop), static on tablet/mobile */}
+                            <div className="absolute bottom-0 left-0 w-full transition-transform duration-400 ease-in-out opacity-100 translate-y-0 group-hover:-translate-y-[110%] group-hover:opacity-0 max-[1100px]:static max-[1100px]:transform-none max-[1100px]:opacity-100 max-[1100px]:group-hover:transform-none max-[1100px]:group-hover:opacity-100 max-md:static max-md:transform-none max-md:opacity-100 max-md:group-hover:transform-none max-md:group-hover:opacity-100">
+                                <h3 className="font-rethink font-semibold text-[clamp(18px,1.8vw,24px)] leading-[110%] tracking-[-0.02em] text-[#ffffff] m-0 max-[1100px]:text-[22px] max-[1100px]:text-center max-md:text-[clamp(17px,4.5vw,22px)]">
                                     {card.heading.split("\n").map((line, li) => (
                                         <React.Fragment key={li}>
                                             {line}
@@ -69,8 +71,9 @@ export function WhyHacaSection() {
                                 </h3>
                             </div>
                             {/* Paragraph layer (hidden by default, slides in on hover) */}
-                            <div className="why-haca-card-para-wrap">
-                                <p className="why-haca-card-para">{card.paragraph}</p>
+                            {/* Slide up on hover (desktop), static on tablet/mobile */}
+                            <div className="absolute bottom-0 left-0 w-full transition-all duration-400 ease-in-out opacity-0 translate-y-[100%] group-hover:translate-y-0 group-hover:opacity-100 max-[1100px]:static max-[1100px]:transform-none max-[1100px]:opacity-100 max-[1100px]:group-hover:transform-none max-[1100px]:group-hover:opacity-100 max-md:static max-md:transform-none max-md:opacity-100 max-md:group-hover:transform-none max-md:group-hover:opacity-100">
+                                <p className="font-rethink font-medium text-[clamp(12px,1vw,14px)] leading-[140%] tracking-[-0.02em] text-[#A7ADBE] m-0 max-[1100px]:text-[14px] max-[1100px]:text-center max-md:text-[clamp(12px,3.2vw,15px)] max-md:max-w-full">{card.paragraph}</p>
                             </div>
                         </div>
                     </div>

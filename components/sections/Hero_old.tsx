@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Image from "next/image"
 import Link from "next/link"
@@ -10,53 +10,53 @@ import { Haca360Section } from './Haca360Section'
 
 export function Hero() {
     return (
-        <section className="w-full max-w-[1440px] mx-auto pt-[100px] pb-[60px] bg-transparent relative max-md:pt-0 max-md:pb-0">
-            {/* ── Inner Container ── */}
-            <div className="w-full flex flex-col items-center gap-[36px] max-md:gap-[34px]">
+        <section className="hero-section">
+            {/* ΓöÇΓöÇ Inner Container ΓöÇΓöÇ */}
+            <div className="hero-inner">
 
-                {/* ──────────────────────────────────────
+                {/* ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
                     UPPER CONTAINER
                     (desktop: 780px wide, mobile: full width)
-                    ────────────────────────────────────── */}
-                <div className="w-full max-w-[780px] flex flex-col items-center gap-[50px] max-md:max-w-full max-md:pt-0 max-md:px-[20px] max-md:gap-[26px]">
+                    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
+                <div className="hero-upper">
 
-                    {/* ── First Container: Info button + Heading + Paragraph ── */}
-                    <div className="w-full flex flex-col items-center gap-[16px] max-md:gap-[10px]">
+                    {/* ΓöÇΓöÇ First Container: Info button + Heading + Paragraph ΓöÇΓöÇ */}
+                    <div className="hero-first">
 
                         {/* Info Button */}
-                        <div className="flex items-center justify-center">
+                        <div className="hero-info-btn-wrap">
                             <Image
                                 src="/photos/main/Info Button.svg"
                                 alt="Info"
                                 width={371}
                                 height={64}
-                                className="w-[371px] h-[64px] object-contain max-md:w-[271px] max-md:h-[46px]"
+                                className="hero-info-btn"
                                 priority
                             />
                         </div>
 
                         {/* Text Container */}
-                        <div className="w-full flex flex-col items-center gap-[20px] max-md:gap-[9.05px]">
+                        <div className="hero-text-container">
                             {/* Heading */}
-                            <div className="w-full flex flex-col items-center text-center">
-                                <p className="font-rethink font-bold text-[58px] leading-[69.6px] tracking-normal text-center text-white m-0 max-md:text-[26px] max-md:leading-[31.5px]">Skills Are the New Degree,</p>
-                                <p className="font-rethink font-bold text-[58px] leading-[69.6px] tracking-normal text-center text-white m-0 max-md:text-[26px] max-md:leading-[31.5px]">Build Yours with HACA.</p>
+                            <div className="hero-heading">
+                                <p className="hero-heading-line1">Skills Are the New Degree,</p>
+                                <p className="hero-heading-line2">Build Yours with HACA.</p>
                             </div>
 
                             {/* Paragraph */}
-                            <div className="w-full flex justify-center">
-                                <p className="font-rethink font-medium text-[18px] leading-[27px] tracking-normal text-center text-[#A7ADBE] m-0 max-md:text-[14px] max-md:leading-[15px]">
+                            <div className="hero-para-wrap">
+                                <p className="hero-para">
                                     At HACA, every course is built to make you career-ready in Digital Marketing, Design, Tech, or Finance.
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* ── Button Container (desktop: two buttons, mobile: one button) ── */}
+                    {/* ΓöÇΓöÇ Button Container (desktop: two buttons, mobile: one button) ΓöÇΓöÇ */}
 
                     {/* Desktop Button Row */}
-                    <div className="flex items-center justify-center gap-[30px] max-md:hidden">
-                        <Link href="/courses" className="flex items-center justify-center no-underline transition-transform duration-200 ease-out hover:scale-[1.04]">
+                    <div className="hero-btn-group hero-btn-group--desktop">
+                        <Link href="/courses" className="hero-btn-link">
                             <Image
                                 src="/photos/main/explore course btn.svg"
                                 alt="Explore Courses"
@@ -65,7 +65,7 @@ export function Hero() {
                                 className="object-contain"
                             />
                         </Link>
-                        <Link href="/contact" className="flex items-center justify-center no-underline transition-transform duration-200 ease-out hover:scale-[1.04]">
+                        <Link href="/contact" className="hero-btn-link">
                             <Image
                                 src="/photos/common/call back btn.svg"
                                 alt="Call Back"
@@ -77,8 +77,8 @@ export function Hero() {
                     </div>
 
                     {/* Mobile Button (single) */}
-                    <div className="hidden max-md:flex items-center justify-center">
-                        <Link href="/schools" className="flex items-center justify-center no-underline transition-transform duration-200 ease-out hover:scale-[1.04]">
+                    <div className="hero-btn-group hero-btn-group--mobile">
+                        <Link href="/schools" className="hero-btn-link">
                             <Image
                                 src="/photos/main/explore school btn.svg"
                                 alt="Explore Schools"
@@ -89,21 +89,21 @@ export function Hero() {
                         </Link>
                     </div>
 
-                    {/* ── Additional SVGs (World Education Summit & Admission Open) ── */}
-                    <div className="flex flex-col items-center gap-[20px] max-md:gap-[15.2px]">
+                    {/* ΓöÇΓöÇ Additional SVGs (World Education Summit & Admission Open) ΓöÇΓöÇ */}
+                    <div className="hero-awards-container">
                         <Image
                             src="/photos/main/World-Education-Summit 1.svg"
                             alt="World Education Summit"
                             width={341}
                             height={63}
-                            className="w-[341px] h-[63px] object-contain max-md:w-[213.8px] max-md:h-[39.5px]"
+                            className="hero-award-summit"
                         />
                         <Image
                             src="/photos/main/admisn opn.svg"
                             alt="Admission Open"
                             width={196}
                             height={20}
-                            className="w-[196px] h-[20px] object-contain max-md:w-[149px] max-md:h-[15px]"
+                            className="hero-award-admission"
                         />
                     </div>
                 </div>

@@ -25,13 +25,13 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     }
 
     return (
-        <div className="mobile-menu-overlay">
+        <div className="fixed top-0 left-0 w-full h-[100dvh] bg-[#000210] z-[60] flex flex-col p-[clamp(40px,8vh,55px)_clamp(16px,5vw,20px)] gap-[clamp(20px,5vh,40px)] overflow-y-auto">
             {/* ── Upper Container ── */}
-            <div className="mobile-menu-upper">
+            <div className="w-full flex flex-col gap-[clamp(20px,4vh,40px)]">
 
                 {/* Header: Close Button + Enquire Button */}
-                <div className="mobile-menu-header">
-                    <button onClick={onClose} className="mobile-menu-close-btn" aria-label="Close menu">
+                <div className="w-full h-[46px] flex justify-between items-center">
+                    <button onClick={onClose} className="w-[30px] h-[30px] flex items-center justify-center bg-transparent border-none cursor-pointer p-0" aria-label="Close menu">
                         <Image
                             src="/ion_close.svg"
                             alt="Close"
@@ -41,7 +41,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     </button>
 
                     <Link href="/contact" onClick={handleLinkClick}>
-                        <div className="mobile-menu-enquire-btn">
+                        <div className="w-[121px] h-[46px] flex items-center justify-center">
                             <Image
                                 src="/photos/common/enqr button.svg"
                                 alt="Enquire Now"
@@ -54,30 +54,30 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 </div>
 
                 {/* Navigation Buttons Container */}
-                <nav className="mobile-menu-nav-container">
+                <nav className="w-full flex flex-col gap-[20px]">
                     <Link
                         href="/"
                         onClick={handleLinkClick}
-                        className={`mobile-menu-nav-btn ${isActive("/") ? "active" : ""}`}
+                        className={`w-fit min-w-[98px] h-[44px] flex items-center justify-center p-[10px_16px] gap-[10px] rounded-[18px] border no-underline transition-all duration-200 ease group ${isActive("/") ? "bg-[#131839] border-[#232D6B]" : "bg-transparent border-transparent"}`}
                     >
-                        <span>Home</span>
+                        <span className={`font-rethink font-normal text-[clamp(20px,6vw,24px)] leading-[100%] tracking-tight ${isActive("/") ? "text-[#FFFFFF]" : "text-[#A7ADBE]"}`}>Home</span>
                     </Link>
 
                     <Link
                         href="/about"
                         onClick={handleLinkClick}
-                        className={`mobile-menu-nav-btn ${isActive("/about") ? "active" : ""}`}
+                        className={`w-fit min-w-[98px] h-[44px] flex items-center justify-center p-[10px_16px] gap-[10px] rounded-[18px] border no-underline transition-all duration-200 ease group ${isActive("/about") ? "bg-[#131839] border-[#232D6B]" : "bg-transparent border-transparent"}`}
                     >
-                        <span>About Us</span>
+                        <span className={`font-rethink font-normal text-[clamp(20px,6vw,24px)] leading-[100%] tracking-tight ${isActive("/about") ? "text-[#FFFFFF]" : "text-[#A7ADBE]"}`}>About Us</span>
                     </Link>
 
                     {/* Schools with Dropdown */}
-                    <div className="mobile-menu-dropdown-wrapper">
+                    <div className="flex flex-col gap-[10px]">
                         <button
                             onClick={() => setIsSchoolsOpen(!isSchoolsOpen)}
-                            className={`mobile-menu-nav-btn ${pathname.includes("/schools") || isSchoolsOpen ? "active" : ""}`}
+                            className={`w-fit min-w-[98px] h-[44px] flex items-center justify-center p-[10px_16px] gap-[10px] rounded-[18px] border no-underline transition-all duration-200 ease group ${pathname.includes("/schools") || isSchoolsOpen ? "bg-[#131839] border-[#232D6B]" : "bg-transparent border-transparent"}`}
                         >
-                            <span>Schools</span>
+                            <span className={`font-rethink font-normal text-[clamp(20px,6vw,24px)] leading-[100%] tracking-tight ${pathname.includes("/schools") || isSchoolsOpen ? "text-[#FFFFFF]" : "text-[#A7ADBE]"}`}>Schools</span>
                             <Image
                                 src="/photos/common/down arrow.svg"
                                 alt="dropdown"
@@ -89,18 +89,18 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         </button>
 
                         {isSchoolsOpen && (
-                            <div className="mobile-menu-dropdown">
-                                <Link href="/schools/marketing" className="mobile-menu-dropdown-item" onClick={handleLinkClick}>
-                                    <span className="mobile-menu-dropdown-text">Marketing School</span>
+                            <div className="flex flex-col pl-[20px] gap-[5px]">
+                                <Link href="/schools/marketing" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
+                                    <span className="font-rethink font-normal text-[18px] text-[#A7ADBE] group-hover/dropdown:text-[#FFFFFF]">Marketing School</span>
                                 </Link>
-                                <Link href="/schools/design" className="mobile-menu-dropdown-item" onClick={handleLinkClick}>
-                                    <span className="mobile-menu-dropdown-text">Design School</span>
+                                <Link href="/schools/design" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
+                                    <span className="font-rethink font-normal text-[18px] text-[#A7ADBE] group-hover/dropdown:text-[#FFFFFF]">Design School</span>
                                 </Link>
-                                <Link href="/schools/tech" className="mobile-menu-dropdown-item" onClick={handleLinkClick}>
-                                    <span className="mobile-menu-dropdown-text">Tech School</span>
+                                <Link href="/schools/tech" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
+                                    <span className="font-rethink font-normal text-[18px] text-[#A7ADBE] group-hover/dropdown:text-[#FFFFFF]">Tech School</span>
                                 </Link>
-                                <Link href="/schools/finance" className="mobile-menu-dropdown-item" onClick={handleLinkClick}>
-                                    <span className="mobile-menu-dropdown-text">Finance School</span>
+                                <Link href="/schools/finance" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
+                                    <span className="font-rethink font-normal text-[18px] text-[#A7ADBE] group-hover/dropdown:text-[#FFFFFF]">Finance School</span>
                                 </Link>
                             </div>
                         )}
@@ -109,48 +109,48 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     <Link
                         href="/success-story"
                         onClick={handleLinkClick}
-                        className={`mobile-menu-nav-btn ${isActive("/success-story") ? "active" : ""}`}
+                        className={`w-fit min-w-[98px] h-[44px] flex items-center justify-center p-[10px_16px] gap-[10px] rounded-[18px] border no-underline transition-all duration-200 ease group ${isActive("/success-story") ? "bg-[#131839] border-[#232D6B]" : "bg-transparent border-transparent"}`}
                     >
-                        <span>Success Story</span>
+                        <span className={`font-rethink font-normal text-[clamp(20px,6vw,24px)] leading-[100%] tracking-tight ${isActive("/success-story") ? "text-[#FFFFFF]" : "text-[#A7ADBE]"}`}>Success Story</span>
                     </Link>
 
                     <Link
                         href="/blog"
                         onClick={handleLinkClick}
-                        className={`mobile-menu-nav-btn ${isActive("/blog") ? "active" : ""}`}
+                        className={`w-fit min-w-[98px] h-[44px] flex items-center justify-center p-[10px_16px] gap-[10px] rounded-[18px] border no-underline transition-all duration-200 ease group ${isActive("/blog") ? "bg-[#131839] border-[#232D6B]" : "bg-transparent border-transparent"}`}
                     >
-                        <span>Blogs</span>
+                        <span className={`font-rethink font-normal text-[clamp(20px,6vw,24px)] leading-[100%] tracking-tight ${isActive("/blog") ? "text-[#FFFFFF]" : "text-[#A7ADBE]"}`}>Blogs</span>
                     </Link>
                 </nav>
             </div>
 
 
             {/* ── Bottom Container ── */}
-            <div className="mobile-menu-bottom">
+            <div className="max-w-[335px] flex flex-col gap-[20px]">
 
                 {/* Upper Row: Privacy & Terms */}
-                <div className="mobile-menu-bottom-legal">
-                    <Link href="/privacy-policy" onClick={onClose} className="mobile-menu-legal-link">
+                <div className="w-full h-[16px] flex items-center gap-[53px]">
+                    <Link href="/privacy-policy" onClick={onClose} className="font-rethink font-normal text-[16px] leading-[100%] text-[#A7ADBE] no-underline whitespace-nowrap w-[102px]">
                         Privacy Policy
                     </Link>
-                    <Link href="/terms-conditions" onClick={onClose} className="mobile-menu-legal-link">
+                    <Link href="/terms-conditions" onClick={onClose} className="font-rethink font-normal text-[16px] leading-[100%] text-[#A7ADBE] no-underline whitespace-nowrap">
                         Terms and conditions
                     </Link>
                 </div>
 
                 {/* Lower Row: Socials */}
-                <div className="mobile-menu-bottom-social">
+                <div className="w-full h-[16px] flex items-center gap-[65px]">
                     <Link
                         href="https://instagram.com"
                         target="_blank"
-                        className="mobile-menu-social-link"
+                        className="font-rethink font-normal text-[16px] leading-[100%] text-[#A7ADBE] no-underline w-[90px]"
                     >
                         Instagram
                     </Link>
                     <Link
                         href="https://youtube.com"
                         target="_blank"
-                        className="mobile-menu-social-link"
+                        className="font-rethink font-normal text-[16px] leading-[100%] text-[#A7ADBE] no-underline"
                     >
                         Youtube
                     </Link>

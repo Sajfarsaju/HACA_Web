@@ -27,16 +27,10 @@ function MentorCard({
 
     return (
         <div
-            style={{
-                width: cardWidth,
-                height: cardHeight,
-                position: "relative",
-                borderRadius: "24px",
-                overflow: "hidden",
-                transition: "all 0.5s ease",
-                flexShrink: 0,
-                boxShadow: isCenter ? "0 0 40px rgba(132, 0, 255, 0.2)" : "none",
-            }}
+            className={`relative rounded-[24px] overflow-hidden transition-all duration-500 ease-in-out shrink-0 ${isCenter
+                ? "w-[clamp(260px,28vw,396px)] h-[clamp(330px,35vw,495px)] shadow-[0_0_40px_rgba(132,0,255,0.2)]"
+                : "w-[clamp(220px,24vw,346px)] h-[clamp(290px,30vw,431px)]"
+                }`}
         >
             {/* Gradient border ring — same as WhyChoose cards */}
             <div
@@ -62,59 +56,23 @@ function MentorCard({
                 Rendered for all cards with a vibrant purple cinematic glass effect
             */}
             {/* Overlay Gradient for Text Readability — soft blue-purple fade */}
-            <div
-                style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(180deg, transparent 45%, rgba(70, 20, 200, 0.25) 100%)",
-                    zIndex: 1,
-                }}
-            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(70,20,200,0.25)_100%)] z-[1]" />
 
             <div
+                className="absolute bottom-0 left-0 right-0 flex flex-col justify-center border-t border-[rgba(140,100,255,0.2)] backdrop-blur-[28px] z-[2]"
                 style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
                     height: `${boxHeight}px`,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
                     gap: boxGap,
                     padding: boxPadding,
                     borderBottomLeftRadius: boxRadius,
                     borderBottomRightRadius: boxRadius,
-                    borderTop: `${boxBorderWidth} solid rgba(140, 100, 255, 0.2)`,
-                    backdropFilter: "blur(28px)",
-                    zIndex: 2,
                 }}
             >
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%" }}>
-                    <h4
-                        style={{
-                            fontFamily: "var(--font-outfit)",
-                            fontWeight: 400,
-                            fontSize: isCenter ? "26px" : "22px",
-                            lineHeight: "100%",
-                            color: "#FFFFFF",
-                            margin: 0,
-                            textAlign: "center",
-                        }}
-                    >
+                <div className="flex flex-col gap-[8px] w-full">
+                    <h4 className={`font-outfit font-normal leading-none text-[#FFFFFF] m-0 text-center ${isCenter ? "text-[26px]" : "text-[22px]"}`}>
                         {name}
                     </h4>
-                    <p
-                        style={{
-                            fontFamily: "var(--font-outfit)",
-                            fontWeight: 400,
-                            fontSize: isCenter ? "18px" : "16px",
-                            lineHeight: "100%",
-                            color: "#FFFFFF",
-                            margin: 0,
-                            textAlign: "center",
-                        }}
-                    >
+                    <p className={`font-outfit font-normal leading-none text-[#FFFFFF] m-0 text-center ${isCenter ? "text-[18px]" : "text-[16px]"}`}>
                         {role}
                     </p>
                 </div>
@@ -126,19 +84,7 @@ function MentorCard({
 // ── Arrow Icon Component ─────────────────────────────────────────────────
 const ArrowIcon = ({ direction }: { direction: "left" | "right" }) => (
     <div
-        style={{
-            width: "48px",
-            height: "48px",
-            borderRadius: "50%",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
-            background: "rgba(17, 17, 17, 0.4)",
-        }}
-        className="hover:bg-white/10"
+        className="w-[48px] h-[48px] rounded-full border border-white/20 flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out bg-[#111111]/40 hover:bg-white/10"
     >
         <svg
             width="20"
@@ -159,70 +105,24 @@ const ArrowIcon = ({ direction }: { direction: "left" | "right" }) => (
 // ── Main TechMentors Component ──────────────────────────────────────────
 export function TechMentors() {
     return (
-        <section
-            className="w-full flex flex-col items-center relative overflow-hidden"
-            style={{
-                height: "auto",
-                minHeight: "828px",
-                backgroundColor: "transparent",
-                paddingTop: "clamp(20px, 10vw, 140px)",
-                paddingBottom: "80px",
-                paddingLeft: "clamp(16px, 4vw, 60px)",
-                paddingRight: "clamp(16px, 4vw, 60px)",
-                gap: "60px",
-            }}
-        >
-
+        <section className="w-full flex flex-col items-center relative overflow-hidden h-auto min-h-[828px] bg-transparent pt-[clamp(20px,10vw,140px)] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
 
             {/* ── Foreground Content ─────────────────────────────────────────── */}
-            <div style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: "60px", width: "100%" }}>
+            <div className="relative z-10 flex flex-col items-center gap-[60px] w-full">
                 {/* Header Content */}
                 <div className="flex flex-col items-center gap-6 text-center max-w-[938px]">
-                    <h2
-                        style={{
-                            fontFamily: "var(--font-outfit)",
-                            fontWeight: 400,
-                            fontSize: "clamp(32px, 5vw, 60px)",
-                            lineHeight: "62px",
-                            letterSpacing: "-0.02em",
-                            color: "#FFFFFF",
-                            margin: 0,
-                            textTransform: "capitalize",
-                        }}
-                    >
+                    <h2 className="font-outfit font-normal text-[clamp(32px,5vw,60px)] leading-[62px] tracking-[-0.02em] text-[#FFFFFF] m-0 capitalize">
                         Your Mentors
                     </h2>
-                    <p
-                        style={{
-                            fontFamily: "var(--font-outfit)",
-                            fontWeight: 400,
-                            fontSize: "clamp(16px, 2vw, 24px)",
-                            lineHeight: "33.6px",
-                            letterSpacing: "-0.2px",
-                            color: "#A7A7A7",
-                            margin: 0,
-                            maxWidth: "800px",
-                        }}
-                    >
+                    <p className="font-outfit font-normal text-[clamp(16px,2vw,24px)] leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7] m-0 max-w-[800px]">
                         You’ll learn from people who’ve built products, written code, and solved real problems.
                     </p>
                 </div>
 
                 {/* Staggered Mentors Cards */}
-                <div
-                    style={{
-                        width: "100%",
-                        maxWidth: "1164px",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "clamp(12px, 2.5vw, 32px)",
-                        flexWrap: "nowrap",
-                    }}
-                >
+                <div className="w-full max-w-[1164px] flex flex-row items-center justify-center gap-[clamp(12px,2.5vw,32px)] flex-nowrap">
                     {/* Left Card */}
-                    <div style={{ alignSelf: "center" }}>
+                    <div className="self-center">
                         <MentorCard
                             imgSrc="/photos/schools/tech/Testimonial Card1.png"
                             name="Muhammad Sajfar"
@@ -231,7 +131,7 @@ export function TechMentors() {
                     </div>
 
                     {/* Center Highlighted Card */}
-                    <div style={{ alignSelf: "center" }}>
+                    <div className="self-center">
                         <MentorCard
                             imgSrc="/photos/schools/tech/Testimonial Card2.png"
                             name="Mohammed Nazil K"
@@ -241,7 +141,7 @@ export function TechMentors() {
                     </div>
 
                     {/* Right Card */}
-                    <div style={{ alignSelf: "center" }} className="max-md:self-center">
+                    <div className="self-center max-md:self-center">
                         <MentorCard
                             imgSrc="/photos/schools/tech/Testimonial Card3.png"
                             name="Radhika E K"
@@ -251,7 +151,7 @@ export function TechMentors() {
                 </div>
 
                 {/* Navigation Arrows */}
-                <div style={{ display: "flex", gap: "16px", marginTop: "12px" }}>
+                <div className="flex gap-[16px] mt-[12px]">
                     <ArrowIcon direction="left" />
                     <ArrowIcon direction="right" />
                 </div>

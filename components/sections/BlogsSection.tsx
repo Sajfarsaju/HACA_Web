@@ -24,65 +24,65 @@ const blogs = [
 
 export function BlogsSection() {
     return (
-        <section className="blg-outer" aria-label="The Learning Space">
+        <section className="w-full bg-[#000210] p-[36px_60px] flex flex-col items-center gap-[26px] box-border max-md:p-[20px]" aria-label="The Learning Space">
 
             {/* ─── Header ─── */}
-            <div className="blg-header">
+            <div className="w-full max-w-[300px] flex flex-col items-center gap-[10px] max-md:max-w-[335px] max-md:self-start max-md:items-start max-md:gap-[7.97px]">
                 {/* Pill button — viewBox 133×64, inner pill 111×42 */}
-                <button className="blg-pill-btn" aria-label="Blogs">
+                <button className="bg-transparent border-none p-0 cursor-pointer w-[133px] h-[64px] flex items-center shrink-0 transition-transform duration-200 ease-in-out hover:scale-104 active:scale-96 max-md:w-[93.5px] max-md:h-auto" aria-label="Blogs">
                     <Image
                         src="/photos/main/blogs arrow.svg"
                         alt="Blogs"
                         width={133}
                         height={64}
-                        className="blg-pill-img"
+                        className="w-full h-auto block"
                         priority
                     />
                 </button>
 
-                <h2 className="blg-heading">The Learning Space</h2>
+                <h2 className="font-rethink font-bold text-[32px] leading-[110%] text-[#ffffff] m-0 text-center max-md:text-[22px] max-md:text-left">The Learning Space</h2>
             </div>
 
             {/* ─── Cards grid ─── */}
-            <div className="blg-cards">
+            <div className="w-full max-w-[1320px] flex flex-row justify-between gap-0 max-[1200px]:justify-center max-[1200px]:gap-[26px] max-md:flex-col max-md:gap-[20px] max-md:max-w-[335px] max-md:self-center">
                 {blogs.map((blog) => (
-                    <article key={blog.id} className="blg-card">
+                    <article key={blog.id} className="w-[calc(407/1320*100%)] flex flex-col gap-[20px] bg-transparent border border-[#25317d] rounded-[20px] p-[10px] box-border overflow-hidden max-[1200px]:w-[calc(50%-13px)] max-[1200px]:max-w-[407px] [&:nth-child(3)]:max-[1200px]:hidden max-md:w-full max-md:p-[8.23px] max-md:gap-[16.46px] max-md:rounded-[16.46px] max-md:border-[0.82px] [&:nth-child(n+3)]:max-md:hidden">
 
                         {/* Cover image — 387×287.72 desktop, proportional mobile */}
-                        <div className="blg-cover-wrap">
+                        <div className="relative w-full aspect-[387/287.72] rounded-[20px] overflow-hidden shrink-0 max-md:rounded-[16.46px] max-md:aspect-[318.54/236.82]">
                             <Image
                                 src="/photos/main/blog cover.png"
                                 alt={blog.title}
                                 fill
-                                className="blg-cover-img"
+                                className="object-cover"
                                 sizes="(max-width: 767px) 100vw, 33vw"
                             />
                         </div>
 
                         {/* Card body */}
-                        <div className="blg-body">
+                        <div className="w-full flex flex-col gap-[23px] p-[0_16px_20px_16px] box-border max-md:p-[0_13.17px_16.46px_13.17px] max-md:gap-[18.93px]">
 
                             {/* Meta row + title */}
-                            <div className="blg-content-group">
+                            <div className="flex flex-col gap-[16px] max-md:gap-[13.17px]">
 
                                 {/* Meta: category tag + date */}
-                                <div className="blg-meta-row">
-                                    <span className="blg-category">{blog.category}</span>
-                                    <span className="blg-date">{blog.date}</span>
+                                <div className="flex flex-row items-center justify-between gap-[10px] max-md:gap-[8.23px]">
+                                    <span className="font-rethink font-medium text-[16px] leading-[100%] color-[#a7adbe] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_16px] rounded-[100px] whitespace-nowrap max-md:text-[13px] max-md:p-[6.58px_13.17px] max-md:rounded-[82.31px] text-[#A7ADBE]">{blog.category}</span>
+                                    <span className="font-rethink font-medium text-[16px] leading-[19.2px] text-[#6d7792] whitespace-nowrap max-md:text-[13px]">{blog.date}</span>
                                 </div>
 
                                 {/* Title */}
-                                <h3 className="blg-title">{blog.title}</h3>
+                                <h3 className="font-rethink font-semibold text-[20px] leading-[30px] color-[#ffffff] m-0 max-md:text-[16px] max-md:leading-[24.69px] text-white">{blog.title}</h3>
                             </div>
 
                             {/* Read Full Blog link — viewBox from SVG */}
-                            <a href="#" className="blg-read-link" aria-label="Read full blog">
+                            <a href="#" className="inline-flex items-center no-underline transition-transform duration-200 ease-in-out w-fit hover:scale-104 active:scale-97" aria-label="Read full blog">
                                 <Image
                                     src="/photos/main/read full blog.svg"
                                     alt="Read Full Blog"
                                     width={123}
                                     height={26}
-                                    className="blg-read-img"
+                                    className="block h-[26px] w-auto"
                                 />
                             </a>
 
@@ -92,14 +92,14 @@ export function BlogsSection() {
             </div>
 
             {/* ─── Bottom CTA ─── */}
-            <div className="blg-cta-wrap">
-                <a href="#" className="blg-cta-btn" aria-label="Read more blogs">
+            <div className="flex justify-center">
+                <a href="#" className="inline-flex no-underline transition-transform duration-200 ease-in-out hover:scale-105 active:scale-97" aria-label="Read more blogs">
                     <Image
                         src="/photos/main/read more blogs.svg"
                         alt="Read More Blogs"
                         width={176}
                         height={55}
-                        className="blg-cta-img"
+                        className="block w-[176px] h-auto"
                     />
                 </a>
             </div>

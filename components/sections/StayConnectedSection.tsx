@@ -16,43 +16,43 @@ interface SocialCardProps {
 function SocialCard({ logoSrc, logoAlt, logoW, logoH, instagramHref = "#", youtubeHref = "#" }: SocialCardProps) {
     return (
         <motion.div
-            className="sc-card"
+            className="w-[calc(430/1320*100%)] min-h-[163px] bg-[#000319] border border-[#25317d] rounded-[20px] p-[20px] box-border flex flex-row justify-between items-center shrink-0 overflow-hidden max-[1200px]:p-[12px] max-md:w-full max-md:min-h-[126.98px] max-md:rounded-[15.58px] max-md:border-[0.78px] max-md:p-[15.58px]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: "easeOut" }}
         >
             {/* ─── Logo ─── */}
-            <div className="sc-logo-wrap">
+            <div className="flex items-center justify-center flex-1 min-w-0">
                 <Image
                     src={logoSrc}
                     alt={logoAlt}
                     width={logoW}
                     height={logoH}
-                    className="sc-logo"
+                    className="w-auto h-[33px] max-w-full object-contain block max-[1200px]:h-[54px] max-md:h-[25.66px]"
                 />
             </div>
 
             {/* ─── Social Buttons ─── */}
-            <div className="sc-btns">
+            <div className="flex flex-col gap-[7px] items-end justify-center basis-[156px] grow-0 shrink min-w-[100px] max-[1200px]:basis-[110px] max-md:gap-[5.45px]">
                 {/* Instagram */}
-                <a href={instagramHref} target="_blank" rel="noopener noreferrer" className="sc-btn-link">
+                <a href={instagramHref} target="_blank" rel="noopener noreferrer" className="block leading-[0] cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 w-full">
                     <Image
                         src="/photos/main/insta button.svg"
                         alt="Instagram"
                         width={139}
                         height={63}
-                        className="sc-btn-img sc-insta"
+                        className="w-[114.4%] h-auto block -mr-[7.2%] max-md:w-[139px]"
                     />
                 </a>
                 {/* YouTube */}
-                <a href={youtubeHref} target="_blank" rel="noopener noreferrer" className="sc-btn-link">
+                <a href={youtubeHref} target="_blank" rel="noopener noreferrer" className="block leading-[0] cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 w-full">
                     <Image
                         src="/photos/main/youtube button.svg"
                         alt="YouTube"
                         width={178}
                         height={80}
-                        className="sc-btn-img sc-yt"
+                        className="w-[114.1%] h-auto block -mr-[7.05%] max-md:w-[138.7px]"
                     />
                 </a>
             </div>
@@ -73,44 +73,44 @@ const cards: SocialCardProps[] = [
 export function StayConnectedSection() {
     return (
         /* ─── Outer Section: 1440×563 desktop | 375×1016 mobile ─── */
-        <section className="sc-outer" aria-label="Stay Connected">
+        <section className="w-full bg-[#000210] p-[26px_60px] flex flex-col items-center gap-[36px] box-border max-md:p-[20px] max-md:gap-[26px]" aria-label="Stay Connected">
 
             {/* ─── Header: 332×131 desktop | 335×88 mobile ─── */}
             <motion.div
-                className="sc-header"
+                className="w-full max-w-[332px] flex flex-col items-start gap-[20px] self-start max-md:max-w-[335px] max-md:self-center max-md:items-center max-md:gap-[7.97px]"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
                 {/* Pill button SVG: viewBox 201×61, inner pill 190×42 */}
-                <button className="sc-pill-btn" aria-label="Stay Connected">
+                <button className="bg-transparent border-none p-0 cursor-pointer w-[201px] h-[61px] flex items-center transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 max-md:w-[143.9px] max-md:h-auto" aria-label="Stay Connected">
                     <Image
                         src="/photos/main/stay connected.svg"
                         alt="Stay Connected"
                         width={201}
                         height={61}
-                        className="sc-pill-img"
+                        className="w-full h-auto block"
                         priority
                     />
                 </button>
 
                 {/* Heading */}
-                <h2 className="sc-heading">
+                <h2 className="font-rethink font-bold text-[32px] leading-[110%] text-[#ffffff] m-0 max-w-[332px] text-left max-md:text-[22px] max-md:max-w-[317px] max-md:text-center">
                     Catch the Highlights on Our Socials
                 </h2>
             </motion.div>
 
             {/* ─── Cards Container: 1320×344 desktop | 335 mobile ─── */}
-            <div className="sc-cards">
+            <div className="w-full max-w-[1320px] flex flex-col gap-[18px] max-md:max-w-[335px] max-md:gap-[20px]">
                 {/* Row 1: cards 0–2 */}
-                <div className="sc-row">
+                <div className="w-full flex flex-row justify-between gap-0 max-md:flex-col max-md:gap-[20px]">
                     {cards.slice(0, 3).map((c, i) => (
                         <SocialCard key={i} {...c} />
                     ))}
                 </div>
                 {/* Row 2: cards 3–5 */}
-                <div className="sc-row">
+                <div className="w-full flex flex-row justify-between gap-0 max-md:flex-col max-md:gap-[20px]">
                     {cards.slice(3, 6).map((c, i) => (
                         <SocialCard key={i + 3} {...c} />
                     ))}

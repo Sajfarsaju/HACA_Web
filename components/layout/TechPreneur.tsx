@@ -5,58 +5,17 @@ import Image from "next/image";
 export function TechPreneur() {
     return (
         <section
-            className="w-full flex flex-col items-center relative"
-            style={{
-                width: "100%",
-                maxWidth: "1460px",
-                height: "auto",
-                minHeight: "708px",
-                backgroundColor: "transparent",
-                paddingTop: "clamp(60px, 10vw, 140px)",
-                paddingBottom: "clamp(20px, 8vw, 120px)",
-                paddingLeft: "clamp(20px, 4vw, 60px)",
-                paddingRight: "clamp(20px, 4vw, 60px)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "30px",
-                margin: "0 auto",
-                overflow: "hidden",
-            }}
+            className="w-full max-w-[1460px] min-h-[708px] bg-transparent pt-[clamp(60px,10vw,140px)] pb-[clamp(20px,8vw,120px)] px-[clamp(20px,4vw,60px)] flex flex-col items-center gap-[30px] mx-auto overflow-hidden relative"
         >
             {/* Main Title */}
             <h2
-                style={{
-                    width: "100%",
-                    maxWidth: "737px",
-                    fontFamily: "var(--font-outfit)",
-                    fontWeight: 400,
-                    fontSize: "clamp(32px, 6vw, 60px)",
-                    lineHeight: "1.1",
-                    letterSpacing: "-0.02em",
-                    color: "#FFFFFF",
-                    textAlign: "center",
-                    verticalAlign: "middle",
-                    margin: 0,
-                    zIndex: 2,
-                    position: "relative",
-                }}
+                className="w-full max-w-[737px] font-outfit font-normal text-[clamp(32px,6vw,60px)] leading-[1.1] tracking-[-0.02em] text-[#FFFFFF] text-center align-middle m-0 z-[2] relative"
             >
                 Your Name Could Be Next in Our Techpreneur List
             </h2>
 
             {/* SVG Button */}
-            <div
-                style={{
-                    width: "246px",
-                    height: "44px",
-                    position: "relative",
-                    marginTop: "32px",
-                    cursor: "pointer",
-                    zIndex: 2,
-                    flexShrink: 0,
-                }}
-            >
+            <div className="w-[246px] h-[44px] relative mt-[32px] cursor-pointer z-[2] shrink-0">
                 <Image
                     src="/photos/schools/tech/Button Container.svg"
                     alt="Join Techpreneur List"
@@ -67,17 +26,7 @@ export function TechPreneur() {
             </div>
 
             {/* Decorative Group SVG — absolutely positioned, fills bottom of section */}
-            <div
-                style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: "520px",
-                    zIndex: 1,
-                    pointerEvents: "none",
-                }}
-            >
+            <div className="absolute bottom-0 left-0 right-0 h-[520px] z-[1] pointer-events-none">
                 <Image
                     src="/photos/schools/tech/Group.svg"
                     alt=""

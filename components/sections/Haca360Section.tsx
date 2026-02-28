@@ -2,13 +2,13 @@ import Image from 'next/image'
 
 export function Haca360Section() {
     return (
-        <section className="haca-360-section">
-            <div className="haca-360-inner">
+        <section className="w-full max-w-[1440px] mx-auto py-[32px] px-[60px] flex flex-col gap-[36px] relative max-md:max-w-full max-md:p-[10px_20px_20px_20px] max-md:gap-[26px]">
+            <div className="w-full max-w-[1320px] mx-auto flex flex-col gap-[36px] max-md:gap-[26px]">
 
                 {/* ── Upper: Badge Button + Heading ── */}
-                <div className="haca-360-upper">
+                <div className="w-full flex flex-col items-center gap-[20px] text-center relative isolate max-md:gap-[7.97px]">
                     {/* Background Gradient SVG moved behind heading */}
-                    <div className="haca-360-bg-gradient-img-wrap">
+                    <div className="absolute top-[150%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] max-w-[1440px] h-[clamp(180px,33vw,480px)] pointer-events-none -z-10 max-[1024px]:max-w-full max-md:w-full">
                         <Image
                             src="/photos/main/bg-gradiant-1.svg"
                             alt=""
@@ -16,39 +16,39 @@ export function Haca360Section() {
                             className="object-cover"
                         />
                     </div>
-                    <button className="haca-360-badge-btn" aria-label="HACA 360">
+                    <button className="inline-flex items-center justify-center w-[148px] h-[42px] p-[8px_8px_8px_16px] gap-[10px] rounded-[100px] bg-transparent border-none cursor-pointer shrink-0 max-md:w-[105px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="HACA 360">
                         <Image
                             src="/photos/main/haca 360.svg"
                             alt="HACA 360"
                             width={148}
                             height={42}
-                            className="haca-360-badge-img"
+                            className="w-full h-auto object-contain"
                         />
                     </button>
-                    <h2 className="haca-360-heading">Let's Talk About HACA</h2>
+                    <h2 className="font-rethink font-bold text-[32px] leading-[110%] tracking-[0%] text-[#ffffff] m-0 w-[1320px] max-w-full whitespace-nowrap text-center max-md:text-[22px] max-md:w-[335px]">Let's Talk About HACA</h2>
                 </div>
 
                 {/* ── Video Container ── */}
-                <div className="haca-360-video-wrapper">
+                <div className="w-full aspect-[1320/619] rounded-[20px] overflow-hidden relative bg-[linear-gradient(135deg,#0d1540_0%,#1a2a6c_50%,#0d1540_100%)] max-md:rounded-[12px]">
 
                     {/*
                         VIDEO PLACEHOLDER
                         When admin panel is ready, replace this div with an actual <video> tag.
                         The src can be passed as a prop or pulled from a CMS.
                     */}
-                    <div className="haca-360-video-fallback">
+                    <div className="w-full h-full relative">
                         {/* Gradient moved to upper section */}
 
                         {/* Centered pause button */}
-                        <div className="haca-360-overlay">
-                            <button className="haca-360-pause-btn" aria-label="Pause video">
+                        <div className="absolute inset-0 flex items-center justify-center z-[2]">
+                            <button className="w-[70px] h-[70px] flex items-center justify-center bg-transparent border-none cursor-pointer transition-all duration-200 ease-in hover:scale-[1.1] hover:opacity-85 max-md:w-[27.91px] max-md:h-[27.91px]" aria-label="Pause video">
                                 {/*
                                     Pause SVG — replace with:
                                     <Image src="/photos/main/pause button.svg" alt="" width={70} height={70} />
                                     once the asset is added.
                                 */}
                                 <svg
-                                    className="haca-360-pause-svg"
+                                    className="w-full h-full"
                                     viewBox="0 0 70 70"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"

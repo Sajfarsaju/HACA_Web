@@ -1,6 +1,5 @@
 import { Geist, Geist_Mono, Rethink_Sans, Outfit } from "next/font/google";
 import "../styles/globals.css";
-import "../styles/haca-360.css";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { ClientLayoutProvider } from "@/components/layout/ClientLayoutProvider";
 import Image from "next/image";
@@ -37,12 +36,12 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         {/* ── Global Page Top Gradient ── */}
-        <div className="page-top-gradient-wrap">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] h-[clamp(183px,16.2px+44.4vw,870px)] -z-10 pointer-events-none opacity-100 max-md:max-w-full">
           <Image
             src="/photos/main/bg-gradient-top.svg"
             alt=""
             fill
-            className="page-top-gradient-img"
+            className="object-cover object-top"
             priority
           />
         </div>

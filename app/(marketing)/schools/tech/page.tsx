@@ -16,33 +16,31 @@ import { TechFaq } from "@/components/layout/TechFaq";
 import { TechGlobalLearning } from "@/components/layout/TechGlobalLearning";
 import { TechQuote } from "@/components/layout/TechQuote";
 import { TechFooter } from "@/components/layout/TechFooter";
-
 export default function TechSchoolPage() {
     return (
-        /* Outermost page wrapper: max-width 1440px, position relative for bg layer */
-        <main className="tech-page-root">
+        <main className="w-full min-h-[1391px] bg-[#000210] overflow-x-hidden relative">
 
             {/* ── Page content ── */}
-            <div className="tech-page-content">
+            <div className="relative z-[2]">
                 <TechHero />
 
                 {/* ── Main sections with Image.svg background (Mobile) ── */}
-                <div className="tech-sections-container">
+                <div className="relative w-full">
 
                     {/* Background layer: Image.svg - specifically for components after hero */}
-                    <div className="tech-page-bg" aria-hidden="true">
+                    <div className="absolute top-0 left-0 w-full h-[13278px] z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
                         <Image
                             src="/photos/Tech/Image.svg"
                             alt=""
                             width={1442}
                             height={13278}
-                            className="tech-page-bg-img"
+                            className="w-full h-full object-cover object-top"
                             priority
                         />
                     </div>
 
                     {/* Content components */}
-                    <div className="tech-sections-inner">
+                    <div className="relative z-[5]">
                         <TechIntroSection />
                         <TechShowcaseSection />
                         <TechPathSection />

@@ -110,14 +110,7 @@ function FeatureCard({
     isCenter: boolean;
 }) {
     return (
-        <div style={{
-            position: "relative",
-            width: CARD_W,
-            height: 312,
-            borderRadius: 22,
-            flexShrink: 0,
-            transition: "all 0.5s ease",
-        }}>
+        <div className="relative w-[400px] h-[312px] rounded-[22px] shrink-0 transition-all duration-500 ease-in-out">
             {/* Gradient border ring */}
             <div
                 style={{
@@ -132,28 +125,19 @@ function FeatureCard({
             />
             {/* Card content */}
             <div
+                className="absolute inset-0 rounded-[22px] backdrop-blur-[24px] pt-10 pb-10 pl-[42px] pr-[42px] flex flex-col gap-5 z-[1] transition-all duration-500 ease-in-out border border-white/10"
                 style={{
-                    position: "absolute", inset: 0, borderRadius: 22,
                     background: isCenter ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.04)",
-                    backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)",
-                    paddingTop: 40, paddingBottom: 40, paddingLeft: 42, paddingRight: 42,
-                    display: "flex", flexDirection: "column", gap: 20, zIndex: 1,
-                    transition: "all 0.5s ease",
-                    border: "0.5px solid rgba(255,255,255,0.1)",
                 }}
             >
-                <div style={{ width: 48, height: 48, flexShrink: 0 }}>{card.icon}</div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                    <h3 style={{
-                        fontFamily: "var(--font-outfit)", fontWeight: 600,
-                        fontSize: 20, lineHeight: "26px", letterSpacing: "-0.01em",
-                        color: "#FFFFFF", margin: 0,
-                    }}>{card.title}</h3>
-                    <p style={{
-                        fontFamily: "var(--font-outfit)", fontWeight: 400,
-                        fontSize: 14, lineHeight: "21px", letterSpacing: "-0.1px",
-                        color: "#A7A7A7", margin: 0,
-                    }}>{card.description}</p>
+                <div className="w-12 h-12 shrink-0">{card.icon}</div>
+                <div className="flex flex-col gap-3">
+                    <h3 className="font-outfit font-semibold text-[20px] leading-[26px] tracking-[-0.01em] text-white m-0">
+                        {card.title}
+                    </h3>
+                    <p className="font-outfit font-normal text-[14px] leading-[21px] tracking-[-0.1px] text-[#A7A7A7] m-0">
+                        {card.description}
+                    </p>
                 </div>
             </div>
         </div>
@@ -183,28 +167,13 @@ export function TechWhyChoose() {
     // We render [prevIdx, active, nextIdx] always → no track needed; just swap content.
 
     return (
-        <section
-            className="w-full flex flex-col items-center relative"
-            style={{ minHeight: 940, paddingTop: "clamp(60px, 10vw, 140px)", paddingRight: "clamp(16px, 4vw, 60px)", paddingBottom: 80, paddingLeft: "clamp(16px, 4vw, 60px)", gap: 60 }}
-        >
+        <section className="w-full flex flex-col items-center relative min-h-[940px] pt-[clamp(60px,10vw,140px)] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
             {/* ── Header ── */}
-            <div style={{ zIndex: 10, position: "relative" }}
-                className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center"
-            >
-                <h2 style={{
-                    fontFamily: "var(--font-outfit)", fontWeight: 400,
-                    fontSize: "clamp(32px, 5vw, 60px)", lineHeight: "62px",
-                    letterSpacing: "-0.02em", color: "#FFFFFF", textAlign: "center",
-                    textTransform: "capitalize", maxWidth: 938, margin: 0,
-                }}>
+            <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-10 relative">
+                <h2 className="font-outfit font-normal text-[clamp(32px,5vw,60px)] leading-[62px] tracking-[-0.02em] text-white text-center capitalize max-w-[938px] m-0">
                     Why Choose Smarter Learning with<br className="hidden md:block" /> Us?
                 </h2>
-                <p style={{
-                    fontFamily: "var(--font-outfit)", fontWeight: 400,
-                    fontSize: "clamp(16px, 2vw, 24px)", lineHeight: "33.6px",
-                    letterSpacing: "-0.2px", color: "#A7A7A7", textAlign: "center",
-                    maxWidth: 1128, margin: 0,
-                }}>
+                <p className="font-outfit font-normal text-[clamp(16px,2vw,24px)] leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7] text-center max-w-[1128px] m-0">
                     Tech School by Haris&amp;Co Academy is a beginner-friendly, industry-aligned tech learning program
                     designed to help students and professionals build strong foundations in software, design, and digital skills.
                 </p>
@@ -213,29 +182,25 @@ export function TechWhyChoose() {
             {/* ── Card row ── */}
             {isMobile ? (
                 /* Mobile: single full-width card, swipe via arrows */
-                <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
-                    <div style={{ width: "100%", maxWidth: 360 }}>
+                <div className="w-full flex flex-col items-center gap-5">
+                    <div className="w-full max-w-[360px]">
                         <FeatureCard card={CARDS[active]} isCenter={true} />
                     </div>
                     {/* Mobile nav arrows */}
-                    <div style={{ display: "flex", gap: 16 }}>
+                    <div className="flex gap-4">
                         <button
                             onClick={() => setActive(p => (p - 1 + TOTAL) % TOTAL)}
-                            style={{ width: 40, height: 40, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)", cursor: "pointer", color: "white", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}
+                            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 cursor-pointer text-white text-[18px] flex items-center justify-center hover:bg-white/10 transition-colors"
                         >‹</button>
                         <button
                             onClick={() => setActive(p => (p + 1) % TOTAL)}
-                            style={{ width: 40, height: 40, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)", cursor: "pointer", color: "white", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}
+                            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 cursor-pointer text-white text-[18px] flex items-center justify-center hover:bg-white/10 transition-colors"
                         >›</button>
                     </div>
                 </div>
             ) : (
                 /* Desktop: 3-card stagger carousel */
-                <div style={{
-                    position: "relative", zIndex: 10,
-                    width: "100%", maxWidth: 1320,
-                    height: 448, overflow: "hidden",
-                }}>
+                <div className="relative z-10 w-full max-w-[1320px] h-[448px] overflow-hidden">
                     <TrackCarousel active={active} prevIdx={prevIdx} nextIdx={nextIdx} />
                 </div>
             )}
@@ -279,48 +244,19 @@ function TrackCarousel({
     const resetOffset = trackOffset % (TOTAL * STEP);
 
     return (
-        <div
-            style={{
-                // Three-card fixed stagger: positions are static, only content changes.
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-start",
-                gap: GAP,
-                justifyContent: "center",
-                height: 448,
-            }}
-        >
+        <div className="absolute top-0 left-0 w-full flex flex-row items-start justify-center h-[448px]" style={{ gap: GAP }}>
             {/* LEFT */}
-            <div style={{
-                transform: "translateY(136px)",
-                opacity: 1,
-                transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-                flexShrink: 0,
-            }}>
+            <div className="opacity-100 shrink-0 transition-all duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] translate-y-[136px]">
                 <FeatureCard card={CARDS[prevIdx]} isCenter={true} />
             </div>
 
             {/* CENTER (elevated) */}
-            <div style={{
-                transform: "translateY(0px)",
-                opacity: 1,
-                transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-                flexShrink: 0,
-            }}>
+            <div className="opacity-100 shrink-0 transition-all duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] translate-y-0">
                 <FeatureCard card={CARDS[active]} isCenter={true} />
             </div>
 
             {/* RIGHT */}
-            <div style={{
-                transform: "translateY(136px)",
-                opacity: 1,
-                transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-                flexShrink: 0,
-            }}>
+            <div className="opacity-100 shrink-0 transition-all duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] translate-y-[136px]">
                 <FeatureCard card={CARDS[nextIdx]} isCenter={true} />
             </div>
         </div>

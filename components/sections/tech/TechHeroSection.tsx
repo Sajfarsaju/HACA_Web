@@ -23,7 +23,7 @@ export default function TechHero() {
         const update = () => {
             const containerWidth = window.innerWidth;
             setDesktopScale(containerWidth / DESIGN_W);
-            setMobileScale(window.innerWidth / MOBILE_DESIGN_W);
+            setMobileScale(containerWidth / MOBILE_DESIGN_W);
         };
         update();
         window.addEventListener("resize", update);
@@ -35,34 +35,33 @@ export default function TechHero() {
                 DESKTOP HERO (hidden on mobile <= 768px)
                 ══════════════════════════════════════════════ */}
             <div
-                className="tech-main-hero-wrapper"
+                className="hidden md:block w-full overflow-hidden relative z-20 bg-[#000000]"
                 style={{
                     height: `${DESIGN_H * desktopScale}px`,
                 }}
             >
                 {/* ── Inner canvas — scaled from top-left corner ── */}
                 <section
-                    className="tech-main-hero-canvas"
+                    className="w-[1440px] h-[1044px] absolute top-0 left-1/2"
                     style={{
                         transform: `translateX(-50%) scale(${desktopScale})`,
                         transformOrigin: "top center",
-                        left: "50%",
                     }}
                 >
                     {/* ... (rest of desktop content) ... */}
                     {/* ── GRADIENT + ELLIPSE layer ── */}
-                    <div className="tech-main-hero-bg-layer">
+                    <div className="absolute w-[1593.45px] h-[304px] top-[-29px] left-[-36px] opacity-100 z-0 pointer-events-none">
                         {/* Base gradient */}
                         <Image
                             src="/photos/Tech/Gradiant.svg"
                             alt="Gradient"
                             fill
-                            className="tech-main-hero-bg-img"
+                            className="!object-cover"
                             priority
                         />
 
                         {/* Ellipse 2 — layered on top of the gradient */}
-                        <div className="tech-main-hero-ellipse-wrap">
+                        <div className="absolute inset-0 z-[1]">
                             <Image
                                 src="/photos/Tech/Ellipse 2.svg"
                                 alt="Ellipse Gradient"
@@ -74,9 +73,9 @@ export default function TechHero() {
                     </div>
 
                     {/* ── HEADER ── */}
-                    <header className="tech-main-hero-header">
+                    <header className="absolute w-[1320px] h-[44px] top-[55px] left-[60px] flex justify-between items-center z-10">
                         {/* Logo */}
-                        <div className="tech-main-hero-logo">
+                        <div className="w-[203px] h-[36px] relative shrink-0">
                             <Image
                                 src="/photos/Tech/tech PW 1.svg"
                                 alt="Tech PW Logo"
@@ -87,7 +86,7 @@ export default function TechHero() {
                         </div>
 
                         {/* Nav links */}
-                        <div className="tech-main-hero-nav">
+                        <div className="w-[500px] h-[20px] flex items-center gap-[50px] relative shrink-0">
                             <Image
                                 src="/photos/Tech/Frame 1984078067.svg"
                                 alt="Navigation Links"
@@ -98,7 +97,7 @@ export default function TechHero() {
                         </div>
 
                         {/* Join Now CTA */}
-                        <div className="tech-main-hero-cta">
+                        <div className="w-[118px] h-[44px] rounded-[8px] border border-transparent p-[10px] flex items-center justify-center gap-[8px] relative shrink-0">
                             <Image
                                 src="/photos/Tech/Join Now.svg"
                                 alt="Join Now"
@@ -110,22 +109,22 @@ export default function TechHero() {
                     </header>
 
                     {/* ── HERO TEXT SECTION ── */}
-                    <div className="tech-main-hero-text-section">
+                    <div className="absolute w-[472px] h-[320px] top-[249px] left-[151px] flex flex-col gap-[6px] z-[5]">
                         {/* Sub-heading */}
-                        <div className="tech-main-hero-subheading">
+                        <div className="w-[472px] h-[24px] font-outfit font-light text-[20px] leading-[1.2] text-white whitespace-nowrap">
                             School for the Tech Evolution
                         </div>
 
                         {/* Main heading + button wrapper */}
-                        <div className="tech-main-hero-heading-block">
+                        <div className="w-[472px] h-[286px] flex flex-col gap-[20px]">
                             {/* Main heading */}
-                            <div className="tech-main-hero-title">
+                            <div className="w-[411px] h-[222px] font-outfit font-normal text-[74px] leading-none tracking-[-0.02em] text-white">
                                 Be Part of <br />
                                 What&apos;s Next in Tech
                             </div>
 
                             {/* Button */}
-                            <div className="tech-main-hero-btn">
+                            <div className="w-[200px] h-[64px] gap-[12px] opacity-100 border-[1.5px] border-solid border-transparent rounded-[14px] px-[30px] py-[20px] flex items-center justify-center relative rotate-0">
                                 <Image
                                     src="/photos/Tech/Button Container (2).svg"
                                     alt="Get Started"
@@ -138,7 +137,7 @@ export default function TechHero() {
                     </div>
 
                     {/* ── HERO IMAGE (bust) ── */}
-                    <div className="tech-main-hero-bust">
+                    <div className="absolute w-[500px] h-[589px] top-[280.34px] left-[829px] z-[4]">
                         <Image
                             src="/photos/Tech/freepik__a-closeup-profile-shot-shows-a-dark-metallic-bust-__44477 (1) 1.png"
                             alt="Tech Bust"
@@ -149,9 +148,9 @@ export default function TechHero() {
                     </div>
 
                     {/* ── SOCIAL ICONS (left sidebar) ── */}
-                    <div className="tech-main-hero-socials">
+                    <div className="absolute w-[36px] h-[157.5px] top-[411px] left-[51px] flex flex-col gap-[24.75px] items-center z-[6]">
                         {/* Instagram */}
-                        <div className="tech-main-hero-social-icon">
+                        <div className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px]">
                             <Image
                                 src="/photos/Tech/Social Icons.svg"
                                 alt="Instagram"
@@ -162,7 +161,7 @@ export default function TechHero() {
                         </div>
 
                         {/* Facebook */}
-                        <div className="tech-main-hero-social-icon">
+                        <div className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px]">
                             <Image
                                 src="/photos/Tech/uil_facebook.svg"
                                 alt="Facebook"
@@ -173,7 +172,7 @@ export default function TechHero() {
                         </div>
 
                         {/* YouTube */}
-                        <div className="tech-main-hero-social-icon">
+                        <div className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px]">
                             <Image
                                 src="/photos/Tech/mdi_youtube.svg"
                                 alt="YouTube"
@@ -185,14 +184,14 @@ export default function TechHero() {
                     </div>
 
                     {/* ── COHORT / SKILLS INFO BLOCK ── */}
-                    <div className="tech-main-hero-info-block">
+                    <div className="absolute w-[254.5px] h-[133px] top-[603px] left-[542px] z-[6]">
                         {/* "Practical Tech Skills" label */}
-                        <div className="tech-main-hero-info-label-top">
+                        <div className="absolute w-[120px] h-[36px] top-0 left-[3px] font-outfit font-normal text-[14px] leading-[1.1] text-white flex items-center">
                             Practical <br /> Tech Skills
                         </div>
 
                         {/* Vector line 1 */}
-                        <div className="tech-main-hero-vector-line tech-main-hero-vector-1">
+                        <div className="absolute pointer-events-none w-[254.5px] h-[30px] top-[23px] left-0">
                             <Image
                                 src="/photos/Tech/Vector 3 (1).svg"
                                 alt="Vector 1"
@@ -202,7 +201,7 @@ export default function TechHero() {
                         </div>
 
                         {/* Arrow 2 */}
-                        <div className="tech-main-hero-arrow tech-main-hero-arrow-2">
+                        <div className="absolute pointer-events-none w-[12.73px] h-[12.73px] top-[5px] left-[238.5px]">
                             <Image
                                 src="/photos/Tech/Arrow 2.svg"
                                 alt="Arrow 2"
@@ -213,12 +212,12 @@ export default function TechHero() {
                         </div>
 
                         {/* "Cohort Learning" label */}
-                        <div className="tech-main-hero-info-label-bottom">
+                        <div className="absolute w-[143px] h-[36px] top-[80px] left-[2.5px] font-outfit font-normal text-[14px] leading-none text-white flex items-center">
                             Cohort <br /> Learning
                         </div>
 
                         {/* Vector line 3 */}
-                        <div className="tech-main-hero-vector-line tech-main-hero-vector-3">
+                        <div className="absolute pointer-events-none w-[254.5px] h-[30px] top-[103px] left-0">
                             <Image
                                 src="/photos/Tech/Vector 3.svg"
                                 alt="Vector 3"
@@ -228,7 +227,7 @@ export default function TechHero() {
                         </div>
 
                         {/* Arrow 1 */}
-                        <div className="tech-main-hero-arrow tech-main-hero-arrow-1">
+                        <div className="absolute pointer-events-none w-[12.73px] h-[12.73px] top-[91.5px] left-[236.64px] rotate-0">
                             <Image
                                 src="/photos/Tech/Arrow 1.svg"
                                 alt="Arrow 1"
@@ -240,7 +239,7 @@ export default function TechHero() {
                     </div>
 
                     {/* ── WHATSAPP FLOATING BUTTON ── */}
-                    <div className="tech-main-hero-whatsapp">
+                    <div className="absolute w-[100px] h-[100px] rounded-[200px] border border-white/30 top-[719px] left-[1302px] flex items-center justify-center py-[15px] px-[20px] gap-[10px] z-[8] cursor-pointer bg-white/5 rotate-0 opacity-100">
                         <Image
                             src="/photos/Tech/ic_baseline-whatsapp.svg"
                             alt="WhatsApp"
@@ -251,23 +250,23 @@ export default function TechHero() {
                     </div>
 
                     {/* ── BOTTOM STATS BAR ── */}
-                    <div className="tech-main-hero-stats-bar">
+                    <div className="absolute w-[1322px] h-[90px] rounded-[20px] border border-solid top-[826px] left-[60px] flex justify-center items-center py-[20px] px-[40px] gap-[80px] z-[7] bg-[#A3A3A3]/[.15] backdrop-blur-[51.4px] rotate-0 opacity-100" style={{ borderImage: "linear-gradient(90deg, rgba(255, 86, 0, 0.68) 0%, rgba(105, 74, 255, 0.68) 100%) 1" }}>
                         {/* Stat 1 */}
-                        <div className="tech-main-hero-stat-item tech-main-hero-stat-13">
+                        <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
                             <Image src="/photos/Tech/200+.svg" alt="200+" width={95} height={30} style={{ objectFit: "contain" }} priority />
-                            <span className="tech-stat-label">Students Learned</span>
+                            <span className="flex items-center font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100">Students Learned</span>
                         </div>
 
                         {/* Stat 2 */}
-                        <div className="tech-main-hero-stat-item tech-main-hero-stat-14">
+                        <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
                             <Image src="/photos/Tech/100-percent.svg" alt="100%" width={93} height={30} style={{ objectFit: "contain" }} priority />
-                            <span className="tech-stat-label">Placement Support</span>
+                            <span className="flex items-center font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100">Placement Support</span>
                         </div>
 
                         {/* Stat 3 */}
-                        <div className="tech-main-hero-stat-item tech-main-hero-stat-16">
+                        <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
                             <Image src="/photos/Tech/500+.svg" alt="500+" width={95} height={30} style={{ objectFit: "contain" }} priority />
-                            <span className="tech-stat-label">Projects Completed</span>
+                            <span className="flex items-center font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100">Projects Completed</span>
                         </div>
                     </div>
 
@@ -278,13 +277,13 @@ export default function TechHero() {
                 MOBILE HERO (visible only on <= 768px)
                 ══════════════════════════════════════════════ */}
             <div
-                className="tech-mobile-hero-wrapper"
+                className="block md:hidden relative w-full bg-black overflow-hidden"
                 style={{
                     height: `${MOBILE_DESIGN_H * mobileScale}px`,
                 }}
             >
                 <div
-                    className="tech-mobile-hero-canvas"
+                    className="absolute top-0 left-0 w-[375px]"
                     style={{
                         transform: `translateX(-50%) scale(${mobileScale})`,
                         transformOrigin: "top center",
@@ -292,8 +291,8 @@ export default function TechHero() {
                     }}
                 >
                     {/* ── Mobile Background ellipses ── */}
-                    <div className="tech-mobile-bg-wrap" aria-hidden="true">
-                        <div className="tech-mobile-gradient-wrap">
+                    <div className="absolute inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true">
+                        <div className="absolute w-[561.55px] h-[105px] top-0 left-[-93px] rotate-0 opacity-100">
                             <Image
                                 src="/photos/Tech/Gradient.svg"
                                 alt=""
@@ -303,7 +302,7 @@ export default function TechHero() {
                                 priority
                             />
                         </div>
-                        <div className="tech-mobile-ellipse-1-wrap">
+                        <div className="absolute w-[557.16px] h-[119px] top-[-14px] left-[-93px] -rotate-[179.33deg] opacity-80 blur-[44.86px] pointer-events-none bg-[linear-gradient(261.66deg,#FF5600_17.08%,#694AFF_72.9%)]">
                             <Image
                                 src="/photos/Tech/Ellipse 1.svg"
                                 alt=""
@@ -312,7 +311,7 @@ export default function TechHero() {
                                 priority
                             />
                         </div>
-                        <div className="tech-mobile-ellipse-2-wrap">
+                        <div className="absolute w-[345.93px] h-[90px] top-[14.65px] left-[0.91px] -rotate-[177.88deg] opacity-60 blur-[57.16px] z-[2]">
                             <Image
                                 src="/photos/Tech/Ellipse 2 (1).svg"
                                 alt=""
@@ -324,8 +323,8 @@ export default function TechHero() {
                     </div>
 
                     {/* ── Mobile Navbar (375 × 63) ── */}
-                    <nav className="tech-mobile-nav">
-                        <div className="tech-mobile-nav-logo">
+                    <nav className="relative z-10 w-[375px] max-w-full h-[63px] flex justify-between items-center px-[16px] py-[20px] box-border">
+                        <div className="w-[130px] h-[23px] relative shrink-0">
                             <Image
                                 src="/photos/Tech/tech PW 1.svg"
                                 alt="HACA Tech School"
@@ -335,7 +334,7 @@ export default function TechHero() {
                                 priority
                             />
                         </div>
-                        <div className="tech-mobile-nav-menu">
+                        <div className="w-[16px] h-[16px] flex items-center justify-center gap-[4px] shrink-0">
                             <Image
                                 src="/photos/Tech/Frame 68.svg"
                                 alt="Menu"
@@ -347,23 +346,23 @@ export default function TechHero() {
                     </nav>
 
                     {/* ── Mobile content area (374 × 643) ── */}
-                    <div className="tech-mobile-content">
+                    <div className="relative z-[2] w-[374px] max-w-full h-[643px] mx-auto overflow-hidden">
 
                         {/* ── Top block: text + button (374 × 184) ── */}
-                        <div className="tech-mobile-top-block">
-                            <div className="tech-mobile-text-block">
+                        <div className="relative w-[373px] h-[184px] pt-[20px] px-[16px] pb-0 flex flex-col items-center gap-[15px] box-border">
+                            <div className="w-[341px] h-[109px] flex flex-col items-center gap-[10px]">
                                 {/* Subheading (341 × 19) */}
-                                <div className="tech-mobile-subheading">
+                                <div className="w-[341px] h-[19px] font-outfit font-light text-[13px] leading-none text-white whitespace-nowrap overflow-hidden text-center">
                                     School for the Tech Evolution
                                 </div>
                                 {/* Main title (341 × 80) */}
-                                <div className="tech-mobile-title">
+                                <div className="w-[341px] h-[80px] font-outfit font-normal text-[32px] leading-none tracking-[-0.02em] text-white text-center">
                                     Be Part of <br />What&apos;s Next in Tech
                                 </div>
                             </div>
 
                             {/* CTA Button (107 × 40) */}
-                            <div className="tech-mobile-btn">
+                            <div className="w-[207px] h-[40px] rounded-[10px] border-[0.87px] border-solid border-transparent px-[18px] py-[14px] flex items-center justify-center gap-[8px] box-border relative shrink-0 rotate-0 opacity-100">
                                 <Image
                                     src="/photos/Tech/Button Container (2).svg"
                                     alt="I&apos;m Ready"
@@ -375,7 +374,7 @@ export default function TechHero() {
                         </div>
 
                         {/* ── Bust image (230 × 271) ── */}
-                        <div className="tech-mobile-bust">
+                        <div className="absolute w-[230px] h-[270.94px] top-[210.84px] left-[131.5px] z-[3]">
                             <Image
                                 src="/photos/Tech/freepik__a-closeup-profile-shot-shows-a-dark-metallic-bust-__44477 (1) 1.png"
                                 alt="Tech Bust"
@@ -386,41 +385,41 @@ export default function TechHero() {
                         </div>
 
                         {/* ── Info block (125 × 90) ── */}
-                        <div className="tech-mobile-info-block">
-                            <div className="tech-main-hero-info-label-top">
+                        <div className="absolute w-[125px] h-[90px] top-[362.95px] left-[14.5px] z-[4]">
+                            <div className="absolute w-[60px] h-[24px] text-[9px] top-0 left-0 font-outfit font-normal leading-[1.1] text-white flex items-center">
                                 Practical <br /> Tech Skills
                             </div>
-                            <div className="tech-main-hero-vector-line tech-main-hero-vector-1">
+                            <div className="absolute pointer-events-none w-[110px] h-[15px] top-[12px] left-0">
                                 <Image src="/photos/Tech/Vector 3 (1).svg" alt="Vector 1" fill style={{ objectFit: "cover" }} />
                             </div>
-                            <div className="tech-main-hero-arrow tech-main-hero-arrow-2">
+                            <div className="absolute pointer-events-none w-[8px] h-[8px] top-[3px] left-[100px]">
                                 <Image src="/photos/Tech/Arrow 2.svg" alt="Arrow 2" width={13} height={13} style={{ objectFit: "contain" }} />
                             </div>
-                            <div className="tech-main-hero-info-label-bottom">
+                            <div className="absolute w-[70px] h-[24px] font-outfit font-normal text-[9px] leading-none text-white flex items-center top-[44px] left-0">
                                 Cohort <br /> Learning
                             </div>
-                            <div className="tech-main-hero-vector-line tech-main-hero-vector-3">
+                            <div className="absolute pointer-events-none w-[110px] h-[15px] top-[60px] left-0">
                                 <Image src="/photos/Tech/Vector 3.svg" alt="Vector 3" fill style={{ objectFit: "cover" }} />
                             </div>
-                            <div className="tech-main-hero-arrow tech-main-hero-arrow-1">
+                            <div className="absolute pointer-events-none w-[8px] h-[8px] top-[52px] left-[100px] rotate-0">
                                 <Image src="/photos/Tech/Arrow 1.svg" alt="Arrow 1" width={13} height={13} style={{ objectFit: "contain" }} />
                             </div>
                         </div>
 
                         {/* ── Mobile Stats Bar (345 × 174) ── */}
-                        <div className="tech-mobile-stats-bar">
-                            <div className="tech-mobile-stats-inner">
-                                <div className="tech-mobile-stat-row tech-mobile-stat-row-1">
+                        <div className="absolute w-[345px] h-[174px] top-[468.95px] left-[14.5px] rounded-[20px] border border-solid border-[#A3A3A3]/40 px-[40px] py-[20px] gap-[40px] box-border flex items-center justify-center z-[5] bg-[#A3A3A3]/[.15] backdrop-blur-[51.4px] rotate-0 opacity-100">
+                            <div className="w-[235px] h-[134px] flex flex-col gap-[10px]">
+                                <div className="w-[220px] h-[38px] flex gap-[10px] items-center opacity-100 rotate-0">
                                     <Image src="/photos/Tech/200+.svg" alt="200+" width={72} height={22} style={{ objectFit: "contain" }} priority />
-                                    <span className="tech-mobile-stat-label">Students Learned</span>
+                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[138px]">Students Learned</span>
                                 </div>
-                                <div className="tech-mobile-stat-row tech-mobile-stat-row-2">
+                                <div className="w-[231px] h-[38px] flex gap-[11px] items-center opacity-100 rotate-0">
                                     <Image src="/photos/Tech/100-percent.svg" alt="100%" width={70} height={22} style={{ objectFit: "contain" }} priority />
-                                    <span className="tech-mobile-stat-label">Placement Support</span>
+                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[150px]">Placement Support</span>
                                 </div>
-                                <div className="tech-mobile-stat-row tech-mobile-stat-row-3">
+                                <div className="w-[235px] h-[38px] flex gap-[8px] items-center opacity-100 rotate-0">
                                     <Image src="/photos/Tech/500+.svg" alt="500+" width={73} height={22} style={{ objectFit: "contain" }} priority />
-                                    <span className="tech-mobile-stat-label">Projects Completed</span>
+                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[154px]">Projects Completed</span>
                                 </div>
                             </div>
                         </div>
@@ -429,7 +428,7 @@ export default function TechHero() {
             </div>
 
             {/* ── Mobile Background Image (below hero, mobile only) ── */}
-            <div className="tech-mobile-bg-image-wrap">
+            <div className="block md:hidden w-full">
                 <Image
                     src="/photos/Tech/Image.png"
                     alt="Tech Background"

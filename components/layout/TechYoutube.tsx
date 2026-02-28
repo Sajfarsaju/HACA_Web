@@ -60,97 +60,58 @@ export function TechYoutube() {
 
     return (
         <section
-            style={{
-                backgroundColor: "transparent",
-                minHeight: windowWidth < 640 ? "auto" : "828px",
-                padding: windowWidth < 640 ? "60px 0" : "100px 0",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: windowWidth < 640 ? "36px" : "60px",
-                width: "100%",
-            }}
-            className="w-full relative overflow-hidden"
+            className="w-full relative overflow-hidden bg-transparent flex flex-col items-center justify-center min-h-auto py-[60px] gap-[36px] sm:min-h-[828px] sm:py-[100px] sm:gap-[60px]"
         >
             {/* Left Gradient Decorations */}
-            <div style={{ position: "absolute", top: "55%", left: 0, transform: "translateY(-50%)", zIndex: 0, pointerEvents: "none" }}>
+            <div className="absolute top-[55%] left-0 -translate-y-1/2 z-0 pointer-events-none">
                 <Image
                     src="/photos/schools/tech/youtubGradientLeft1.svg"
                     alt=""
                     width={658}
                     height={1062}
-                    style={{ display: "block", marginLeft: "-120px" }}
+                    className="block -ml-[120px]"
                 />
                 <Image
                     src="/photos/schools/tech/youtubGradientLeft2.svg"
                     alt=""
                     width={443}
                     height={923}
-                    style={{ position: "absolute", top: "55%", left: "-60px", transform: "translateY(-50%)" }}
+                    className="absolute top-[55%] left-[-60px] -translate-y-1/2"
                 />
             </div>
 
             {/* Right Gradient Decorations */}
-            <div style={{ position: "absolute", top: "55%", right: 0, transform: "translateY(-50%)", zIndex: 0, pointerEvents: "none" }}>
+            <div className="absolute top-[55%] right-0 -translate-y-1/2 z-0 pointer-events-none">
                 <Image
                     src="/photos/schools/tech/youtubGradientRight1.svg"
                     alt=""
                     width={658}
                     height={1062}
-                    style={{ display: "block", marginRight: "-120px" }}
+                    className="block -mr-[120px]"
                 />
                 <Image
                     src="/photos/schools/tech/youtubGradientRight2.svg"
                     alt=""
                     width={443}
                     height={923}
-                    style={{ position: "absolute", top: "55%", right: "-60px", transform: "translateY(-50%)" }}
+                    className="absolute top-[55%] right-[-60px] -translate-y-1/2"
                 />
             </div>
 
             {/* Header */}
-            <div style={{ zIndex: 10 }} className="flex flex-col items-center gap-4 text-center px-6">
-                <h2
-                    style={{
-                        fontFamily: "var(--font-outfit)",
-                        fontWeight: 400,
-                        fontSize: "clamp(28px, 5vw, 60px)",
-                        lineHeight: "1.1",
-                        letterSpacing: "-0.02em",
-                        color: "#FFFFFF",
-                        maxWidth: "1440px",
-                    }}
-                >
+            <div className="z-10 flex flex-col items-center gap-4 text-center px-6">
+                <h2 className="font-outfit font-normal text-[clamp(28px,5vw,60px)] leading-[1.1] tracking-[-0.02em] text-[#FFFFFF] max-w-[1440px]">
                     Insights We Share on YouTube
                 </h2>
-                <p
-                    style={{
-                        fontFamily: "var(--font-outfit)",
-                        fontWeight: 400,
-                        fontSize: "clamp(14px, 2vw, 24px)",
-                        lineHeight: "140%",
-                        letterSpacing: "-0.2px",
-                        color: "#A7A7A7",
-                        maxWidth: "1029px",
-                    }}
-                >
+                <p className="font-outfit font-normal text-[clamp(14px,2vw,24px)] leading-[140%] tracking-[-0.2px] text-[#A7A7A7] max-w-[1029px]">
                     Our YouTube content reflects ongoing lessons from work in progress, evolving trends, experiments, and outcomes.
                 </p>
             </div>
 
             {/* Carousel Stage */}
             <div
-                style={{
-                    zIndex: 10,
-                    width: "100%",
-                    height: `${centerH + 40}px`,
-                    position: "relative",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    overflow: "hidden",
-                }}
+                className="z-10 w-full relative flex items-center justify-center overflow-hidden"
+                style={{ height: `${centerH + 40}px` }}
             >
                 {THUMBNAILS.map((thumb, i) => {
                     const offset = getOffset(i, active, total);
@@ -177,12 +138,11 @@ export function TechYoutube() {
                                 if (offset === -1) prev();
                                 if (offset === 1) next();
                             }}
+                            className={`absolute overflow-hidden ${isCenter ? 'cursor-default z-[2]' : 'cursor-pointer z-[1]'} ${isVisible ? 'pointer-events-auto' : 'pointer-events-none'}`}
                             style={{
-                                position: "absolute",
                                 width: `${cardW}px`,
                                 height: `${cardH}px`,
                                 borderRadius: isCenter ? "23.57px" : "19.64px",
-                                overflow: "hidden",
                                 background: isCenter
                                     ? `linear-gradient(#111111, #111111) padding-box, linear-gradient(90deg, rgba(255, 86, 0, 0.68) 0%, rgba(105, 74, 255, 0.68) 100%) border-box`
                                     : "transparent",
@@ -193,9 +153,6 @@ export function TechYoutube() {
                                 transform: `translateX(${translateX}px) scale(${isCenter ? 1 : 0.96})`,
                                 opacity: isCenter ? 1 : isVisible ? 0.55 : 0,
                                 transition: "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, width 0.5s ease, height 0.5s ease, box-shadow 0.5s ease",
-                                cursor: isCenter ? "default" : "pointer",
-                                zIndex: isCenter ? 2 : 1,
-                                pointerEvents: isVisible ? "auto" : "none",
                             }}
                         >
                             <Image src={thumb.src} alt={thumb.alt} fill className="object-fill" />
@@ -213,46 +170,18 @@ export function TechYoutube() {
             </div>
 
             {/* Navigation Controls */}
-            <div style={{ zIndex: 10 }} className="flex gap-4">
+            <div className="z-10 flex gap-4">
                 <button
                     onClick={prev}
                     aria-label="Previous"
-                    style={{
-                        width: "33.48px",
-                        height: "33.48px",
-                        borderRadius: "50%",
-                        border: "0.72px solid #FFFFFF",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        background: "#000000",
-                        flexShrink: 0,
-                        transform: "rotate(90deg)",
-                        cursor: "pointer",
-                        transition: "opacity 0.2s ease",
-                    }}
-                    className="hover:!opacity-100"
+                    className="w-[33.48px] h-[33.48px] rounded-full border-[0.72px] border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 rotate-90 cursor-pointer transition-opacity duration-200 hover:!opacity-100 opacity-80"
                 >
                     <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt="prev" width={12} height={12} className="brightness-0 invert" />
                 </button>
                 <button
                     onClick={next}
                     aria-label="Next"
-                    style={{
-                        width: "33.48px",
-                        height: "33.48px",
-                        borderRadius: "50%",
-                        border: "0.72px solid #FFFFFF",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        background: "#000000",
-                        flexShrink: 0,
-                        transform: "rotate(-90deg)",
-                        cursor: "pointer",
-                        transition: "opacity 0.2s ease",
-                    }}
-                    className="hover:!opacity-80"
+                    className="w-[33.48px] h-[33.48px] rounded-full border-[0.72px] border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 -rotate-90 cursor-pointer transition-opacity duration-200 hover:!opacity-80"
                 >
                     <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt="next" width={12} height={12} className="brightness-0 invert" />
                 </button>

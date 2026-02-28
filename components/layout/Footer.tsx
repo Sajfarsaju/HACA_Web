@@ -20,7 +20,7 @@ export function Footer() {
                     <div className="col-span-2 lg:col-span-2">
                         <Link href="/" className="flex items-center gap-2 mb-6">
                             <Image
-                                src="/photos/common/Logo_Desktop.png"
+                                src="/photos/common/haca logo.svg"
                                 alt="HACA Logo"
                                 width={106}
                                 height={31}

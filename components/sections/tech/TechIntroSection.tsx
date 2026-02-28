@@ -64,29 +64,29 @@ const TECH_ICONS: { src: string; alt: string; innerW: number; innerH: number; in
 
 export function TechIntroSection() {
     return (
-        <div className="tech-hero-outer">
+        <div className="w-full pl-[62px] pr-[56px] pt-[80px] max-[1440px]:px-[40px] max-[1200px]:px-[30px] max-lg:px-[24px] max-lg:pt-[60px] max-md:px-[20px] max-md:pt-[40px] max-[480px]:pt-[30px] max-[375px]:pt-[40px] max-[375px]:pb-[10px]">
             {/* ── Inner row: left col + right col ── */}
-            <div className="tech-hero-row">
+            <div className="w-full max-w-[1322px] flex flex-row items-center gap-[143px] min-h-[380px] mx-auto max-[1440px]:gap-[80px] max-[1200px]:gap-[50px] max-lg:flex-col max-lg:gap-[40px] max-lg:items-start max-[375px]:gap-[30px]">
 
                 {/* ── LEFT COLUMN: Heading + Icon row ── */}
-                <div className="tech-hero-left-col">
+                <div className="relative z-10 flex flex-col gap-[20px] flex-[0_0_438px] max-w-[438px] h-[179.61px] justify-center max-[1440px]:flex-[0_0_380px] max-[1440px]:max-w-[380px] max-[1200px]:flex-[0_0_320px] max-[1200px]:max-w-[320px] max-lg:flex-[0_0_auto] max-lg:max-w-full max-lg:w-full max-[375px]:flex-none max-[375px]:gap-[15.75px]">
 
                     {/* Heading */}
-                    <div className="tech-hero-heading-wrap">
-                        <p className="tech-hero-heading">A New Ecosystem for Tech Learning</p>
+                    <div className="w-[438px] min-h-[112px] max-[1440px]:w-full max-lg:min-h-fit max-md:min-h-fit max-[480px]:min-h-fit max-[375px]:w-[237px] max-[375px]:min-h-[66px] max-[375px]:max-h-none max-[375px]:overflow-visible">
+                        <p className="font-outfit font-normal text-[56px] leading-none tracking-[-0.02em] text-white m-0 max-[1440px]:text-[48px] max-[1200px]:text-[40px] max-lg:text-[44px] max-md:text-[32px] max-md:leading-[1.1] max-[480px]:text-[26px] max-[375px]:text-[22px]">A New Ecosystem for Tech Learning</p>
                     </div>
 
                     {/* Icon Row */}
-                    <div className="tech-hero-icon-row">
+                    <div className="flex flex-row items-center gap-[17.46px] w-[438px] h-[47.61px] flex-wrap max-[1440px]:w-full max-lg:h-auto max-md:gap-[12px] max-[480px]:gap-[10px]">
                         {TECH_ICONS.map((icon) => (
-                            <div className="tech-icon-slot" key={icon.alt}>
+                            <div className="w-[47.61px] h-[47.61px] shrink-0 flex items-center justify-center relative overflow-visible max-md:w-[36px] max-md:h-[36px] max-[480px]:w-[32px] max-[480px]:h-[32px]" key={icon.alt}>
                                 {/* Width/height set to 48 as a layout hint; actual display size controlled by CSS */}
                                 <Image
                                     src={icon.src}
                                     alt={icon.alt}
                                     width={48}
                                     height={48}
-                                    className="tech-icon-img"
+                                    className="w-full h-full object-contain"
                                 />
                             </div>
                         ))}
@@ -94,8 +94,8 @@ export function TechIntroSection() {
                 </div>
 
                 {/* ── RIGHT COLUMN: Description ── */}
-                <div className="tech-hero-right-col">
-                    <p className="tech-hero-description">
+                <div className="relative z-10 flex-[0_0_668px] max-w-[668px] min-h-[380px] flex items-center max-[1440px]:flex-[1_1_auto] max-[1440px]:max-w-none max-lg:flex-[0_0_auto] max-lg:max-w-full max-lg:w-full max-lg:min-h-fit">
+                    <p className="font-outfit font-normal text-[30px] leading-[1.25] tracking-[-1px] text-white m-0 align-middle max-[1440px]:text-[26px] max-[1200px]:text-[22px] max-lg:text-[20px] max-md:text-[18px] max-[480px]:text-[16px] max-[480px]:tracking-normal">
                         HACA Tech School is where the next generation of tech creators come to
                         learn, build, and launch their careers. We teach the skills that companies
                         actually want today: AI tools, Python, Django, data analytics, automation,

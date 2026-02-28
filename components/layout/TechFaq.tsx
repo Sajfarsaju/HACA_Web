@@ -35,78 +35,36 @@ export function TechFaq() {
 
     return (
         <section
-            style={{
-                backgroundColor: "transparent",
-                opacity: 1,
-            }}
-            className="w-full relative overflow-hidden flex flex-col items-center justify-center py-8 px-6 md:py-16 md:px-10 lg:p-0 lg:h-[862px] min-h-[400px]"
+            className="w-full relative overflow-hidden flex flex-col items-center justify-center py-8 px-6 md:py-16 md:px-10 lg:p-0 lg:h-[862px] min-h-[400px] bg-transparent opacity-100"
         >
             {/* 2️⃣ Top Fade Overlay (zIndex 5) - Cinematic transition from previous section */}
             <div
+                className="absolute inset-x-0 top-0 h-[150px] md:h-[200px] lg:h-[300px] z-[5] pointer-events-none"
                 style={{
-                    position: "absolute",
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    background: `
-                        linear-gradient(
-                            to bottom,
-                            #111111 0%,
-                            rgba(17, 17, 17, 0.7) 30%,
-                            rgba(17, 17, 17, 0.4) 60%,
-                            rgba(17, 17, 17, 0) 100%
-                        )
-                    `,
-                    zIndex: 5,
-                    pointerEvents: "none",
+                    background: `linear-gradient(to bottom, #111111 0%, rgba(17, 17, 17, 0.7) 30%, rgba(17, 17, 17, 0.4) 60%, rgba(17, 17, 17, 0) 100%)`,
                 }}
-                className="h-[150px] md:h-[200px] lg:h-[300px]"
             />
 
             {/* 3️⃣ Dark Edge Fade / Vignette (zIndex 1) */}
             <div
+                className="absolute inset-0 z-[1] pointer-events-none"
                 style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: `
-                        radial-gradient(circle at center, transparent 40%, #111111 85%)
-                    `,
-                    zIndex: 1,
-                    pointerEvents: "none",
+                    background: `radial-gradient(circle at center, transparent 40%, #111111 85%)`,
                 }}
             />
 
             {/* 3️⃣ Bottom Fade Overlay (zIndex 5) - Cinematic transition to next section */}
             <div
+                className="absolute inset-x-0 bottom-0 h-[150px] md:h-[200px] lg:h-[300px] z-[5] pointer-events-none"
                 style={{
-                    position: "absolute",
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: `
-                        linear-gradient(
-                            to bottom,
-                            rgba(17, 17, 17, 0) 0%,
-                            rgba(17, 17, 17, 0.4) 40%,
-                            rgba(17, 17, 17, 0.7) 70%,
-                            #111111 100%
-                        )
-                    `,
-                    zIndex: 5,
-                    pointerEvents: "none",
+                    background: `linear-gradient(to bottom, rgba(17, 17, 17, 0) 0%, rgba(17, 17, 17, 0.4) 40%, rgba(17, 17, 17, 0.7) 70%, #111111 100%)`,
                 }}
-                className="h-[150px] md:h-[200px] lg:h-[300px]"
             />
 
             {/* 1️⃣ Large Purple Glow - Desktop/Tablet Only */}
             <div
+                className="hidden md:block absolute top-[65%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1800px] h-[1300px] blur-[316px] opacity-50 z-0 pointer-events-none"
                 style={{
-                    position: "absolute",
-                    top: "65%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "1800px",
-                    height: "1300px",
                     background: `
                         radial-gradient(
                             ellipse at center,
@@ -119,33 +77,18 @@ export function TechFaq() {
                             transparent 90%
                         )
                     `,
-                    filter: "blur(316px)",
-                    opacity: 0.5,
-                    zIndex: 0,
-                    pointerEvents: "none",
                 }}
-                className="hidden md:block"
             />
 
             {/* 4️⃣ Cinematic Flare Gradient - Desktop/Tablet Only */}
             <div
+                className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] blur-[150px] opacity-15 z-[6] pointer-events-none"
                 style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "400px",
-                    height: "300px",
                     background: `
                         linear-gradient(130.61deg, #FF5600 60.66%, #694AFF 80.7%),
                         linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2))
                     `,
-                    filter: "blur(150px)",
-                    opacity: 0.15,
-                    zIndex: 6,
-                    pointerEvents: "none",
                 }}
-                className="hidden md:block"
             />
 
             {/* 📱 Mobile FAQ Gradients - Centered behind accordion */}
@@ -166,41 +109,14 @@ export function TechFaq() {
                         className="object-contain"
                     />
                 </div>
-                {/* 🎯 Mobile Center Flare */}
-                {/* <div
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px]"
-                    style={{
-                        background: `
-                            linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%),
-                            linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2))
-                        `,
-                        filter: "blur(100px)",
-                        opacity: 0.2,
-                    }}
-                /> */}
             </div>
 
             <div
-                style={{ zIndex: 10 }}
-                className="w-full max-w-[1440px] flex flex-col lg:flex-row items-center lg:items-center justify-between gap-12 lg:gap-[19px] relative lg:px-[60px]"
+                className="w-full max-w-[1440px] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-[19px] relative lg:px-[60px] z-10"
             >
                 {/* Side Title */}
                 <div className="w-full lg:w-1/3">
-                    <h2
-                        style={{
-                            fontFamily: "var(--font-outfit)",
-                            fontWeight: 400,
-                            fontSize: "clamp(30px, 4vw, 56px)",
-                            lineHeight: "110%",
-                            letterSpacing: "-0.2px",
-                            color: "#FFFFFF",
-                            width: "100%",
-                            maxWidth: "800px",
-                            display: "flex",
-                            flexDirection: "column",
-                        }}
-                        className="text-center lg:text-left mx-auto lg:mx-0"
-                    >
+                    <h2 className="font-outfit font-normal text-[clamp(30px,4vw,56px)] leading-[110%] tracking-[-0.2px] text-[#FFFFFF] w-full max-w-[800px] flex flex-col text-center lg:text-left mx-auto lg:mx-0">
                         <span>Confused?</span>
                         <span>Curious? Let's clear it out</span>
                     </h2>
@@ -208,61 +124,31 @@ export function TechFaq() {
 
                 {/* Accordion Container */}
                 <div
-                    style={{
-                        width: "100%",
-                        maxWidth: "843.64px",
-                        height: "auto",
-                    }}
-                    className="flex flex-col gap-6 items-center lg:items-end"
+                    className="w-full max-w-[843.64px] h-auto flex flex-col gap-6 items-center lg:items-end"
                 >
                     {FAQ_DATA.map((item, index) => (
                         <div
                             key={index}
+                            className="w-full max-w-[771px] rounded-[19.39px] border border-white/10 backdrop-blur-[10px] p-[24px] transition-all duration-300 ease-[ease] group hover:bg-[rgba(255,255,255,0.08)]"
                             style={{
-                                width: "100%",
-                                maxWidth: "771px",
-                                borderRadius: "19.39px",
                                 background: "linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)",
-                                border: "1px solid rgba(255, 255, 255, 0.1)",
-                                backdropFilter: "blur(10px)",
-                                padding: "24px",
-                                transition: "all 0.3s ease",
                             }}
-                            className="group hover:bg-[rgba(255,255,255,0.08)]"
                         >
                             <button
                                 onClick={() => toggleFaq(index)}
                                 className="w-full flex items-center justify-between text-left transition-all duration-300"
                             >
-                                <span
-                                    style={{
-                                        fontFamily: "var(--font-outfit)",
-                                        fontWeight: 400,
-                                        fontSize: "14px",
-                                        lineHeight: "110%",
-                                        letterSpacing: "0%",
-                                        color: "#FFFFFF",
-                                    }}
-                                >
+                                <span className="font-outfit font-normal text-[14px] leading-[110%] tracking-normal text-[#FFFFFF]">
                                     {item.question}
                                 </span>
                                 <div
+                                    className="w-[clamp(20px,4vw,33.48px)] h-[clamp(20px,4vw,33.48px)] rounded-full flex items-center justify-center transition-all duration-300 ease-[ease] shrink-0"
                                     style={{
-                                        width: "clamp(20px, 4vw, 33.48px)",
-                                        height: "clamp(20px, 4vw, 33.48px)",
-                                        borderRadius: "50%",
-                                        border: openIndex === index
-                                            ? `clamp(0.3px, 0.1vw, 0.72px) solid #000000`
-                                            : `clamp(0.3px, 0.1vw, 0.72px) solid #FFFFFF`,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
+                                        border: openIndex === index ? `clamp(0.3px, 0.1vw, 0.72px) solid #000000` : `clamp(0.3px, 0.1vw, 0.72px) solid #FFFFFF`,
                                         background: openIndex === index ? "#FFFFFF" : "#000000",
-                                        transition: "all 0.3s ease",
                                         transform: openIndex === index ? "rotate(0deg)" : "rotate(180deg)",
-                                        flexShrink: 0,
                                     }}
-                                >   
+                                >
                                     <Image
                                         src="/photos/schools/tech/Arrow_FAQ.svg"
                                         alt="arrow"
@@ -277,16 +163,7 @@ export function TechFaq() {
                                 className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === index ? "max-h-[300px] mt-4 opacity-100" : "max-h-0 opacity-0"
                                     }`}
                             >
-                                <p
-                                    style={{
-                                        fontFamily: "var(--font-outfit)",
-                                        fontWeight: 400,
-                                        fontSize: "12px",
-                                        lineHeight: "128%",
-                                        letterSpacing: "0%",
-                                        color: "#FFFFFF",
-                                    }}
-                                >
+                                <p className="font-outfit font-normal text-[12px] leading-[128%] tracking-normal text-[#FFFFFF]">
                                     {item.answer}
                                 </p>
                             </div>
