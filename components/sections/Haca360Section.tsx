@@ -29,7 +29,7 @@ export function Haca360Section() {
                 </div>
 
                 {/* ── Video Container ── */}
-                <div className="w-full aspect-[1320/619] rounded-[20px] overflow-hidden relative bg-[linear-gradient(135deg,#0d1540_0%,#1a2a6c_50%,#0d1540_100%)] max-md:rounded-[12px]">
+                <div className="w-full aspect-[1320/619] rounded-[20px] overflow-hidden relative bg-[#000210] max-md:rounded-[12px]">
 
                     {/*
                         VIDEO PLACEHOLDER
@@ -37,7 +37,16 @@ export function Haca360Section() {
                         The src can be passed as a prop or pulled from a CMS.
                     */}
                     <div className="w-full h-full relative">
-                        {/* Gradient moved to upper section */}
+                        {/* Background image: Rectangle 2.png */}
+                        <div className="absolute inset-0 z-0" aria-hidden="true">
+                            <Image
+                                src="/photos/main/Rectangle 2.png"
+                                alt=""
+                                fill
+                                className="object-cover object-center"
+                                priority
+                            />
+                        </div>
 
                         {/* Centered pause button */}
                         <div className="absolute inset-0 flex items-center justify-center z-[2]">

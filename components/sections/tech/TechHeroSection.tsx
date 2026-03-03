@@ -19,7 +19,7 @@ const MOBILE_DESIGN_H = 706; // nav 63 + content 643
 
 const TECH_NAV_LINKS = [
     { href: "/schools/tech", label: "Home" },
-    { href: "/schools/tech/courses", label: "Courses" },
+    { href: "/schools/tech#courses", label: "Courses" },
     { href: "/schools/tech#tech-projects", label: "Projects" },
     { href: "/success-story", label: "Success Story" },
     { href: "/blog", label: "Blogs" },
@@ -222,15 +222,21 @@ export default function TechHero() {
 
                         {/* Nav links — centered */}
                         <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-[50px] w-auto h-[20px]">
-                            {TECH_NAV_LINKS.map(({ href, label }) => (
-                                <Link
-                                    key={href}
-                                    href={href}
-                                    className="font-outfit font-normal text-[16px] leading-[20px] text-white no-underline hover:opacity-90 transition-opacity duration-200"
-                                >
-                                    {label}
-                                </Link>
-                            ))}
+                            {TECH_NAV_LINKS.map(({ href, label }) => {
+                                const isHome = href === "/schools/tech";
+                                return (
+                                    <Link
+                                        key={href}
+                                        href={href}
+                                        className="flex items-center gap-[6px] font-outfit font-normal text-[16px] leading-[20px] text-white no-underline hover:opacity-90 transition-opacity duration-200"
+                                    >
+                                        {isHome && (
+                                            <span className="w-[6px] h-[6px] rounded-full bg-white flex-shrink-0 self-center" />
+                                        )}
+                                        <span>{label}</span>
+                                    </Link>
+                                );
+                            })}
                         </nav>
 
                         {/* Right: Let's Connect (md+) / Toggle (mobile) */}

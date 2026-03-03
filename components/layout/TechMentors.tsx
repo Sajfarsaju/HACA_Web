@@ -48,7 +48,7 @@ function MentorCard({
                 src={imgSrc}
                 alt={name}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 sizes="(max-width: 768px) 90vw, 30vw"
             />
             {/* 

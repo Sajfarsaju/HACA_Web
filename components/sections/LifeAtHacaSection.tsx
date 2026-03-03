@@ -43,31 +43,31 @@ export function LifeAtHacaSection() {
             {/* ─── Photo Grid: 1320×619 desktop, 335×357 mobile ─── */}
             <div className="w-full max-w-[min(1320px,91vw)] flex flex-col gap-[15px] max-md:gap-[10.14px]">
 
-                {/* ─── Row 1: 3 photos desktop / 2 photos mobile ─── */}
+                {/* ─── Row 1: 3 photos desktop / 2 photos mobile — event photos ─── */}
                 <div className="w-full flex flex-row justify-between gap-0 max-md:gap-[10.14px]">
                     {/* Photo 1: 449×302 desktop / 196×174 mobile */}
-                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/life%20at%20haca%201.png')] shrink-0 w-[calc(449/1320*100%)] aspect-[449/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(196.42/324.15))] max-md:aspect-[196.42/173.95]" aria-hidden="true" />
+                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC05453%201.png')] shrink-0 w-[calc(449/1320*100%)] aspect-[449/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(196.42/324.15))] max-md:aspect-[196.42/173.95]" aria-hidden="true" />
 
                     {/* Photo 2: 341×302 desktop / 128×174 mobile */}
-                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/life%20at%20haca%202.png')] shrink-0 w-[calc(341/1320*100%)] aspect-[341/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(127.73/324.15))] max-md:aspect-[127.73/174.37]" aria-hidden="true" />
+                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC09981.JPG')] shrink-0 w-[calc(341/1320*100%)] aspect-[341/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(127.73/324.15))] max-md:aspect-[127.73/174.37]" aria-hidden="true" />
 
                     {/* Photo 3: 490×302 desktop only */}
-                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/life%20at%20haca%203.png')] shrink-0 w-[calc(490/1320*100%)] aspect-[490/302] max-md:hidden" aria-hidden="true" />
+                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/Rectangle%2012.png')] shrink-0 w-[calc(490/1320*100%)] aspect-[490/302] max-md:hidden" aria-hidden="true" />
                 </div>
 
-                {/* ─── Row 2: 4 photos desktop / 2 photos mobile ─── */}
+                {/* ─── Row 2: 4 photos desktop / 2 photos mobile — event photos ─── */}
                 <div className="w-full flex flex-row justify-between gap-0 max-md:gap-[10.14px]">
                     {/* Photo 1: 214×305 desktop / 123×176 mobile */}
-                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/life%20at%20haca%204.png')] shrink-0 w-[calc(214/1320*100%)] aspect-[214/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(123.26/324.86))] max-md:aspect-[123.26/175.68]" aria-hidden="true" />
+                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC03240%201.png')] shrink-0 w-[calc(214/1320*100%)] aspect-[214/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(123.26/324.86))] max-md:aspect-[123.26/175.68]" aria-hidden="true" />
 
                     {/* Photo 2: 350×305 desktop / 202×176 mobile */}
-                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/life%20at%20haca%205.png')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(201.60/324.86))] max-md:aspect-[201.60/175.68]" aria-hidden="true" />
+                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC04963%201.png')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(201.60/324.86))] max-md:aspect-[201.60/175.68]" aria-hidden="true" />
 
                     {/* Photo 3: 350×305 desktop only */}
-                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/life%20at%20haca%206.png')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden" aria-hidden="true" />
+                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC08138%201.png')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden" aria-hidden="true" />
 
                     {/* Photo 4: 350×305 desktop only */}
-                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/life%20at%20haca%207.png')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden" aria-hidden="true" />
+                    <div className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/kattan.jpeg')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden" aria-hidden="true" />
                 </div>
 
             </div>

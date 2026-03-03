@@ -57,7 +57,7 @@ export function MentorsSection() {
                                 src={mentor.photo}
                                 alt={mentor.name}
                                 fill
-                                className="object-cover"
+                                className="object-cover object-top"
                                 sizes="(max-width: 767px) 100vw, 317px"
                             />
                         </div>
