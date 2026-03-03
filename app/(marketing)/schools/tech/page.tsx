@@ -18,7 +18,7 @@ import { TechQuote } from "@/components/layout/TechQuote";
 import { TechFooter } from "@/components/layout/TechFooter";
 export default function TechSchoolPage() {
     return (
-        <main className="w-full min-h-[1391px] bg-[#111111] overflow-x-hidden relative">
+        <div className="w-full min-h-[1391px] bg-[#111111] overflow-x-hidden relative" role="main">
 
             {/* ── Page content ── */}
             <div className="relative z-[2]">
@@ -123,6 +123,6 @@ export default function TechSchoolPage() {
                 </div>
             </div>
 
-        </main>
+        </div>
     );
 }

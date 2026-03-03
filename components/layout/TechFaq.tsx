@@ -98,7 +98,7 @@ export function TechFaq() {
                 <div className="w-full lg:w-1/3">
                     <h2 className="font-outfit font-normal text-[clamp(30px,4vw,56px)] leading-[110%] tracking-[-0.2px] text-[#FFFFFF] w-full max-w-[800px] flex flex-col text-center lg:text-left mx-auto lg:mx-0">
                         <span>Confused?</span>
-                        <span>Curious? Let's clear it out</span>
+                        <span>Curious? Let&apos;s clear it out</span>
                     </h2>
                 </div>
 

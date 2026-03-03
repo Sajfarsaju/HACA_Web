@@ -25,7 +25,7 @@ export function Haca360Section() {
                             className="w-full h-auto object-contain"
                         />
                     </button>
-                    <h2 className="font-rethink font-bold text-[32px] leading-[110%] tracking-[0%] text-[#ffffff] m-0 w-[1320px] max-w-full whitespace-nowrap text-center max-md:text-[22px] max-md:w-[335px]">Let's Talk About HACA</h2>
+                    <h2 className="font-rethink font-bold text-[32px] leading-[110%] tracking-[0%] text-[#ffffff] m-0 w-[1320px] max-w-full whitespace-nowrap text-center max-md:text-[22px] max-md:w-[335px]">Let&apos;s Talk About HACA</h2>
                 </div>
 
                 {/* ── Video Container ── */}

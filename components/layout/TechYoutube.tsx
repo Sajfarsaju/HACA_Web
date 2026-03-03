@@ -42,12 +42,15 @@ function getOffset(index: number, active: number, total: number) {
 
 export function TechYoutube() {
     const [active, setActive] = useState(1);
-    const [windowWidth, setWindowWidth] = useState(1280);
+    const [windowWidth, setWindowWidth] = useState(() =>
+        typeof window !== "undefined" ? window.innerWidth : 1280
+    );
 
-    const handleResize = useCallback(() => setWindowWidth(window.innerWidth), []);
+    const handleResize = useCallback(() => {
+        setWindowWidth(window.innerWidth);
+    }, []);
 
     useEffect(() => {
-        setWindowWidth(window.innerWidth);
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, [handleResize]);
