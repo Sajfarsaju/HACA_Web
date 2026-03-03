@@ -2,13 +2,13 @@ import Image from 'next/image'
 
 export function Haca360Section() {
     return (
-        <section className="w-full max-w-[1440px] mx-auto py-[32px] px-[60px] flex flex-col gap-[36px] relative max-md:max-w-full max-md:p-[10px_20px_20px_20px] max-md:gap-[26px]">
-            <div className="w-full max-w-[1320px] mx-auto flex flex-col gap-[36px] max-md:gap-[26px]">
+        <section className="w-full section-4k mx-auto py-[32px] px-[60px] flex flex-col gap-[36px] relative max-md:max-w-full max-md:p-[10px_20px_20px_20px] max-md:gap-[26px]">
+            <div className="w-full max-w-[min(1320px,91vw)] mx-auto flex flex-col gap-[36px] max-md:gap-[26px]">
 
                 {/* ── Upper: Badge Button + Heading ── */}
                 <div className="w-full flex flex-col items-center gap-[20px] text-center relative isolate max-md:gap-[7.97px]">
                     {/* Background Gradient SVG moved behind heading */}
-                    <div className="absolute top-[150%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] max-w-[1440px] h-[clamp(180px,33vw,480px)] pointer-events-none -z-10 max-[1024px]:max-w-full max-md:w-full">
+                    <div className="absolute top-[150%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] max-w-[min(1440px,100vw)] h-[clamp(180px,33vw,480px)] pointer-events-none -z-10 max-[1024px]:max-w-full max-md:w-full">
                         <Image
                             src="/photos/main/bg-gradiant-1.svg"
                             alt=""

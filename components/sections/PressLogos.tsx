@@ -5,7 +5,7 @@ import Image from "next/image"
 
 export function PressLogos() {
     return (
-        <section className="w-full max-w-[1180px] h-[91.81px] flex items-center justify-center mx-auto gap-[26px] opacity-100 relative max-md:max-w-full max-md:h-auto max-md:min-h-[14px] max-md:py-[10px] max-md:px-0 max-md:gap-[15px] max-md:opacity-50">
+        <section className="w-full max-w-[min(1180px,82vw)] h-[91.81px] flex items-center justify-center mx-auto gap-[26px] opacity-100 relative max-md:max-w-full max-md:h-auto max-md:min-h-[14px] max-md:py-[10px] max-md:px-0 max-md:gap-[15px] max-md:opacity-50">
             <div className="flex items-center justify-center w-[95%] max-w-[1100px] h-auto gap-[clamp(20px,5vw,68.76px)] opacity-50 flex-wrap max-md:gap-[clamp(15px,6vw,27.12px)]">
                 {/* Times of India */}
                 <div className="flex items-center justify-center w-[clamp(140px,15vw,229.81px)] h-auto max-md:w-[100px]">

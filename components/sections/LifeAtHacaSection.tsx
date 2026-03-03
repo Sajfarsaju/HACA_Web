@@ -6,11 +6,11 @@ import { motion } from "framer-motion"
 export function LifeAtHacaSection() {
     return (
         /* ─── Outer Section: 1440×868 desktop, 375×510 mobile ─── */
-        <section className="w-full bg-[#000210] p-[36px_60px] flex flex-col items-center gap-[36px] box-border max-md:p-[20px] max-md:gap-[26px]" aria-label="Life at HACA">
+        <section className="w-full section-4k mx-auto bg-[#000210] p-[36px_60px] flex flex-col items-center gap-[36px] box-border max-md:p-[20px] max-md:gap-[26px]" aria-label="Life at HACA">
 
             {/* ─── Header Container: 1312×141 desktop, 335×88 mobile ─── */}
             <motion.div
-                className="w-full max-w-[1312px] flex flex-col items-center gap-[20px] max-md:gap-[7.97px]"
+                className="w-full max-w-[min(1312px,91vw)] flex flex-col items-center gap-[20px] max-md:gap-[7.97px]"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -41,7 +41,7 @@ export function LifeAtHacaSection() {
             </motion.div>
 
             {/* ─── Photo Grid: 1320×619 desktop, 335×357 mobile ─── */}
-            <div className="w-full max-w-[1320px] flex flex-col gap-[15px] max-md:gap-[10.14px]">
+            <div className="w-full max-w-[min(1320px,91vw)] flex flex-col gap-[15px] max-md:gap-[10.14px]">
 
                 {/* ─── Row 1: 3 photos desktop / 2 photos mobile ─── */}
                 <div className="w-full flex flex-row justify-between gap-0 max-md:gap-[10.14px]">

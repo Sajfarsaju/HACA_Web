@@ -41,10 +41,10 @@ export function FAQSection() {
     }
 
     return (
-        <section className="w-full bg-[#000210] p-[40px_60px_70px_60px] flex flex-row items-start justify-between box-border max-md:flex-col max-md:items-center max-md:p-[20px_16px] max-md:gap-[26px]" aria-label="FAQ">
+        <section className="w-full section-4k mx-auto bg-[#000210] p-[40px_60px_70px_60px] flex flex-row items-start justify-between box-border max-lg:flex-col max-lg:items-center max-lg:gap-[26px] max-md:p-[20px_16px] max-md:gap-[26px]" aria-label="FAQ">
 
             {/* ─── Left: Header ─── */}
-            <div className="w-[420px] shrink-0 flex flex-col items-start gap-[20px] max-md:w-full max-md:max-w-[335px] max-md:items-center max-md:gap-[7.97px]">
+            <div className="w-[420px] shrink-0 flex flex-col items-start gap-[20px] max-lg:w-full max-lg:items-center max-lg:gap-[7.97px] max-md:max-w-[335px]">
 
                 {/* Pill button — same style pattern (111×42 inner pill) */}
                 <button className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-pointer h-[42px] transition-transform duration-200 ease max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px] hover:scale-[1.04] active:scale-[0.96]" aria-label="FAQ">
@@ -58,13 +58,13 @@ export function FAQSection() {
                     </span>
                 </button>
 
-                <h2 className="font-rethink font-bold text-[32px] leading-[110%] text-[#FFFFFF] m-0 w-[420px] text-left max-md:text-[22px] max-md:w-full max-md:max-w-[317px] max-md:text-center">
+                <h2 className="font-rethink font-bold text-[32px] leading-[110%] text-[#FFFFFF] m-0 w-[420px] text-left max-lg:w-full max-lg:max-w-[420px] max-lg:text-center max-md:text-[22px] max-md:max-w-[317px]">
                     The More You Know, the Easier the Choice Becomes
                 </h2>
             </div>
 
             {/* ─── Right: FAQ accordion ─── */}
-            <div className="w-[800px] shrink-0 flex flex-col gap-[20px] max-[1300px]:w-auto max-[1300px]:flex-1 max-[1300px]:ml-[40px] max-md:ml-0 max-md:w-full max-md:max-w-[335px] max-md:gap-[10px]" role="list">
+            <div className="w-[800px] shrink-0 flex flex-col gap-[20px] max-[1300px]:w-auto max-[1300px]:flex-1 max-[1300px]:ml-[40px] max-lg:ml-0 max-lg:w-full max-lg:max-w-[600px] max-md:max-w-[335px] max-md:gap-[10px]" role="list">
                 {faqs.map((faq) => {
                     const isOpen = openId === faq.id
                     return (

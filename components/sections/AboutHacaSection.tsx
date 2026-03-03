@@ -2,8 +2,8 @@ import Image from 'next/image'
 
 export function AboutHacaSection() {
     return (
-        <section className="w-full max-w-[1440px] min-h-[472px] mx-auto pt-[121px] pb-[80px] px-[60px] flex justify-center items-start opacity-100 max-[1024px]:w-[95%] max-[1024px]:max-w-[1100px] max-[1024px]:p-[clamp(60px,8vw,121px)_20px_clamp(40px,6vw,80px)] max-[1024px]:min-h-auto max-[1024px]:mx-auto max-md:min-h-[398px] max-md:p-[28px_20px] max-md:w-full max-md:max-w-full">
-            <div className="w-full max-w-[1320px] flex flex-row justify-between items-start gap-[40px] max-[1024px]:flex-row max-[1024px]:items-start max-[1024px]:text-left max-[1024px]:gap-[clamp(20px,4vw,40px)] max-[1024px]:flex-nowrap max-[1024px]:w-full max-md:flex-col max-md:gap-[26px] max-md:items-center max-md:text-center">
+        <section className="w-full section-4k min-h-[472px] mx-auto pt-[121px] pb-[80px] px-[60px] flex justify-center items-start opacity-100 max-[1024px]:w-[95%] max-[1024px]:max-w-[1100px] max-[1024px]:p-[clamp(60px,8vw,121px)_20px_clamp(40px,6vw,80px)] max-[1024px]:min-h-auto max-[1024px]:mx-auto max-md:min-h-[398px] max-md:p-[28px_20px] max-md:w-full max-md:max-w-full">
+            <div className="w-full max-w-[min(1320px,91vw)] flex flex-row justify-between items-start gap-[40px] max-[1024px]:flex-row max-[1024px]:items-start max-[1024px]:text-left max-[1024px]:gap-[clamp(20px,4vw,40px)] max-[1024px]:flex-nowrap max-[1024px]:w-full max-md:flex-col max-md:gap-[26px] max-md:items-center max-md:text-center">
                 {/* Left Content */}
                 <div className="w-full max-w-[455px] flex flex-col gap-[20px] opacity-100 max-[1024px]:max-w-[45%] max-[1024px]:items-start max-md:max-w-[335px] max-md:items-center">
                     <div className="w-full">

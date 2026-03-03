@@ -24,7 +24,7 @@ const blogs = [
 
 export function BlogsSection() {
     return (
-        <section className="w-full bg-[#000210] p-[36px_60px] flex flex-col items-center gap-[26px] box-border max-md:p-[20px]" aria-label="The Learning Space">
+        <section className="w-full section-4k mx-auto bg-[#000210] p-[36px_60px] flex flex-col items-center gap-[26px] box-border max-md:p-[20px]" aria-label="The Learning Space">
 
             {/* ─── Header ─── */}
             <div className="w-full max-w-[300px] flex flex-col items-center gap-[10px] max-md:max-w-[335px] max-md:self-start max-md:items-start max-md:gap-[7.97px]">
@@ -44,7 +44,7 @@ export function BlogsSection() {
             </div>
 
             {/* ─── Cards grid ─── */}
-            <div className="w-full max-w-[1320px] flex flex-row justify-between gap-0 max-[1200px]:justify-center max-[1200px]:gap-[26px] max-md:flex-col max-md:gap-[20px] max-md:max-w-[335px] max-md:self-center">
+            <div className="w-full max-w-[min(1320px,91vw)] flex flex-row justify-between gap-0 max-[1200px]:justify-center max-[1200px]:gap-[26px] max-md:flex-col max-md:gap-[20px] max-md:max-w-[335px] max-md:self-center">
                 {blogs.map((blog) => (
                     <article key={blog.id} className="w-[calc(407/1320*100%)] flex flex-col gap-[20px] bg-transparent border border-[#25317d] rounded-[20px] p-[10px] box-border overflow-hidden max-[1200px]:w-[calc(50%-13px)] max-[1200px]:max-w-[407px] [&:nth-child(3)]:max-[1200px]:hidden max-md:w-full max-md:p-[8.23px] max-md:gap-[16.46px] max-md:rounded-[16.46px] max-md:border-[0.82px] [&:nth-child(n+3)]:max-md:hidden">
 

@@ -2,6 +2,7 @@ import { Geist, Geist_Mono, Rethink_Sans, Outfit } from "next/font/google";
 import "../styles/globals.css";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { ClientLayoutProvider } from "@/components/layout/ClientLayoutProvider";
+import { BottomReserveCta } from "@/components/layout/BottomReserveCta";
 import Image from "next/image";
 
 const geistSans = Geist({
@@ -50,6 +51,7 @@ export default function RootLayout({
           {children}
         </ClientLayoutProvider>
 
+        <BottomReserveCta />
         <ConditionalFooter />
       </body>
     </html>

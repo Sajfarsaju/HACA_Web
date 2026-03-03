@@ -25,7 +25,7 @@ const schools = [
 
 export function SchoolsSection() {
     return (
-        <section className="w-full max-w-[1440px] h-[673px] mx-auto pt-[36px] px-[60px] pb-[40px] flex flex-col items-center gap-[57px] overflow-hidden opacity-100 max-[1100px]:h-auto max-[1100px]:p-[clamp(28px,4vw,50px)_clamp(24px,4vw,50px)] max-[1100px]:gap-[clamp(28px,4vw,48px)] max-md:p-[clamp(24px,6vw,40px)_clamp(16px,5vw,24px)] max-md:gap-[clamp(20px,7vw,28px)] max-md:items-start">
+        <section className="w-full section-4k h-[673px] mx-auto pt-[36px] px-[60px] pb-[40px] flex flex-col items-center gap-[57px] overflow-hidden opacity-100 max-[1100px]:h-auto max-[1100px]:p-[clamp(28px,4vw,50px)_clamp(24px,4vw,50px)] max-[1100px]:gap-[clamp(28px,4vw,48px)] max-md:p-[clamp(24px,6vw,40px)_clamp(16px,5vw,24px)] max-md:gap-[clamp(20px,7vw,28px)] max-md:items-start">
             {/* Header */}
             <div className="w-full max-w-[1320px] flex flex-col items-center gap-[20px] shrink-0 max-md:gap-[clamp(6px,2.1vw,10px)] max-md:items-start">
                 {/* Badge Button */}

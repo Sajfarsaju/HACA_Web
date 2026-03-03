@@ -29,9 +29,9 @@ const mentors = [
 
 export function MentorsSection() {
     return (
-        <section className="w-full max-w-[1440px] mx-auto p-[84px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,22px)] max-md:gap-[26px] max-md:items-start">
+        <section className="w-full section-4k mx-auto p-[84px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,22px)] max-md:gap-[26px] max-md:items-start">
             {/* Header */}
-            <div className="w-full max-w-[1320px] flex flex-col items-center gap-[20px] max-md:w-full max-md:gap-[clamp(6px,2.1vw,10px)] max-md:items-start">
+            <div className="w-full max-w-[min(1320px,91vw)] flex flex-col items-center gap-[20px] max-md:w-full max-md:gap-[clamp(6px,2.1vw,10px)] max-md:items-start">
                 {/* Badge Button */}
                 <div className="w-[184px] h-[64px] flex items-center justify-center p-0 rounded-[100px] border-none bg-transparent cursor-default max-md:w-[132px] max-md:h-[46px]">
                     <Image
@@ -47,17 +47,24 @@ export function MentorsSection() {
                 <h2 className="font-rethink font-bold text-[42px] leading-[110%] tracking-[0%] text-center text-[#ffffff] m-0 max-md:font-manrope max-md:text-[clamp(20px,5.8vw,24px)] max-md:text-left">Taught by the Top 1%</h2>
             </div>
 
-            {/* Cards Grid */}
-            <div className="w-[1320px] h-[482px] flex justify-between items-center gap-[17.33px] max-md:w-full max-md:h-auto max-md:flex-col max-md:gap-[clamp(16px,5.3vw,22px)]">
+            {/* Cards Grid - Figma: width 1320, height 428 */}
+            <div className="w-full max-w-[min(1320px,91vw)] h-[428px] flex justify-between items-center gap-[17.33px] max-md:w-full max-md:h-auto max-md:flex-col max-md:gap-[clamp(16px,5.3vw,22px)]">
                 {mentors.map((mentor) => (
                     <div key={mentor.id} className="flex-1 w-[317px] h-full flex flex-col gap-[20px] max-md:w-full max-md:h-auto max-md:gap-[clamp(12px,3.9vw,16px)] [&:nth-child(n+3)]:max-md:hidden">
-                        {/* Photo Card */}
-                        <div className="relative w-full h-[400px] rounded-[24px] overflow-hidden bg-[linear-gradient(136.19deg,rgba(119,119,119,0.2)_-0.17%,rgba(119,119,119,0.04)_100%)] border border-[rgba(255,255,255,0.06)] backdrop-blur-[17px] max-md:h-[clamp(340px,103.4vw,400px)] max-md:rounded-[21px]">
+                        {/* Photo Card - aspect ratio 317:400, Figma: border #25317D, gradient shade only at top, behind photo */}
+                        <div className="relative w-full aspect-[317/400] rounded-[24px] overflow-hidden border border-[#25317D] max-md:rounded-[21px]">
+                            {/* Gradient behind photo: shade only at top, fades to transparent */}
+                            <div
+                                className="absolute inset-0 z-0 pointer-events-none"
+                                style={{
+                                    background: "linear-gradient(180deg, rgba(37, 49, 125, 0.3) 0%, rgba(37, 49, 125, 0.05) 35%, transparent 55%)",
+                                }}
+                            />
                             <Image
                                 src={mentor.photo}
                                 alt={mentor.name}
                                 fill
-                                className="object-cover"
+                                className="object-cover relative z-10"
                                 sizes="(max-width: 767px) 100vw, 317px"
                             />
                         </div>

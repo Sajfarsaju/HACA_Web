@@ -11,7 +11,7 @@ export function StatsSection() {
     ]
 
     return (
-        <section className="w-full max-w-[1100px] mx-auto p-[clamp(35px,5vw,60px)] flex justify-center items-center max-md:max-w-full max-md:py-[35px] max-md:px-[20px]">
+        <section className="w-full max-w-[min(1100px,76vw)] mx-auto p-[clamp(35px,5vw,60px)] flex justify-center items-center max-md:max-w-full max-md:py-[35px] max-md:px-[20px]">
             <div className="w-full flex flex-row justify-center items-center gap-[clamp(30px,4vw,51px)] relative opacity-100 flex-nowrap max-[900px]:grid max-[900px]:grid-cols-2 max-[900px]:justify-items-center max-[900px]:items-center max-[900px]:gap-y-[40px] max-[900px]:gap-x-[20px] max-[900px]:w-[95%]">
                 {stats.map((stat, index) => (
                     <React.Fragment key={index}>

@@ -40,6 +40,8 @@
 }
 
 :root {
+  /* 4K responsive: 1440px min, scale to 92vw, cap at 1920px on large screens */
+  --section-max-w: max(1440px, min(92vw, 1920px));
   --background: #000210;
   --foreground: oklch(0.98 0.01 240);
   --card: #000210;
@@ -96,5 +98,10 @@
 
   .isolation-isolate {
     isolation: isolate;
+  }
+
+  /* 4K responsive section container */
+  .section-4k {
+    max-width: var(--section-max-w);
   }
 }

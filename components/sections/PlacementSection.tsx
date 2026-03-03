@@ -10,9 +10,9 @@ const CARDS_PER_COL = 3
 
 export function PlacementSection() {
     return (
-        <section className="w-full max-w-[1440px] min-h-[1074px] mx-auto pt-[84px] px-[60px] pb-[32px] flex flex-col items-center gap-[36px] opacity-100 overflow-hidden max-[600px]:max-w-full max-[600px]:min-h-[666px] max-[600px]:p-[20px] max-[600px]:gap-[26px]">
+        <section className="w-full section-4k min-h-[1074px] mx-auto pt-[84px] px-[60px] pb-[32px] flex flex-col items-center gap-[36px] opacity-100 overflow-hidden max-[600px]:max-w-full max-[600px]:min-h-[666px] max-[600px]:p-[20px] max-[600px]:gap-[26px]">
             {/* ── Header: Badge + Heading ── */}
-            <div className="w-full max-w-[1320px] flex flex-col items-center gap-[20px] max-[600px]:max-w-[335px] max-[600px]:gap-[7.97px]">
+            <div className="w-full max-w-[min(1320px,91vw)] flex flex-col items-center gap-[20px] max-[600px]:max-w-[335px] max-[600px]:gap-[7.97px]">
                 {/* Badge Button */}
                 <button className="w-[242px] h-[64px] flex items-center justify-center p-0 rounded-[100px] border-none bg-transparent cursor-default max-[600px]:w-[175px] max-[600px]:h-[46px]" aria-label="Student Placements">
                     <Image
@@ -31,7 +31,7 @@ export function PlacementSection() {
             </div>
 
             {/* ── Card Grid ── */}
-            <div className="w-full max-w-[1320px] max-h-[700px] grid grid-cols-5 gap-[20px] overflow-hidden items-start max-[1200px]:grid-cols-4 max-[1200px]:max-h-[750px] max-[900px]:grid-cols-3 max-[900px]:max-h-full max-[600px]:max-w-[335px] max-[600px]:max-h-[500px] max-[600px]:grid-cols-2 max-[600px]:gap-[13px]">
+            <div className="w-full max-w-[min(1320px,91vw)] max-h-[700px] grid grid-cols-5 gap-[20px] overflow-hidden items-start max-[1200px]:grid-cols-4 max-[1200px]:max-h-[750px] max-[900px]:grid-cols-3 max-[900px]:max-h-full max-[600px]:max-w-[335px] max-[600px]:max-h-[500px] max-[600px]:grid-cols-2 max-[600px]:gap-[13px]">
                 {COLUMNS.map((colIdx) => (
                     <div key={colIdx} className="flex flex-col gap-[20px] [&:nth-child(even)]:-mt-[30px] max-[1200px]:[&:nth-child(5)]:hidden max-[900px]:[&:nth-child(n+4)]:hidden max-[900px]:[&:nth-child(even)]:-mt-[25px] max-[600px]:[&:nth-child(n+3)]:hidden max-[600px]:[&:nth-child(even)]:-mt-[20px]">
                         {Array.from({ length: CARDS_PER_COL }).map((_, cardIdx) => (

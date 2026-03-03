@@ -73,7 +73,7 @@ const cards: SocialCardProps[] = [
 export function StayConnectedSection() {
     return (
         /* ─── Outer Section: 1440×563 desktop | 375×1016 mobile ─── */
-        <section className="w-full bg-[#000210] p-[26px_60px] flex flex-col items-center gap-[36px] box-border max-md:p-[20px] max-md:gap-[26px]" aria-label="Stay Connected">
+        <section className="w-full section-4k mx-auto bg-[#000210] p-[26px_60px] flex flex-col items-center gap-[36px] box-border max-md:p-[20px] max-md:gap-[26px]" aria-label="Stay Connected">
 
             {/* ─── Header: 332×131 desktop | 335×88 mobile ─── */}
             <motion.div
@@ -102,7 +102,7 @@ export function StayConnectedSection() {
             </motion.div>
 
             {/* ─── Cards Container: 1320×344 desktop | 335 mobile ─── */}
-            <div className="w-full max-w-[1320px] flex flex-col gap-[18px] max-md:max-w-[335px] max-md:gap-[20px]">
+            <div className="w-full max-w-[min(1320px,91vw)] flex flex-col gap-[18px] max-md:max-w-[335px] max-md:gap-[20px]">
                 {/* Row 1: cards 0–2 */}
                 <div className="w-full flex flex-row justify-between gap-0 max-md:flex-col max-md:gap-[20px]">
                     {cards.slice(0, 3).map((c, i) => (

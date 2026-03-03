@@ -11,7 +11,7 @@ export function PhotoGallery() {
 
     return (
         <section className="w-full h-[354px] flex justify-center overflow-hidden relative max-[1024px]:h-[330px] max-md:h-[225px]">
-            <div className="w-full max-w-[1440px] h-[354px] relative shadow-[0px_4px_4px_0px_#00000040] max-[1024px]:h-[310px] max-[1024px]:w-[95%] max-[1024px]:max-w-[1100px] max-md:h-[203px] max-md:-top-[0.91px] max-md:max-w-full">
+            <div className="w-full section-4k mx-auto h-[354px] relative shadow-[0px_4px_4px_0px_#00000040] max-[1024px]:h-[310px] max-[1024px]:w-[95%] max-[1024px]:max-w-[1100px] max-md:h-[203px] max-md:-top-[0.91px] max-md:max-w-full">
                 <div className="w-full h-full flex gap-[16px] overflow-x-auto scroll-smooth py-0 px-[40px] max-md:gap-[13.67px] max-md:py-0 max-md:px-[20px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     {cardColors.map((color, index) => (
                         <div

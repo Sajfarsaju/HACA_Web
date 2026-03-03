@@ -10,7 +10,7 @@ import { Haca360Section } from './Haca360Section'
 
 export function Hero() {
     return (
-        <section className="w-full max-w-[1440px] mx-auto pt-[100px] pb-[60px] bg-transparent relative max-md:pt-0 max-md:pb-0">
+        <section className="w-full section-4k mx-auto pt-[100px] pb-[60px] bg-transparent relative max-md:pt-0 max-md:pb-0">
             {/* ── Inner Container ── */}
             <div className="w-full flex flex-col items-center gap-[36px] max-md:gap-[34px]">
 
@@ -18,7 +18,7 @@ export function Hero() {
                     UPPER CONTAINER
                     (desktop: 780px wide, mobile: full width)
                     ────────────────────────────────────── */}
-                <div className="w-full max-w-[780px] flex flex-col items-center gap-[50px] max-md:max-w-full max-md:pt-0 max-md:px-[20px] max-md:gap-[26px]">
+                <div className="w-full max-w-[780px] flex flex-col items-center gap-[50px] max-md:max-w-full max-md:pt-0 max-md:px-[20px] max-md:gap-[26px] md:px-[32px] lg:px-0">
 
                     {/* ── First Container: Info button + Heading + Paragraph ── */}
                     <div className="w-full flex flex-col items-center gap-[16px] max-md:gap-[10px]">
