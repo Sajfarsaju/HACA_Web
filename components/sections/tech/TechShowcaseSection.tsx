@@ -15,7 +15,7 @@ import Image from "next/image";
 
 export function TechShowcaseSection() {
     return (
-        <div className="w-full max-w-[1308px] mx-auto mt-[60px] pl-[66px] pr-[66px] flex flex-col gap-[60px] pb-[80px] max-[1440px]:px-[40px] max-[1200px]:px-[30px] max-lg:px-[24px] max-md:px-[20px] max-md:mt-[40px] max-md:gap-[30px] max-[480px]:px-[16px]">
+        <div className="w-full mx-auto mt-[60px] pl-[66px] pr-[66px] flex flex-col gap-[60px] pb-[80px] max-[1440px]:px-[40px] max-[1200px]:px-[30px] max-lg:px-[24px] max-md:px-[20px] max-md:mt-[40px] max-md:gap-[30px] max-[480px]:px-[16px] min-[1441px]:px-[min(80px,5vw)]">
 
             {/* ── Section Heading ── */}
             <h2 className="font-outfit font-normal text-[54px] leading-[62px] tracking-[-0.02em] text-center text-white m-0 w-full relative z-10 max-[1200px]:text-[44px] max-[1200px]:leading-[52px] max-lg:text-[38px] max-lg:leading-[46px] max-md:text-[30px] max-md:leading-[38px] max-[480px]:text-[24px] max-[480px]:leading-[30px]">Step Inside the Tech School</h2>
@@ -23,26 +23,40 @@ export function TechShowcaseSection() {
             {/* ── Video / Image Card ── */}
             <div className="w-full h-[711px] rounded-[20px] border border-solid border-white/34 bg-[linear-gradient(90deg,rgba(255,86,0,0.12)_0%,rgba(105,74,255,0.12)_100%),rgba(0,0,0,0.20)] relative overflow-visible flex items-center justify-center max-[1200px]:h-[560px] max-lg:h-[480px] max-md:h-[380px] max-[480px]:h-[280px]">
 
-                {/* Background Decorative Ellipse – left/bottom */}
-                <div className="absolute pointer-events-none z-[1] w-[489px] h-[684px] top-[358px] left-[-329px] rotate-[15deg] opacity-100 max-md:w-[280px] max-md:h-[380px] max-md:top-[200px] max-md:left-[-180px]">
+                {/* Ellipse 157 – left gradient (top-left of card on all screens) */}
+                <div
+                    className="absolute pointer-events-none z-[1] w-[489px] h-[1384px] top-[-573px] left-[-280px] rotate-[15deg] opacity-100 max-lg:w-[320px] max-lg:h-[450px] max-lg:top-[-200px] max-lg:left-[-180px] max-md:w-[280px] max-md:h-[380px] max-md:top-0 max-md:left-[-120px] max-[480px]:w-[160px] max-[480px]:h-[220px] max-[480px]:top-0 max-[480px]:left-[-80px]"
+                    style={{
+                        maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, black 25%, transparent 55%)",
+                        WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, black 25%, transparent 55%)",
+                    }}
+                >
                     <Image
                         src="/photos/Tech/Ellipse 157.svg"
                         alt=""
                         width={489}
-                        height={684}
-                        className="w-full h-full object-contain relative z-10"
+                        height={1384}
+                        className="w-full h-full object-contain"
                         aria-hidden="true"
+                        
                     />
                 </div>
 
-                {/* Background Decorative Ellipse – right/bottom */}
-                <div className="absolute pointer-events-none z-[1] w-[212px] h-[696px] top-[512px] right-[-100px] rotate-[119.57deg] opacity-100 max-[1440px]:left-[calc(100%-100px)] max-lg:left-auto max-lg:right-[-60px] max-md:w-[130px] max-md:h-[380px] max-md:top-[300px] max-md:right-[-50px] max-md:left-auto">
+                {/* Ellipse 157 (1) – right top of card, responsive for all screens */}
+                <div
+                    className="absolute pointer-events-none z-[1] top-0 right-[-80px] w-[280px] h-[500px] max-[1200px]:w-[220px] max-[1200px]:h-[400px] max-[1200px]:right-[-60px] max-lg:w-[180px] max-lg:h-[320px] max-lg:right-[-50px] max-md:w-[140px] max-md:h-[280px] max-md:right-[-40px] max-[480px]:w-[100px] max-[480px]:h-[180px] max-[480px]:right-[-30px]"
+                    style={{
+                        transform: "translate(20%, -20%)",
+                        maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, black 25%, transparent 65%)",
+                        WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, black 25%, transparent 65%)",
+                    }}
+                >
                     <Image
                         src="/photos/Tech/Ellipse 157 (1).svg"
                         alt=""
                         width={212}
                         height={696}
-                        className="w-full h-full object-contain relative z-10"
+                        className="w-full h-full object-contain"
                         aria-hidden="true"
                     />
                 </div>

@@ -1,16 +1,17 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 
-// ── Responsive card width ──────────────────────────────────────────────────
-function useIsMobile() {
-    const [isMobile, setIsMobile] = useState(false);
+// ── Responsive breakpoints ──────────────────────────────────────────────────
+function useIsTabletOrSmaller() {
+    const [isTabletOrSmaller, setIsTabletOrSmaller] = useState(false);
     useEffect(() => {
-        const check = () => setIsMobile(window.innerWidth < 768);
+        const check = () => setIsTabletOrSmaller(window.innerWidth < 1024);
         check();
         window.addEventListener("resize", check);
         return () => window.removeEventListener("resize", check);
     }, []);
-    return isMobile;
+    return isTabletOrSmaller;
 }
 
 // ── Gradient border (softer orange → purple) ────────────────────────────
@@ -105,12 +106,14 @@ const STEP = CARD_W + GAP; // 420px
 function FeatureCard({
     card,
     isCenter,
+    className = "",
 }: {
     card: (typeof CARDS)[0];
     isCenter: boolean;
+    className?: string;
 }) {
     return (
-        <div className="relative w-[400px] h-[312px] rounded-[22px] shrink-0 transition-all duration-500 ease-in-out">
+        <div className={`relative w-[400px] max-w-full h-[312px] min-h-[312px] rounded-[22px] shrink-0 transition-all duration-500 ease-in-out ${className}`}>
             {/* Gradient border ring */}
             <div
                 style={{
@@ -127,7 +130,7 @@ function FeatureCard({
             <div
                 className="absolute inset-0 rounded-[22px] backdrop-blur-[24px] pt-10 pb-10 pl-[42px] pr-[42px] flex flex-col gap-5 z-[1] transition-all duration-500 ease-in-out border border-white/10"
                 style={{
-                    background: isCenter ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.04)",
+                    background: isCenter ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.08)",
                 }}
             >
                 <div className="w-12 h-12 shrink-0">{card.icon}</div>
@@ -147,29 +150,78 @@ function FeatureCard({
 // ── Main Section ─────────────────────────────────────────────────────────
 export function TechWhyChoose() {
     const [active, setActive] = useState(0);
-    const isMobile = useIsMobile();
+    const isTabletOrSmaller = useIsTabletOrSmaller();
 
     const advance = useCallback(() => setActive(p => (p + 1) % TOTAL), []);
 
     useEffect(() => {
-        const t = setInterval(advance, 3500);
-        return () => clearInterval(t);
-    }, [advance]);
+        if (!isTabletOrSmaller) {
+            const t = setInterval(advance, 3500);
+            return () => clearInterval(t);
+        }
+    }, [advance, isTabletOrSmaller]);
 
     const prevIdx = (active - 1 + TOTAL) % TOTAL;
     const nextIdx = (active + 1) % TOTAL;
 
-    // Container is 1320px wide. Three cards (400×3 + 20×2 = 1240px) centred inside.
-    // Left offset = (1320 - 1240) / 2 = 40px → same as Figma spec.
-    // Vertical: center card at translateY(0), side cards at translateY(136px)
-    //   so all three fit within the 448px container (136 + 312 = 448).
-    // When active changes we shift the X offset of the whole track by ±STEP.
-    // We render [prevIdx, active, nextIdx] always → no track needed; just swap content.
-
     return (
         <section className="w-full flex flex-col items-center relative min-h-[940px] pt-[clamp(60px,10vw,140px)] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
+
+            {/* ── Mobile-only: purple gradient using SVG files — soft glow on all sides ── */}
+            <div
+                className="hidden max-md:flex absolute top-0 left-0 right-0 z-0 pointer-events-none overflow-hidden flex-col"
+                style={{
+                    bottom: "-120px",
+                    maskImage: "radial-gradient(ellipse 85% 88% at 50% 48%, black 0%, black 18%, rgba(0,0,0,0.88) 36%, rgba(0,0,0,0.6) 56%, rgba(0,0,0,0.28) 74%, rgba(0,0,0,0.08) 88%, transparent 100%)",
+                    WebkitMaskImage: "radial-gradient(ellipse 85% 88% at 50% 48%, black 0%, black 18%, rgba(0,0,0,0.88) 36%, rgba(0,0,0,0.6) 56%, rgba(0,0,0,0.28) 74%, rgba(0,0,0,0.08) 88%, transparent 100%)",
+                }}
+                aria-hidden
+            >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full min-w-full h-full opacity-100">
+                    <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover object-center" />
+                </div>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full min-w-full h-full opacity-[0.45]">
+                    <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" />
+                </div>
+                {/* Center softener — gentle dark radial, very gradual fade */}
+                <div
+                    className="absolute inset-0"
+                    style={{ background: "radial-gradient(ellipse 90% 50% at 50% 50%, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.08) 45%, transparent 72%)" }}
+                />
+            </div>
+
+            {/* ── Desktop (md+): subtle purple gradient band behind cards only (starts below title, soft fade to theme) ── */}
+            <div
+                className="hidden md:block absolute inset-0 z-0 pointer-events-none"
+                aria-hidden
+            >
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background: `
+                            radial-gradient(
+                                ellipse 80% 65% at 50% 58%,
+                                rgba(132, 0, 255, 0.35) 0%,
+                                rgba(132, 0, 255, 0.22) 18%,
+                                rgba(132, 0, 255, 0.12) 40%,
+                                rgba(132, 0, 255, 0.05) 60%,
+                                transparent 82%
+                            )
+                        `,
+                        maskImage:
+                            "linear-gradient(to bottom, transparent 0%, transparent 24%, black 36%, black 78%, transparent 96%)",
+                        WebkitMaskImage:
+                            "linear-gradient(to bottom, transparent 0%, transparent 24%, black 36%, black 78%, transparent 96%)",
+                    }}
+                />
+            </div>
+
+            {/* ── Mobile-only: orange gradient centered on card 1 ── */}
+            <div className="hidden max-md:block absolute top-[540px] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[380px] rotate-[-164.21deg] opacity-85 pointer-events-none z-0">
+                <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" aria-hidden />
+            </div>
             {/* ── Header ── */}
-            <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-10 relative">
+            <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-[1] relative">
                 <h2 className="font-outfit font-normal text-[clamp(32px,5vw,60px)] leading-[62px] tracking-[-0.02em] text-white text-center capitalize max-w-[938px] m-0">
                     Why Choose Smarter Learning with<br className="hidden md:block" /> Us?
                 </h2>
@@ -179,27 +231,21 @@ export function TechWhyChoose() {
                 </p>
             </div>
 
-            {/* ── Card row ── */}
-            {isMobile ? (
-                /* Mobile: single full-width card, swipe via arrows */
-                <div className="w-full flex flex-col items-center gap-5">
-                    <div className="w-full max-w-[360px]">
-                        <FeatureCard card={CARDS[active]} isCenter={true} />
-                    </div>
-                    {/* Mobile nav arrows */}
-                    <div className="flex gap-4">
-                        <button
-                            onClick={() => setActive(p => (p - 1 + TOTAL) % TOTAL)}
-                            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 cursor-pointer text-white text-[18px] flex items-center justify-center hover:bg-white/10 transition-colors"
-                        >‹</button>
-                        <button
-                            onClick={() => setActive(p => (p + 1) % TOTAL)}
-                            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 cursor-pointer text-white text-[18px] flex items-center justify-center hover:bg-white/10 transition-colors"
-                        >›</button>
-                    </div>
+            {/* ── Cards: tablet & smaller = single column; desktop = 3-card carousel ── */}
+            {isTabletOrSmaller ? (
+                /* Tablet and smaller: all cards in a single column, one per row */
+                <div className="w-full max-w-[420px] md:max-w-[400px] flex flex-col items-center gap-6 relative z-[1]">
+                    {CARDS.map((card, idx) => (
+                        <FeatureCard
+                            key={idx}
+                            card={card}
+                            isCenter={true}
+                            className="w-full max-w-full"
+                        />
+                    ))}
                 </div>
             ) : (
-                /* Desktop: 3-card stagger carousel */
+                /* Desktop (lg+): 3-card stagger carousel */
                 <div className="relative z-10 w-full max-w-[1320px] h-[448px] overflow-hidden">
                     <TrackCarousel active={active} prevIdx={prevIdx} nextIdx={nextIdx} />
                 </div>

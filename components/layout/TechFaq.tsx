@@ -91,26 +91,6 @@ export function TechFaq() {
                 }}
             />
 
-            {/* 📱 Mobile FAQ Gradients - Centered behind accordion */}
-            <div className="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none overflow-hidden">
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-40">
-                    <Image
-                        src="/photos/schools/tech/FaqMobileGradientMain.svg"
-                        alt="FAQ Mobile Glow Main"
-                        fill
-                        className="object-contain"
-                    />
-                </div>
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] opacity-30">
-                    <Image
-                        src="/photos/schools/tech/FaqMobileGradientSub.svg"
-                        alt="FAQ Mobile Glow Sub"
-                        fill
-                        className="object-contain"
-                    />
-                </div>
-            </div>
-
             <div
                 className="w-full max-w-[1440px] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-[19px] relative lg:px-[60px] z-10"
             >

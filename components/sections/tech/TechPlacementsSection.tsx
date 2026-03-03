@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function TechPlacementsSection() {
     return (
-        <section className="w-full relative" id="tech-placements">
+        <section className="w-full relative overflow-hidden bg-[#111111]" id="tech-placements">
             {/* Local style for the gradient border masks */}
             <style>{`
                 .tech-placements-glass-side::before {
@@ -31,19 +31,45 @@ export function TechPlacementsSection() {
                     mask-composite: exclude;
                     pointer-events: none;
                 }
+                /* Purple glow: center band, soft fade to edges — reduced side darkness */
+                .tech-placements-glow {
+                    background: radial-gradient(
+                        ellipse 55% 55% at 50% 58%,
+                        rgba(132, 0, 255, 0.32) 0%,
+                        rgba(132, 0, 255, 0.14) 25%,
+                        rgba(132, 0, 255, 0.05) 50%,
+                        rgba(132, 0, 255, 0.01) 70%,
+                        transparent 85%
+                    );
+                }
             `}</style>
 
-            {/* Background Ellipses */}
-            <div className="absolute inset-0 z-[2] pointer-events-none overflow-visible">
-                <div className="absolute w-[348.42px] h-[1100.94px] top-[290.46px] left-[155.5px] rotate-[85.36deg] opacity-[0.87] max-md:w-[169.37px] max-md:h-[535.18px] max-md:top-[178.19px] max-md:left-[75.59px]">
-                    <Image src="/photos/Tech/Ellipse 159.svg" fill alt="" />
-                </div>
-                <div className="absolute w-[703.36px] h-[121.86px] top-[410.06px] left-[378.35px] rotate-[180deg] opacity-100 max-md:w-[341.91px] max-md:h-[59.24px] max-md:top-[236.33px] max-md:left-[183.92px]">
-                    <Image src="/photos/Tech/Ellipse 158.svg" fill alt="" />
+            {/* Background: Image.svg + purple gradient + Group 46 gradient — behind content, z-0 */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden min-h-[400px]">
+                <Image
+                    src="/photos/Tech/Image.svg"
+                    alt=""
+                    fill
+                    sizes="100vw"
+                    className="object-cover object-center"
+                    aria-hidden
+                />
+                <div className="absolute inset-0 tech-placements-glow" aria-hidden />
+                {/* Group 46: spans from section title top to card bottom, full section width — no max-width cap */}
+                <div
+                    className="absolute top-[40px] left-0 right-0 w-full h-[800px] max-md:top-[30px] max-md:h-[440px] pointer-events-none"
+                >
+                    <Image
+                        src="/photos/Tech/Group 46.svg"
+                        fill
+                        alt=""
+                        className="object-contain object-center"
+                        aria-hidden
+                    />
                 </div>
             </div>
 
-            <div className="relative z-10 w-full max-w-[1440px] mx-auto py-[40px] px-[60px] flex flex-col items-center gap-[60px] max-md:max-w-[700px] max-md:pt-[40px] max-md:px-[31.6px] max-md:pb-[20px] max-md:gap-[19.44px] max-md:h-[538.14px]">
+            <div className="relative z-10 w-full max-w-[1440px] mx-auto py-[40px] px-[60px] flex flex-col items-center gap-[60px] max-md:max-w-[700px] max-md:pt-[40px] max-md:px-[31.6px] max-md:pb-[40px] max-md:gap-[19.44px]">
                 {/* Header */}
                 <div className="w-full max-w-[1228px] flex flex-col items-center gap-[20px] text-center max-md:w-[337px] max-md:gap-[10px]">
                     <h2 className="m-0 font-outfit font-normal text-[60px] leading-[62px] tracking-[-0.02em] text-white max-md:text-[32px] max-md:leading-[38px]">
@@ -69,9 +95,6 @@ export function TechPlacementsSection() {
 
                 {/* Cards Row */}
                 <div className="relative w-full max-w-[1310px] flex justify-center max-md:w-[636.81px] max-md:h-[279.83px]">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1129px] h-[363.54px] z-0 pointer-events-none">
-                        <Image src="/photos/Tech/Group 46.svg" fill alt="" />
-                    </div>
                     <div className="relative z-[1] flex items-end justify-center gap-[30.3px] w-full max-w-[1134px] max-md:max-w-[551.25px] max-md:h-[279.83px] max-md:gap-[14.73px]">
                         {/* Left Card */}
                         <div className="relative w-[299.51px] h-[419.84px] shrink-0 max-md:w-[145.6px] max-md:h-[204.09px]">
@@ -100,7 +123,7 @@ export function TechPlacementsSection() {
                 </div>
 
                 {/* Navigation Buttons */}
-                <div className="flex items-center justify-center gap-[16px] max-md:mt-[10px]">
+                <div className="flex items-center justify-center gap-[16px] max-md:mt-[10px] max-md:pt-[32px] max-md:pb-[8px]">
                     <button className="relative w-[46.67px] h-[46.67px] bg-transparent border-none cursor-pointer p-0 transition-all duration-200 opacity-40 hover:opacity-100 max-md:w-[38.41px] max-md:h-[38.41px]">
                         <Image src="/photos/Tech/Arrow mark (2).svg" fill alt="Previous" className="object-contain" />
                     </button>
