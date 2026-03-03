@@ -40,17 +40,22 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         />
                     </button>
 
-                    <Link href="/contact" onClick={handleLinkClick}>
-                        <div className="w-[121px] h-[46px] flex items-center justify-center">
-                            <Image
-                                src="/photos/common/enqr button.svg"
-                                alt="Enquire Now"
-                                width={120}
-                                height={46}
-                                className="object-contain"
-                            />
-                        </div>
-                    </Link>
+                    <div className="flex items-center gap-[12px]">
+                        <Link href="/contact" onClick={handleLinkClick} className="flex items-center justify-center px-[20px] py-[12px] rounded-[18px] bg-[#131839] border border-[#232D6B] no-underline">
+                            <span className="font-rethink font-medium text-[16px] text-[#FFFFFF]">Let&apos;s Connect</span>
+                        </Link>
+                        <Link href="/contact" onClick={handleLinkClick}>
+                            <div className="w-[121px] h-[46px] flex items-center justify-center">
+                                <Image
+                                    src="/photos/common/enqr button.svg"
+                                    alt="Enquire Now"
+                                    width={120}
+                                    height={46}
+                                    className="object-contain"
+                                />
+                            </div>
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Navigation Buttons Container */}

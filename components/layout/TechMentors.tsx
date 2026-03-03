@@ -66,6 +66,7 @@ function MentorCard({
                     padding: boxPadding,
                     borderBottomLeftRadius: boxRadius,
                     borderBottomRightRadius: boxRadius,
+                    background: "linear-gradient(135deg, rgba(180,120,255,0.18) 0%, rgba(132,80,255,0.12) 50%, rgba(100,50,200,0.08) 100%)",
                 }}
             >
                 <div className="flex flex-col gap-[8px] w-full">
@@ -105,7 +106,136 @@ const ArrowIcon = ({ direction }: { direction: "left" | "right" }) => (
 // ── Main TechMentors Component ──────────────────────────────────────────
 export function TechMentors() {
     return (
-        <section className="w-full flex flex-col items-center relative overflow-hidden h-auto min-h-[828px] bg-transparent pt-[clamp(20px,10vw,140px)] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
+        <section className="w-full flex flex-col items-center relative overflow-hidden h-auto min-h-[828px] bg-transparent pt-0 lg:pt-[20px] xl:pt-[60px] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
+
+            {/* Local mask — tablet gradient; from 1024px: soft top fade so gradient closes before subtitle */}
+            <style>{`
+                .tech-mentors-gradient {
+                    mask-image: radial-gradient(
+                        ellipse 82% 78% at 50% 50%,
+                        black 0%,
+                        black 18%,
+                        rgba(0, 0, 0, 0.85) 30%,
+                        rgba(0, 0, 0, 0.55) 46%,
+                        rgba(0, 0, 0, 0.32) 60%,
+                        rgba(0, 0, 0, 0.14) 74%,
+                        rgba(0, 0, 0, 0.05) 86%,
+                        transparent 94%
+                    );
+                    -webkit-mask-image: radial-gradient(
+                        ellipse 82% 78% at 50% 50%,
+                        black 0%,
+                        black 18%,
+                        rgba(0, 0, 0, 0.85) 30%,
+                        rgba(0, 0, 0, 0.55) 46%,
+                        rgba(0, 0, 0, 0.32) 60%,
+                        rgba(0, 0, 0, 0.14) 74%,
+                        rgba(0, 0, 0, 0.05) 86%,
+                        transparent 94%
+                    );
+                }
+
+                /* From 1024px: gradient fully closed at top until subtitle, then soft transition down and up (softer bottom fade) */
+                @media (min-width: 1024px) {
+                    .tech-mentors-gradient {
+                        mask-image:
+                            /* top gate: keep gradient off the very top, start around subtitle */ 
+                            linear-gradient(
+                                to bottom,
+                                transparent 0%,
+                                transparent 22%,
+                                rgba(0, 0, 0, 0.08) 28%,
+                                rgba(0, 0, 0, 0.28) 35%,
+                                rgba(0, 0, 0, 0.55) 42%,
+                                rgba(0, 0, 0, 0.82) 48%,
+                                black 55%
+                            ),
+                            /* bottom gate: soften fade-out before section bottom */
+                            linear-gradient(
+                                to top,
+                                transparent 0%,
+                                rgba(0, 0, 0, 0.06) 20%,
+                                rgba(0, 0, 0, 0.24) 36%,
+                                rgba(0, 0, 0, 0.52) 52%,
+                                black 64%
+                            ),
+                            radial-gradient(
+                                ellipse 82% 78% at 50% 50%,
+                                black 0%,
+                                black 18%,
+                                rgba(0, 0, 0, 0.85) 30%,
+                                rgba(0, 0, 0, 0.55) 46%,
+                                rgba(0, 0, 0, 0.32) 60%,
+                                rgba(0, 0, 0, 0.16) 74%,
+                                rgba(0, 0, 0, 0.04) 86%,
+                                transparent 96%
+                            );
+                        -webkit-mask-image:
+                            linear-gradient(
+                                to bottom,
+                                transparent 0%,
+                                transparent 22%,
+                                rgba(0, 0, 0, 0.08) 28%,
+                                rgba(0, 0, 0, 0.28) 35%,
+                                rgba(0, 0, 0, 0.55) 42%,
+                                rgba(0, 0, 0, 0.82) 48%,
+                                black 55%
+                            ),
+                            linear-gradient(
+                                to top,
+                                transparent 0%,
+                                rgba(0, 0, 0, 0.06) 20%,
+                                rgba(0, 0, 0, 0.24) 36%,
+                                rgba(0, 0, 0, 0.52) 52%,
+                                black 64%
+                            ),
+                            radial-gradient(
+                                ellipse 82% 78% at 50% 50%,
+                                black 0%,
+                                black 18%,
+                                rgba(0, 0, 0, 0.85) 30%,
+                                rgba(0, 0, 0, 0.55) 46%,
+                                rgba(0, 0, 0, 0.32) 60%,
+                                rgba(0, 0, 0, 0.16) 74%,
+                                rgba(0, 0, 0, 0.04) 86%,
+                                transparent 96%
+                            );
+                        mask-composite: intersect;
+                        -webkit-mask-composite: source-in;
+                    }
+                }
+
+                /* 4K (≥1920px): same as 1440px — subtitle to card bottom, reduced width, ends at card edges */
+                @media (min-width: 1920px) {
+                    .tech-mentors-gradient {
+                        mask-image: linear-gradient(to bottom, transparent 0%, transparent 22%, rgba(0,0,0,0.08) 28%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0.55) 42%, black 50%),
+                            linear-gradient(to top, transparent 0%, rgba(0,0,0,0.15) 18%, rgba(0,0,0,0.45) 32%, black 48%),
+                            radial-gradient(ellipse 68% 65% at 50% 50%, black 0%, black 18%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 46%, rgba(0,0,0,0.32) 60%, rgba(0,0,0,0.12) 74%, transparent 90%);
+                        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 22%, rgba(0,0,0,0.08) 28%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0.55) 42%, black 50%),
+                            linear-gradient(to top, transparent 0%, rgba(0,0,0,0.15) 18%, rgba(0,0,0,0.45) 32%, black 48%),
+                            radial-gradient(ellipse 68% 65% at 50% 50%, black 0%, black 18%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 46%, rgba(0,0,0,0.32) 60%, rgba(0,0,0,0.12) 74%, transparent 90%);
+                        mask-composite: intersect;
+                        -webkit-mask-composite: source-in;
+                    }
+                }
+            `}</style>
+
+            {/* mentorsGradient.svg — mobile: taller; tablet/lg/xl: subtitle→cards; 4K: same as 1440px, constrained */}
+            <div
+                className="tech-mentors-gradient absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[36%] md:top-[40%] w-[120%] min-h-[900px] md:min-h-[820px] min-[1920px]:max-w-[1400px] min-[1920px]:w-[85%] min-[1920px]:min-h-[750px] z-0 pointer-events-none"
+                style={{
+                    aspectRatio: "1440 / 1203",
+                }}
+            >
+                <Image
+                    src="/photos/Tech/mentorsGradient.svg"
+                    alt=""
+                    fill
+                    className="object-contain object-center"
+                    sizes="100vw"
+                    aria-hidden
+                />
+            </div>
 
             {/* ── Foreground Content ─────────────────────────────────────────── */}
             <div className="relative z-10 flex flex-col items-center gap-[60px] w-full">

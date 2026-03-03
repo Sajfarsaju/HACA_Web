@@ -64,22 +64,24 @@ const TECH_ICONS: { src: string; alt: string; innerW: number; innerH: number; in
 
 export function TechIntroSection() {
     return (
-        <div className="w-full pl-[62px] pr-[56px] pt-[80px] max-[1440px]:px-[40px] max-[1200px]:px-[30px] max-lg:px-[24px] max-lg:pt-[60px] max-md:px-[20px] max-md:pt-[40px] max-[480px]:pt-[30px] max-[375px]:pt-[40px] max-[375px]:pb-[10px]">
+        <div className="w-full pl-[62px] pr-[56px] pt-[48px] max-[1440px]:px-[40px] max-[1440px]:pt-[40px] max-[1200px]:px-[30px] max-lg:px-[24px] max-md:px-[20px] max-md:pt-[40px] max-[480px]:pt-[30px] max-[375px]:pt-[40px] max-[375px]:pb-[10px] min-[1441px]:px-[min(80px,5vw)] min-[2560px]:max-w-[min(1400px,85vw)] min-[2560px]:mx-auto min-[3840px]:max-w-[min(1400px,75vw)]">
             {/* ── Inner row: left col + right col ── */}
-            <div className="w-full max-w-[1322px] flex flex-row items-center gap-[143px] min-h-[380px] mx-auto max-[1440px]:gap-[80px] max-[1200px]:gap-[50px] max-lg:flex-col max-lg:gap-[40px] max-lg:items-start max-[375px]:gap-[30px]">
+            <div className="w-full flex flex-row items-center gap-[143px] min-h-[380px] mx-auto max-[1440px]:gap-[80px] max-[1200px]:gap-[50px] max-lg:flex-col max-lg:gap-[40px] max-lg:items-start max-[375px]:gap-[30px] min-[2560px]:max-w-[min(1322px,75vw)] min-[2560px]:justify-center">
 
                 {/* ── LEFT COLUMN: Heading + Icon row ── */}
-                <div className="relative z-10 flex flex-col gap-[20px] flex-[0_0_438px] max-w-[438px] h-[179.61px] justify-center max-[1440px]:flex-[0_0_380px] max-[1440px]:max-w-[380px] max-[1200px]:flex-[0_0_320px] max-[1200px]:max-w-[320px] max-lg:flex-[0_0_auto] max-lg:max-w-full max-lg:w-full max-[375px]:flex-none max-[375px]:gap-[15.75px]">
+                <div className="relative z-10 flex flex-col gap-[20px] flex-[0_0_438px] max-w-[438px] h-[179.61px] justify-center max-[1440px]:flex-[0_0_380px] max-[1440px]:max-w-[380px] max-[1200px]:flex-[0_0_320px] max-[1200px]:max-w-[320px] max-lg:flex-[0_0_auto] max-lg:max-w-full max-lg:w-full max-lg:items-center max-[375px]:flex-none max-[375px]:gap-[15.75px]">
 
                     {/* Heading */}
-                    <div className="w-[438px] min-h-[112px] max-[1440px]:w-full max-lg:min-h-fit max-md:min-h-fit max-[480px]:min-h-fit max-[375px]:w-[237px] max-[375px]:min-h-[66px] max-[375px]:max-h-none max-[375px]:overflow-visible">
-                        <p className="font-outfit font-normal text-[56px] leading-none tracking-[-0.02em] text-white m-0 max-[1440px]:text-[48px] max-[1200px]:text-[40px] max-lg:text-[44px] max-md:text-[32px] max-md:leading-[1.1] max-[480px]:text-[26px] max-[375px]:text-[22px]">A New Ecosystem for Tech Learning</p>
+                    <div className="w-[438px] min-h-[112px] max-[1440px]:w-full max-lg:min-h-fit max-md:min-h-fit max-[480px]:min-h-fit max-[375px]:w-[240px] max-[375px]:min-h-[50px] max-[375px]:h-auto max-[375px]:mx-auto max-[375px]:flex max-[375px]:items-center max-[375px]:justify-center max-[375px]:overflow-visible max-lg:flex max-lg:justify-center">
+                        <p className="font-outfit font-normal text-[56px] leading-none tracking-[-0.02em] text-white m-0 max-[1440px]:text-[48px] max-[1200px]:text-[40px] max-lg:text-[44px] max-lg:text-center max-md:text-[32px] max-md:leading-[1.1] max-[480px]:text-[24px] max-[375px]:text-[18px] max-[375px]:leading-[1.3] max-[375px]:w-full text-center">
+                            A New Ecosystem <br className="hidden max-md:block" /> for Tech Learning
+                        </p>
                     </div>
 
                     {/* Icon Row */}
-                    <div className="flex flex-row items-center gap-[17.46px] w-[438px] h-[47.61px] flex-wrap max-[1440px]:w-full max-lg:h-auto max-md:gap-[12px] max-[480px]:gap-[10px]">
+                    <div className="flex flex-row items-center justify-center gap-[17.46px] w-[438px] h-[47.61px] flex-nowrap max-[1440px]:w-[380px] max-[1440px]:gap-[12px] max-[1200px]:w-[320px] max-[1200px]:gap-[8px] max-lg:w-full max-lg:h-auto max-lg:justify-center max-md:gap-[8px] max-[480px]:gap-[8px] max-[375px]:gap-[4px] max-[375px]:justify-center">
                         {TECH_ICONS.map((icon) => (
-                            <div className="w-[47.61px] h-[47.61px] shrink-0 flex items-center justify-center relative overflow-visible max-md:w-[36px] max-md:h-[36px] max-[480px]:w-[32px] max-[480px]:h-[32px]" key={icon.alt}>
+                            <div className="w-[47.61px] h-[47.61px] shrink-0 flex items-center justify-center relative overflow-visible max-[1440px]:w-[40px] max-[1440px]:h-[40px] max-[1200px]:w-[32px] max-[1200px]:h-[32px] max-md:w-[32px] max-md:h-[32px] max-[480px]:w-[24px] max-[480px]:h-[24px] max-[375px]:w-[20px] max-[375px]:h-[20px]" key={icon.alt}>
                                 {/* Width/height set to 48 as a layout hint; actual display size controlled by CSS */}
                                 <Image
                                     src={icon.src}

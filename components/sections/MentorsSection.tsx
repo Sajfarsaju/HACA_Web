@@ -29,7 +29,7 @@ const mentors = [
 
 export function MentorsSection() {
     return (
-        <section className="w-full max-w-[1440px] mx-auto p-[84px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,22px)] max-md:gap-[26px] max-md:items-start">
+        <section className="w-full max-w-[1440px] mx-auto p-[40px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,22px)] max-md:gap-[26px] max-md:items-start">
             {/* Header */}
             <div className="w-full max-w-[1320px] flex flex-col items-center gap-[20px] max-md:w-full max-md:gap-[clamp(6px,2.1vw,10px)] max-md:items-start">
                 {/* Badge Button */}

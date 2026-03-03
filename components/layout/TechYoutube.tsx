@@ -62,42 +62,6 @@ export function TechYoutube() {
         <section
             className="w-full relative overflow-hidden bg-transparent flex flex-col items-center justify-center min-h-auto py-[60px] gap-[36px] sm:min-h-[828px] sm:py-[100px] sm:gap-[60px]"
         >
-            {/* Left Gradient Decorations */}
-            <div className="absolute top-[55%] left-0 -translate-y-1/2 z-0 pointer-events-none">
-                <Image
-                    src="/photos/schools/tech/youtubGradientLeft1.svg"
-                    alt=""
-                    width={658}
-                    height={1062}
-                    className="block -ml-[120px]"
-                />
-                <Image
-                    src="/photos/schools/tech/youtubGradientLeft2.svg"
-                    alt=""
-                    width={443}
-                    height={923}
-                    className="absolute top-[55%] left-[-60px] -translate-y-1/2"
-                />
-            </div>
-
-            {/* Right Gradient Decorations */}
-            <div className="absolute top-[55%] right-0 -translate-y-1/2 z-0 pointer-events-none">
-                <Image
-                    src="/photos/schools/tech/youtubGradientRight1.svg"
-                    alt=""
-                    width={658}
-                    height={1062}
-                    className="block -mr-[120px]"
-                />
-                <Image
-                    src="/photos/schools/tech/youtubGradientRight2.svg"
-                    alt=""
-                    width={443}
-                    height={923}
-                    className="absolute top-[55%] right-[-60px] -translate-y-1/2"
-                />
-            </div>
-
             {/* Header */}
             <div className="z-10 flex flex-col items-center gap-4 text-center px-6">
                 <h2 className="font-outfit font-normal text-[clamp(28px,5vw,60px)] leading-[1.1] tracking-[-0.02em] text-[#FFFFFF] max-w-[1440px]">

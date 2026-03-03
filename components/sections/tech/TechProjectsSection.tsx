@@ -36,8 +36,8 @@ export function TechProjectsSection() {
 
                 {/* Header */}
                 <div className="w-full max-w-[1320px] mx-auto flex flex-col items-center gap-[20px]">
-                    <h2 className="font-outfit font-normal text-[60px] leading-[62px] tracking-[-0.02em] text-center text-white m-0 w-full max-md:text-[36px] max-md:leading-[40px]">
-                        Your Dream. Your Projects. Your Proof.
+                    <h2 className="font-outfit font-normal text-[60px] leading-[62px] tracking-[-0.02em] text-center text-white m-0 w-full max-md:text-[36px] max-md:leading-[40px] max-[375px]:text-[30px] max-[375px]:leading-[1.1] max-[375px]:tracking-[-0.2px] max-[375px]:w-full max-[375px]:max-w-[373px] max-[375px]:min-h-[66px] max-[375px]:mx-auto max-[320px]:text-[24px]">
+                        Your Dream, Your Projects. <br className="hidden max-[375px]:block" /> Your Proof.
                     </h2>
                     <p className="font-outfit font-normal text-[24px] leading-[33.6px] tracking-[-0.2px] text-center text-[#A7A7A7] m-0 max-w-[1320px] w-full max-md:text-[16px] max-md:leading-[24px]">
                         You&apos;ll build real, working projects that show what you can do, not just what you&apos;ve read about. These aren&apos;t classroom exercises. They&apos;re portfolio pieces. Proof that you&apos;ve got the skills to code, create, and contribute from day one.

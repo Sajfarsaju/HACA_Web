@@ -53,47 +53,100 @@ const COURSES = [
 
 export function TechPathSection() {
     return (
-        <section className="w-full relative overflow-visible flex flex-col items-center" id="tech-paths">
+        <section className="w-full relative overflow-visible flex flex-col items-center bg-[#111111]" id="tech-paths">
 
-            {/* Local style for the mobile gradient border mask that is too complex for inline tailwind */}
+            {/* Local style for the mobile gradient border mask and tablet purple gradient extension */}
             <style>{`
+                /* Tablet: purple gradient from title to bottom text same as desktop */
+                @media (max-width: 1023px) {
+                    .tech-path-gradient-mask {
+                        mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 3%, black 6%, black 94%, rgba(0,0,0,0.5) 96%, transparent 98%),
+                            radial-gradient(ellipse 75% 90% at 50% 50%, black 0%, black 12%, rgba(0,0,0,0.9) 28%, rgba(0,0,0,0.6) 48%, rgba(0,0,0,0.25) 70%, transparent 100%) !important;
+                        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 3%, black 6%, black 94%, rgba(0,0,0,0.5) 96%, transparent 98%),
+                            radial-gradient(ellipse 75% 90% at 50% 50%, black 0%, black 12%, rgba(0,0,0,0.9) 28%, rgba(0,0,0,0.6) 48%, rgba(0,0,0,0.25) 70%, transparent 100%) !important;
+                    }
+                }
+                /* Mobile only: full-height vertical fade — gradient spans from section title to bottom text */
                 @media (max-width: 767px) {
-                    .tech-path-card-mobile-mask::before {
+                    .tech-path-gradient-mask {
+                        mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 3%, black 6%, black 94%, rgba(0,0,0,0.5) 97%, transparent 100%) !important;
+                        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 3%, black 6%, black 94%, rgba(0,0,0,0.5) 97%, transparent 100%) !important;
+                        mask-composite: unset !important;
+                        -webkit-mask-composite: unset !important;
+                    }
+                }
+                /* Single gradient border for ≤1024px — parent wrapper only */
+                @media (max-width: 1024px) {
+                    .tech-path-card-border::before {
                         content: "";
                         position: absolute;
                         inset: 0;
-                        padding: 1px;
                         border-radius: 22px;
-                        background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-                            linear-gradient(90deg, rgba(255, 86, 0, 0.68) 0%, rgba(105, 74, 255, 0.68) 100%);
+                        padding: 1px;
+                        background: linear-gradient(90deg, rgba(255, 86, 0, 0.68) 0%, rgba(105, 74, 255, 0.68) 100%);
                         -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
                         mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
                         -webkit-mask-composite: xor;
                         mask-composite: exclude;
                         pointer-events: none;
-                        z-index: 1;
+                        z-index: 2;
+                    }
+                    /* Inner container: flush to card edge, overflow:hidden clips SVG */
+                    .tech-path-card-border .tech-path-card-inner {
+                        inset: 0 !important;
+                        border-radius: 22px !important;
+                        overflow: hidden !important;
+                        clip-path: none !important;
+                        -webkit-clip-path: none !important;
+                    }
+                    /* Scale the bg image so its baked-in SVG stroke bleeds OUTSIDE overflow:hidden — only CSS border visible */
+                    .tech-path-card-border .tech-path-card-inner img {
+                        transform: scale(1.06) !important;
+                        transform-origin: center center !important;
                     }
                 }
             `}</style>
 
-            {/* Background elements */}
-            <div className="absolute top-0 right-0 left-0 bottom-0 pointer-events-none z-0 overflow-hidden [-mt-[100px]] min-h-[2400px]">
-                <div className="absolute top-0 left-[74px] w-[1312px] h-[2249px] opacity-100 max-md:left-0 max-md:w-full max-md:max-w-[100vw]">
-                    <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover" />
+            {/* Background gradients — purple spans from section title to bottom promo text */}
+            <div
+                className="tech-path-gradient-mask absolute top-0 left-0 right-0 bottom-0 pointer-events-none z-0 min-h-[calc(100%+500px)] max-lg:min-h-[calc(100%+650px)] max-md:min-h-full max-md:h-full"
+                style={{
+                    maskImage: `
+                        linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 3%, black 6%, black 94%, rgba(0,0,0,0.5) 96%, transparent 98%),
+                        radial-gradient(ellipse 75% 90% at 50% 50%, black 0%, black 12%, rgba(0,0,0,0.9) 28%, rgba(0,0,0,0.6) 48%, rgba(0,0,0,0.25) 70%, transparent 100%)
+                    `,
+                    WebkitMaskImage: `
+                        linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 3%, black 6%, black 94%, rgba(0,0,0,0.5) 96%, transparent 98%),
+                        radial-gradient(ellipse 75% 90% at 50% 50%, black 0%, black 12%, rgba(0,0,0,0.9) 28%, rgba(0,0,0,0.6) 48%, rgba(0,0,0,0.25) 70%, transparent 100%)
+                    `,
+                    maskComposite: "intersect",
+                    WebkitMaskComposite: "source-in",
+                }}
+            >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1312px] max-w-[calc(100vw+200px)] min-w-full h-[2249px] max-md:h-full opacity-100">
+                    <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover object-center" />
                 </div>
-                <div className="absolute top-0 left-[74px] w-[1300px] h-[2249px] opacity-[0.87] max-md:left-0 max-md:w-full max-md:max-w-[100vw]">
-                    <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1300px] max-w-[calc(100vw+200px)] min-w-full h-[2249px] max-md:h-full opacity-[0.87]">
+                    <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" />
                 </div>
-                <div className="absolute top-[300px] left-[264px] w-[715px] h-[935px] rotate-[-164.21deg] opacity-100 max-md:hidden">
-                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-cover" />
+                <div className="absolute top-[850px] left-1/2 -translate-x-1/2 w-[715px] max-w-[90vw] h-[935px] rotate-[-164.21deg] opacity-100 max-md:hidden">
+                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-cover object-center" />
+                </div>
+                {/* Mobile-only: orange gradient at center of card 1 */}
+                <div className="hidden max-md:block absolute top-[430px] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[400px] rotate-[-164.21deg] opacity-90 pointer-events-none">
+                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
+                </div>
+                {/* Mobile-only: orange gradient at center of card 5 */}
+                <div className="hidden max-md:block absolute top-[1704px] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[400px] rotate-[-164.21deg] opacity-90 pointer-events-none">
+                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
                 </div>
             </div>
 
             {/* Content */}
-            <div className="relative z-10 w-full max-w-[1440px] mx-auto py-[40px] px-[60px] flex flex-col gap-[60px] max-md:w-full max-md:max-w-full max-md:mx-auto max-md:py-[40px] max-md:px-[20px] max-md:gap-[30px] max-md:items-center">
+            <div className="relative z-10 w-full max-w-[1440px] mx-auto py-[40px] px-[60px] flex flex-col gap-[60px] max-lg:px-[40px] max-md:py-[40px] max-md:px-[20px] max-md:gap-[30px] max-md:items-center max-sm:px-[16px]">
 
                 {/* Header */}
-                <div className="flex flex-col gap-[20px] items-center text-center w-full max-w-[1349px] mx-auto pt-[60px] max-md:max-w-[341px]">
+                <div className="flex flex-col gap-[20px] items-center text-center w-full max-w-[1349px] mx-auto pt-[60px] max-md:pt-[40px] max-md:max-w-full">
                     <h2 className="font-outfit font-normal text-[60px] leading-[1.03] tracking-[-0.02em] text-white max-w-[722px] m-0 max-md:text-[40px] max-md:leading-[1.1]">
                         Choose Your Path.<br />We&apos;ll Guide You Through It.
                     </h2>
@@ -103,38 +156,40 @@ export function TechPathSection() {
                 </div>
 
                 {/* Course Grid */}
-                <div className="w-full max-w-[1320px] mx-auto max-md:max-w-[341px]">
-                    <div className="grid grid-cols-2 gap-[60px] max-md:grid-cols-1 max-md:gap-[20px]">
+                <div className="w-full max-w-[1320px] mx-auto">
+                    <div className="grid grid-cols-2 gap-[60px] max-lg:gap-[40px] max-md:grid-cols-1 max-md:gap-[24px] max-md:max-w-[500px] max-md:mx-auto max-sm:max-w-full">
                         {COURSES.map((course, idx) => (
-                            <div key={idx} className="relative w-full min-h-[394px] rounded-[22px] p-[24px] flex flex-col justify-between cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-[5px] hover:brightness-[1.1] group max-md:max-w-[341px] max-md:h-[313px] max-md:min-h-[313px] max-md:p-[20px] max-md:border-transparent max-md:bg-transparent max-md:shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] max-md:backdrop-blur-[12px] max-md:mx-auto tech-path-card-mobile-mask">
-                                {/* BG image */}
-                                <Image
-                                    src={course.bgImage}
-                                    alt=""
-                                    fill
-                                    className="object-cover absolute inset-0 z-0 pointer-events-none opacity-80 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
-                                />
+                            <div key={idx} className="tech-path-card-border relative w-full min-h-[394px] rounded-[22px] flex flex-col cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-[5px] hover:brightness-[1.1] group max-lg:min-h-[360px] max-md:min-h-[313px] max-md:border-transparent max-md:bg-transparent max-md:backdrop-blur-[12px]">
+                                {/* Clip layer: bg sits inside border; on ≤1024px clip-path insets so SVG stroke never touches edge */}
+                                <div className="tech-path-card-inner absolute inset-0 overflow-hidden rounded-[22px] z-0">
+                                    <Image
+                                        src={course.bgImage}
+                                        alt=""
+                                        fill
+                                        className="object-cover pointer-events-none opacity-80 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+                                    />
+                                </div>
 
-                                <div className="relative z-10 flex flex-col h-full justify-between gap-[40px] max-md:gap-0 max-md:z-[2]">
-                                    {/* Top row: title + duration */}
-                                    <div className="flex justify-between items-start gap-[16px] max-md:w-full max-md:max-w-[301px] max-md:h-[72px] max-md:min-h-[72px] max-md:gap-0 max-md:opacity-100">
+                                <div className="relative z-10 flex flex-col flex-1 justify-between gap-[40px] p-[24px] max-md:p-[20px] max-md:gap-[16px] max-md:z-[2]">
+                                    {/* Top row: title + duration — wraps on tablet so duration has room */}
+                                    <div className="flex justify-between items-start gap-[12px] max-lg:flex-wrap max-lg:gap-3 max-md:gap-3">
                                         <h3
-                                            className="font-outfit font-medium text-[32px] leading-[1.2] tracking-[-0.2px] text-white m-0 max-md:text-[20px] max-md:w-[150px] max-md:!max-w-[150px]"
-                                            style={{ maxWidth: course.titleWidth }}
+                                            className="font-outfit font-medium text-[32px] leading-[1.2] tracking-[-0.2px] text-white m-0 max-lg:text-[26px] max-lg:min-w-0 max-lg:flex-1 max-lg:max-w-[calc(100%-120px)] max-md:text-[20px] max-md:flex-1 max-md:min-w-0 max-md:max-w-full"
+                                            style={{ maxWidth: "min(325px, 100%)" }}
                                         >
                                             {course.title}
                                         </h3>
-                                        <div className="flex flex-col items-end text-right min-w-[100px] shrink-0 max-md:w-[90px] max-md:min-w-[90px] max-md:min-h-[72px]">
-                                            <span className="font-outfit font-normal text-[14px] leading-none text-[#E8FFEE] max-md:tracking-normal">Duration</span>
-                                            <span className="font-outfit font-normal text-[20px] leading-none text-[#E8FFEE] mt-[4px] max-md:text-[14px] max-md:tracking-normal">{course.duration}</span>
-                                            <span className="font-outfit font-normal text-[14px] leading-none text-[#E8FFEE] mt-[4px] max-md:tracking-normal">{course.location}</span>
+                                        <div className="flex flex-col items-end text-right shrink-0 min-w-0 w-full max-w-[50%] max-lg:w-full max-lg:max-w-full max-md:max-w-full">
+                                            <span className="font-outfit font-normal text-[14px] leading-tight text-[#E8FFEE] max-lg:text-[13px] max-md:text-[12px]">Duration</span>
+                                            <span className="font-outfit font-normal text-[20px] leading-tight text-[#E8FFEE] mt-[4px] max-lg:text-[16px] max-lg:leading-[1.3] max-md:text-[13px] max-md:leading-[1.35] break-words text-right">{course.duration}</span>
+                                            <span className="font-outfit font-normal text-[14px] leading-tight text-[#E8FFEE] mt-[4px] max-lg:text-[13px] max-md:text-[12px] text-right">{course.location}</span>
                                         </div>
                                     </div>
 
                                     {/* Bottom: description + button */}
-                                    <div className="flex flex-col gap-[30px] mt-auto max-md:w-full max-md:max-w-[301px] max-md:h-[161px] max-md:justify-between max-md:gap-0 max-md:mt-0 max-md:opacity-100">
-                                        <p className="font-outfit font-light text-[16px] leading-[1.3] text-white max-w-[85%] m-0 max-md:text-[14px] max-md:leading-none max-md:tracking-normal max-md:max-w-full">{course.description}</p>
-                                        <div className="flex justify-start max-md:w-full max-md:max-w-[301px] max-md:mt-0">
+                                    <div className="flex flex-col gap-[30px] mt-auto max-md:gap-[20px] max-md:mt-0">
+                                        <p className="font-outfit font-light text-[16px] leading-[1.3] text-white max-w-[85%] m-0 max-lg:text-[15px] max-md:text-[14px] max-md:leading-[1.35] max-md:max-w-full">{course.description}</p>
+                                        <div className="flex justify-start max-md:mt-0">
                                             <button className="bg-transparent border-none p-0 cursor-pointer flex items-center transition-transform duration-200 hover:scale-105 max-md:w-[119px] max-md:h-[40px] max-md:rounded-[8px] max-md:overflow-hidden max-md:gap-[53px] max-md:opacity-100 max-md:justify-center">
                                                 <Image
                                                     src="/photos/Tech/Link - Regular.svg"
