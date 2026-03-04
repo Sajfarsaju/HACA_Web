@@ -2462,10 +2462,40 @@
   height: 20px;
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 30px;
+  /* Reduced gap to fit all items */
   position: relative;
   flex-shrink: 0;
 }
+
+.tech-nav-item {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFFFFF;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.8;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.tech-nav-item:hover {
+  opacity: 1;
+}
+
+.tech-nav-item.active {
+  opacity: 1;
+  font-weight: 500;
+}
+
+.tech-nav-bullet {
+  font-size: 20px;
+  line-height: 0;
+}
+
 
 .tech-main-hero-cta {
   width: 118px;

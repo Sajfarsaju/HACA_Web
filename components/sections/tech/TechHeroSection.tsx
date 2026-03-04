@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { TechNavbar } from "./TechNavbar";
+
 
 /* ─────────────────────────────────────────────────────────────────────────────
    The design canvas is 1440 × 1044 px (Figma spec).
@@ -74,40 +76,8 @@ export default function TechHero() {
                     </div>
 
                     {/* ── HEADER ── */}
-                    <header className="tech-main-hero-header">
-                        {/* Logo */}
-                        <div className="tech-main-hero-logo">
-                            <Image
-                                src="/photos/Tech/tech PW 1.svg"
-                                alt="Tech PW Logo"
-                                fill
-                                style={{ objectFit: "contain" }}
-                                priority
-                            />
-                        </div>
+                    <TechNavbar />
 
-                        {/* Nav links */}
-                        <div className="tech-main-hero-nav">
-                            <Image
-                                src="/photos/Tech/Frame 1984078067.svg"
-                                alt="Navigation Links"
-                                width={500}
-                                height={20}
-                                style={{ objectFit: "contain" }}
-                            />
-                        </div>
-
-                        {/* Join Now CTA */}
-                        <div className="tech-main-hero-cta">
-                            <Image
-                                src="/photos/Tech/Join Now.svg"
-                                alt="Join Now"
-                                width={118}
-                                height={44}
-                                style={{ objectFit: "contain" }}
-                            />
-                        </div>
-                    </header>
 
                     {/* ── HERO TEXT SECTION ── */}
                     <div className="tech-main-hero-text-section">
@@ -260,7 +230,7 @@ export default function TechHero() {
 
                         {/* Stat 2 */}
                         <div className="tech-main-hero-stat-item tech-main-hero-stat-14">
-                            <Image src="/photos/Tech/100%.svg" alt="100%" width={93} height={30} style={{ objectFit: "contain" }} priority />
+                            <Image src="/photos/Tech/100-percent.svg" alt="100%" width={93} height={30} style={{ objectFit: "contain" }} priority />
                             <span className="tech-stat-label">Placement Support</span>
                         </div>
 
@@ -415,7 +385,7 @@ export default function TechHero() {
                                     <span className="tech-mobile-stat-label">Students Learned</span>
                                 </div>
                                 <div className="tech-mobile-stat-row tech-mobile-stat-row-2">
-                                    <Image src="/photos/Tech/100%.svg" alt="100%" width={70} height={22} style={{ objectFit: "contain" }} priority />
+                                    <Image src="/photos/Tech/100-percent.svg" alt="100%" width={70} height={22} style={{ objectFit: "contain" }} priority />
                                     <span className="tech-mobile-stat-label">Placement Support</span>
                                 </div>
                                 <div className="tech-mobile-stat-row tech-mobile-stat-row-3">
@@ -431,7 +401,7 @@ export default function TechHero() {
             {/* ── Mobile Background Image (below hero, mobile only) ── */}
             <div className="tech-mobile-bg-image-wrap">
                 <Image
-                    src="/photos/Tech/Image.png"
+                    src="/photos/Tech/Image.svg"
                     alt="Tech Background"
                     width={1442}
                     height={200}
