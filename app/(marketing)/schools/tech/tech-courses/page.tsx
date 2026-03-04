@@ -16,7 +16,6 @@ export default function CoursesPage() {
     const [scales, setScales] = useState({ desktop: 1, mobile: 1 });
 
     useEffect(() => {
-        setMounted(true);
         const update = () => {
             const containerWidth = Math.min(window.innerWidth, DESIGN_W);
             setScales({
@@ -24,9 +23,15 @@ export default function CoursesPage() {
                 mobile: window.innerWidth / MOBILE_DESIGN_W,
             });
         };
-        update();
+        const timeoutId = setTimeout(() => {
+            setMounted(true);
+            update();
+        }, 0);
         window.addEventListener("resize", update);
-        return () => window.removeEventListener("resize", update);
+        return () => {
+            clearTimeout(timeoutId);
+            window.removeEventListener("resize", update);
+        };
     }, []);
 
     if (!mounted) {

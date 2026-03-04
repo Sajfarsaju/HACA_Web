@@ -54,7 +54,6 @@ export default function TechProjectsPage() {
     const [viewportWidth, setViewportWidth] = useState<number | null>(null);
 
     useEffect(() => {
-        setMounted(true);
         const update = () => {
             const width = window.innerWidth;
             const containerWidth = Math.min(width, DESIGN_W);
@@ -64,9 +63,15 @@ export default function TechProjectsPage() {
             });
             setViewportWidth(width);
         };
-        update();
+        const timeoutId = setTimeout(() => {
+            setMounted(true);
+            update();
+        }, 0);
         window.addEventListener("resize", update);
-        return () => window.removeEventListener("resize", update);
+        return () => {
+            clearTimeout(timeoutId);
+            window.removeEventListener("resize", update);
+        };
     }, []);
 
     if (!mounted) {
