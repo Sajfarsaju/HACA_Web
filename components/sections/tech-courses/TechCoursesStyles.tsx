@@ -59,8 +59,23 @@ const TECH_COURSES_CSS = `
     mask-size: 100% 100%;
     -webkit-mask-size: 100% 100%;
 }
+/* Dot image (DOTsBG.svg): fade the top so it blends smoothly */
+.tech-mobile-hero-dots {
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.25) 6%, rgba(0,0,0,0.6) 14%, black 22%, black 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.25) 6%, rgba(0,0,0,0.6) 14%, black 22%, black 100%);
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+}
 /* Projects page: gradient not attached to dots — hide dots in mobile hero */
 .tech-projects-page .tech-mobile-hero-dots {
+    display: none !important;
+}
+/* Mobile dots bg (DOTsBG (1).svg): hide on desktop/tablet */
+.tech-projects-mobile-dots-bg {
+    display: none !important;
+}
+/* Mobile Group 23 bg: hide on desktop/tablet */
+.tech-projects-mobile-group23-bg {
     display: none !important;
 }
 .tech-courses-hero-heading {
@@ -190,6 +205,264 @@ const TECH_COURSES_CSS = `
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+}
+
+/* ── PROJECT PAGE CARDS: same gradient border and styling as course cards (orange→purple) ── */
+.tech-project-card {
+    position: relative;
+}
+.tech-project-card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 22px;
+    padding: 1px;
+    background: linear-gradient(90deg, #FF5600 0%, #694AFF 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* ── PROJECT PAGE TOOLBAR: same gradient border as course cards ── */
+.tech-projects-toolbar-search,
+.tech-projects-toolbar-filters,
+.tech-projects-toolbar-sort {
+    position: relative;
+    border: 1px solid transparent !important;
+}
+.tech-projects-toolbar-search::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(90deg, #FF5600 0%, #694AFF 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+.tech-projects-toolbar-filters::before,
+.tech-projects-toolbar-sort::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 15px;
+    padding: 1px;
+    background: linear-gradient(90deg, #FF5600 0%, #694AFF 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Mobile-style toolbar: used for mobile + tablet (up to 1023px) */
+@media (min-width: 1024px) {
+    .tech-projects-toolbar-mobile {
+        display: none !important;
+    }
+}
+@media (max-width: 1023px) {
+    .tech-projects-toolbar-mobile {
+        display: flex;
+        justify-content: center;
+        margin-top: 24px;
+    }
+    /* Mobile toolbar: same gradient border as project cards (orange → purple) */
+    .tech-projects-toolbar-mobile-search,
+    .tech-projects-toolbar-mobile-all,
+    .tech-projects-toolbar-mobile-sort {
+        position: relative;
+        border: 1px solid transparent !important;
+    }
+    .tech-projects-toolbar-mobile-search::before,
+    .tech-projects-toolbar-mobile-all::before,
+    .tech-projects-toolbar-mobile-sort::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: 8.94px;
+        padding: 1px;
+        background: linear-gradient(90deg, #FF5600 0%, #694AFF 100%);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+}
+
+/* Small mobile: search bar row scales and pads properly */
+@media (max-width: 400px) {
+    .tech-projects-toolbar-mobile {
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-top: 20px;
+        box-sizing: border-box;
+    }
+    .tech-projects-toolbar-mobile-inner {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 0;
+        height: auto !important;
+        gap: 12px !important;
+    }
+    .tech-projects-toolbar-mobile-search {
+        width: 100% !important;
+        min-height: 36px !important;
+        height: auto !important;
+        padding: 6px 10px 6px 12px !important;
+        border-radius: 8px !important;
+        gap: 8px !important;
+    }
+    .tech-projects-toolbar-mobile-search::before,
+    .tech-projects-toolbar-mobile-all::before,
+    .tech-projects-toolbar-mobile-sort::before {
+        border-radius: 8px !important;
+    }
+    .tech-projects-toolbar-mobile-search span {
+        font-size: clamp(14px, 3.5vw, 16px) !important;
+    }
+    .tech-projects-toolbar-mobile-filters {
+        width: 100% !important;
+        min-height: 36px !important;
+        height: auto !important;
+        gap: 8px !important;
+    }
+    .tech-projects-toolbar-mobile-all {
+        width: auto !important;
+        min-width: 64px !important;
+        height: 36px !important;
+        min-height: 36px !important;
+        padding: 6px 10px !important;
+        border-radius: 8px !important;
+    }
+    .tech-projects-toolbar-mobile-all span {
+        font-size: 13px !important;
+    }
+    .tech-projects-toolbar-mobile-sort {
+        height: 36px !important;
+        min-height: 36px !important;
+        padding: 6px 12px !important;
+        border-radius: 8px !important;
+    }
+    .tech-projects-toolbar-mobile-sort span {
+        font-size: 13px !important;
+    }
+}
+
+/* ── PROJECTS CARDS SECTION: match Tech Courses section layout and card styling ── */
+.tech-projects-cards-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    padding-bottom: 200px;
+    padding-left: 60px;
+    padding-right: 60px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+.tech-projects-cards-inner {
+    width: 100%;
+    max-width: 1320px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.tech-projects-grid-row {
+    width: 100%;
+    max-width: 1320px;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 24px;
+}
+.tech-project-card-top {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+.tech-project-card-title {
+    width: 100%;
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #FFFFFF;
+}
+.tech-project-card-image-wrap {
+    width: 100%;
+    height: 186px;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+}
+.tech-project-card-bottom {
+    width: 100%;
+    min-height: 232px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+.tech-project-card-student {
+    width: 100%;
+    min-height: 40px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+.tech-project-card-tech {
+    width: 100%;
+    min-height: 120px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 0;
+    color: #FFFFFF;
+}
+.tech-project-card-cta {
+    width: 133px;
+    height: 54px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    align-self: flex-start;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    box-sizing: border-box;
+    background: transparent !important;
+    -webkit-tap-highlight-color: transparent;
+}
+.tech-project-card-cta:focus,
+.tech-project-card-cta:focus-visible {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.tech-project-card-cta *,
+.tech-project-card-cta span,
+.tech-project-card-cta img {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    display: block;
+    border-radius: 10px;
 }
 
 /* ── LABEL BADGE ── */
@@ -369,13 +642,21 @@ const TECH_COURSES_CSS = `
         background: #0B0B0B;
     }
     .tech-projects-page .tech-courses-header-section {
+        /* Projects header: overlap hero gradient similar to original position, without clipping search bar */
+        margin-top: -150px;
+        padding-top: 12px;
         background: transparent;
+        align-items: center;
+        text-align: center;
     }
     .tech-courses-header-section .tech-courses-hero-heading {
-        font-size: clamp(24px, 8vw, 30px);
+        font-size: clamp(24px, 7.5vw, 32px);
+        font-weight: 400;
     }
     .tech-courses-header-section .tech-courses-hero-desc {
-        font-size: clamp(12px, 3.7vw, 14px);
+        max-width: 1275px;
+        font-size: clamp(13px, 3.9vw, 16px);
+        line-height: 130%;
     }
     .courses-section .courses-section-group29 {
         display: none;
@@ -547,8 +828,331 @@ const TECH_COURSES_CSS = `
     .courses-section-gradient2 {
         display: none !important;
     }
+    .tech-projects-page .tech-projects-cards-gradient2 {
+        display: none !important;
+    }
+    /* Projects cards: tablet — 6 cards only, 2 per row */
+    .tech-projects-page .tech-projects-cards-section {
+        padding-left: clamp(24px, 4vw, 48px);
+        padding-right: clamp(24px, 4vw, 48px);
+        margin-top: 60px;
+        margin-bottom: 80px;
+    }
+    .tech-projects-page .tech-projects-cards-inner {
+        width: 100%;
+        max-width: 1320px;
+        gap: 32px;
+    }
+    .tech-projects-page .tech-projects-grid-row:nth-child(n+3) {
+        display: none !important;
+    }
+    .tech-projects-page .tech-projects-grid-row {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 20px;
+    }
+    .tech-projects-page .tech-project-card {
+        width: calc(50% - 10px) !important;
+        min-width: 280px;
+        max-width: 412px;
+    }
+    .tech-projects-page .tech-project-card-top,
+    .tech-projects-page .tech-project-card-title,
+    .tech-projects-page .tech-project-card-image-wrap,
+    .tech-projects-page .tech-project-card-bottom,
+    .tech-projects-page .tech-project-card-student,
+    .tech-projects-page .tech-project-card-tech {
+        width: 100% !important;
+    }
+    .tech-projects-page .tech-project-card-image-wrap {
+        height: auto !important;
+        min-height: 160px;
+    }
+}
+
+/* ════════════════════════════════════ TABLET — 769px to 1023px: navbar + cards padding/sizing (smooth when dragging) ════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1023px) {
+    /* Navbar: slightly tighter gap and font so it scales nicely when resizing */
+    .tech-main-hero-nav {
+        gap: clamp(16px, 2.2vw, 24px);
+    }
+    .tech-nav-item {
+        font-size: clamp(14px, 1.35vw, 16px);
+    }
+    .tech-main-hero-logo {
+        width: clamp(160px, 14vw, 203px);
+        height: auto;
+        aspect-ratio: 203 / 36;
+    }
+    /* Projects cards: fluid padding and margins so resizing looks smooth */
+    .tech-projects-page .tech-projects-cards-section {
+        padding-left: clamp(28px, 5vw, 48px);
+        padding-right: clamp(28px, 5vw, 48px);
+        margin-top: clamp(50px, 6vw, 60px);
+        margin-bottom: clamp(64px, 8vw, 80px);
+    }
+    .tech-projects-page .tech-projects-cards-inner {
+        gap: 32px;
+    }
+    .tech-projects-page .tech-projects-grid-row {
+        justify-content: space-between;
+        gap: clamp(16px, 2vw, 24px);
+    }
+    .tech-projects-page .tech-project-card {
+        width: calc(50% - clamp(8px, 1vw, 12px)) !important;
+        min-width: 0;
+        max-width: none;
+        padding: clamp(12px, 1.5vw, 14px) !important;
+        box-sizing: border-box;
+    }
+    .tech-projects-page .tech-project-card-title {
+        font-size: clamp(20px, 2.2vw, 24px) !important;
+    }
+    .tech-projects-page .tech-project-card-image-wrap {
+        min-height: clamp(140px, 18vw, 186px);
+    }
+
+    /* Projects page: show gradient on tablet — extends to last row of cards, smooth bottom transition */
+    .tech-projects-page .tech-projects-cards-section {
+        position: relative;
+    }
+    .tech-projects-page .tech-projects-cards-gradient2 {
+        display: block !important;
+        position: absolute;
+        top: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(1180px, 100% + 120px);
+        bottom: 0;
+        min-height: 1400px;
+        opacity: 1;
+        pointer-events: none;
+        z-index: 0.5;
+        overflow: hidden;
+        /* Gradient only up to last row of cards: fade completes by ~72% so it doesn't extend deep down */
+        mask-image: linear-gradient(
+            to bottom,
+            black 0%,
+            black 58%,
+            rgba(0, 0, 0, 0.92) 64%,
+            rgba(0, 0, 0, 0.5) 68%,
+            transparent 72%
+        );
+        -webkit-mask-image: linear-gradient(
+            to bottom,
+            black 0%,
+            black 58%,
+            rgba(0, 0, 0, 0.92) 64%,
+            rgba(0, 0, 0, 0.5) 68%,
+            transparent 72%
+        );
+        mask-size: 100% 100%;
+        -webkit-mask-size: 100% 100%;
+    }
+    .tech-projects-page .tech-projects-cards-gradient2 img {
+        object-fit: cover !important;
+        object-position: center top !important;
+    }
+
+    /* Projects toolbar: tablet responsiveness (e.g. 770×509) */
+    .tech-projects-toolbar > div {
+        width: 100%;
+        max-width: 1320px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: clamp(8px, 1.5vw, 16px);
+        flex-wrap: wrap;
+    }
+    .tech-projects-toolbar-search {
+        flex: 1 1 100%;
+        max-width: 100%;
+        height: 44px;
+    }
+    .tech-projects-toolbar-filters {
+        flex: 1 1 60%;
+        width: auto !important;
+        min-width: 0;
+        padding-inline: clamp(14px, 2.4vw, 22px) !important;
+        height: 44px;
+    }
+    .tech-projects-toolbar-sort {
+        flex: 0 1 35%;
+        width: auto !important;
+        min-width: 0;
+        padding-inline: clamp(10px, 2vw, 18px) !important;
+        height: 44px;
+    }
+    .tech-projects-toolbar-filters span,
+    .tech-projects-toolbar-sort span {
+        font-size: clamp(14px, 1.5vw, 18px) !important;
+    }
+}
+
+/* Projects cards: mobile — single column by default, first 6 cards only
+   + hide desktop toolbar, use mobile-style toolbar instead */
+@media (max-width: 768px) {
     .tech-projects-toolbar {
         display: none !important;
+    }
+    /* Mobile dots background: DOTsBG (1).svg — from top of page, faded at top, stretches to bottom of content (past 6th card) */
+    .tech-projects-page .tech-projects-mobile-dots-bg {
+        display: block !important;
+        position: absolute;
+        width: 406px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+        bottom: 0;
+        min-height: 3200px;
+        z-index: 0;
+        opacity: 1;
+        overflow: hidden;
+        pointer-events: none;
+        mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0.25) 6%,
+            rgba(0, 0, 0, 0.6) 14%,
+            black 20%,
+            black 97%,
+            rgba(0, 0, 0, 0.6) 99%,
+            transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0.25) 6%,
+            rgba(0, 0, 0, 0.6) 14%,
+            black 20%,
+            black 97%,
+            rgba(0, 0, 0, 0.6) 99%,
+            transparent 100%
+        );
+        mask-size: 100% 100%;
+        -webkit-mask-size: 100% 100%;
+    }
+    .tech-projects-page .tech-projects-mobile-dots-bg img {
+        object-fit: cover;
+        object-position: center top;
+    }
+    /* Mobile Group 23 (1).svg: starts at toolbar ("All" section), stretches to bottom of content (past 6th card) */
+    .tech-projects-page .tech-projects-mobile-group23-bg {
+        display: block !important;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 300px;
+        bottom: 0;
+        min-height: 3200px;
+        z-index: 0;
+        opacity: 1;
+        overflow: hidden;
+        pointer-events: none;
+    }
+    .tech-projects-page .tech-projects-mobile-group23-bg img {
+        object-fit: cover;
+        object-position: center top;
+        /* Gradient extends to last card's bottom, short fade at very end */
+        mask-image: linear-gradient(
+            to bottom,
+            black 0%,
+            black 97%,
+            rgba(0, 0, 0, 0.6) 99%,
+            transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            to bottom,
+            black 0%,
+            black 97%,
+            rgba(0, 0, 0, 0.6) 99%,
+            transparent 100%
+        );
+        mask-size: 100% 100%;
+        -webkit-mask-size: 100% 100%;
+    }
+
+    /* Keep header above hero and dots so heading/description are visible */
+    .tech-projects-page .tech-courses-header-section {
+        position: relative;
+        z-index: 20;
+    }
+    /* Cards above the dots layer; mobile section layout same as before */
+    .tech-projects-page .tech-projects-cards-section {
+        position: relative;
+        z-index: 1;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        margin-top: 40px !important;
+        margin-bottom: 60px !important;
+        padding-bottom: 0 !important;
+    }
+    .tech-projects-page .tech-projects-cards-inner {
+        gap: 24px;
+    }
+    .tech-projects-page .tech-projects-grid-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    .tech-projects-page .tech-projects-grid-row:nth-child(n+3) {
+        display: none !important;
+    }
+    .tech-projects-page .tech-project-card {
+        width: 100% !important;
+        max-width: 400px;
+        padding: 14px 14px 8px !important;
+    }
+    .tech-projects-page .tech-project-card-top {
+        height: auto !important;
+        width: 100% !important;
+    }
+    .tech-projects-page .tech-project-card-title {
+        height: auto !important;
+        width: 100% !important;
+        font-size: clamp(18px, 4.5vw, 22px) !important;
+    }
+    .tech-projects-page .tech-project-card-image-wrap {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 180px;
+    }
+    .tech-projects-page .tech-project-card-bottom {
+        width: 100% !important;
+        min-height: auto !important;
+        flex: none !important;
+    }
+    .tech-projects-page .tech-project-card-student,
+    .tech-projects-page .tech-project-card-tech {
+        width: 100% !important;
+        font-size: 14px !important;
+    }
+    .tech-projects-page .tech-project-card-cta {
+        width: 116px;
+        height: 44px;
+        margin-top: -6px;
+    }
+}
+
+/* Larger mobile / small tablets: 2 cards per row when there is enough width */
+@media (min-width: 600px) and (max-width: 1023px) {
+    .tech-projects-page .tech-projects-cards-inner {
+        gap: 20px;
+    }
+    .tech-projects-page .tech-projects-grid-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        gap: 16px;
+    }
+    .tech-projects-page .tech-project-card {
+        max-width: none;
+        width: calc(50% - 10px) !important;
     }
 }
 
@@ -635,6 +1239,49 @@ const TECH_COURSES_CSS = `
         background: linear-gradient(90deg, #0B0B0B 0%, transparent 12%, transparent 88%, #0B0B0B 100%);
         z-index: 2;
         pointer-events: none;
+    }
+
+    /* Projects page: main cards background image (Image (5).svg) starting just above first row */
+    .tech-projects-page .tech-projects-cards-section {
+        position: relative;
+    }
+    .tech-projects-page .tech-projects-cards-bg {
+        position: absolute;
+        inset: 0;
+        top: -20px; /* starts 20px above first card content */
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 0;
+    }
+    /* Projects page: Gradient2 (2).svg — starts from description, covers to halfway of last card row */
+    .tech-projects-page .tech-projects-cards-gradient2 {
+        display: block;
+        position: absolute;
+        width: 1180px;
+        height: 2600px;
+        top: -300px;
+        left: 130px;
+        opacity: 1;
+        pointer-events: none;
+        z-index: 0.5;
+        overflow: hidden;
+        /* Reveal from top; smooth fade at bottom (last card halfway) and sides */
+        mask-image: linear-gradient(to bottom, black 0%, black 72%, rgba(0,0,0,0.5) 85%, transparent 100%), linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 6%, black 15%, black 85%, rgba(0,0,0,0.5) 94%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 72%, rgba(0,0,0,0.5) 85%, transparent 100%), linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 6%, black 15%, black 85%, rgba(0,0,0,0.5) 94%, transparent 100%);
+        mask-composite: intersect;
+        -webkit-mask-composite: source-in;
+        mask-size: 100% 100%;
+        -webkit-mask-size: 100% 100%;
+    }
+    .tech-projects-page .tech-projects-cards-gradient2 img {
+        object-fit: cover !important;
+        object-position: center top !important;
+    }
+    .tech-projects-page .tech-projects-cards-inner {
+        position: relative;
+        z-index: 1;
     }
 }
 
