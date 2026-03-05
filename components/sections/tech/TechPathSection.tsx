@@ -60,9 +60,9 @@ export function TechPathSection() {
                 /* Tablet: purple gradient from title to bottom text same as desktop */
                 @media (max-width: 1023px) {
                     .tech-path-gradient-mask {
-                        mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 3%, black 6%, black 94%, rgba(0,0,0,0.5) 96%, transparent 98%),
+                        mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 3%, black 6%, black 88%, rgba(0,0,0,0.4) 95%, transparent 100%),
                             radial-gradient(ellipse 75% 90% at 50% 50%, black 0%, black 12%, rgba(0,0,0,0.9) 28%, rgba(0,0,0,0.6) 48%, rgba(0,0,0,0.25) 70%, transparent 100%) !important;
-                        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 3%, black 6%, black 94%, rgba(0,0,0,0.5) 96%, transparent 98%),
+                        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 3%, black 6%, black 88%, rgba(0,0,0,0.4) 95%, transparent 100%),
                             radial-gradient(ellipse 75% 90% at 50% 50%, black 0%, black 12%, rgba(0,0,0,0.9) 28%, rgba(0,0,0,0.6) 48%, rgba(0,0,0,0.25) 70%, transparent 100%) !important;
                     }
                 }
@@ -105,28 +105,108 @@ export function TechPathSection() {
                         transform-origin: center center !important;
                     }
                 }
+
+                /* Desktop 1440px+ and 4K: slightly shorter band with softer bottom fade (mirror of tablet feel) */
+                @media (min-width: 1024px) {
+                    .tech-path-gradient-mask {
+                        mask-image:
+                            linear-gradient(
+                                to bottom,
+                                transparent 0%,
+                                rgba(0,0,0,0.3) 4%,
+                                black 10%,
+                                black 85%,
+                                rgba(0,0,0,0.6) 92%,
+                                rgba(0,0,0,0.15) 96%,
+                                transparent 100%
+                            ),
+                            radial-gradient(
+                                ellipse 75% 86% at 50% 50%,
+                                black 0%,
+                                black 12%,
+                                rgba(0,0,0,0.9) 28%,
+                                rgba(0,0,0,0.6) 48%,
+                                rgba(0,0,0,0.25) 70%,
+                                transparent 100%
+                            );
+                        -webkit-mask-image:
+                            linear-gradient(
+                                to bottom,
+                                transparent 0%,
+                                rgba(0,0,0,0.3) 4%,
+                                black 10%,
+                                black 85%,
+                                rgba(0,0,0,0.6) 92%,
+                                rgba(0,0,0,0.15) 96%,
+                                transparent 100%
+                            ),
+                            radial-gradient(
+                                ellipse 75% 86% at 50% 50%,
+                                black 0%,
+                                black 12%,
+                                rgba(0,0,0,0.9) 28%,
+                                rgba(0,0,0,0.6) 48%,
+                                rgba(0,0,0,0.25) 70%,
+                                transparent 100%
+                            );
+                    }
+                }
             `}</style>
 
             {/* Background gradients — purple spans from section title to bottom promo text */}
             <div
-                className="tech-path-gradient-mask absolute top-0 left-0 right-0 bottom-0 pointer-events-none z-0 min-h-[calc(100%+500px)] max-lg:min-h-[calc(100%+650px)] max-md:min-h-full max-md:h-full"
+                className="tech-path-gradient-mask absolute top-0 left-0 right-0 bottom-0 pointer-events-none z-0 min-h-[calc(100%+400px)] max-lg:min-h-[calc(100%+400px)] max-md:min-h-[calc(100%+220px)]"
                 style={{
                     maskImage: `
-                        linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 3%, black 6%, black 94%, rgba(0,0,0,0.5) 96%, transparent 98%),
-                        radial-gradient(ellipse 75% 90% at 50% 50%, black 0%, black 12%, rgba(0,0,0,0.9) 28%, rgba(0,0,0,0.6) 48%, rgba(0,0,0,0.25) 70%, transparent 100%)
+                        linear-gradient(
+                            to bottom,
+                            transparent 0%,
+                            rgba(0,0,0,0.4) 3%,
+                            black 6%,
+                            black 85%,
+                            rgba(0,0,0,0.6) 92%,
+                            rgba(0,0,0,0.15) 96%,
+                            transparent 100%
+                        ),
+                        radial-gradient(
+                            ellipse 75% 90% at 50% 50%,
+                            black 0%,
+                            black 12%,
+                            rgba(0,0,0,0.9) 28%,
+                            rgba(0,0,0,0.6) 48%,
+                            rgba(0,0,0,0.25) 70%,
+                            transparent 100%
+                        )
                     `,
                     WebkitMaskImage: `
-                        linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 3%, black 6%, black 94%, rgba(0,0,0,0.5) 96%, transparent 98%),
-                        radial-gradient(ellipse 75% 90% at 50% 50%, black 0%, black 12%, rgba(0,0,0,0.9) 28%, rgba(0,0,0,0.6) 48%, rgba(0,0,0,0.25) 70%, transparent 100%)
+                        linear-gradient(
+                            to bottom,
+                            transparent 0%,
+                            rgba(0,0,0,0.4) 3%,
+                            black 6%,
+                            black 85%,
+                            rgba(0,0,0,0.6) 92%,
+                            rgba(0,0,0,0.15) 96%,
+                            transparent 100%
+                        ),
+                        radial-gradient(
+                            ellipse 75% 90% at 50% 50%,
+                            black 0%,
+                            black 12%,
+                            rgba(0,0,0,0.9) 28%,
+                            rgba(0,0,0,0.6) 48%,
+                            rgba(0,0,0,0.25) 70%,
+                            transparent 100%
+                        )
                     `,
                     maskComposite: "intersect",
                     WebkitMaskComposite: "source-in",
                 }}
             >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1312px] max-w-[calc(100vw+200px)] min-w-full h-[2249px] max-md:h-full opacity-100">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1312px] max-w-[calc(100vw+200px)] min-w-full h-full min-h-[2500px] opacity-100">
                     <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover object-center" />
                 </div>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1300px] max-w-[calc(100vw+200px)] min-w-full h-[2249px] max-md:h-full opacity-[0.87]">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1300px] max-w-[calc(100vw+200px)] min-w-full h-full min-h-[2500px] opacity-[0.87]">
                     <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" />
                 </div>
                 <div className="absolute top-[850px] left-1/2 -translate-x-1/2 w-[715px] max-w-[90vw] h-[935px] rotate-[-164.21deg] opacity-100 max-md:hidden">

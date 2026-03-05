@@ -1,9 +1,59 @@
+"use client";
 import Image from "next/image";
+import { useState, useEffect, useCallback } from "react";
+
+const PLACEMENTS = [
+    "/photos/schools/tech/placements/IMG_20260205_135110_480.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135132_304.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135156_730.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135237_626.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135304_434.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135329_601.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135354_480.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135421_019.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135441_651.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135511_739.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135540_651.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135602_603.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135623_589.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135657_154.jpg",
+] as const;
+
+/* ── Responsive card sizing (same approach as TechYoutube) ── */
+function getCardSizes(width: number) {
+    if (width < 480) {
+        // Mobile: single card only, nearly full-width
+        const centerW = width - 48;
+        return { centerW, centerH: centerW * 1.4, sideW: 0, sideH: 0, gap: 0, showSide: false };
+    } else if (width < 768) {
+        // Large mobile: center card + side peek
+        const centerW = Math.min(260, width - 80);
+        return { centerW, centerH: centerW * 1.4, sideW: 160, sideH: 160 * 1.14, gap: 16, showSide: true };
+    } else if (width < 1024) {
+        // Tablet
+        const centerW = Math.min(300, width - 240);
+        return { centerW, centerH: centerW * 1.4, sideW: 210, sideH: 210 * 1.14, gap: 22, showSide: true };
+    } else if (width < 1280) {
+        // Small desktop
+        return { centerW: 360, centerH: 504, sideW: 260, sideH: 364, gap: 28, showSide: true };
+    } else {
+        // Full desktop
+        return { centerW: 410.67, centerH: 575.66, sideW: 299.51, sideH: 419.84, gap: 30.3, showSide: true };
+    }
+}
+
+/* ── Circular offset utility ── */
+function getOffset(index: number, active: number, total: number) {
+    let diff = index - active;
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    return diff;
+}
 
 export function TechPlacementsSection() {
     return (
         <section className="w-full relative overflow-hidden bg-[#111111]" id="tech-placements">
-            {/* Local style for the gradient border masks */}
+            {/* Local style for gradient border masks */}
             <style>{`
                 .tech-placements-glass-side::before {
                     content: "";
@@ -31,7 +81,7 @@ export function TechPlacementsSection() {
                     mask-composite: exclude;
                     pointer-events: none;
                 }
-                /* Purple glow: center band, soft fade to edges — reduced side darkness */
+                /* Purple glow */
                 .tech-placements-glow {
                     background: radial-gradient(
                         ellipse 55% 55% at 50% 58%,
@@ -44,7 +94,7 @@ export function TechPlacementsSection() {
                 }
             `}</style>
 
-            {/* Background: Image.svg + purple gradient + Group 46 gradient — behind content, z-0 */}
+            {/* Background layers */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden min-h-[400px]">
                 <Image
                     src="/photos/Tech/Image.svg"
@@ -55,7 +105,6 @@ export function TechPlacementsSection() {
                     aria-hidden
                 />
                 <div className="absolute inset-0 tech-placements-glow" aria-hidden />
-                {/* Group 46: spans from section title top to card bottom, full section width — no max-width cap */}
                 <div
                     className="absolute top-[40px] left-0 right-0 w-full h-[800px] max-md:top-[30px] max-md:h-[440px] pointer-events-none"
                 >
@@ -73,8 +122,8 @@ export function TechPlacementsSection() {
                 {/* Header */}
                 <div className="w-full max-w-[1228px] flex flex-col items-center gap-[20px] text-center max-md:w-[337px] max-md:gap-[10px]">
                     <h2 className="m-0 font-outfit font-normal text-[60px] leading-[62px] tracking-[-0.02em] text-white max-md:text-[32px] max-md:leading-[38px]">
-                        <span className="block max-md:hidden">Placements We’re Proud Of</span>
-                        <span className="hidden max-md:block">Placements We’re <br /> Proud Of</span>
+                        <span className="block max-md:hidden">Placements We're Proud Of</span>
+                        <span className="hidden max-md:block">Placements We're <br /> Proud Of</span>
                     </h2>
 
                     {/* Desktop Subheadings */}
@@ -93,45 +142,160 @@ export function TechPlacementsSection() {
                     </div>
                 </div>
 
-                {/* Cards Row */}
-                <div className="relative w-full max-w-[1310px] flex justify-center max-md:w-[636.81px] max-md:h-[279.83px]">
-                    <div className="relative z-[1] flex items-end justify-center gap-[30.3px] w-full max-w-[1134px] max-md:max-w-[551.25px] max-md:h-[279.83px] max-md:gap-[14.73px]">
-                        {/* Left Card */}
-                        <div className="relative w-[299.51px] h-[419.84px] shrink-0 max-md:w-[145.6px] max-md:h-[204.09px]">
-                            <div className="tech-placements-glass-side absolute bottom-0 w-full h-[367.04px] bg-[#D9D9D91A] rounded-[14.72px] shadow-[0px_2.69px_2.69px_rgba(0,0,0,0.40)] backdrop-blur-[8.07px] border-[0.67px] border-transparent max-md:h-[180px] max-md:rounded-[8px]"></div>
-                            <div className="absolute top-0 left-0 w-full h-[418.97px] rounded-[14px] overflow-hidden max-md:h-[203px] max-md:rounded-[8px]">
-                                <Image src="/photos/Tech/Instagram post - 18137 1.svg" fill alt="Placement Story" className="object-cover" />
-                            </div>
-                        </div>
-
-                        {/* Center Card */}
-                        <div className="relative w-[410.67px] h-[575.66px] shrink-0 max-md:w-[199.63px] max-md:h-[279.83px]">
-                            <div className="tech-placements-glass-center absolute bottom-0 w-full h-[503.25px] bg-[#D9D9D91A] rounded-[20.18px] shadow-[0px_3.69px_3.69px_rgba(0,0,0,0.40)] backdrop-blur-[11.07px] border-[0.92px] border-transparent max-md:h-[245px] max-md:rounded-[12px]"></div>
-                            <div className="absolute top-0 left-0 w-full h-[574.47px] rounded-[20px] overflow-hidden max-md:h-[278px] max-md:rounded-[12px]">
-                                <Image src="/photos/Tech/Instagram post - 18137 1.svg" fill alt="Placement Story" className="object-cover" />
-                            </div>
-                        </div>
-
-                        {/* Right Card */}
-                        <div className="relative w-[299.51px] h-[419.84px] shrink-0 max-md:w-[145.6px] max-md:h-[204.09px]">
-                            <div className="tech-placements-glass-side absolute bottom-0 w-full h-[367.04px] bg-[#D9D9D91A] rounded-[14.72px] shadow-[0px_2.69px_2.69px_rgba(0,0,0,0.40)] backdrop-blur-[8.07px] border-[0.67px] border-transparent max-md:h-[180px] max-md:rounded-[8px]"></div>
-                            <div className="absolute top-0 left-0 w-full h-[418.97px] rounded-[14px] overflow-hidden max-md:h-[203px] max-md:rounded-[8px]">
-                                <Image src="/photos/Tech/Instagram post - 18137 1.svg" fill alt="Placement Story" className="object-cover" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Navigation Buttons */}
-                <div className="flex items-center justify-center gap-[16px] max-md:mt-[10px] max-md:pt-[32px] max-md:pb-[8px]">
-                    <button className="relative w-[46.67px] h-[46.67px] bg-transparent border-none cursor-pointer p-0 transition-all duration-200 opacity-40 hover:opacity-100 max-md:w-[38.41px] max-md:h-[38.41px]">
-                        <Image src="/photos/Tech/Arrow mark (2).svg" fill alt="Previous" className="object-contain" />
-                    </button>
-                    <button className="relative w-[46.67px] h-[46.67px] bg-transparent border-none cursor-pointer p-0 transition-transform duration-200 hover:scale-105 max-md:w-[38.41px] max-md:h-[38.41px]">
-                        <Image src="/photos/Tech/Active Arowmark (1).svg" fill alt="Next" className="object-contain" />
-                    </button>
-                </div>
+                {/* Carousel */}
+                <PlacementsCarousel />
             </div>
         </section>
+    );
+}
+
+function PlacementsCarousel() {
+    const [active, setActive] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(() =>
+        typeof window !== "undefined" ? window.innerWidth : 1280
+    );
+
+    const handleResize = useCallback(() => {
+        setWindowWidth(window.innerWidth);
+    }, []);
+
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [handleResize]);
+
+    const total = PLACEMENTS.length;
+
+    // Auto-scroll every 3 seconds; resets when `active` changes (including manual clicks)
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setActive((i) => (i + 1) % total);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, [active, total]);
+
+    const prev = () => setActive((i) => (i - 1 + total) % total);
+    const next = () => setActive((i) => (i + 1) % total);
+
+    const { centerW, centerH, sideW, sideH, gap, showSide } = getCardSizes(windowWidth);
+
+    return (
+        <>
+            {/* Carousel Stage */}
+            <div
+                className="w-full relative flex items-center justify-center overflow-visible"
+                style={{ height: `${centerH + 40}px` }}
+            >
+                {PLACEMENTS.map((src, i) => {
+                    const offset = getOffset(i, active, total);
+                    const isCenter = offset === 0;
+                    const isVisible = showSide ? Math.abs(offset) <= 1 : isCenter;
+
+                    const cardW = isCenter ? centerW : sideW;
+                    const cardH = isCenter ? centerH : sideH;
+
+                    // Horizontal positioning — same logic as TechYoutube
+                    let translateX = 0;
+                    if (offset !== 0) {
+                        const centerHalf = centerW / 2;
+                        const sideHalf = sideW / 2;
+                        translateX = offset > 0
+                            ? centerHalf + gap + sideHalf + (offset - 1) * (sideW + gap)
+                            : -(centerHalf + gap + sideHalf) + (offset + 1) * (sideW + gap);
+                    }
+
+                    const isLeft = offset === -1;
+                    const isRight = offset === 1;
+
+                    return (
+                        <div
+                            key={i}
+                            onClick={() => {
+                                if (isLeft) prev();
+                                if (isRight) next();
+                            }}
+                            className={`absolute overflow-hidden ${isCenter ? "cursor-default z-[2]" : "cursor-pointer z-[1]"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+                            style={{
+                                width: `${cardW}px`,
+                                height: `${cardH}px`,
+                                borderRadius: isCenter ? "20.18px" : "14.72px",
+                                transform: `translateX(${translateX}px) scale(${isCenter ? 1 : 0.96})`,
+                                opacity: isCenter ? 1 : isVisible ? 0.55 : 0,
+                                transition: "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, width 0.5s ease, height 0.5s ease, box-shadow 0.5s ease",
+                            }}
+                        >
+                            {/* Glass backdrop card */}
+                            <div
+                                className={isCenter ? "tech-placements-glass-center" : "tech-placements-glass-side"}
+                                style={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    width: "100%",
+                                    height: isCenter ? "87.4%" : "87.5%",
+                                    borderRadius: "inherit",
+                                    background: "#D9D9D91A",
+                                    backdropFilter: isCenter ? "blur(11.07px)" : "blur(8.07px)",
+                                    boxShadow: isCenter
+                                        ? "0px 3.69px 3.69px rgba(0,0,0,0.40)"
+                                        : "0px 2.69px 2.69px rgba(0,0,0,0.40)",
+                                }}
+                            />
+
+                            {/* Image */}
+                            <div
+                                className="absolute top-0 left-0 w-full overflow-hidden"
+                                style={{
+                                    height: "100%",
+                                    borderRadius: "inherit",
+                                }}
+                            >
+                                <Image
+                                    src={src}
+                                    fill
+                                    alt="Placement Story"
+                                    className="object-cover"
+                                    sizes={isCenter ? "(max-width: 768px) 80vw, 411px" : "(max-width: 768px) 40vw, 300px"}
+                                />
+                            </div>
+
+                            {/* Gradient border glow on center card */}
+                            {isCenter && (
+                                <div
+                                    className="absolute inset-[-1.07px] pointer-events-none"
+                                    style={{
+                                        boxShadow: "0px 0px 60px rgba(255, 86, 0, 0.15), 0px 0px 20px rgba(105, 74, 255, 0.1)",
+                                        borderRadius: "inherit",
+                                        padding: "1.07px",
+                                        background: "linear-gradient(90deg, rgba(255, 86, 0, 0.68) 0%, rgba(105, 74, 255, 0.68) 100%)",
+                                        WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                                        WebkitMaskComposite: "xor",
+                                        mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                                        maskComposite: "exclude",
+                                    }}
+                                />
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* Navigation — same nav buttons as TechYoutube */}
+            <div className="flex gap-4 mt-[10px] max-md:pt-[32px] max-md:pb-[8px]">
+                <button
+                    onClick={prev}
+                    aria-label="Previous placement"
+                    className="w-[46.67px] h-[46.67px] rounded-full border-[0.72px] border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 rotate-90 cursor-pointer transition-opacity duration-200 opacity-40 hover:!opacity-100 max-md:w-[38.41px] max-md:h-[38.41px]"
+                >
+                    <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt="Previous" width={12} height={12} className="brightness-0 invert" />
+                </button>
+                <button
+                    onClick={next}
+                    aria-label="Next placement"
+                    className="w-[46.67px] h-[46.67px] rounded-full border-[0.72px] border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 -rotate-90 cursor-pointer transition-opacity duration-200 hover:!opacity-80 max-md:w-[38.41px] max-md:h-[38.41px]"
+                >
+                    <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt="Next" width={12} height={12} className="brightness-0 invert" />
+                </button>
+            </div>
+        </>
     );
 }

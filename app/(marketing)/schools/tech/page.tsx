@@ -74,10 +74,18 @@ export default function TechSchoolPage() {
                                 <div
                                     className="hidden md:block absolute left-0 right-0 z-0 pointer-events-none overflow-hidden"
                                     style={{
-                                        top: "100px",
+                                        top: "250px",
                                         height: "1700px",
-                                        maskImage: "radial-gradient(ellipse 80% 88% at 50% 49%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.82) 14%, rgba(0,0,0,0.62) 28%, rgba(0,0,0,0.40) 44%, rgba(0,0,0,0.20) 62%, rgba(0,0,0,0.07) 78%, rgba(0,0,0,0.02) 90%, transparent 100%)",
-                                        WebkitMaskImage: "radial-gradient(ellipse 80% 88% at 50% 49%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.82) 14%, rgba(0,0,0,0.62) 28%, rgba(0,0,0,0.40) 44%, rgba(0,0,0,0.20) 62%, rgba(0,0,0,0.07) 78%, rgba(0,0,0,0.02) 90%, transparent 100%)",
+                                        maskImage: `
+                                            linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 8%, rgba(0,0,0,0.5) 18%, black 25%, black 75%, rgba(0,0,0,0.5) 88%, rgba(0,0,0,0.1) 95%, transparent 100%),
+                                            radial-gradient(ellipse 80% 88% at 50% 50%, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.4) 60%, transparent 100%)
+                                        `,
+                                        WebkitMaskImage: `
+                                            linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 8%, rgba(0,0,0,0.5) 18%, black 25%, black 75%, rgba(0,0,0,0.5) 88%, rgba(0,0,0,0.1) 95%, transparent 100%),
+                                            radial-gradient(ellipse 80% 88% at 50% 50%, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.4) 60%, transparent 100%)
+                                        `,
+                                        maskComposite: "intersect",
+                                        WebkitMaskComposite: "source-in",
                                     }}
                                 >
                                     <div style={{ position: "absolute", inset: 0 }}>
@@ -85,6 +93,9 @@ export default function TechSchoolPage() {
                                     </div>
                                     <div style={{ position: "absolute", inset: 0, opacity: 0.45 }}>
                                         <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" aria-hidden />
+                                    </div>
+                                    <div className="absolute top-[950px] left-1/2 -translate-x-1/2 w-[715px] max-w-[90vw] h-[500px] rotate-[-164.21deg] opacity-90 max-md:hidden pointer-events-none">
+                                        <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
                                     </div>
                                 </div>
 

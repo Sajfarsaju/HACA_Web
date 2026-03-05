@@ -13,24 +13,113 @@ const THUMBNAILS = [
 ];
 
 function getCardSizes(width: number) {
-    if (width < 480) {
-        // Mobile: single card only, nearly full-width
-        return { centerW: width - 48, centerH: (width - 48) * 0.5625, sideW: 0, sideH: 0, gap: 0, showSide: false };
-    } else if (width < 768) {
-        // Large Mobile: center card + tiny side peek
-        const centerW = Math.min(400, width - 64);
-        return { centerW, centerH: centerW * 0.5625, sideW: 120, sideH: 120 * 0.5625, gap: 20, showSide: true };
-    } else if (width < 1024) {
-        // Tablet
-        const centerW = Math.min(480, width - 200);
-        return { centerW, centerH: centerW * 0.5625, sideW: 200, sideH: 200 * 0.5625, gap: 24, showSide: true };
-    } else if (width < 1280) {
-        // Small Desktop
-        return { centerW: 520, centerH: 520 * 0.5625, sideW: 360, sideH: 360 * 0.5625, gap: 32, showSide: true };
-    } else {
-        // Full Desktop
-        return { centerW: 600, centerH: 369.23, sideW: 500, sideH: 307.69, gap: 40, showSide: true };
+    // Very small screens (e.g. 320px): single centered card
+    if (width < 360) {
+        const centerW = width - 48;
+        const centerH = centerW * 0.5625;
+        return {
+            centerW,
+            centerH,
+            sideW: 0,
+            sideH: 0,
+            gap: 0,
+            showSide: false,
+            centerRadius: 11.22,
+            sideRadius: 9.35,
+            centerBorderWidth: 0.51,
+            sideBorderWidth: 0.43,
+        };
     }
+
+    // Mobile (375px–425px etc): one main card with side peeks, specific Figma sizes
+    if (width < 480) {
+        const centerW = 285.71429443359375;
+        const centerH = 175.82418823242188;
+        const sideH = 146.52015686035156;
+        const sideW = centerW * (sideH / centerH);
+        return {
+            centerW,
+            centerH,
+            sideW,
+            sideH,
+            gap: 16,
+            showSide: true,
+            centerRadius: 11.22,
+            sideRadius: 9.35,
+            centerBorderWidth: 0.51,
+            sideBorderWidth: 0.43,
+        };
+    }
+
+    // Large Mobile / small tablet
+    if (width < 768) {
+        const centerW = Math.min(400, width - 64);
+        const centerH = centerW * 0.5625;
+        const sideW = 120;
+        const sideH = 120 * 0.5625;
+        return {
+            centerW,
+            centerH,
+            sideW,
+            sideH,
+            gap: 20,
+            showSide: true,
+            centerRadius: 23.57,
+            sideRadius: 19.64,
+            centerBorderWidth: 1.07,
+            sideBorderWidth: 0.89,
+        };
+    }
+
+    // Tablet
+    if (width < 1024) {
+        const centerW = Math.min(480, width - 200);
+        const centerH = centerW * 0.5625;
+        const sideW = 200;
+        const sideH = 200 * 0.5625;
+        return {
+            centerW,
+            centerH,
+            sideW,
+            sideH,
+            gap: 24,
+            showSide: true,
+            centerRadius: 23.57,
+            sideRadius: 19.64,
+            centerBorderWidth: 1.07,
+            sideBorderWidth: 0.89,
+        };
+    }
+
+    // Small Desktop
+    if (width < 1280) {
+        return {
+            centerW: 520,
+            centerH: 520 * 0.5625,
+            sideW: 360,
+            sideH: 360 * 0.5625,
+            gap: 32,
+            showSide: true,
+            centerRadius: 23.57,
+            sideRadius: 19.64,
+            centerBorderWidth: 1.07,
+            sideBorderWidth: 0.89,
+        };
+    }
+
+    // Full Desktop and 4K
+    return {
+        centerW: 600,
+        centerH: 369.23,
+        sideW: 500,
+        sideH: 307.69,
+        gap: 40,
+        showSide: true,
+        centerRadius: 23.57,
+        sideRadius: 19.64,
+        centerBorderWidth: 1.07,
+        sideBorderWidth: 0.89,
+    };
 }
 
 function getOffset(index: number, active: number, total: number) {
@@ -55,11 +144,30 @@ export function TechYoutube() {
         return () => window.removeEventListener("resize", handleResize);
     }, [handleResize]);
 
-    const prev = () => setActive((i) => (i - 1 + THUMBNAILS.length) % THUMBNAILS.length);
-    const next = () => setActive((i) => (i + 1) % THUMBNAILS.length);
-
     const total = THUMBNAILS.length;
-    const { centerW, centerH, sideW, sideH, gap, showSide } = getCardSizes(windowWidth);
+
+    // Auto-advance every 3 seconds; timer resets when user clicks arrow (same as mentor/placement)
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setActive((i) => (i + 1) % total);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, [active, total]);
+
+    const prev = () => setActive((i) => (i - 1 + total) % total);
+    const next = () => setActive((i) => (i + 1) % total);
+    const {
+        centerW,
+        centerH,
+        sideW,
+        sideH,
+        gap,
+        showSide,
+        centerRadius,
+        sideRadius,
+        centerBorderWidth,
+        sideBorderWidth,
+    } = getCardSizes(windowWidth);
 
     return (
         <section
@@ -73,6 +181,30 @@ export function TechYoutube() {
                 <p className="font-outfit font-normal text-[clamp(14px,2vw,24px)] leading-[140%] tracking-[-0.2px] text-[#A7A7A7] max-w-[1029px]">
                     Our YouTube content reflects ongoing lessons from work in progress, evolving trends, experiments, and outcomes.
                 </p>
+            </div>
+
+            {/* Background decorative gradients for cards */}
+            <div className="absolute inset-0 pointer-events-none z-0">
+                {/* Left side — Group 50.svg touching left edge */}
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[220px] h-[420px] md:w-[380px] md:h-full opacity-30">
+                    <Image
+                        src="/photos/schools/tech/Group 50.svg"
+                        alt=""
+                        fill
+                        className="object-contain object-left"
+                        aria-hidden
+                    />
+                </div>
+                {/* Right side — Group 49.svg touching right edge */}
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[220px] h-[420px] md:w-[380px] md:h-[840px] opacity-30">
+                    <Image
+                        src="/photos/schools/tech/Group 49.svg"
+                        alt=""
+                        fill
+                        className="object-contain object-right"
+                        aria-hidden
+                    />
+                </div>
             </div>
 
             {/* Carousel Stage */}
@@ -90,7 +222,7 @@ export function TechYoutube() {
 
                     // Compute the horizontal position of each card
                     let translateX = 0;
-                    if (offset !== 0) {
+                    if (offset !== 0 && showSide) {
                         const centerHalf = centerW / 2;
                         const sideHalf = sideW / 2;
                         translateX = offset > 0
@@ -105,15 +237,17 @@ export function TechYoutube() {
                                 if (offset === -1) prev();
                                 if (offset === 1) next();
                             }}
-                            className={`absolute overflow-hidden ${isCenter ? 'cursor-default z-[2]' : 'cursor-pointer z-[1]'} ${isVisible ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                            className={`absolute overflow-hidden ${isCenter ? "cursor-default z-[2]" : "cursor-pointer z-[1]"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
                             style={{
                                 width: `${cardW}px`,
                                 height: `${cardH}px`,
-                                borderRadius: isCenter ? "23.57px" : "19.64px",
+                                borderRadius: `${isCenter ? centerRadius : sideRadius}px`,
                                 background: isCenter
                                     ? `linear-gradient(#111111, #111111) padding-box, linear-gradient(90deg, rgba(255, 86, 0, 0.68) 0%, rgba(105, 74, 255, 0.68) 100%) border-box`
                                     : "transparent",
-                                border: isCenter ? "1.07px solid transparent" : "0.89px solid rgba(255,255,255,0.15)",
+                                border: isCenter
+                                    ? `${centerBorderWidth}px solid transparent`
+                                    : `${sideBorderWidth}px solid rgba(255,255,255,0.15)`,
                                 boxShadow: isCenter
                                     ? "0px 0px 60px rgba(255, 86, 0, 0.15), 0px 0px 20px rgba(105, 74, 255, 0.1)"
                                     : "none",

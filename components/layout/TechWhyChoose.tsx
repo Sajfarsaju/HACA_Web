@@ -165,61 +165,57 @@ export function TechWhyChoose() {
     const nextIdx = (active + 1) % TOTAL;
 
     return (
-        <section className="w-full flex flex-col items-center relative min-h-[940px] pt-[clamp(60px,10vw,140px)] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
+        <section className="relative z-10 w-full flex flex-col items-center min-h-[940px] pt-[clamp(60px,10vw,140px)] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
 
-            {/* ── Mobile-only: purple gradient using SVG files — soft glow on all sides ── */}
+            {/* ── Mobile + Tablet only: Rectangle 15 SVG — extends to TechCulture 1st row cards ── */}
             <div
-                className="hidden max-md:flex absolute top-0 left-0 right-0 z-0 pointer-events-none overflow-hidden flex-col"
+                className="lg:hidden absolute left-0 right-0 z-0 pointer-events-none"
                 style={{
-                    bottom: "-120px",
-                    maskImage: "radial-gradient(ellipse 85% 88% at 50% 48%, black 0%, black 18%, rgba(0,0,0,0.88) 36%, rgba(0,0,0,0.6) 56%, rgba(0,0,0,0.28) 74%, rgba(0,0,0,0.08) 88%, transparent 100%)",
-                    WebkitMaskImage: "radial-gradient(ellipse 85% 88% at 50% 48%, black 0%, black 18%, rgba(0,0,0,0.88) 36%, rgba(0,0,0,0.6) 56%, rgba(0,0,0,0.28) 74%, rgba(0,0,0,0.08) 88%, transparent 100%)",
+                    top: 0,
+                    bottom: "-600px",
+                    maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 6%, rgba(0,0,0,0.6) 14%, black 22%, black 78%, rgba(0,0,0,0.55) 88%, rgba(0,0,0,0.18) 95%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 6%, rgba(0,0,0,0.6) 14%, black 22%, black 78%, rgba(0,0,0,0.55) 88%, rgba(0,0,0,0.18) 95%, transparent 100%)",
                 }}
                 aria-hidden
             >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full min-w-full h-full opacity-100">
-                    <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover object-center" />
-                </div>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full min-w-full h-full opacity-[0.45]">
-                    <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" />
-                </div>
-                {/* Center softener — gentle dark radial, very gradual fade */}
-                <div
-                    className="absolute inset-0"
-                    style={{ background: "radial-gradient(ellipse 90% 50% at 50% 50%, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.08) 45%, transparent 72%)" }}
+                <Image
+                    src="/photos/schools/tech/Rectangle 15.svg"
+                    alt=""
+                    fill
+                    className="object-cover object-top"
                 />
             </div>
 
-            {/* ── Desktop (md+): subtle purple gradient band behind cards only (starts below title, soft fade to theme) ── */}
+            {/* ── Mobile + Tablet only: orange gradient on 1st card ── */}
             <div
-                className="hidden md:block absolute inset-0 z-0 pointer-events-none"
+                className="lg:hidden absolute left-1/2 z-0 pointer-events-none"
+                style={{
+                    top: "380px",
+                    width: "min(715px, 90vw)",
+                    height: "460px",
+                    transform: "translateX(-50%) rotate(-164.21deg)",
+                    opacity: 0.75,
+                }}
                 aria-hidden
             >
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        background: `
-                            radial-gradient(
-                                ellipse 80% 65% at 50% 58%,
-                                rgba(132, 0, 255, 0.35) 0%,
-                                rgba(132, 0, 255, 0.22) 18%,
-                                rgba(132, 0, 255, 0.12) 40%,
-                                rgba(132, 0, 255, 0.05) 60%,
-                                transparent 82%
-                            )
-                        `,
-                        maskImage:
-                            "linear-gradient(to bottom, transparent 0%, transparent 24%, black 36%, black 78%, transparent 96%)",
-                        WebkitMaskImage:
-                            "linear-gradient(to bottom, transparent 0%, transparent 24%, black 36%, black 78%, transparent 96%)",
-                    }}
-                />
+                <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
             </div>
 
-            {/* ── Mobile-only: orange gradient centered on card 1 ── */}
-            <div className="hidden max-md:block absolute top-[540px] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[380px] rotate-[-164.21deg] opacity-85 pointer-events-none z-0">
-                <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" aria-hidden />
+            {/* ── Mobile + Tablet only: orange gradient at last card bottom — bleeds outside ── */}
+            <div
+                className="lg:hidden absolute left-1/2 z-0 pointer-events-none"
+                style={{
+                    bottom: "-380px",
+                    width: "min(715px, 90vw)",
+                    height: "460px",
+                    transform: "translateX(-50%) rotate(-164.21deg)",
+                    opacity: 0.65,
+                }}
+                aria-hidden
+            >
+                <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
             </div>
+
             {/* ── Header ── */}
             <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-[1] relative">
                 <h2 className="font-outfit font-normal text-[clamp(32px,5vw,60px)] leading-[62px] tracking-[-0.02em] text-white text-center capitalize max-w-[938px] m-0">
@@ -246,7 +242,7 @@ export function TechWhyChoose() {
                 </div>
             ) : (
                 /* Desktop (lg+): 3-card stagger carousel */
-                <div className="relative z-10 w-full max-w-[1320px] h-[448px] overflow-hidden">
+                <div className="relative z-10 w-full max-w-[1320px] h-[448px] overflow-visible">
                     <TrackCarousel active={active} prevIdx={prevIdx} nextIdx={nextIdx} />
                 </div>
             )}

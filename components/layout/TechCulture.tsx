@@ -47,7 +47,7 @@ function BentoCell({ label, imgSrc, style, className = "" }: BentoCellProps) {
 // ── TechCulture Section ─────────────────────────────────────────────────
 export function TechCulture() {
     return (
-        <section className="w-full flex flex-col items-center min-h-auto">
+        <section className="relative z-10 w-full flex flex-col items-center min-h-auto">
             {/* Inner content container — responsive padding & gap */}
             <div className="w-full flex flex-col items-center px-4 sm:px-8 lg:px-[60px] py-12 sm:py-16 lg:py-[80px] gap-8 sm:gap-10 lg:gap-[60px]">
 
