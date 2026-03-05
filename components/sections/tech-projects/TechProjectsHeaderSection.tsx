@@ -8,14 +8,7 @@ import Image from "next/image";
  */
 export function TechProjectsHeaderSection() {
     return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 30,
-                width: "100%",
-            }}
-        >
+        <div className="flex flex-col w-full">
             <section className="tech-courses-header-section tech-courses-header-mobile-only">
                 <h1 className="tech-courses-hero-heading">Student Projects</h1>
                 <p className="tech-courses-hero-desc">
@@ -23,14 +16,159 @@ export function TechProjectsHeaderSection() {
                 </p>
             </section>
 
-            {/* Desktop-only search bar row — 30px gap from description above */}
+            {/* Mobile-only search bar row: appears directly under heading + description */}
+            <div className="tech-projects-toolbar-mobile w-full flex justify-center">
+                <div className="tech-projects-toolbar-mobile-inner" style={{ width: 345, maxWidth: "100%", height: 95, display: "flex", flexDirection: "column", gap: 15 }}>
+                    {/* Search pill — gradient border via .tech-projects-toolbar-mobile-search */}
+                    <div
+                        className="tech-projects-toolbar-mobile-search"
+                        style={{
+                            width: 345,
+                            height: 40,
+                            paddingTop: 4.77,
+                            paddingRight: 47.69,
+                            paddingBottom: 4.77,
+                            paddingLeft: 9.54,
+                            borderRadius: 8.94,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 10,
+                            boxSizing: "border-box",
+                            background: "rgba(42, 42, 42, 0.95)",
+                        }}
+                    >
+                        <div style={{ width: 20, height: 20, position: "relative", flexShrink: 0 }}>
+                            <Image
+                                src="/photos/Tech/material-symbols_search.svg"
+                                alt=""
+                                fill
+                                style={{ objectFit: "contain", opacity: 0.8 }}
+                            />
+                        </div>
+                        <span
+                            style={{
+                                fontFamily: "'Outfit', sans-serif",
+                                fontWeight: 400,
+                                fontSize: 16,
+                                lineHeight: "100%",
+                                color: "#9a9a9a",
+                            }}
+                        >
+                            Search
+                        </span>
+                    </div>
+
+                    {/* Filters row: All ▼  |  Latest | Oldest */}
+                    <div
+                        className="tech-projects-toolbar-mobile-filters"
+                        style={{
+                            width: 345,
+                            height: 40,
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            gap: 12,
+                        }}
+                    >
+                        {/* All + arrow — gradient border via .tech-projects-toolbar-mobile-all */}
+                        <div
+                            className="tech-projects-toolbar-mobile-all"
+                            style={{
+                                width: 80,
+                                height: 40,
+                                paddingTop: 9.54,
+                                paddingRight: 17.88,
+                                paddingBottom: 9.54,
+                                paddingLeft: 17.88,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap: 10,
+                                borderRadius: 8.94,
+                                boxSizing: "border-box",
+                                background: "#D9D9D91A",
+                            }}
+                        >
+                            <span
+                                style={{
+                                    fontFamily: "'Outfit', sans-serif",
+                                    fontWeight: 400,
+                                    fontSize: 14,
+                                    lineHeight: "100%",
+                                    color: "#FFFFFF",
+                                }}
+                            >
+                                All
+                            </span>
+                            <div
+                                style={{
+                                    width: 17.92,
+                                    height: 17.92,
+                                    position: "relative",
+                                }}
+                            >
+                                <Image
+                                    src="/photos/Tech/iconamoon_arrow-up-2-light.svg"
+                                    alt=""
+                                    fill
+                                    style={{ objectFit: "contain" }}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Latest | Oldest pill — gradient border via .tech-projects-toolbar-mobile-sort */}
+                        <div
+                            className="tech-projects-toolbar-mobile-sort"
+                            style={{
+                                height: 40,
+                                paddingTop: 9.54,
+                                paddingBottom: 9.54,
+                                paddingLeft: 20,
+                                paddingRight: 20,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: 8,
+                                borderRadius: 8.94,
+                                boxSizing: "border-box",
+                                background: "#D9D9D91A",
+                            }}
+                        >
+                            <span
+                                style={{
+                                    fontFamily: "'Outfit', sans-serif",
+                                    fontWeight: 400,
+                                    fontSize: 14,
+                                    lineHeight: "100%",
+                                    color: "#FFFFFF",
+                                }}
+                            >
+                                Latest
+                            </span>
+                            <span
+                                style={{
+                                    fontFamily: "'Outfit', sans-serif",
+                                    fontWeight: 400,
+                                    fontSize: 14,
+                                    lineHeight: "100%",
+                                    color: "rgba(255,255,255,0.5)",
+                                }}
+                            >
+                                | Oldest
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Desktop + tablet search bar row — 30px gap from description above */}
             <div
                 className="tech-projects-toolbar"
                 style={{
                     width: "100%",
                     maxWidth: 1440,
-                    paddingLeft: 60,
-                    paddingRight: 60,
+                    paddingLeft: "clamp(20px, 4vw, 60px)",
+                    paddingRight: "clamp(20px, 4vw, 60px)",
                     display: "flex",
                     justifyContent: "center",
                     // marginTop: 10,
@@ -38,7 +176,8 @@ export function TechProjectsHeaderSection() {
             >
                 <div
                     style={{
-                        width: 1320,
+                        width: "100%",
+                        maxWidth: 1320,
                         height: 52,
                         display: "flex",
                         justifyContent: "space-between",
@@ -46,6 +185,7 @@ export function TechProjectsHeaderSection() {
                     }}
                 >
                     <div
+                        className="tech-projects-toolbar-search"
                         style={{
                             width: 201,
                             height: 52,
@@ -56,7 +196,6 @@ export function TechProjectsHeaderSection() {
                             alignItems: "center",
                             gap: 10,
                             background: "rgba(42, 42, 42, 0.95)",
-                            border: "1px solid rgba(255, 86, 0, 0.5)",
                             backdropFilter: "blur(12px)",
                             WebkitBackdropFilter: "blur(12px)",
                             boxSizing: "border-box",
@@ -84,6 +223,7 @@ export function TechProjectsHeaderSection() {
                     </div>
 
                     <div
+                        className="tech-projects-toolbar-filters"
                         style={{
                             width: 542,
                             height: 52,
@@ -97,7 +237,6 @@ export function TechProjectsHeaderSection() {
                             justifyContent: "space-between",
                             gap: 12,
                             background: "#D9D9D91A",
-                            border: "1px solid rgba(255, 86, 0, 0.5)",
                             backdropFilter: "blur(12px)",
                             WebkitBackdropFilter: "blur(12px)",
                             boxShadow: "0px 4px 12px 0px #00000040",
@@ -172,6 +311,7 @@ export function TechProjectsHeaderSection() {
                     </div>
 
                     <div
+                        className="tech-projects-toolbar-sort"
                         style={{
                             minWidth: 200,
                             height: 52,
@@ -185,7 +325,6 @@ export function TechProjectsHeaderSection() {
                             justifyContent: "center",
                             gap: 38,
                             background: "#D9D9D91A",
-                            border: "1px solid rgba(255, 86, 0, 0.5)",
                             backdropFilter: "blur(12px)",
                             WebkitBackdropFilter: "blur(12px)",
                             boxShadow: "0px 4px 12px 0px #00000040",

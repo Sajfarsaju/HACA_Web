@@ -24,7 +24,7 @@ export function HeroBottom() {
           {/* ─── Ellipse decorative background: 1060 × 855 ─── */}
           <div className="hb-ellipse" aria-hidden="true">
             <Image
-              src="/photos/Ellipse 3.svg"
+              src="/photos/Tech/Ellipse 3.svg"
               alt=""
               fill
               priority

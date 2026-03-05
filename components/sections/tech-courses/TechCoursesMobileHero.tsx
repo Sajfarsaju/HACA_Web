@@ -29,6 +29,7 @@ export function TechCoursesMobileHero({ scale }: TechCoursesMobileHeroProps) {
             >
                 <div className="tech-mobile-bg-wrap">
                     <div
+                        className="tech-mobile-hero-dots"
                         style={{
                             position: "absolute",
                             width: "406px",
