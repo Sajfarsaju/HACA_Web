@@ -13,33 +13,36 @@ export function TechGlobalLearning() {
                 style={{
                     background: `
                         radial-gradient(
-                            circle at center,
-                            rgba(168, 85, 247, 0.85) 0%,
-                            rgba(147, 51, 234, 0.75) 25%,
-                            rgba(109, 40, 217, 0.55) 45%,
-                            rgba(67, 20, 140, 0.35) 65%,
-                            rgba(17, 17, 17, 0) 80%
+                            ellipse 55% 40% at 50% 50%,
+                            rgba(168, 85, 247, 0.90) 0%,
+                            rgba(147, 51, 234, 0.80) 25%,
+                            rgba(109, 40, 217, 0.60) 50%,
+                            rgba(67, 20, 140, 0.30) 75%,
+                            rgba(17, 17, 17, 0) 100%
                         )
                     `,
                     filter: "blur(clamp(60px, 15vw, 220px))",
+                    maskImage: "linear-gradient(to bottom, black 0%, black calc(100% - 5px), transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, black 0%, black calc(100% - 5px), transparent 100%)",
                 }}
             />
             <div
-                className="absolute md:hidden block left-1/2 -translate-x-1/2 top-[192px] w-[373.17px] h-[244px] md:left-1/2 md:top-1/2 md:-translate-y-1/2 z-0 pointer-events-none"
+                className="absolute md:hidden block left-1/2 -translate-x-1/2 top-[192px] w-[373.17px] h-[244px] z-0 pointer-events-none"
                 style={{
                     background: `
-      radial-gradient(
-        ellipse 75% 60% at 50% 45%,
-        rgba(186, 104, 255, 0.95) 10%,
-        rgba(168, 85, 247, 0.9) 20%,
-        rgba(147, 51, 234, 0.8) 40%,
-        rgba(109, 40, 217, 0.65) 60%,
-        rgba(67, 20, 140, 0.45) 75%,
-        rgba(32, 10, 60, 0.3) 85%,
-        rgba(17, 17, 17, 0) 100%
-      )
-    `,
+                        radial-gradient(
+                            ellipse 75% 45% at 50% 45%,
+                            rgba(186, 104, 255, 0.95) 10%,
+                            rgba(168, 85, 247, 0.9) 25%,
+                            rgba(147, 51, 234, 0.8) 45%,
+                            rgba(109, 40, 217, 0.60) 60%,
+                            rgba(67, 20, 140, 0.35) 80%,
+                            rgba(17, 17, 17, 0) 100%
+                        )
+                    `,
                     filter: "blur(clamp(80px, 18vw, 260px))",
+                    maskImage: "linear-gradient(to bottom, black 0%, black calc(100% - 5px), transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, black 0%, black calc(100% - 5px), transparent 100%)",
                 }}
             />
 

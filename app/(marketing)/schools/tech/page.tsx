@@ -16,6 +16,8 @@ import { TechFaq } from "@/components/layout/TechFaq";
 import { TechGlobalLearning } from "@/components/layout/TechGlobalLearning";
 import { TechQuote } from "@/components/layout/TechQuote";
 import { TechFooter } from "@/components/layout/TechFooter";
+import { SectionReveal } from "@/components/animations/SectionReveal";
+
 export default function TechSchoolPage() {
     return (
         <div className="w-full min-h-[1391px] bg-[#111111] overflow-x-hidden relative" role="main">
@@ -41,17 +43,31 @@ export default function TechSchoolPage() {
 
                     {/* Content components — TechIntro → TechPlacements */}
                     <div className="relative z-[5]">
-                        <TechIntroSection />
-                        <TechShowcaseSection />
-                        <TechPathSection />
-                        <TechProjectsSection />
-                        <TechPlacementsSection />
+                        <SectionReveal>
+                            <TechIntroSection />
+                        </SectionReveal>
+                        <SectionReveal>
+                            <TechShowcaseSection />
+                        </SectionReveal>
+                        <SectionReveal>
+                            <TechPathSection />
+                        </SectionReveal>
+                        <SectionReveal>
+                            <TechProjectsSection />
+                        </SectionReveal>
+                        <SectionReveal>
+                            <TechPlacementsSection />
+                        </SectionReveal>
                     </div>
 
                     {/* TechPreneur → TechQuote */}
                     <div className="relative z-[5] w-full flex flex-col">
-                        <TechPreneur />
-                        <TechMentors />
+                        <SectionReveal>
+                            <TechPreneur />
+                        </SectionReveal>
+                        <SectionReveal>
+                            <TechMentors />
+                        </SectionReveal>
 
                         {/* WhyChoose + Culture — shared gradient layer for tablet+ */}
                         <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column" }}>
@@ -101,15 +117,29 @@ export default function TechSchoolPage() {
                                 <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" aria-hidden />
                             </div>
 
-                            <TechWhyChoose />
-                            <TechCulture />
+                            <SectionReveal>
+                                <TechWhyChoose />
+                            </SectionReveal>
+                            <SectionReveal>
+                                <TechCulture />
+                            </SectionReveal>
                         </div>
 
-                        <TechYoutube />
-                        <TechBlogs />
-                        <TechFaq />
-                        <TechGlobalLearning />
-                        <TechQuote />
+                        <SectionReveal>
+                            <TechYoutube />
+                        </SectionReveal>
+                        <SectionReveal>
+                            <TechBlogs />
+                        </SectionReveal>
+                        <SectionReveal>
+                            <TechFaq />
+                        </SectionReveal>
+                        <SectionReveal>
+                            <TechGlobalLearning />
+                        </SectionReveal>
+                        <SectionReveal>
+                            <TechQuote />
+                        </SectionReveal>
                     </div>
                 </div>
 

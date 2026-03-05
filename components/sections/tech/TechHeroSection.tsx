@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    The design canvas is 1440 × 1044 px (Figma spec).
@@ -114,9 +115,14 @@ export default function TechHero() {
                             <Link
                                 href="/contact"
                                 onClick={() => setIsDesktopMenuOpen(false)}
-                                className="mt-4 flex items-center justify-center w-[118px] h-[44px] gap-2 rounded-[8px] px-[10px] py-[10px] bg-white text-[#1a1a1a] font-outfit font-semibold text-[14px] leading-none no-underline hover:bg-white/90 transition-colors"
+                                className="group relative mt-4 flex w-[118px] h-[44px] rounded-[8px] px-[10px] py-[10px] bg-white text-[#1a1a1a] font-outfit font-semibold text-[14px] leading-none no-underline overflow-hidden"
                             >
-                                Let&apos;s Connect
+                                <span className="absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                    Let&apos;s Connect
+                                </span>
+                                <span className="pointer-events-none absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                    Let&apos;s Connect
+                                </span>
                             </Link>
                         </nav>
                     </div>
@@ -207,7 +213,12 @@ export default function TechHero() {
                     </div>
 
                     {/* ── HEADER ── */}
-                    <header className="absolute w-[1320px] h-[44px] top-[55px] left-[60px] flex justify-between items-center z-[30]">
+                    <motion.header
+                        className="absolute w-[1320px] h-[44px] top-[55px] left-[60px] flex justify-between items-center z-[30]"
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
                         {/* Logo — left */}
                         <Link href="/schools/tech" className="block relative w-[203px] h-[36px] shrink-0">
                             <Image
@@ -240,12 +251,17 @@ export default function TechHero() {
 
                         {/* Right: Let's Connect (md+) / Toggle (mobile) */}
                         <div className="flex items-center shrink-0">
-                            {/* Let's Connect button — visible on md, lg, xl */}
+                            {/* Let's Connect button — same animation as hero Get Started */}
                             <Link
                                 href="/contact"
-                                className="hidden md:flex items-center justify-center w-[118px] h-[44px] gap-2 rounded-[8px] px-[10px] py-[10px] bg-white text-[#1a1a1a] font-outfit font-semibold text-[14px] leading-none no-underline hover:bg-white/90 transition-colors"
+                                className="group relative hidden md:flex w-[118px] h-[44px] rounded-[8px] px-[10px] py-[10px] bg-white text-[#1a1a1a] font-outfit font-semibold text-[14px] leading-none no-underline overflow-hidden"
                             >
-                                Let&apos;s Connect
+                                <span className="absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                    Let&apos;s Connect
+                                </span>
+                                <span className="pointer-events-none absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                    Let&apos;s Connect
+                                </span>
                             </Link>
 
                             {/* Toggle menu icon — mobile only (< 768px) */}
@@ -267,10 +283,15 @@ export default function TechHero() {
                                 />
                             </button>
                         </div>
-                    </header>
+                    </motion.header>
 
                     {/* ── HERO TEXT SECTION ── */}
-                    <div className="absolute w-[472px] h-[320px] top-[249px] left-[151px] flex flex-col gap-[6px] z-[5]">
+                    <motion.div
+                        className="absolute w-[472px] h-[320px] top-[249px] left-[151px] flex flex-col gap-[6px] z-[5]"
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                    >
                         {/* Sub-heading */}
                         <div className="w-[472px] h-[24px] font-outfit font-light text-[20px] leading-[1.2] text-white whitespace-nowrap">
                             School for the Tech Evolution
@@ -284,21 +305,44 @@ export default function TechHero() {
                                 What&apos;s Next in Tech
                             </div>
 
-                            {/* Button */}
-                            <div className="w-[200px] h-[64px] gap-[12px] opacity-100 border-[1.5px] border-solid border-transparent rounded-[14px] px-[30px] py-[20px] flex items-center justify-center relative rotate-0">
-                                <Image
-                                    src="/photos/Tech/Button Container (2).svg"
-                                    alt="Get Started"
-                                    width={200}
-                                    height={64}
-                                    style={{ objectFit: "contain" }}
-                                />
-                            </div>
+                            {/* Button — 129×44, gradient border + radial fill, slide animation */}
+                            <motion.div
+                                className="w-[129px] h-[44px] shrink-0 rounded-[12px] p-[1px] flex items-center justify-center"
+                                style={{
+                                    background: "linear-gradient(110.55deg, #CDA4FF 12.15%, #8831F2 115.98%)",
+                                }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <div
+                                    className="w-full h-full rounded-[11px] overflow-hidden flex items-center justify-center"
+                                    style={{
+                                        background: "radial-gradient(71.34% 136.68% at 50% 14.3%, #927DF7 0%, #694AFF 100%)",
+                                    }}
+                                >
+                                    <Link
+                                        href="/contact"
+                                        className="group relative flex w-full h-full overflow-hidden px-5 py-[15px]"
+                                    >
+                                        <span className="absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[20px] leading-[100%] text-center text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                            I&apos;m Ready
+                                        </span>
+                                        <span className="pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[20px] leading-[100%] text-center text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                            I&apos;m Ready
+                                        </span>
+                                    </Link>
+                                </div>
+                            </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* ── HERO IMAGE (bust) ── */}
-                    <div className="absolute w-[500px] h-[589px] top-[280.34px] left-[829px] z-[4]">
+                    <motion.div
+                        className="absolute w-[500px] h-[589px] top-[280.34px] left-[829px] z-[4]"
+                        initial={{ opacity: 0, x: 100, scale: 0.9 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    >
                         <Image
                             src="/photos/Tech/freepik__a-closeup-profile-shot-shows-a-dark-metallic-bust-__44477 (1) 1.png"
                             alt="Tech Bust"
@@ -306,10 +350,15 @@ export default function TechHero() {
                             style={{ objectFit: "contain" }}
                             priority
                         />
-                    </div>
+                    </motion.div>
 
                     {/* ── SOCIAL ICONS (left sidebar) ── */}
-                    <div className="absolute w-[36px] h-[157.5px] top-[411px] left-[51px] flex flex-col gap-[24.75px] items-center z-[6]">
+                    <motion.div
+                        className="absolute w-[36px] h-[157.5px] top-[411px] left-[51px] flex flex-col gap-[24.75px] items-center z-[6]"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
+                    >
                         {/* Instagram */}
                         <div className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px]">
                             <Image
@@ -342,10 +391,15 @@ export default function TechHero() {
                                 style={{ objectFit: "contain" }}
                             />
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* ── COHORT / SKILLS INFO BLOCK ── */}
-                    <div className="absolute w-[254.5px] h-[133px] top-[603px] left-[542px] z-[6]">
+                    <motion.div
+                        className="absolute w-[254.5px] h-[133px] top-[603px] left-[542px] z-[6]"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.6, ease: "backOut" }}
+                    >
                         {/* "Practical Tech Skills" label */}
                         <div className="absolute w-[120px] h-[36px] top-0 left-[3px] font-outfit font-normal text-[14px] leading-[1.1] text-white flex items-center">
                             Practical <br /> Tech Skills
@@ -397,7 +451,7 @@ export default function TechHero() {
                                 style={{ objectFit: "contain" }}
                             />
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* ── WHATSAPP FLOATING BUTTON (hidden on smaller screens) ── */}
                     <div className="absolute hidden lg:block w-[80px] h-[80px] rounded-[200px] border-[1px] border-white/30 top-[719px] left-[1302px] overflow-hidden p-0 z-[8] cursor-pointer bg-white/5">
@@ -412,7 +466,12 @@ export default function TechHero() {
                     </div>
 
                     {/* ── BOTTOM STATS BAR ── */}
-                    <div className="absolute w-[1322px] h-[90px] top-[826px] left-[60px] z-[7] rounded-[20px] flex justify-center items-center py-[20px] px-[40px] gap-[80px] border border-transparent bg-[#A3A3A3]/[.15] backdrop-blur-[51.4px] tech-hero-stats-border">
+                    <motion.div
+                        className="absolute w-[1322px] h-[90px] top-[826px] left-[60px] z-[7] rounded-[20px] flex justify-center items-center py-[20px] px-[40px] gap-[80px] border border-transparent bg-[#A3A3A3]/[.15] backdrop-blur-[51.4px] tech-hero-stats-border"
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                    >
                         {/* Stat 1 */}
                         <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
                             <Image src="/photos/Tech/200+.svg" alt="200+" width={95} height={30} style={{ objectFit: "contain" }} priority />
@@ -430,7 +489,7 @@ export default function TechHero() {
                             <Image src="/photos/Tech/500+.svg" alt="500+" width={95} height={30} style={{ objectFit: "contain" }} priority />
                             <span className="flex items-center font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100">Projects Completed</span>
                         </div>
-                    </div>
+                    </motion.div>
 
                 </section>
             </div>
@@ -504,7 +563,12 @@ export default function TechHero() {
                     <div className="relative z-[10] w-[374px] max-w-full h-[643px] mx-auto overflow-hidden">
 
                         {/* ── Top block: text + button (374 × 184) ── */}
-                        <div className="relative w-[373px] h-[184px] pt-[20px] px-[16px] pb-0 flex flex-col items-center gap-[15px] box-border">
+                        <motion.div
+                            className="relative w-[373px] h-[184px] pt-[20px] px-[16px] pb-0 flex flex-col items-center gap-[15px] box-border"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                        >
                             <div className="w-[341px] h-[109px] flex flex-col items-center gap-[10px]">
                                 {/* Subheading (341 × 19) */}
                                 <div className="w-[341px] h-[19px] font-outfit font-light text-[13px] leading-none text-white whitespace-nowrap overflow-hidden text-center" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}>
@@ -516,20 +580,31 @@ export default function TechHero() {
                                 </div>
                             </div>
 
-                            {/* CTA Button (107 × 40) */}
-                            <div className="w-[207px] h-[40px] rounded-[10px] border-[0.87px] border-solid border-transparent px-[18px] py-[14px] flex items-center justify-center gap-[8px] box-border relative shrink-0 rotate-0 opacity-100">
-                                <Image
-                                    src="/photos/Tech/Button Container (2).svg"
-                                    alt="I&apos;m Ready"
-                                    width={107}
-                                    height={40}
-                                    style={{ objectFit: "contain" }}
-                                />
-                            </div>
-                        </div>
+                            {/* CTA Button (107 × 40) — match original purple pill + slide animation */}
+                            <Link
+                                href="/contact"
+                                className="group relative w-[207px] h-[40px] rounded-[10px] flex items-center justify-center shrink-0 overflow-hidden"
+                                style={{
+                                    background: "radial-gradient(circle at 20% 0%, #927DF7 0%, #694AFF 100%)",
+                                    boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+                                }}
+                            >
+                                <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-white transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                    I&apos;m Ready
+                                </span>
+                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-white translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                    I&apos;m Ready
+                                </span>
+                            </Link>
+                        </motion.div>
 
                         {/* ── Bust image (230 × 271) ── */}
-                        <div className="absolute w-[230px] h-[270.94px] top-[210.84px] left-[131.5px] z-[3]">
+                        <motion.div
+                            className="absolute w-[230px] h-[270.94px] top-[210.84px] left-[131.5px] z-[3]"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8, delay: 0.3 }}
+                        >
                             <Image
                                 src="/photos/Tech/freepik__a-closeup-profile-shot-shows-a-dark-metallic-bust-__44477 (1) 1.png"
                                 alt="Tech Bust"
@@ -537,10 +612,15 @@ export default function TechHero() {
                                 style={{ objectFit: "contain" }}
                                 priority
                             />
-                        </div>
+                        </motion.div>
 
                         {/* ── Info block (125 × 90) ── */}
-                        <div className="absolute w-[125px] h-[90px] top-[362.95px] left-[14.5px] z-[4]">
+                        <motion.div
+                            className="absolute w-[125px] h-[90px] top-[362.95px] left-[14.5px] z-[4]"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 0.5 }}
+                        >
                             <div className="absolute w-[60px] h-[24px] text-[9px] top-0 left-0 font-outfit font-normal leading-[1.1] text-white flex items-center">
                                 Practical <br /> Tech Skills
                             </div>
@@ -559,10 +639,15 @@ export default function TechHero() {
                             <div className="absolute pointer-events-none w-[8px] h-[8px] top-[52px] left-[100px] rotate-0">
                                 <Image src="/photos/Tech/Arrow 1.svg" alt="Arrow 1" width={13} height={13} style={{ objectFit: "contain" }} />
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* ── Mobile Stats Bar (345 × 174) ── */}
-                        <div className="absolute w-[345px] h-[174px] top-[468.95px] left-[14.5px] rounded-[20px] px-[40px] py-[20px] gap-[40px] box-border flex items-center justify-center z-[5] border border-transparent bg-[#A3A3A3]/[.15] backdrop-blur-[51.4px] tech-hero-stats-border">
+                        <motion.div
+                            className="absolute w-[345px] h-[174px] top-[468.95px] left-[14.5px] rounded-[20px] px-[40px] py-[20px] gap-[40px] box-border flex items-center justify-center z-[5] border border-transparent bg-[#A3A3A3]/[.15] backdrop-blur-[51.4px] tech-hero-stats-border"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.7 }}
+                        >
                             <div className="w-[235px] h-[134px] flex flex-col gap-[10px]">
                                 <div className="w-[220px] h-[38px] flex gap-[10px] items-center opacity-100 rotate-0">
                                     <Image src="/photos/Tech/200+.svg" alt="200+" width={72} height={22} style={{ objectFit: "contain" }} priority />
@@ -577,7 +662,7 @@ export default function TechHero() {
                                     <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[154px]">Projects Completed</span>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>

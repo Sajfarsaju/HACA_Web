@@ -20,8 +20,8 @@ const TECH_COURSES_CSS = `
     }
 }
 
-/* ── HEADER: Mobile only (desktop uses header inside hero) ── */
-@media (min-width: 769px) {
+/* ── HEADER: Mobile only (desktop/tablet use header inside hero, same as tech home) ── */
+@media (min-width: 768px) {
     .tech-courses-header-mobile-only {
         display: none !important;
     }
@@ -76,6 +76,14 @@ const TECH_COURSES_CSS = `
 .tech-projects-mobile-group23-bg {
     display: none !important;
 }
+
+/* Mobile only: hide dots + Group 23 so title has solid dark; keep navbar gradient (Gradient.svg) */
+@media (max-width: 767px) {
+    .tech-mobile-hero-dots-and-group {
+        display: none !important;
+    }
+}
+
 .tech-courses-hero-heading {
     width: 100%;
     margin: 0;
@@ -165,7 +173,7 @@ const TECH_COURSES_CSS = `
     content: "";
     position: absolute;
     inset: -1px;
-    border-radius: 8px;
+    border-radius: inherit;
     padding: 1px;
     background: linear-gradient(90deg, #FF5600 0%, #694AFF 100%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -258,13 +266,13 @@ const TECH_COURSES_CSS = `
     pointer-events: none;
 }
 
-/* Mobile-style toolbar: used for mobile + tablet (up to 1023px) */
-@media (min-width: 1024px) {
+/* Mobile-style toolbar: used for mobile only (tablet uses desktop toolbar, same as tech home) */
+@media (min-width: 768px) {
     .tech-projects-toolbar-mobile {
         display: none !important;
     }
 }
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
     .tech-projects-toolbar-mobile {
         display: flex;
         justify-content: center;
@@ -615,10 +623,14 @@ const TECH_COURSES_CSS = `
         object-fit: contain;
         object-position: top center;
     }
-    /* Hero height: gradient extends through header into top card area, no extra gap above cards */
+    /* Hero height: compact nav-to-content gap (same idea as tech home); soft fade handles transition */
     .tech-page-root .tech-mobile-hero-wrapper {
-        height: 280px !important;
-        min-height: 280px;
+        height: 200px !important;
+        min-height: 200px;
+    }
+    .tech-projects-page .tech-mobile-hero-wrapper {
+        height: 200px !important;
+        min-height: 200px;
     }
     /* Remove purple band below top gradient: solid overlay from 160px down for clean transition to dark bg */
     .tech-page-root .tech-mobile-bg-wrap::after {
@@ -632,16 +644,15 @@ const TECH_COURSES_CSS = `
         z-index: 0;
         pointer-events: none;
     }
-    /* Header section: overlap mobile hero; solid bg extends to first card (no purple gradient) */
-    .tech-courses-header-section {
-        margin-top: -90px;
+    /* Header section: overlap mobile hero; gradient continues soft transition to theme (no hard cut on courses) */
+    .tech-page-root .tech-courses-header-section {
+        margin-top: -60px;
         padding: 0 20px 40px;
         gap: clamp(16px, 4vw, 20px);
-        background: #111111;
+        background: linear-gradient(to bottom, transparent 0%, rgba(17,17,17,0.25) 20%, rgba(17,17,17,0.6) 50%, #111111 100%);
     }
     .tech-projects-page .tech-courses-header-section {
-        /* Projects header: overlap hero gradient similar to original position, without clipping search bar */
-        margin-top: -150px;
+        margin-top: -80px;
         padding-top: 12px;
         background: transparent;
         align-items: center;
@@ -1156,6 +1167,14 @@ const TECH_COURSES_CSS = `
 
 /* ════════════════════════════════════ DESKTOP — 1024px+: cards spacing + gradient ════════════════════════════════════ */
 @media (min-width: 1024px) {
+    /* Hero bottom transparent so section purple gradient shows from title down; soft transition at title */
+    .tech-page-root .tech-courses-hero-canvas {
+        background: linear-gradient(to bottom, #111111 0%, #111111 42%, rgba(17,17,17,0.92) 52%, rgba(17,17,17,0.5) 65%, transparent 100%);
+    }
+    /* Let purple gradient extend up into title area (Courses We Offer) */
+    .tech-page-root .courses-section {
+        overflow: visible;
+    }
     /* First 3 cards: keep duration value on a single line in top-right */
     .courses-list .course-card:nth-child(-n + 3) .course-duration-value {
         white-space: nowrap;
@@ -1174,12 +1193,17 @@ const TECH_COURSES_CSS = `
         margin-top: 10px;
     }
 
-    /* Gradient2 visible inside cards container; extend to 6th card halfway with soft end */
+    /* Gradient2 starts from "Courses We Offer" title; soft fade-in at top, extends down to cards */
     .courses-section-gradient2 {
         display: block;
         bottom: 0;
         height: auto !important;
         min-height: 2400px;
+        /* Soft fade-in at title: gradient appears gradually from transparent */
+        mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 6%, rgba(0,0,0,0.4) 18%, rgba(0,0,0,0.75) 32%, black 48%, black 100%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 6%, rgba(0,0,0,0.4) 18%, rgba(0,0,0,0.75) 32%, black 48%, black 100%);
+        mask-size: 100% 100%;
+        -webkit-mask-size: 100% 100%;
     }
     .courses-section-gradient2 img {
         object-fit: cover !important;

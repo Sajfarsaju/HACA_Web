@@ -11,6 +11,7 @@ import {
 } from "@/components/sections/tech-courses";
 import { DESIGN_W, MOBILE_DESIGN_W } from "@/components/sections/tech-courses/constants";
 import { TechFooter } from "@/components/layout/TechFooter";
+import { SectionReveal } from "@/components/animations/SectionReveal";
 
 export default function CoursesPage() {
     const [mounted, setMounted] = useState(false);
@@ -52,8 +53,12 @@ export default function CoursesPage() {
             <TechCoursesGlobalBg />
             <TechCoursesHero scale={scales.desktop} />
             <TechCoursesMobileHero scale={scales.mobile} />
-            <TechCoursesHeaderSection />
-            <TechCoursesListSection desktopScale={scales.desktop} />
+            <SectionReveal>
+                <TechCoursesHeaderSection />
+            </SectionReveal>
+            <SectionReveal>
+                <TechCoursesListSection desktopScale={scales.desktop} />
+            </SectionReveal>
             <TechCoursesStyles />
 
             {/* Footer: match Tech home footer */}

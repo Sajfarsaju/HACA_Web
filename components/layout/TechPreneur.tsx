@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function TechPreneur() {
     return (
@@ -12,16 +13,18 @@ export function TechPreneur() {
                     Your Name Could Be Next in Our Techpreneur List
                 </h2>
 
-                {/* SVG Button */}
-                <div className="w-[246px] h-[44px] relative mt-[32px] cursor-pointer shrink-0">
-                    <Image
-                        src="/photos/schools/tech/Button Container.svg"
-                        alt="Join Techpreneur List"
-                        width={246}
-                        height={44}
-                        className="object-contain"
-                    />
-                </div>
+                {/* White pill + slide animation (match original) */}
+                <Link
+                    href="/contact"
+                    className="group relative w-[246px] h-[44px] rounded-[8px] mt-[32px] flex items-center justify-center shrink-0 overflow-hidden bg-white text-[#111111]"
+                >
+                    <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                        Join Techpreneur List
+                    </span>
+                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                        Join Techpreneur List
+                    </span>
+                </Link>
             </div>
 
 

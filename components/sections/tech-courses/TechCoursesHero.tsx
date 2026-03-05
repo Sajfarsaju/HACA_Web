@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { TechNavbar } from "@/components/sections/tech/TechNavbar";
+import { motion } from "framer-motion";
 import { BANNER_VISIBLE_H, DESIGN_H, DESIGN_W } from "./constants";
 
 interface TechCoursesHeroProps {
@@ -17,7 +18,7 @@ export function TechCoursesHero({ scale }: TechCoursesHeroProps) {
             }}
         >
             <section
-                className="tech-main-hero-canvas absolute top-0 left-1/2 w-[1440px] h-[1044px] overflow-hidden bg-[#111111]"
+                className="tech-main-hero-canvas tech-courses-hero-canvas absolute top-0 left-1/2 w-[1440px] h-[1044px] overflow-hidden bg-[#111111]"
                 style={{
                     transform: `translateX(-50%) scale(${scale})`,
                     transformOrigin: "top center",
@@ -33,10 +34,24 @@ export function TechCoursesHero({ scale }: TechCoursesHeroProps) {
                     </div>
                 </div>
 
+                {/* Soft fade: navbar gradient blends into hero theme (same as tech home) */}
+                <div
+                    className="absolute left-0 right-0 z-[3] pointer-events-none"
+                    style={{
+                        top: "80px",
+                        height: "220px",
+                        background: "linear-gradient(to bottom, transparent 0%, rgba(17,17,17,0.12) 20%, rgba(17,17,17,0.4) 50%, rgba(17,17,17,0.85) 85%, #111111 100%)",
+                    }}
+                    aria-hidden="true"
+                />
+
                 <TechNavbar />
 
-                <div
-                    className="tech-courses-hero-text-desktop absolute top-[230px] left-1/2 -translate-x-1/2 w-[1275px] flex flex-col items-center gap-10 text-center"
+                <motion.div
+                    className="tech-courses-hero-text-desktop absolute top-[230px] left-1/2 -translate-x-1/2 w-[1275px] flex flex-col items-center gap-10 text-center z-[5]"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <h1
                         className="w-[1275px] m-0 text-[60px] leading-none text-white font-normal"
@@ -50,37 +65,50 @@ export function TechCoursesHero({ scale }: TechCoursesHeroProps) {
                     >
                         Learn practical tech and AI skills through hands-on courses built for real-world work.
                     </p>
-                </div>
+                </motion.div>
 
-                <div
+                <motion.div
                     className="tech-promo-box"
+                    initial={{ opacity: 0, scale: 0.95, x: "-50%" }}
+                    animate={{ opacity: 1, scale: 1, x: "-50%" }}
+                    transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
                     style={{
                         position: "absolute",
                         top: "400px",
                         left: "50%",
-                        transform: "translateX(-50%)",
                         width: "1692px",
                         height: "52px",
                         background: "#D9D9D91A",
                         border: "1px solid transparent",
                         boxShadow: "0px 4px 4px 0px #00000040",
                         backdropFilter: "blur(12px)",
-                        padding: "10px 30px",
+                        padding: "10px 0",
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center",
-                        gap: "30px",
-                        overflow: "hidden",
                         whiteSpace: "nowrap",
                         zIndex: 10,
                     }}
                 >
-                    <span style={{ width: "20px", height: "32px", color: "#FFFFFF", fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: "40px", display: "flex", alignItems: "center", justifyContent: "center" }}>*</span>
-                    <span style={{ width: "726px", height: "24px", color: "#FFFFFF", fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: "20px", display: "flex", alignItems: "center" }}>Enroll in our flagship programs and get the Applied AI Course worth ₹10,000 FREE</span>
-                    <span style={{ width: "20px", height: "32px", color: "#FFFFFF", fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: "40px", display: "flex", alignItems: "center", justifyContent: "center" }}>*</span>
-                    <span style={{ width: "726px", height: "24px", color: "#FFFFFF", fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: "20px", display: "flex", alignItems: "center" }}>Enroll in our flagship programs and get the Applied AI Course worth ₹10,000 FREE</span>
-                    <span style={{ width: "20px", height: "32px", color: "#FFFFFF", fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: "40px", display: "flex", alignItems: "center", justifyContent: "center" }}>*</span>
-                </div>
+                    <div style={{ overflow: "hidden", width: "100%", height: "100%", display: "flex", alignItems: "center", borderRadius: "inherit" }}>
+                        <motion.div
+                            className="flex items-center shrink-0"
+                            animate={{ x: [0, -806] }}
+                            transition={{
+                                repeat: Infinity,
+                                duration: 20,
+                                ease: "linear",
+                            }}
+                            style={{ display: "flex", alignItems: "center", gap: "30px", paddingLeft: "30px" }}
+                        >
+                            {[1, 2, 3, 4].map((i) => (
+                                <div key={i} className="flex items-center gap-[30px] shrink-0">
+                                    <span style={{ width: "20px", height: "32px", color: "#FFFFFF", fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: "40px", display: "flex", alignItems: "center", justifyContent: "center" }}>*</span>
+                                    <span style={{ width: "726px", height: "24px", color: "#FFFFFF", fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: "20px", display: "flex", alignItems: "center" }}>Enroll in our flagship programs and get the Applied AI Course worth ₹10,000 FREE</span>
+                                </div>
+                            ))}
+                        </motion.div>
+                    </div>
+                </motion.div>
             </section>
         </div>
     );

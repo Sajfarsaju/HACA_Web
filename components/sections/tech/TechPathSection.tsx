@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const COURSES = [
     {
@@ -54,7 +55,7 @@ const COURSES = [
 export function TechPathSection() {
     return (
         <section className="w-full relative overflow-visible flex flex-col items-center bg-transparent" id="tech-paths">
-        
+
             {/* Local style for the mobile gradient border mask and tablet purple gradient extension */}
             <style>{`
                 /* Tablet: purple gradient from title to bottom text same as desktop */
@@ -270,15 +271,17 @@ export function TechPathSection() {
                                     <div className="flex flex-col gap-[30px] mt-auto max-md:gap-[20px] max-md:mt-0">
                                         <p className="font-outfit font-light text-[16px] leading-[1.3] text-white max-w-[85%] m-0 max-lg:text-[15px] max-md:text-[14px] max-md:leading-[1.35] max-md:max-w-full">{course.description}</p>
                                         <div className="flex justify-start max-md:mt-0">
-                                            <button className="bg-transparent border-none p-0 cursor-pointer flex items-center transition-transform duration-200 hover:scale-105 max-md:w-[119px] max-md:h-[40px] max-md:rounded-[8px] max-md:overflow-hidden max-md:gap-[53px] max-md:opacity-100 max-md:justify-center">
-                                                <Image
-                                                    src="/photos/Tech/Link - Regular.svg"
-                                                    width={123}
-                                                    height={44}
-                                                    alt="Know More"
-                                                    className="object-contain"
-                                                />
-                                            </button>
+                                            <Link
+                                                href="/contact"
+                                                className="group relative h-[44px] min-w-[123px] rounded-full px-6 flex items-center justify-center overflow-hidden bg-white text-[#111111] transition-transform duration-200 ease-out hover:scale-105 max-md:min-w-[119px] max-md:h-[40px] max-md:rounded-[8px]"
+                                            >
+                                                <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                                    Know More
+                                                </span>
+                                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                                    Know More
+                                                </span>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -296,15 +299,17 @@ export function TechPathSection() {
                         Enrol in any flagship program like Data Analytics, Python Django, or Data Science, and get Applied AI for Beginners (₹10,000 value) included at no extra cost.
                     </p>
                     <div className="mt-[10px] max-md:mt-0">
-                        <button className="bg-transparent border-none p-0 cursor-pointer flex items-center justify-center transition-transform duration-200 hover:scale-105 max-md:w-[186px] max-md:h-[44px] max-md:rounded-[8px] max-md:opacity-100">
-                            <Image
-                                src="/photos/Tech/Button Container.svg"
-                                width={186}
-                                height={44}
-                                alt="Claim Free Course"
-                                className="object-contain max-md:max-w-full max-md:max-h-full"
-                            />
-                        </button>
+                        <Link
+                            href="/contact"
+                            className="group relative w-[186px] h-[44px] rounded-[8px] flex items-center justify-center overflow-hidden bg-white text-[#111111] transition-transform duration-200 ease-out hover:scale-105 max-md:w-[186px] max-md:h-[44px]"
+                        >
+                            <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                Claim Free Course
+                            </span>
+                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                Claim Free Course
+                            </span>
+                        </Link>
                     </div>
                 </div>
 

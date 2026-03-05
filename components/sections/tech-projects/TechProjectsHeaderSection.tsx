@@ -2,13 +2,38 @@
 
 import Image from "next/image";
 
-/**
- * Header: "Student Projects" + description + search bar row (30px below description).
- * Search bar is desktop-only via .tech-projects-toolbar.
- */
-export function TechProjectsHeaderSection() {
+type ProjectCategory = "all" | "web-application" | "automation";
+type SortOrder = "latest" | "oldest";
+
+interface TechProjectsHeaderSectionProps {
+    searchQuery: string;
+    onSearchChange: (value: string) => void;
+    category: ProjectCategory;
+    onCategoryChange: (value: ProjectCategory) => void;
+    sortOrder: SortOrder;
+    onSortOrderChange: (value: SortOrder) => void;
+}
+
+export function TechProjectsHeaderSection({
+    searchQuery,
+    onSearchChange,
+    category,
+    onCategoryChange,
+    sortOrder,
+    onSortOrderChange,
+}: TechProjectsHeaderSectionProps) {
+    const currentCategoryLabel =
+        category === "all" ? "All" : category === "web-application" ? "Web Application" : "Automation";
+
+    const cycleCategory = () => {
+        if (category === "all") onCategoryChange("web-application");
+        else if (category === "web-application") onCategoryChange("automation");
+        else onCategoryChange("all");
+    };
+
     return (
         <div className="flex flex-col w-full">
+            {/* Mobile heading + description */}
             <section className="tech-courses-header-section tech-courses-header-mobile-only">
                 <h1 className="tech-courses-hero-heading">Student Projects</h1>
                 <p className="tech-courses-hero-desc">
@@ -16,17 +41,20 @@ export function TechProjectsHeaderSection() {
                 </p>
             </section>
 
-            {/* Mobile-only search bar row: appears directly under heading + description */}
+            {/* Mobile-only search + filters */}
             <div className="tech-projects-toolbar-mobile w-full flex justify-center">
-                <div className="tech-projects-toolbar-mobile-inner" style={{ width: 345, maxWidth: "100%", height: 95, display: "flex", flexDirection: "column", gap: 15 }}>
-                    {/* Search pill — gradient border via .tech-projects-toolbar-mobile-search */}
+                <div
+                    className="tech-projects-toolbar-mobile-inner"
+                    style={{ width: 345, maxWidth: "100%", height: 95, display: "flex", flexDirection: "column", gap: 15 }}
+                >
+                    {/* Search input — mobile */}
                     <div
                         className="tech-projects-toolbar-mobile-search"
                         style={{
                             width: 345,
                             height: 40,
                             paddingTop: 4.77,
-                            paddingRight: 47.69,
+                            paddingRight: 9.54,
                             paddingBottom: 4.77,
                             paddingLeft: 9.54,
                             borderRadius: 8.94,
@@ -45,20 +73,26 @@ export function TechProjectsHeaderSection() {
                                 style={{ objectFit: "contain", opacity: 0.8 }}
                             />
                         </div>
-                        <span
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => onSearchChange(e.target.value)}
+                            placeholder="Search projects"
                             style={{
+                                flex: 1,
+                                border: "none",
+                                outline: "none",
+                                background: "transparent",
                                 fontFamily: "'Outfit', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 16,
+                                fontSize: 14,
                                 lineHeight: "100%",
-                                color: "#9a9a9a",
+                                color: "#FFFFFF",
                             }}
-                        >
-                            Search
-                        </span>
+                        />
                     </div>
 
-                    {/* Filters row: All ▼  |  Latest | Oldest */}
+                    {/* Filters row: category + sort */}
                     <div
                         className="tech-projects-toolbar-mobile-filters"
                         style={{
@@ -70,16 +104,15 @@ export function TechProjectsHeaderSection() {
                             gap: 12,
                         }}
                     >
-                        {/* All + arrow — gradient border via .tech-projects-toolbar-mobile-all */}
-                        <div
+                        {/* Category pill — cycles between All / Web Application / Automation */}
+                        <button
+                            type="button"
                             className="tech-projects-toolbar-mobile-all"
+                            onClick={cycleCategory}
                             style={{
-                                width: 80,
+                                width: 120,
                                 height: 40,
-                                paddingTop: 9.54,
-                                paddingRight: 17.88,
-                                paddingBottom: 9.54,
-                                paddingLeft: 17.88,
+                                padding: "9.54px 17.88px",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "space-between",
@@ -87,6 +120,8 @@ export function TechProjectsHeaderSection() {
                                 borderRadius: 8.94,
                                 boxSizing: "border-box",
                                 background: "#D9D9D91A",
+                                border: "none",
+                                cursor: "pointer",
                             }}
                         >
                             <span
@@ -98,15 +133,9 @@ export function TechProjectsHeaderSection() {
                                     color: "#FFFFFF",
                                 }}
                             >
-                                All
+                                {currentCategoryLabel}
                             </span>
-                            <div
-                                style={{
-                                    width: 17.92,
-                                    height: 17.92,
-                                    position: "relative",
-                                }}
-                            >
+                            <div style={{ width: 17.92, height: 17.92, position: "relative" }}>
                                 <Image
                                     src="/photos/Tech/iconamoon_arrow-up-2-light.svg"
                                     alt=""
@@ -114,17 +143,14 @@ export function TechProjectsHeaderSection() {
                                     style={{ objectFit: "contain" }}
                                 />
                             </div>
-                        </div>
+                        </button>
 
-                        {/* Latest | Oldest pill — gradient border via .tech-projects-toolbar-mobile-sort */}
+                        {/* Sort pill: Latest / Oldest */}
                         <div
                             className="tech-projects-toolbar-mobile-sort"
                             style={{
                                 height: 40,
-                                paddingTop: 9.54,
-                                paddingBottom: 9.54,
-                                paddingLeft: 20,
-                                paddingRight: 20,
+                                padding: "9.54px 20px",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -134,17 +160,23 @@ export function TechProjectsHeaderSection() {
                                 background: "#D9D9D91A",
                             }}
                         >
-                            <span
+                            <button
+                                type="button"
+                                onClick={() => onSortOrderChange("latest")}
                                 style={{
+                                    border: "none",
+                                    background: "transparent",
+                                    padding: 0,
+                                    cursor: "pointer",
                                     fontFamily: "'Outfit', sans-serif",
                                     fontWeight: 400,
                                     fontSize: 14,
                                     lineHeight: "100%",
-                                    color: "#FFFFFF",
+                                    color: sortOrder === "latest" ? "#FFFFFF" : "rgba(255,255,255,0.5)",
                                 }}
                             >
                                 Latest
-                            </span>
+                            </button>
                             <span
                                 style={{
                                     fontFamily: "'Outfit', sans-serif",
@@ -154,14 +186,31 @@ export function TechProjectsHeaderSection() {
                                     color: "rgba(255,255,255,0.5)",
                                 }}
                             >
-                                | Oldest
+                                |
                             </span>
+                            <button
+                                type="button"
+                                onClick={() => onSortOrderChange("oldest")}
+                                style={{
+                                    border: "none",
+                                    background: "transparent",
+                                    padding: 0,
+                                    cursor: "pointer",
+                                    fontFamily: "'Outfit', sans-serif",
+                                    fontWeight: 400,
+                                    fontSize: 14,
+                                    lineHeight: "100%",
+                                    color: sortOrder === "oldest" ? "#FFFFFF" : "rgba(255,255,255,0.5)",
+                                }}
+                            >
+                                Oldest
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Desktop + tablet search bar row — 30px gap from description above */}
+            {/* Desktop + tablet toolbar */}
             <div
                 className="tech-projects-toolbar"
                 style={{
@@ -171,7 +220,6 @@ export function TechProjectsHeaderSection() {
                     paddingRight: "clamp(20px, 4vw, 60px)",
                     display: "flex",
                     justifyContent: "center",
-                    // marginTop: 10,
                 }}
             >
                 <div
@@ -184,10 +232,11 @@ export function TechProjectsHeaderSection() {
                         alignItems: "center",
                     }}
                 >
+                    {/* Desktop search */}
                     <div
                         className="tech-projects-toolbar-search"
                         style={{
-                            width: 201,
+                            width: 260,
                             height: 52,
                             borderRadius: 12,
                             paddingLeft: 16,
@@ -209,19 +258,26 @@ export function TechProjectsHeaderSection() {
                                 style={{ objectFit: "contain", opacity: 0.8 }}
                             />
                         </div>
-                        <span
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => onSearchChange(e.target.value)}
+                            placeholder="Search projects"
                             style={{
+                                flex: 1,
+                                border: "none",
+                                outline: "none",
+                                background: "transparent",
                                 fontFamily: "'Outfit', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 20,
+                                fontSize: 16,
                                 lineHeight: "100%",
-                                color: "#9a9a9a",
+                                color: "#FFFFFF",
                             }}
-                        >
-                            Search
-                        </span>
+                        />
                     </div>
 
+                    {/* Category filters */}
                     <div
                         className="tech-projects-toolbar-filters"
                         style={{
@@ -243,73 +299,88 @@ export function TechProjectsHeaderSection() {
                             boxSizing: "border-box",
                         }}
                     >
-                        <span
+                        <button
+                            type="button"
+                            onClick={() => onCategoryChange("all")}
                             style={{
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "flex-start",
                                 fontFamily: "'Outfit', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 24,
+                                fontSize: 18,
                                 lineHeight: "100%",
                                 textAlign: "left",
                                 background: "transparent",
-                                color: "#FFFFFF",
-                                padding: "4px 12px",
+                                color: category === "all" ? "#FFFFFF" : "#A7A7A7",
+                                padding: "4px 8px",
                                 height: 30,
                                 boxSizing: "border-box",
                                 flexShrink: 0,
+                                border: "none",
+                                cursor: "pointer",
                             }}
                         >
                             All
-                        </span>
+                        </button>
                         <div style={{ width: 1, height: 22, position: "relative", flexShrink: 0, display: "flex", alignItems: "center" }}>
                             <Image src="/photos/Tech/Vector 4.svg" alt="" fill style={{ objectFit: "cover" }} />
                         </div>
-                        <span
+                        <button
+                            type="button"
+                            onClick={() => onCategoryChange("web-application")}
                             style={{
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
                                 fontFamily: "'Outfit', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 24,
+                                fontSize: 18,
                                 lineHeight: "100%",
                                 textAlign: "center",
-                                color: "#A7A7A7",
-                                padding: "4px 12px",
+                                color: category === "web-application" ? "#FFFFFF" : "#A7A7A7",
+                                padding: "4px 8px",
                                 whiteSpace: "nowrap",
                                 height: 30,
                                 boxSizing: "border-box",
                                 flexShrink: 0,
+                                border: "none",
+                                background: "transparent",
+                                cursor: "pointer",
                             }}
                         >
                             Web Application
-                        </span>
+                        </button>
                         <div style={{ width: 1, height: 22, position: "relative", flexShrink: 0, display: "flex", alignItems: "center" }}>
                             <Image src="/photos/Tech/Vector 4.svg" alt="" fill style={{ objectFit: "cover" }} />
                         </div>
-                        <span
+                        <button
+                            type="button"
+                            onClick={() => onCategoryChange("automation")}
                             style={{
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "flex-start",
                                 fontFamily: "'Outfit', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 24,
+                                fontSize: 18,
                                 lineHeight: "100%",
                                 textAlign: "left",
-                                color: "#A7A7A7",
-                                padding: "4px 12px",
+                                color: category === "automation" ? "#FFFFFF" : "#A7A7A7",
+                                padding: "4px 8px",
                                 height: 30,
                                 boxSizing: "border-box",
                                 flexShrink: 0,
+                                border: "none",
+                                background: "transparent",
+                                cursor: "pointer",
                             }}
                         >
                             Automation
-                        </span>
+                        </button>
                     </div>
 
+                    {/* Sort: Latest / Oldest */}
                     <div
                         className="tech-projects-toolbar-sort"
                         style={{
@@ -323,45 +394,56 @@ export function TechProjectsHeaderSection() {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            gap: 38,
+                            gap: 24,
                             background: "#D9D9D91A",
                             backdropFilter: "blur(12px)",
                             WebkitBackdropFilter: "blur(12px)",
                             boxShadow: "0px 4px 12px 0px #00000040",
                         }}
                     >
-                        <span
+                        <button
+                            type="button"
+                            onClick={() => onSortOrderChange("latest")}
                             style={{
                                 fontFamily: "'Outfit', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 24,
+                                fontSize: 20,
                                 lineHeight: "100%",
                                 textAlign: "center",
-                                color: "#FFFFFF",
+                                color: sortOrder === "latest" ? "#FFFFFF" : "rgba(255,255,255,0.5)",
                                 padding: "0 8px",
+                                border: "none",
+                                background: "transparent",
+                                cursor: "pointer",
                             }}
                         >
                             Latest
-                        </span>
+                        </button>
                         <div style={{ width: 1, height: 22, position: "relative", flexShrink: 0 }}>
                             <Image src="/photos/Tech/Vector 4.svg" alt="" fill style={{ objectFit: "cover" }} />
                         </div>
-                        <span
+                        <button
+                            type="button"
+                            onClick={() => onSortOrderChange("oldest")}
                             style={{
                                 fontFamily: "'Outfit', sans-serif",
                                 fontWeight: 400,
-                                fontSize: 24,
+                                fontSize: 20,
                                 lineHeight: "100%",
                                 textAlign: "center",
-                                color: "rgba(255,255,255,0.5)",
+                                color: sortOrder === "oldest" ? "#FFFFFF" : "rgba(255,255,255,0.5)",
                                 padding: "0 8px",
+                                border: "none",
+                                background: "transparent",
+                                cursor: "pointer",
                             }}
                         >
                             Oldest
-                        </span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     );
 }
+

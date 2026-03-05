@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { TechNavbar } from "@/components/sections/tech/TechNavbar";
+import { motion } from "framer-motion";
 import { BANNER_VISIBLE_H, DESIGN_H, DESIGN_W } from "@/components/sections/tech-courses/constants";
 
 interface TechProjectsHeroProps {
@@ -33,10 +34,24 @@ export function TechProjectsHero({ scale }: TechProjectsHeroProps) {
                     </div>
                 </div>
 
+                {/* Soft fade: navbar gradient blends into hero theme (same as tech home) */}
+                <div
+                    className="absolute left-0 right-0 z-[3] pointer-events-none"
+                    style={{
+                        top: "80px",
+                        height: "220px",
+                        background: "linear-gradient(to bottom, transparent 0%, rgba(17,17,17,0.12) 20%, rgba(17,17,17,0.4) 50%, rgba(17,17,17,0.85) 85%, #111111 100%)",
+                    }}
+                    aria-hidden="true"
+                />
+
                 <TechNavbar />
 
-                <div
-                    className="tech-courses-hero-text-desktop absolute top-[230px] left-1/2 -translate-x-1/2 w-[1275px] flex flex-col items-center gap-10 text-center"
+                <motion.div
+                    className="tech-courses-hero-text-desktop absolute top-[230px] left-1/2 -translate-x-1/2 w-[1275px] flex flex-col items-center gap-10 text-center z-[5]"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <h1
                         className="w-[1275px] m-0 text-[60px] leading-none text-white font-normal"
@@ -50,7 +65,9 @@ export function TechProjectsHero({ scale }: TechProjectsHeroProps) {
                     >
                         Every project you see below started as an idea in class and grew into something worth showing off.
                     </p>
-                </div>
+                </motion.div>
+
+
             </section>
         </div>
     );

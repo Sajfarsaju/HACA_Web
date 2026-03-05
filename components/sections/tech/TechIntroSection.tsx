@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 /* ─────────────────────────────────────────
    TechIntroSection
@@ -79,9 +82,28 @@ export function TechIntroSection() {
                     </div>
 
                     {/* Icon Row */}
-                    <div className="flex flex-row items-center justify-center gap-[17.46px] w-[438px] h-[47.61px] flex-nowrap max-[1440px]:w-[380px] max-[1440px]:gap-[12px] max-[1200px]:w-[320px] max-[1200px]:gap-[8px] max-lg:w-full max-lg:h-auto max-lg:justify-center max-md:gap-[8px] max-[480px]:gap-[8px] max-[375px]:gap-[4px] max-[375px]:justify-center">
+                    <motion.div
+                        className="flex flex-row items-center justify-center gap-[17.46px] w-[438px] h-[47.61px] flex-nowrap max-[1440px]:w-[380px] max-[1440px]:gap-[12px] max-[1200px]:w-[320px] max-[1200px]:gap-[8px] max-lg:w-full max-lg:h-auto max-lg:justify-center max-md:gap-[8px] max-[480px]:gap-[8px] max-[375px]:gap-[4px] max-[375px]:justify-center"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={{
+                            visible: {
+                                transition: {
+                                    staggerChildren: 0.1
+                                }
+                            }
+                        }}
+                    >
                         {TECH_ICONS.map((icon) => (
-                            <div className="w-[47.61px] h-[47.61px] shrink-0 flex items-center justify-center relative overflow-visible max-[1440px]:w-[40px] max-[1440px]:h-[40px] max-[1200px]:w-[32px] max-[1200px]:h-[32px] max-md:w-[32px] max-md:h-[32px] max-[480px]:w-[24px] max-[480px]:h-[24px] max-[375px]:w-[20px] max-[375px]:h-[20px]" key={icon.alt}>
+                            <motion.div
+                                className="w-[47.61px] h-[47.61px] shrink-0 flex items-center justify-center relative overflow-visible max-[1440px]:w-[40px] max-[1440px]:h-[40px] max-[1200px]:w-[32px] max-[1200px]:h-[32px] max-md:w-[32px] max-md:h-[32px] max-[480px]:w-[24px] max-[480px]:h-[24px] max-[375px]:w-[20px] max-[375px]:h-[20px]"
+                                key={icon.alt}
+                                variants={{
+                                    hidden: { opacity: 0, scale: 0.5 },
+                                    visible: { opacity: 1, scale: 1 }
+                                }}
+                            >
                                 {/* Width/height set to 48 as a layout hint; actual display size controlled by CSS */}
                                 <Image
                                     src={icon.src}
@@ -90,9 +112,9 @@ export function TechIntroSection() {
                                     height={48}
                                     className="w-full h-full object-contain"
                                 />
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
 
                 {/* ── RIGHT COLUMN: Description ── */}

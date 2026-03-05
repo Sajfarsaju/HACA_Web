@@ -39,24 +39,15 @@ export function TechFaq() {
         >
 
 
-            {/* 1️⃣ Large Purple Glow - Desktop/Tablet Only */}
-            <div
-                className="hidden md:block absolute top-[65%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1800px] h-[1300px] blur-[316px] opacity-50 z-0 pointer-events-none"
-                style={{
-                    background: `
-                        radial-gradient(
-                            ellipse at center,
-                            rgba(132, 0, 255, 0.95) 0%,
-                            rgba(132, 0, 255, 0.75) 20%,
-                            rgba(132, 0, 255, 0.55) 40%,
-                            rgba(132, 0, 255, 0.35) 55%,
-                            rgba(132, 0, 255, 0.15) 70%,
-                            rgba(132, 0, 255, 0.05) 80%,
-                            transparent 90%
-                        )
-                    `,
-                }}
-            />
+            {/* 1️⃣ Center Gradient Glow - Desktop/Tablet Only (matches TechBlogs style) */}
+            <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220%] max-w-[1400px] aspect-[1/1] min-w-[900px] opacity-80 z-0 pointer-events-none">
+                <Image
+                    src="/photos/schools/tech/Group 54.svg"
+                    alt=""
+                    fill
+                    className="object-contain object-center"
+                />
+            </div>
 
             {/* 4️⃣ Cinematic Flare Gradient - Desktop/Tablet Only */}
             <div

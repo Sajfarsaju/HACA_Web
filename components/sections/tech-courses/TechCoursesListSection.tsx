@@ -48,11 +48,12 @@ export function TechCoursesListSection({ desktopScale }: TechCoursesListSectionP
             </div>
 
             <div className="courses-list">
+                {/* Purple gradient starts from "Courses We Offer" title with soft fade-in; soft transition to theme at bottom via CSS */}
                 <div
                     className="tech-desktop-only courses-section-gradient2"
                     style={{
                         position: "absolute",
-                        top: 335,
+                        top: -320,
                         left: 75.16,
                         width: 1292.9193,
                         height: 3179.2605,

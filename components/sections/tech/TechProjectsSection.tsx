@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const BASE_PROJECTS = [
     {
@@ -171,17 +172,19 @@ export function TechProjectsSection() {
 
                     </div>
 
-                    {/* Bottom Button Component */}
+                    {/* Bottom Button — white pill + slide animation (match original) */}
                     <div className="w-full flex justify-center items-center">
-                        <button className="bg-transparent border-none cursor-pointer p-0 transition-transform duration-200 ease hover:scale-[1.05]">
-                            <Image
-                                src="/photos/Tech/Button Container (1).svg"
-                                width={188}
-                                height={44}
-                                alt="View Projects"
-                                className="object-contain"
-                            />
-                        </button>
+                        <Link
+                            href="/schools/tech/tech-projects"
+                            className="group relative w-[188px] h-[44px] rounded-[8px] flex items-center justify-center overflow-hidden bg-white text-[#111111] transition-transform duration-200 ease-out hover:scale-[1.05]"
+                        >
+                            <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                View Projects
+                            </span>
+                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                View Projects
+                            </span>
+                        </Link>
                     </div>
 
                 </div>

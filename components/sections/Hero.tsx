@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { PhotoGallery } from "./PhotoGallery"
 import { PressLogos } from "./PressLogos"
 import { StatsSection } from "./StatsSection"
@@ -24,7 +25,12 @@ export function Hero() {
                     <div className="w-full flex flex-col items-center gap-[16px] max-md:gap-[10px]">
 
                         {/* Info Button */}
-                        <div className="flex items-center justify-center">
+                        <motion.div
+                            className="flex items-center justify-center"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                        >
                             <Image
                                 src="/photos/main/Info Button.svg"
                                 alt="Info"
@@ -33,29 +39,44 @@ export function Hero() {
                                 className="w-[371px] h-[64px] object-contain max-md:w-[271px] max-md:h-[46px]"
                                 priority
                             />
-                        </div>
+                        </motion.div>
 
                         {/* Text Container */}
                         <div className="w-full flex flex-col items-center gap-[20px] max-md:gap-[9.05px]">
                             {/* Heading */}
-                            <div className="w-full flex flex-col items-center text-center">
+                            <motion.div
+                                className="w-full flex flex-col items-center text-center"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                            >
                                 <p className="font-rethink font-bold text-[58px] leading-[69.6px] tracking-normal text-center text-white m-0 max-md:text-[26px] max-md:leading-[31.5px]">Skills Are the New Degree,</p>
                                 <p className="font-rethink font-bold text-[58px] leading-[69.6px] tracking-normal text-center text-white m-0 max-md:text-[26px] max-md:leading-[31.5px]">Build Yours with HACA.</p>
-                            </div>
+                            </motion.div>
 
                             {/* Paragraph */}
-                            <div className="w-full flex justify-center">
+                            <motion.div
+                                className="w-full flex justify-center"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
+                            >
                                 <p className="font-rethink font-medium text-[18px] leading-[27px] tracking-normal text-center text-[#A7ADBE] m-0 max-md:text-[14px] max-md:leading-[15px]">
                                     At HACA, every course is built to make you career-ready in Digital Marketing, Design, Tech, or Finance.
                                 </p>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
 
                     {/* ── Button Container (desktop: two buttons, mobile: one button) ── */}
 
                     {/* Desktop Button Row */}
-                    <div className="flex items-center justify-center gap-[30px] max-md:hidden">
+                    <motion.div
+                        className="flex items-center justify-center gap-[30px] max-md:hidden"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                    >
                         <Link href="/courses" className="flex items-center justify-center no-underline transition-transform duration-200 ease-out hover:scale-[1.04]">
                             <Image
                                 src="/photos/main/explore course btn.svg"
@@ -74,10 +95,15 @@ export function Hero() {
                                 className="object-contain"
                             />
                         </Link>
-                    </div>
+                    </motion.div>
 
                     {/* Mobile Button (single) */}
-                    <div className="hidden max-md:flex items-center justify-center">
+                    <motion.div
+                        className="hidden max-md:flex items-center justify-center"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                    >
                         <Link href="/schools" className="flex items-center justify-center no-underline transition-transform duration-200 ease-out hover:scale-[1.04]">
                             <Image
                                 src="/photos/main/explore school btn.svg"
@@ -87,10 +113,15 @@ export function Hero() {
                                 className="object-contain"
                             />
                         </Link>
-                    </div>
+                    </motion.div>
 
                     {/* ── Additional SVGs (World Education Summit & Admission Open) ── */}
-                    <div className="flex flex-col items-center gap-[20px] max-md:gap-[15.2px]">
+                    <motion.div
+                        className="flex flex-col items-center gap-[20px] max-md:gap-[15.2px]"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.7 }}
+                    >
                         <Image
                             src="/photos/main/World-Education-Summit 1.svg"
                             alt="World Education Summit"
@@ -105,7 +136,7 @@ export function Hero() {
                             height={20}
                             className="w-[196px] h-[20px] object-contain max-md:w-[149px] max-md:h-[15px]"
                         />
-                    </div>
+                    </motion.div>
                 </div>
                 {/* END hero-upper */}
 
