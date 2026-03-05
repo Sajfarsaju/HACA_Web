@@ -7,7 +7,7 @@ export function HeroBottom() {
   return (
     /* ─── Outer Section: 1440 × 428, padding 32px 60px, border-radius 20px ─── */
     <section
-      className="w-full section-4k mx-auto flex items-center justify-center p-[32px_60px] bg-[#000210] rounded-[20px] max-md:p-[32px_20px] max-md:min-h-[170px] max-md:h-auto max-md:rounded-[5.08px]"
+      className="w-full max-w-[var(--section-max-w)] mx-auto flex items-center justify-center p-[32px_60px] bg-[#000210] rounded-[20px] max-md:p-[32px_20px] max-md:min-h-[170px] max-md:h-auto max-md:rounded-[5.08px]"
       aria-label="Enquire CTA"
     >
       {/* ─── Inner Container: 1320 × 364, padding 25px / 29px, gap 474px, border-radius 20px ─── */}
@@ -25,7 +25,7 @@ export function HeroBottom() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           {/* ─── Ellipse decorative background: 1060 × 855 ─── */}
-          <div className="hb-ellipse" aria-hidden="true" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "1060px", height: "855px", pointerEvents: "none", zIndex: -1 }}>
+          <div aria-hidden="true" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "1060px", height: "855px", pointerEvents: "none", zIndex: -1 }}>
             <Image
               src="/photos/Tech/Ellipse 3.svg"
               alt=""

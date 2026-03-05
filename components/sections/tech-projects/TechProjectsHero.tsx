@@ -11,28 +11,25 @@ interface TechProjectsHeroProps {
 export function TechProjectsHero({ scale }: TechProjectsHeroProps) {
     return (
         <div
-            className="tech-main-hero-wrapper"
+            className="relative z-20 w-full overflow-hidden hidden md:block"
             style={{
                 height: `${BANNER_VISIBLE_H * scale}px`,
-                position: "relative",
-                zIndex: 20,
             }}
         >
             <section
-                className="tech-main-hero-canvas"
+                className="tech-main-hero-canvas absolute top-0 left-1/2 w-[1440px] h-[1044px] overflow-hidden bg-[#111111]"
                 style={{
                     transform: `translateX(-50%) scale(${scale})`,
                     transformOrigin: "top center",
                     left: "50%",
                     height: `${DESIGN_H}px`,
-                    position: "absolute",
                     width: `${DESIGN_W}px`,
                 }}
             >
-                <div className="tech-main-hero-bg-layer">
-                    <Image src="/photos/Tech/Gradiant.svg" alt="Gradient" fill className="tech-main-hero-bg-img" priority />
-                    <div className="tech-main-hero-ellipse-wrap">
-                        <Image src="/photos/Tech/Ellipse 2.svg" alt="Ellipse Gradient" fill className="tech-main-hero-bg-img" priority />
+                <div className="absolute inset-0 w-[1593.45px] h-[304px] top-[-29px] left-[-36px] opacity-100 z-0 pointer-events-none">
+                    <Image src="/photos/Tech/Gradiant.svg" alt="Gradient" fill className="!object-cover" priority />
+                    <div className="absolute inset-0 z-[1]">
+                        <Image src="/photos/Tech/Ellipse 2.svg" alt="Ellipse Gradient" fill className="!object-cover" priority />
                     </div>
                 </div>
 

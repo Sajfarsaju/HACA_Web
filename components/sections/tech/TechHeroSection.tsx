@@ -12,15 +12,14 @@ import { useEffect, useState, useRef } from "react";
 ───────────────────────────────────────────────────────────────────────────── */
 
 const DESIGN_W = 1440;
-const DESIGN_H = 1044;
 const DESKTOP_HERO_END = 916; // stats box bottom (826 + 90) - hero ends here, no gap
 const MOBILE_DESIGN_W = 375;
 const MOBILE_DESIGN_H = 706; // nav 63 + content 643
 
 const TECH_NAV_LINKS = [
     { href: "/schools/tech", label: "Home" },
-    { href: "/schools/tech#courses", label: "Courses" },
-    { href: "/schools/tech#tech-projects", label: "Projects" },
+    { href: "/schools/tech/tech-courses", label: "Courses" },
+    { href: "/schools/tech/tech-projects", label: "Projects" },
     { href: "/success-story", label: "Success Story" },
     { href: "/blog", label: "Blogs" },
 ] as const;
@@ -201,7 +200,7 @@ export default function TechHero() {
                                 src="/photos/Tech/Ellipse 2.svg"
                                 alt="Ellipse Gradient"
                                 fill
-                                className="tech-main-hero-bg-img"
+                                className="!object-cover"
                                 priority
                             />
                         </div>

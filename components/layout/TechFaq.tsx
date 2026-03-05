@@ -37,29 +37,7 @@ export function TechFaq() {
         <section
             className="w-full relative overflow-hidden flex flex-col items-center justify-center py-8 px-6 md:py-16 md:px-10 lg:p-0 lg:h-[862px] min-h-[400px] bg-transparent opacity-100"
         >
-            {/* 2️⃣ Top Fade Overlay (zIndex 5) - Cinematic transition from previous section */}
-            <div
-                className="absolute inset-x-0 top-0 h-[150px] md:h-[200px] lg:h-[300px] z-[5] pointer-events-none"
-                style={{
-                    background: `linear-gradient(to bottom, #111111 0%, rgba(17, 17, 17, 0.7) 30%, rgba(17, 17, 17, 0.4) 60%, rgba(17, 17, 17, 0) 100%)`,
-                }}
-            />
 
-            {/* 3️⃣ Dark Edge Fade / Vignette (zIndex 1) */}
-            <div
-                className="absolute inset-0 z-[1] pointer-events-none"
-                style={{
-                    background: `radial-gradient(circle at center, transparent 40%, #111111 85%)`,
-                }}
-            />
-
-            {/* 3️⃣ Bottom Fade Overlay (zIndex 5) - Cinematic transition to next section */}
-            <div
-                className="absolute inset-x-0 bottom-0 h-[150px] md:h-[200px] lg:h-[300px] z-[5] pointer-events-none"
-                style={{
-                    background: `linear-gradient(to bottom, rgba(17, 17, 17, 0) 0%, rgba(17, 17, 17, 0.4) 40%, rgba(17, 17, 17, 0.7) 70%, #111111 100%)`,
-                }}
-            />
 
             {/* 1️⃣ Large Purple Glow - Desktop/Tablet Only */}
             <div

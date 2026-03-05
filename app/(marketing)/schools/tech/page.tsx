@@ -24,22 +24,22 @@ export default function TechSchoolPage() {
             <div className="relative z-[2]">
                 <TechHero />
 
-                {/* ── Main sections with Image.svg background (Mobile) ── */}
+                {/* ── All sections: TechIntro → TechQuote with single Image.svg background ── */}
                 <div className="relative w-full bg-[#111111]">
 
-                    {/* Background layer: Image.svg - mobile/tablet only; hidden on lg+ so footer has no pattern */}
-                    <div className="absolute top-0 left-0 w-full h-[13278px] z-[1] pointer-events-none overflow-hidden max-lg:block lg:hidden" aria-hidden="true">
+                    {/* Background layer: Image.svg — covers all sections from TechIntro to TechQuote, all screen sizes */}
+                    <div className="absolute top-0 left-0 w-full h-full z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
                         <Image
                             src="/photos/Tech/Image.svg"
                             alt=""
-                            width={1442}
-                            height={13278}
-                            className="w-full h-full object-cover object-top"
+                            fill
+                            sizes="100vw"
+                            className="object-cover object-top"
                             priority
                         />
                     </div>
 
-                    {/* Content components */}
+                    {/* Content components — TechIntro → TechPlacements */}
                     <div className="relative z-[5]">
                         <TechIntroSection />
                         <TechShowcaseSection />
@@ -47,88 +47,73 @@ export default function TechSchoolPage() {
                         <TechProjectsSection />
                         <TechPlacementsSection />
                     </div>
-                </div>
 
-                {/* ── Sajfar Branch Content: TechPreneur → TechQuote with Image.svg background ── */}
-                <div className="relative w-full" style={{ backgroundColor: "#111111" }}>
-                    <div className="relative w-full">
-                        {/* Background: Image.svg — full coverage, same visibility as other sections */}
-                        <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
-                            <Image
-                                src="/photos/Tech/Image.svg"
-                                alt=""
-                                fill
-                                sizes="100vw"
-                                className="object-cover object-top"
-                                aria-hidden
-                            />
-                        </div>
-                        <div className="relative z-10 w-full flex flex-col">
-                            <TechPreneur />
-                            <TechMentors />
+                    {/* TechPreneur → TechQuote */}
+                    <div className="relative z-[5] w-full flex flex-col">
+                        <TechPreneur />
+                        <TechMentors />
 
-                            {/* WhyChoose + Culture — shared gradient layer for tablet+ */}
-                            <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column" }}>
+                        {/* WhyChoose + Culture — shared gradient layer for tablet+ */}
+                        <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column" }}>
 
-                                {/* Tablet+: purple gradient — strong presence from WhyChoose cards through Culture cards */}
-                                <div
-                                    className="hidden md:block absolute left-0 right-0 z-0 pointer-events-none overflow-hidden"
-                                    style={{
-                                        top: "250px",
-                                        height: "1700px",
-                                        maskImage: `
-                                            linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 8%, rgba(0,0,0,0.5) 18%, black 25%, black 75%, rgba(0,0,0,0.5) 88%, rgba(0,0,0,0.1) 95%, transparent 100%),
-                                            radial-gradient(ellipse 80% 88% at 50% 50%, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.4) 60%, transparent 100%)
-                                        `,
-                                        WebkitMaskImage: `
-                                            linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 8%, rgba(0,0,0,0.5) 18%, black 25%, black 75%, rgba(0,0,0,0.5) 88%, rgba(0,0,0,0.1) 95%, transparent 100%),
-                                            radial-gradient(ellipse 80% 88% at 50% 50%, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.4) 60%, transparent 100%)
-                                        `,
-                                        maskComposite: "intersect",
-                                        WebkitMaskComposite: "source-in",
-                                    }}
-                                >
-                                    <div style={{ position: "absolute", inset: 0 }}>
-                                        <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover object-center" aria-hidden />
-                                    </div>
-                                    <div style={{ position: "absolute", inset: 0, opacity: 0.45 }}>
-                                        <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" aria-hidden />
-                                    </div>
-                                    <div className="absolute top-[950px] left-1/2 -translate-x-1/2 w-[715px] max-w-[90vw] h-[500px] rotate-[-164.21deg] opacity-90 max-md:hidden pointer-events-none">
-                                        <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
-                                    </div>
+                            {/* Tablet+: purple gradient — strong presence from WhyChoose cards through Culture cards */}
+                            <div
+                                className="hidden md:block absolute left-0 right-0 z-0 pointer-events-none overflow-hidden"
+                                style={{
+                                    top: "250px",
+                                    height: "1700px",
+                                    maskImage: `
+                                        linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 8%, rgba(0,0,0,0.5) 18%, black 25%, black 75%, rgba(0,0,0,0.5) 88%, rgba(0,0,0,0.1) 95%, transparent 100%),
+                                        radial-gradient(ellipse 80% 88% at 50% 50%, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.4) 60%, transparent 100%)
+                                    `,
+                                    WebkitMaskImage: `
+                                        linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 8%, rgba(0,0,0,0.5) 18%, black 25%, black 75%, rgba(0,0,0,0.5) 88%, rgba(0,0,0,0.1) 95%, transparent 100%),
+                                        radial-gradient(ellipse 80% 88% at 50% 50%, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.4) 60%, transparent 100%)
+                                    `,
+                                    maskComposite: "intersect",
+                                    WebkitMaskComposite: "source-in",
+                                }}
+                            >
+                                <div style={{ position: "absolute", inset: 0 }}>
+                                    <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover object-center" aria-hidden />
                                 </div>
-
-                                {/* Tablet+: orange gradient — localized at TechCulture title right side */}
-                                <div
-                                    className="hidden md:block absolute pointer-events-none z-[2]"
-                                    style={{
-                                        top: "1150px",
-                                        left: "55%",
-                                        transform: "translateY(-50%)",
-                                        width: "320px",
-                                        height: "260px",
-                                        rotate: "-164.21deg",
-                                        opacity: 0.72,
-                                    }}
-                                >
-                                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" aria-hidden />
+                                <div style={{ position: "absolute", inset: 0, opacity: 0.45 }}>
+                                    <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" aria-hidden />
                                 </div>
-
-                                <TechWhyChoose />
-                                <TechCulture />
+                                <div className="absolute top-[950px] left-1/2 -translate-x-1/2 w-[715px] max-w-[90vw] h-[500px] rotate-[-164.21deg] opacity-90 max-md:hidden pointer-events-none">
+                                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
+                                </div>
                             </div>
 
-                            <TechYoutube />
-                            <TechBlogs />
-                            <TechFaq />
-                            <TechGlobalLearning />
-                            <TechQuote />
+                            {/* Tablet+: orange gradient — localized at TechCulture title right side */}
+                            <div
+                                className="hidden md:block absolute pointer-events-none z-[2]"
+                                style={{
+                                    top: "1150px",
+                                    left: "55%",
+                                    transform: "translateY(-50%)",
+                                    width: "320px",
+                                    height: "260px",
+                                    rotate: "-164.21deg",
+                                    opacity: 0.72,
+                                }}
+                            >
+                                <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" aria-hidden />
+                            </div>
+
+                            <TechWhyChoose />
+                            <TechCulture />
                         </div>
+
+                        <TechYoutube />
+                        <TechBlogs />
+                        <TechFaq />
+                        <TechGlobalLearning />
+                        <TechQuote />
                     </div>
                 </div>
 
-                {/* Footer: no dot/Image.svg on any screen; solid block on top */}
+                {/* Footer: solid block, no Image.svg */}
                 <div className="relative z-10 bg-[#111111]">
                     <TechFooter />
                 </div>

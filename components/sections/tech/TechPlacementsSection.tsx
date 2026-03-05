@@ -122,8 +122,8 @@ export function TechPlacementsSection() {
                 {/* Header */}
                 <div className="w-full max-w-[1228px] flex flex-col items-center gap-[20px] text-center max-md:w-[337px] max-md:gap-[10px]">
                     <h2 className="m-0 font-outfit font-normal text-[60px] leading-[62px] tracking-[-0.02em] text-white max-md:text-[32px] max-md:leading-[38px]">
-                        <span className="block max-md:hidden">Placements We're Proud Of</span>
-                        <span className="hidden max-md:block">Placements We're <br /> Proud Of</span>
+                        <span className="block max-md:hidden">Placements We&apos;re Proud Of</span>
+                        <span className="hidden max-md:block">Placements We&apos;re <br /> Proud Of</span>
                     </h2>
 
                     {/* Desktop Subheadings */}

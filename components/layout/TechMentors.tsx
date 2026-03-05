@@ -164,7 +164,7 @@ export function TechMentors() {
                         Your Mentors
                     </h2>
                     <p className="font-outfit font-normal text-[clamp(16px,2vw,24px)] leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7] m-0 max-w-[800px]">
-                        You'll learn from people who've built products, written code, and solved real problems.
+                        You&apos;ll learn from people who&apos;ve built products, written code, and solved real problems.
                     </p>
                 </div>
 

@@ -53,8 +53,8 @@ const COURSES = [
 
 export function TechPathSection() {
     return (
-        <section className="w-full relative overflow-visible flex flex-col items-center bg-[#111111]" id="tech-paths">
-
+        <section className="w-full relative overflow-visible flex flex-col items-center bg-transparent" id="tech-paths">
+        
             {/* Local style for the mobile gradient border mask and tablet purple gradient extension */}
             <style>{`
                 /* Tablet: purple gradient from title to bottom text same as desktop */

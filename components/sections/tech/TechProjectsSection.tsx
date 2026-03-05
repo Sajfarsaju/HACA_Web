@@ -46,12 +46,12 @@ export function TechProjectsSection() {
 
     return (
         <section className="w-full relative overflow-visible" id="tech-projects">
-            {/* Local style for the gradient border masks */}
+            {/* Shared gradient border ring for both cards */}
             <style>{`
-                .tech-projects-card-left-mask::before {
+                .tech-projects-card-gradient::before {
                     content: "";
                     position: absolute;
-                    inset: -1px;
+                    inset: 0;
                     border-radius: 22px;
                     padding: 1px;
                     background: linear-gradient(90deg, #FF5600 0%, #694AFF 100%);
@@ -60,22 +60,10 @@ export function TechProjectsSection() {
                     -webkit-mask-composite: xor;
                     mask-composite: exclude;
                     pointer-events: none;
-                    z-index: 10;
-                }
-                .tech-projects-card-right-mask::before {
-                    content: "";
-                    position: absolute;
-                    inset: -1px;
-                    border-radius: 22px;
-                    padding: 1px;
-                    background: linear-gradient(90deg, #FF5600 0%, #694AFF 100%);
-                    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                    -webkit-mask-composite: xor;
-                    mask-composite: exclude;
-                    pointer-events: none;
+                    z-index: 1;
                 }
             `}</style>
+
             <div className="w-full max-w-[1440px] mx-auto pt-[100px] px-[60px] pb-[40px] flex flex-col gap-[60px] max-lg:px-[30px] max-md:py-[60px] max-md:px-[20px] max-md:pb-[40px] max-md:gap-[40px]">
 
                 {/* Header */}
@@ -84,7 +72,7 @@ export function TechProjectsSection() {
                         Your Dream, Your Projects. <br className="hidden max-[375px]:block" /> Your Proof.
                     </h2>
                     <p className="font-outfit font-normal text-[24px] leading-[33.6px] tracking-[-0.2px] text-center text-[#A7A7A7] m-0 max-w-[1320px] w-full max-md:text-[16px] max-md:leading-[24px]">
-                        You'll build real, working projects that show what you can do, not just what you've read about. These aren't classroom exercises. They're portfolio pieces. Proof that you've got the skills to code, create, and contribute from day one.
+                        You&apos;ll build real, working projects that show what you can do, not just what you&apos;ve read about. These aren&apos;t classroom exercises. They&apos;re portfolio pieces. Proof that you&apos;ve got the skills to code, create, and contribute from day one.
                     </p>
                 </div>
 
@@ -95,7 +83,9 @@ export function TechProjectsSection() {
                     <div className="w-full max-w-[1340px] flex justify-center items-stretch gap-[40px] max-lg:flex-col max-lg:items-center">
 
                         {/* Left Card: Project Show (Sliding Carousel) */}
-                        <div className="relative bg-[#E7E7E71F] rounded-[22px] border border-transparent shadow-[0px_4px_4px_0px_#00000040] backdrop-blur-[12px] flex flex-col w-full max-w-[650px] h-[428px] p-[20px] tech-projects-card-left-mask max-md:p-[16px] max-md:h-[396px] overflow-hidden">
+                        <div
+                            className="tech-projects-card-gradient relative bg-[#D9D9D91A] rounded-[22px] shadow-[0px_2.18px_2.18px_0px_rgba(0,0,0,0.25)] backdrop-blur-[6.5px] flex flex-col w-full max-w-[650px] h-[428px] p-[20px] max-md:p-[16px] max-md:h-[396px] overflow-hidden"
+                        >
 
                             {/* Inner Sliding Track wrapper */}
                             <div className="relative w-full h-full flex flex-col justify-between overflow-hidden">
@@ -115,12 +105,12 @@ export function TechProjectsSection() {
                                                     transition: "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease"
                                                 }}
                                             >
-                                                <div className="relative w-full h-[309px] rounded-[16px] overflow-hidden shrink-0 max-md:h-[220px]">
+                                                <div className="relative w-full h-[309px] rounded-[22px] overflow-hidden shrink-0 max-md:h-[220px]">
                                                     <Image
                                                         src={proj.src}
                                                         fill
                                                         alt="Project Screenshot"
-                                                        className="object-cover rounded-[16px]"
+                                                        className="object-cover rounded-[22px]"
                                                     />
                                                 </div>
                                                 <div className="w-full flex justify-between items-center max-md:justify-center">
@@ -161,7 +151,9 @@ export function TechProjectsSection() {
                         </div>
 
                         {/* Right Card: Stats */}
-                        <div className="relative bg-[#D9D9D91A] rounded-[22px] border border-transparent shadow-[0px_2.18px_2.18px_0px_rgba(0,0,0,0.25)] backdrop-blur-[6.5px] flex flex-col w-full max-w-[650px] h-[428px] py-[35px] px-[100px] gap-[44px] justify-center items-center tech-projects-card-right-mask max-lg:px-[40px] max-md:px-[20px] max-md:h-[396px] max-md:py-[40px]">
+                        <div
+                            className="tech-projects-card-gradient relative bg-[#D9D9D91A] rounded-[22px] shadow-[0px_2.18px_2.18px_0px_rgba(0,0,0,0.25)] backdrop-blur-[6.5px] flex flex-col w-full max-w-[650px] h-[428px] py-[35px] px-[100px] gap-[44px] justify-center items-center max-lg:px-[40px] max-md:px-[20px] max-md:h-[396px] max-md:py-[40px] overflow-hidden"
+                        >
 
                             <div className="flex flex-col items-center gap-[13px] w-full">
                                 <div className="font-outfit font-normal text-[64px] leading-[130%] text-white text-center m-0 max-md:text-[48px]">10+</div>

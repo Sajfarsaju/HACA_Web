@@ -12,6 +12,7 @@ import {
     TechProjectsHeaderSection,
 } from "@/components/sections/tech-projects";
 import { DESIGN_W, MOBILE_DESIGN_W } from "@/components/sections/tech-courses/constants";
+import { TechFooter } from "@/components/layout/TechFooter";
 
 type ProjectCardConfig = {
     title: string;
@@ -56,9 +57,8 @@ export default function TechProjectsPage() {
     useEffect(() => {
         const update = () => {
             const width = window.innerWidth;
-            const containerWidth = Math.min(width, DESIGN_W);
             setScales({
-                desktop: containerWidth / DESIGN_W,
+                desktop: width / DESIGN_W,
                 mobile: width / MOBILE_DESIGN_W,
             });
             setViewportWidth(width);
@@ -75,7 +75,7 @@ export default function TechProjectsPage() {
     }, []);
 
     if (!mounted) {
-        return <main style={{ background: "#0B0B0B", minHeight: "100vh" }} />;
+        return <main style={{ background: "#111111", minHeight: "100vh" }} />;
     }
 
     const rows: ProjectCardConfig[][] = Array.from({ length: 4 }).map(() => BASE_PROJECT_CARDS);
@@ -84,15 +84,15 @@ export default function TechProjectsPage() {
     const visibleRows = isTabletOrBelow ? rows.slice(0, 2) : rows;
     const visibleCardsFlat: ProjectCardConfig[] = isTabletOrBelow
         ? rows
-              .slice(0, 2)
-              .flat()
+            .slice(0, 2)
+            .flat()
         : [];
 
     return (
         <main
             className="tech-page-root tech-projects-page"
             style={{
-                background: "#0B0B0B",
+                background: "#111111",
                 minHeight: "100vh",
                 position: "relative",
                 overflowX: "hidden",
@@ -257,6 +257,11 @@ export default function TechProjectsPage() {
             </section>
 
             <TechCoursesStyles />
+
+            {/* Footer: match Tech home footer */}
+            <div className="relative z-10 bg-[#111111]">
+                <TechFooter />
+            </div>
         </main>
     );
 }

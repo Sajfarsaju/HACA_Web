@@ -167,55 +167,6 @@ export function TechWhyChoose() {
     return (
         <section className="relative z-10 w-full flex flex-col items-center min-h-[940px] pt-[clamp(60px,10vw,140px)] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
 
-            {/* ── Mobile + Tablet only: Rectangle 15 SVG — extends to TechCulture 1st row cards ── */}
-            <div
-                className="lg:hidden absolute left-0 right-0 z-0 pointer-events-none"
-                style={{
-                    top: 0,
-                    bottom: "-600px",
-                    maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 6%, rgba(0,0,0,0.6) 14%, black 22%, black 78%, rgba(0,0,0,0.55) 88%, rgba(0,0,0,0.18) 95%, transparent 100%)",
-                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.15) 6%, rgba(0,0,0,0.6) 14%, black 22%, black 78%, rgba(0,0,0,0.55) 88%, rgba(0,0,0,0.18) 95%, transparent 100%)",
-                }}
-                aria-hidden
-            >
-                <Image
-                    src="/photos/schools/tech/Rectangle 15.svg"
-                    alt=""
-                    fill
-                    className="object-cover object-top"
-                />
-            </div>
-
-            {/* ── Mobile + Tablet only: orange gradient on 1st card ── */}
-            <div
-                className="lg:hidden absolute left-1/2 z-0 pointer-events-none"
-                style={{
-                    top: "380px",
-                    width: "min(715px, 90vw)",
-                    height: "460px",
-                    transform: "translateX(-50%) rotate(-164.21deg)",
-                    opacity: 0.75,
-                }}
-                aria-hidden
-            >
-                <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
-            </div>
-
-            {/* ── Mobile + Tablet only: orange gradient at last card bottom — bleeds outside ── */}
-            <div
-                className="lg:hidden absolute left-1/2 z-0 pointer-events-none"
-                style={{
-                    bottom: "-380px",
-                    width: "min(715px, 90vw)",
-                    height: "460px",
-                    transform: "translateX(-50%) rotate(-164.21deg)",
-                    opacity: 0.65,
-                }}
-                aria-hidden
-            >
-                <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
-            </div>
-
             {/* ── Header ── */}
             <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-[1] relative">
                 <h2 className="font-outfit font-normal text-[clamp(32px,5vw,60px)] leading-[62px] tracking-[-0.02em] text-white text-center capitalize max-w-[938px] m-0">
@@ -267,24 +218,10 @@ function TrackCarousel({
     // Right slot (index 2) → nextIdx card → translateY(136px)
     // The WHOLE row slides left on each tick to give the illusion of scrolling.
 
-    // translateX of the track shifts left by STEP on every advance.
-    // We reset when we've gone TOTAL steps.
-    const [trackOffset, setTrackOffset] = useState(0);
-    const prevActiveRef = React.useRef(active);
-
-    useEffect(() => {
-        const prev = prevActiveRef.current;
-        if (prev !== active) {
-            // Determine slide direction
-            const fwd = (active - prev + TOTAL) % TOTAL === 1;
-            setTrackOffset(o => o + (fwd ? -STEP : STEP));
-            prevActiveRef.current = active;
-        }
-    }, [active]);
+    // The WHOLE row slides left on each tick to give the illusion of scrolling.
 
     // Reset large offsets without visible jump (happens when wrapping)
-    const resetOffset = trackOffset % (TOTAL * STEP);
-
+    // Removed unused resetOffset
     return (
         <div className="absolute top-0 left-0 w-full flex flex-row items-start justify-center h-[448px]" style={{ gap: GAP }}>
             {/* LEFT */}

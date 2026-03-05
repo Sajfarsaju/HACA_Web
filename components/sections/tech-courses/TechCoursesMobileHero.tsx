@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { MOBILE_DESIGN_H, MOBILE_DESIGN_W } from "./constants";
+import { MOBILE_DESIGN_H } from "./constants";
 
 interface TechCoursesMobileHeroProps {
     scale: number;
@@ -10,36 +10,23 @@ interface TechCoursesMobileHeroProps {
 export function TechCoursesMobileHero({ scale }: TechCoursesMobileHeroProps) {
     return (
         <div
-            className="tech-mobile-hero-wrapper"
+            className="relative z-20 w-full overflow-hidden block md:hidden bg-[#111111]"
             style={{
                 height: `${MOBILE_DESIGN_H * scale}px`,
-                position: "relative",
-                zIndex: 20,
             }}
         >
             <div
-                className="tech-mobile-hero-canvas"
+                className="tech-mobile-hero-canvas absolute top-0 left-1/2 w-[375px]"
                 style={{
                     transform: `translateX(-50%) scale(${scale})`,
                     transformOrigin: "top center",
                     left: "50%",
-                    width: `${MOBILE_DESIGN_W}px`,
                     height: `${MOBILE_DESIGN_H}px`,
                 }}
             >
-                <div className="tech-mobile-bg-wrap">
+                <div className="absolute inset-0 z-0 pointer-events-none">
                     <div
-                        className="tech-mobile-hero-dots"
-                        style={{
-                            position: "absolute",
-                            width: "406px",
-                            height: "4877px",
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            top: "0",
-                            zIndex: -2,
-                            pointerEvents: "none",
-                        }}
+                        className="absolute w-[406px] h-[4877px] left-1/2 -translate-x-1/2 top-0 z-[-2] pointer-events-none"
                     >
                         <Image
                             src="/photos/Tech/DOTsBG.svg"
@@ -49,16 +36,7 @@ export function TechCoursesMobileHero({ scale }: TechCoursesMobileHeroProps) {
                         />
                     </div>
                     <div
-                        style={{
-                            position: "absolute",
-                            width: "342px",
-                            height: "4705px",
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            top: "0",
-                            zIndex: -1,
-                            pointerEvents: "none",
-                        }}
+                        className="absolute w-[342px] h-[4705px] left-1/2 -translate-x-1/2 top-0 z-[-1] pointer-events-none"
                     >
                         <Image
                             src="/photos/Tech/Group 23.svg"
@@ -67,7 +45,7 @@ export function TechCoursesMobileHero({ scale }: TechCoursesMobileHeroProps) {
                             style={{ objectFit: "contain" }}
                         />
                     </div>
-                    <div className="tech-mobile-gradient-wrap">
+                    <div className="absolute w-[561.55px] h-[131.8px] top-0 left-[-93.2px] opacity-100">
                         <Image
                             src="/photos/Tech/Gradient.svg"
                             alt=""
@@ -79,18 +57,10 @@ export function TechCoursesMobileHero({ scale }: TechCoursesMobileHeroProps) {
                 </div>
 
                 <nav
-                    className="tech-mobile-nav"
-                    style={{
-                        padding: "0 20px",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        height: "63px",
-                    }}
+                    className="relative z-10 w-full h-[63px] flex justify-between items-center px-5 box-border"
                 >
                     <div
-                        className="tech-mobile-nav-logo"
-                        style={{ position: "relative", width: "130px", height: "23px" }}
+                        className="relative w-[130px] h-[23px] shrink-0"
                     >
                         <Image
                             src="/photos/Tech/tech PW 1.svg"
@@ -101,14 +71,7 @@ export function TechCoursesMobileHero({ scale }: TechCoursesMobileHeroProps) {
                         />
                     </div>
                     <div
-                        className="tech-mobile-nav-menu"
-                        style={{
-                            width: "16px",
-                            height: "16px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
+                        className="w-4 h-4 flex items-center justify-center shrink-0"
                     >
                         <Image
                             src="/photos/Tech/Frame 68.svg"

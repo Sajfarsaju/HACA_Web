@@ -10,6 +10,7 @@ import {
     TechCoursesStyles,
 } from "@/components/sections/tech-courses";
 import { DESIGN_W, MOBILE_DESIGN_W } from "@/components/sections/tech-courses/constants";
+import { TechFooter } from "@/components/layout/TechFooter";
 
 export default function CoursesPage() {
     const [mounted, setMounted] = useState(false);
@@ -17,10 +18,10 @@ export default function CoursesPage() {
 
     useEffect(() => {
         const update = () => {
-            const containerWidth = Math.min(window.innerWidth, DESIGN_W);
+            const width = window.innerWidth;
             setScales({
-                desktop: containerWidth / DESIGN_W,
-                mobile: window.innerWidth / MOBILE_DESIGN_W,
+                desktop: width / DESIGN_W,
+                mobile: width / MOBILE_DESIGN_W,
             });
         };
         const timeoutId = setTimeout(() => {
@@ -35,16 +36,16 @@ export default function CoursesPage() {
     }, []);
 
     if (!mounted) {
-        return <main style={{ background: "#0B0B0B", minHeight: "100vh" }} />;
+        return <main style={{ background: "#111111", minHeight: "100vh" }} />;
     }
 
     return (
         <main
             className="tech-page-root"
-                style={{
-                background: "#0B0B0B",
+            style={{
+                background: "#111111",
                 minHeight: "100vh",
-                    position: "relative",
+                position: "relative",
                 overflowX: "hidden",
             }}
         >
@@ -54,6 +55,11 @@ export default function CoursesPage() {
             <TechCoursesHeaderSection />
             <TechCoursesListSection desktopScale={scales.desktop} />
             <TechCoursesStyles />
+
+            {/* Footer: match Tech home footer */}
+            <div className="relative z-10 bg-[#111111]">
+                <TechFooter />
+            </div>
         </main>
     );
 }

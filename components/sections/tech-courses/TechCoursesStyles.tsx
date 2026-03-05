@@ -8,8 +8,6 @@ const TECH_COURSES_CSS = `
 /* ── Main container: flex column, header above cards in flow ── */
 .tech-page-root {
     width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -630,7 +628,7 @@ const TECH_COURSES_CSS = `
         left: 0;
         right: 0;
         bottom: 0;
-        background: #0B0B0B;
+        background: #111111;
         z-index: 0;
         pointer-events: none;
     }
@@ -639,7 +637,7 @@ const TECH_COURSES_CSS = `
         margin-top: -90px;
         padding: 0 20px 40px;
         gap: clamp(16px, 4vw, 20px);
-        background: #0B0B0B;
+        background: #111111;
     }
     .tech-projects-page .tech-courses-header-section {
         /* Projects header: overlap hero gradient similar to original position, without clipping search bar */
@@ -817,7 +815,7 @@ const TECH_COURSES_CSS = `
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(11, 11, 11, 0.15) 65%, rgba(11, 11, 11, 0.6) 85%, #0B0B0B 100%);
+        background: linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(17, 17, 17, 0.15) 65%, rgba(17, 17, 17, 0.6) 85%, #111111 100%);
         z-index: 2;
         pointer-events: none;
     }
@@ -1195,7 +1193,7 @@ const TECH_COURSES_CSS = `
         left: 0;
         right: 0;
         height: 28%;
-        background: linear-gradient(to bottom, transparent 0%, rgba(11, 11, 11, 0.5) 45%, #0B0B0B 100%);
+        background: linear-gradient(to bottom, transparent 0%, rgba(17, 17, 17, 0.5) 45%, #111111 100%);
         z-index: 1;
         pointer-events: none;
     }
@@ -1204,7 +1202,7 @@ const TECH_COURSES_CSS = `
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(90deg, #0B0B0B 0%, transparent 15%, transparent 85%, #0B0B0B 100%);
+        background: linear-gradient(90deg, #111111 0%, transparent 15%, transparent 85%, #111111 100%);
         z-index: 2;
         pointer-events: none;
     }
@@ -1227,7 +1225,7 @@ const TECH_COURSES_CSS = `
         left: 0;
         right: 0;
         height: 35%;
-        background: linear-gradient(to bottom, transparent 0%, rgba(11, 11, 11, 0.4) 50%, #0B0B0B 100%);
+        background: linear-gradient(to bottom, transparent 0%, rgba(17, 17, 17, 0.4) 50%, #111111 100%);
         z-index: 1;
         pointer-events: none;
     }
@@ -1236,7 +1234,7 @@ const TECH_COURSES_CSS = `
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(90deg, #0B0B0B 0%, transparent 12%, transparent 88%, #0B0B0B 100%);
+        background: linear-gradient(90deg, #111111 0%, transparent 12%, transparent 88%, #111111 100%);
         z-index: 2;
         pointer-events: none;
     }
