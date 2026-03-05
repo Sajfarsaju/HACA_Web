@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            background: #333;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .item {
+            border: 1px solid #666;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        img {
+            max-width: 100%;
+            border: 1px solid #999;
+            background: #555;
+        }
+
+        h3 {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid" id="grid"></div>
+    <script>
+        const svgs = [
+            "Frame 13.svg", "Frame 14.svg", "Frame 16.svg",
+            "Frame 146.svg", "Link - Regular.svg",
+            "Frame 1984078057.svg", "Frame 1984078067.svg", "Frame 1984078075.svg",
+            "Button Container.svg", "Button Container (1).svg", "Button Container (2).svg",
+            "100-percent.svg", "200+.svg", "500+.svg"
+        ];
+        const grid = document.getElementById('grid');
+        svgs.forEach(s => {
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.innerHTML = `<h3>${s}</h3><img src="${s}">`;
+            grid.appendChild(div);
+        });
+    </script>
+</body>
+
+</html>

@@ -586,7 +586,7 @@ export default function TechHero() {
             {/* ── Mobile Background Image (below hero, mobile only) ── */}
             {/* <div className="block md:hidden w-full">
                 <Image
-                    src="/photos/Tech/Image.png"
+                    src="/photos/Tech/Image.svg"
                     alt="Tech Background"
                     width={1442}
                     height={200}

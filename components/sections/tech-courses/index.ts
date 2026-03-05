@@ -1,0 +1,9 @@
+export { TechCoursesGlobalBg } from "./TechCoursesGlobalBg";
+export { TechCoursesHero } from "./TechCoursesHero";
+export { TechCoursesMobileHero } from "./TechCoursesMobileHero";
+export { TechCoursesHeaderSection } from "./TechCoursesHeaderSection";
+export { TechCourseCard } from "./TechCourseCard";
+export { TechCoursesListSection } from "./TechCoursesListSection";
+export { TechCoursesStyles } from "./TechCoursesStyles";
+export { COURSES_DATA } from "./coursesData";
+export type { Course } from "./types";

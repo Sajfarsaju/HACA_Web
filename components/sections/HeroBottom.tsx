@@ -24,6 +24,17 @@ export function HeroBottom() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
+          {/* ─── Ellipse decorative background: 1060 × 855 ─── */}
+          <div className="hb-ellipse" aria-hidden="true" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "1060px", height: "855px", pointerEvents: "none", zIndex: -1 }}>
+            <Image
+              src="/photos/Tech/Ellipse 3.svg"
+              alt=""
+              fill
+              priority
+              className="object-contain opacity-40"
+            />
+          </div>
+
           {/* ─── Headline ─── */}
           <p className="w-full max-w-[750px] font-manrope font-normal text-[42px] leading-[110%] text-center text-[#FFFFFF] m-0 max-md:font-semibold max-md:text-[20px]">
             Everyone starts somewhere. The smart ones start here.
