@@ -1,12 +1,12 @@
 import Image from "next/image"
-import { AboutStatsSection } from "@/components/sections/AboutStatsSection"
-import { AboutWhyHacaSection } from "@/components/sections/AboutWhyHacaSection"
-import { AboutCampusesSection } from "@/components/sections/AboutCampusesSection"
-import { AboutRecognitionSection } from "@/components/sections/AboutRecognitionSection"
-import { AboutValuesSection } from "@/components/sections/AboutValuesSection"
-import { AboutFacesSection } from "@/components/sections/AboutFacesSection"
-import { AboutFounderInsightsSection } from "@/components/sections/AboutFounderInsightsSection"
-import { AboutBeliefSection } from "@/components/sections/AboutBeliefSection"
+import { AboutStatsSection } from "@/components/about/AboutStatsSection"
+import { AboutWhyHacaSection } from "@/components/about/AboutWhyHacaSection"
+import { AboutCampusesSection } from "@/components/about/AboutCampusesSection"
+import { AboutRecognitionSection } from "@/components/about/AboutRecognitionSection"
+import { AboutValuesSection } from "@/components/about/AboutValuesSection"
+import { AboutFacesSection } from "@/components/about/AboutFacesSection"
+import { AboutFounderInsightsSection } from "@/components/about/AboutFounderInsightsSection"
+import { AboutBeliefSection } from "@/components/about/AboutBeliefSection"
 
 export const metadata = {
     title: "About Us | HACA",
@@ -17,7 +17,7 @@ export default function AboutPage() {
     return (
         <main className="w-full bg-transparent text-white">
             {/* ─── First Section: Hero About layout ─── */}
-            <section className="w-full section-4k mx-auto pt-[120px] pb-[80px] flex flex-col items-center gap-[100px] px-[clamp(20px,4vw,60px)] max-md:pt-[80px] max-md:pb-[60px] max-md:gap-[30px]">
+            <section className="w-full section-4k mx-auto pt-[120px] pb-[80px] flex flex-col items-center gap-[100px] px-[clamp(20px,4vw,60px)] max-md:pt-[24px] max-md:pb-[60px] max-md:gap-[30px]">
                 {/* Heading: About us */}
                 <h1 className="w-full max-w-[min(1440px,100%)] max-md:max-w-[335px] font-rethink font-medium text-[clamp(32px,5vw,58px)] leading-[1.1] text-center text-white m-0">
                     About us
