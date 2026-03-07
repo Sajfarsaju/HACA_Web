@@ -16,7 +16,7 @@ export function AboutFacesSection() {
                     {/* Photo */}
                     <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-[#10152F] max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
                         <Image
-                            src="/photos/main/haris.png"
+                            src="/photos/main/haris.webp"
                             alt="Haris Aboobacker"
                             fill
                             className="object-cover object-top"
@@ -100,7 +100,7 @@ export function AboutFacesSection() {
                     {/* Photo */}
                     <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-[#10152F] max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
                         <Image
-                            src="/photos/main/rizwan.png"
+                            src="/photos/main/rizwan.webp"
                             alt="Rizwan Ramzan Ahamed"
                             fill
                             className="object-cover object-top"
@@ -141,7 +141,7 @@ export function AboutFacesSection() {
                     {/* Photo */}
                     <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-[#10152F] max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
                         <Image
-                            src="/photos/main/Naban.png"
+                            src="/photos/main/Naban.webp"
                             alt="Abu Nabhan"
                             fill
                             className="object-cover object-top"
