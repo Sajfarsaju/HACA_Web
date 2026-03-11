@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Rethink_Sans, Outfit } from "next/font/google";
+import { Geist, Geist_Mono, Rethink_Sans, Outfit, Manrope } from "next/font/google";
 import "../styles/globals.css";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { ClientLayoutProvider } from "@/components/layout/ClientLayoutProvider";
@@ -25,6 +25,11 @@ const outfit = Outfit({
   subsets: ["latin"],
 });
 
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin"],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${rethinkSans.variable} ${outfit.variable} antialiased min-h-screen flex flex-col overflow-x-hidden relative isolation-isolate`}
+        className={`${geistSans.variable} ${geistMono.variable} ${rethinkSans.variable} ${outfit.variable} ${manrope.variable} antialiased min-h-screen flex flex-col overflow-x-hidden relative isolation-isolate`}
         suppressHydrationWarning
       >
         {/* ── Global Page Top Gradient ── */}

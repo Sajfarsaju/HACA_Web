@@ -1,26 +1,16 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
+import { BLOG_POSTS } from "@/lib/blog-data"
 
-const BLOG_ITEMS = [
-    { id: 1, category: "Graphic Design", categorySlug: "design", date: "Aug 19, 2025", title: "A Complete Guide on How to Design a Logo in Photoshop" },
-    { id: 2, category: "UI/UX Design", categorySlug: "design", date: "Sep 04, 2025", title: "A Complete Guide on How to Design a Logo in Photoshop" },
-    { id: 3, category: "Digital Marketing", categorySlug: "marketing", date: "Oct 12, 2025", title: "A Complete Guide on How to Design a Logo in Photoshop" },
-    { id: 4, category: "Tech", categorySlug: "tech", date: "Nov 01, 2025", title: "A Complete Guide on How to Design a Logo in Photoshop" },
-    { id: 5, category: "Finance", categorySlug: "finance", date: "Nov 15, 2025", title: "A Complete Guide on How to Design a Logo in Photoshop" },
-    { id: 6, category: "Career Guidance", categorySlug: "career-guidance", date: "Dec 01, 2025", title: "A Complete Guide on How to Design a Logo in Photoshop" },
-    { id: 7, category: "Marketing", categorySlug: "marketing", date: "Dec 10, 2025", title: "A Complete Guide on How to Design a Logo in Photoshop" },
-    { id: 8, category: "Design", categorySlug: "design", date: "Dec 20, 2025", title: "A Complete Guide on How to Design a Logo in Photoshop" },
-    { id: 9, category: "Tech", categorySlug: "tech", date: "Jan 05, 2026", title: "A Complete Guide on How to Design a Logo in Photoshop" },
-]
-
-function filterByCategory(items: typeof BLOG_ITEMS, activeCategory: string) {
+function filterByCategory(items: typeof BLOG_POSTS, activeCategory: string) {
     if (activeCategory === "all") return items
     return items.filter((b) => b.categorySlug === activeCategory)
 }
 
 export function BlogCardsContainer({ activeCategory }: { activeCategory: string }) {
-    const filtered = filterByCategory(BLOG_ITEMS, activeCategory)
+    const filtered = filterByCategory(BLOG_POSTS, activeCategory)
 
     return (
         <div className="w-full flex flex-col gap-[clamp(16px,2vw,26px)] px-[clamp(16px,4vw,60px)] pb-[clamp(20px,3vw,40px)]">
@@ -46,7 +36,7 @@ export function BlogCardsContainer({ activeCategory }: { activeCategory: string 
 function BlogCard({
     blog,
 }: {
-    blog: { id: number; category: string; date: string; title: string }
+    blog: { id: number; slug: string; category: string; date: string; title: string }
 }) {
     return (
         <article className="w-full flex flex-col bg-transparent border border-[#25317d] box-border overflow-hidden max-md:w-[min(335px,calc(100vw-40px))] rounded-[clamp(12px,1.2vw,20px)] gap-[clamp(12px,1.2vw,20px)] p-[clamp(6px,0.8vw,10px)] border max-md:border-[0.82px]">
@@ -76,8 +66,8 @@ function BlogCard({
                         {blog.title}
                     </h3>
                 </div>
-                <a
-                    href="#"
+                <Link
+                    href={`/blog/${blog.slug}`}
                     className="inline-flex items-center w-fit no-underline transition-transform duration-200 ease-in-out hover:scale-105 active:scale-97"
                     aria-label="Read full blog"
                 >
@@ -88,7 +78,7 @@ function BlogCard({
                         height={26}
                         className="block h-[clamp(20px,2vw,26px)] w-auto"
                     />
-                </a>
+                </Link>
             </div>
         </article>
     )
