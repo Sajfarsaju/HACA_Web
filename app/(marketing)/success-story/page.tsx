@@ -39,12 +39,12 @@ import { Footer } from "@/components/layout/Footer";
 
 export default function SuccessStoryPage() {
     return (
-        <div className="w-full bg-[#000210] overflow-x-hidden md:pt-20 lg:pt-0 flex flex-col justify-between" style={{ minHeight: '2325px' }}>
+        <div className="w-full bg-transparent overflow-x-hidden md:pt-20 lg:pt-0 flex flex-col justify-between" style={{ minHeight: '2325px' }}>
             {/* Main Content Sections */}
             <div className="flex-grow">
                 {/* Header / Intro Section */}
                 <section
-                    className="w-full flex md:pt-[120px] pt-[20px] md:pb-[80px] pb-[20px] md:px-[60px] px-[20px] flex-col items-center justify-start gap-[50px] overflow-hidden"
+                    className="w-full flex pt-6 sm:pt-12 md:pt-[100px] lg:pt-[120px] pb-6 sm:pb-12 md:pb-16 lg:pb-20 px-4 sm:px-6 md:px-10 lg:px-[60px] flex-col items-center justify-start gap-8 sm:gap-12 md:gap-[50px] overflow-hidden"
                     style={{
                         height: 'auto',
                         minHeight: '1684px',
@@ -72,9 +72,9 @@ export default function SuccessStoryPage() {
                     </div>
 
                     {/* Content Groups by School */}
-                    <div className="flex flex-col gap-[80px] w-full items-center">
+                    <div className="flex flex-col gap-12 sm:gap-16 md:gap-20 lg:gap-[80px] w-full items-center">
                         {schools.map((school) => (
-                            <div key={school.name} className="flex flex-col gap-[30px] w-full max-w-[1387px]">
+                            <div key={school.name} className="flex flex-col gap-6 sm:gap-[30px] w-full max-w-[1387px]">
                                 {/* School Title - Desktop Only Layout Specs */}
                                 <h2
                                     className="font-rethink font-medium tracking-[0%] text-[#FFFFFF] m-0 self-start text-[24px] md:text-[32px] leading-[100%]"
@@ -87,14 +87,14 @@ export default function SuccessStoryPage() {
 
                                 {/* Cards Grid Container */}
                                 <div
-                                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 w-full gap-[22px] md:gap-[36px] justify-items-center"
+                                    className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 w-full gap-4 sm:gap-5 md:gap-6 lg:gap-8"
                                 >
                                     {school.stories.map((story) => (
                                         <div
                                             key={story.id}
-                                            className="group relative flex flex-col bg-[#0A0C16] overflow-hidden border border-[#232D6B]/30 hover:border-[#232D6B] transition-all duration-500 shadow-2xl h-[366.9px] w-[335px] rounded-[15.95px] md:h-[350px] md:w-[319.6px] md:rounded-[15.22px] mx-auto"
+                                            className="group relative flex flex-col bg-[#0A0C16] overflow-hidden border border-[#232D6B]/30 hover:border-[#232D6B] transition-all duration-500 shadow-2xl w-full min-w-0 aspect-[335/367] rounded-xl sm:rounded-2xl"
                                         >
-                                            <div className="relative w-full h-full overflow-hidden">
+                                            <div className="relative w-full h-full overflow-hidden flex-1 min-h-0">
                                                 <img
                                                     src={story.image}
                                                     alt={story.title}
