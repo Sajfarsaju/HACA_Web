@@ -13,7 +13,7 @@ export function ConditionalFooter() {
     }
 
     // Hide global footer on all Tech School routes (home, courses, projects, etc.)
-    if (pathname === "/schools/tech" || pathname.startsWith("/schools/tech/")) {
+    if (pathname === "/tech-school" || pathname.startsWith("/tech-school/")) {
         return null;
     }
 

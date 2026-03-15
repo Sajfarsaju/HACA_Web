@@ -69,16 +69,16 @@ export function Header() {
                                 </DropdownMenuItem>
                                 <div className="px-2 py-1.5 text-sm font-semibold text-muted-foreground">Schools</div>
                                 <DropdownMenuItem asChild className="pl-4">
-                                    <Link href="/schools/marketing">Marketing School</Link>
+                                    <Link href="/marketing-school">Marketing School</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild className="pl-4">
-                                    <Link href="/schools/design">Design School</Link>
+                                    <Link href="/design-school">Design School</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild className="pl-4">
-                                    <Link href="/schools/tech">Tech School</Link>
+                                    <Link href="/tech-school">Tech School</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild className="pl-4">
-                                    <Link href="/schools/finance">Finance School</Link>
+                                    <Link href="/finance-school">Finance School</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
                                     <Link href="/contact" className="font-semibold text-primary mt-2">

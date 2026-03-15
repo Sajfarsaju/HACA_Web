@@ -10,9 +10,9 @@ interface TechProjectsMobileHeroProps {
 }
 
 const TECH_MOBILE_NAV_LINKS = [
-    { href: "/schools/tech", label: "Home" },
-    { href: "/schools/tech/tech-courses", label: "Courses" },
-    { href: "/schools/tech/tech-projects", label: "Projects" },
+    { href: "/tech-school", label: "Home" },
+    { href: "/tech-school/tech-courses", label: "Courses" },
+    { href: "/tech-school/tech-projects", label: "Projects" },
     { href: "/success-story", label: "Success Story" },
     { href: "/blog", label: "Blogs" },
 ] as const;

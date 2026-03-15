@@ -175,7 +175,7 @@ export function TechProjectsSection() {
                     {/* Bottom Button — white pill + slide animation (match original) */}
                     <div className="w-full flex justify-center items-center">
                         <Link
-                            href="/schools/tech/tech-projects"
+                            href="/tech-school/tech-projects"
                             className="group relative w-[188px] h-[44px] rounded-[8px] flex items-center justify-center overflow-hidden bg-white text-[#111111] transition-transform duration-200 ease-out hover:scale-[1.05]"
                         >
                             <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full">

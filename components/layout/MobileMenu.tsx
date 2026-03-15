@@ -95,16 +95,16 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
                         {isSchoolsOpen && (
                             <div className="flex flex-col pl-[20px] gap-[5px]">
-                                <Link href="/schools/marketing" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
+                                <Link href="/marketing-school" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
                                     <span className="font-rethink font-normal text-[18px] text-[#A7ADBE] group-hover/dropdown:text-[#FFFFFF]">Marketing School</span>
                                 </Link>
-                                <Link href="/schools/design" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
+                                <Link href="/design-school" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
                                     <span className="font-rethink font-normal text-[18px] text-[#A7ADBE] group-hover/dropdown:text-[#FFFFFF]">Design School</span>
                                 </Link>
-                                <Link href="/schools/tech" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
+                                <Link href="/tech-school" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
                                     <span className="font-rethink font-normal text-[18px] text-[#A7ADBE] group-hover/dropdown:text-[#FFFFFF]">Tech School</span>
                                 </Link>
-                                <Link href="/schools/finance" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
+                                <Link href="/finance-school" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
                                     <span className="font-rethink font-normal text-[18px] text-[#A7ADBE] group-hover/dropdown:text-[#FFFFFF]">Finance School</span>
                                 </Link>
                             </div>

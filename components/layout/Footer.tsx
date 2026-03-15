@@ -10,10 +10,10 @@ const quickLinks = [
 ]
 
 const schools = [
-    { label: "Marketing School", href: "/schools/marketing" },
-    { label: "Design School", href: "/schools/design" },
-    { label: "Tech School", href: "/schools/tech" },
-    { label: "Finance School", href: "/schools/finance" },
+    { label: "Marketing School", href: "/marketing-school" },
+    { label: "Design School", href: "/design-school" },
+    { label: "Tech School", href: "/tech-school" },
+    { label: "Finance School", href: "/finance-school" },
 ]
 
 const contactIndia = {

@@ -7,7 +7,7 @@ import { BottomReserveCta } from "./BottomReserveCta";
 
 export function ClientLayoutProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const isTechSchool = pathname === "/schools/tech" || pathname.startsWith("/schools/tech/");
+    const isTechSchool = pathname === "/tech-school" || pathname.startsWith("/tech-school/");
     const isHome = pathname === "/";
 
     return (

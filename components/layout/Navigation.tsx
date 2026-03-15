@@ -16,22 +16,22 @@ import {
 const schools: { title: string; href: string; description: string }[] = [
     {
         title: "Marketing School",
-        href: "/schools/marketing",
+        href: "/marketing-school",
         description: "Master digital marketing and growth strategies.",
     },
     {
         title: "Design School",
-        href: "/schools/design",
+        href: "/design-school",
         description: "Learn modern UI/UX and product design.",
     },
     {
         title: "Tech School",
-        href: "/schools/tech",
+        href: "/tech-school",
         description: "Advanced engineering and development tracks.",
     },
     {
         title: "Finance School",
-        href: "/schools/finance",
+        href: "/finance-school",
         description: "Understanding fintech and business economics.",
     },
 ]

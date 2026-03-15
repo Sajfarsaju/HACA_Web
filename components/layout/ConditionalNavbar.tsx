@@ -8,8 +8,9 @@ export function ConditionalNavbar() {
 
     // Paths where we want to hide the main global Navbar
     const hideOnPaths = [
-        "/schools/tech",
-        "/schools/tech/tech-courses"
+        "/tech-school",
+        "/tech-school/tech-courses",
+        "/tech-school/tech-projects",
     ];
 
 

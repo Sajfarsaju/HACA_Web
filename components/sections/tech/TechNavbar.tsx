@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 const TECH_NAV_LINKS = [
-    { href: "/schools/tech", label: "Home" },
-    { href: "/schools/tech/tech-courses", label: "Courses" },
-    { href: "/schools/tech/tech-projects", label: "Projects" },
+    { href: "/tech-school", label: "Home" },
+    { href: "/tech-school/tech-courses", label: "Courses" },
+    { href: "/tech-school/tech-projects", label: "Projects" },
     { href: "/success-story", label: "Success Story" },
     { href: "/blog", label: "Blogs" },
 ] as const;
@@ -26,7 +26,7 @@ export function TechNavbar() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
             >
             {/* Logo — same size as tech home */}
-            <Link href="/schools/tech" className="block relative w-[203px] h-[36px] shrink-0">
+            <Link href="/tech-school" className="block relative w-[203px] h-[36px] shrink-0">
                 <Image
                     src="/photos/Tech/tech PW 1.svg"
                     alt="Tech PW Logo"

@@ -18,9 +18,9 @@ const MOBILE_DESIGN_W = 375;
 const MOBILE_DESIGN_H = 706; // nav 63 + content 643
 
 const TECH_NAV_LINKS = [
-    { href: "/schools/tech", label: "Home" },
-    { href: "/schools/tech/tech-courses", label: "Courses" },
-    { href: "/schools/tech/tech-projects", label: "Projects" },
+    { href: "/tech-school", label: "Home" },
+    { href: "/tech-school/tech-courses", label: "Courses" },
+    { href: "/tech-school/tech-projects", label: "Projects" },
     { href: "/success-story", label: "Success Story" },
     { href: "/blog", label: "Blogs" },
 ] as const;
@@ -220,7 +220,7 @@ export default function TechHero() {
                         transition={{ duration: 0.8, ease: "easeOut" }}
                     >
                         {/* Logo — left */}
-                        <Link href="/schools/tech" className="block relative w-[203px] h-[36px] shrink-0">
+                        <Link href="/tech-school" className="block relative w-[203px] h-[36px] shrink-0">
                             <Image
                                 src="/photos/Tech/tech PW 1.svg"
                                 alt="Tech PW Logo"
@@ -233,7 +233,7 @@ export default function TechHero() {
                         {/* Nav links — centered */}
                         <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-[50px] w-auto h-[20px]">
                             {TECH_NAV_LINKS.map(({ href, label }) => {
-                                const isHome = href === "/schools/tech";
+                                const isHome = href === "/tech-school";
                                 return (
                                     <Link
                                         key={href}
