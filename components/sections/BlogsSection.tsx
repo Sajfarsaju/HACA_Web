@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { motion } from "framer-motion"
 
 /* ── Blog card data — same cover for all until real content provided ── */
 const blogs = [
@@ -93,14 +94,24 @@ export function BlogsSection() {
 
             {/* ─── Bottom CTA ─── */}
             <div className="flex justify-center">
-                <a href="#" className="inline-flex no-underline transition-transform duration-200 ease-in-out hover:scale-105 active:scale-97" aria-label="Read more blogs">
-                    <Image
-                        src="/photos/main/read more blogs.svg"
-                        alt="Read More Blogs"
-                        width={176}
-                        height={55}
-                        className="block w-[176px] h-auto"
-                    />
+                <a
+                    href="#"
+                    className="inline-flex no-underline transition-transform duration-200 ease-in-out hover:scale-105 active:scale-97"
+                    aria-label="Read more blogs"
+                >
+                    <motion.button
+                        className="group relative w-[176px] h-[55px] rounded-[100px] border-none cursor-pointer flex items-center justify-center bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-md:w-[160px] max-md:h-[46px] max-md:px-[18px] max-md:rounded-[82px] overflow-hidden"
+                        whileHover={{ scale: 1.04 }}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                    >
+                        <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                            Read More Blogs
+                        </span>
+                        <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                            Read More Blogs
+                        </span>
+                    </motion.button>
                 </a>
             </div>
 

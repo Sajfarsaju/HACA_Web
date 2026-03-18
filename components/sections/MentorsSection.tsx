@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { motion } from "framer-motion"
 
 const mentors = [
     {
@@ -31,7 +32,7 @@ export function MentorsSection() {
     return (
         <section className="w-full max-w-[1440px] mx-auto p-[40px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,22px)] max-md:gap-[26px] max-md:items-start">
             {/* Header */}
-            <div className="w-full max-w-[1320px] flex flex-col items-center gap-[20px] max-md:w-full max-md:gap-[clamp(6px,2.1vw,10px)] max-md:items-start">
+            <div className="w-full max-w-[1320px] flex flex-col items-start gap-[20px] max-md:w-full max-md:gap-[clamp(6px,2.1vw,10px)] max-md:items-center">
                 {/* Badge Button */}
                 <div className="w-[184px] h-[64px] flex items-center justify-center p-0 rounded-[100px] border-none bg-transparent cursor-default max-md:w-[132px] max-md:h-[46px]">
                     <Image
@@ -44,20 +45,27 @@ export function MentorsSection() {
                 </div>
 
                 {/* Heading */}
-                <h2 className="font-rethink font-bold text-[42px] leading-[110%] tracking-[0%] text-center text-[#ffffff] m-0 max-md:font-manrope max-md:text-[clamp(20px,5.8vw,24px)] max-md:text-left">Taught by the Top 1%</h2>
+                <h2 className="font-rethink font-bold text-[42px] leading-[110%] tracking-[0%] text-left text-[#ffffff] m-0 max-md:font-manrope max-md:text-[clamp(20px,5.8vw,24px)] max-md:text-center">
+                    Taught by the Top 1%
+                </h2>
             </div>
 
             {/* Cards Grid */}
-            <div className="w-[1320px] h-[482px] flex justify-between items-center gap-[17.33px] max-md:w-full max-md:h-auto max-md:flex-col max-md:gap-[clamp(16px,5.3vw,22px)]">
+            <div className="w-full max-w-[1320px] h-[428px] flex justify-between items-center gap-[17.33px] max-md:w-full max-md:max-w-[335px] max-md:h-[909.27px] max-md:flex-col max-md:gap-[20px] max-md:items-center max-md:self-center">
                 {mentors.map((mentor) => (
-                    <div key={mentor.id} className="flex-1 w-[317px] h-full flex flex-col gap-[20px] max-md:w-full max-md:h-auto max-md:gap-[clamp(12px,3.9vw,16px)] [&:nth-child(n+3)]:max-md:hidden">
+                    <div
+                        key={mentor.id}
+                        className="flex-1 max-w-[317px] h-full flex flex-col gap-[10px] max-md:w-full max-md:max-w-[335px] max-md:h-auto max-md:gap-[10.57px] [&:nth-child(n+3)]:max-md:hidden"
+                    >
                         {/* Photo Card */}
-                        <div className="relative w-full h-[400px] rounded-[24px] overflow-hidden bg-[linear-gradient(136.19deg,rgba(119,119,119,0.2)_-0.17%,rgba(119,119,119,0.04)_100%)] border border-[rgba(255,255,255,0.06)] backdrop-blur-[17px] max-md:h-[clamp(340px,103.4vw,400px)] max-md:rounded-[21px]">
+                        <div
+                            className="relative w-full aspect-[317/367] rounded-[20px] border border-[#25317D] overflow-hidden bg-[linear-gradient(340.87deg,rgba(0,2,15,0)_23.42%,rgba(15,47,153,0.2)_74.9%,rgba(26,79,255,0.2)_90.34%)] px-[18px] py-[19px] max-md:rounded-[21.14px] max-md:px-[19.02px] max-md:py-[20.08px]"
+                        >
                             <Image
                                 src={mentor.photo}
                                 alt={mentor.name}
                                 fill
-                                className="object-cover object-top"
+                                className="object-cover object-top rounded-[16px]"
                                 sizes="(max-width: 767px) 100vw, 317px"
                             />
                         </div>
@@ -72,16 +80,20 @@ export function MentorsSection() {
             </div>
 
             {/* View More Button */}
-            <div className="w-full flex justify-center mt-[10px] max-md:justify-start max-md:mt-[5px]">
-                <button className="w-[198px] h-[55px] flex items-center justify-center p-0 rounded-[100px] border-none bg-transparent cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 max-md:w-[159px] max-md:h-[46px] max-md:rounded-[82px]">
-                    <Image
-                        src="/photos/main/view more mentors.svg"
-                        alt="View More Mentors"
-                        width={198}
-                        height={55}
-                        className="w-full h-full object-contain"
-                    />
-                </button>
+            <div className="w-full flex justify-center mt-[10px] max-md:justify-center max-md:mt-[5px]">
+                <motion.button
+                    className="group relative w-[198px] h-[55px] flex items-center justify-center rounded-[100px] border-none cursor-pointer bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-md:w-[159px] max-md:h-[46px] max-md:px-[18px] max-md:rounded-[82px] overflow-hidden"
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                >
+                    <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                        View More Mentors
+                    </span>
+                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                        View More Mentors
+                    </span>
+                </motion.button>
             </div>
         </section>
     )

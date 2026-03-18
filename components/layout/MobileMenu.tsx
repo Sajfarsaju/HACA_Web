@@ -4,6 +4,7 @@ import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+import { motion } from "framer-motion"
 
 interface MobileMenuProps {
     isOpen: boolean
@@ -45,15 +46,19 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                             <span className="font-rethink font-medium text-[16px] text-[#FFFFFF]">Let&apos;s Connect</span>
                         </Link>
                         <Link href="/contact" onClick={handleLinkClick}>
-                            <div className="w-[121px] h-[46px] flex items-center justify-center">
-                                <Image
-                                    src="/photos/common/enqr button.svg"
-                                    alt="Enquire Now"
-                                    width={120}
-                                    height={46}
-                                    className="object-contain"
-                                />
-                            </div>
+                            <motion.button
+                                className="group relative w-[121px] h-[46px] rounded-[82px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[18px] cursor-pointer overflow-hidden"
+                                whileHover={{ scale: 1.04 }}
+                                whileTap={{ scale: 0.97 }}
+                                transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                            >
+                                <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[16px] leading-[24px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                                    Enquire Now
+                                </span>
+                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[16px] leading-[24px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                                    Enquire Now
+                                </span>
+                            </motion.button>
                         </Link>
                     </div>
                 </div>

@@ -4,12 +4,15 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+import { motion } from "framer-motion"
 import { MobileMenu } from "./MobileMenu"
 
 export function Navbar() {
     const pathname = usePathname()
     const [isSchoolsOpen, setIsSchoolsOpen] = React.useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
+    const [isVisible, setIsVisible] = React.useState(true)
+    const lastScrollY = React.useRef(0)
     const dropdownRef = React.useRef<HTMLDivElement>(null)
 
     React.useEffect(() => {
@@ -25,10 +28,41 @@ export function Navbar() {
         return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [isSchoolsOpen])
 
+    // Hide navbar on scroll down, show on scroll up
+    React.useEffect(() => {
+        const handleScroll = () => {
+            const current = window.scrollY || 0
+
+            // Always show near the very top
+            if (current < 40) {
+                setIsVisible(true)
+                lastScrollY.current = current
+                return
+            }
+
+            if (current > lastScrollY.current) {
+                // Scrolling down
+                setIsVisible(false)
+            } else if (current < lastScrollY.current) {
+                // Scrolling up
+                setIsVisible(true)
+            }
+
+            lastScrollY.current = current
+        }
+
+        window.addEventListener("scroll", handleScroll, { passive: true })
+        return () => window.removeEventListener("scroll", handleScroll)
+    }, [])
+
     const closeDropdown = () => setIsSchoolsOpen(false)
 
     return (
-        <header className="sticky top-0 z-50 w-full px-[60px] pt-[10px] pb-0 bg-[rgba(0,0,0,0.01)] max-[1440px]:px-[40px] max-[1200px]:px-[30px] max-[1024px]:px-[20px] max-[1024px]:pt-[25px] max-[900px]:!px-[15px] max-md:!pt-[18px] max-md:!px-[20px] max-md:!pb-[40px]">
+        <header
+            className={`sticky top-0 z-50 w-full px-[60px] pt-[10px] pb-0 bg-[rgba(0,0,0,0.01)] transition-transform duration-300 ease-out ${
+                isVisible ? "translate-y-0" : "-translate-y-[110%]"
+            } max-[1440px]:px-[40px] max-[1200px]:px-[30px] max-[1024px]:px-[20px] max-[1024px]:pt-[25px] max-[900px]:!px-[15px] max-md:!pt-[18px] max-md:!px-[20px] max-md:!pb-[40px]`}
+        >
             {/* Inner container */}
             <div className="flex justify-between items-center pt-[30px] pb-0 max-[1024px]:pt-[20px] max-md:pt-0">
                 {/* Logo */}
@@ -118,14 +152,24 @@ export function Navbar() {
                 </nav>
 
                 {/* Enquire Now Button - Desktop only */}
-                <Link href="/contact" className="flex flex-row items-center shrink-0 transition-transform duration-200 ease hover:scale-105 max-[1024px]:scale-90 max-[1024px]:origin-right max-[900px]:!scale-[0.8] max-md:!hidden" onClick={closeDropdown}>
-                    <Image
-                        src="/photos/common/enqr button.svg"
-                        alt="Enquire Now"
-                        width={143}
-                        height={55}
-                        className="object-contain"
-                    />
+                <Link
+                    href="/contact"
+                    className="flex flex-row items-center shrink-0 transition-transform duration-200 ease hover:scale-105 max-[1024px]:scale-90 max-[1024px]:origin-right max-[900px]:!scale-[0.8] max-md:!hidden"
+                    onClick={closeDropdown}
+                >
+                    <motion.button
+                        className="group relative w-[143px] h-[55px] rounded-[100px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[24px] cursor-pointer overflow-hidden"
+                        whileHover={{ scale: 1.04 }}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                    >
+                        <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                            Enquire Now
+                        </span>
+                        <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                            Enquire Now
+                        </span>
+                    </motion.button>
                 </Link>
 
                 {/* Mobile Menu Button */}
