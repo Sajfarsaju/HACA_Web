@@ -20,7 +20,10 @@ const TRACK = [...CARDS, ...CARDS]
 
 export function PhotoGallery() {
     return (
-        <section className="w-full h-[354px] flex justify-center overflow-hidden relative max-[1024px]:h-[330px] max-md:h-[225px]">
+        <section
+            id="photo-gallery"
+            className="w-full h-[354px] flex justify-center overflow-hidden relative max-[1024px]:h-[330px] max-md:h-[225px]"
+        >
             {/* CSS keyframes */}
             <style>{`
                 @keyframes photo-marquee {

@@ -16,14 +16,29 @@ interface SocialCardProps {
 function SocialCard({ logoSrc, logoAlt, logoW, logoH, instagramHref = "#", youtubeHref = "#" }: SocialCardProps) {
     return (
         <motion.div
-            className="w-[calc(430/1320*100%)] min-h-[163px] bg-[#000319] border border-[#25317d] rounded-[20px] p-[20px] box-border flex flex-row justify-between items-center shrink-0 overflow-hidden max-[1200px]:p-[12px] max-md:w-full max-md:min-h-[126.98px] max-md:rounded-[15.58px] max-md:border-[0.78px] max-md:p-[15.58px]"
+            className="relative w-[calc(430/1320*100%)] min-h-[163px] bg-[#000319] border border-[#25317d] rounded-[20px] p-[20px] box-border flex flex-row justify-between items-center shrink-0 overflow-hidden max-[1200px]:p-[12px] max-md:w-full max-md:min-h-[126.98px] max-md:rounded-[15.58px] max-md:border-[0.78px] max-md:p-[15.58px]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: "easeOut" }}
         >
+            {/* Grid background: subtle, fading from top-left to bottom-right, only behind logo (not under buttons) */}
+            <div
+                className="pointer-events-none absolute inset-y-[1px] left-[1px] right-[35%] rounded-[18px]"
+                style={{
+                    backgroundImage:
+                        "repeating-linear-gradient(to right, rgba(51,85,170,0.14) 0, rgba(51,85,170,0.14) 1px, transparent 1px, transparent 28px), repeating-linear-gradient(to bottom, rgba(51,85,170,0.14) 0, rgba(51,85,170,0.14) 1px, transparent 1px, transparent 28px)",
+                    backgroundBlendMode: "screen",
+                    backgroundPosition: "left top",
+                    WebkitMaskImage:
+                        "linear-gradient(to bottom right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.1) 80%, rgba(0,0,0,0) 100%)",
+                    maskImage:
+                        "linear-gradient(to bottom right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.1) 80%, rgba(0,0,0,0) 100%)",
+                }}
+            />
+
             {/* ─── Logo ─── */}
-            <div className="flex items-center justify-center flex-1 min-w-0">
+            <div className="flex items-center justify-center flex-1 min-w-0 relative z-[1]">
                 <Image
                     src={logoSrc}
                     alt={logoAlt}
@@ -34,7 +49,7 @@ function SocialCard({ logoSrc, logoAlt, logoW, logoH, instagramHref = "#", youtu
             </div>
 
             {/* ─── Social Buttons ─── */}
-            <div className="flex flex-col gap-[7px] items-end justify-center basis-[156px] grow-0 shrink min-w-[100px] max-[1200px]:basis-[110px] max-md:gap-[5.45px]">
+            <div className="flex flex-col gap-[7px] items-end justify-center basis-[156px] grow-0 shrink min-w-[100px] max-[1200px]:basis-[110px] max-md:gap-[5.45px] relative z-[1]">
                 {/* Instagram */}
                 <a href={instagramHref} target="_blank" rel="noopener noreferrer" className="block leading-[0] cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 w-full">
                     <Image

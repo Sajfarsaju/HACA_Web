@@ -19,6 +19,21 @@ function mod(n: number, m: number) { return ((n % m) + m) % m }
 function TestimonialCardContent({ t }: { t: (typeof testimonials)[0] }) {
     return (
         <div className="w-full h-full relative overflow-hidden max-md:p-[16px] max-md:flex max-md:flex-col max-md:gap-[10px]">
+            {/* Grid background: subtle, fading from top-right to bottom-left */}
+            <div
+                className="pointer-events-none absolute inset-[1px] rounded-[inherit]"
+                style={{
+                    backgroundImage:
+                        "repeating-linear-gradient(to right, rgba(51,85,170,0.14) 0, rgba(51,85,170,0.14) 1px, transparent 1px, transparent 28px), repeating-linear-gradient(to bottom, rgba(51,85,170,0.14) 0, rgba(51,85,170,0.14) 1px, transparent 1px, transparent 28px)",
+                    backgroundBlendMode: "screen",
+                    backgroundPosition: "right top",
+                    WebkitMaskImage:
+                        "linear-gradient(to bottom left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 35%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0) 100%)",
+                    maskImage:
+                        "linear-gradient(to bottom left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 35%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0) 100%)",
+                }}
+            />
+
             <Image
                 src="/photos/main/inverter coma.svg"
                 alt="Quote mark"

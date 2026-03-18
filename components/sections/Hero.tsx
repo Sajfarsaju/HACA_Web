@@ -77,23 +77,41 @@ export function Hero() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.5 }}
                     >
-                        <Link href="/courses" className="flex items-center justify-center no-underline transition-transform duration-200 ease-out hover:scale-[1.04]">
-                            <Image
-                                src="/photos/main/explore course btn.svg"
-                                alt="Explore Courses"
-                                width={174}
-                                height={55}
-                                className="object-contain"
-                            />
+                        <Link
+                            href="/courses"
+                            className="flex items-center justify-center no-underline"
+                        >
+                            <motion.button
+                                className="group relative w-[174px] h-[55px] rounded-[100px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[24px] cursor-pointer overflow-hidden"
+                                whileHover={{ scale: 1.04 }}
+                                whileTap={{ scale: 0.97 }}
+                                transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                            >
+                                <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                    Explore Courses
+                                </span>
+                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                    Explore Courses
+                                </span>
+                            </motion.button>
                         </Link>
-                        <Link href="/contact" className="flex items-center justify-center no-underline transition-transform duration-200 ease-out hover:scale-[1.04]">
-                            <Image
-                                src="/photos/common/call back btn.svg"
-                                alt="Call Back"
-                                width={166}
-                                height={55}
-                                className="object-contain"
-                            />
+                        <Link
+                            href="/contact"
+                            className="flex items-center justify-center no-underline"
+                        >
+                            <motion.button
+                                className="group relative w-[166px] h-[55px] rounded-[100px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[24px] cursor-pointer overflow-hidden"
+                                whileHover={{ scale: 1.04 }}
+                                whileTap={{ scale: 0.97 }}
+                                transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                            >
+                                <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                    Get a Call Back
+                                </span>
+                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                    Get a Call Back
+                                </span>
+                            </motion.button>
                         </Link>
                     </motion.div>
 
@@ -104,14 +122,23 @@ export function Hero() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.5 }}
                     >
-                        <Link href="/schools" className="flex items-center justify-center no-underline transition-transform duration-200 ease-out hover:scale-[1.04]">
-                            <Image
-                                src="/photos/main/explore school btn.svg"
-                                alt="Explore Schools"
-                                width={137}
-                                height={46}
-                                className="object-contain"
-                            />
+                        <Link
+                            href="/schools"
+                            className="flex items-center justify-center no-underline"
+                        >
+                            <motion.button
+                                className="group relative w-[137px] h-[46px] rounded-[82px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[18px] cursor-pointer overflow-hidden"
+                                whileHover={{ scale: 1.04 }}
+                                whileTap={{ scale: 0.97 }}
+                                transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                            >
+                                <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[14px] leading-[22.19px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                    Explore Schools
+                                </span>
+                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[14px] leading-[22.19px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                    Explore Schools
+                                </span>
+                            </motion.button>
                         </Link>
                     </motion.div>
 
@@ -129,13 +156,36 @@ export function Hero() {
                             height={63}
                             className="w-[341px] h-[63px] object-contain max-md:w-[213.8px] max-md:h-[39.5px]"
                         />
-                        <Image
-                            src="/photos/main/admisn opn.svg"
-                            alt="Admission Open"
-                            width={196}
-                            height={20}
-                            className="w-[196px] h-[20px] object-contain max-md:w-[149px] max-md:h-[15px]"
-                        />
+
+                        {/* Admission Open badge with blinking green light */}
+                        <div className="w-[196px] h-[20px] max-md:w-[149px] max-md:h-[15px] flex items-center gap-[8px]">
+                            <style>{`
+                                @keyframes haca-blink {
+                                    0%, 100% { opacity: 0.25; }
+                                    50% { opacity: 1; }
+                                }
+                            `}</style>
+                            {/* Blinking green light */}
+                            <div
+                                className="relative w-[18px] h-[18px]"
+                                style={{ animation: "haca-blink 1.2s ease-in-out infinite" }}
+                            >
+                                {/* Outer glow circle */}
+                                <div
+                                    className="absolute inset-0 rounded-full"
+                                    style={{ background: "#0DDE33", opacity: 0.2481 }}
+                                />
+                                {/* Inner solid circle */}
+                                <div
+                                    className="absolute w-[8px] h-[8px] rounded-full"
+                                    style={{ background: "#0DDE33", top: 5, left: 5 }}
+                                />
+                            </div>
+                            {/* Text */}
+                            <span className="font-rethink font-medium text-[14px] leading-[19.2px] tracking-[0] text-[#A7ADBE]">
+                                Admission Open
+                            </span>
+                        </div>
                     </motion.div>
                 </div>
                 {/* END hero-upper */}
