@@ -12,7 +12,7 @@ export default function BlogPage() {
                 {/* Heading container */}
                 <div className="w-full max-w-[788px] mx-auto flex flex-col gap-[clamp(20px,2.5vw,20px)] max-md:gap-[36px] max-md:pb-5 max-md:px-5">
                     <h1 className="w-full font-rethink font-bold text-[clamp(26px,4vw,58px)] leading-[34px] text-center text-white m-0">
-                        Blogsss
+                        Blogs
                     </h1>
                     <p className="w-full font-rethink font-bold text-[clamp(14px,1.4vw,20px)] leading-[clamp(17px,2.1vw,34px)] text-center text-[#A7ADBE] m-0">
                         Short, clear, and helpful blogs that explain marketing, design, tech, finance, and career tips in the easiest way possible.

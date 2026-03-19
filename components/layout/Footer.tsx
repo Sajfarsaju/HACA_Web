@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { BackToTopButton } from "./BackToTopButton"
 
 const quickLinks = [
     { label: "Home", href: "/" },
@@ -43,6 +44,9 @@ export function Footer() {
             <div
                 className="relative z-10 w-full section-4k mx-auto flex flex-col px-[clamp(20px,4.4vw,63px)] pt-[clamp(20px,4.2vw,60px)] pb-[clamp(20px,4.2vw,60px)] gap-[clamp(20px,3.5vw,50px)] min-h-[clamp(534px,50vw,751px)]"
             >
+                <div className="absolute right-[clamp(20px,4.4vw,63px)] top-[clamp(20px,4.2vw,40px)] md:top-1/2 md:-translate-y-1/2 flex justify-end">
+                    <BackToTopButton />
+                </div>
                 {/* Desktop: wrapper with logo (left) + first container (right). Mobile: separate with order */}
                 <div className="hidden md:flex md:w-full md:max-w-[1314px] md:min-h-[clamp(120px,12.6vw,181px)] md:flex-row md:justify-between md:items-start">
                     <Link href="/" className="block shrink-0">

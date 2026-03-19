@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { motion } from "framer-motion"
 
 export function AboutBeliefSection() {
     return (
@@ -20,17 +23,46 @@ export function AboutBeliefSection() {
                 {/* Explore Our Courses - primary CTA */}
                 <Link
                     href="/schools"
-                    className="inline-flex items-center justify-center rounded-[100px] max-md:rounded-[83.64px] bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] text-white font-rethink font-medium text-[clamp(15px,1.25vw,18px)] leading-[clamp(22.58px,1.7vw,27px)] px-[clamp(16.73px,1.5vw,20px)] py-[clamp(11.71px,1.2vw,14px)] w-full max-w-[209px] max-md:max-w-[174.45px] max-md:min-h-[46px] md:min-h-[55px] md:whitespace-nowrap"
+                    className="inline-flex w-full max-w-[209px] max-md:max-w-[174.45px]"
                 >
-                    Explore Our Courses
+                    <motion.button
+                        className="group relative w-full md:h-[55px] max-md:min-h-[46px] rounded-[100px] max-md:rounded-[83.64px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[clamp(16.73px,1.5vw,20px)] cursor-pointer overflow-hidden"
+                        whileHover={{ scale: 1.04 }}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                    >
+                        <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[clamp(15px,1.25vw,18px)] leading-[clamp(22.58px,1.7vw,27px)] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                            Explore Our Courses
+                        </span>
+                        <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[clamp(15px,1.25vw,18px)] leading-[clamp(22.58px,1.7vw,27px)] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                            Explore Our Courses
+                        </span>
+                    </motion.button>
                 </Link>
+
+                <div
+                    className="bg-white/60 w-[clamp(72px,24vw,96px)] h-px md:bg-white/70 md:w-px md:h-[clamp(28px,2.3vw,36px)] shrink-0"
+                    aria-hidden
+                />
 
                 {/* Talk to Our Team - secondary */}
                 <Link
                     href="#"
-                    className="inline-flex items-center justify-center rounded-[100px] max-md:rounded-[83.64px] bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] text-white font-rethink font-medium text-[clamp(15px,1.25vw,18px)] leading-[clamp(22.58px,1.7vw,27px)] px-[clamp(16.73px,1.5vw,20px)] py-[clamp(11.71px,1.2vw,14px)] w-full max-w-[178px] max-md:max-w-[149.45px] max-md:min-h-[46px] md:min-h-[55px]"
+                    className="inline-flex w-full max-w-[178px] max-md:max-w-[149.45px]"
                 >
-                    Talk to Our Team
+                    <motion.button
+                        className="group relative w-full md:h-[55px] max-md:min-h-[46px] rounded-[100px] max-md:rounded-[83.64px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[clamp(16.73px,1.5vw,20px)] cursor-pointer overflow-hidden"
+                        whileHover={{ scale: 1.04 }}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                    >
+                        <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[clamp(15px,1.25vw,18px)] leading-[clamp(22.58px,1.7vw,27px)] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                            Talk to Our Team
+                        </span>
+                        <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[clamp(15px,1.25vw,18px)] leading-[clamp(22.58px,1.7vw,27px)] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                            Talk to Our Team
+                        </span>
+                    </motion.button>
                 </Link>
             </div>
         </section>

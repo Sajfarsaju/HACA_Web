@@ -1,4 +1,14 @@
+"use client"
+
 import Image from "next/image"
+import React from "react"
+import {
+    motion,
+    useMotionValue,
+    useReducedMotion,
+    useSpring,
+    useTransform,
+} from "framer-motion"
 
 const schools = [
     {
@@ -23,6 +33,79 @@ const schools = [
     },
 ]
 
+function SchoolCard({
+    logo,
+    alt,
+}: {
+    logo: string
+    alt: string
+}) {
+    const prefersReducedMotion = useReducedMotion()
+    const cardRef = React.useRef<HTMLDivElement>(null)
+
+    const mx = useMotionValue(0.5)
+    const my = useMotionValue(0.5)
+    const rotateX = useTransform(my, [0, 1], [8, -8])
+    const rotateY = useTransform(mx, [0, 1], [-8, 8])
+    const springX = useSpring(rotateX, { stiffness: 180, damping: 22, mass: 0.9 })
+    const springY = useSpring(rotateY, { stiffness: 180, damping: 22, mass: 0.9 })
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (prefersReducedMotion || !cardRef.current) return
+        const rect = cardRef.current.getBoundingClientRect()
+        mx.set((e.clientX - rect.left) / rect.width)
+        my.set((e.clientY - rect.top) / rect.height)
+    }
+
+    const handleMouseLeave = () => {
+        mx.set(0.5)
+        my.set(0.5)
+    }
+
+    return (
+        <div
+            ref={cardRef}
+            className="flex-1 min-w-0 max-w-[317px] h-[444px] max-[1100px]:flex-auto max-[1100px]:max-w-full max-[1100px]:w-full max-[1100px]:h-[clamp(280px,38vw,380px)] max-md:h-[clamp(140px,41.6vw,160px)]"
+            style={{ perspective: 1000 }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+        >
+            <motion.div
+                className="w-full h-full rounded-[20px] border border-[#25317D] p-[20px_16px_16px_16px] flex flex-col justify-between items-start bg-[radial-gradient(ellipse_60%_40%_at_0%_0%,rgba(30,80,255,0.35)_0%,rgba(10,20,100,0.15)_45%,transparent_75%),radial-gradient(ellipse_85%_65%_at_100%_100%,rgba(30,80,255,0.45)_0%,rgba(10,20,100,0.25)_45%,rgba(0,3,25,1)_75%)] max-[1100px]:h-full max-md:h-full"
+                style={
+                    prefersReducedMotion
+                        ? undefined
+                        : { rotateX: springX, rotateY: springY, transformStyle: "preserve-3d" }
+                }
+                whileHover={prefersReducedMotion ? undefined : { scale: 1.015 }}
+                transition={{ type: "spring", stiffness: 210, damping: 20 }}
+            >
+                {/* School Logo — top left */}
+                <div className="w-[158px] h-[65px] flex items-start shrink-0 max-[1100px]:w-[clamp(110px,16vw,158px)] max-[1100px]:h-[clamp(45px,7vw,65px)] max-md:w-[clamp(80px,24.9vw,96px)] max-md:h-[clamp(32px,10.2vw,40px)]">
+                    <Image
+                        src={logo}
+                        alt={alt}
+                        width={158}
+                        height={65}
+                        className="w-full h-full object-contain object-left"
+                    />
+                </div>
+
+                {/* Explore Button — bottom right */}
+                <div className="w-[162px] h-[26px] flex items-center self-end shrink-0 max-[1100px]:w-[clamp(120px,17vw,162px)] max-[1100px]:h-[clamp(20px,3vw,26px)] max-md:w-[clamp(115px,35.2vw,135px)] max-md:h-[clamp(15px,4.8vw,19px)]">
+                    <Image
+                        src="/photos/main/explore course arrow.svg"
+                        alt="Explore Course"
+                        width={162}
+                        height={26}
+                        className="w-full h-full object-contain"
+                    />
+                </div>
+            </motion.div>
+        </div>
+    )
+}
+
 export function SchoolsSection() {
     return (
         <section className="w-full section-4k h-[673px] mx-auto pt-[36px] px-[60px] pb-[40px] flex flex-col items-center gap-[57px] overflow-hidden opacity-100 max-[1100px]:h-auto max-[1100px]:p-[clamp(28px,4vw,50px)_clamp(24px,4vw,50px)] max-[1100px]:gap-[clamp(28px,4vw,48px)] max-md:p-[clamp(24px,6vw,40px)_clamp(16px,5vw,24px)] max-md:gap-[clamp(20px,7vw,28px)] max-md:items-start">
@@ -46,29 +129,7 @@ export function SchoolsSection() {
             {/* Cards Grid */}
             <div className="w-full max-w-[1320px] h-[444px] flex flex-row justify-between items-stretch gap-[clamp(12px,1.6vw,20px)] max-[1100px]:h-auto max-[1100px]:grid max-[1100px]:grid-cols-2 max-[1100px]:gap-[clamp(16px,2vw,24px)] max-md:flex max-md:flex-col max-md:gap-[clamp(16px,5.3vw,22px)]">
                 {schools.map((school) => (
-                    <div key={school.id} className="flex-1 min-w-0 max-w-[317px] h-[444px] rounded-[20px] border border-[#25317D] p-[20px_16px_16px_16px] flex flex-col justify-between items-start bg-[radial-gradient(ellipse_60%_40%_at_0%_0%,rgba(30,80,255,0.35)_0%,rgba(10,20,100,0.15)_45%,transparent_75%),radial-gradient(ellipse_85%_65%_at_100%_100%,rgba(30,80,255,0.45)_0%,rgba(10,20,100,0.25)_45%,rgba(0,3,25,1)_75%)] max-[1100px]:flex-auto max-[1100px]:max-w-full max-[1100px]:w-full max-[1100px]:h-[clamp(280px,38vw,380px)] max-md:h-[clamp(140px,41.6vw,160px)]">
-                        {/* School Logo — top left */}
-                        <div className="w-[158px] h-[65px] flex items-start shrink-0 max-[1100px]:w-[clamp(110px,16vw,158px)] max-[1100px]:h-[clamp(45px,7vw,65px)] max-md:w-[clamp(80px,24.9vw,96px)] max-md:h-[clamp(32px,10.2vw,40px)]">
-                            <Image
-                                src={school.logo}
-                                alt={school.alt}
-                                width={158}
-                                height={65}
-                                className="w-full h-full object-contain object-left"
-                            />
-                        </div>
-
-                        {/* Explore Button — bottom right */}
-                        <div className="w-[162px] h-[26px] flex items-center self-end shrink-0 max-[1100px]:w-[clamp(120px,17vw,162px)] max-[1100px]:h-[clamp(20px,3vw,26px)] max-md:w-[clamp(115px,35.2vw,135px)] max-md:h-[clamp(15px,4.8vw,19px)]">
-                            <Image
-                                src="/photos/main/explore course arrow.svg"
-                                alt="Explore Course"
-                                width={162}
-                                height={26}
-                                className="w-full h-full object-contain"
-                            />
-                        </div>
-                    </div>
+                    <SchoolCard key={school.id} logo={school.logo} alt={school.alt} />
                 ))}
             </div>
         </section>

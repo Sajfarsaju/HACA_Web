@@ -14,7 +14,7 @@ export function AboutFacesSection() {
                 {/* Row 1: Haris Aboobacker */}
                 <div className="w-full flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-[clamp(20px,4vw,62px)] px-[clamp(0px,4vw,60px)] max-md:px-0 max-md:py-[20px]">
                     {/* Photo */}
-                    <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-[#10152F] max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
+                    <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-transparent max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
                         <Image
                             src="/photos/main/haris.webp"
                             alt="Haris Aboobacker"
@@ -98,7 +98,7 @@ export function AboutFacesSection() {
                 {/* Row 2: Rizwan Ramzan Ahamed (photo on right in desktop) */}
                 <div className="w-full flex flex-col lg:flex-row-reverse lg:items-stretch lg:justify-between gap-[clamp(20px,4vw,62px)] px-[clamp(0px,4vw,60px)] max-md:px-0 max-md:py-[20px]">
                     {/* Photo */}
-                    <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-[#10152F] max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
+                    <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-transparent max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
                         <Image
                             src="/photos/main/rizwanLite.webp"
                             alt="Rizwan Ramzan Ahamed"
@@ -139,7 +139,7 @@ export function AboutFacesSection() {
                 {/* Row 3: Abu Nabhan */}
                 <div className="w-full flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-[clamp(20px,4vw,62px)] px-[clamp(0px,4vw,60px)] max-md:px-0 max-md:py-[20px]">
                     {/* Photo */}
-                    <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-[#10152F] max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
+                    <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-transparent max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
                         <Image
                             src="/photos/main/Naban.webp"
                             alt="Abu Nabhan"
