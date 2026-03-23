@@ -60,12 +60,12 @@ export default function SuccessStoryPage() {
                         }}
                     >
                         <h1
-                            className="font-rethink font-bold tracking-[0%] text-[#FFFFFF] m-0 w-[166px] h-[34px] md:w-auto md:h-auto text-[26px] md:text-[58px] leading-[34px] md:leading-[1.2]"
+                            className="font-rethink font-bold tracking-[0%] text-[#FFFFFF] m-0 w-full max-w-full min-w-0 h-auto md:w-auto text-[26px] md:text-[58px] leading-[1.2] md:leading-[1.2] text-center"
                         >
                             Success Story
                         </h1>
                         <p
-                            className="font-rethink font-bold tracking-[0%] text-[#A7ADBE] m-0 w-[349px] h-[51px] md:w-auto md:h-auto text-[14px] md:text-[20px] leading-[17px] md:leading-[34px]"
+                            className="font-rethink font-bold tracking-[0%] text-[#A7ADBE] m-0 w-full min-w-0 max-w-full h-auto text-[14px] md:text-[20px] leading-[1.25] sm:leading-relaxed md:leading-[34px] text-center break-words"
                         >
                             They studied across our schools. Now they’re building creative careers across agencies, brands, and studios.
                         </p>

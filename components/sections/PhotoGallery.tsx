@@ -40,7 +40,7 @@ export function PhotoGallery() {
                 }
             `}</style>
 
-            <div className="w-full section-4k mx-auto h-[354px] relative shadow-[0px_4px_4px_0px_#00000040] max-[1024px]:h-[310px] max-[1024px]:w-[95%] max-[1024px]:max-w-[1100px] max-md:h-[203px] max-md:-top-[0.91px] max-md:max-w-full overflow-hidden">
+            <div className="w-full section-4k mx-auto h-[354px] relative shadow-[0px_4px_4px_0px_#00000040] max-[1024px]:h-[310px] max-[1024px]:w-[95%] max-[1024px]:max-w-[1100px] max-[900px]:w-full max-md:h-[203px] max-md:w-screen max-md:max-w-none max-md:left-1/2 max-md:-translate-x-1/2 max-md:top-0 overflow-hidden">
 
                 {/* Scrolling track — doubled list so it loops without a jump */}
                 <div className="photo-marquee-track flex gap-[16px] h-full w-max px-0 py-0 max-md:gap-[13.67px]">
@@ -64,7 +64,7 @@ export function PhotoGallery() {
                 </div>
 
                 {/* Left + right edge fade */}
-                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(89.96deg,_#01051C_0.03%,_rgba(0,0,0,0)_39.57%,_rgba(0,0,0,0)_72.75%,_#01051C_101.57%)]" />
+                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(89.96deg,_#01051C_0.03%,_rgba(0,0,0,0)_39.57%,_rgba(0,0,0,0)_72.75%,_#01051C_101.57%)] max-[900px]:-inset-x-px max-[900px]:bg-[linear-gradient(90deg,_#01051C_0%,_rgba(1,5,28,0)_36%,_rgba(1,5,28,0)_64%,_#01051C_100%)]" />
             </div>
         </section>
     )
