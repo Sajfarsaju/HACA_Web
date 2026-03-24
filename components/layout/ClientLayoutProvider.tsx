@@ -13,7 +13,7 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
     return (
         <>
             {!isTechSchool && <Navbar />}
-            <main className="flex-grow">
+            <main className="flex-1 min-h-0">
                 {children}
             </main>
             {!isTechSchool && <WhatsAppButton />}
