@@ -42,9 +42,6 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     </button>
 
                     <div className="flex items-center gap-[12px]">
-                        <Link href="/contact" onClick={handleLinkClick} className="flex items-center justify-center px-[20px] py-[12px] rounded-[18px] bg-[#131839] border border-[#232D6B] no-underline">
-                            <span className="font-rethink font-medium text-[16px] text-[#FFFFFF]">Let&apos;s Connect</span>
-                        </Link>
                         <Link href="/contact" onClick={handleLinkClick}>
                             <motion.button
                                 className="group relative w-[121px] h-[46px] rounded-[82px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[18px] cursor-pointer overflow-hidden"

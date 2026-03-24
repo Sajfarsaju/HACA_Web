@@ -81,7 +81,7 @@ export function AboutRecognitionSection() {
                     }
                 `}</style>
 
-                <div className="w-full overflow-hidden opacity-80">
+                <div className="w-screen max-w-none overflow-hidden opacity-80 ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]">
                     <div className="about-recognition-track flex flex-row items-center justify-start gap-[clamp(20px,5vw,40px)] max-md:gap-[clamp(15px,6vw,27.12px)] w-max">
                         {TRACK.map((logo, idx) => (
                             <div key={`${logo.key}-${idx}`} className={logo.wrapperClass}>

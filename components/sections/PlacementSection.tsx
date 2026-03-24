@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { motion } from "framer-motion"
 
 const COLUMNS = [0, 1, 2, 3, 4]
@@ -94,19 +95,21 @@ export function PlacementSection() {
 
             {/* ── View More Button ── */}
             <div className="flex justify-center">
-                <motion.button
-                    className="group relative w-[227px] h-[55px] rounded-[100px] border-none cursor-pointer flex items-center justify-center bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-[600px]:w-[182px] max-[600px]:h-[46px] max-[600px]:rounded-[82px] max-[600px]:px-[18px] overflow-hidden"
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.97 }}
-                    transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
-                >
-                    <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-[600px]:font-normal max-[600px]:text-[14px] max-[600px]:leading-[22.19px]">
-                        View More Placements
-                    </span>
-                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-[600px]:font-normal max-[600px]:text-[14px] max-[600px]:leading-[22.19px]">
-                        View More Placements
-                    </span>
-                </motion.button>
+                <Link href="/success-story" className="flex items-center justify-center no-underline">
+                    <motion.button
+                        className="group relative w-[227px] h-[55px] rounded-[100px] border-none cursor-pointer flex items-center justify-center bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-[600px]:w-[182px] max-[600px]:h-[46px] max-[600px]:rounded-[82px] max-[600px]:px-[18px] overflow-hidden"
+                        whileHover={{ scale: 1.04 }}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                    >
+                        <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-[600px]:font-normal max-[600px]:text-[14px] max-[600px]:leading-[22.19px]">
+                            View More Placements
+                        </span>
+                        <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-[600px]:font-normal max-[600px]:text-[14px] max-[600px]:leading-[22.19px]">
+                            View More Placements
+                        </span>
+                    </motion.button>
+                </Link>
             </div>
         </section>
     )

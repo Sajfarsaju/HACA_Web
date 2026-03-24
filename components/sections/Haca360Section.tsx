@@ -8,12 +8,21 @@ export function Haca360Section() {
                 {/* ── Upper: Badge Button + Heading ── */}
                 <div className="w-full flex flex-col items-center gap-[20px] text-center relative isolate max-md:gap-[7.97px]">
                     {/* Background Gradient SVG moved behind heading */}
-                    <div className="absolute top-[150%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] max-w-[min(1440px,100vw)] h-[clamp(180px,33vw,480px)] pointer-events-none -z-10 max-[1024px]:max-w-full max-md:w-full">
+                    <div className="absolute top-[150%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] max-w-[min(1440px,100vw)] h-[clamp(180px,33vw,480px)] pointer-events-none -z-10 max-[1024px]:max-w-full md:top-[168%] max-md:w-[calc(100%-48px)] max-md:max-w-[335px] max-md:top-[150%]">
                         <Image
                             src="/photos/main/bg-gradiant-1.svg"
                             alt=""
                             fill
-                            className="object-cover"
+                            className="object-cover max-md:object-contain max-md:opacity-90"
+                        />
+                        {/* Soft edge fade (mobile only) */}
+                        <div
+                            className="hidden max-md:block absolute inset-0 pointer-events-none"
+                            style={{
+                                background:
+                                    "radial-gradient(60% 70% at 50% 55%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%)",
+                            }}
+                            aria-hidden="true"
                         />
                     </div>
                     <button className="inline-flex items-center justify-center w-[148px] h-[42px] p-[8px_8px_8px_16px] gap-[10px] rounded-[100px] bg-transparent border-none cursor-pointer shrink-0 max-md:w-[105px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="HACA 360">

@@ -1,25 +1,31 @@
 "use client"
 
 import Image from "next/image"
-import { motion, LayoutGroup } from "framer-motion"
-import { useState, useCallback } from "react"
+import { motion } from "framer-motion"
+import { useState, useCallback, useEffect } from "react"
 
-/* ── Testimonial card data with content ── */
+/* ── Testimonial card data ── */
 const testimonials = [
-    { id: 0, gradient: "linear-gradient(135deg, #0d1a4a 0%, #1a4fff22 100%)", quote: "The my dream job. The portfolio projects were exactly what recruiters wanted my dream job. The portfolio projects were exactly what recruiters wanted digital marketing classes were practical, up to date, and easy to follow. The mentors were incredibly supportive, and the mock interviews really boosted my confidence.", name: "Nadha Faizallllll", role: "Digital Marketer" },
-    { id: 1, gradient: "linear-gradient(135deg, #000319 0%, #25317D55 100%)", quote: "HACA's design school gave me the skills to land my dream job. The portfolio projects were exactly what recruiters wanted to my dream job. The portfolio projects were exactly what recruiters wanted see.", name: "Priya Sharma", role: "UI/UX Designer" },
-    { id: 2, gradient: "linear-gradient(135deg, #0d1a4a 0%, #1a4fff22 100%)", quote: "I switched from a non-tech background to a developer role in 6 months. The tech school curriculum is intense but worth every my dream job. The portfolio projects were exactly what recruiters wanted hour.", name: "Arjun Mehta", role: "Full Stack Developer" },
-    { id: 3, gradient: "linear-gradient(135deg, #000319 0%, #25317D55 100%)", quote: "The finance courses helped me understand real-world analysis. Now I work at a leading investment my dream job. The portfolio projects were exactly what recruiters wanted firm.", name: "Sneha Reddy", role: "Financial Analyst" },
-    { id: 4, gradient: "linear-gradient(135deg, #0d1a4a 0%, #1a4fff22 100%)", quote: "Best decision I made for my career. The placement support and industry connections opened doors I never my dream job. The portfolio projects were exactly what recruiters wanted thought possible.", name: "Rahul Kumar", role: "Marketing Manager" },
+    { id: 0, gradient: "linear-gradient(135deg, #0d1a4a 0%, #1a4fff22 100%)", quote: "The digital marketing classes were practical, up to date, and easy to follow. The mentors were incredibly supportive, and the mock interviews really boosted my confidence.", name: "Nadha Faizal", role: "Digital Marketer" },
+    { id: 1, gradient: "linear-gradient(135deg, #000319 0%, #25317D55 100%)", quote: "HACA's design school gave me the skills to land my dream job. The portfolio projects were exactly what recruiters wanted to see.", name: "Priya Sharma", role: "UI/UX Designer" },
+    { id: 2, gradient: "linear-gradient(135deg, #0d1a4a 0%, #1a4fff22 100%)", quote: "I switched from a non-tech background to a developer role in 6 months. The tech school curriculum is intense but worth every hour.", name: "Arjun Mehta", role: "Full Stack Developer" },
+    { id: 3, gradient: "linear-gradient(135deg, #000319 0%, #25317D55 100%)", quote: "The finance courses helped me understand real-world analysis. Now I work at a leading investment firm.", name: "Sneha Reddy", role: "Financial Analyst" },
+    { id: 4, gradient: "linear-gradient(135deg, #0d1a4a 0%, #1a4fff22 100%)", quote: "Best decision I made for my career. The placement support and industry connections opened doors I never thought possible.", name: "Rahul Kumar", role: "Marketing Manager" },
 ]
 
 function mod(n: number, m: number) { return ((n % m) + m) % m }
 
-/* Card inner content - shared across left, center, right */
+function getOffset(index: number, active: number, total: number) {
+    let diff = index - active
+    if (diff > total / 2) diff -= total
+    if (diff < -total / 2) diff += total
+    return diff
+}
+
+/* Card inner content */
 function TestimonialCardContent({ t }: { t: (typeof testimonials)[0] }) {
     return (
         <div className="w-full h-full relative overflow-hidden max-md:p-[16px] max-md:flex max-md:flex-col max-md:gap-[10px]">
-            {/* Grid background: subtle, fading from top-right to bottom-left */}
             <div
                 className="pointer-events-none absolute inset-[1px] rounded-[inherit]"
                 style={{
@@ -27,13 +33,10 @@ function TestimonialCardContent({ t }: { t: (typeof testimonials)[0] }) {
                         "repeating-linear-gradient(to right, rgba(51,85,170,0.14) 0, rgba(51,85,170,0.14) 1px, transparent 1px, transparent 28px), repeating-linear-gradient(to bottom, rgba(51,85,170,0.14) 0, rgba(51,85,170,0.14) 1px, transparent 1px, transparent 28px)",
                     backgroundBlendMode: "screen",
                     backgroundPosition: "right top",
-                    WebkitMaskImage:
-                        "linear-gradient(to bottom left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 35%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0) 100%)",
-                    maskImage:
-                        "linear-gradient(to bottom left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 35%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0) 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 35%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0) 100%)",
+                    maskImage: "linear-gradient(to bottom left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 35%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0) 100%)",
                 }}
             />
-
             <Image
                 src="/photos/main/inverter coma.svg"
                 alt="Quote mark"
@@ -53,12 +56,7 @@ function TestimonialCardContent({ t }: { t: (typeof testimonials)[0] }) {
     )
 }
 
-/* Spring for layout animation - whole card moves */
-const LAYOUT_SPRING = {
-    type: "spring" as const,
-    stiffness: 260,
-    damping: 26,
-}
+const AUTO_PLAY_INTERVAL = 3000
 
 export function TestimonialsSection() {
     const [active, setActive] = useState(0)
@@ -66,30 +64,38 @@ export function TestimonialsSection() {
     const [touchStart, setTouchStart] = useState<number | null>(null)
     const [touchEnd, setTouchEnd] = useState<number | null>(null)
 
-    const leftIdx = mod(active - 1, total)
-    const rightIdx = mod(active + 1, total)
-
     const prev = useCallback(() => setActive(a => mod(a - 1, total)), [total])
     const next = useCallback(() => setActive(a => mod(a + 1, total)), [total])
 
-    const minSwipeDistance = 50
+    /* Auto-play — resets on every active change */
+    useEffect(() => {
+        const timer = setInterval(() => setActive(a => mod(a + 1, total)), AUTO_PLAY_INTERVAL)
+        return () => clearInterval(timer)
+    }, [active, total])
 
+    /* Touch swipe */
+    const minSwipeDistance = 50
     const onTouchStart = (e: React.TouchEvent) => setTouchStart(e.targetTouches[0].clientX)
     const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX)
     const onTouchEnd = () => {
         if (touchStart === null || touchEnd === null) return
         const distance = touchStart - touchEnd
-        const isLeftSwipe = distance > minSwipeDistance
-        const isRightSwipe = distance < -minSwipeDistance
-        if (isLeftSwipe) next()
-        if (isRightSwipe) prev()
+        if (distance > minSwipeDistance) next()
+        else if (distance < -minSwipeDistance) prev()
         setTouchStart(null)
         setTouchEnd(null)
     }
 
-    return (
-        <section className="w-full bg-[#000210] py-[36px] px-0 flex flex-col items-center gap-[36px] box-border overflow-hidden max-md:py-[20px] max-md:gap-[26px]" aria-label="Testimonials">
+    // These mirror the clamp values used in the original layout
+    const centerHalf = "calc(clamp(280px,72vw,1037px) / 2)"
+    const sideHalf   = "calc(clamp(200px,59vw,847px) / 2)"
+    const cardGap    = "22px"
 
+    return (
+        <section
+            className="w-full bg-[#000210] py-[36px] px-0 flex flex-col items-center gap-[36px] box-border overflow-hidden max-md:py-[20px] max-md:gap-[26px]"
+            aria-label="Testimonials"
+        >
             {/* ─── Header ─── */}
             <motion.div
                 className="w-full section-4k mx-auto px-[60px] box-border flex flex-col items-center gap-[20px] max-md:px-[20px] max-md:gap-[7.97px]"
@@ -98,112 +104,101 @@ export function TestimonialsSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                <button className="bg-transparent border-none p-0 cursor-pointer w-[185px] h-[64px] flex items-center shrink-0 transition-transform duration-200 hover:scale-104 active:scale-96 max-md:w-[131.7px] max-md:h-auto" aria-label="Testimonials label">
-                    <Image
-                        src="/photos/main/testimonials.svg"
-                        alt="Testimonials"
-                        width={185}
-                        height={64}
-                        className="w-full h-auto block"
-                        priority
-                    />
+                <button
+                    className="bg-transparent border-none p-0 cursor-pointer w-[185px] h-[64px] flex items-center shrink-0 transition-transform duration-200 hover:scale-104 active:scale-96 max-md:w-[131.7px] max-md:h-auto"
+                    aria-label="Testimonials label"
+                >
+                    <Image src="/photos/main/testimonials.svg" alt="Testimonials" width={185} height={64} className="w-full h-auto block" priority />
                 </button>
-                <h2 className="font-rethink font-bold text-[32px] leading-[110%] text-[#ffffff] m-0 text-center w-full max-md:text-[22px] max-md:max-w-[317px]">Hear How Others Made it Happen</h2>
+                <h2 className="font-rethink font-bold text-[32px] leading-[110%] text-[#ffffff] m-0 text-center w-full max-md:text-[22px] max-md:max-w-[317px]">
+                    Hear How Others Made it Happen
+                </h2>
             </motion.div>
 
-            {/* ─── Carousel area ─── */}
+            {/* ─── Carousel ─── */}
             <div className="w-full flex flex-col items-center gap-[20px]">
+                <div
+                    className="w-full overflow-x-clip overflow-y-visible touch-pan-y"
+                    style={{ height: "clamp(220px, 27.6vw, 418px)" }}
+                    onTouchStart={onTouchStart}
+                    onTouchMove={onTouchMove}
+                    onTouchEnd={onTouchEnd}
+                >
+                    <div className="relative w-full h-full flex items-center justify-center">
+                        {testimonials.map((t, i) => {
+                            const offset = getOffset(i, active, total)
+                            const isCenter = offset === 0
+                            const isVisible = Math.abs(offset) <= 1
 
-                {/* Carousel: LayoutGroup + layoutId — whole card (border, gradient, content) physically moves */}
-                <LayoutGroup id="testimonials-carousel">
-                    <div
-                        className="w-full overflow-x-clip overflow-y-visible flex flex-row items-center justify-center py-[20px] px-0 box-border touch-pan-y"
-                        onTouchStart={onTouchStart}
-                        onTouchMove={onTouchMove}
-                        onTouchEnd={onTouchEnd}
-                    >
-                        <div className="flex flex-row items-center justify-center gap-[22px] max-md:gap-[12px] min-w-0 w-full overflow-visible">
-                            {/* LEFT slot - same responsive size as right (847×325 from Figma) */}
-                            <div
-                                className="cursor-pointer select-none shrink-0 w-[clamp(200px,59vw,847px)] h-[clamp(180px,22.6vw,325px)] rounded-[clamp(14px,1.9vw,27px)] overflow-hidden max-md:w-[60px] max-md:h-[min(205.32px,calc((100vw-40px)*0.613))] max-md:rounded-[10.6px] max-md:-translate-x-[40%]"
-                                onClick={prev}
-                                role="button"
-                                tabIndex={0}
-                                aria-label="Previous testimonial"
-                                onKeyDown={e => e.key === "Enter" && prev()}
-                            >
-                                <motion.div
-                                    layout
-                                    layoutId={`tst-card-${leftIdx}`}
-                                    initial={false}
-                                    animate={{ opacity: 0.4, scale: 0.95 }}
-                                    transition={LAYOUT_SPRING}
-                                    className="w-full h-full rounded-[inherit] border-[clamp(0.7px,0.11vw,1.64px)] border-[#25317D] box-border overflow-hidden max-md:border-[0.53px]"
-                                >
-                                    <TestimonialCardContent t={testimonials[leftIdx]} />
-                                </motion.div>
-                            </div>
+                            // translateX as CSS calc — same logic as TechMentors
+                            let tx = "0px"
+                            if (offset === 1)   tx = `calc(${centerHalf} + ${cardGap} + ${sideHalf})`
+                            if (offset === -1)  tx = `calc(-1 * (${centerHalf} + ${cardGap} + ${sideHalf}))`
+                            if (offset > 1)     tx = `calc(${centerHalf} + ${cardGap} + ${sideHalf} + 100vw)`
+                            if (offset < -1)    tx = `calc(-1 * (${centerHalf} + ${cardGap} + ${sideHalf} + 100vw))`
 
-                            {/* CENTER slot */}
-                            <div className="flex-none w-[clamp(280px,72vw,1037px)] h-[clamp(220px,27.6vw,398px)] rounded-[clamp(14px,2.3vw,33px)] overflow-hidden max-md:w-[min(335px,calc(100vw-40px))] max-md:h-[min(205.32px,calc((100vw-40px)*0.613))] max-md:rounded-[10.6px]">
-                                <motion.div
-                                    layout
-                                    layoutId={`tst-card-${active}`}
-                                    initial={false}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={LAYOUT_SPRING}
-                                    className="w-full h-full rounded-[inherit] border-[clamp(0.7px,0.11vw,1.64px)] border-[#25317D] box-border overflow-hidden max-md:border-[0.53px]"
-                                >
-                                    <TestimonialCardContent t={testimonials[active]} />
-                                </motion.div>
-                            </div>
+                            const cardW         = isCenter ? "clamp(280px,72vw,1037px)"  : "clamp(200px,59vw,847px)"
+                            const cardH         = isCenter ? "clamp(220px,27.6vw,398px)" : "clamp(180px,22.6vw,325px)"
+                            const borderRadius  = isCenter ? "clamp(14px,2.3vw,33px)"    : "clamp(14px,1.9vw,27px)"
 
-                            {/* RIGHT slot - same responsive size as left (847×325 from Figma) */}
-                            <div
-                                className="cursor-pointer select-none shrink-0 w-[clamp(200px,59vw,847px)] h-[clamp(180px,22.6vw,325px)] rounded-[clamp(14px,1.9vw,27px)] overflow-hidden max-md:w-[60px] max-md:h-[min(205.32px,calc((100vw-40px)*0.613))] max-md:rounded-[10.6px] max-md:translate-x-[40%]"
-                                onClick={next}
-                                role="button"
-                                tabIndex={0}
-                                aria-label="Next testimonial"
-                                onKeyDown={e => e.key === "Enter" && next()}
-                            >
-                                <motion.div
-                                    layout
-                                    layoutId={`tst-card-${rightIdx}`}
-                                    initial={false}
-                                    animate={{ opacity: 0.4, scale: 0.95 }}
-                                    transition={LAYOUT_SPRING}
-                                    className="w-full h-full rounded-[inherit] border-[clamp(0.7px,0.11vw,1.64px)] border-[#25317D] box-border overflow-hidden max-md:border-[0.53px]"
+                            return (
+                                <div
+                                    key={t.id}
+                                    onClick={() => {
+                                        if (offset === -1) prev()
+                                        if (offset === 1)  next()
+                                    }}
+                                    role={isCenter ? undefined : "button"}
+                                    tabIndex={isCenter ? undefined : 0}
+                                    aria-label={offset === -1 ? "Previous testimonial" : offset === 1 ? "Next testimonial" : undefined}
+                                    onKeyDown={e => {
+                                        if (e.key === "Enter") {
+                                            if (offset === -1) prev()
+                                            if (offset === 1)  next()
+                                        }
+                                    }}
+                                    className="absolute"
+                                    style={{
+                                        width: cardW,
+                                        height: cardH,
+                                        borderRadius,
+                                        border: "clamp(0.7px,0.11vw,1.64px) solid #25317D",
+                                        background: t.gradient,
+                                        overflow: "hidden",
+                                        boxSizing: "border-box",
+                                        cursor: isCenter ? "default" : "pointer",
+                                        zIndex: isCenter ? 2 : 1,
+                                        opacity: isCenter ? 1 : isVisible ? 0.4 : 0,
+                                        transform: `translateX(${tx}) scale(${isCenter ? 1 : 0.95})`,
+                                        pointerEvents: isVisible ? "auto" : "none",
+                                        transition:
+                                            "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, width 0.5s ease, height 0.5s ease",
+                                    }}
                                 >
-                                    <TestimonialCardContent t={testimonials[rightIdx]} />
-                                </motion.div>
-                            </div>
-                        </div>
+                                    <TestimonialCardContent t={t} />
+                                </div>
+                            )
+                        })}
                     </div>
-                </LayoutGroup>
+                </div>
 
                 {/* ─── Navigation buttons ─── */}
                 <div className="flex flex-row items-center gap-[10px] max-md:gap-[6.67px]">
-                    <button className="w-[clamp(40px,4.2vw,60px)] h-[clamp(40px,4.2vw,60px)] bg-transparent border-none p-0 cursor-pointer flex items-center justify-center transition-transform duration-200 hover:scale-110 active:scale-90 max-md:w-[40px] max-md:h-[40px]" onClick={prev} aria-label="Previous testimonial">
-                        <Image
-                            src="/photos/main/left arrow.svg"
-                            alt="Previous"
-                            width={60}
-                            height={60}
-                            className="w-full h-full object-contain block"
-                        />
+                    <button
+                        className="w-[clamp(40px,4.2vw,60px)] h-[clamp(40px,4.2vw,60px)] bg-transparent border-none p-0 cursor-pointer flex items-center justify-center transition-transform duration-200 hover:scale-110 active:scale-90 max-md:w-[40px] max-md:h-[40px]"
+                        onClick={prev}
+                        aria-label="Previous testimonial"
+                    >
+                        <Image src="/photos/main/left arrow.svg" alt="Previous" width={60} height={60} className="w-full h-full object-contain block" />
                     </button>
-                    <button className="w-[clamp(40px,4.2vw,60px)] h-[clamp(40px,4.2vw,60px)] bg-transparent border-none p-0 cursor-pointer flex items-center justify-center transition-transform duration-200 hover:scale-110 active:scale-90 max-md:w-[40px] max-md:h-[40px]" onClick={next} aria-label="Next testimonial">
-                        <Image
-                            src="/photos/main/right arrow.svg"
-                            alt="Next"
-                            width={60}
-                            height={60}
-                            className="w-full h-full object-contain block"
-                        />
+                    <button
+                        className="w-[clamp(40px,4.2vw,60px)] h-[clamp(40px,4.2vw,60px)] bg-transparent border-none p-0 cursor-pointer flex items-center justify-center transition-transform duration-200 hover:scale-110 active:scale-90 max-md:w-[40px] max-md:h-[40px]"
+                        onClick={next}
+                        aria-label="Next testimonial"
+                    >
+                        <Image src="/photos/main/right arrow.svg" alt="Next" width={60} height={60} className="w-full h-full object-contain block" />
                     </button>
                 </div>
-
             </div>
         </section>
     )
