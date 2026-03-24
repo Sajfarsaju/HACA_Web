@@ -96,25 +96,6 @@ export default function TechSchoolPage() {
                                 <div style={{ position: "absolute", inset: 0, opacity: 0.45 }}>
                                     <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" aria-hidden />
                                 </div>
-                                <div className="absolute top-[950px] left-1/2 -translate-x-1/2 w-[715px] max-w-[90vw] h-[500px] rotate-[-164.21deg] opacity-90 max-md:hidden pointer-events-none">
-                                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
-                                </div>
-                            </div>
-
-                            {/* Tablet+: orange gradient — localized at TechCulture title right side */}
-                            <div
-                                className="hidden md:block absolute pointer-events-none z-[2]"
-                                style={{
-                                    top: "1150px",
-                                    left: "55%",
-                                    transform: "translateY(-50%)",
-                                    width: "320px",
-                                    height: "260px",
-                                    rotate: "-164.21deg",
-                                    opacity: 0.72,
-                                }}
-                            >
-                                <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" aria-hidden />
                             </div>
 
                             <SectionReveal>

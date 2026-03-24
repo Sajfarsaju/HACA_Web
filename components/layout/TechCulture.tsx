@@ -11,8 +11,9 @@ interface BentoCellProps {
     className?: string;
 }
 
-const GRADIENT_BORDER = `linear-gradient(0deg, rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
-    linear-gradient(90deg, rgba(255,86,0,0.68) 0%, rgba(105,74,255,0.68) 100%)`;
+// Purple / dark theme only — no orange in gallery borders
+const GRADIENT_BORDER = `linear-gradient(0deg, rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+    linear-gradient(90deg, rgba(105,74,255,0.55) 0%, rgba(132,0,255,0.45) 50%, rgba(60,30,120,0.5) 100%)`;
 
 function BentoCell({ label, imgSrc, style, className = "" }: BentoCellProps) {
     return (
