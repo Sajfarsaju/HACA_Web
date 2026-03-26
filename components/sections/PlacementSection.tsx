@@ -1,15 +1,106 @@
 "use client"
 
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import Link from "next/link"
 import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
+import { PlacementCardMedia } from "@/components/success-story/PlacementCardMedia"
 
 const COLUMNS = [0, 1, 2, 3, 4]
 const CARDS_PER_COL = 7
+const TOTAL_SLOTS = COLUMNS.length * CARDS_PER_COL
+
+type PlacementItem = {
+    _id: string
+    title: string | null
+    imageUrl: string
+    /** ISO string from API — used to mix latest across schools in last two columns */
+    createdAt?: string | null
+}
+
+type PlacementGroup = { schoolName: string; items: PlacementItem[] }
+
+/** Column 0–2: fixed school order (API already returns newest-first per school). */
+const SCHOOL_BY_COLUMN: [string, string, string] = [
+    "Tech School",
+    "Marketing School",
+    "Design School",
+]
+
+/**
+ * Column-major slots: col0 = indices 0..6, col1 = 7..13, …
+ * Col 0–2 (desktop cols 1–3): latest 7 per school — Tech, Marketing, Design.
+ * Col 3–4 (desktop cols 4–5): remaining cards merged, sorted by latest first (all schools mixed).
+ */
+function buildPlacementSlots(groups: PlacementGroup[]): (PlacementItem | null)[] {
+    const bySchool = new Map<string, PlacementItem[]>()
+    for (const g of groups) {
+        if (g.schoolName && Array.isArray(g.items)) {
+            bySchool.set(g.schoolName, g.items)
+        }
+    }
+
+    const next: (PlacementItem | null)[] = Array.from({ length: TOTAL_SLOTS }, () => null)
+    const usedIds = new Set<string>()
+
+    SCHOOL_BY_COLUMN.forEach((schoolName, colIndex) => {
+        const schoolItems = bySchool.get(schoolName) ?? []
+        for (let i = 0; i < CARDS_PER_COL; i++) {
+            const item = schoolItems[i] ?? null
+            const slotIndex = colIndex * CARDS_PER_COL + i
+            next[slotIndex] = item
+            if (item) usedIds.add(item._id)
+        }
+    })
+
+    const allItems: PlacementItem[] = []
+    for (const g of groups) {
+        if (Array.isArray(g.items)) allItems.push(...g.items)
+    }
+    const pool = allItems.filter((item) => !usedIds.has(item._id))
+    const mixedLatest = [...pool].sort((a, b) => {
+        const ta = a.createdAt ? new Date(a.createdAt).getTime() : 0
+        const tb = b.createdAt ? new Date(b.createdAt).getTime() : 0
+        return tb - ta
+    })
+
+    for (let c = 0; c < 2; c++) {
+        const colIndex = 3 + c
+        for (let i = 0; i < CARDS_PER_COL; i++) {
+            const slotIndex = colIndex * CARDS_PER_COL + i
+            const pick = mixedLatest[c * CARDS_PER_COL + i]
+            next[slotIndex] = pick ?? null
+        }
+    }
+
+    return next
+}
+
+/** Same card shell as success-story `SchoolPlacementSection`. */
+const placementCardClassName =
+    "group relative flex flex-col bg-[#0A0C16] overflow-hidden border border-[#232D6B]/30 hover:border-[#232D6B] transition-all duration-500 shadow-2xl w-full shrink-0 min-w-0 rounded-[10px] aspect-[247.6561737060547/270]"
 
 export function PlacementSection() {
+    const router = useRouter()
     const columnRefs = useRef<(HTMLDivElement | null)[]>([])
+    const [slots, setSlots] = useState<(PlacementItem | null)[]>(() =>
+        Array.from({ length: TOTAL_SLOTS }, () => null)
+    )
+
+    useEffect(() => {
+        const base = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:5000"
+        fetch(`${base}/api/placements/grouped?limit=200`, { cache: "no-store" })
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data: { groups?: PlacementGroup[] } | null) => {
+                const groups = data?.groups
+                if (!Array.isArray(groups)) {
+                    setSlots(Array.from({ length: TOTAL_SLOTS }, () => null))
+                    return
+                }
+                setSlots(buildPlacementSlots(groups))
+            })
+            .catch(() => setSlots(Array.from({ length: TOTAL_SLOTS }, () => null)))
+    }, [])
 
     useEffect(() => {
         const directions = COLUMNS.map((idx) => (idx % 2 === 0 ? 1 : -1))
@@ -50,7 +141,7 @@ export function PlacementSection() {
     return (
         <section className="w-full section-4k min-h-[1074px] mx-auto pt-[84px] px-[60px] pb-[32px] flex flex-col items-center gap-[36px] opacity-100 overflow-hidden max-[600px]:max-w-full max-[600px]:min-h-[666px] max-[600px]:p-[20px] max-[600px]:gap-[26px]">
             {/* ── Header: Badge + Heading ── */}
-            <div className="w-full max-w-[min(1320px,91vw)] flex flex-col items-center gap-[20px] max-[600px]:max-w-[335px] max-[600px]:gap-[7.97px]">
+            <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none flex flex-col items-center gap-[20px] max-[600px]:max-w-[335px] max-[600px]:gap-[7.97px]">
                 {/* Badge Button */}
                 <button className="w-[242px] h-[64px] flex items-center justify-center p-0 rounded-[100px] border-none bg-transparent cursor-default max-[600px]:w-[175px] max-[600px]:h-[46px]" aria-label="Student Placements">
                     <Image
@@ -69,7 +160,7 @@ export function PlacementSection() {
             </div>
 
             {/* ── Card Grid: each column scrolls vertically, cards clip at container ── */}
-            <div className="w-full max-w-[min(1320px,91vw)] h-[700px] grid grid-cols-5 gap-[20px] overflow-hidden items-stretch max-[1200px]:grid-cols-4 max-[1200px]:h-[750px] max-[900px]:grid-cols-3 max-[900px]:h-[700px] max-[600px]:max-w-[335px] max-[600px]:h-[500px] max-[600px]:grid-cols-2 max-[600px]:gap-[13px]">
+            <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none h-[700px] grid grid-cols-5 gap-[20px] overflow-hidden items-stretch max-[1200px]:grid-cols-4 max-[1200px]:h-[750px] max-[900px]:grid-cols-3 max-[900px]:h-[700px] max-[600px]:max-w-[335px] max-[600px]:h-[500px] max-[600px]:grid-cols-2 max-[600px]:gap-[13px]">
                 {COLUMNS.map((colIdx) => (
                     <div
                         key={colIdx}
@@ -78,25 +169,29 @@ export function PlacementSection() {
                         }}
                         className="flex flex-col gap-[20px] overflow-hidden min-h-0 max-[1200px]:[&:nth-child(5)]:hidden max-[900px]:[&:nth-child(n+4)]:hidden max-[600px]:[&:nth-child(n+3)]:hidden"
                     >
-                        {Array.from({ length: CARDS_PER_COL }).map((_, cardIdx) => (
-                            <div key={cardIdx} className="relative w-full aspect-[248/270] shrink-0 rounded-bl-[10px] rounded-br-[10px] overflow-hidden bg-[#1a1a2e] max-[600px]:aspect-[161/176] max-[600px]:rounded-bl-[6.52px] max-[600px]:rounded-br-[6.52px]">
-                                <Image
-                                    src="/photos/main/placement card.png"
-                                    alt="Student placement"
-                                    fill
-                                    className="object-cover object-top"
-                                    sizes="(max-width: 767px) 161px, 248px"
-                                />
-                            </div>
-                        ))}
+                        {Array.from({ length: CARDS_PER_COL }).map((_, cardIdx) => {
+                            const slotIndex = colIdx * CARDS_PER_COL + cardIdx
+                            const item = slots[slotIndex]
+                            return (
+                                <div key={`${colIdx}-${cardIdx}-${item?._id ?? "empty"}`} className={placementCardClassName}>
+                                    <div className="relative w-full h-full overflow-hidden flex-1 min-h-0">
+                                        <PlacementCardMedia
+                                            imageUrl={item?.imageUrl ?? null}
+                                            alt={item?.title || "Student placement"}
+                                        />
+                                    </div>
+                                </div>
+                            )
+                        })}
                     </div>
                 ))}
             </div>
 
             {/* ── View More Button ── */}
             <div className="flex justify-center">
-                <Link href="/success-story" className="flex items-center justify-center no-underline">
-                    <motion.button
+                <motion.button
+                        type="button"
+                        onClick={() => router.push("/success-story")}
                         className="group relative w-[227px] h-[55px] rounded-[100px] border-none cursor-pointer flex items-center justify-center bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-[600px]:w-[182px] max-[600px]:h-[46px] max-[600px]:rounded-[82px] max-[600px]:px-[18px] overflow-hidden"
                         whileHover={{ scale: 1.04 }}
                         whileTap={{ scale: 0.97 }}
@@ -109,7 +204,6 @@ export function PlacementSection() {
                             View More Placements
                         </span>
                     </motion.button>
-                </Link>
             </div>
         </section>
     )
