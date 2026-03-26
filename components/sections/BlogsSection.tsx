@@ -30,7 +30,7 @@ export function BlogsSection() {
             {/* ─── Header ─── */}
             <div className="w-full max-w-[300px] flex flex-col items-center gap-[10px] max-md:max-w-[335px] max-md:self-start max-md:items-start max-md:gap-[7.97px]">
                 {/* Pill button — viewBox 133×64, inner pill 111×42 */}
-                <button className="bg-transparent border-none p-0 cursor-pointer w-[133px] h-[64px] flex items-center shrink-0 transition-transform duration-200 ease-in-out hover:scale-104 active:scale-96 max-md:w-[93.5px] max-md:h-auto" aria-label="Blogs">
+                <button type="button" className="bg-transparent border-none p-0 cursor-default w-[133px] h-[64px] flex items-center shrink-0 max-md:w-[93.5px] max-md:h-auto" aria-label="Blogs">
                     <Image
                         src="/photos/main/blogs arrow.svg"
                         alt="Blogs"
@@ -45,7 +45,7 @@ export function BlogsSection() {
             </div>
 
             {/* ─── Cards grid ─── */}
-            <div className="w-full max-w-[min(1320px,91vw)] flex flex-row justify-between gap-0 max-[1200px]:justify-center max-[1200px]:gap-[26px] max-md:flex-col max-md:gap-[20px] max-md:max-w-[335px] max-md:self-center">
+            <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none flex flex-row justify-between gap-0 max-[1200px]:justify-center max-[1200px]:gap-[26px] max-md:flex-col max-md:gap-[20px] max-md:max-w-[335px] max-md:self-center">
                 {blogs.map((blog) => (
                     <article key={blog.id} className="w-[calc(407/1320*100%)] flex flex-col gap-[20px] bg-transparent border border-[#25317d] rounded-[20px] p-[10px] box-border overflow-hidden max-[1200px]:w-[calc(50%-13px)] max-[1200px]:max-w-[407px] [&:nth-child(3)]:max-[1200px]:hidden max-md:w-full max-md:p-[8.23px] max-md:gap-[16.46px] max-md:rounded-[16.46px] max-md:border-[0.82px] [&:nth-child(n+3)]:max-md:hidden">
 
@@ -95,7 +95,7 @@ export function BlogsSection() {
             {/* ─── Bottom CTA ─── */}
             <div className="flex justify-center">
                 <a
-                    href="#"
+                    href="/blog"
                     className="inline-flex no-underline transition-transform duration-200 ease-in-out hover:scale-105 active:scale-97"
                     aria-label="Read more blogs"
                 >

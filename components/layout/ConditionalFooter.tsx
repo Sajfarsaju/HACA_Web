@@ -12,6 +12,11 @@ export function ConditionalFooter() {
         return null;
     }
 
+    // Admin uses its own full-page layout
+    if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+        return null;
+    }
+
     // Hide global footer on all Tech School routes (home, courses, projects, etc.)
     if (pathname === "/schools/tech" || pathname.startsWith("/schools/tech/")) {
         return null;
