@@ -5,12 +5,15 @@ import { motion } from "framer-motion"
 import { useState, useCallback, useEffect } from "react"
 
 /* ── Testimonial card data ── */
+/** Shared card surface — border applied on the carousel wrapper; grill pattern unchanged in `TestimonialCardContent`. */
+const TESTIMONIAL_CARD_BG = "#000319"
+
 const testimonials = [
-    { id: 0, gradient: "linear-gradient(135deg, #0d1a4a 0%, #1a4fff22 100%)", quote: "The digital marketing classes were practical, up to date, and easy to follow. The mentors were incredibly supportive, and the mock interviews really boosted my confidence.", name: "Nadha Faizal", role: "Digital Marketer" },
-    { id: 1, gradient: "linear-gradient(135deg, #000319 0%, #25317D55 100%)", quote: "HACA's design school gave me the skills to land my dream job. The portfolio projects were exactly what recruiters wanted to see.", name: "Priya Sharma", role: "UI/UX Designer" },
-    { id: 2, gradient: "linear-gradient(135deg, #0d1a4a 0%, #1a4fff22 100%)", quote: "I switched from a non-tech background to a developer role in 6 months. The tech school curriculum is intense but worth every hour.", name: "Arjun Mehta", role: "Full Stack Developer" },
-    { id: 3, gradient: "linear-gradient(135deg, #000319 0%, #25317D55 100%)", quote: "The finance courses helped me understand real-world analysis. Now I work at a leading investment firm.", name: "Sneha Reddy", role: "Financial Analyst" },
-    { id: 4, gradient: "linear-gradient(135deg, #0d1a4a 0%, #1a4fff22 100%)", quote: "Best decision I made for my career. The placement support and industry connections opened doors I never thought possible.", name: "Rahul Kumar", role: "Marketing Manager" },
+    { id: 0, quote: "The digital marketing classes were practical, up to date, and easy to follow. The mentors were incredibly supportive, and the mock interviews really boosted my confidence.", name: "Nadha Faizal", role: "Digital Marketer" },
+    { id: 1, quote: "HACA's design school gave me the skills to land my dream job. The portfolio projects were exactly what recruiters wanted to see.", name: "Priya Sharma", role: "UI/UX Designer" },
+    { id: 2, quote: "I switched from a non-tech background to a developer role in 6 months. The tech school curriculum is intense but worth every hour.", name: "Arjun Mehta", role: "Full Stack Developer" },
+    { id: 3, quote: "The finance courses helped me understand real-world analysis. Now I work at a leading investment firm.", name: "Sneha Reddy", role: "Financial Analyst" },
+    { id: 4, quote: "Best decision I made for my career. The placement support and industry connections opened doors I never thought possible.", name: "Rahul Kumar", role: "Marketing Manager" },
 ]
 
 function mod(n: number, m: number) { return ((n % m) + m) % m }
@@ -25,7 +28,7 @@ function getOffset(index: number, active: number, total: number) {
 /* Card inner content */
 function TestimonialCardContent({ t }: { t: (typeof testimonials)[0] }) {
     return (
-        <div className="w-full h-full relative overflow-hidden max-md:p-[16px] max-md:flex max-md:flex-col max-md:gap-[10px]">
+        <div className="w-full h-full relative overflow-hidden max-md:p-0">
             <div
                 className="pointer-events-none absolute inset-[1px] rounded-[inherit]"
                 style={{
@@ -37,41 +40,49 @@ function TestimonialCardContent({ t }: { t: (typeof testimonials)[0] }) {
                     maskImage: "linear-gradient(to bottom left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 35%, rgba(0,0,0,0.1) 75%, rgba(0,0,0,0) 100%)",
                 }}
             />
+            {/* Opening quote — desktop: left edge aligned with body copy (Figma); mobile unchanged */}
             <Image
                 src="/photos/main/inverter coma.svg"
-                alt="Quote mark"
+                alt=""
                 width={210}
                 height={142}
-                className="absolute top-[4%] left-[2.97%] w-[clamp(32px,5vw,70px)] h-auto pointer-events-none select-none block max-md:static max-md:w-[clamp(28px,10vw,44px)]"
+                className="pointer-events-none select-none absolute left-[4.75%] top-[4%] block h-auto w-[clamp(32px,5vw,70px)] max-md:left-[16.21px] max-md:top-[10px] max-md:w-[clamp(26px,7.2vw,36px)]"
                 aria-hidden="true"
             />
-            <p className="absolute top-[34.03%] left-[4.75%] w-[90.5%] font-rethink font-medium text-[clamp(12px,1.4vw,20px)] leading-[100%] tracking-[-0.02em] text-[#ffffff] m-0 max-md:static max-md:w-full max-md:text-[12px]">
+            <p
+                className="absolute top-[34.03%] left-[4.75%] w-[90.5%] font-rethink font-medium text-[clamp(12px,1.4vw,20px)] leading-[100%] tracking-[-0.02em] text-[#ffffff] m-0 max-md:left-[16.21px] max-md:top-[43.23px] max-md:h-[76.73px] max-md:w-[min(302.58px,calc(100%-32.42px))] max-md:overflow-y-auto max-md:font-semibold max-md:text-[clamp(13px,3.85vw,14px)] max-md:leading-[100%] max-md:tracking-[-0.02em]"
+            >
                 {t.quote}
             </p>
-            <div className="absolute top-[73.46%] left-[4.75%] flex flex-col gap-[clamp(2px,0.3vw,5px)] max-md:static max-md:mt-auto">
-                <h3 className="font-rethink font-semibold text-[clamp(14px,1.6vw,24px)] leading-[100%] tracking-[-0.02em] text-[#ffffff] m-0">{t.name}</h3>
-                <span className="font-manrope font-normal text-[clamp(9px,1.1vw,16px)] leading-[100%] tracking-[-0.02em] text-[#A7ADBE] m-0">{t.role}</span>
+            <div className="absolute top-[73.46%] left-[4.75%] flex flex-col gap-[clamp(2px,0.3vw,5px)] max-md:left-[16.21px] max-md:top-[138px] max-md:bottom-auto">
+                <h3 className="font-rethink font-semibold text-[clamp(14px,1.6vw,24px)] leading-[100%] tracking-[-0.02em] text-[#ffffff] m-0 max-md:text-[clamp(14px,4vw,16px)] max-md:leading-[100%] max-md:tracking-[-0.02em]">
+                    {t.name}
+                </h3>
+                <span className="font-manrope font-normal text-[clamp(9px,1.1vw,16px)] leading-[100%] tracking-[-0.02em] text-[#A7ADBE] m-0 max-md:text-[clamp(11px,3.2vw,13px)] max-md:leading-[100%] max-md:tracking-[-0.02em]">
+                    {t.role}
+                </span>
             </div>
         </div>
     )
 }
-
-const AUTO_PLAY_INTERVAL = 3000
 
 export function TestimonialsSection() {
     const [active, setActive] = useState(0)
     const total = testimonials.length
     const [touchStart, setTouchStart] = useState<number | null>(null)
     const [touchEnd, setTouchEnd] = useState<number | null>(null)
+    const [isMobile, setIsMobile] = useState(false)
 
     const prev = useCallback(() => setActive(a => mod(a - 1, total)), [total])
     const next = useCallback(() => setActive(a => mod(a + 1, total)), [total])
 
-    /* Auto-play — resets on every active change */
     useEffect(() => {
-        const timer = setInterval(() => setActive(a => mod(a + 1, total)), AUTO_PLAY_INTERVAL)
-        return () => clearInterval(timer)
-    }, [active, total])
+        const mq = window.matchMedia("(max-width: 767px)")
+        const update = () => setIsMobile(mq.matches)
+        update()
+        mq.addEventListener("change", update)
+        return () => mq.removeEventListener("change", update)
+    }, [])
 
     /* Touch swipe */
     const minSwipeDistance = 50
@@ -105,7 +116,8 @@ export function TestimonialsSection() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
                 <button
-                    className="bg-transparent border-none p-0 cursor-pointer w-[185px] h-[64px] flex items-center shrink-0 transition-transform duration-200 hover:scale-104 active:scale-96 max-md:w-[131.7px] max-md:h-auto"
+                    type="button"
+                    className="bg-transparent border-none p-0 cursor-default w-[185px] h-[64px] flex items-center shrink-0 max-md:w-[131.7px] max-md:h-auto"
                     aria-label="Testimonials label"
                 >
                     <Image src="/photos/main/testimonials.svg" alt="Testimonials" width={185} height={64} className="w-full h-auto block" priority />
@@ -129,6 +141,7 @@ export function TestimonialsSection() {
                             const offset = getOffset(i, active, total)
                             const isCenter = offset === 0
                             const isVisible = Math.abs(offset) <= 1
+                            const shouldShowCard = isMobile ? isCenter : isVisible
 
                             // translateX as CSS calc — same logic as TechMentors
                             let tx = "0px"
@@ -148,10 +161,11 @@ export function TestimonialsSection() {
                                         if (offset === -1) prev()
                                         if (offset === 1)  next()
                                     }}
-                                    role={isCenter ? undefined : "button"}
-                                    tabIndex={isCenter ? undefined : 0}
-                                    aria-label={offset === -1 ? "Previous testimonial" : offset === 1 ? "Next testimonial" : undefined}
+                                    role={!isMobile && !isCenter ? "button" : undefined}
+                                    tabIndex={!isMobile && !isCenter ? 0 : undefined}
+                                    aria-label={!isMobile && offset === -1 ? "Previous testimonial" : !isMobile && offset === 1 ? "Next testimonial" : undefined}
                                     onKeyDown={e => {
+                                        if (isMobile) return
                                         if (e.key === "Enter") {
                                             if (offset === -1) prev()
                                             if (offset === 1)  next()
@@ -162,15 +176,15 @@ export function TestimonialsSection() {
                                         width: cardW,
                                         height: cardH,
                                         borderRadius,
-                                        border: "clamp(0.7px,0.11vw,1.64px) solid #25317D",
-                                        background: t.gradient,
+                                        border: "1.64px solid #25317D",
+                                        background: TESTIMONIAL_CARD_BG,
                                         overflow: "hidden",
                                         boxSizing: "border-box",
                                         cursor: isCenter ? "default" : "pointer",
                                         zIndex: isCenter ? 2 : 1,
-                                        opacity: isCenter ? 1 : isVisible ? 0.4 : 0,
+                                        opacity: isCenter ? 1 : shouldShowCard ? 0.4 : 0,
                                         transform: `translateX(${tx}) scale(${isCenter ? 1 : 0.95})`,
-                                        pointerEvents: isVisible ? "auto" : "none",
+                                        pointerEvents: shouldShowCard ? "auto" : "none",
                                         transition:
                                             "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, width 0.5s ease, height 0.5s ease",
                                     }}

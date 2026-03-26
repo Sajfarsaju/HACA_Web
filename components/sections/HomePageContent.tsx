@@ -13,45 +13,45 @@ import { StayConnectedSection } from "@/components/sections/StayConnectedSection
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { WhyHacaSection } from "@/components/sections/WhyHacaSection";
 import { SectionReveal } from "@/components/animations/SectionReveal";
-import { PageLoadReveal } from "@/components/animations/PageLoadReveal";
 
 export function HomePageContent() {
     return (
-        <PageLoadReveal duration={0.5} y={12}>
+        <>
+            {/* Above-the-fold: own staggered animations inside Hero */}
             <Hero />
-            <SectionReveal delay={0.1} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={0} delay={0.06} duration={0.55} y={28}>
                 <PlacementSection />
             </SectionReveal>
-            <SectionReveal delay={0.12} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={1} delay={0.06} duration={0.55} y={28}>
                 <WhyHacaSection />
             </SectionReveal>
-            <SectionReveal delay={0.14} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={2} delay={0.06} duration={0.55} y={28}>
                 <SchoolsSection />
             </SectionReveal>
-            <SectionReveal delay={0.1} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={3} delay={0.06} duration={0.55} y={28}>
                 <MentorsSection />
             </SectionReveal>
-            <SectionReveal delay={0.12} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={4} delay={0.06} duration={0.55} y={28}>
                 <EnquireSection />
             </SectionReveal>
-            <SectionReveal delay={0.14} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={5} delay={0.06} duration={0.55} y={28}>
                 <LifeAtHacaSection />
             </SectionReveal>
-            <SectionReveal delay={0.1} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={6} delay={0.06} duration={0.55} y={28}>
                 <StayConnectedSection />
             </SectionReveal>
-            <SectionReveal delay={0.12} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={7} delay={0.06} duration={0.55} y={28}>
                 <TestimonialsSection />
             </SectionReveal>
-            <SectionReveal delay={0.14} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={8} delay={0.06} duration={0.55} y={28}>
                 <BlogsSection />
             </SectionReveal>
-            <SectionReveal delay={0.1} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={9} delay={0.06} duration={0.55} y={28}>
                 <FAQSection />
             </SectionReveal>
-            <SectionReveal delay={0.12} duration={0.65} y={28}>
+            <SectionReveal sectionIndex={10} delay={0.06} duration={0.55} y={28}>
                 <HeroBottom />
             </SectionReveal>
-        </PageLoadReveal>
+        </>
     );
 }

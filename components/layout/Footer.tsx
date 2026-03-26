@@ -35,14 +35,14 @@ export function Footer() {
         <footer className="w-full bg-[#000210] overflow-hidden flex flex-col relative">
             {/* Gradient overlay: desktop 1113×898, mobile 460×482, center anchored to footer bottom */}
             <div
-                className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2 w-[clamp(460px,77.3vw,1113px)] h-[clamp(482px,62.4vw,898px)] pointer-events-none backdrop-blur-[131px] max-md:backdrop-blur-[54px]"
+                className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2 w-[clamp(460px,77.3vw,1113px)] h-[clamp(482px,62.4vw,898px)] lg:h-[clamp(360px,45vw,660px)] pointer-events-none backdrop-blur-[131px] max-md:backdrop-blur-[54px]"
                 style={{
                     background: "radial-gradient(50% 50% at 50% 50%, #1A4FFF 0%, #000210 100%)",
                 }}
                 aria-hidden
             />
             <div
-                className="relative z-10 w-full section-4k mx-auto flex flex-col px-[clamp(20px,4.4vw,63px)] pt-[clamp(20px,4.2vw,60px)] pb-[clamp(20px,4.2vw,60px)] gap-[clamp(20px,3.5vw,50px)] min-h-[clamp(534px,50vw,751px)]"
+                className="relative z-10 w-full section-4k mx-auto flex flex-col px-[clamp(20px,4.4vw,63px)] pt-[clamp(20px,4.2vw,60px)] pb-[clamp(20px,4.2vw,60px)] gap-[clamp(20px,3.5vw,50px)] min-h-[clamp(534px,50vw,751px)] lg:min-h-[clamp(420px,34vw,620px)]"
             >
                 <div className="absolute right-[clamp(20px,4.4vw,63px)] top-[clamp(20px,4.2vw,40px)] md:top-1/2 md:-translate-y-1/2 flex justify-end">
                     <BackToTopButton />
@@ -69,7 +69,9 @@ export function Footer() {
                                         <li key={item.label}>
                                             <Link
                                                 href={item.href}
-                                                className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[100%] tracking-[0] text-[#A7ADBE] hover:text-white transition-colors"
+                                                className={`font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[100%] tracking-[0] text-[#A7ADBE] hover:text-white transition-colors ${
+                                                    item.label === "Student Portfolio" ? "lg:whitespace-nowrap" : ""
+                                                }`}
                                             >
                                                 {item.label}
                                             </Link>

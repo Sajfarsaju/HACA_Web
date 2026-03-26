@@ -2,6 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
+import { AnimatePresence, motion } from "framer-motion"
 
 type WhyCard = { id: string; heading: string; paragraph: string }
 
@@ -56,17 +57,21 @@ const allCards: WhyCard[] = [
     },
 ]
 
+/** Time each set of four cards stays visible before crossfading to the other set */
 const ROTATE_MS = 5000
+const CROSSFADE_DURATION_S = 0.45
 
 export function WhyHacaSection() {
     const [page, setPage] = React.useState(0)
+    const [isPaused, setIsPaused] = React.useState(false)
 
     React.useEffect(() => {
+        if (isPaused) return
         const timer = window.setInterval(() => {
             setPage((p) => (p === 0 ? 1 : 0))
         }, ROTATE_MS)
         return () => window.clearInterval(timer)
-    }, [])
+    }, [isPaused])
 
     const cards = page === 0 ? allCards.slice(0, 4) : allCards.slice(4, 8)
 
@@ -112,15 +117,27 @@ export function WhyHacaSection() {
                     ))}
                 </div>
                 <div
+                    role="group"
                     className="relative z-[1] min-w-0 grid grid-cols-2 gap-[clamp(10px,1.5vw,22px)] rounded-[24px] bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,rgba(30,80,255,0.55)_0%,rgba(15,30,120,0.35)_35%,rgba(0,3,25,0.0)_70%)] max-[900px]:flex-none max-[900px]:w-max max-[900px]:max-w-full max-[900px]:gap-[16px] max-[900px]:justify-items-center max-[900px]:mx-auto max-md:grid-cols-1 max-md:gap-[16px] max-md:w-full max-md:rounded-[20px] max-md:bg-transparent max-md:justify-items-center"
                     aria-live="polite"
                     aria-label={page === 0 ? "Why HACA highlights, set 1 of 2" : "Why HACA highlights, set 2 of 2"}
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
                 >
-                {cards.map((card) => (
-                    <div
-                        key={card.id}
-                        className="group w-full h-[clamp(140px,14vw,193px)] rounded-[20px] border border-[rgba(35,45,107,0.8)] bg-[#000319] p-[clamp(14px,1.5vw,20px)] overflow-hidden relative cursor-default shadow-[inset_0_0_30px_rgba(20,60,200,0.07)] max-[900px]:w-full max-[900px]:max-w-[335px] max-[900px]:h-auto max-[900px]:min-h-[193px] max-[900px]:p-[20px] max-[900px]:rounded-[20px] max-[900px]:border max-[900px]:flex max-[900px]:flex-col max-[900px]:justify-start max-[900px]:items-center max-[900px]:mx-auto max-md:max-w-none max-md:w-full max-md:h-auto max-md:min-h-[clamp(172px,44vw,193px)] max-md:p-[clamp(16px,4.5vw,20px)] max-md:rounded-[20px] max-md:border max-md:border-[#232D6B] max-md:shadow-[inset_0_0_30px_rgba(20,60,200,0.06)] max-md:mx-auto"
-                    >
+                {cards.map((card, slotIndex) => (
+                    <div key={slotIndex} className="relative min-h-0 w-full min-w-0">
+                        <AnimatePresence mode="wait" initial={false}>
+                            <motion.div
+                                key={card.id}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{
+                                    duration: CROSSFADE_DURATION_S,
+                                    ease: [0.4, 0, 0.2, 1],
+                                }}
+                                className="group w-full h-[clamp(140px,14vw,193px)] rounded-[20px] border border-[rgba(35,45,107,0.8)] bg-[#000319] p-[clamp(14px,1.5vw,20px)] overflow-hidden relative cursor-default shadow-[inset_0_0_30px_rgba(20,60,200,0.07)] max-[900px]:w-full max-[900px]:max-w-[335px] max-[900px]:h-auto max-[900px]:min-h-[193px] max-[900px]:p-[20px] max-[900px]:rounded-[20px] max-[900px]:border max-[900px]:flex max-[900px]:flex-col max-[900px]:justify-start max-[900px]:items-center max-[900px]:mx-auto max-md:max-w-none max-md:w-full max-md:h-auto max-md:min-h-[clamp(172px,44vw,193px)] max-md:p-[clamp(16px,4.5vw,20px)] max-md:rounded-[20px] max-md:border max-md:border-[#232D6B] max-md:shadow-[inset_0_0_30px_rgba(20,60,200,0.06)] max-md:mx-auto"
+                            >
                         {/* Grid / grill: #000319 base, very light line grid */}
                         <div
                             className="pointer-events-none absolute inset-[1px] rounded-[18px]"
@@ -164,6 +181,8 @@ export function WhyHacaSection() {
                                 <p className="font-rethink font-medium text-[clamp(12px,1vw,14px)] leading-[140%] tracking-[-0.02em] text-[#A7ADBE] m-0 break-words max-[900px]:font-medium max-[900px]:text-[14px] max-[900px]:leading-[110%] max-[900px]:tracking-[-0.02em] max-[900px]:text-center max-md:font-medium max-md:text-[14px] max-md:leading-[110%] max-md:tracking-[-0.02em] max-md:text-center">{card.paragraph}</p>
                             </div>
                         </div>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 ))}
                 </div>

@@ -8,7 +8,7 @@ export function AboutHacaSection() {
                 {/* Left Content */}
                 <div className="w-full max-w-[455px] flex flex-col gap-[20px] opacity-100 max-[1024px]:max-w-[45%] max-[1024px]:items-start max-md:max-w-[335px] max-md:items-center">
                     <div className="w-full flex justify-start max-md:justify-center">
-                        <button className="w-[165px] h-[42px] bg-transparent border-none rounded-[100px] p-[8px_8px_8px_16px] flex items-center justify-center cursor-pointer opacity-100 max-md:w-[118px] max-md:h-[31.8px]">
+                        <button type="button" className="w-[165px] h-[42px] bg-transparent border-none rounded-[100px] p-[8px_8px_8px_16px] flex items-center justify-center cursor-default opacity-100 max-md:w-[118px] max-md:h-[31.8px]">
                             <span className="">
                                 <Image
                                     src="/photos/main/aboutHaca.svg"

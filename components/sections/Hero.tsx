@@ -6,8 +6,9 @@ import { motion } from "framer-motion"
 import { PhotoGallery } from "./PhotoGallery"
 import { PressLogos } from "./PressLogos"
 import { StatsSection } from "./StatsSection"
-import { AboutHacaSection } from './AboutHacaSection'
-import { Haca360Section } from './Haca360Section'
+import { AboutHacaSection } from "./AboutHacaSection"
+import { Haca360Section } from "./Haca360Section"
+import { SectionReveal } from "@/components/animations/SectionReveal"
 
 export function Hero() {
     return (
@@ -190,20 +191,26 @@ export function Hero() {
                 </div>
                 {/* END hero-upper */}
 
-                {/* Photo Card Scrolling Gallery */}
-                <PhotoGallery />
+                {/* Below the fold: reveal each block when it scrolls into view */}
+                <SectionReveal className="w-full" duration={0.55} y={28} delay={0.05}>
+                    <PhotoGallery />
+                </SectionReveal>
 
-                {/* Press Logos Section */}
-                <PressLogos />
+                <SectionReveal className="w-full" duration={0.55} y={28} delay={0.05}>
+                    <PressLogos />
+                </SectionReveal>
 
-                {/* Stats Section */}
-                <StatsSection />
+                <SectionReveal className="w-full" duration={0.55} y={28} delay={0.05}>
+                    <StatsSection />
+                </SectionReveal>
 
-                {/* About HACA Section */}
-                <AboutHacaSection />
+                <SectionReveal className="w-full" duration={0.55} y={28} delay={0.05}>
+                    <AboutHacaSection />
+                </SectionReveal>
 
-                {/* HACA 360 Section */}
-                <Haca360Section />
+                <SectionReveal className="w-full" duration={0.55} y={28} delay={0.05}>
+                    <Haca360Section />
+                </SectionReveal>
             </div>
             {/* END hero-inner */}
         </section>

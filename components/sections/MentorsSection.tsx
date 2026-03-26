@@ -1,5 +1,7 @@
+"use client"
+
 import Image from "next/image"
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 
 const mentors = [
     {
@@ -29,6 +31,8 @@ const mentors = [
 ]
 
 export function MentorsSection() {
+    const prefersReducedMotion = useReducedMotion()
+
     return (
         <section className="w-full max-w-[1440px] mx-auto p-[40px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,22px)] max-md:gap-[26px] max-md:items-start">
             {/* Header */}
@@ -52,10 +56,18 @@ export function MentorsSection() {
 
             {/* Cards Grid */}
             <div className="w-full max-w-[1320px] h-[428px] flex justify-between items-center gap-[17.33px] max-md:w-full max-md:max-w-[335px] max-md:h-[909.27px] max-md:flex-col max-md:gap-[20px] max-md:items-center max-md:self-center">
-                {mentors.map((mentor) => (
-                    <div
+                {mentors.map((mentor, index) => (
+                    <motion.div
                         key={mentor.id}
                         className="flex-1 max-w-[317px] h-full flex flex-col gap-[10px] max-md:w-full max-md:max-w-[335px] max-md:h-auto max-md:gap-[10.57px] [&:nth-child(n+3)]:max-md:hidden"
+                        initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
+                        whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.15, margin: "-48px 0px -32px 0px" }}
+                        transition={{
+                            duration: 0.5,
+                            delay: index * 0.12,
+                            ease: [0.21, 0.47, 0.32, 0.98],
+                        }}
                     >
                         {/* Photo Card */}
                         <div
@@ -75,7 +87,7 @@ export function MentorsSection() {
                             <p className="font-outfit font-light text-[14px] leading-[140%] text-[#a3a3a3] m-0 max-md:text-[12px]">{mentor.position}</p>
                             <p className="font-outfit font-medium text-[clamp(18px,2.5vw,24px)] leading-[120%] tracking-[0%] text-[#ffffff] m-0 max-md:text-[clamp(18px,5.3vw,22px)]">{mentor.name}</p>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
 
