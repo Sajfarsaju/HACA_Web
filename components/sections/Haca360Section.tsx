@@ -25,7 +25,7 @@ export function Haca360Section() {
                             aria-hidden="true"
                         />
                     </div>
-                    <button className="inline-flex items-center justify-center w-[148px] h-[42px] p-[8px_8px_8px_16px] gap-[10px] rounded-[100px] bg-transparent border-none cursor-pointer shrink-0 max-md:w-[105px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="HACA 360">
+                    <button type="button" className="inline-flex items-center justify-center w-[148px] h-[42px] p-[8px_8px_8px_16px] gap-[10px] rounded-[100px] bg-transparent border-none cursor-default shrink-0 max-md:w-[105px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="HACA 360">
                         <Image
                             src="/photos/main/haca 360.svg"
                             alt="HACA 360"

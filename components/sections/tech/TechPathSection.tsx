@@ -109,6 +109,27 @@ export function TechPathSection() {
 
                 /* Desktop 1440px+ and 4K: slightly shorter band with softer bottom fade (mirror of tablet feel) */
                 @media (min-width: 1024px) {
+                    .tech-path-card-border::before {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        border-radius: 22px;
+                        padding: 1px;
+                        background:
+                            linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+                            linear-gradient(90deg, rgba(255, 86, 0, 0.68) 0%, rgba(105, 74, 255, 0.68) 100%);
+                        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                        -webkit-mask-composite: xor;
+                        mask-composite: exclude;
+                        pointer-events: none;
+                        z-index: 2;
+                    }
+                    /* Hide the baked-in SVG stroke so only one border is visible */
+                    .tech-path-card-border .tech-path-card-inner img {
+                        transform: scale(1.06) !important;
+                        transform-origin: center center !important;
+                    }
                     .tech-path-gradient-mask {
                         mask-image:
                             linear-gradient(
@@ -273,12 +294,12 @@ export function TechPathSection() {
                                         <div className="flex justify-start max-md:mt-0">
                                             <Link
                                                 href="/contact"
-                                                className="group relative h-[44px] min-w-[123px] rounded-full px-6 flex items-center justify-center overflow-hidden bg-white text-[#111111] transition-transform duration-200 ease-out hover:scale-105 max-md:min-w-[119px] max-md:h-[40px] max-md:rounded-[8px]"
+                                                className="group relative flex h-[44px] w-[123px] items-center justify-center overflow-hidden rounded-[10px] bg-white px-[20px] text-black shadow-[0px_2px_5px_0px_#00000040] transition-transform duration-200 ease-out hover:scale-105 max-md:h-[40px] max-md:w-[119px] max-md:rounded-[8px] max-md:px-[18px]"
                                             >
-                                                <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                                <span className="flex h-full w-full items-center justify-center whitespace-nowrap font-outfit text-[16px] font-semibold leading-[16px] text-black transition-transform duration-300 ease-out group-hover:-translate-y-full">
                                                     Know More
                                                 </span>
-                                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center whitespace-nowrap font-outfit text-[16px] font-semibold leading-[16px] text-black translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
                                                     Know More
                                                 </span>
                                             </Link>

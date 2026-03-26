@@ -99,7 +99,7 @@ export function StayConnectedSection() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
                 {/* Pill button SVG: viewBox 201×61, inner pill 190×42 */}
-                <button className="bg-transparent border-none p-0 cursor-pointer w-[201px] h-[61px] flex items-center transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 max-md:w-[143.9px] max-md:h-auto" aria-label="Stay Connected">
+                <button type="button" className="bg-transparent border-none p-0 cursor-default w-[201px] h-[61px] flex items-center max-md:w-[143.9px] max-md:h-auto" aria-label="Stay Connected">
                     <Image
                         src="/photos/main/stay connected.svg"
                         alt="Stay Connected"
@@ -117,7 +117,7 @@ export function StayConnectedSection() {
             </motion.div>
 
             {/* ─── Cards Container: 1320×344 desktop | 335 mobile ─── */}
-            <div className="w-full max-w-[min(1320px,91vw)] flex flex-col gap-[18px] max-md:max-w-[335px] max-md:gap-[20px]">
+            <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none flex flex-col gap-[18px] max-md:max-w-[335px] max-md:gap-[20px]">
                 {/* Row 1: cards 0–2 */}
                 <div className="w-full flex flex-row justify-between gap-0 max-md:flex-col max-md:gap-[20px]">
                     {cards.slice(0, 3).map((c, i) => (

@@ -104,3 +104,10 @@
 .section-4k {
   max-width: var(--section-max-w);
 }
+
+/* Mobile: avoid any max-width rounding/mismatch that can make sections look off-center. */
+@media (max-width: 1023.98px) {
+  .section-4k {
+    max-width: 100%;
+  }
+}

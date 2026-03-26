@@ -6,7 +6,11 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 
 export function BottomReserveCta() {
-    const [visible, setVisible] = useState(false)
+    const [hasPassedGallery, setHasPassedGallery] = useState(false)
+    const [isFooterInView, setIsFooterInView] = useState(false)
+
+    // Show CTA only after gallery is passed AND footer is not visible.
+    const visible = hasPassedGallery && !isFooterInView
 
     useEffect(() => {
         // Show the bar only after the *entire* photo gallery is scrolled past
@@ -14,7 +18,7 @@ export function BottomReserveCta() {
 
         const handleScroll = () => {
             if (!gallerySection) {
-                setVisible(window.scrollY > 100)
+                setHasPassedGallery(window.scrollY > 100)
                 return
             }
 
@@ -22,7 +26,7 @@ export function BottomReserveCta() {
             // When the bottom of the gallery is above the top of the viewport,
             // the user has fully scrolled past it.
             const hasPassedGallery = rect.bottom <= 0
-            setVisible(hasPassedGallery)
+            setHasPassedGallery(hasPassedGallery)
         }
 
         handleScroll()
@@ -31,6 +35,28 @@ export function BottomReserveCta() {
         return () => {
             window.removeEventListener("scroll", handleScroll)
         }
+    }, [])
+
+    useEffect(() => {
+        // Hide CTA when reaching the footer section.
+        const footerCandidates = Array.from(document.querySelectorAll("footer")) as HTMLElement[]
+        const footerEl =
+            footerCandidates.find(
+                el => el.textContent?.includes("All rights reserved") && el.textContent?.includes("HACA")
+            ) ?? footerCandidates[0] ?? null
+
+        if (!footerEl) return
+
+        const observer = new IntersectionObserver(
+            entries => {
+                const entry = entries[0]
+                setIsFooterInView(Boolean(entry?.isIntersecting))
+            },
+            { threshold: 0.01 }
+        )
+
+        observer.observe(footerEl)
+        return () => observer.disconnect()
     }, [])
 
     return (

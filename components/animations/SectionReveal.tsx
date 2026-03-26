@@ -1,29 +1,60 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
 interface SectionRevealProps {
     children: ReactNode;
+    /** Extra delay after scroll trigger (seconds) */
     delay?: number;
     duration?: number;
+    /** Vertical offset before reveal (px) */
     y?: number;
+    /** Adds stagger: delay + sectionIndex * staggerStep */
+    sectionIndex?: number;
+    /** Seconds added per sectionIndex step (default 0.04) */
+    staggerStep?: number;
+    className?: string;
 }
 
+const ease = [0.21, 0.47, 0.32, 0.98] as const;
+
 /**
- * Reveals content when it scrolls into view (loading-on-scroll effect).
- * Uses once: true so each section only animates the first time it enters the viewport.
+ * Reveals each section when it scrolls into view (one animation per section).
+ * Respects prefers-reduced-motion.
  */
-export function SectionReveal({ children, delay = 0.15, duration = 0.65, y = 28 }: SectionRevealProps) {
+export function SectionReveal({
+    children,
+    delay = 0,
+    duration = 0.55,
+    y = 24,
+    sectionIndex,
+    staggerStep = 0.04,
+    className,
+}: SectionRevealProps) {
+    const reduceMotion = useReducedMotion();
+
+    const staggerDelay =
+        sectionIndex !== undefined ? delay + sectionIndex * staggerStep : delay;
+
+    if (reduceMotion) {
+        return <div className={className}>{children}</div>;
+    }
+
     return (
         <motion.div
+            className={className}
             initial={{ opacity: 0, y }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px 0px -80px 0px", amount: 0.12 }}
+            viewport={{
+                once: true,
+                amount: 0.18,
+                margin: "-10% 0px -8% 0px",
+            }}
             transition={{
                 duration,
-                delay,
-                ease: [0.21, 0.47, 0.32, 0.98],
+                delay: staggerDelay,
+                ease,
             }}
         >
             {children}

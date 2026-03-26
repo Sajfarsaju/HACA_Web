@@ -1,113 +1,10 @@
 "use client"
 
-type Course = {
-    id: number
-    title: string
-    categorySlug: string
-    category: string
-    mode: "Offline" | "Online"
-    trainingSummary: string
-}
-
-const COURSES: Course[] = [
-    {
-        id: 1,
-        title: "Basic to Advanced AI-Integrated Digital Marketing Course",
-        categorySlug: "marketing",
-        category: "Digital Marketing",
-        mode: "Offline",
-        trainingSummary: "6 Months Training · 1 Month Internship",
-    },
-    {
-        id: 2,
-        title: "Creative Design and Communication",
-        categorySlug: "design",
-        category: "Design",
-        mode: "Offline",
-        trainingSummary: "5 Months Training · 1 Month Internship",
-    },
-    {
-        id: 3,
-        title: "Advanced Data Analytics with AI",
-        categorySlug: "tech",
-        category: "Tech",
-        mode: "Offline",
-        trainingSummary: "5 Months Training · 1 Month Project",
-    },
-    {
-        id: 4,
-        title: "Advance Practical Accounting & Financial Intelligence",
-        categorySlug: "finance",
-        category: "Finance",
-        mode: "Online",
-        trainingSummary: "6 Months Training",
-    },
-    // Duplicate patterns to form 4 rows × 3 columns
-    {
-        id: 5,
-        title: "Basic to Advanced AI-Integrated Digital Marketing Course",
-        categorySlug: "marketing",
-        category: "Digital Marketing",
-        mode: "Offline",
-        trainingSummary: "6 Months Training · 1 Month Internship",
-    },
-    {
-        id: 6,
-        title: "Creative Design and Communication",
-        categorySlug: "design",
-        category: "Design",
-        mode: "Offline",
-        trainingSummary: "5 Months Training · 1 Month Internship",
-    },
-    {
-        id: 7,
-        title: "Advanced Data Analytics with AI",
-        categorySlug: "tech",
-        category: "Tech",
-        mode: "Offline",
-        trainingSummary: "5 Months Training · 1 Month Project",
-    },
-    {
-        id: 8,
-        title: "Advance Practical Accounting & Financial Intelligence",
-        categorySlug: "finance",
-        category: "Finance",
-        mode: "Online",
-        trainingSummary: "6 Months Training",
-    },
-    {
-        id: 9,
-        title: "Basic to Advanced AI-Integrated Digital Marketing Course",
-        categorySlug: "marketing",
-        category: "Digital Marketing",
-        mode: "Offline",
-        trainingSummary: "6 Months Training · 1 Month Internship",
-    },
-    {
-        id: 10,
-        title: "Creative Design and Communication",
-        categorySlug: "design",
-        category: "Design",
-        mode: "Offline",
-        trainingSummary: "5 Months Training · 1 Month Internship",
-    },
-    {
-        id: 11,
-        title: "Advanced Data Analytics with AI",
-        categorySlug: "tech",
-        category: "Tech",
-        mode: "Offline",
-        trainingSummary: "5 Months Training · 1 Month Project",
-    },
-    {
-        id: 12,
-        title: "Advance Practical Accounting & Financial Intelligence",
-        categorySlug: "finance",
-        category: "Finance",
-        mode: "Online",
-        trainingSummary: "6 Months Training",
-    },
-]
+import { motion } from "framer-motion"
+import { useState } from "react"
+import type { Course } from "@/lib/courseCatalog"
+import { COURSES } from "@/lib/courseCatalog"
+import { CourseBreakdownModal } from "@/components/courses/CourseBreakdownModal"
 
 function filterCourses(items: Course[], activeCategory: string) {
     if (activeCategory === "all") return items
@@ -116,27 +13,46 @@ function filterCourses(items: Course[], activeCategory: string) {
 
 export function CourseCardsGrid({ activeCategory }: { activeCategory: string }) {
     const filtered = filterCourses(COURSES, activeCategory)
+    const [breakdownCourse, setBreakdownCourse] = useState<Course | null>(null)
 
     return (
-        <div className="w-full flex flex-col gap-[26px] px-4 sm:px-6 md:px-10 lg:px-[60px] pb-[60px]">
-            {/* Tablet & desktop: 2 columns on tablet, 3 on large screens */}
-            <div className="hidden md:grid w-full max-w-[1320px] mx-auto grid-cols-2 lg:grid-cols-3 gap-[26px]">
-                {filtered.map((course) => (
-                    <CourseCard key={course.id} course={course} />
-                ))}
+        <>
+            <div className="w-full flex flex-col gap-[26px] px-4 sm:px-6 md:px-10 lg:px-[60px] pb-[60px]">
+                {/* Tablet & desktop: 2 columns on tablet, 3 on large screens */}
+                <div className="hidden md:grid w-full max-w-[1320px] mx-auto grid-cols-2 lg:grid-cols-3 gap-[26px]">
+                    {filtered.map((course) => (
+                        <CourseCard
+                            key={course.id}
+                            course={course}
+                            onOpenBreakdown={() => setBreakdownCourse(course)}
+                        />
+                    ))}
+                </div>
+
+                {/* Mobile: 1 column */}
+                <div className="md:hidden w-full flex flex-col items-center gap-[20px]">
+                    {filtered.map((course) => (
+                        <CourseCard
+                            key={course.id}
+                            course={course}
+                            onOpenBreakdown={() => setBreakdownCourse(course)}
+                        />
+                    ))}
+                </div>
             </div>
 
-            {/* Mobile: 1 column */}
-            <div className="md:hidden w-full flex flex-col items-center gap-[20px]">
-                {filtered.map((course) => (
-                    <CourseCard key={course.id} course={course} />
-                ))}
-            </div>
-        </div>
+            <CourseBreakdownModal course={breakdownCourse} onClose={() => setBreakdownCourse(null)} />
+        </>
     )
 }
 
-function CourseCard({ course }: { course: Course }) {
+function CourseCard({
+    course,
+    onOpenBreakdown,
+}: {
+    course: Course
+    onOpenBreakdown: () => void
+}) {
     return (
         <article className="w-full max-w-[408px] min-h-[300px] flex flex-col gap-[20px] p-[20px] rounded-[20px] border border-[#25317D] bg-[#000319] box-border">
             {/* Top row: category pill + mode */}
@@ -160,16 +76,24 @@ function CourseCard({ course }: { course: Course }) {
             </p>
 
             {/* CTA button */}
-            <button
+            <motion.button
                 type="button"
-                className="mt-auto inline-flex items-center justify-center w-full max-w-[239px] px-5 py-[14px] rounded-[100px] font-rethink font-medium text-[16px] sm:text-[18px] leading-[27px] text-white whitespace-nowrap"
+                onClick={onOpenBreakdown}
+                className="group relative mt-auto flex h-[55px] w-full max-w-[239px] cursor-pointer items-center justify-center overflow-hidden rounded-[100px] border-none px-5"
                 style={{
                     background: "linear-gradient(180deg, #4C75FF 0%, #1A4FFF 100%)",
                 }}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
             >
-                View Course Breakdown
-            </button>
+                <span className="flex h-full w-full items-center justify-center whitespace-nowrap font-rethink text-[18px] font-medium leading-[27px] text-white transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                    View Course Breakdown
+                </span>
+                <span className="pointer-events-none absolute inset-0 flex translate-y-full items-center justify-center whitespace-nowrap font-rethink text-[18px] font-medium leading-[27px] text-white transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                    View Course Breakdown
+                </span>
+            </motion.button>
         </article>
     )
 }
-
