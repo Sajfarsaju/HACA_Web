@@ -39,7 +39,7 @@ export function PlacementCropModal({ imageSrc, open, onClose, onCropped }: Props
       const msg = e instanceof Error ? e.message : String(e);
       setCropError(msg);
     } finally {
-      setBusy(false);
+      setBusy(false)
     }
   }
 
