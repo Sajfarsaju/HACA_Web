@@ -14,7 +14,8 @@ type Props = {
  */
 export function PlacementCardMedia({ imageUrl, alt, className = "" }: Props) {
     const [failed, setFailed] = useState(false);
-    const showGradient = !imageUrl?.trim() || failed;
+    const trimmed = imageUrl?.trim() ?? "";
+    const showGradient = !trimmed || failed;
 
     if (showGradient) {
         return (
@@ -25,10 +26,12 @@ export function PlacementCardMedia({ imageUrl, alt, className = "" }: Props) {
         );
     }
 
+    const src = trimmed;
+
     return (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-            src={imageUrl}
+            src={src}
             alt={alt}
             className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 ${className}`}
             onError={() => setFailed(true)}
