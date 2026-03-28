@@ -31,51 +31,44 @@ export function AboutValuesSection() {
                 </div>
             </div>
 
-            {/* Second container: two cards (Mission & Vision) */}
+            {/* Two cards: Vision (left) + Mission (right), same max width as before */}
             <div className="w-full max-w-[1320px] flex flex-col md:flex-row md:justify-between gap-[clamp(20px,3vw,30px)] max-md:max-w-[335px]">
-                {/* Our Mission card */}
-                <article className="w-full max-w-[637px] bg-[#000319] border border-[#232D6B] rounded-[19px] px-[clamp(11.83px,1.8vw,21.85px)] py-[clamp(22.19px,3vw,40.97px)] flex flex-row gap-[clamp(10.83px,2vw,20px)]">
-                    <div className="flex-shrink-0 flex items-start justify-center">
-                        <Image
-                            src="/photos/main/our mission.svg"
-                            alt="Our mission icon"
-                            width={80}
-                            height={80}
-                            className="w-[clamp(50px,5vw,80px)] h-[clamp(50px,5vw,80px)]"
-                        />
-                    </div>
-                    <div className="flex flex-col gap-[clamp(7.4px,1.2vw,13.66px)] max-w-[593px]">
-                        <h3 className="font-manrope font-semibold text-[clamp(20px,2vw,30px)] leading-[100%] tracking-[-0.02em] text-white">
-                            Our Mission
-                        </h3>
-                        <p className="font-manrope font-medium text-[clamp(16px,1.5vw,20px)] leading-[120%] text-[#A7ADBE] max-w-[435px]">
-                        To bridge the gap between education and employment by designing practical, experience-led programs aligned with real business needs.
-                        </p>
-                    </div>
+                {/* Our Vision — left */}
+                <article className="w-full max-w-[637px] min-w-0 bg-[#000319] border border-[#232D6B] rounded-[19px] px-[clamp(11.83px,1.8vw,21.85px)] py-[clamp(22.19px,3vw,40.97px)] flex flex-col items-start gap-[clamp(12px,1.6vw,24px)]">
+                    <Image
+                        src="/photos/main/our vision.svg"
+                        alt="Our vision icon"
+                        width={80}
+                        height={80}
+                        className="shrink-0 w-[clamp(48px,4.5vw,80px)] h-[clamp(48px,4.5vw,80px)] object-contain"
+                    />
+                    <h3 className="w-full font-manrope font-semibold text-[clamp(18px,1.85vw,30px)] leading-[110%] tracking-[-0.02em] text-white text-left m-0">
+                        Our Vision
+                    </h3>
+                    <p className="w-full min-w-0 font-manrope font-medium text-[clamp(14px,1.35vw,20px)] leading-[1.28] md:leading-[1.35] text-[#A7ADBE] text-left m-0">
+                        To build a future-ready learning ecosystem where education evolves with industry, and students graduate with
+                        confidence, competence, and clarity.
+                    </p>
                 </article>
 
-                {/* Our Vision card */}
-                <article className="w-full max-w-[637px] bg-[#000319] border border-[#232D6B] rounded-[19px] px-[clamp(11.83px,1.8vw,21.85px)] py-[clamp(22.19px,3vw,40.97px)] flex flex-row gap-[clamp(10.83px,2vw,20px)]">
-                    <div className="flex-shrink-0 flex items-start justify-center">
-                        <Image
-                            src="/photos/main/our vision.svg"
-                            alt="Our vision icon"
-                            width={80}
-                            height={80}
-                            className="w-[clamp(50px,5vw,80px)] h-[clamp(50px,5vw,80px)]"
-                        />
-                    </div>
-                    <div className="flex flex-col gap-[clamp(7.4px,1.2vw,13.66px)] max-w-[593px]">
-                        <h3 className="font-manrope font-semibold text-[clamp(20px,2vw,30px)] leading-[100%] tracking-[-0.02em] text-white">
-                            Our Vision
-                        </h3>
-                        <p className="font-manrope font-medium text-[clamp(16px,1.5vw,20px)] leading-[120%] text-[#A7ADBE] max-w-[435px]">
-                        To build a future-ready learning ecosystem where education evolves with industry, and students graduate with confidence, competence, and clarity.
-                        </p>
-                    </div>
+                {/* Our Mission — right */}
+                <article className="w-full max-w-[637px] min-w-0 bg-[#000319] border border-[#232D6B] rounded-[19px] px-[clamp(11.83px,1.8vw,21.85px)] py-[clamp(22.19px,3vw,40.97px)] flex flex-col items-start gap-[clamp(12px,1.6vw,24px)]">
+                    <Image
+                        src="/photos/main/our mission.svg"
+                        alt="Our mission icon"
+                        width={80}
+                        height={80}
+                        className="shrink-0 w-[clamp(48px,4.5vw,80px)] h-[clamp(48px,4.5vw,80px)] object-contain"
+                    />
+                    <h3 className="w-full font-manrope font-semibold text-[clamp(18px,1.85vw,30px)] leading-[110%] tracking-[-0.02em] text-white text-left m-0">
+                        Our Mission
+                    </h3>
+                    <p className="w-full min-w-0 font-manrope font-medium text-[clamp(14px,1.35vw,20px)] leading-[1.28] md:leading-[1.35] text-[#A7ADBE] text-left m-0">
+                        To bridge the gap between education and employment by designing practical, experience-led programs aligned with
+                        real business needs.
+                    </p>
                 </article>
             </div>
         </section>
     )
 }
-

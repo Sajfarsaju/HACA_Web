@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useState, useSyncExternalStore } from "react";
+import { useCallback, useState, useSyncExternalStore, type ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { PlacementCardMedia } from "@/components/success-story/PlacementCardMedia";
 
 export type PlacementItem = {
@@ -11,24 +12,41 @@ export type PlacementItem = {
 
 const PLACEHOLDER_COUNT = 4;
 
-/** Matches `grid-cols-1 sm:grid-cols-2 xl:grid-cols-4` on the success-story page. */
+const ease = [0.21, 0.47, 0.32, 0.98] as const;
+
+const staggerContainerVariants = {
+    hidden: {},
+    show: {
+        transition: {
+            staggerChildren: 0.11,
+            delayChildren: 0.06,
+        },
+    },
+};
+
+const staggerItemVariants = {
+    hidden: { opacity: 0, y: 28 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease },
+    },
+};
+
+/** Controls how many cards are shown before "View more". */
 function subscribeVisibleCount(callback: () => void) {
-    const mqXl = window.matchMedia("(min-width: 1280px)");
-    const mqSm = window.matchMedia("(min-width: 640px)");
+    const mqMd = window.matchMedia("(min-width: 768px)");
     const onChange = () => callback();
-    mqXl.addEventListener("change", onChange);
-    mqSm.addEventListener("change", onChange);
+    mqMd.addEventListener("change", onChange);
     return () => {
-        mqXl.removeEventListener("change", onChange);
-        mqSm.removeEventListener("change", onChange);
+        mqMd.removeEventListener("change", onChange);
     };
 }
 
 function getVisibleCountSnapshot(): number {
     if (typeof window === "undefined") return 1;
-    if (window.matchMedia("(min-width: 1280px)").matches) return 4;
-    if (window.matchMedia("(min-width: 640px)").matches) return 2;
-    return 1;
+    if (window.matchMedia("(min-width: 768px)").matches) return 4;
+    return 3;
 }
 
 function getServerVisibleCount(): number {
@@ -47,12 +65,85 @@ const cardClassName =
     "group relative flex flex-col bg-[#0A0C16] overflow-hidden border border-[#232D6B]/30 hover:border-[#232D6B] transition-all duration-500 shadow-2xl w-full min-w-0 rounded-[10px] aspect-[247.6561737060547/270]";
 
 const gridClassName =
-    "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 w-full gap-4 sm:gap-5 md:gap-6 lg:gap-8";
+    "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full gap-4 sm:gap-5 md:gap-6 lg:gap-8";
+
+const scrollViewport = {
+    once: true,
+    amount: 0.12 as const,
+    margin: "0px 0px -10% 0px" as const,
+};
 
 type Props = {
     schoolName: string;
     items: PlacementItem[];
 };
+
+function CardMediaBlock({
+    item,
+    schoolName,
+}: {
+    item: PlacementItem;
+    schoolName: string;
+}) {
+    return (
+        <div className="relative w-full h-full overflow-hidden flex-1 min-h-0">
+            <PlacementCardMedia
+                imageUrl={item.imageUrl}
+                alt={item.title || schoolName}
+            />
+        </div>
+    );
+}
+
+/** Staggered when the grid scrolls into view (first row / placeholders). */
+function StaggerGrid({ children }: { children: ReactNode }) {
+    const reduce = useReducedMotion();
+    if (reduce) {
+        return <div className={gridClassName}>{children}</div>;
+    }
+    return (
+        <motion.div
+            className={gridClassName}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.12, margin: "0px 0px -8% 0px" }}
+            variants={staggerContainerVariants}
+        >
+            {children}
+        </motion.div>
+    );
+}
+
+function StaggerCard({ children }: { children: ReactNode }) {
+    const reduce = useReducedMotion();
+    if (reduce) {
+        return <div className={cardClassName}>{children}</div>;
+    }
+    return (
+        <motion.div variants={staggerItemVariants} className={cardClassName}>
+            {children}
+        </motion.div>
+    );
+}
+
+/** Each card animates when it enters the viewport (expanded “View more” grid). */
+function ScrollRevealCard({ children }: { children: ReactNode }) {
+    const reduce = useReducedMotion();
+    if (reduce) {
+        return <div className={cardClassName}>{children}</div>;
+    }
+    return (
+        <motion.div
+            className={cardClassName}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={scrollViewport}
+            transition={{ duration: 0.5, ease }}
+        >
+            {children}
+        </motion.div>
+    );
+}
 
 export function SchoolPlacementSection({ schoolName, items }: Props) {
     const rowCapacity = useRowCapacity();
@@ -62,34 +153,35 @@ export function SchoolPlacementSection({ schoolName, items }: Props) {
     const rest = items.slice(rowCapacity);
     const hasMore = rest.length > 0;
 
-    const renderCard = useCallback(
+    const renderStaggerCard = useCallback(
         (item: PlacementItem) => (
-            <div key={item._id} className={cardClassName}>
-                <div className="relative w-full h-full overflow-hidden flex-1 min-h-0">
-                    <PlacementCardMedia
-                        imageUrl={item.imageUrl}
-                        alt={item.title || schoolName}
-                    />
-                </div>
-            </div>
+            <StaggerCard key={item._id}>
+                <CardMediaBlock item={item} schoolName={schoolName} />
+            </StaggerCard>
+        ),
+        [schoolName]
+    );
+
+    const renderScrollRevealCard = useCallback(
+        (item: PlacementItem) => (
+            <ScrollRevealCard key={item._id}>
+                <CardMediaBlock item={item} schoolName={schoolName} />
+            </ScrollRevealCard>
         ),
         [schoolName]
     );
 
     if (items.length === 0) {
         return (
-            <div className={gridClassName}>
+            <StaggerGrid>
                 {Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => (
-                    <div
-                        key={`placeholder-${schoolName}-${i}`}
-                        className={cardClassName}
-                    >
+                    <StaggerCard key={`placeholder-${schoolName}-${i}`}>
                         <div className="relative w-full h-full overflow-hidden flex-1 min-h-0">
                             <PlacementCardMedia imageUrl={null} alt="" />
                         </div>
-                    </div>
+                    </StaggerCard>
                 ))}
-            </div>
+            </StaggerGrid>
         );
     }
 
@@ -97,9 +189,7 @@ export function SchoolPlacementSection({ schoolName, items }: Props) {
         <div className="flex w-full flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-8">
             {!expanded ? (
                 <>
-                    <div className={gridClassName}>
-                        {firstRow.map((item) => renderCard(item))}
-                    </div>
+                    <StaggerGrid>{firstRow.map((item) => renderStaggerCard(item))}</StaggerGrid>
                     {hasMore ? (
                         <button
                             type="button"
@@ -113,7 +203,7 @@ export function SchoolPlacementSection({ schoolName, items }: Props) {
             ) : (
                 <>
                     <div className={gridClassName}>
-                        {items.map((item) => renderCard(item))}
+                        {items.map((item) => renderScrollRevealCard(item))}
                     </div>
                     <button
                         type="button"
@@ -127,3 +217,4 @@ export function SchoolPlacementSection({ schoolName, items }: Props) {
         </div>
     );
 }
+

@@ -22,5 +22,13 @@ export function ConditionalFooter() {
         return null;
     }
 
+    // Marketing School uses its own layout (no global HACA footer)
+    if (pathname === "/marketing-school" || pathname.startsWith("/marketing-school/")) {
+        return null;
+    }
+    if (pathname === "/schools/marketing" || pathname.startsWith("/schools/marketing/")) {
+        return null;
+    }
+
     return <Footer />;
 }

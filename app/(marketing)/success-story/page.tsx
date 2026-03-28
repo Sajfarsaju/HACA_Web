@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import axios from "axios";
 import { Footer } from "@/components/layout/Footer";
 import {
     SchoolPlacementSection,
@@ -24,12 +25,14 @@ async function fetchPlacementGroups(): Promise<PlacementGroup[]> {
         process.env.NEXT_PUBLIC_BACKEND_URL ??
         process.env.BACKEND_URL ??
         "http://127.0.0.1:5000";
+
     try {
-        const res = await fetch(`${base}/api/placements/grouped?limit=200`, {
-            cache: "no-store",
-        });
-        if (!res.ok) return [];
-        const data = (await res.json()) as { groups?: PlacementGroup[] };
+        const { data } = await axios.get<{ groups?: PlacementGroup[] }>(
+            `${base}/api/placements/grouped?limit=200`,
+            {
+                headers: { "Cache-Control": "no-store" },
+            }
+        );
         return Array.isArray(data.groups) ? data.groups : [];
     } catch {
         return [];

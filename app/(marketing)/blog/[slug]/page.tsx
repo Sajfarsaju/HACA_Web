@@ -6,6 +6,7 @@ import { Calendar, Clock, User } from "lucide-react"
 import { InThisArticle } from "@/components/blog/InThisArticle"
 import { BlogAuthorBio } from "@/components/blog/BlogAuthorBio"
 import { BlogShareButtons } from "@/components/blog/BlogShareButtons"
+import { SectionReveal } from "@/components/animations/SectionReveal"
 import { BLOG_POSTS, getBlogBySlug } from "@/lib/blog-data"
 
 const BLOG_COVER_IMAGE = "/photos/main/blog cover.png"
@@ -38,6 +39,7 @@ export default async function BlogDetailPage({ params }: Props) {
                 {/* First container: upper section + photo */}
                 <div className="flex flex-col gap-5 sm:gap-8 md:gap-12 lg:gap-[67px] w-full">
                     {/* Upper container: tag + heading + author meta - mobile: px-20 */}
+                    <SectionReveal sectionIndex={0}>
                     <div className="flex flex-col items-center gap-4 w-full max-w-full px-5 sm:px-0 md:px-0">
                         {/* Tag pill - mobile: py-1 px-3, desktop: py-2 px-3 - horizontally centered */}
                         <div className="w-fit inline-flex items-center gap-2.5 py-1 px-3 md:py-2 md:px-3 rounded-[100px] bg-[#FFFFFF1A] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)]">
@@ -73,12 +75,14 @@ export default async function BlogDetailPage({ params }: Props) {
                             </div>
                         </div>
                     </div>
+                    </SectionReveal>
 
                     {/* Desktop: [Image + Article] | [In this article]. Mobile: [Image] [In this article] [Article] */}
                     <div className="flex flex-col lg:flex-row gap-4 sm:gap-5 lg:gap-10 w-full items-start">
                         {/* Left column (desktop) / stacks first on mobile */}
                         <div className="flex flex-col gap-4 sm:gap-5 lg:gap-6 w-full lg:flex-1 min-w-0">
                             {/* Blog photo - card style */}
+                            <SectionReveal sectionIndex={1}>
                             <div className="w-full max-w-[871px] mx-auto lg:mx-0">
                                 <div className="relative w-full aspect-[871/514] overflow-hidden rounded-[10.63px] sm:rounded-[14px] md:rounded-[18px] lg:rounded-[20px] bg-white shadow-lg">
                                     <Image
@@ -91,9 +95,11 @@ export default async function BlogDetailPage({ params }: Props) {
                                     />
                                 </div>
                             </div>
+                            </SectionReveal>
                             {/* Third container - main blog content (desktop) */}
                             <div className="hidden lg:flex flex-col gap-[30px] w-full max-w-[878px] mx-auto lg:mx-0">
                                 {/* Top container: intro paragraphs */}
+                                <SectionReveal sectionIndex={2}>
                                 <div className="flex flex-col gap-[20px]">
                                     <p className="font-rethink font-medium text-[20px] leading-[34px] text-[#A7ADBE] m-0">
                                         Let’s be honest. We’ve all been there. You’ve set up your Google Ads campaign, your ads are finally live, but you’re tense every time you check the dashboard. The clicks are costing a fortune, and your ads are stuck on page two, getting ignored. You start to wonder if this is even worth it.
@@ -108,8 +114,10 @@ export default async function BlogDetailPage({ params }: Props) {
                                         In this guide, we’ll understand this crucial metric, show you how to find it, and provide actionable steps to improve it, transforming your campaigns into lead-generating machines.
                                     </p>
                                 </div>
+                                </SectionReveal>
 
                                 {/* Center container: What is Quality Score */}
+                                <SectionReveal sectionIndex={3}>
                                 <div className="flex flex-col gap-[30px]">
                                     <h2 className="font-rethink font-bold text-[40px] leading-[110%] text-white m-0 max-w-[730px]">
                                         So, What is Quality Score in Google Ads?
@@ -157,8 +165,10 @@ export default async function BlogDetailPage({ params }: Props) {
                                         </p>
                                     </div>
                                 </div>
+                                </SectionReveal>
 
                                 {/* Bottom container: Why you should care */}
+                                <SectionReveal sectionIndex={4}>
                                 <div className="flex flex-col gap-[30px]">
                                     <h2 className="font-rethink font-bold text-[40px] leading-[110%] text-white m-0">
                                         Why Should You Care About Quality Score?
@@ -186,25 +196,33 @@ export default async function BlogDetailPage({ params }: Props) {
                                         </div>
                                     </div>
                                 </div>
+                                </SectionReveal>
                             </div>
                         </div>
 
                         {/* Right sidebar: In this article + author bio + share buttons (desktop only) */}
                         <aside className="w-full lg:w-[384px] lg:min-w-[384px] shrink-0 flex flex-col items-center lg:items-start gap-5 lg:gap-8 lg:sticky lg:top-24">
                             {post.toc && post.toc.length > 0 && (
+                                <SectionReveal sectionIndex={2}>
                                 <div className="w-full flex justify-center lg:justify-start">
                                     <InThisArticle items={post.toc} />
                                 </div>
+                                </SectionReveal>
                             )}
                             {/* Center container: author card (desktop) */}
+                            <SectionReveal sectionIndex={3}>
                             <BlogAuthorBio author={post.author} authorRole={post.authorRole} />
+                            </SectionReveal>
                             {/* Bottom container: share buttons (desktop) */}
+                            <SectionReveal sectionIndex={4}>
                             <BlogShareButtons />
+                            </SectionReveal>
                         </aside>
 
                         {/* Article content - mobile/tablet version of third container */}
                         <div className="flex lg:hidden flex-col gap-4 w-full px-5">
                             {/* Top container */}
+                            <SectionReveal sectionIndex={2}>
                             <div className="flex flex-col gap-[10px]">
                                 <p className="font-rethink font-medium text-[16px] leading-[27px] text-[#A7ADBE] m-0">
                                     Let’s be honest. We’ve all been there. You’ve set up your Google Ads campaign, your ads are finally live, but you’re tense every time you check the dashboard. The clicks are costing a fortune, and your ads are stuck on page two, getting ignored. You start to wonder if this is even worth it.
@@ -219,8 +237,10 @@ export default async function BlogDetailPage({ params }: Props) {
                                     In this guide, we’ll understand this crucial metric, show you how to find it, and provide actionable steps to improve it, transforming your campaigns into lead-generating machines.
                                 </p>
                             </div>
+                            </SectionReveal>
 
                             {/* Center container */}
+                            <SectionReveal sectionIndex={3}>
                             <div className="flex flex-col gap-[14px]">
                                 <h2 className="font-rethink font-bold text-[20px] leading-[110%] text-white m-0 max-w-[249px]">
                                     So, What is Quality Score in Google Ads?
@@ -266,8 +286,10 @@ export default async function BlogDetailPage({ params }: Props) {
                                     </p>
                                 </div>
                             </div>
+                            </SectionReveal>
 
                             {/* Bottom container */}
+                            <SectionReveal sectionIndex={4}>
                             <div className="flex flex-col gap-[16px]">
                                 <h2 className="font-rethink font-bold text-[20px] leading-[110%] text-white m-0">
                                     Why Should You Care About Quality Score?
@@ -295,6 +317,7 @@ export default async function BlogDetailPage({ params }: Props) {
                                     </div>
                                 </div>
                             </div>
+                            </SectionReveal>
                         </div>
                     </div>
                 </div>

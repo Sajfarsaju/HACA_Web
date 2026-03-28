@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
+import axios from "axios"
 import { PlacementCardMedia } from "@/components/success-story/PlacementCardMedia"
 
 const COLUMNS = [0, 1, 2, 3, 4]
@@ -89,10 +90,10 @@ export function PlacementSection() {
 
     useEffect(() => {
         const base = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:5000"
-        fetch(`${base}/api/placements/grouped?limit=200`, { cache: "no-store" })
-            .then((r) => (r.ok ? r.json() : null))
-            .then((data: { groups?: PlacementGroup[] } | null) => {
-                const groups = data?.groups
+        axios
+            .get<{ groups?: PlacementGroup[] }>(`${base}/api/placements/grouped?limit=200`)
+            .then(({ data }) => {
+                const groups = data.groups
                 if (!Array.isArray(groups)) {
                     setSlots(Array.from({ length: TOTAL_SLOTS }, () => null))
                     return

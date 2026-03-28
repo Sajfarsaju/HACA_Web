@@ -66,7 +66,7 @@ function AboutWhyCard({
 }) {
     return (
         <motion.article
-            className="w-full max-w-[360px] aspect-[360/260] rounded-[20px] border border-[#25317D] overflow-hidden max-md:max-w-[345px] max-md:aspect-[345/249.17]"
+            className="w-full max-w-[360px] aspect-[360/260] rounded-[20px] border border-[#25317D] overflow-hidden max-md:max-w-[345px] max-md:aspect-[345/249.17] lg:max-w-[300px] lg:aspect-[300/217] lg:rounded-[18px] xl:max-w-[360px] xl:aspect-[360/260] xl:rounded-[20px]"
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-32px 0px -32px 0px", amount: 0.15 }}
@@ -97,9 +97,9 @@ export function AboutWhyHacaSection() {
     }, [])
 
     return (
-        <section className="w-full section-4k mx-auto bg-[#000210] px-[clamp(20px,4vw,60px)] py-[40px] flex flex-col items-center gap-[30px]">
+        <section className="w-full section-4k mx-auto bg-[#000210] px-[clamp(20px,4vw,60px)] py-[40px] flex flex-col items-center gap-[30px] lg:px-[clamp(20px,3.2vw,52px)] lg:py-[34px] lg:gap-[24px] xl:px-[clamp(20px,4vw,60px)] xl:py-[40px] xl:gap-[30px]">
             <motion.h2
-                className="w-full max-w-[1320px] font-rethink font-semibold text-[clamp(26px,2.2vw,36px)] leading-[110%] text-center text-white m-0 max-md:max-w-[335px]"
+                className="w-full max-w-[1320px] font-rethink font-semibold text-[clamp(26px,2.2vw,36px)] leading-[110%] text-center text-white m-0 max-md:max-w-[335px] lg:text-[clamp(22px,1.85vw,30px)] xl:text-[clamp(26px,2.2vw,36px)]"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px 0px" }}
@@ -108,19 +108,19 @@ export function AboutWhyHacaSection() {
                 Why HACA?
             </motion.h2>
 
-            <div className="w-full max-w-[1320px] flex flex-col gap-[20px]">
+            <div className="w-full max-w-[1320px] flex flex-col gap-[20px] lg:gap-[16px] xl:gap-[20px]">
                 {/* Desktop layout (lg+): 2 / 3 / 2 cards */}
-                <div className="hidden lg:flex w-full justify-center gap-[20px]">
+                <div className="hidden lg:flex w-full justify-center gap-[20px] lg:gap-[14px] xl:gap-[20px]">
                     {aboutWhyCards.slice(0, 2).map((card, i) => (
                         <AboutWhyCard key={card.title} card={card} delay={cardDelays[i]} />
                     ))}
                 </div>
-                <div className="hidden lg:flex w-full justify-center gap-[20px]">
+                <div className="hidden lg:flex w-full justify-center gap-[20px] lg:gap-[14px] xl:gap-[20px]">
                     {aboutWhyCards.slice(2, 5).map((card, i) => (
                         <AboutWhyCard key={card.title} card={card} delay={cardDelays[i + 2]} />
                     ))}
                 </div>
-                <div className="hidden lg:flex w-full justify-center gap-[20px]">
+                <div className="hidden lg:flex w-full justify-center gap-[20px] lg:gap-[14px] xl:gap-[20px]">
                     {aboutWhyCards.slice(5, 7).map((card, i) => (
                         <AboutWhyCard key={card.title} card={card} delay={cardDelays[i + 5]} />
                     ))}

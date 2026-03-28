@@ -1,6 +1,20 @@
 import Image from "next/image"
 import Link from "next/link"
 
+const leaderSocialLinkClass =
+    "group inline-flex items-center justify-center gap-[7.12px] rounded-[118.75px] bg-[#A7ADBE1A] px-[clamp(12px,1.3vw,14.25px)] py-[clamp(3px,0.6vw,3.56px)] shadow-[0px_1.19px_1.19px_0px_#0003124D,0px_9.5px_12.94px_0px_#0003121F] backdrop-blur-[7.12px] transition-transform duration-200 ease-out hover:scale-[1.04] active:scale-[0.98] hover:bg-[#A7ADBE2A]"
+
+const leaderSocialLabelClass =
+    "font-manrope font-medium text-[clamp(14px,1.4vw,18px)] leading-[clamp(21px,1.7vw,27.53px)] text-[#A7ADBE] transition-colors duration-200 group-hover:text-white"
+
+const leaderSocialIconClass = "w-[clamp(20px,1.9vw,25.9px)] h-[clamp(20px,1.9vw,25.9px)] shrink-0"
+
+/** Same frame treatment as `MentorsSection` photo cards — outer width/aspect unchanged */
+const leaderPhotoFrameClass =
+    "relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden border border-[#25317D] bg-[linear-gradient(340.87deg,rgba(0,2,15,0)_23.42%,rgba(15,47,153,0.2)_74.9%,rgba(26,79,255,0.2)_90.34%)] px-[18px] py-[19px] max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto max-md:rounded-[21.14px] max-md:px-[19.02px] max-md:py-[20.08px]"
+
+const leaderPhotoImageClass = "object-cover object-top rounded-[16px]"
+
 export function AboutFacesSection() {
     return (
         <section className="w-full section-4k mx-auto bg-[#000210] py-[30px] flex flex-col items-center gap-[clamp(30px,4vw,50px)] px-[clamp(20px,4vw,60px)] max-md:px-[20px]">
@@ -14,12 +28,12 @@ export function AboutFacesSection() {
                 {/* Row 1: Haris Aboobacker */}
                 <div className="w-full flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-[clamp(20px,4vw,62px)] px-[clamp(0px,4vw,60px)] max-md:px-0 max-md:py-[20px]">
                     {/* Photo */}
-                    <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-transparent max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
+                    <div className={leaderPhotoFrameClass}>
                         <Image
                             src="/photos/main/haris.webp"
                             alt="Haris Aboobacker"
                             fill
-                            className="object-cover object-top"
+                            className={leaderPhotoImageClass}
                             sizes="(max-width: 768px) 335px, (max-width: 1200px) 32vw, 459px"
                         />
                     </div>
@@ -57,39 +71,29 @@ export function AboutFacesSection() {
                         {/* Social buttons */}
                         <div className="flex items-center gap-[clamp(10px,1.2vw,12px)] mt-[4px] lg:mt-0 lg:pb-[2px]">
                             {/* LinkedIn button */}
-                            <Link
-                                href="#"
-                                className="inline-flex items-center justify-center gap-[7.12px] rounded-[118.75px] bg-[#A7ADBE1A] px-[clamp(12px,1.3vw,14.25px)] py-[clamp(3px,0.6vw,3.56px)] shadow-[0px_1.19px_1.19px_0px_#0003124D,0px_9.5px_12.94px_0px_#0003121F] backdrop-blur-[7.12px]"
-                            >
+                            <Link href="#" className={leaderSocialLinkClass}>
                                 <Image
                                     src="/photos/main/linkedin icon.svg"
                                     alt="LinkedIn icon"
                                     width={26}
                                     height={26}
-                                    className="w-[clamp(20px,1.9vw,25.9px)] h-[clamp(20px,1.9vw,25.9px)]"
+                                    className={leaderSocialIconClass}
                                 />
-                                <span className="font-manrope font-medium text-[clamp(14px,1.4vw,18px)] leading-[clamp(21px,1.7vw,27.53px)] text-[#A7ADBE]">
-                                    LinkedIn
-                                </span>
+                                <span className={leaderSocialLabelClass}>LinkedIn</span>
                             </Link>
 
                             <div className="w-px h-[clamp(18px,2vw,21.6px)] border-l border-white" />
 
                             {/* Instagram button */}
-                            <Link
-                                href="#"
-                                className="inline-flex items-center justify-center gap-[7.12px] rounded-[118.75px] bg-[#A7ADBE1A] px-[clamp(12px,1.3vw,14.25px)] py-[clamp(3px,0.6vw,3.56px)] shadow-[0px_1.19px_1.19px_0px_#0003124D,0px_9.5px_12.94px_0px_#0003121F] backdrop-blur-[7.12px]"
-                            >
+                            <Link href="#" className={leaderSocialLinkClass}>
                                 <Image
                                     src="/photos/main/insta icon.svg"
                                     alt="Instagram icon"
                                     width={26}
                                     height={26}
-                                    className="w-[clamp(20px,1.9vw,25.9px)] h-[clamp(20px,1.9vw,25.9px)]"
+                                    className={leaderSocialIconClass}
                                 />
-                                <span className="font-manrope font-medium text-[clamp(14px,1.4vw,18px)] leading-[clamp(21px,1.7vw,27.53px)] text-[#A7ADBE]">
-                                    Instagram
-                                </span>
+                                <span className={leaderSocialLabelClass}>Instagram</span>
                             </Link>
                         </div>
                     </div>
@@ -98,12 +102,12 @@ export function AboutFacesSection() {
                 {/* Row 2: Rizwan Ramzan Ahamed (photo on right in desktop) */}
                 <div className="w-full flex flex-col lg:flex-row-reverse lg:items-stretch lg:justify-between gap-[clamp(20px,4vw,62px)] px-[clamp(0px,4vw,60px)] max-md:px-0 max-md:py-[20px]">
                     {/* Photo */}
-                    <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-transparent max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
+                    <div className={leaderPhotoFrameClass}>
                         <Image
                             src="/photos/main/rizwanLite.webp"
                             alt="Rizwan Ramzan Ahamed"
                             fill
-                            className="object-cover object-top"
+                            className={leaderPhotoImageClass}
                             sizes="(max-width: 768px) 335px, (max-width: 1200px) 32vw, 459px"
                         />
                     </div>
@@ -132,19 +136,45 @@ export function AboutFacesSection() {
                                 industry isn&apos;t in knowledge. It&apos;s in exposure.&quot;
                             </p>
                         </div>
-                        <div className="hidden lg:block lg:pb-[2px]" aria-hidden="true" />
+
+                        {/* Social buttons — same pattern as Haris */}
+                        <div className="flex items-center gap-[clamp(10px,1.2vw,12px)] mt-[4px] lg:mt-0 lg:pb-[2px]">
+                            <Link href="#" className={leaderSocialLinkClass}>
+                                <Image
+                                    src="/photos/main/linkedin icon.svg"
+                                    alt="LinkedIn icon"
+                                    width={26}
+                                    height={26}
+                                    className={leaderSocialIconClass}
+                                />
+                                <span className={leaderSocialLabelClass}>LinkedIn</span>
+                            </Link>
+
+                            <div className="w-px h-[clamp(18px,2vw,21.6px)] border-l border-white" />
+
+                            <Link href="#" className={leaderSocialLinkClass}>
+                                <Image
+                                    src="/photos/main/insta icon.svg"
+                                    alt="Instagram icon"
+                                    width={26}
+                                    height={26}
+                                    className={leaderSocialIconClass}
+                                />
+                                <span className={leaderSocialLabelClass}>Instagram</span>
+                            </Link>
+                        </div>
                     </div>
                 </div>
 
                 {/* Row 3: Abu Nabhan */}
                 <div className="w-full flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-[clamp(20px,4vw,62px)] px-[clamp(0px,4vw,60px)] max-md:px-0 max-md:py-[20px]">
                     {/* Photo */}
-                    <div className="relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden bg-transparent max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto">
+                    <div className={leaderPhotoFrameClass}>
                         <Image
                             src="/photos/main/Naban.webp"
                             alt="Abu Nabhan"
                             fill
-                            className="object-cover object-top"
+                            className={leaderPhotoImageClass}
                             sizes="(max-width: 768px) 335px, (max-width: 1200px) 32vw, 459px"
                         />
                     </div>
@@ -174,7 +204,32 @@ export function AboutFacesSection() {
                                 He lives by one belief: &quot;Love the Process.&quot;
                             </p>
                         </div>
-                        <div className="hidden lg:block lg:pb-[2px]" aria-hidden="true" />
+
+                        <div className="flex items-center gap-[clamp(10px,1.2vw,12px)] mt-[4px] lg:mt-0 lg:pb-[2px]">
+                            <Link href="#" className={leaderSocialLinkClass}>
+                                <Image
+                                    src="/photos/main/linkedin icon.svg"
+                                    alt="LinkedIn icon"
+                                    width={26}
+                                    height={26}
+                                    className={leaderSocialIconClass}
+                                />
+                                <span className={leaderSocialLabelClass}>LinkedIn</span>
+                            </Link>
+
+                            <div className="w-px h-[clamp(18px,2vw,21.6px)] border-l border-white" />
+
+                            <Link href="#" className={leaderSocialLinkClass}>
+                                <Image
+                                    src="/photos/main/insta icon.svg"
+                                    alt="Instagram icon"
+                                    width={26}
+                                    height={26}
+                                    className={leaderSocialIconClass}
+                                />
+                                <span className={leaderSocialLabelClass}>Instagram</span>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

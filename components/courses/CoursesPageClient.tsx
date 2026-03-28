@@ -8,7 +8,7 @@ export function CoursesPageClient() {
     const [activeCategory, setActiveCategory] = useState<string>("all")
 
     return (
-        <section className="w-full section-4k mx-auto flex flex-col items-center gap-[36px] pt-[120px] pb-[80px] px-4 sm:px-6 md:px-10 lg:px-[60px]">
+        <section className="w-full section-4k mx-auto flex flex-col items-center gap-[36px] pt-6 sm:pt-12 md:pt-20 lg:pt-[120px] pb-12 sm:pb-16 md:pb-20 lg:pb-[80px] px-4 sm:px-6 md:px-10 lg:px-[60px]">
             {/* Heading */}
             <h1 className="font-rethink font-bold text-[26px] sm:text-[32px] md:text-[42px] lg:text-[58px] leading-[34px] sm:leading-[40px] md:leading-[48px] lg:leading-[34px] tracking-[0] text-center text-white max-w-[788px] mx-auto">
                 Courses

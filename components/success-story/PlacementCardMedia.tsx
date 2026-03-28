@@ -25,10 +25,12 @@ export function PlacementCardMedia({ imageUrl, alt, className = "" }: Props) {
         );
     }
 
+    const src = imageUrl!.trim();
+
     return (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-            src={imageUrl ?? ""}
+            src={src}
             alt={alt}
             className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 ${className}`}
             onError={() => setFailed(true)}

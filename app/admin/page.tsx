@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
+import axios from "axios";
 import { PlacementCropModal } from "@/components/admin/PlacementCropModal";
 import {
   PLACEMENT_SCHOOL_OPTIONS,
@@ -65,6 +66,14 @@ export default function AdminPage() {
   const [cropOpen, setCropOpen] = useState(false);
   const [cropImageSrc, setCropImageSrc] = useState<string | null>(null);
 
+  function getApiErrorMessage(error: unknown, fallback: string): string {
+    if (axios.isAxiosError(error)) {
+      const data = error.response?.data as { error?: string } | undefined;
+      return data?.error || error.message || fallback;
+    }
+    return error instanceof Error ? error.message : String(error);
+  }
+
   useEffect(() => {
     const t = window.localStorage.getItem("admin_token");
     if (t) setToken(t);
@@ -76,19 +85,12 @@ export default function AdminPage() {
       setError(null);
       setLoading(true);
       try {
-        const res = await fetch(
+        const { data } = await axios.get(
           `${backendUrl}/api/admin/placement-cards/grouped?limit=200&page=1`,
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
-        if (!res.ok) {
-          const data = await res.json().catch(() => null);
-          throw new Error(data?.error || `Failed to load cards (${res.status})`);
-        }
-        const data = await res.json();
         setGroups(sortGroupsBySchoolOrder(data.groups || []));
         setGroupsMeta({
           total: data.total,
@@ -96,9 +98,9 @@ export default function AdminPage() {
           limit: data.limit,
         });
       } catch (e: unknown) {
-        const msg = e instanceof Error ? e.message : String(e);
+        const msg = getApiErrorMessage(e, "Failed to load cards");
         setError(msg);
-        if (msg.includes("401")) {
+        if (axios.isAxiosError(e) && e.response?.status === 401) {
           window.localStorage.removeItem("admin_token");
           setToken(null);
         }
@@ -113,36 +115,26 @@ export default function AdminPage() {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch(`${backendUrl}/api/admin/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+      const { data } = await axios.post(`${backendUrl}/api/admin/login`, {
+        username,
+        password,
       });
-
-      const data = await res.json().catch(() => null);
-      if (!res.ok) {
-        throw new Error(data?.error || `Login failed (${res.status})`);
-      }
-
       setToken(data.token);
       window.localStorage.setItem("admin_token", data.token);
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : String(e);
-      setError(msg);
+      setError(getApiErrorMessage(e, "Login failed"));
     } finally {
       setLoading(false);
     }
   }
 
   async function refreshCards(currentToken: string) {
-    const res = await fetch(
+    const { data } = await axios.get(
       `${backendUrl}/api/admin/placement-cards/grouped?limit=200&page=1`,
       {
         headers: { Authorization: `Bearer ${currentToken}` },
       }
     );
-    const data = await res.json();
-    if (!res.ok) throw new Error(data?.error || `Failed to load cards (${res.status})`);
     setGroups(sortGroupsBySchoolOrder(data.groups || []));
     setGroupsMeta({
       total: data.total,
@@ -198,26 +190,18 @@ export default function AdminPage() {
       if (uploadTitle.trim()) form.append("title", uploadTitle.trim());
       form.append("schoolName", uploadSchoolName);
 
-      const res = await fetch(`${backendUrl}/api/admin/placement-cards`, {
-        method: "POST",
+      await axios.post(`${backendUrl}/api/admin/placement-cards`, form, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: form,
       });
-
-      const data = await res.json().catch(() => null);
-      if (!res.ok) {
-        throw new Error(data?.error || `Upload failed (${res.status})`);
-      }
 
       setUploadTitle("");
       setUploadSchoolName("Marketing School");
       setUploadFile(null);
       await refreshCards(token);
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : String(e);
-      setError(msg);
+      setError(getApiErrorMessage(e, "Upload failed"));
     } finally {
       setLoading(false);
     }
@@ -228,17 +212,13 @@ export default function AdminPage() {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch(`${backendUrl}/api/admin/placement-cards/${id}`, {
-        method: "DELETE",
+      await axios.delete(`${backendUrl}/api/admin/placement-cards/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = await res.json().catch(() => null);
-      if (!res.ok) throw new Error(data?.error || `Delete failed (${res.status})`);
 
       await refreshCards(token);
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : String(e);
-      setError(msg);
+      setError(getApiErrorMessage(e, "Delete failed"));
     } finally {
       setLoading(false);
     }

@@ -14,7 +14,7 @@ export function AboutCampusesSection() {
                     HACA operates from its flagship campus in Calicut, India, with an international campus in Dubai, UAE, supported by
                     flexible online and hybrid learning options.
                     <br />
-                    <br />
+                    
                     Our learners come from across India, UAE, Pakistan, Thailand, Philippines, Nepal, Iran, the US, and the UK.
                 </p>
             </div>

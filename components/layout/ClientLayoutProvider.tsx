@@ -7,16 +7,21 @@ import { BottomReserveCta } from "./BottomReserveCta";
 
 export function ClientLayoutProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const isTechSchool = pathname === "/tech-school" || pathname.startsWith("/tech-school/");
+    const isTechSchool = pathname === "/schools/tech" || pathname.startsWith("/schools/tech/");
+    const isMarketingSchool =
+        pathname === "/marketing-school" ||
+        pathname.startsWith("/marketing-school/") ||
+        pathname === "/schools/marketing" ||
+        pathname.startsWith("/schools/marketing/");
     const isHome = pathname === "/";
 
     return (
         <>
-            {!isTechSchool && <Navbar />}
-            <main className="flex-1 min-h-0">
+            {!isTechSchool && !isMarketingSchool && <Navbar />}
+            <main className="flex-grow">
                 {children}
             </main>
-            {!isTechSchool && <WhatsAppButton />}
+            {!isTechSchool && !isMarketingSchool && <WhatsAppButton />}
             {isHome && <BottomReserveCta />}
         </>
     );
