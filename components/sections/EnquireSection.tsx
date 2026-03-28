@@ -14,7 +14,7 @@ export function EnquireSection() {
             <div className="relative w-full max-w-[min(1320px,91vw)] max-md:max-w-none min-h-[364px] flex items-center justify-center p-[25px_29px] rounded-[20px] overflow-hidden max-lg:max-w-[min(980px,94vw)] max-lg:min-h-[220px] max-lg:p-[16px_20px] max-md:max-w-[352px] max-md:min-h-[150px] max-md:h-auto max-md:p-0 max-md:rounded-[5.08px]">
 
                 {/* ─── Background radial gradient ─── */}
-                <div className="absolute w-full h-[800px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[20px] bg-[radial-gradient(40%_50%_at_50%_50%,rgba(18,67,228,1)_0%,rgba(0,0,0,0.6)_100%)] z-0 max-lg:h-[520px] max-lg:bg-[radial-gradient(42%_52%_at_50%_50%,#1A4FFF_0%,#000210_100%)] max-md:w-[355px] max-md:h-[380px] max-md:bottom-auto max-md:right-auto max-md:rounded-[5.08px] max-md:bg-[radial-gradient(40%_50%_at_50%_50%,#1A4FFF_0%,#000210_100%)] max-md:backdrop-blur-[41.72px]" aria-hidden="true" />
+                <div className="absolute w-full h-[800px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[20px] bg-[radial-gradient(40%_50%_at_50%_50%,rgba(18,67,228,1)_0%,#000210_100%)] z-0 max-lg:h-[520px] max-lg:bg-[radial-gradient(42%_52%_at_50%_50%,#1A4FFF_0%,#000210_100%)] max-md:w-[355px] max-md:h-[380px] max-md:bottom-auto max-md:right-auto max-md:rounded-[5.08px] max-md:bg-[radial-gradient(40%_50%_at_50%_50%,#1A4FFF_0%,#000210_100%)] max-md:backdrop-blur-[41.72px]" aria-hidden="true" />
 
                 {/* ─── Content Container: 569 × 167, gap 20px ─── */}
                 <motion.div

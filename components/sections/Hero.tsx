@@ -158,8 +158,9 @@ export function Hero() {
                             className="w-[341px] h-[63px] object-contain max-md:w-[213.8px] max-md:h-[39.5px]"
                         />
 
-                        {/* Admission Open badge with blinking green light */}
-                        <div className="w-[196px] h-[20px] max-md:w-[149px] max-md:h-[15px] flex items-center gap-[8px]">
+                        {/* Admission Open: hug content (no fixed width = no dead space right of text) */}
+                        <div className="w-full flex justify-center">
+                        <div className="inline-flex items-center justify-center gap-[8px] h-[20px] max-md:h-[15px] shrink-0">
                             <style>{`
                                 @keyframes haca-blink {
                                     0%, 100% { opacity: 0.25; }
@@ -186,6 +187,7 @@ export function Hero() {
                             <span className="font-rethink font-medium text-[14px] leading-[19.2px] tracking-[0] text-[#A7ADBE]">
                                 Admission Open
                             </span>
+                        </div>
                         </div>
                     </motion.div>
                 </div>

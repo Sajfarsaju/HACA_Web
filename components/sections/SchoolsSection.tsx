@@ -11,30 +11,31 @@ import {
     useTransform,
 } from "framer-motion"
 
+/** Paths match `Navbar` / `Navigation` school dropdown */
 const schools = [
     {
         id: 1,
         logo: "/photos/main/degital marketing.svg",
         alt: "Digital Marketing School",
-        exploreHref: "/schools/marketing",
+        exploreHref: "/marketing-school",
     },
     {
         id: 2,
         logo: "/photos/main/design school.svg",
         alt: "Design School",
-        exploreHref: "/schools/design",
+        exploreHref: "/design-school",
     },
     {
         id: 3,
         logo: "/photos/main/tech school.svg",
         alt: "Tech School",
-        exploreHref: "/schools/tech",
+        exploreHref: "/tech-school",
     },
     {
         id: 4,
         logo: "/photos/main/FINANCE SCHOOL.svg",
         alt: "Finance School",
-        exploreHref: "/schools/finance",
+        exploreHref: "/finance-school",
     },
 ] as const
 
@@ -90,6 +91,11 @@ function SchoolCard({
                 ease: [0.21, 0.47, 0.32, 0.98],
             }}
         >
+            <Link
+                href={exploreHref}
+                className="block h-full w-full rounded-[20px] no-underline outline-none focus-visible:ring-2 focus-visible:ring-[#4C75FF]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#000210]"
+                aria-label={`${alt} — explore courses`}
+            >
             <motion.div
                 className="w-full h-full rounded-[20px] border border-[#25317D] p-[20px_16px_16px_16px] flex flex-col justify-between items-start bg-[radial-gradient(ellipse_60%_40%_at_0%_0%,rgba(30,80,255,0.35)_0%,rgba(10,20,100,0.15)_45%,transparent_75%),radial-gradient(ellipse_85%_65%_at_100%_100%,rgba(30,80,255,0.45)_0%,rgba(10,20,100,0.25)_45%,rgba(0,3,25,1)_75%)] max-[1100px]:h-full max-md:h-full"
                 style={
@@ -119,10 +125,8 @@ function SchoolCard({
                     animate={{ scale: 1 }}
                     transition={{ duration: 0 }}
                 >
-                    <Link
-                        href={exploreHref}
-                        className="group/explore relative inline-flex h-[26px] w-[162px] shrink-0 cursor-pointer items-center justify-center rounded-[100px] bg-transparent p-0 overflow-hidden no-underline outline-none focus-visible:ring-2 focus-visible:ring-[#4C75FF]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#000210] max-[1100px]:h-[clamp(20px,3vw,26px)] max-[1100px]:w-full max-md:h-[clamp(15px,4.8vw,19px)] max-md:w-full transition-colors"
-                        aria-label={`Explore courses — ${alt}`}
+                    <span
+                        className="group/explore relative inline-flex h-[26px] w-[162px] shrink-0 cursor-pointer items-center justify-center rounded-[100px] bg-transparent p-0 overflow-hidden max-[1100px]:h-[clamp(20px,3vw,26px)] max-[1100px]:w-full max-md:h-[clamp(15px,4.8vw,19px)] max-md:w-full transition-colors"
                         onPointerEnter={() => {
                             setTiltLocked(true)
                             setExploreHover(true)
@@ -172,9 +176,10 @@ function SchoolCard({
                             height={26}
                             className="pointer-events-none relative h-full w-full object-contain brightness-100 transition-[filter] duration-200 ease-out group-hover/explore:brightness-125 group-hover/explore:saturate-150 group-active/explore:brightness-95"
                         />
-                    </Link>
+                    </span>
                 </motion.div>
             </motion.div>
+            </Link>
         </motion.div>
     )
 }

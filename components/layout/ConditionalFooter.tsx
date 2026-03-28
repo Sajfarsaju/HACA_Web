@@ -21,6 +21,9 @@ export function ConditionalFooter() {
     if (pathname === "/tech-school" || pathname.startsWith("/tech-school/")) {
         return null;
     }
+    if (pathname === "/schools/tech" || pathname.startsWith("/schools/tech/")) {
+        return null;
+    }
 
     // Marketing School uses its own layout (no global HACA footer)
     if (pathname === "/marketing-school" || pathname.startsWith("/marketing-school/")) {
