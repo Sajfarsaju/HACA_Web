@@ -126,18 +126,7 @@ export function WhyHacaSection() {
                 >
                 {cards.map((card, slotIndex) => (
                     <div key={slotIndex} className="relative min-h-0 w-full min-w-0">
-                        <AnimatePresence mode="wait" initial={false}>
-                            <motion.div
-                                key={card.id}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{
-                                    duration: CROSSFADE_DURATION_S,
-                                    ease: [0.4, 0, 0.2, 1],
-                                }}
-                                className="group w-full h-[clamp(140px,14vw,193px)] rounded-[20px] border border-[rgba(35,45,107,0.8)] bg-[#000319] p-[clamp(14px,1.5vw,20px)] overflow-hidden relative cursor-default shadow-[inset_0_0_30px_rgba(20,60,200,0.07)] max-[900px]:w-full max-[900px]:max-w-[335px] max-[900px]:h-auto max-[900px]:min-h-[193px] max-[900px]:p-[20px] max-[900px]:rounded-[20px] max-[900px]:border max-[900px]:flex max-[900px]:flex-col max-[900px]:justify-start max-[900px]:items-center max-[900px]:mx-auto max-md:max-w-none max-md:w-full max-md:h-auto max-md:min-h-[clamp(172px,44vw,193px)] max-md:p-[clamp(16px,4.5vw,20px)] max-md:rounded-[20px] max-md:border max-md:border-[#232D6B] max-md:shadow-[inset_0_0_30px_rgba(20,60,200,0.06)] max-md:mx-auto"
-                            >
+                        <div className="group w-full h-[clamp(140px,14vw,193px)] rounded-[20px] border border-[rgba(35,45,107,0.8)] bg-[#000319] p-[clamp(14px,1.5vw,20px)] overflow-hidden relative cursor-default shadow-[inset_0_0_30px_rgba(20,60,200,0.07)] max-[900px]:w-full max-[900px]:max-w-[335px] max-[900px]:h-auto max-[900px]:min-h-[193px] max-[900px]:p-[20px] max-[900px]:rounded-[20px] max-[900px]:border max-[900px]:flex max-[900px]:flex-col max-[900px]:justify-start max-[900px]:items-center max-[900px]:mx-auto max-md:max-w-none max-md:w-full max-md:h-auto max-md:min-h-[clamp(172px,44vw,193px)] max-md:p-[clamp(16px,4.5vw,20px)] max-md:rounded-[20px] max-md:border max-md:border-[#232D6B] max-md:shadow-[inset_0_0_30px_rgba(20,60,200,0.06)] max-md:mx-auto">
                         {/* Grid / grill: #000319 base, very light line grid */}
                         <div
                             className="pointer-events-none absolute inset-[1px] rounded-[18px]"
@@ -167,22 +156,47 @@ export function WhyHacaSection() {
                         <div className="w-full h-full relative z-[2] flex flex-col justify-end max-[900px]:static max-[900px]:justify-start max-[900px]:items-center max-[900px]:gap-[6px] max-[900px]:h-auto max-[900px]:w-[239px] max-[900px]:max-w-full max-[900px]:min-w-0 max-md:justify-start max-md:gap-[6px] max-md:w-full max-md:max-w-full max-md:min-w-0">
                             {/* Heading layer - visible on tablet/mobile; display:contents removes wrapper on tablet/mobile */}
                             <div className="absolute bottom-0 left-0 w-full min-w-0 shrink-0 transition-transform duration-400 ease-in-out opacity-100 translate-y-0 group-hover:-translate-y-[110%] group-hover:opacity-0 max-[900px]:contents max-md:contents">
-                                <h3 className="font-rethink font-semibold text-[clamp(18px,1.8vw,24px)] leading-[110%] tracking-[-0.02em] text-[#ffffff] m-0 max-[900px]:font-semibold max-[900px]:text-[20px] max-[900px]:leading-[110%] max-[900px]:tracking-[-0.02em] max-[900px]:text-center max-md:font-semibold max-md:text-[20px] max-md:leading-[110%] max-md:tracking-[-0.02em] max-md:text-center">
-                                    {card.heading.split("\n").map((line, li) => (
-                                        <React.Fragment key={li}>
-                                            {line}
-                                            {li < card.heading.split("\n").length - 1 && <br />}
-                                        </React.Fragment>
-                                    ))}
-                                </h3>
+                                <AnimatePresence mode="wait" initial={false}>
+                                    <motion.h3
+                                        key={`heading-${card.id}`}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{
+                                            duration: CROSSFADE_DURATION_S,
+                                            ease: [0.4, 0, 0.2, 1],
+                                        }}
+                                        className="font-rethink font-semibold text-[clamp(18px,1.8vw,24px)] leading-[110%] tracking-[-0.02em] text-[#ffffff] m-0 max-[900px]:font-semibold max-[900px]:text-[20px] max-[900px]:leading-[110%] max-[900px]:tracking-[-0.02em] max-[900px]:text-center max-md:font-semibold max-md:text-[20px] max-md:leading-[110%] max-md:tracking-[-0.02em] max-md:text-center"
+                                    >
+                                        {card.heading.split("\n").map((line, li) => (
+                                            <React.Fragment key={li}>
+                                                {line}
+                                                {li < card.heading.split("\n").length - 1 && <br />}
+                                            </React.Fragment>
+                                        ))}
+                                    </motion.h3>
+                                </AnimatePresence>
                             </div>
                             {/* Paragraph layer - visible on tablet/mobile; display:contents removes wrapper on tablet/mobile */}
                             <div className="absolute bottom-0 left-0 w-full min-w-0 transition-all duration-400 ease-in-out opacity-0 translate-y-[100%] group-hover:translate-y-0 group-hover:opacity-100 max-[900px]:contents max-md:contents">
-                                <p className="font-rethink font-medium text-[clamp(12px,1vw,14px)] leading-[140%] tracking-[-0.02em] text-[#A7ADBE] m-0 break-words max-[900px]:font-medium max-[900px]:text-[14px] max-[900px]:leading-[110%] max-[900px]:tracking-[-0.02em] max-[900px]:text-center max-md:font-medium max-md:text-[14px] max-md:leading-[110%] max-md:tracking-[-0.02em] max-md:text-center">{card.paragraph}</p>
+                                <AnimatePresence mode="wait" initial={false}>
+                                    <motion.p
+                                        key={`paragraph-${card.id}`}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{
+                                            duration: CROSSFADE_DURATION_S,
+                                            ease: [0.4, 0, 0.2, 1],
+                                        }}
+                                        className="font-rethink font-medium text-[clamp(12px,1vw,14px)] leading-[140%] tracking-[-0.02em] text-[#A7ADBE] m-0 break-words max-[900px]:font-medium max-[900px]:text-[14px] max-[900px]:leading-[110%] max-[900px]:tracking-[-0.02em] max-[900px]:text-center max-md:font-medium max-md:text-[14px] max-md:leading-[110%] max-md:tracking-[-0.02em] max-md:text-center"
+                                    >
+                                        {card.paragraph}
+                                    </motion.p>
+                                </AnimatePresence>
                             </div>
                         </div>
-                            </motion.div>
-                        </AnimatePresence>
+                        </div>
                     </div>
                 ))}
                 </div>

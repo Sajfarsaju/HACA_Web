@@ -4,43 +4,42 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { useLayoutEffect, useState } from "react"
 
+/** Filenames in `public/photos/main/` include spaces — encode for URLs */
+function aboutWhyLogoSrc(index: number) {
+    const name = `about why haca logos ${index}.svg`
+    return `/photos/main/${encodeURIComponent(name)}`
+}
+
 const aboutWhyCards = [
     {
-        icon: "/photos/main/why haca about 1.svg",
         title: "Agency-backed learning ecosystem",
         body: "Learn from people who actually work in the industry.",
     },
     {
-        icon: "/photos/main/why haca about 2.svg",
         title: "Practical, job-focused curriculum",
         body: "Everything you learn is designed to help you get hired.",
     },
     {
-        icon: "/photos/main/why haca about 3.svg",
         title: "Training inside a real working environment",
         body: "Experience how real work happens, not just theory.",
     },
     {
-        icon: "/photos/main/why haca about 4.svg",
         title: "Global learner community",
         body: "Connect and grow with learners from different backgrounds.",
     },
     {
-        icon: "/photos/main/why haca about 5.svg",
         title: "Strong focus on placement readiness",
         body: "We prepare you for interviews and career opportunities.",
     },
     {
-        icon: "/photos/main/why haca about 6.svg",
         title: "Apply easily with EMI options",
         body: "Invest in your future with our easy instalment options.",
     },
     {
-        icon: "/photos/main/why haca about 7.svg",
         title: "Flexible offline and online learning options",
         body: "Learn online or offline, whichever works best for you.",
     },
-]
+] as const
 
 const STAGGER_SEC = 0.12
 
@@ -59,14 +58,18 @@ function shuffleDelays(length: number): number[] {
 
 function AboutWhyCard({
     card,
+    cardIndex,
     delay,
 }: {
     card: (typeof aboutWhyCards)[number]
+    cardIndex: number
     delay: number
 }) {
+    const logoSrc = aboutWhyLogoSrc(cardIndex + 1)
+
     return (
         <motion.article
-            className="w-full max-w-[360px] aspect-[360/260] rounded-[20px] border border-[#25317D] overflow-hidden max-md:max-w-[345px] max-md:aspect-[345/249.17] lg:max-w-[300px] lg:aspect-[300/217] lg:rounded-[18px] xl:max-w-[360px] xl:aspect-[360/260] xl:rounded-[20px]"
+            className="box-border flex w-full max-w-[360px] flex-col gap-4 overflow-hidden rounded-[20px] border border-solid border-[#232D6B] bg-[#000319] p-5 aspect-[360/260] max-md:max-w-[345px] max-md:gap-[15.33px] max-md:rounded-[19.17px] max-md:border-[0.96px] max-md:p-[19.17px] max-md:aspect-[345/258]"
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-32px 0px -32px 0px", amount: 0.15 }}
@@ -76,13 +79,31 @@ function AboutWhyCard({
                 ease: [0.21, 0.47, 0.32, 0.98],
             }}
         >
-            <Image
-                src={card.icon}
-                alt={card.title}
-                width={360}
-                height={260}
-                className="w-full h-full object-cover"
-            />
+            <div className="relative h-[70px] w-[70px] shrink-0 max-md:h-[67.08334px] max-md:w-[67.08334px]">
+                <Image
+                    src={logoSrc}
+                    alt=""
+                    fill
+                    className="object-contain object-left"
+                    sizes="70px"
+                />
+            </div>
+
+            <div className="flex min-h-0 w-full flex-1 flex-col gap-[10px] overflow-hidden max-md:gap-[9.58px]">
+                <h3 className="m-0 w-full font-rethink font-semibold text-[26px] leading-[110%] tracking-[-0.02em] text-white max-md:text-[20px] max-md:leading-[110%] max-md:tracking-[-0.02em]">
+                    {card.title === "Global learner community" ? (
+                        <>
+                            <span className="block">Global learner</span>
+                            <span className="block">community</span>
+                        </>
+                    ) : (
+                        card.title
+                    )}
+                </h3>
+                <p className="m-0 w-full max-w-[295px] font-rethink font-normal text-[20px] leading-[110%] tracking-normal text-[#A7ADBE] max-md:max-w-none max-md:text-[19.17px] max-md:leading-[110%]">
+                    {card.body}
+                </p>
+            </div>
         </motion.article>
     )
 }
@@ -108,36 +129,63 @@ export function AboutWhyHacaSection() {
                 Why HACA?
             </motion.h2>
 
-            <div className="w-full max-w-[1320px] flex flex-col gap-[20px] lg:gap-[16px] xl:gap-[20px]">
-                {/* Desktop layout (lg+): 2 / 3 / 2 cards */}
-                <div className="hidden lg:flex w-full justify-center gap-[20px] lg:gap-[14px] xl:gap-[20px]">
-                    {aboutWhyCards.slice(0, 2).map((card, i) => (
-                        <AboutWhyCard key={card.title} card={card} delay={cardDelays[i]} />
-                    ))}
-                </div>
-                <div className="hidden lg:flex w-full justify-center gap-[20px] lg:gap-[14px] xl:gap-[20px]">
-                    {aboutWhyCards.slice(2, 5).map((card, i) => (
-                        <AboutWhyCard key={card.title} card={card} delay={cardDelays[i + 2]} />
-                    ))}
-                </div>
-                <div className="hidden lg:flex w-full justify-center gap-[20px] lg:gap-[14px] xl:gap-[20px]">
-                    {aboutWhyCards.slice(5, 7).map((card, i) => (
-                        <AboutWhyCard key={card.title} card={card} delay={cardDelays[i + 5]} />
+            <div className="w-full max-w-[1320px] flex flex-col gap-4 max-md:gap-[15.33px] md:gap-4">
+                {/* Mobile: single column — same card structure & aspect ratio */}
+                <div className="flex md:hidden w-full flex-col items-center gap-[15.33px]">
+                    {aboutWhyCards.map((card, i) => (
+                        <AboutWhyCard
+                            key={card.title}
+                            card={card}
+                            cardIndex={i}
+                            delay={cardDelays[i]}
+                        />
                     ))}
                 </div>
 
-                {/* Tablet layout (md to <lg): 2-column grid */}
-                <div className="hidden md:grid lg:hidden w-full grid-cols-2 gap-[20px] place-items-center">
+                {/* md -> xl: keep 2 columns (prevents 3rd card dropping) */}
+                <div className="hidden md:grid w-full grid-cols-2 gap-4 xl:hidden">
                     {aboutWhyCards.map((card, i) => (
-                        <AboutWhyCard key={card.title} card={card} delay={cardDelays[i]} />
+                        <AboutWhyCard
+                            key={card.title}
+                            card={card}
+                            cardIndex={i}
+                            delay={cardDelays[i]}
+                        />
                     ))}
                 </div>
 
-                {/* Mobile: single column */}
-                <div className="flex md:hidden w-full flex-col items-center gap-[20px]">
-                    {aboutWhyCards.map((card, i) => (
-                        <AboutWhyCard key={card.title} card={card} delay={cardDelays[i]} />
-                    ))}
+                {/* xl+: keep your original 2 / 3 / 2 staggered rows */}
+                <div className="hidden xl:flex w-full flex-col items-center gap-4">
+                    <div className="flex w-full justify-center gap-4">
+                        {aboutWhyCards.slice(0, 2).map((card, i) => (
+                            <AboutWhyCard
+                                key={card.title}
+                                card={card}
+                                cardIndex={i}
+                                delay={cardDelays[i]}
+                            />
+                        ))}
+                    </div>
+                    <div className="flex w-full justify-center gap-4">
+                        {aboutWhyCards.slice(2, 5).map((card, i) => (
+                            <AboutWhyCard
+                                key={card.title}
+                                card={card}
+                                cardIndex={i + 2}
+                                delay={cardDelays[i + 2]}
+                            />
+                        ))}
+                    </div>
+                    <div className="flex w-full justify-center gap-4">
+                        {aboutWhyCards.slice(5, 7).map((card, i) => (
+                            <AboutWhyCard
+                                key={card.title}
+                                card={card}
+                                cardIndex={i + 5}
+                                delay={cardDelays[i + 5]}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

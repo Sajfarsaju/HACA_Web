@@ -65,13 +65,17 @@ export function FAQSection() {
 
             {/* ─── Right: FAQ accordion ─── */}
             <div className="w-[800px] shrink-0 flex flex-col gap-[20px] max-[1300px]:w-auto max-[1300px]:flex-1 max-[1300px]:ml-[40px] max-lg:ml-0 max-lg:w-full max-lg:max-w-[600px] max-md:max-w-[335px] max-md:gap-[10px]" role="list">
-                {faqs.map((faq) => {
+                {faqs.map((faq, i) => {
                     const isOpen = openId === faq.id
                     return (
-                        <div
+                        <motion.div
                             key={faq.id}
                             className={`w-full border rounded-[20px] bg-[#000319] box-border overflow-hidden max-md:rounded-[6.7px] max-md:border-[0.42px] ${isOpen ? "border-[rgba(37,49,125,0.5)]" : "border-[#25317D]"}`}
                             role="listitem"
+                            initial={{ opacity: 0, y: 18 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-40px 0px -40px 0px", amount: 0.2 }}
+                            transition={{ duration: 0.5, ease: "easeOut", delay: i * 0.08 }}
                         >
                             <button
                                 className="w-full flex flex-row items-center justify-between gap-[30px] p-[16px_30px] bg-transparent border-none cursor-pointer text-left box-border min-h-[70px] max-md:p-[10px_12px] max-md:gap-[12.56px] max-md:min-h-[54px]"
@@ -108,7 +112,7 @@ export function FAQSection() {
                                     </motion.div>
                                 )}
                             </AnimatePresence>
-                        </div>
+                        </motion.div>
                     )
                 })}
             </div>
