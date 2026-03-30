@@ -161,14 +161,14 @@ export function PlacementSection() {
             </div>
 
             {/* ── Card Grid: each column scrolls vertically, cards clip at container ── */}
-            <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none h-[700px] grid grid-cols-5 gap-[20px] overflow-hidden items-stretch max-[1200px]:grid-cols-4 max-[1200px]:h-[750px] max-[900px]:grid-cols-3 max-[900px]:h-[700px] max-[600px]:max-w-[335px] max-[600px]:h-[500px] max-[600px]:grid-cols-2 max-[600px]:gap-[13px]">
+            <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none h-[700px] grid grid-cols-5 gap-[20px] overflow-hidden items-stretch max-[1200px]:grid-cols-4 max-[1200px]:h-[750px] max-[900px]:grid-cols-3 max-[900px]:h-[700px] max-[600px]:mx-auto max-[600px]:w-full max-[600px]:max-w-[min(335px,calc(100vw-40px))] max-[600px]:h-[min(500px,calc(100vw*1.25))] max-[600px]:grid-cols-2 max-[600px]:gap-[clamp(10px,3.2vw,13px)] max-[440px]:max-w-[min(335px,calc(100vw-32px))] max-[440px]:grid-cols-1 max-[440px]:h-[min(520px,calc(100vw*1.35))]">
                 {COLUMNS.map((colIdx) => (
                     <div
                         key={colIdx}
                         ref={(el) => {
                             columnRefs.current[colIdx] = el
                         }}
-                        className="flex flex-col gap-[20px] overflow-hidden min-h-0 max-[1200px]:[&:nth-child(5)]:hidden max-[900px]:[&:nth-child(n+4)]:hidden max-[600px]:[&:nth-child(n+3)]:hidden"
+                        className="flex flex-col gap-[20px] overflow-hidden min-h-0 max-[1200px]:[&:nth-child(5)]:hidden max-[900px]:[&:nth-child(n+4)]:hidden max-[600px]:[&:nth-child(n+3)]:hidden max-[600px]:gap-[clamp(10px,3.2vw,20px)] max-[440px]:[&:nth-child(n+2)]:hidden"
                     >
                         {Array.from({ length: CARDS_PER_COL }).map((_, cardIdx) => {
                             const slotIndex = colIdx * CARDS_PER_COL + cardIdx
