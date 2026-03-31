@@ -3,11 +3,6 @@
 import React from "react"
 import Image from "next/image"
 
-function pressLogoSrc(filename: string) {
-    // Filenames contain spaces; encode them for a safe URL path.
-    return `/photos/main/${encodeURIComponent(filename)}`
-}
-
 const LOGOS = [
     {
         key: "toi",
@@ -32,46 +27,6 @@ const LOGOS = [
         wrapperClass: "flex items-center justify-center w-[clamp(120px,13vw,198.46px)] h-auto max-md:w-[90px]",
         width: 198,
         height: 20,
-    },
-    {
-        key: "press-1",
-        src: pressLogoSrc("press logos new 1.png"),
-        alt: "Press logo 1",
-        wrapperClass: "flex items-center justify-center w-[clamp(120px,13vw,210px)] h-auto max-md:w-[90px]",
-        width: 164,
-        height: 88,
-    },
-    {
-        key: "press-2",
-        src: pressLogoSrc("press logos new 2.png"),
-        alt: "Press logo 2",
-        wrapperClass: "flex items-center justify-center w-[clamp(120px,13vw,210px)] h-auto max-md:w-[90px]",
-        width: 2000,
-        height: 358,
-    },
-    {
-        key: "press-3",
-        src: pressLogoSrc("press logos new 3.png"),
-        alt: "Press logo 3",
-        wrapperClass: "flex items-center justify-center w-[clamp(120px,13vw,210px)] h-auto max-md:w-[90px]",
-        width: 800,
-        height: 234,
-    },
-    {
-        key: "press-4",
-        src: pressLogoSrc("press logos new 4.png"),
-        alt: "Press logo 4",
-        wrapperClass: "flex items-center justify-center w-[clamp(120px,13vw,210px)] h-auto max-md:w-[90px]",
-        width: 10200,
-        height: 1860,
-    },
-    {
-        key: "press-5",
-        src: pressLogoSrc("press logos new 5.jpg"),
-        alt: "Press logo 5",
-        wrapperClass: "flex items-center justify-center w-[clamp(120px,13vw,230px)] h-auto max-md:w-[100px]",
-        width: 2681,
-        height: 301,
     },
 ]
 

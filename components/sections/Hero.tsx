@@ -12,7 +12,7 @@ import { SectionReveal } from "@/components/animations/SectionReveal"
 
 export function Hero() {
     return (
-        <section className="w-full section-4k mx-auto pt-[100px] pb-[60px] bg-transparent relative max-md:pt-0 max-md:pb-0">
+        <section className="w-full section-4k mx-auto pb-[60px] bg-transparent relative max-md:pb-0 min-[768px]:pt-[56px] lg:pt-[37px] max-md:pt-0">
             {/* ── Inner Container ── */}
             <div className="w-full flex flex-col items-center gap-[36px] max-md:gap-[34px]">
 
@@ -20,10 +20,10 @@ export function Hero() {
                     UPPER CONTAINER
                     (desktop: 780px wide, mobile: full width)
                     ────────────────────────────────────── */}
-                <div className="w-full max-w-[780px] flex flex-col items-center gap-[50px] max-md:max-w-full max-md:pt-0 max-md:px-[20px] max-md:gap-[26px] md:px-[32px] lg:px-0">
+                <div className="w-full max-w-[780px] flex flex-col items-center gap-[50px] max-md:max-w-full max-md:pt-0 max-md:px-[20px] max-md:gap-[26px] md:px-[32px] lg:px-0 lg:gap-[34px] lg:-mb-[32px]">
 
                     {/* ── First Container: Info button + Heading + Paragraph ── */}
-                    <div className="w-full flex flex-col items-center gap-[16px] max-md:gap-[10px]">
+                    <div className="w-full flex flex-col items-center max-md:gap-[10px] min-[768px]:gap-[11px] lg:gap-[7px]">
 
                         {/* Info Button */}
                         <motion.div
@@ -43,7 +43,7 @@ export function Hero() {
                         </motion.div>
 
                         {/* Text Container */}
-                        <div className="w-full flex flex-col items-center gap-[20px] max-md:gap-[9.05px]">
+                        <div className="w-full flex flex-col items-center gap-[20px] max-md:gap-[9.05px] lg:gap-[13px]">
                             {/* Heading */}
                             <motion.div
                                 className="w-full flex flex-col items-center text-center"
@@ -51,8 +51,8 @@ export function Hero() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.2 }}
                             >
-                                <p className="font-rethink font-bold text-[58px] leading-[69.6px] tracking-normal text-center text-white m-0 max-md:text-[26px] max-md:leading-[31.5px]">Skills Are the New Degree,</p>
-                                <p className="font-rethink font-bold text-[58px] leading-[69.6px] tracking-normal text-center text-white m-0 max-md:text-[26px] max-md:leading-[31.5px]">Build Yours with HACA.</p>
+                                <p className="font-rethink font-bold text-[58px] leading-[69.6px] tracking-normal text-center text-white m-0 lg:text-[54px] lg:leading-[65px] max-md:text-[26px] max-md:leading-[31.5px]">Skills Are the New Degree,</p>
+                                <p className="font-rethink font-bold text-[58px] leading-[69.6px] tracking-normal text-center text-white m-0 lg:text-[54px] lg:leading-[65px] max-md:text-[26px] max-md:leading-[31.5px]">Build Yours with HACA.</p>
                             </motion.div>
 
                             {/* Paragraph */}
@@ -62,7 +62,7 @@ export function Hero() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.3 }}
                             >
-                                <p className="font-rethink font-medium text-[18px] leading-[27px] tracking-normal text-center text-[#A7ADBE] m-0 max-md:text-[14px] max-md:leading-[15px]">
+                                <p className="font-rethink font-medium text-[18px] leading-[27px] tracking-normal text-center text-[#A7ADBE] m-0 md:line-clamp-2 lg:line-clamp-none lg:whitespace-nowrap max-md:text-[14px] max-md:leading-[15px]">
                                     At HACA, every course is built to make you career-ready in Digital Marketing, Design, Tech, or Finance.
                                 </p>
                             </motion.div>
@@ -145,7 +145,7 @@ export function Hero() {
 
                     {/* ── Additional SVGs (World Education Summit & Admission Open) ── */}
                     <motion.div
-                        className="flex flex-col items-center gap-[20px] max-md:gap-[15.2px]"
+                        className="flex flex-col items-center gap-[20px] max-md:gap-[15.2px] lg:gap-[13px] lg:-mt-[11px]"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.7 }}
