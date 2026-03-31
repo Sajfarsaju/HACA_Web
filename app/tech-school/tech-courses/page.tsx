@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import {
     TechCoursesGlobalBg,
     TechCoursesHero,
@@ -53,12 +54,21 @@ export default function CoursesPage() {
             <TechCoursesGlobalBg />
             <TechCoursesHero scale={scales.desktop} />
             <TechCoursesMobileHero scale={scales.mobile} />
-            <SectionReveal>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+            >
                 <TechCoursesHeaderSection />
-            </SectionReveal>
-            <SectionReveal>
+            </motion.div>
+            
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+            >
                 <TechCoursesListSection desktopScale={scales.desktop} />
-            </SectionReveal>
+            </motion.div>
             <TechCoursesStyles />
 
             {/* Footer: match Tech home footer */}

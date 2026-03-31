@@ -14,13 +14,13 @@ export function Hero() {
     return (
         <section className="w-full section-4k mx-auto pb-[60px] bg-transparent relative max-md:pb-0 min-[768px]:pt-[56px] lg:pt-[37px] max-md:pt-0">
             {/* ── Inner Container ── */}
-            <div className="w-full flex flex-col items-center gap-[36px] max-md:gap-[34px]">
+            <div className="w-full flex flex-col items-center gap-[56px] max-md:gap-[40px] lg:gap-[64px]">
 
                 {/* ──────────────────────────────────────
                     UPPER CONTAINER
                     (desktop: 780px wide, mobile: full width)
                     ────────────────────────────────────── */}
-                <div className="w-full max-w-[780px] flex flex-col items-center gap-[50px] max-md:max-w-full max-md:pt-0 max-md:px-[20px] max-md:gap-[26px] md:px-[32px] lg:px-0 lg:gap-[34px] lg:-mb-[32px]">
+                <div className="w-full max-w-[780px] flex flex-col items-center gap-[50px] max-md:max-w-full max-md:pt-0 max-md:px-[20px] max-md:gap-[26px] md:px-[32px] lg:px-0 lg:gap-[34px]">
 
                     {/* ── First Container: Info button + Heading + Paragraph ── */}
                     <div className="w-full flex flex-col items-center max-md:gap-[10px] min-[768px]:gap-[11px] lg:gap-[7px]">
@@ -193,10 +193,15 @@ export function Hero() {
                 </div>
                 {/* END hero-upper */}
 
-                {/* Below the fold: reveal each block when it scrolls into view */}
-                <SectionReveal className="w-full" duration={0.55} y={28} delay={0.05}>
+                {/* Immediately visible block */}
+                <motion.div 
+                    className="w-full"
+                    initial={{ opacity: 0, y: 28 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.55, delay: 0.05 }}
+                >
                     <PhotoGallery />
-                </SectionReveal>
+                </motion.div>
 
                 <SectionReveal className="w-full" duration={0.55} y={28} delay={0.05}>
                     <PressLogos />

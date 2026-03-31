@@ -43,6 +43,14 @@ const LOGOS = [
         width: 129,
         height: 81,
     },
+    {
+        key: "press_new_1",
+        src: "/photos/main/press new 1.svg",
+        alt: "Press Logo 1",
+        wrapperClass: "flex items-center justify-center w-[clamp(100px,11vw,160px)] h-auto max-md:w-[85px] shrink-0 border border-transparent",
+        width: 160,
+        height: 40,
+    },
 ]
 
 // Repeat to keep the marquee feeling infinite

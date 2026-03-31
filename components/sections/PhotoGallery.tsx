@@ -62,6 +62,7 @@ export function PhotoGallery() {
                                         src={card.src}
                                         alt={card.alt}
                                         fill
+                                        priority={index < 8}
                                         className="object-cover rounded-[12px]"
                                         sizes={
                                             portrait
