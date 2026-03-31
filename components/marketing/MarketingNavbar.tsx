@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const MARKETING_NAV_LINKS = [
     { href: "/schools/marketing", label: "Home" },
-    { href: "/success-story", label: "Success Story" },
+    { href: "/marketing-school/success-story", label: "Success Story" },
     { href: "/blog", label: "Blog" },
     { href: "/courses", label: "Courses" },
 ] as const;
