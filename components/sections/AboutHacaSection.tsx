@@ -19,6 +19,7 @@ export function AboutHacaSection() {
                                     width={190}
                                     height={48}
                                     className="h-auto w-full object-left object-contain max-md:w-full min-[768px]:w-[165px] min-[1025px]:w-[190px]"
+                                    style={{ width: "auto", height: "auto", maxWidth: "100%" }}
                                 />
                             </span>
                         </button>

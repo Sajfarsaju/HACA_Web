@@ -9,7 +9,7 @@ const MARKETING_NAV_LINKS = [
     { href: "/schools/marketing", label: "Home" },
     { href: "/marketing-school/success-story", label: "Success Story" },
     { href: "/blog", label: "Blog" },
-    { href: "/courses", label: "Courses" },
+    { href: "/marketing-school/courses", label: "Courses" },
 ] as const;
 
 export function MarketingNavbar() {

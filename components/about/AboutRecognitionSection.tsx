@@ -99,6 +99,7 @@ export function AboutRecognitionSection() {
                                     width={logo.width}
                                     height={logo.height}
                                     className="w-full h-auto"
+                                    style={{ width: "auto", height: "auto", maxWidth: "100%" }}
                                 />
                             </div>
                         ))}
