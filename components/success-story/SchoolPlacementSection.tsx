@@ -44,13 +44,13 @@ function subscribeVisibleCount(callback: () => void) {
 }
 
 function getVisibleCountSnapshot(): number {
-    if (typeof window === "undefined") return 1;
-    if (window.matchMedia("(min-width: 768px)").matches) return 4;
-    return 3;
+    if (typeof window === "undefined") return 4;
+    if (window.matchMedia("(min-width: 768px)").matches) return 16;
+    return 4;
 }
 
 function getServerVisibleCount(): number {
-    return 1;
+    return 16;
 }
 
 function useRowCapacity(): number {
@@ -62,10 +62,10 @@ function useRowCapacity(): number {
 }
 
 const cardClassName =
-    "group relative flex flex-col bg-[#0A0C16] overflow-hidden border border-[#232D6B]/30 hover:border-[#232D6B] transition-all duration-500 shadow-2xl w-full min-w-0 rounded-[10px] aspect-[247.6561737060547/270]";
+    "group relative flex flex-col bg-[#0A0C16] overflow-hidden border border-[#232D6B]/30 hover:border-[#232D6B] transition-all duration-500 shadow-2xl w-full min-w-0 rounded-[10.13px] aspect-[312.88/359.61]";
 
 const gridClassName =
-    "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full gap-4 sm:gap-5 md:gap-6 lg:gap-8";
+    "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full gap-[14px] md:gap-[50px]";
 
 const scrollViewport = {
     once: true,
