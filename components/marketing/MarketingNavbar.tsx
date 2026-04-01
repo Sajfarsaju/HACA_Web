@@ -34,7 +34,7 @@ export function MarketingNavbar() {
 
             <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 w-[478px] h-[60px] rounded-[1000px] bg-[#E6EFFF] px-[30px] items-center justify-between gap-[50px]">
                 {MARKETING_NAV_LINKS.map(({ href, label }) => {
-                    const isActive = pathname === href;
+                    const isActive = pathname === href
                     return (
                         <Link
                             key={href}
