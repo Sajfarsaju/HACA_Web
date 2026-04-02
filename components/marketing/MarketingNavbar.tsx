@@ -50,15 +50,26 @@ export function MarketingNavbar() {
 
             <Link
                 href="/contact"
-                className="hidden lg:inline-flex relative w-[180px] h-[60px] shrink-0"
+                className="hidden lg:flex relative items-center w-[180px] h-[60px] shrink-0 group no-underline"
                 aria-label="Contact us"
             >
-                <Image
-                    src="/photos/schools/marketing/marketing contact us btn.svg"
-                    alt="Contact us"
-                    fill
-                    className="object-contain"
-                />
+                <div className="absolute left-0 top-0 w-[175px] h-[60px] bg-[#E6EFFF] rounded-[30px] flex items-center pl-[20px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
+                    <span 
+                        className="text-black whitespace-nowrap"
+                        style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}
+                    >
+                        Contact Us
+                    </span>
+                </div>
+                <div className="absolute right-0 top-0 w-[60px] h-[60px] pointer-events-none transition-transform duration-300 group-hover:translate-x-1">
+                    <Image
+                        src="/photos/schools/marketing/button arrow.svg"
+                        alt=""
+                        width={60}
+                        height={60}
+                        className="w-full h-full object-contain"
+                    />
+                </div>
             </Link>
 
             <button
@@ -90,15 +101,26 @@ export function MarketingNavbar() {
                             <Link
                                 href="/contact"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="relative w-[158.2667px] h-[44px] shrink-0"
+                                className="relative flex items-center w-[158.26px] h-[44px] shrink-0 group no-underline"
                                 aria-label="Enquire now"
                             >
-                                <Image
-                                    src="/photos/schools/marketing/marketing enquire now btn.svg"
-                                    alt="Enquire now"
-                                    fill
-                                    className="object-contain"
-                                />
+                                <div className="absolute left-0 top-0 w-[154.6px] h-[44px] bg-[#E6EFFF] rounded-[22px] flex items-center pl-[12px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
+                                    <span 
+                                        className="text-black whitespace-nowrap text-[16px]"
+                                        style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, lineHeight: "100%" }}
+                                    >
+                                        Enquire Now
+                                    </span>
+                                </div>
+                                <div className="absolute right-0 top-0 w-[44px] h-[44px] pointer-events-none transition-transform duration-300 group-hover:translate-x-1">
+                                    <Image
+                                        src="/photos/schools/marketing/button arrow.svg"
+                                        alt=""
+                                        width={44}
+                                        height={44}
+                                        className="w-full h-full object-contain"
+                                    />
+                                </div>
                             </Link>
                         </div>
 

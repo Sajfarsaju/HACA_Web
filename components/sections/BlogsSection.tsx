@@ -10,23 +10,25 @@ const blogCardLinkClass =
 
 export function BlogsSection() {
     return (
-        <section className="w-full section-4k mx-auto bg-[#000210] p-[36px_60px] flex flex-col items-center gap-[26px] box-border max-md:p-[20px]" aria-label="The Learning Space">
+        <section className="w-full section-4k mx-auto bg-[#000210] p-[20px_40px] flex flex-col items-center gap-[20px] box-border max-md:p-[20px]" aria-label="The Learning Space">
 
             {/* ─── Header ─── */}
-            <div className="w-full max-w-[300px] flex flex-col items-center gap-[10px] max-md:max-w-[335px] max-md:self-start max-md:items-start max-md:gap-[7.97px]">
+            <div className="w-full max-w-[300px] flex flex-col items-center gap-[10px] max-md:max-w-[335px] max-md:self-center max-md:items-center max-md:gap-[7.97px]">
                 {/* Pill button — viewBox 133×64, inner pill 111×42 */}
-                <button type="button" className="bg-transparent border-none p-0 cursor-default w-[133px] h-[64px] flex items-center shrink-0 max-md:w-[93.5px] max-md:h-auto" aria-label="Blogs">
-                    <Image
-                        src="/photos/main/blogs arrow.svg"
-                        alt="Blogs"
-                        width={133}
-                        height={64}
-                        className="w-full h-auto block"
-                        priority
-                    />
+                <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="Blogs">
+                    <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">Blogs</span>
+                    <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
+                        <Image
+                            src="/photos/main/blue arrow.svg"
+                            alt=""
+                            width={38}
+                            height={26}
+                            className="w-full h-full object-contain"
+                        />
+                    </span>
                 </button>
 
-                <h2 className="font-rethink font-bold text-[32px] leading-[110%] text-[#ffffff] m-0 text-center max-md:text-[22px] max-md:text-left">The Learning Space</h2>
+                <h2 className="font-rethink font-bold text-[32px] leading-[110%] text-[#ffffff] m-0 text-center max-md:text-[22px] max-md:text-center">The Learning Space</h2>
             </div>
 
             {/* ─── Cards grid — whole card links to post; hover grows slightly ─── */}

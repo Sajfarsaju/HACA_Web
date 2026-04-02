@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${rethinkSans.variable} ${outfit.variable} ${manrope.variable} antialiased min-h-screen flex flex-col overflow-x-hidden relative isolation-isolate`}
+        className={`${geistSans.variable} ${geistMono.variable} ${rethinkSans.variable} ${outfit.variable} ${manrope.variable} antialiased min-h-screen flex flex-col relative isolation-isolate`}
         suppressHydrationWarning
       >
         {/* ── Global Page Top Gradient ── */}
@@ -54,7 +54,6 @@ export default function RootLayout({
         <ClientLayoutProvider>
           {children}
         </ClientLayoutProvider>
-        <ConditionalFooter />
       </body>
     </html>
   );

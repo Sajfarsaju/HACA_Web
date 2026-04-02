@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const WORLD_EDUCATION_LOGO = "/photos/schools/marketing/world%20summit%202.svg";
 const HERO_PHOTO = "/photos/schools/marketing/rizwan%20marketing.webp";
-const ENQUIRE_BTN = "/photos/schools/marketing/marketing%20enquire%20now%20btn.svg";
+
 
 export function MarketingHeroSection() {
     return (
@@ -27,17 +27,26 @@ export function MarketingHeroSection() {
 
                         <Link
                             href="/contact"
-                            className="relative w-[158.2667px] h-[44px] md:w-[clamp(170px,22vw,194px)] md:h-[clamp(48px,5vw,60px)] lg:w-[clamp(158px,14vw,194px)] lg:h-[clamp(44px,3.8vw,60px)] xl:w-[194px] xl:h-[60px] shrink-0 inline-block"
+                            className="relative flex items-center shrink-0 group no-underline transition-all duration-300 w-[158.26px] h-[44px] md:w-[194px] md:h-[60px]"
                             aria-label="Enquire now"
                         >
-                            <Image
-                                src={ENQUIRE_BTN}
-                                alt="Enquire now"
-                                fill
-                                className="object-contain"
-                                sizes="(max-width: 1023px) 158px, (max-width: 1279px) 180px, 194px"
-                                priority
-                            />
+                            <div className="absolute left-0 top-0 bg-[#E6EFFF] flex items-center transition-colors duration-300 group-hover:bg-[#d6e4ff] w-[154.6px] h-[44px] rounded-[22px] pl-[12px] md:w-[189px] md:h-[60px] md:rounded-[30px] md:pl-[20px]">
+                                <span 
+                                    className="text-black whitespace-nowrap text-[16px] md:text-[18px]"
+                                    style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 500, lineHeight: "100%" }}
+                                >
+                                    Enquire Now
+                                </span>
+                            </div>
+                            <div className="absolute right-0 top-0 pointer-events-none transition-transform duration-300 group-hover:translate-x-1 w-[44px] h-[44px] md:w-[60px] md:h-[60px]">
+                                <Image
+                                    src="/photos/schools/marketing/button arrow.svg"
+                                    alt=""
+                                    width={60}
+                                    height={60}
+                                    className="w-full h-full object-contain"
+                                />
+                            </div>
                         </Link>
 
                         <p className="lg:hidden m-0 text-[#171717] font-rethink font-medium text-[clamp(12px,3.8vw,18px)] md:text-[clamp(15px,2.2vw,18px)] leading-[1.45] max-w-[343px] md:max-w-[min(520px,90vw)]">

@@ -42,7 +42,7 @@ export function Footer() {
                 aria-hidden
             />
             <div
-                className="relative z-10 w-full section-4k mx-auto flex flex-col px-[clamp(20px,4.4vw,63px)] pt-[clamp(20px,4.2vw,60px)] pb-[clamp(20px,4.2vw,60px)] gap-[clamp(20px,3.5vw,50px)] min-h-[clamp(534px,50vw,751px)] lg:min-h-[clamp(420px,34vw,620px)]"
+                className="relative z-10 w-full section-4k mx-auto flex flex-col px-[clamp(20px,4.4vw,63px)] pt-[clamp(20px,4.2vw,40px)] pb-[clamp(20px,4.2vw,40px)] gap-[clamp(20px,3.5vw,40px)] min-h-[300px] lg:min-h-[250px]"
             >
                 <div className="absolute right-[clamp(20px,4.4vw,63px)] top-[clamp(20px,4.2vw,40px)] md:top-1/2 md:-translate-y-1/2 flex justify-end">
                     <BackToTopButton />
@@ -154,51 +154,51 @@ export function Footer() {
 
                 {/* Second container - Contact */}
                 <div className="flex flex-row gap-[clamp(16px,2vw,20px)] w-full max-w-[clamp(252px,58.4vw,841px)] max-md:flex-col max-md:gap-[clamp(16px,4vw,20px)] max-md:order-2">
-                    <div className="flex flex-col gap-[clamp(8px,1vw,10px)] flex-1 min-w-0">
-                        <h4 className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[100%] tracking-[-0.02em] text-[#FFFFFF] m-0">
+                    <div className="flex flex-col gap-[clamp(8px,1vw,10px)] flex-1 min-w-0 max-md:gap-[clamp(12px,3vw,20px)]">
+                        <h4 className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[120%] tracking-[-0.02em] text-[#FFFFFF] m-0">
                             {contactIndia.heading}
                         </h4>
-                        <div className="flex flex-col gap-[clamp(8px,1vw,10px)]">
-                            <p className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[100%] tracking-[0] text-[#A7ADBE] m-0">
+                        <div className="flex flex-col gap-[clamp(8px,1vw,10px)] max-md:gap-[clamp(10px,2.5vw,14px)]">
+                            <p className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[140%] tracking-[0] text-[#A7ADBE] m-0">
                                 {contactIndia.address}
                             </p>
-                            <p className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[100%] tracking-[-0.02em] text-[#FFFFFF] m-0">
+                            <p className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[120%] tracking-[-0.02em] text-[#FFFFFF] m-0">
                                 {contactIndia.phone}
                             </p>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-[clamp(8px,1vw,10px)] flex-1 min-w-0">
-                        <h4 className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[100%] tracking-[-0.02em] text-[#FFFFFF] m-0">
+                    <div className="flex flex-col gap-[clamp(8px,1vw,10px)] flex-1 min-w-0 max-md:gap-[clamp(12px,3vw,20px)]">
+                        <h4 className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[120%] tracking-[-0.02em] text-[#FFFFFF] m-0">
                             {contactUAE.heading}
                         </h4>
-                        <div className="flex flex-col gap-[clamp(8px,1vw,10px)]">
-                            <p className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[100%] tracking-[0] text-[#A7ADBE] m-0">
+                        <div className="flex flex-col gap-[clamp(8px,1vw,10px)] max-md:gap-[clamp(10px,2.5vw,14px)]">
+                            <p className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[140%] tracking-[0] text-[#A7ADBE] m-0">
                                 {contactUAE.address}
                             </p>
-                            <p className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[100%] tracking-[-0.02em] text-[#FFFFFF] m-0">
+                            <p className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[120%] tracking-[-0.02em] text-[#FFFFFF] m-0">
                                 {contactUAE.phone}
                             </p>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-[clamp(8px,1vw,10px)] flex-1 min-w-0 max-md:gap-[clamp(12px,3vw,20px)]">
+                    <div className="flex flex-col gap-[clamp(8px,1vw,10px)] flex-1 min-w-0 max-md:gap-[clamp(16px,3vw,20px)]">
                         <div className="flex flex-col gap-[clamp(8px,1vw,10px)]">
-                            <h4 className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[100%] tracking-[-0.02em] text-[#FFFFFF] m-0">
+                            <h4 className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[120%] tracking-[-0.02em] text-[#FFFFFF] m-0">
                                 Email
                             </h4>
                             <Link
                                 href={`mailto:${contactEmail}`}
-                                className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[100%] tracking-[0] text-[#A7ADBE] hover:text-white transition-colors"
+                                className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[140%] tracking-[0] text-[#A7ADBE] hover:text-white transition-colors"
                             >
                                 {contactEmail}
                             </Link>
                         </div>
                         <div className="flex flex-col gap-[clamp(8px,1vw,10px)]">
-                            <h4 className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[100%] tracking-[-0.02em] text-[#FFFFFF] m-0">
+                            <h4 className="font-rethink font-semibold text-[clamp(16px,1.4vw,20px)] leading-[120%] tracking-[-0.02em] text-[#FFFFFF] m-0">
                                 WhatsApp us at
                             </h4>
                             <Link
                                 href="https://wa.me/917736779775"
-                                className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[100%] tracking-[0] text-[#A7ADBE] hover:text-white transition-colors"
+                                className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[140%] tracking-[0] text-[#A7ADBE] hover:text-white transition-colors"
                             >
                                 {contactWhatsApp}
                             </Link>
