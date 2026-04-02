@@ -14,13 +14,13 @@ export function Hero() {
     return (
         <section className="w-full section-4k mx-auto pb-[60px] bg-transparent relative max-md:pb-0 min-[768px]:pt-[56px] lg:pt-[37px] max-md:pt-0">
             {/* ── Inner Container ── */}
-            <div className="w-full flex flex-col items-center gap-[56px] max-md:gap-[40px] lg:gap-[64px]">
+            <div className="w-full flex flex-col items-center gap-[32px] max-md:gap-[24px] lg:gap-[40px]">
 
                 {/* ──────────────────────────────────────
                     UPPER CONTAINER
                     (desktop: 780px wide, mobile: full width)
                     ────────────────────────────────────── */}
-                <div className="w-full max-w-[780px] flex flex-col items-center gap-[50px] max-md:max-w-full max-md:pt-0 max-md:px-[20px] max-md:gap-[26px] md:px-[32px] lg:px-0 lg:gap-[34px]">
+                <div className="w-full max-w-[780px] flex flex-col items-center gap-[32px] max-md:max-w-full max-md:pt-0 max-md:px-[20px] max-md:gap-[20px] md:px-[32px] lg:px-0 lg:gap-[24px]">
 
                     {/* ── First Container: Info button + Heading + Paragraph ── */}
                     <div className="w-full flex flex-col items-center max-md:gap-[10px] min-[768px]:gap-[11px] lg:gap-[7px]">
@@ -32,14 +32,18 @@ export function Hero() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                         >
-                            <Image
-                                src="/photos/main/Info Button.svg"
-                                alt="Info"
-                                width={371}
-                                height={64}
-                                className="w-[371px] h-[64px] object-contain max-md:w-[271px] max-md:h-[46px]"
-                                priority
-                            />
+                            <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="Academy from the House of Haris&Co">
+                                <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">Academy from the House of Haris&amp;Co</span>
+                                <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
+                                    <Image
+                                        src="/photos/main/blue arrow.svg"
+                                        alt=""
+                                        width={38}
+                                        height={26}
+                                        className="w-full h-full object-contain"
+                                    />
+                                </span>
+                            </button>
                         </motion.div>
 
                         {/* Text Container */}
@@ -151,7 +155,7 @@ export function Hero() {
                         transition={{ duration: 0.8, delay: 0.7 }}
                     >
                         <Image
-                            src="/photos/main/World-Education-Summit 1.svg"
+                            src="/photos/main/World-Education-Summit 1 new.png"
                             alt="World Education Summit"
                             width={341}
                             height={63}

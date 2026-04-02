@@ -49,12 +49,14 @@ export function FAQSection() {
                 {/* Pill button — same style pattern (111×42 inner pill) */}
                 <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="FAQ">
                     <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">FAQ</span>
-                    <span className="flex items-center justify-center shrink-0 w-[26px] h-[26px] max-md:w-[20px] max-md:h-[20px]" aria-hidden="true">
-                        {/* Arrow circle matching pill visual style */}
-                        <svg className="w-full h-full" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="26" height="26" rx="13" fill="#1A4FFF" />
-                            <path d="M9.5 13H16.5M16.5 13L13.5 10M16.5 13L13.5 16" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                    <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
+                        <Image
+                            src="/photos/main/blue arrow.svg"
+                            alt=""
+                            width={38}
+                            height={26}
+                            className="w-full h-full object-contain"
+                        />
                     </span>
                 </button>
 

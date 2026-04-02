@@ -80,14 +80,17 @@ export function WhyHacaSection() {
             {/* ── Left Column ── */}
             <div className="min-w-0 max-w-[453px] flex flex-col items-start text-left gap-[20px] shrink-0 max-[900px]:max-w-full max-[900px]:items-center max-[900px]:text-center max-md:gap-[clamp(8px,2vw,12px)] max-md:w-full">
                 {/* Badge */}
-                <button className="w-[175px] h-[64px] -ml-[6px] flex items-center justify-center p-0 rounded-[100px] border-none bg-transparent cursor-default max-[900px]:ml-0 max-md:w-[130px] max-md:h-[48px]" aria-label="Why HACA">
-                    <Image
-                        src="/photos/main/why haca.svg"
-                        alt="Why HACA"
-                        width={175}
-                        height={64}
-                        className="w-full h-full object-contain"
-                    />
+                <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="Why HACA">
+                    <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">Why HACA</span>
+                    <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
+                        <Image
+                            src="/photos/main/blue arrow.svg"
+                            alt=""
+                            width={38}
+                            height={26}
+                            className="w-full h-full object-contain"
+                        />
+                    </span>
                 </button>
 
                 {/* Heading + Paragraph */}
@@ -126,7 +129,7 @@ export function WhyHacaSection() {
                 >
                 {cards.map((card, slotIndex) => (
                     <div key={slotIndex} className="relative min-h-0 w-full min-w-0">
-                        <div className="group w-full h-[clamp(140px,14vw,193px)] rounded-[20px] border border-[rgba(35,45,107,0.8)] bg-[#000319] p-[clamp(14px,1.5vw,20px)] overflow-hidden relative cursor-default shadow-[inset_0_0_30px_rgba(20,60,200,0.07)] max-[900px]:w-full max-[900px]:max-w-[335px] max-[900px]:h-auto max-[900px]:min-h-[193px] max-[900px]:p-[20px] max-[900px]:rounded-[20px] max-[900px]:border max-[900px]:flex max-[900px]:flex-col max-[900px]:justify-start max-[900px]:items-center max-[900px]:mx-auto max-md:max-w-none max-md:w-full max-md:h-auto max-md:min-h-[clamp(172px,44vw,193px)] max-md:p-[clamp(16px,4.5vw,20px)] max-md:rounded-[20px] max-md:border max-md:border-[#232D6B] max-md:shadow-[inset_0_0_30px_rgba(20,60,200,0.06)] max-md:mx-auto">
+                        <div className="group w-full h-[clamp(140px,14vw,193px)] rounded-[20px] border border-[rgba(35,45,107,0.8)] bg-[#000319] p-[clamp(14px,1.5vw,20px)] overflow-hidden relative cursor-default shadow-[inset_0_0_30px_rgba(20,60,200,0.07)] max-[900px]:w-full max-[900px]:max-w-[335px] max-[900px]:h-auto max-[900px]:min-h-[193px] max-[900px]:p-[20px] max-[900px]:rounded-[20px] max-[900px]:border max-[900px]:flex max-[900px]:flex-col max-[900px]:justify-center max-[900px]:items-center max-[900px]:mx-auto max-md:max-w-none max-md:w-full max-md:h-auto max-md:min-h-[clamp(172px,44vw,193px)] max-md:p-[clamp(16px,4.5vw,20px)] max-md:rounded-[20px] max-md:border max-md:border-[#232D6B] max-md:shadow-[inset_0_0_30px_rgba(20,60,200,0.06)] max-md:mx-auto">
                         {/* Grid / grill: #000319 base, very light line grid */}
                         <div
                             className="pointer-events-none absolute inset-[1px] rounded-[18px]"
@@ -153,7 +156,7 @@ export function WhyHacaSection() {
                             }}
                         />
 
-                        <div className="w-full h-full relative z-[2] flex flex-col justify-end max-[900px]:static max-[900px]:justify-start max-[900px]:items-center max-[900px]:gap-[6px] max-[900px]:h-auto max-[900px]:w-[239px] max-[900px]:max-w-full max-[900px]:min-w-0 max-md:justify-start max-md:gap-[6px] max-md:w-full max-md:max-w-full max-md:min-w-0">
+                        <div className="w-full h-full relative z-[2] flex flex-col justify-end max-[900px]:static max-[900px]:justify-center max-[900px]:items-center max-[900px]:gap-[6px] max-[900px]:h-auto max-[900px]:w-[239px] max-[900px]:max-w-full max-[900px]:min-w-0 max-md:justify-center max-md:gap-[6px] max-md:w-full max-md:max-w-full max-md:min-w-0">
                             {/* Heading layer - visible on tablet/mobile; display:contents removes wrapper on tablet/mobile */}
                             <div className="absolute bottom-0 left-0 w-full min-w-0 shrink-0 transition-transform duration-400 ease-in-out opacity-100 translate-y-0 group-hover:-translate-y-[110%] group-hover:opacity-0 max-[900px]:contents max-md:contents">
                                 <AnimatePresence mode="wait" initial={false}>
