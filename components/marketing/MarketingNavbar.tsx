@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const MARKETING_NAV_LINKS = [
     { href: "/schools/marketing", label: "Home" },
@@ -15,9 +15,40 @@ const MARKETING_NAV_LINKS = [
 export function MarketingNavbar() {
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const lastScrollY = useRef(0);
+
+    // Hide navbar on scroll down, show on scroll up
+    useEffect(() => {
+        const handleScroll = () => {
+            const current = window.scrollY || 0;
+
+            // Always show near the very top
+            if (current < 40) {
+                setIsVisible(true);
+                lastScrollY.current = current;
+                return;
+            }
+
+            if (current > lastScrollY.current) {
+                // Scrolling down
+                setIsVisible(false);
+            } else if (current < lastScrollY.current) {
+                // Scrolling up
+                setIsVisible(true);
+            }
+
+            lastScrollY.current = current;
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
-        <header className="relative w-full bg-white h-[52px] md:h-16 lg:h-[120px] px-4 md:px-8 lg:px-[60px] py-[10px] md:py-3 lg:py-[30px] flex items-center justify-between">
+        <header className={`sticky top-0 z-50 w-full bg-white h-[52px] md:h-16 lg:h-[120px] px-4 md:px-8 lg:px-[60px] py-[10px] md:py-3 lg:py-[30px] flex items-center justify-between transition-transform duration-300 ease-out ${
+            isVisible ? "translate-y-0" : "-translate-y-full"
+        }`}>
             <Link
                 href="/schools/marketing"
                 className="relative w-[123px] h-[32px] md:w-[clamp(140px,22vw,200px)] md:h-[clamp(36px,5vw,48px)] lg:w-[220px] lg:h-[53.496px] shrink-0"
