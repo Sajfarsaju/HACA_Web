@@ -100,7 +100,7 @@ export function MarketingHeroSection() {
                             src={HERO_PHOTO}
                             alt="Marketing School"
                             fill
-                            className="object-cover object-top lg:object-cover lg:object-center"
+                            className="object-contain object-top lg:object-contain lg:object-center"
                             sizes="(max-width: 1023px) 100vw, (max-width: 1279px) 45vw, 613px"
                             priority
                         />
