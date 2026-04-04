@@ -5,7 +5,7 @@ import Image from "next/image";
 export function TechGlobalLearning() {
     return (
         <section
-            className="flex flex-col items-center relative px-6 overflow-hidden py-8 md:py-[80px] lg:py-[140px] gap-4 md:gap-8 lg:gap-[40px] min-h-[400px] md:min-h-[700px] lg:min-h-[1123.84px] w-full bg-transparent opacity-100"
+            className="flex flex-col items-center relative px-6 overflow-visible py-8 md:py-[80px] lg:py-[140px] gap-4 md:gap-8 lg:gap-[40px] min-h-[400px] md:min-h-[700px] lg:min-h-[1123.84px] w-full bg-transparent opacity-100"
         >
             {/* ✅ Main Purple Radial Glow */}
             <div
@@ -22,8 +22,8 @@ export function TechGlobalLearning() {
                         )
                     `,
                     filter: "blur(clamp(60px, 15vw, 220px))",
-                    maskImage: "linear-gradient(to bottom, black 0%, black calc(100% - 5px), transparent 100%)",
-                    WebkitMaskImage: "linear-gradient(to bottom, black 0%, black calc(100% - 5px), transparent 100%)",
+                    maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
                 }}
             />
             <div
@@ -41,8 +41,8 @@ export function TechGlobalLearning() {
                         )
                     `,
                     filter: "blur(clamp(80px, 18vw, 260px))",
-                    maskImage: "linear-gradient(to bottom, black 0%, black calc(100% - 5px), transparent 100%)",
-                    WebkitMaskImage: "linear-gradient(to bottom, black 0%, black calc(100% - 5px), transparent 100%)",
+                    maskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
                 }}
             />
 

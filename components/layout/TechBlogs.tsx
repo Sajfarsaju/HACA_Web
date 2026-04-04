@@ -10,17 +10,10 @@ export function TechBlogs() {
                 backgroundColor: "transparent",
                 minHeight: "600px",
                 padding: "80px 24px",
+                maskImage: "linear-gradient(to bottom, transparent 0%, black 150px, black calc(100% - 150px), transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 150px, black calc(100% - 150px), transparent 100%)",
             }}
         >
-            {/* Soft top fade: blend purple gradient into original theme (small ~5px band) */}
-            <div
-                className="absolute top-0 left-0 right-0 z-[1] pointer-events-none"
-                style={{
-                    height: "5px",
-                    background: "linear-gradient(to bottom, #111111 0%, rgba(17,17,17,0.6) 40%, transparent 100%)",
-                }}
-                aria-hidden
-            />
             {/* Main Content Row */}
             <div
                 style={{ zIndex: 10 }}

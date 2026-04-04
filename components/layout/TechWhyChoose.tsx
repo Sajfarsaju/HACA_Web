@@ -169,7 +169,7 @@ export function TechWhyChoose() {
 
             {/* ── Header ── */}
             <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-[1] relative">
-                <h2 className="font-outfit font-normal text-[clamp(32px,5vw,60px)] leading-[62px] tracking-[-0.02em] text-center capitalize max-w-[938px] m-0 bg-gradient-to-r from-[#FF5600] via-[#FF7A3D] to-[#9B5CF6] bg-clip-text text-transparent [background-size:100%_auto]">
+                <h2 className="font-outfit font-normal text-[clamp(32px,5vw,60px)] leading-[62px] tracking-[-0.02em] text-center capitalize max-w-[938px] m-0 text-white">
                     Why Choose Smarter Learning with<br className="hidden md:block" /> Us?
                 </h2>
                 <p className="font-outfit font-normal text-[clamp(16px,2vw,24px)] leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7] text-center max-w-[1128px] m-0">
