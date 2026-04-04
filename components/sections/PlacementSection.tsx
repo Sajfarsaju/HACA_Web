@@ -104,7 +104,7 @@ export function PlacementSection() {
     }, [])
 
     return (
-        <section className="w-full section-4k mx-auto pt-[84px] px-[60px] pb-[32px] flex flex-col items-center gap-[36px] opacity-100 overflow-hidden max-[600px]:max-w-full max-[600px]:p-[20px] max-[600px]:gap-[26px]">
+        <section className="w-full section-4k mx-auto pt-[84px] px-[60px] pb-[32px] flex flex-col items-center gap-[36px] opacity-100 overflow-hidden max-[600px]:max-w-full max-[600px]:p-[20px_clamp(16px,5vw,24px)] max-[600px]:gap-[26px]">
             <style>{`
                 @keyframes placement-scroll-up {
                     from { transform: translateY(0); }
@@ -125,7 +125,7 @@ export function PlacementSection() {
                 }
             `}</style>
             {/* ── Header: Badge + Heading ── */}
-            <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none flex flex-col items-center gap-[20px] max-[600px]:max-w-[335px] max-[600px]:gap-[7.97px]">
+            <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none flex flex-col items-center gap-[20px] max-[600px]:gap-[7.97px] max-[600px]:max-w-none">
                 {/* Badge Button */}
                 <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="Student Placements">
                     <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">Student Placements</span>
@@ -147,13 +147,13 @@ export function PlacementSection() {
             </div>
 
             {/* ── Card Grid: each column scrolls vertically, cards clip at container ── */}
-            <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none h-[500px] grid grid-cols-5 gap-[20px] overflow-hidden items-stretch max-[1200px]:grid-cols-4 max-[1200px]:h-[550px] max-[900px]:grid-cols-3 max-[900px]:h-[500px] max-[600px]:mx-auto max-[600px]:w-full max-[600px]:max-w-[min(335px,calc(100vw-40px))] max-[600px]:h-[min(400px,calc(100vw*1.25))] max-[600px]:grid-cols-2 max-[600px]:gap-[clamp(10px,3.2vw,13px)] max-[440px]:max-w-[min(335px,calc(100vw-32px))] max-[440px]:grid-cols-1 max-[440px]:h-[min(420px,calc(100vw*1.35))]">
+            <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none h-[500px] grid grid-cols-5 gap-[20px] overflow-hidden items-stretch max-[1200px]:grid-cols-4 max-[1200px]:h-[550px] max-[900px]:grid-cols-3 max-[900px]:h-[500px] max-[600px]:mx-auto max-[600px]:w-full max-[600px]:max-w-none max-[600px]:h-[min(400px,calc(100vw*1.25))] max-[600px]:grid-cols-2 max-[600px]:gap-[clamp(10px,3.2vw,13px)]">
                 {COLUMNS.map((colIdx) => {
                     const isUp = colIdx % 2 !== 0;
                     return (
                         <div
                             key={colIdx}
-                            className={`flex flex-col gap-[20px] overflow-hidden min-h-0 max-[1200px]:[&:nth-child(5)]:hidden max-[900px]:[&:nth-child(n+4)]:hidden max-[600px]:[&:nth-child(n+3)]:hidden max-[600px]:gap-[clamp(10px,3.2vw,20px)] max-[440px]:[&:nth-child(n+2)]:hidden`}
+                            className={`flex flex-col gap-[20px] overflow-hidden min-h-0 max-[1200px]:[&:nth-child(5)]:hidden max-[900px]:[&:nth-child(n+4)]:hidden max-[600px]:[&:nth-child(n+3)]:hidden max-[600px]:gap-[clamp(10px,3.2vw,20px)]`}
                         >
                             <div className={`flex flex-col gap-[20px] placement-column ${isUp ? 'animate-placement-up' : 'animate-placement-down'}`}>
                                 {[...Array(2)].map((_, loopIdx) => (

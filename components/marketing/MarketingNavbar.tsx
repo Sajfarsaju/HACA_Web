@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 
 const MARKETING_NAV_LINKS = [
-    { href: "/schools/marketing", label: "Home" },
+    { href: "/marketing-school", label: "Home" },
     { href: "/marketing-school/success-story", label: "Success Story" },
     { href: "/blog", label: "Blog" },
-    { href: "/courses", label: "Courses" },
+    { href: "/marketing-school/courses", label: "Courses" },
 ] as const;
 
 export function MarketingNavbar() {
@@ -50,7 +50,7 @@ export function MarketingNavbar() {
             isVisible ? "translate-y-0" : "-translate-y-full"
         }`}>
             <Link
-                href="/schools/marketing"
+                href="/marketing-school"
                 className="relative w-[123px] h-[32px] md:w-[clamp(140px,22vw,200px)] md:h-[clamp(36px,5vw,48px)] lg:w-[220px] lg:h-[53.496px] shrink-0"
                 aria-label="Marketing School Home"
             >
