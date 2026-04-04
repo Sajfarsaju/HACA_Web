@@ -18,10 +18,13 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
         pathname === "/schools/marketing" ||
         pathname.startsWith("/schools/marketing/");
     const isHome = pathname === "/";
+    const isFinanceSchool =
+        pathname === "/finance-school" ||
+        pathname.startsWith("/finance-school/");
 
     return (
         <>
-            {!isTechSchool && !isMarketingSchool && <Navbar />}
+            {!isTechSchool && !isMarketingSchool && !isFinanceSchool && <Navbar />}
             <main className="flex-grow">
                 {children}
             </main>
