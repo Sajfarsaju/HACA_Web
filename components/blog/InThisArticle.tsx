@@ -13,7 +13,7 @@ export function InThisArticle({ items }: Props) {
 
     return (
         <div
-            className="w-full max-w-[335px] md:max-w-full lg:max-w-[384px] flex flex-col gap-5 p-5 rounded-[20px] border border-[#232D6B] bg-[#000319]"
+            className="w-full max-md:max-w-none max-w-[335px] md:max-w-full lg:max-w-[384px] flex flex-col gap-5 p-5 rounded-[20px] border border-[#232D6B] bg-[#000319]"
             style={{ fontFamily: "var(--font-manrope), var(--font-rethink-sans), sans-serif" }}
         >
             {/* Heading: "In this article" + down arrow */}

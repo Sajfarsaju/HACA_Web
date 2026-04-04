@@ -76,7 +76,7 @@ export function WhyHacaSection() {
     const cards = page === 0 ? allCards.slice(0, 4) : allCards.slice(4, 8)
 
     return (
-        <section className="w-full section-4k min-h-[576px] mx-auto px-[clamp(16px,2.5vw,60px)] py-[clamp(40px,6vw,80px)] flex flex-row justify-between items-center gap-[clamp(16px,2vw,40px)] opacity-100 max-[900px]:flex-col max-[900px]:items-center max-[900px]:min-h-auto max-[900px]:p-[60px_40px] max-[900px]:gap-[36px] max-md:p-[clamp(20px,5vw,40px)_clamp(14px,5vw,24px)] max-md:gap-[clamp(18px,4vw,26px)]">
+        <section className="w-full section-4k min-h-[576px] mx-auto px-[60px] py-[clamp(40px,6vw,80px)] flex flex-row justify-between items-center gap-[clamp(16px,2vw,40px)] opacity-100 max-[1100px]:px-[clamp(24px,4vw,50px)] max-[900px]:flex-col max-[900px]:items-center max-[900px]:min-h-auto max-[900px]:p-[60px_40px] max-[900px]:gap-[36px] max-md:p-[clamp(20px,5vw,40px)_clamp(16px,5vw,24px)] max-md:gap-[clamp(18px,4vw,26px)]">
             {/* ── Left Column ── */}
             <div className="min-w-0 max-w-[453px] flex flex-col items-start text-left gap-[20px] shrink-0 max-[900px]:max-w-full max-[900px]:items-center max-[900px]:text-center max-md:gap-[clamp(8px,2vw,12px)] max-md:w-full">
                 {/* Badge */}

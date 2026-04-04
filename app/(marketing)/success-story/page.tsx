@@ -63,7 +63,7 @@ export default async function SuccessStoryPage() {
                             height: "auto",
                         }}
                     >
-                        <h1 className="font-rethink font-bold tracking-[0%] text-[#FFFFFF] m-0 w-full max-w-full min-w-0 h-auto md:w-auto text-[26px] md:text-[58px] leading-[1.2] md:leading-[1.2] text-center">
+                        <h1 className="font-rethink font-bold tracking-[0%] text-[#FFFFFF] m-0 w-full max-w-full min-w-0 h-auto md:w-auto text-[26px] md:text-[54px] leading-[1.2] md:leading-[1.2] text-center">
                             Success Story
                         </h1>
                         <p className="font-rethink font-bold tracking-[0%] text-[#A7ADBE] m-0 w-full min-w-0 max-w-full h-auto text-[14px] md:text-[20px] leading-[1.25] sm:leading-relaxed md:leading-[34px] text-center break-words">

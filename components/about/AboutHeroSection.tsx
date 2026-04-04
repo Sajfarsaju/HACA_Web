@@ -12,7 +12,7 @@ export function AboutHeroSection() {
     return (
         <section className="w-full section-4k mx-auto pt-[120px] pb-[80px] flex flex-col items-center gap-[100px] px-[clamp(20px,4vw,60px)] max-md:pt-[24px] max-md:pb-[60px] max-md:gap-[30px]">
             <motion.h1
-                className="w-full max-w-[min(1440px,100%)] max-md:max-w-[335px] font-rethink font-medium text-[clamp(32px,5vw,58px)] leading-[1.1] text-center text-white m-0"
+                className="w-full max-w-[min(1440px,100%)] max-md:max-w-[335px] font-rethink font-medium text-[clamp(32px,4vw,54px)] leading-[1.1] text-center text-white m-0"
                 {...fadeUp}
                 transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
             >
@@ -40,7 +40,7 @@ export function AboutHeroSection() {
                     {...fadeUp}
                     transition={{ duration: 0.6, delay: 0.28, ease: [0.21, 0.47, 0.32, 0.98] }}
                 >
-                    <h2 className="w-full max-w-[min(597px,100%)] font-rethink font-semibold text-[clamp(26px,4vw,54px)] leading-[110%] text-white m-0">
+                    <h2 className="w-full max-w-[min(597px,100%)] font-rethink font-semibold text-[clamp(26px,4vw,48px)] leading-[110%] text-white m-0">
                         Industry-Ready Skill Training Institute in India &amp; UAE
                     </h2>
 

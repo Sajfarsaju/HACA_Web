@@ -69,7 +69,7 @@ function AboutWhyCard({
 
     return (
         <motion.article
-            className="box-border flex w-full max-w-[360px] flex-col gap-4 overflow-hidden rounded-[20px] border border-solid border-[#232D6B] bg-[#000319] p-5 aspect-[360/260] max-md:max-w-[345px] max-md:gap-[15.33px] max-md:rounded-[19.17px] max-md:border-[0.96px] max-md:p-[19.17px] max-md:aspect-[345/258]"
+            className="box-border flex w-full max-w-[clamp(300px,25vw,360px)] flex-col gap-4 overflow-hidden rounded-[20px] border border-solid border-[#232D6B] bg-[#000319] p-[clamp(16px,1.5vw,20px)] aspect-[360/260] max-md:max-w-[345px] max-md:gap-[15.33px] max-md:rounded-[19.17px] max-md:border-[0.96px] max-md:p-[19.17px] max-md:aspect-[345/258] transition-all duration-300"
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-32px 0px -32px 0px", amount: 0.15 }}
@@ -79,18 +79,18 @@ function AboutWhyCard({
                 ease: [0.21, 0.47, 0.32, 0.98],
             }}
         >
-            <div className="relative h-[70px] w-[70px] shrink-0 max-md:h-[67.08334px] max-md:w-[67.08334px]">
+            <div className="relative h-[clamp(50px,5vw,70px)] w-[clamp(50px,5vw,70px)] shrink-0 max-md:h-[67.08px] max-md:w-[67.08px]">
                 <Image
                     src={logoSrc}
                     alt=""
                     fill
                     className="object-contain object-left"
-                    sizes="70px"
+                    sizes="(max-width: 768px) 67px, 70px"
                 />
             </div>
 
-            <div className="flex min-h-0 w-full flex-1 flex-col gap-[10px] overflow-hidden max-md:gap-[9.58px]">
-                <h3 className="m-0 w-full font-rethink font-semibold text-[26px] leading-[110%] tracking-[-0.02em] text-white max-md:text-[20px] max-md:leading-[110%] max-md:tracking-[-0.02em]">
+            <div className="flex min-h-0 w-full flex-1 flex-col gap-[clamp(6px,0.8vw,10px)] overflow-hidden max-md:gap-[9.58px]">
+                <h3 className="m-0 w-full font-rethink font-semibold text-[clamp(20px,1.8vw,26px)] leading-[110%] tracking-[-0.02em] text-white max-md:text-[20px] max-md:leading-[110%] max-md:tracking-[-0.02em] break-words">
                     {card.title === "Global learner community" ? (
                         <>
                             <span className="block">Global learner</span>
@@ -100,7 +100,7 @@ function AboutWhyCard({
                         card.title
                     )}
                 </h3>
-                <p className="m-0 w-full max-w-[295px] font-rethink font-normal text-[20px] leading-[110%] tracking-normal text-[#A7ADBE] max-md:max-w-none max-md:text-[19.17px] max-md:leading-[110%]">
+                <p className="m-0 w-full max-w-[295px] font-rethink font-normal text-[clamp(16px,1.4vw,20px)] leading-[110%] tracking-normal text-[#A7ADBE] max-md:max-w-none max-md:text-[19.17px] max-md:leading-[110%] line-clamp-3">
                     {card.body}
                 </p>
             </div>

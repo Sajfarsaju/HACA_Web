@@ -10,7 +10,7 @@ const blogCardLinkClass =
 
 export function BlogsSection() {
     return (
-        <section className="w-full section-4k mx-auto bg-[#000210] p-[20px_40px] flex flex-col items-center gap-[20px] box-border max-md:p-[20px]" aria-label="The Learning Space">
+        <section className="w-full section-4k mx-auto bg-[#000210] p-[20px_60px] flex flex-col items-center gap-[20px] box-border max-[1100px]:px-[clamp(24px,4vw,50px)] max-md:p-[20px_clamp(16px,5vw,24px)]" aria-label="The Learning Space">
 
             {/* ─── Header ─── */}
             <div className="w-full max-w-[300px] flex flex-col items-center gap-[10px] max-md:max-w-[335px] max-md:self-center max-md:items-center max-md:gap-[7.97px]">
