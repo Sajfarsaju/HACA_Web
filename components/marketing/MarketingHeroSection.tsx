@@ -8,16 +8,42 @@ const HERO_PHOTO = "/photos/schools/marketing/rizwan%20marketing.webp";
 export function MarketingHeroSection() {
     return (
         <section
-            className="w-full bg-white pt-5 pb-0 px-4 md:pt-[clamp(40px,6vw,80px)] md:px-[clamp(24px,5vw,48px)] lg:pt-[clamp(48px,7vw,80px)] lg:px-[clamp(16px,3.5vw,48px)] xl:pt-20 xl:px-[60px] md:min-h-[min(92dvh,820px)] lg:min-h-[765px] overflow-x-hidden"
+            className="w-full bg-white pt-5 pb-0 px-4 md:pt-0 md:px-[clamp(24px,5vw,48px)] lg:pt-0 lg:px-[clamp(16px,3.5vw,48px)] xl:pt-0 xl:px-[60px] overflow-x-hidden"
             aria-label="Marketing School hero"
         >
-            <div className="w-full max-w-[1440px] mx-auto min-w-0 flex flex-col lg:flex-row lg:items-start gap-[10px] md:gap-[clamp(16px,3vw,28px)] lg:gap-[clamp(8px,1.2vw,20px)] xl:gap-6">
+            <div className="w-full max-w-[1440px] mx-auto min-w-0 flex flex-col lg:flex-row lg:items-start gap-[10px] md:gap-[clamp(16px,3vw,28px)] lg:gap-[clamp(8px,1.2vw,20px)] xl:gap-6 relative">
+                {/* Decorative Grid Patterns (Desktop Only) */}
+                {/* 1. Right side of Heading */}
+                <div 
+                    className="hidden lg:block absolute left-[31%] top-[10%] z-0 opacity-100 pointer-events-none"
+                    style={{ width: "299.0725402832031px", height: "293px" }}
+                >
+                    <Image
+                        src="/photos/schools/marketing/Pattern 5.svg"
+                        alt=""
+                        fill
+                        className="object-contain"
+                    />
+                </div>
+                {/* 2. Left Bottom of Note Container */}
+                <div 
+                    className="hidden lg:block absolute right-[15%] bottom-[45%] z-0 opacity-100 pointer-events-none"
+                    style={{ width: "299.0725402832031px", height: "293px" }}
+                >
+                    <Image
+                        src="/photos/schools/marketing/Pattern 5.svg"
+                        alt=""
+                        fill
+                        className="object-contain"
+                    />
+                </div>
+
                 {/* Left column: copy + enquire + summit logo */}
-                <div className="w-full max-w-[343px] md:max-w-[min(520px,90vw)] lg:max-w-none lg:w-[min(469px,34%)] xl:w-[469px] lg:min-w-0 lg:shrink-[1] mx-auto lg:mx-0 flex flex-col gap-8 md:gap-[clamp(48px,10vw,100px)] lg:gap-[clamp(48px,8vw,100px)] xl:gap-[141px] min-h-0 md:min-h-[clamp(360px,48vw,520px)] lg:min-h-0 xl:min-h-[546px]">
+                <div className="w-full max-w-[343px] md:max-w-[min(520px,90vw)] lg:max-w-none lg:w-[min(469px,34%)] xl:w-[469px] lg:min-w-0 lg:shrink-[1] mx-auto lg:mx-0 flex flex-col justify-between pt-[clamp(24px,4vw,60px)] lg:pt-[clamp(32px,5vw,70px)] xl:pt-[45px] min-h-0 md:min-h-[clamp(360px,48vw,520px)] lg:min-h-0 xl:min-h-[550px]">
                     {/* Top block */}
-                    <div className="flex flex-col gap-6 md:gap-8 lg:gap-8 xl:gap-10 w-full min-h-0 md:min-h-[clamp(220px,30vw,316px)] lg:min-h-0 xl:min-h-[316px]">
+                    <div className="flex flex-col gap-6 md:gap-8 lg:gap-8 xl:gap-10 w-full min-h-0">
                         <h1
-                            className="m-0 text-[#171717] font-medium text-[clamp(28px,8.5vw,38px)] md:text-[clamp(38px,5.2vw,52px)] leading-[95%] tracking-[-1px] md:tracking-[-1.2px] lg:text-[clamp(36px,3.8vw,56px)] lg:leading-[1.05] lg:tracking-[-1.4px] xl:text-[68px] xl:leading-[72px] xl:tracking-[-1.92px] max-w-[343px] md:max-w-[min(469px,90vw)] lg:max-w-full [text-rendering:geometricPrecision]"
+                            className="m-0 text-[#171717] font-semibold text-[clamp(28px,8.5vw,38px)] md:text-[clamp(38px,5.2vw,52px)] leading-[95%] tracking-[-1px] md:tracking-[-1.2px] lg:text-[clamp(36px,3.8vw,56px)] lg:leading-[1.05] lg:tracking-[-1.4px] xl:text-[68px] xl:leading-[72px] xl:tracking-[-1.92px] max-w-[343px] md:max-w-[min(469px,90vw)] lg:max-w-full [text-rendering:geometricPrecision]"
                             style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                         >
                             <span className="block align-middle whitespace-nowrap">Learn the skill.</span>
@@ -56,7 +82,7 @@ export function MarketingHeroSection() {
                     </div>
 
                     {/* Summit logo row */}
-                    <div className="flex items-center gap-[clamp(5.7px,0.6vw,8.72px)] w-[clamp(223px,28vw,341px)] md:w-[clamp(280px,38vw,341px)] lg:w-[min(341px,100%)] h-[clamp(58.166px,7vw,88.945px)] relative shrink-0 self-center lg:self-start">
+                    <div className="flex items-center gap-[clamp(5.7px,0.6vw,8.72px)] w-[clamp(223px,28vw,341px)] md:w-[clamp(280px,38vw,341px)] lg:w-[min(341px,100%)] h-[clamp(58.166px,7vw,88.945px)] relative shrink-0 self-center lg:self-start lg:mb-4 xl:mb-2">
                         <Image
                             src={WORLD_EDUCATION_LOGO}
                             alt="World Education Summit"
@@ -68,29 +94,73 @@ export function MarketingHeroSection() {
                 </div>
 
                 {/* Hero photo — flex-1 so it shrinks on narrow desktop instead of clipping */}
-                <div className="w-full min-w-0 lg:flex-1 lg:max-w-[min(613.46px,100%)] shrink mx-auto lg:mx-0">
-                    <div className="relative w-full aspect-[613/638] max-h-[390px] md:max-h-[min(560px,52vw)] lg:max-h-[min(638px,55vh)] xl:max-h-[638px] overflow-hidden md:rounded-[16px] lg:rounded-[18px] xl:rounded-[20px]">
+                <div className="w-full min-w-0 lg:flex-1 lg:max-w-[min(613.46px,100%)] shrink mx-auto lg:mx-0 lg:self-end relative">
+                    <div className="relative w-full aspect-[613/638] max-h-[390px] md:max-h-[min(500px,52vw)] lg:max-h-[min(540px,55vh)] xl:max-h-[550px] overflow-hidden md:rounded-t-[16px] lg:rounded-t-[18px] xl:rounded-t-[20px]">
                         <Image
                             src={HERO_PHOTO}
                             alt="Marketing School"
                             fill
-                            className="object-cover object-top lg:object-cover lg:object-center"
+                            className="object-contain object-top lg:object-contain lg:object-center"
                             sizes="(max-width: 1023px) 100vw, (max-width: 1279px) 45vw, 613px"
                             priority
                         />
                     </div>
+
+                    {/* Scroll Indicator */}
+                    <div className="hidden lg:flex absolute bottom-[15px] right-[-30%] translate-x-[40px] items-center opacity-100 whitespace-nowrap z-10"
+                        style={{ width: '150px', height: '28px', gap: '5px' }}>
+                        <span style={{ 
+                            width: '129px', 
+                            height: '28px', 
+                            fontFamily: 'Satoshi, sans-serif', 
+                            fontWeight: 500, 
+                            fontSize: '12px', 
+                            lineHeight: '28px',
+                            color: '#0A0A0A',
+                            display: 'flex',
+                            alignItems: 'center'
+                        }}>
+                            Scroll Down to Discover
+                        </span>
+                        <div className="w-[16px] h-[16px] shrink-0 flex items-center justify-center">
+                            <Image
+                                src="/photos/schools/marketing/solar_arrow-up-broken.svg"
+                                alt=""
+                                width={16}
+                                height={16}
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 {/* Desktop-only right note */}
-                <div className="hidden lg:flex w-[min(200px,18%)] xl:w-[clamp(170px,15vw,250px)] min-w-0 shrink-0 min-h-0 xl:min-h-[638px] items-start pt-[clamp(32px,5vw,86px)] pr-0 pl-[clamp(0px,0.8vw,8px)]">
-                    <div className="flex flex-col gap-[clamp(8px,1.4vw,16px)] w-full min-w-0">
-                        <span className="relative w-[clamp(18px,1.6vw,28px)] h-[clamp(18px,1.6vw,28px)] shrink-0" aria-hidden="true">
-                            <span className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1.5px] bg-[#1463FF]" />
-                            <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1.5px] bg-[#1463FF]" />
-                        </span>
-                        <p className="m-0 font-rethink font-medium text-[clamp(11px,0.95vw,18px)] leading-[1.45] text-[#171717] w-full min-w-0">
-                            Learn in a space where ideas flow, projects matter, and your growth is the priority.
-                        </p>
+                <div className="hidden lg:flex w-[min(200px,18%)] xl:w-[clamp(170px,15vw,250px)] min-w-0 shrink-0 min-h-0 xl:min-h-[550px] items-start pt-0 relative lg:self-start">
+                    <div className="absolute left-[clamp(-130px,-12vw,-90px)] top-[clamp(16px,2vw,40px)] xl:top-[clamp(40px,4vw,80px)] flex flex-col gap-[clamp(16px,2vw,24px)] w-[clamp(240px,22vw,313px)] h-auto opacity-100">
+                        <div className="w-[clamp(35px,3.2vw,45px)] h-[clamp(35px,3.2vw,45px)] opacity-100 flex items-center justify-center">
+                            <Image
+                                src="/photos/schools/marketing/Crosshair.svg"
+                                alt=""
+                                width={45}
+                                height={45}
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                        <div className="w-full opacity-100 select-none">
+                            <p 
+                                className="m-0 text-[#0A0A0A] align-middle"
+                                style={{ 
+                                    fontFamily: "Satoshi, sans-serif", 
+                                    fontWeight: 500, 
+                                    fontSize: "clamp(14px, 1.25vw, 18px)", 
+                                    lineHeight: "clamp(22px, 2vw, 28px)",
+                                    letterSpacing: "0%",
+                                    width: "100%",
+                                }}
+                            >
+                                Learn in a space where ideas flow, projects matter, and your growth is the priority.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
