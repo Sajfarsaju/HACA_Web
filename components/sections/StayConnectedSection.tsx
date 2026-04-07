@@ -16,7 +16,7 @@ interface SocialCardProps {
 function SocialCard({ logoSrc, logoAlt, logoW, logoH, instagramHref = "#", youtubeHref = "#" }: SocialCardProps) {
     return (
         <motion.div
-            className="relative w-[calc(430/1320*100%)] min-h-[163px] bg-[#000319] border border-[#25317d] rounded-[20px] p-[20px] box-border flex flex-row justify-between items-center shrink-0 overflow-hidden max-[1200px]:p-[12px] max-md:w-full max-md:min-h-[126.98px] max-md:rounded-[15.58px] max-md:border-[0.78px] max-md:p-[15.58px]"
+            className="relative w-[calc(430/1320*100%)] min-h-[163px] bg-[#000319] border border-[#25317d] rounded-[20px] p-[20px] box-border flex flex-row justify-between items-center gap-[20px] shrink-0 overflow-hidden max-[1200px]:p-[12px] max-md:w-full max-md:min-h-[126.98px] max-md:rounded-[15.58px] max-md:border-[0.78px] max-md:p-[15.58px] max-md:gap-[15px]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -49,26 +49,43 @@ function SocialCard({ logoSrc, logoAlt, logoW, logoH, instagramHref = "#", youtu
             </div>
 
             {/* ─── Social Buttons ─── */}
-            <div className="flex flex-col gap-[7px] items-end justify-center basis-[156px] grow-0 shrink min-w-[100px] max-[1200px]:basis-[110px] max-md:gap-[5.45px] relative z-[1]">
-                {/* Instagram */}
-                <a href={instagramHref} target="_blank" rel="noopener noreferrer" className="block leading-[0] cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 w-full">
+            <div className="flex flex-col gap-[7px] items-end justify-center basis-[136px] grow-0 shrink min-w-[100px] max-[1200px]:basis-[110px] max-md:gap-[5.45px] relative z-[1]">
+                {/* Instagram Button */}
+                <a
+                    href={instagramHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-row items-center justify-center gap-[8px] w-[136px] h-[46px] p-[10px] rounded-[100px] bg-[#FFFFFF1A] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_#0003124D,0px_8px_10.9px_0px_#0003121F] border border-[rgba(255,255,255,0.12)] transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 box-border max-md:w-[105px] max-md:h-[38px] max-md:gap-[6px] max-md:rounded-[77.9px] max-md:p-[8px] max-md:backdrop-blur-[4.67px] max-md:shadow-[0px_0.78px_0.78px_0px_#0003124D,0px_6.23px_8.49px_0px_#0003121F]"
+                >
                     <Image
-                        src="/photos/main/insta button.svg"
-                        alt="Instagram"
-                        width={139}
-                        height={63}
-                        className="w-[114.4%] h-auto block -mr-[7.2%] max-md:w-[139px]"
+                        src="/photos/main/instagram.svg"
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="w-[20px] h-[20px] object-contain block max-md:w-[16px] max-md:h-[16px]"
                     />
+                    <span className="font-rethink font-semibold text-[15px] leading-[100%] tracking-[-0.02em] text-[#FFFFFF] max-md:text-[13px]">
+                        Instagram
+                    </span>
                 </a>
-                {/* YouTube */}
-                <a href={youtubeHref} target="_blank" rel="noopener noreferrer" className="block leading-[0] cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 w-full">
+
+                {/* YouTube Button */}
+                <a
+                    href={youtubeHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-row items-center justify-center gap-[8px] w-[136px] h-[46px] p-[10px] rounded-[100px] bg-[#FFFFFF1A] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_#0003124D,0px_8px_10.9px_0px_#0003121F] border border-[rgba(255,255,255,0.12)] transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 box-border max-md:w-[105px] max-md:h-[38px] max-md:gap-[6px] max-md:rounded-[77.9px] max-md:p-[8px] max-md:backdrop-blur-[4.67px] max-md:shadow-[0px_0.78px_0.78px_0px_#0003124D,0px_6.23px_8.49px_0px_#0003121F]"
+                >
                     <Image
-                        src="/photos/main/youtube button.svg"
-                        alt="YouTube"
-                        width={178}
-                        height={80}
-                        className="w-[114.1%] h-auto block -mr-[7.05%] max-md:w-[138.7px]"
+                        src="/photos/main/mdi_youtube.svg"
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="w-[20px] h-[20px] object-contain block max-md:w-[16px] max-md:h-[16px]"
                     />
+                    <span className="font-rethink font-semibold text-[15px] leading-[100%] tracking-[-0.02em] text-[#FFFFFF] max-md:text-[13px]">
+                        Youtube
+                    </span>
                 </a>
             </div>
         </motion.div>
