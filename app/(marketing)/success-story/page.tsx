@@ -55,18 +55,11 @@ export default async function SuccessStoryPage() {
                         minHeight: "1684px",
                     }}
                 >
-                    <div
-                        className="flex flex-col items-center justify-center text-center gap-[20px] mx-auto text-black"
-                        style={{
-                            width: "100%",
-                            maxWidth: "788px",
-                            height: "auto",
-                        }}
-                    >
-                        <h1 className="font-rethink font-bold tracking-[0%] text-[#FFFFFF] m-0 w-full max-w-full min-w-0 h-auto md:w-auto text-[26px] md:text-[54px] leading-[1.2] md:leading-[1.2] text-center">
+                    <div className="w-full max-w-[788px] mx-auto flex flex-col gap-[clamp(20px,2.5vw,20px)]">
+                        <h1 className="w-full font-rethink font-bold text-[clamp(26px,4vw,54px)] leading-[34px] text-center text-white m-0">
                             Success Story
                         </h1>
-                        <p className="font-rethink font-bold tracking-[0%] text-[#A7ADBE] m-0 w-full min-w-0 max-w-full h-auto text-[14px] md:text-[20px] leading-[1.25] sm:leading-relaxed md:leading-[34px] text-center break-words">
+                        <p className="w-full font-rethink font-bold text-[clamp(14px,1.4vw,20px)] leading-[clamp(17px,2.1vw,34px)] text-center text-[#A7ADBE] m-0">
                             They studied across our schools. Now they’re building creative careers across
                             agencies, brands, and studios.
                         </p>
@@ -83,7 +76,7 @@ export default async function SuccessStoryPage() {
                                     className="flex flex-col gap-6 sm:gap-[30px] w-full max-w-[1387px]"
                                 >
                                     <h2
-                                        className="font-rethink font-medium tracking-[0%] text-[#FFFFFF] m-0 self-start text-[24px] md:text-[32px] leading-[100%]"
+                                        className="font-rethink font-medium tracking-[0%] text-[#FFFFFF] m-0 self-start max-md:self-center max-md:text-center text-[24px] md:text-[32px] leading-[100%]"
                                         style={{ fontWeight: 500 }}
                                     >
                                         {schoolName}

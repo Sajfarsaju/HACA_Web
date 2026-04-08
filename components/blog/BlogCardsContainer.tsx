@@ -3,9 +3,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
-import { BLOG_POSTS } from "@/lib/blog-data"
+import { BlogPost } from "@/lib/blog-data"
 
-function filterByCategory(items: typeof BLOG_POSTS, activeCategory: string) {
+function filterByCategory(items: BlogPost[], activeCategory: string) {
     if (activeCategory === "all") return items
     return items.filter((b) => b.categorySlug === activeCategory)
 }
@@ -13,8 +13,8 @@ function filterByCategory(items: typeof BLOG_POSTS, activeCategory: string) {
 const cardLinkClass =
     "w-full flex flex-col bg-transparent border border-[#25317d] box-border overflow-hidden max-md:w-[min(335px,calc(100vw-40px))] rounded-[clamp(12px,1.2vw,20px)] gap-[clamp(12px,1.2vw,20px)] p-[clamp(6px,0.8vw,10px)] max-md:border-[0.82px] transition-transform duration-200 ease-out hover:scale-[1.03] active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4C75FF]/80"
 
-export function BlogCardsContainer({ activeCategory }: { activeCategory: string }) {
-    const filtered = filterByCategory(BLOG_POSTS, activeCategory)
+export function BlogCardsContainer({ activeCategory, blogs }: { activeCategory: string, blogs: BlogPost[] }) {
+    const filtered = filterByCategory(blogs, activeCategory)
 
     return (
         <div className="w-full flex flex-col gap-[clamp(16px,2vw,26px)] px-[clamp(16px,4vw,60px)] pb-[clamp(20px,3vw,40px)]">
@@ -41,7 +41,7 @@ function AnimatedBlogCard({
     blog,
     index,
 }: {
-    blog: { id: number; slug: string; category: string; date: string; title: string }
+    blog: BlogPost
     index: number
 }) {
     const reduceMotion = useReducedMotion()
@@ -65,7 +65,7 @@ function AnimatedBlogCard({
 function BlogCard({
     blog,
 }: {
-    blog: { id: number; slug: string; category: string; date: string; title: string }
+    blog: BlogPost
 }) {
     return (
         <Link
@@ -76,8 +76,8 @@ function BlogCard({
             {/* Cover image */}
             <div className="relative w-full aspect-[387/287.72] overflow-hidden shrink-0 rounded-[clamp(12px,1.2vw,20px)]">
                 <Image
-                    src="/photos/main/blog cover.png"
-                    alt=""
+                    src={blog.bannerUrl || "/photos/main/blog cover.png"}
+                    alt={blog.title}
                     fill
                     className="object-cover"
                     sizes="(max-width: 767px) min(335px, calc(100vw - 40px)), (max-width: 1023px) 33vw, 407px"

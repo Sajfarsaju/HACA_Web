@@ -39,7 +39,13 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
     if (!course) return null
 
     const badgeLine = formatCourseBadgeLine(course)
-    const modules = getModulesForCourse(course)
+    // Prefer DB-driven modules attached to the course; fall back to static catalog
+    const rawModules = course.modules && course.modules.length > 0
+        ? course.modules.map((m, i) => ({ ...m, id: typeof m.id === "number" ? m.id : i + 1 }))
+        : getModulesForCourse(course)
+    const modules = rawModules
+    // Prefer DB-driven popup heading, fall back to course title
+    const displayHeading = course.popupHeading || course.title
 
     return (
         <div
@@ -88,9 +94,20 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
                 <div className="flex flex-col items-center gap-[17.62px] px-4 sm:px-6 pt-[17.62px] pb-[17.62px] sm:pt-[17.62px] sm:pr-[29.96px] sm:pb-[17.62px] sm:pl-[29.96px]">
                     {/* Badge: training line only, inside frosted pill (no icon) */}
                     <div className="flex w-full max-w-[min(463px,100%)] justify-center">
-                        <div className="inline-flex max-w-full items-center justify-center rounded-[88.12px] border border-white/10 bg-[#FFFFFF1A] px-[14.1px] py-[7.05px] shadow-[0px_0.88px_0.88px_0px_#0003124D,0px_7.05px_9.61px_0px_#0003121F] backdrop-blur-[5.29px]">
-                            <p className="font-rethink font-semibold text-center text-[16px] leading-[22.47px] text-[#A7ADBE] sm:text-[20px] m-0 min-h-[23px] px-1">
-                                {badgeLine}
+                        <div className="inline-flex max-w-full items-center justify-center rounded-[20px] sm:rounded-[88.12px] border border-white/10 bg-[#FFFFFF1A] px-[14.1px] py-[7.05px] shadow-[0px_0.88px_0.88px_0px_#0003124D,0px_7.05px_9.61px_0px_#0003121F] backdrop-blur-[5.29px]">
+                            <p className="font-rethink font-semibold text-center text-[15px] sm:text-[20px] leading-[1.3] text-[#A7ADBE] m-0 px-1">
+                                {badgeLine.includes(" + ") ? (
+                                    <>
+                                        {badgeLine.split(" + ")[0]}
+                                        <br className="sm:hidden" />
+                                        <span className="sm:inline-block">
+                                            {" + "}
+                                            {badgeLine.split(" + ")[1]}
+                                        </span>
+                                    </>
+                                ) : (
+                                    badgeLine
+                                )}
                             </p>
                         </div>
                     </div>
@@ -99,7 +116,7 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
                         id="course-breakdown-title"
                         className="font-rethink font-bold text-[26px] sm:text-[34px] lg:text-[44px] leading-[110%] tracking-[0] text-center text-white m-0 max-w-[min(802px,100%)] px-1"
                     >
-                        {course.title}
+                        {displayHeading}
                     </h2>
                 </div>
 
@@ -120,7 +137,7 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
                 </div>
 
                 <CourseToolsMarquee />
-                <CourseBottomSeatSection />
+                <CourseBottomSeatSection amount={course.amount} originalAmount={course.originalAmount} />
                 </div>
                 </div>
             </div>
@@ -128,35 +145,43 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
     )
 }
 
-function CourseBottomSeatSection() {
+function CourseBottomSeatSection({
+    amount,
+    originalAmount,
+}: {
+    amount?: string
+    originalAmount?: string
+}) {
+    const displayAmount = amount || "₹80,000"
+    const displayOriginal = originalAmount || "₹85,000"
     return (
         <div className="mx-auto flex w-full max-w-[1163px] flex-col gap-[26.44px] px-[clamp(16px,4vw,29.96px)] pt-[30px] pb-[50px]">
             <div className="mx-auto flex w-full max-w-[1103px] flex-col items-center gap-5">
                 <div className="flex w-full max-w-[244px] flex-col items-center gap-[5px] rounded-[12px] px-[10px]">
-                    <div className="inline-flex h-[37.1px] items-center justify-center rounded-[88.12px] border border-white/10 bg-[#FFFFFF1A] px-[14.1px] py-[7.05px] shadow-[0px_0.88px_0.88px_0px_#0003124D,0px_7.05px_9.61px_0px_#0003121F] backdrop-blur-[5.29px]">
+                    <div className="inline-flex min-h-[37.1px] items-center justify-center rounded-[20px] sm:rounded-[88.12px] border border-white/10 bg-[#FFFFFF1A] px-[14.1px] py-[7.05px] shadow-[0px_0.88px_0.88px_0px_#0003124D,0px_7.05px_9.61px_0px_#0003121F] backdrop-blur-[5.29px]">
                         <span className="font-rethink text-center text-[20px] font-semibold leading-[22.47px] text-[#A7ADBE]">
-                            Info
+                            Now at
                         </span>
                     </div>
 
-                    <div className="flex h-[107px] w-full max-w-[224px] flex-col items-center justify-between">
-                        <div className="relative flex h-[50px] w-[112px] items-center justify-center">
-                            <p className="m-0 font-rethink text-center text-[30px] font-semibold leading-[22.47px] text-[#A7ADBE]">
-                                ₹85,000
+                    <div className="flex w-full max-w-[224px] flex-col items-center justify-between gap-1">
+                        <div className="relative flex h-auto items-center justify-center">
+                            <p className="m-0 font-rethink text-center text-[22px] sm:text-[30px] font-semibold leading-[1.2] text-[#A7ADBE]">
+                                {displayOriginal}
                             </p>
-                            <span className="pointer-events-none absolute h-0 w-[97.99px] rotate-[-8.5deg] border-t-[3px] border-white" />
+                            <span className="pointer-events-none absolute h-0 w-[70px] sm:w-[97.99px] rotate-[-8.5deg] border-t-[2px] sm:border-t-[3px] border-white" />
                         </div>
 
-                        <div className="relative flex h-[67px] w-full items-center justify-center">
-                            <p className="m-0 font-rethink text-center text-[48px] font-bold leading-[1] text-white sm:text-[60px]">
-                                ₹80,000
+                        <div className="relative flex h-auto w-full items-center justify-center">
+                            <p className="m-0 font-rethink text-center text-[38px] font-bold leading-[1] text-white sm:text-[60px]">
+                                {displayAmount}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex h-[88px] w-full max-w-[235px] flex-col items-center gap-[10px]">
-                    <p className="m-0 h-[23px] text-center font-rethink text-[20px] font-semibold leading-[22.47px] text-[#A7ADBE]">
+                <div className="flex w-full max-w-[235px] flex-col items-center gap-[8px] sm:gap-[10px]">
+                    <p className="m-0 text-center font-rethink text-[16px] sm:text-[20px] font-semibold leading-[1.2] text-[#A7ADBE]">
                         Pre book your seat @ 499
                     </p>
                     <motion.button

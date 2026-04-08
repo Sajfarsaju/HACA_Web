@@ -11,13 +11,22 @@ const fadeUp = {
 export function AboutHeroSection() {
     return (
         <section className="w-full section-4k mx-auto pt-[120px] pb-[80px] flex flex-col items-center gap-[100px] px-[clamp(20px,4vw,60px)] max-md:pt-[24px] max-md:pb-[60px] max-md:gap-[30px]">
-            <motion.h1
-                className="w-full max-w-[min(1440px,100%)] max-md:max-w-[335px] font-rethink font-medium text-[clamp(32px,4vw,54px)] leading-[1.1] text-center text-white m-0"
-                {...fadeUp}
-                transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
-            >
-                About us
-            </motion.h1>
+            <div className="w-full max-w-[788px] mx-auto flex flex-col gap-[clamp(20px,2.5vw,20px)]">
+                <motion.h1
+                    className="w-full font-rethink font-bold text-[clamp(32px,4vw,54px)] leading-[1.1] text-center text-white m-0"
+                    {...fadeUp}
+                    transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+                >
+                    About us
+                </motion.h1>
+                <motion.p
+                    className="w-full font-rethink font-bold text-[clamp(14px,1.4vw,20px)] leading-[clamp(17px,2.1vw,34px)] text-center text-[#A7ADBE] m-0"
+                    {...fadeUp}
+                    transition={{ duration: 0.6, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
+                >
+                    A quick overview of what HACA is all about and how we help you build real skills, gain industry exposure, and step confidently into your career.
+                </motion.p>
+            </div>
 
             <div className="w-full flex flex-row justify-between items-start gap-[clamp(24px,3vw,40px)] px-[clamp(12px,3vw,60px)] max-md:px-0 max-md:flex-col max-md:gap-[30px]">
                 <motion.div

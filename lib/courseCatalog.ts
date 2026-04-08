@@ -2,11 +2,17 @@ export type CourseMode = "Offline" | "Online"
 
 export type Course = {
     id: number
-    title: string
+    _id?: string               // MongoDB id — present for DB-backed courses
+    title: string              // Course name on the card
+    name?: string              // Alias for title (DB field)
     categorySlug: "marketing" | "design" | "tech" | "finance"
     category: string
     mode: CourseMode
     trainingSummary: string
+    popupHeading?: string      // Heading inside the course detail popup (DB-driven)
+    amount?: string            // Current price, e.g. "₹80,000"
+    originalAmount?: string    // Struck-through original price, e.g. "₹85,000"
+    modules?: CourseModule[]   // DB-driven modules (overrides static lookup)
 }
 
 export type CourseModule = {
@@ -15,6 +21,7 @@ export type CourseModule = {
     title: string
     content: string
 }
+
 
 /** Formats the top badge: "Offline  |  5 Months Training + 1 Month Internship" */
 export function formatCourseBadgeLine(course: Pick<Course, "mode" | "trainingSummary">): string {

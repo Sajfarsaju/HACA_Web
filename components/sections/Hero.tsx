@@ -12,7 +12,7 @@ import { SectionReveal } from "@/components/animations/SectionReveal"
 
 export function Hero() {
     return (
-        <section className="w-full section-4k mx-auto pb-[60px] bg-transparent relative max-md:pb-0 min-[768px]:pt-[56px] lg:pt-[37px] max-md:pt-0">
+        <section className="w-full section-4k mx-auto pb-[60px] bg-transparent relative max-md:pb-0 md:pt-[70px] lg:pt-[80px] max-md:pt-0">
             {/* ── Inner Container ── */}
             <div className="w-full flex flex-col items-center gap-[32px] max-md:gap-[24px] lg:gap-[40px]">
 
@@ -73,11 +73,9 @@ export function Hero() {
                         </div>
                     </div>
 
-                    {/* ── Button Container (desktop: two buttons, mobile: one button) ── */}
-
-                    {/* Desktop Button Row */}
+                    {/* ── Button Container ── */}
                     <motion.div
-                        className="flex items-center justify-center gap-[30px] max-md:hidden"
+                        className="flex flex-row items-center justify-center gap-[12px] md:gap-[30px]"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.5 }}
@@ -87,15 +85,15 @@ export function Hero() {
                             className="flex items-center justify-center no-underline"
                         >
                             <motion.button
-                                className="group relative w-[174px] h-[55px] rounded-[100px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[24px] cursor-pointer overflow-hidden"
+                                className="group relative w-[137px] h-[46px] md:w-[174px] md:h-[55px] rounded-[100px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[18px] md:px-[24px] cursor-pointer overflow-hidden"
                                 whileHover={{ scale: 1.04 }}
                                 whileTap={{ scale: 0.97 }}
                                 transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
                             >
-                                <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[14px] md:text-[18px] leading-[22.19px] md:leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
                                     Explore Courses
                                 </span>
-                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[14px] md:text-[18px] leading-[22.19px] md:leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
                                     Explore Courses
                                 </span>
                             </motion.button>
@@ -105,43 +103,16 @@ export function Hero() {
                             className="flex items-center justify-center no-underline"
                         >
                             <motion.button
-                                className="group relative w-[166px] h-[55px] rounded-[100px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[24px] cursor-pointer overflow-hidden"
+                                className="group relative w-[137px] h-[46px] md:w-[166px] md:h-[55px] rounded-[100px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[18px] md:px-[24px] cursor-pointer overflow-hidden"
                                 whileHover={{ scale: 1.04 }}
                                 whileTap={{ scale: 0.97 }}
                                 transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
                             >
-                                <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[14px] md:text-[18px] leading-[22.19px] md:leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
                                     Get a Call Back
                                 </span>
-                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[14px] md:text-[18px] leading-[22.19px] md:leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
                                     Get a Call Back
-                                </span>
-                            </motion.button>
-                        </Link>
-                    </motion.div>
-
-                    {/* Mobile Button (single) */}
-                    <motion.div
-                        className="hidden max-md:flex items-center justify-center"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
-                    >
-                        <Link
-                            href="/schools"
-                            className="flex items-center justify-center no-underline"
-                        >
-                            <motion.button
-                                className="group relative w-[137px] h-[46px] rounded-[82px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[18px] cursor-pointer overflow-hidden"
-                                whileHover={{ scale: 1.04 }}
-                                whileTap={{ scale: 0.97 }}
-                                transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
-                            >
-                                <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[14px] leading-[22.19px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
-                                    Explore Schools
-                                </span>
-                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[14px] leading-[22.19px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
-                                    Explore Schools
                                 </span>
                             </motion.button>
                         </Link>

@@ -1,10 +1,46 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { Course } from "@/lib/courseCatalog"
 import { COURSES } from "@/lib/courseCatalog"
 import { CourseBreakdownModal } from "@/components/courses/CourseBreakdownModal"
+
+const BACKEND_URL =
+    typeof process !== "undefined" && process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : "http://localhost:5000"
+
+async function fetchCoursesFromApi(): Promise<Course[]> {
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/courses`, { cache: "no-store" })
+        if (!res.ok) return []
+        const data = await res.json()
+        const items: Course[] = (data.items ?? []).map(
+            (c: Record<string, unknown>, idx: number) => ({
+                _id: String(c._id),
+                id: typeof c.id === "number" ? c.id : idx + 1,
+                title: typeof c.title === "string" ? c.title : String(c.name ?? ""),
+                name: typeof c.name === "string" ? c.name : undefined,
+                categorySlug: c.categorySlug as Course["categorySlug"],
+                category: typeof c.category === "string" ? c.category : "",
+                mode: c.mode as Course["mode"],
+                trainingSummary: typeof c.trainingSummary === "string" ? c.trainingSummary : "",
+                popupHeading: typeof c.popupHeading === "string" ? c.popupHeading : undefined,
+                amount: typeof c.amount === "string" ? c.amount : undefined,
+                originalAmount: typeof c.originalAmount === "string" ? c.originalAmount : undefined,
+                modules: Array.isArray(c.modules)
+                    ? (c.modules as Array<{ label: string; title: string; content: string }>).map(
+                          (m, i) => ({ ...m, id: i + 1 })
+                      )
+                    : undefined,
+            })
+        )
+        return items
+    } catch {
+        return []
+    }
+}
 
 function filterCourses(items: Course[], activeCategory: string) {
     if (activeCategory === "all") return items
@@ -12,8 +48,19 @@ function filterCourses(items: Course[], activeCategory: string) {
 }
 
 export function CourseCardsGrid({ activeCategory }: { activeCategory: string }) {
-    const filtered = filterCourses(COURSES, activeCategory)
+    const [courses, setCourses] = useState<Course[]>(COURSES)
     const [breakdownCourse, setBreakdownCourse] = useState<Course | null>(null)
+
+    useEffect(() => {
+        fetchCoursesFromApi().then((apiCourses) => {
+            if (apiCourses.length > 0) {
+                setCourses(apiCourses)
+            }
+            // else keep static fallback
+        })
+    }, [])
+
+    const filtered = filterCourses(courses, activeCategory)
 
     return (
         <>
@@ -22,7 +69,7 @@ export function CourseCardsGrid({ activeCategory }: { activeCategory: string }) 
                 <div className="hidden md:grid w-full max-w-[1320px] mx-auto grid-cols-2 lg:grid-cols-3 gap-[26px]">
                     {filtered.map((course) => (
                         <CourseCard
-                            key={course.id}
+                            key={course._id ?? course.id}
                             course={course}
                             onOpenBreakdown={() => setBreakdownCourse(course)}
                         />
@@ -33,7 +80,7 @@ export function CourseCardsGrid({ activeCategory }: { activeCategory: string }) 
                 <div className="md:hidden w-full flex flex-col items-center gap-[20px]">
                     {filtered.map((course) => (
                         <CourseCard
-                            key={course.id}
+                            key={course._id ?? course.id}
                             course={course}
                             onOpenBreakdown={() => setBreakdownCourse(course)}
                         />

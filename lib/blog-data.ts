@@ -1,7 +1,7 @@
 import type { TocItem } from "@/lib/blog-types"
 
 export type BlogPost = {
-    id: number
+    id: number | string
     slug: string
     category: string
     categorySlug: string
@@ -11,6 +11,8 @@ export type BlogPost = {
     authorRole?: string
     readTime: string
     toc?: TocItem[]
+    bannerUrl?: string
+    content?: string
 }
 
 const DEFAULT_TOC = [

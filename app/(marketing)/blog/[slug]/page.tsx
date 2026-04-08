@@ -7,19 +7,50 @@ import { InThisArticle } from "@/components/blog/InThisArticle"
 import { BlogAuthorBio } from "@/components/blog/BlogAuthorBio"
 import { BlogShareButtons } from "@/components/blog/BlogShareButtons"
 import { SectionReveal } from "@/components/animations/SectionReveal"
-import { BLOG_POSTS, getBlogBySlug } from "@/lib/blog-data"
+import { BLOG_POSTS, getBlogBySlug, BlogPost } from "@/lib/blog-data"
 
 const BLOG_COVER_IMAGE = "/photos/main/blog cover.png"
 
 type Props = { params: Promise<{ slug: string }> }
 
-export function generateStaticParams() {
+export const dynamicParams = true;
+
+async function getDynamicBlog(slug: string): Promise<BlogPost | null> {
+    try {
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000"
+        const res = await fetch(`${backendUrl}/api/admin/public-blogs/${slug}`, { next: { revalidate: 0 } })
+        if (!res.ok) return null
+        const data = await res.json()
+        if (!data.blog) return null
+        return {
+            id: data.blog._id,
+            slug: data.blog._id,
+            category: data.blog.category,
+            categorySlug: data.blog.category?.toLowerCase() || "marketing",
+            date: new Date(data.blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
+            title: data.blog.title,
+            author: data.blog.authorName,
+            authorRole: data.blog.authorRole,
+            readTime: data.blog.readTime || "5 Mins",
+            bannerUrl: data.blog.bannerUrl,
+            content: data.blog.content,
+            toc: undefined,
+        }
+    } catch (e) {
+        return null
+    }
+}
+
+export async function generateStaticParams() {
     return BLOG_POSTS.map((post) => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params
-    const post = getBlogBySlug(slug)
+    const staticPost = getBlogBySlug(slug)
+    const dynamicPost = await getDynamicBlog(slug)
+    const post = dynamicPost || staticPost
+    
     if (!post) return { title: "Blog | HACA" }
     return {
         title: `${post.title} | HACA Blog`,
@@ -29,8 +60,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogDetailPage({ params }: Props) {
     const { slug } = await params
-    const post = getBlogBySlug(slug)
+    const staticPost = getBlogBySlug(slug)
+    const dynamicPost = await getDynamicBlog(slug)
+    const post = dynamicPost || staticPost
+
     if (!post) notFound()
+
+    const coverImageSrc = post.bannerUrl || BLOG_COVER_IMAGE
 
     return (
         <div className="w-full min-h-screen bg-transparent overflow-x-hidden flex flex-col gap-2.5 md:gap-2.5 pt-2.5 md:pt-10 lg:pt-0">
@@ -86,7 +122,7 @@ export default async function BlogDetailPage({ params }: Props) {
                             <div className="w-full max-w-[871px] mx-auto lg:mx-0">
                                 <div className="relative w-full aspect-[871/514] overflow-hidden rounded-[10.63px] sm:rounded-[14px] md:rounded-[18px] lg:rounded-[20px] bg-white shadow-lg">
                                     <Image
-                                        src={BLOG_COVER_IMAGE}
+                                        src={coverImageSrc}
                                         alt={post.title}
                                         fill
                                         className="object-cover"
@@ -98,7 +134,15 @@ export default async function BlogDetailPage({ params }: Props) {
                             </SectionReveal>
                             {/* Third container - main blog content (desktop) */}
                             <div className="hidden lg:flex flex-col gap-[30px] w-full max-w-[878px] mx-auto lg:mx-0">
-                                {/* Top container: intro paragraphs */}
+                                {dynamicPost ? (
+                                    <SectionReveal sectionIndex={2}>
+                                        <div 
+                                            className="prose prose-invert max-w-none w-full"
+                                            dangerouslySetInnerHTML={{ __html: dynamicPost.content || "" }}
+                                        />
+                                    </SectionReveal>
+                                ) : (
+                                    <>
                                 <SectionReveal sectionIndex={2}>
                                 <div className="flex flex-col gap-[20px]">
                                     <p className="font-rethink font-medium text-[20px] leading-[34px] text-[#A7ADBE] m-0">
@@ -197,6 +241,8 @@ export default async function BlogDetailPage({ params }: Props) {
                                     </div>
                                 </div>
                                 </SectionReveal>
+                                </>
+                                )}
                             </div>
                         </div>
 
@@ -221,7 +267,16 @@ export default async function BlogDetailPage({ params }: Props) {
 
                         {/* Article content - mobile/tablet version of third container */}
                         <div className="flex lg:hidden flex-col gap-4 w-full px-0">
-                            {/* Top container */}
+                            {dynamicPost ? (
+                                <SectionReveal sectionIndex={2} className="w-full">
+                                    <div 
+                                        className="prose prose-invert max-w-none w-full"
+                                        dangerouslySetInnerHTML={{ __html: dynamicPost.content || "" }}
+                                    />
+                                </SectionReveal>
+                            ) : (
+                                <>
+                                {/* Top container */}
                             <SectionReveal sectionIndex={2} className="w-full">
                             <div className="flex flex-col gap-[10px] w-full">
                                 <p className="font-rethink font-medium text-[16px] leading-[27px] text-[#A7ADBE] m-0">
@@ -318,6 +373,8 @@ export default async function BlogDetailPage({ params }: Props) {
                                 </div>
                             </div>
                             </SectionReveal>
+                            </>
+                            )}
                         </div>
                     </div>
                 </div>

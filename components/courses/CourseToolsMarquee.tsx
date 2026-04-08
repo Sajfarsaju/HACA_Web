@@ -34,7 +34,7 @@ export function CourseToolsMarquee() {
 
             {/* Heading pill — matches course badge / Figma */}
             <div className="flex w-full justify-center">
-                <div className="inline-flex max-w-full items-center justify-center rounded-[88.12px] border border-white/10 bg-[#FFFFFF1A] px-[14.1px] py-[7.05px] shadow-[0px_0.88px_0.88px_0px_#0003124D,0px_7.05px_9.61px_0px_#0003121F] backdrop-blur-[5.29px]">
+                <div className="inline-flex max-w-full items-center justify-center rounded-[20px] sm:rounded-[88.12px] border border-white/10 bg-[#FFFFFF1A] px-[14.1px] py-[7.05px] shadow-[0px_0.88px_0.88px_0px_#0003124D,0px_7.05px_9.61px_0px_#0003121F] backdrop-blur-[5.29px]">
                     <h3 className="font-rethink font-semibold text-center text-[16px] leading-[22.47px] text-[#A7ADBE] sm:text-[20px] m-0 min-h-[23px]">
                         Tools you&apos;ll Learn
                     </h3>

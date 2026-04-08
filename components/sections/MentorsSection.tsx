@@ -95,7 +95,7 @@ export function MentorsSection() {
             </div>
 
             {/* View More Button */}
-            <div className="w-full flex justify-center mt-[10px] max-md:justify-center max-md:mt-[5px]">
+            {/* <div className="w-full flex justify-center mt-[10px] max-md:justify-center max-md:mt-[5px]">
                 <motion.button
                     className="group relative w-[198px] h-[55px] flex items-center justify-center rounded-[100px] border-none cursor-pointer bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-md:w-[159px] max-md:h-[46px] max-md:px-[18px] max-md:rounded-[82px] overflow-hidden"
                     whileHover={{ scale: 1.04 }}
@@ -109,7 +109,7 @@ export function MentorsSection() {
                         View More Mentors
                     </span>
                 </motion.button>
-            </div>
+            </div> */}
         </section>
     )
 }
