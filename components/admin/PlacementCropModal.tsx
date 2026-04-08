@@ -10,9 +10,12 @@ type Props = {
   open: boolean;
   onClose: () => void;
   onCropped: (file: File) => void;
+  /** Override the crop aspect ratio. Defaults to PLACEMENT_ASPECT_RATIO. */
+  aspect?: number;
 };
 
-export function PlacementCropModal({ imageSrc, open, onClose, onCropped }: Props) {
+export function PlacementCropModal({ imageSrc, open, onClose, onCropped, aspect }: Props) {
+  const cropAspect = aspect ?? PLACEMENT_ASPECT_RATIO;
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -64,8 +67,9 @@ export function PlacementCropModal({ imageSrc, open, onClose, onCropped }: Props
               Crop image
             </h2>
             <p className="mt-1 text-xs leading-relaxed text-[#A7ADBE]">
-              Fixed ratio matches placement cards (247.656 × 270). Drag to reposition; use zoom to
-              fit.
+              {aspect
+                ? `Crop ratio: ${aspect.toFixed(2)}. Drag to reposition; use zoom to fit.`
+                : "Fixed ratio matches placement cards (247.656 × 270). Drag to reposition; use zoom to fit."}
             </p>
           </div>
           <button
@@ -89,7 +93,7 @@ export function PlacementCropModal({ imageSrc, open, onClose, onCropped }: Props
             image={imageSrc}
             crop={crop}
             zoom={zoom}
-            aspect={PLACEMENT_ASPECT_RATIO}
+            aspect={cropAspect}
             onCropChange={setCrop}
             onZoomChange={setZoom}
             onCropComplete={onCropComplete}

@@ -39,7 +39,13 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
     if (!course) return null
 
     const badgeLine = formatCourseBadgeLine(course)
-    const modules = getModulesForCourse(course)
+    // Prefer DB-driven modules attached to the course; fall back to static catalog
+    const rawModules = course.modules && course.modules.length > 0
+        ? course.modules.map((m, i) => ({ ...m, id: typeof m.id === "number" ? m.id : i + 1 }))
+        : getModulesForCourse(course)
+    const modules = rawModules
+    // Prefer DB-driven popup heading, fall back to course title
+    const displayHeading = course.popupHeading || course.title
 
     return (
         <div
@@ -110,7 +116,7 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
                         id="course-breakdown-title"
                         className="font-rethink font-bold text-[26px] sm:text-[34px] lg:text-[44px] leading-[110%] tracking-[0] text-center text-white m-0 max-w-[min(802px,100%)] px-1"
                     >
-                        {course.title}
+                        {displayHeading}
                     </h2>
                 </div>
 
@@ -131,7 +137,7 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
                 </div>
 
                 <CourseToolsMarquee />
-                <CourseBottomSeatSection />
+                <CourseBottomSeatSection amount={course.amount} originalAmount={course.originalAmount} />
                 </div>
                 </div>
             </div>
@@ -139,7 +145,15 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
     )
 }
 
-function CourseBottomSeatSection() {
+function CourseBottomSeatSection({
+    amount,
+    originalAmount,
+}: {
+    amount?: string
+    originalAmount?: string
+}) {
+    const displayAmount = amount || "₹80,000"
+    const displayOriginal = originalAmount || "₹85,000"
     return (
         <div className="mx-auto flex w-full max-w-[1163px] flex-col gap-[26.44px] px-[clamp(16px,4vw,29.96px)] pt-[30px] pb-[50px]">
             <div className="mx-auto flex w-full max-w-[1103px] flex-col items-center gap-5">
@@ -153,14 +167,14 @@ function CourseBottomSeatSection() {
                     <div className="flex w-full max-w-[224px] flex-col items-center justify-between gap-1">
                         <div className="relative flex h-auto items-center justify-center">
                             <p className="m-0 font-rethink text-center text-[22px] sm:text-[30px] font-semibold leading-[1.2] text-[#A7ADBE]">
-                                ₹85,000
+                                {displayOriginal}
                             </p>
                             <span className="pointer-events-none absolute h-0 w-[70px] sm:w-[97.99px] rotate-[-8.5deg] border-t-[2px] sm:border-t-[3px] border-white" />
                         </div>
 
                         <div className="relative flex h-auto w-full items-center justify-center">
                             <p className="m-0 font-rethink text-center text-[38px] font-bold leading-[1] text-white sm:text-[60px]">
-                                ₹80,000
+                                {displayAmount}
                             </p>
                         </div>
                     </div>
