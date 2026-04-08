@@ -18,16 +18,25 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
         pathname.startsWith("/marketing-school/") ||
         pathname === "/schools/marketing" ||
         pathname.startsWith("/schools/marketing/");
+    const isDesignSchool =
+        pathname === "/design-school" ||
+        pathname.startsWith("/design-school/") ||
+        pathname === "/schools/design" ||
+        pathname.startsWith("/schools/design/");
     const isHome = pathname === "/";
+        
+    const excludeLayout = isTechSchool || isMarketingSchool || isDesignSchool;
+    // console.log(excludeLayout);
+    
 
     return (
         <>
-            {!isTechSchool && !isMarketingSchool && <Navbar />}
+            {!excludeLayout && <Navbar />}
             <main className="flex-grow w-full overflow-x-hidden">
                 {children}
                 <ConditionalFooter />
             </main>
-            {!isTechSchool && !isMarketingSchool && <WhatsAppButton />}
+            {!excludeLayout && <WhatsAppButton />}
             {isHome && <BottomReserveCta />}
         </>
     );

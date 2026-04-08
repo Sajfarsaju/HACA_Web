@@ -33,5 +33,13 @@ export function ConditionalFooter() {
         return null;
     }
 
+    // Design School uses its own layout (no global HACA footer)
+    if (pathname === "/design-school" || pathname.startsWith("/design-school/")) {
+        return null;
+    }
+    if (pathname === "/schools/design" || pathname.startsWith("/schools/design/")) {
+        return null;
+    }
+
     return <Footer />;
 }
