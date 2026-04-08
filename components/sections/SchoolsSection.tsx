@@ -188,20 +188,23 @@ export function SchoolsSection() {
     return (
         <section className="w-full section-4k h-[673px] mx-auto pt-[36px] px-[60px] pb-[40px] flex flex-col items-center gap-[57px] overflow-hidden opacity-100 max-[1100px]:h-auto max-[1100px]:p-[clamp(28px,4vw,50px)_clamp(24px,4vw,50px)] max-[1100px]:gap-[clamp(28px,4vw,48px)] max-md:p-[clamp(24px,6vw,40px)_clamp(16px,5vw,24px)] max-md:gap-[clamp(20px,7vw,28px)] max-md:items-start">
             {/* Header */}
-            <div className="w-full max-w-[1320px] flex flex-col items-center gap-[20px] shrink-0 max-md:gap-[clamp(6px,2.1vw,10px)] max-md:items-start">
+            <div className="w-full max-w-[1320px] flex flex-col items-center gap-[20px] shrink-0 max-md:gap-[clamp(6px,2.1vw,10px)] max-md:items-center">
                 {/* Badge Button */}
-                <button className="flex items-center justify-start w-[152px] h-[64px] p-0 rounded-[100px] border-none bg-transparent cursor-default shrink-0 max-md:w-[106px] max-md:h-[45px]" aria-label="Explore Schools">
-                    <Image
-                        src="/photos/main/school arrow.svg"
-                        alt="Schools"
-                        width={152}
-                        height={64}
-                        className="w-full h-full object-contain"
-                    />
+                <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="Schools">
+                    <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">Schools</span>
+                    <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
+                        <Image
+                            src="/photos/main/blue arrow.svg"
+                            alt=""
+                            width={38}
+                            height={26}
+                            className="w-full h-full object-contain"
+                        />
+                    </span>
                 </button>
 
                 {/* Heading */}
-                <h2 className="font-rethink font-bold text-[32px] leading-[110%] tracking-[0%] text-center text-[#ffffff] m-0 max-[1100px]:text-[clamp(24px,3vw,30px)] max-md:text-[clamp(20px,5.8vw,24px)] max-md:text-left">Pick What Feels Right</h2>
+                <h2 className="font-rethink font-bold text-[32px] leading-[110%] tracking-[0%] text-center text-[#ffffff] m-0 max-[1100px]:text-[clamp(24px,3vw,30px)] max-md:text-[clamp(20px,5.8vw,24px)] max-md:text-center">Pick What Feels Right</h2>
             </div>
 
             {/* Cards Grid */}

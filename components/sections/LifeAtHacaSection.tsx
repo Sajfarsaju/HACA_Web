@@ -21,7 +21,7 @@ export function LifeAtHacaSection() {
 
     return (
         /* ─── Outer Section: 1440×868 desktop, 375×510 mobile ─── */
-        <section className="w-full section-4k mx-auto bg-[#000210] p-[36px_60px] flex flex-col items-center gap-[36px] box-border max-md:p-[20px] max-md:gap-[26px]" aria-label="Life at HACA">
+        <section className="w-full section-4k mx-auto bg-[#000210] p-[20px_60px] flex flex-col items-center gap-[20px] box-border max-[1100px]:px-[clamp(24px,4vw,50px)] max-md:p-[20px_clamp(16px,5vw,24px)] max-md:gap-[26px]" aria-label="Life at HACA">
 
             {/* ─── Header Container: 1312×141 desktop, 335×88 mobile ─── */}
             <motion.div
@@ -33,19 +33,17 @@ export function LifeAtHacaSection() {
             >
                 {/* ─── Pill Button: 158×42 (desktop) / 113×32 (mobile) ─── */}
                 {/* We use width 180 to ensure the internal pill is exactly 158px wide */}
-                <button
-                    type="button"
-                    className="bg-transparent border-none p-0 cursor-default flex items-center justify-center w-[180px] h-[64px] max-md:w-[128.73px] max-md:h-auto"
-                    aria-label="Life @ HACA"
-                >
-                    <Image
-                        src="/photos/main/life@haca.svg"
-                        alt="Life at HACA"
-                        width={180}
-                        height={64}
-                        className="w-full h-auto block object-contain"
-                        priority
-                    />
+                <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="Life@HACA">
+                    <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">Life@HACA</span>
+                    <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
+                        <Image
+                            src="/photos/main/blue arrow.svg"
+                            alt=""
+                            width={38}
+                            height={26}
+                            className="w-full h-full object-contain"
+                        />
+                    </span>
                 </button>
 
                 {/* ─── Heading ─── */}

@@ -34,19 +34,22 @@ export function MentorsSection() {
     const prefersReducedMotion = useReducedMotion()
 
     return (
-        <section className="w-full max-w-[1440px] mx-auto p-[40px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,22px)] max-md:gap-[26px] max-md:items-start">
+        <section className="w-full max-w-[1440px] mx-auto p-[40px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,24px)] max-md:gap-[26px] max-md:items-start">
             {/* Header */}
             <div className="w-full max-w-[1320px] flex flex-col items-start gap-[20px] max-md:w-full max-md:gap-[clamp(6px,2.1vw,10px)] max-md:items-center">
                 {/* Badge Button */}
-                <div className="w-[184px] h-[64px] flex items-center justify-center p-0 rounded-[100px] border-none bg-transparent cursor-default max-md:w-[132px] max-md:h-[46px]">
-                    <Image
-                        src="/photos/main/top mentors arrow.svg"
-                        alt="Top Mentors"
-                        width={184}
-                        height={64}
-                        className="w-full h-full object-contain"
-                    />
-                </div>
+                <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="Top Mentors">
+                    <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">Top Mentors</span>
+                    <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
+                        <Image
+                            src="/photos/main/blue arrow.svg"
+                            alt=""
+                            width={38}
+                            height={26}
+                            className="w-full h-full object-contain"
+                        />
+                    </span>
+                </button>
 
                 {/* Heading */}
                 <h2 className="font-rethink font-bold text-[42px] leading-[110%] tracking-[0%] text-left text-[#ffffff] m-0 max-md:font-manrope max-md:text-[clamp(20px,5.8vw,24px)] max-md:text-center">
@@ -55,11 +58,11 @@ export function MentorsSection() {
             </div>
 
             {/* Cards Grid */}
-            <div className="w-full max-w-[1320px] h-[428px] flex justify-between items-center gap-[17.33px] max-md:w-full max-md:max-w-[335px] max-md:h-[909.27px] max-md:flex-col max-md:gap-[20px] max-md:items-center max-md:self-center">
+            <div className="w-full max-w-[1320px] h-[428px] flex justify-between items-center gap-[17.33px] max-md:w-full max-md:max-w-none max-md:h-auto max-md:flex-col max-md:gap-[20px] max-md:items-center">
                 {mentors.map((mentor, index) => (
                     <motion.div
                         key={mentor.id}
-                        className="flex-1 max-w-[317px] h-full flex flex-col gap-[10px] max-md:w-full max-md:max-w-[335px] max-md:h-auto max-md:gap-[10.57px] [&:nth-child(n+3)]:max-md:hidden"
+                        className="flex-1 max-w-[317px] h-full flex flex-col gap-[10px] max-md:w-full max-md:max-w-full max-md:h-auto max-md:gap-[10.57px] [&:nth-child(n+3)]:max-md:hidden"
                         initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
                         whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.15, margin: "-48px 0px -32px 0px" }}

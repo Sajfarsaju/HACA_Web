@@ -2,13 +2,13 @@ import Image from 'next/image'
 
 export function Haca360Section() {
     return (
-        <section className="w-full section-4k mx-auto py-[32px] px-[60px] flex flex-col gap-[36px] relative max-md:max-w-full max-md:p-[10px_20px_20px_20px] max-md:gap-[26px]">
+        <section className="w-full section-4k mx-auto py-[16px] px-[60px] flex flex-col gap-[20px] relative max-md:max-w-full max-md:p-[10px_clamp(16px,5vw,24px)_20px_clamp(16px,5vw,24px)] max-md:gap-[26px]">
             <div className="w-full max-w-[min(1320px,91vw)] mx-auto flex flex-col gap-[36px] max-md:gap-[26px]">
 
                 {/* ── Upper: Badge Button + Heading ── */}
                 <div className="w-full flex flex-col items-center gap-[20px] text-center relative isolate max-md:gap-[7.97px]">
                     {/* Background Gradient SVG moved behind heading */}
-                    <div className="absolute top-[150%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] max-w-[min(1440px,100vw)] h-[clamp(180px,33vw,480px)] pointer-events-none -z-10 max-[1024px]:max-w-full md:top-[168%] max-md:w-[calc(100%-48px)] max-md:max-w-[335px] max-md:top-[150%]">
+                    <div className="absolute top-[150%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1440px] h-[clamp(300px,37.6vw,542px)] pointer-events-none -z-10 max-[1024px]:max-w-full md:top-[168%] max-md:w-[calc(100%-48px)] max-md:max-w-[335px] max-md:h-[clamp(180px,33vw,480px)] max-md:top-[150%]">
                         <Image
                             src="/photos/main/bg-gradiant-1.svg"
                             alt=""
@@ -25,20 +25,23 @@ export function Haca360Section() {
                             aria-hidden="true"
                         />
                     </div>
-                    <button type="button" className="inline-flex items-center justify-center w-[148px] h-[42px] p-[8px_8px_8px_16px] gap-[10px] rounded-[100px] bg-transparent border-none cursor-default shrink-0 max-md:w-[105px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px] min-[1025px]:w-[172px] min-[1025px]:h-[49px]" aria-label="HACA 360">
-                        <Image
-                            src="/photos/main/haca 360.svg"
-                            alt="HACA 360"
-                            width={172}
-                            height={49}
-                            className="w-full h-auto object-contain"
-                        />
+                    <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="HACA 360">
+                        <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">HACA 360</span>
+                        <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
+                            <Image
+                                src="/photos/main/blue arrow.svg"
+                                alt=""
+                                width={38}
+                                height={26}
+                                className="w-full h-full object-contain"
+                            />
+                        </span>
                     </button>
-                    <h2 className="font-rethink font-bold text-[32px] leading-[110%] tracking-[0%] text-[#ffffff] m-0 w-[1320px] max-w-full whitespace-nowrap text-center max-md:text-[22px] max-md:w-[335px]">Let&apos;s Talk About HACA</h2>
+                    <h2 className="font-rethink font-bold text-[32px] leading-[110%] tracking-[0%] text-[#ffffff] m-0 w-[1320px] max-w-full whitespace-nowrap text-center max-md:text-[22px] max-md:w-[335px] max-md:max-w-full max-md:whitespace-normal">Let&apos;s Talk About HACA</h2>
                 </div>
 
                 {/* ── Video Container ── */}
-                <div className="w-full aspect-[1320/619] rounded-[20px] overflow-hidden relative bg-[#000210] max-md:rounded-[12px]">
+                <div className="w-full aspect-[1320/619] rounded-[20px] overflow-hidden relative bg-[#000210] border-white/30 max-md:aspect-[335/189] max-md:rounded-[5.08px] max-md:border-[0.76px] border-solid border-0 max-md:border">
 
                     {/*
                         VIDEO PLACEHOLDER
@@ -59,7 +62,7 @@ export function Haca360Section() {
 
                         {/* Centered pause button */}
                         <div className="absolute inset-0 flex items-center justify-center z-[2]">
-                            <button className="w-[70px] h-[70px] flex items-center justify-center bg-transparent border-none cursor-pointer transition-all duration-200 ease-in hover:scale-[1.1] hover:opacity-85 max-md:w-[27.91px] max-md:h-[27.91px]" aria-label="Pause video">
+                            <button className="w-[70px] h-[70px] flex items-center justify-center bg-transparent border-none cursor-pointer transition-all duration-200 ease-in hover:scale-[1.1] hover:opacity-85 max-md:w-[46px] max-md:h-[46px]" aria-label="Pause video">
                                 {/*
                                     Pause SVG — replace with:
                                     <Image src="/photos/main/pause button.svg" alt="" width={70} height={70} />

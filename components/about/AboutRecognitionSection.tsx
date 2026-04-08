@@ -51,6 +51,14 @@ const LOGOS = [
         width: 160,
         height: 40,
     },
+    {
+        key: "press_new_2",
+        src: "/photos/main/press new 2.png",
+        alt: "Press Logo 2",
+        wrapperClass: "flex items-center justify-center w-[clamp(140px,15vw,220px)] h-auto max-md:w-[115px] shrink-0",
+        width: 220,
+        height: 55,
+    },
 ]
 
 // Repeat to keep the marquee feeling infinite
@@ -99,7 +107,6 @@ export function AboutRecognitionSection() {
                                     width={logo.width}
                                     height={logo.height}
                                     className="w-full h-auto"
-                                    style={{ width: "auto", height: "auto", maxWidth: "100%" }}
                                 />
                             </div>
                         ))}
@@ -114,7 +121,7 @@ export function AboutRecognitionSection() {
                 </h3>
                 <div className="flex items-center justify-center w-full max-w-[400px] max-md:max-w-[335px]">
                     <Image
-                        src="/photos/main/World-Education-Summit 1.svg"
+                        src="/photos/main/World-Education-Summit 1 new.png"
                         alt="World Education Summit Award"
                         width={200}
                         height={52}

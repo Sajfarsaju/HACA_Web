@@ -104,23 +104,22 @@ export function TestimonialsSection() {
 
     return (
         <section
-            className="w-full bg-[#000210] py-[36px] px-0 flex flex-col items-center gap-[36px] box-border overflow-hidden max-md:py-[20px] max-md:gap-[26px]"
+            className="w-full bg-[#000210] py-[36px] px-0 flex flex-col items-center gap-[36px] box-border overflow-hidden max-md:py-[20px] max-md:px-[clamp(16px,5vw,24px)] max-md:gap-[26px]"
             aria-label="Testimonials"
         >
             {/* ─── Header ─── */}
             <motion.div
-                className="w-full section-4k mx-auto px-[60px] box-border flex flex-col items-center gap-[20px] max-md:px-[20px] max-md:gap-[7.97px]"
+                className="w-full section-4k mx-auto px-[60px] box-border flex flex-col items-center gap-[20px] max-md:px-0 max-md:gap-[7.97px]"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                <button
-                    type="button"
-                    className="bg-transparent border-none p-0 cursor-default w-[185px] h-[64px] flex items-center shrink-0 max-md:w-[131.7px] max-md:h-auto"
-                    aria-label="Testimonials label"
-                >
-                    <Image src="/photos/main/testimonials.svg" alt="Testimonials" width={185} height={64} className="w-full h-auto block" priority />
+                <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="Testimonials">
+                    <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">Testimonials</span>
+                    <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
+                        <Image src="/photos/main/blue arrow.svg" alt="" width={38} height={26} className="w-full h-full object-contain" />
+                    </span>
                 </button>
                 <h2 className="font-rethink font-bold text-[32px] leading-[110%] text-[#ffffff] m-0 text-center w-full max-md:text-[22px] max-md:max-w-[317px]">
                     Hear How Others Made it Happen
@@ -150,7 +149,7 @@ export function TestimonialsSection() {
                             if (offset > 1)     tx = `calc(${centerHalf} + ${cardGap} + ${sideHalf} + 100vw)`
                             if (offset < -1)    tx = `calc(-1 * (${centerHalf} + ${cardGap} + ${sideHalf} + 100vw))`
 
-                            const cardW         = isCenter ? "clamp(280px,72vw,1037px)"  : "clamp(200px,59vw,847px)"
+                            const cardW         = isMobile ? "100%" : isCenter ? "clamp(280px,72vw,1037px)"  : "clamp(200px,59vw,847px)"
                             const cardH         = isCenter ? "clamp(220px,27.6vw,398px)" : "clamp(180px,22.6vw,325px)"
                             const borderRadius  = isCenter ? "clamp(14px,2.3vw,33px)"    : "clamp(14px,1.9vw,27px)"
 

@@ -3,10 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const MARKETING_NAV_LINKS = [
-    { href: "/schools/marketing", label: "Home" },
+    { href: "/marketing-school", label: "Home" },
     { href: "/marketing-school/success-story", label: "Success Story" },
     { href: "/blog", label: "Blog" },
     { href: "/marketing-school/courses", label: "Courses" },
@@ -15,11 +15,42 @@ const MARKETING_NAV_LINKS = [
 export function MarketingNavbar() {
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const lastScrollY = useRef(0);
+
+    // Hide navbar on scroll down, show on scroll up
+    useEffect(() => {
+        const handleScroll = () => {
+            const current = window.scrollY || 0;
+
+            // Always show near the very top
+            if (current < 40) {
+                setIsVisible(true);
+                lastScrollY.current = current;
+                return;
+            }
+
+            if (current > lastScrollY.current) {
+                // Scrolling down
+                setIsVisible(false);
+            } else if (current < lastScrollY.current) {
+                // Scrolling up
+                setIsVisible(true);
+            }
+
+            lastScrollY.current = current;
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
-        <header className="relative w-full bg-white h-[52px] md:h-16 lg:h-[120px] px-4 md:px-8 lg:px-[60px] py-[10px] md:py-3 lg:py-[30px] flex items-center justify-between">
+        <header className={`sticky top-0 z-50 w-full bg-white h-[52px] md:h-16 lg:h-[120px] px-4 md:px-8 lg:px-[60px] py-[10px] md:py-3 lg:py-[30px] flex items-center justify-between transition-transform duration-300 ease-out ${
+            isVisible ? "translate-y-0" : "-translate-y-full"
+        }`}>
             <Link
-                href="/schools/marketing"
+                href="/marketing-school"
                 className="relative w-[123px] h-[32px] md:w-[clamp(140px,22vw,200px)] md:h-[clamp(36px,5vw,48px)] lg:w-[220px] lg:h-[53.496px] shrink-0"
                 aria-label="Marketing School Home"
             >
@@ -50,15 +81,26 @@ export function MarketingNavbar() {
 
             <Link
                 href="/contact"
-                className="hidden lg:inline-flex relative w-[180px] h-[60px] shrink-0"
+                className="hidden lg:flex relative items-center w-[180px] h-[60px] shrink-0 group no-underline"
                 aria-label="Contact us"
             >
-                <Image
-                    src="/photos/schools/marketing/marketing contact us btn.svg"
-                    alt="Contact us"
-                    fill
-                    className="object-contain"
-                />
+                <div className="absolute left-0 top-0 w-[175px] h-[60px] bg-[#E6EFFF] rounded-[30px] flex items-center pl-[20px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
+                    <span 
+                        className="text-black whitespace-nowrap"
+                        style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}
+                    >
+                        Contact Us
+                    </span>
+                </div>
+                <div className="absolute right-0 top-0 w-[60px] h-[60px] pointer-events-none transition-transform duration-300 group-hover:translate-x-1">
+                    <Image
+                        src="/photos/schools/marketing/button arrow.svg"
+                        alt=""
+                        width={60}
+                        height={60}
+                        className="w-full h-full object-contain"
+                    />
+                </div>
             </Link>
 
             <button
@@ -90,15 +132,26 @@ export function MarketingNavbar() {
                             <Link
                                 href="/contact"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="relative w-[158.2667px] h-[44px] shrink-0"
+                                className="relative flex items-center w-[158.26px] h-[44px] shrink-0 group no-underline"
                                 aria-label="Enquire now"
                             >
-                                <Image
-                                    src="/photos/schools/marketing/marketing enquire now btn.svg"
-                                    alt="Enquire now"
-                                    fill
-                                    className="object-contain"
-                                />
+                                <div className="absolute left-0 top-0 w-[154.6px] h-[44px] bg-[#E6EFFF] rounded-[22px] flex items-center pl-[12px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
+                                    <span 
+                                        className="text-black whitespace-nowrap text-[16px]"
+                                        style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, lineHeight: "100%" }}
+                                    >
+                                        Enquire Now
+                                    </span>
+                                </div>
+                                <div className="absolute right-0 top-0 w-[44px] h-[44px] pointer-events-none transition-transform duration-300 group-hover:translate-x-1">
+                                    <Image
+                                        src="/photos/schools/marketing/button arrow.svg"
+                                        alt=""
+                                        width={44}
+                                        height={44}
+                                        className="w-full h-full object-contain"
+                                    />
+                                </div>
                             </Link>
                         </div>
 

@@ -35,7 +35,7 @@ export default async function BlogDetailPage({ params }: Props) {
     return (
         <div className="w-full min-h-screen bg-transparent overflow-x-hidden flex flex-col gap-2.5 md:gap-2.5 pt-2.5 md:pt-10 lg:pt-0">
             {/* Inner container */}
-            <div className="flex-grow w-full max-w-[1320px] mx-auto flex flex-col gap-5 sm:gap-6 md:gap-8 lg:gap-10 pt-6 sm:pt-12 md:pt-20 lg:pt-[120px] pb-6 sm:pb-8 md:pb-10 lg:pb-10 px-4 sm:px-5 md:px-8 lg:px-[60px]">
+            <div className="flex-grow w-full max-w-[1320px] mx-auto flex flex-col gap-5 sm:gap-6 md:gap-8 lg:gap-10 pt-6 sm:pt-12 md:pt-20 lg:pt-[120px] pb-6 sm:pb-8 md:pb-10 lg:pb-10 px-[clamp(16px,5vw,24px)] sm:px-5 md:px-8 lg:px-[60px]">
                 {/* First container: upper section + photo */}
                 <div className="flex flex-col gap-5 sm:gap-8 md:gap-12 lg:gap-[67px] w-full">
                     {/* Upper container: tag + heading + author meta - mobile: px-20 */}
@@ -203,27 +203,27 @@ export default async function BlogDetailPage({ params }: Props) {
                         {/* Right sidebar: In this article + author bio + share buttons (desktop only) */}
                         <aside className="w-full lg:w-[384px] lg:min-w-[384px] shrink-0 flex flex-col items-center lg:items-start gap-5 lg:gap-8 lg:sticky lg:top-24">
                             {post.toc && post.toc.length > 0 && (
-                                <SectionReveal sectionIndex={2}>
+                                <SectionReveal sectionIndex={2} className="w-full">
                                 <div className="w-full flex justify-center lg:justify-start">
                                     <InThisArticle items={post.toc} />
                                 </div>
                                 </SectionReveal>
                             )}
                             {/* Center container: author card (desktop) */}
-                            <SectionReveal sectionIndex={3}>
+                            <SectionReveal sectionIndex={3} className="w-full">
                             <BlogAuthorBio author={post.author} authorRole={post.authorRole} />
                             </SectionReveal>
                             {/* Bottom container: share buttons (desktop) */}
-                            <SectionReveal sectionIndex={4}>
+                            <SectionReveal sectionIndex={4} className="w-full">
                             <BlogShareButtons />
                             </SectionReveal>
                         </aside>
 
                         {/* Article content - mobile/tablet version of third container */}
-                        <div className="flex lg:hidden flex-col gap-4 w-full px-5">
+                        <div className="flex lg:hidden flex-col gap-4 w-full px-0">
                             {/* Top container */}
-                            <SectionReveal sectionIndex={2}>
-                            <div className="flex flex-col gap-[10px]">
+                            <SectionReveal sectionIndex={2} className="w-full">
+                            <div className="flex flex-col gap-[10px] w-full">
                                 <p className="font-rethink font-medium text-[16px] leading-[27px] text-[#A7ADBE] m-0">
                                     Let’s be honest. We’ve all been there. You’ve set up your Google Ads campaign, your ads are finally live, but you’re tense every time you check the dashboard. The clicks are costing a fortune, and your ads are stuck on page two, getting ignored. You start to wonder if this is even worth it.
                                 </p>
@@ -240,8 +240,8 @@ export default async function BlogDetailPage({ params }: Props) {
                             </SectionReveal>
 
                             {/* Center container */}
-                            <SectionReveal sectionIndex={3}>
-                            <div className="flex flex-col gap-[14px]">
+                            <SectionReveal sectionIndex={3} className="w-full">
+                            <div className="flex flex-col gap-[14px] w-full">
                                 <h2 className="font-rethink font-bold text-[20px] leading-[110%] text-white m-0 max-w-[249px]">
                                     So, What is Quality Score in Google Ads?
                                 </h2>
@@ -289,8 +289,8 @@ export default async function BlogDetailPage({ params }: Props) {
                             </SectionReveal>
 
                             {/* Bottom container */}
-                            <SectionReveal sectionIndex={4}>
-                            <div className="flex flex-col gap-[16px]">
+                            <SectionReveal sectionIndex={4} className="w-full">
+                            <div className="flex flex-col gap-[16px] w-full">
                                 <h2 className="font-rethink font-bold text-[20px] leading-[110%] text-white m-0">
                                     Why Should You Care About Quality Score?
                                 </h2>

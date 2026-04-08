@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Navbar } from "./Navbar";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { BottomReserveCta } from "./BottomReserveCta";
+import { ConditionalFooter } from "./ConditionalFooter";
 
 export function ClientLayoutProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -25,10 +26,11 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
     return (
         <>
             {!isTechSchool && !isMarketingSchool && !isFinanceSchool && <Navbar />}
-            <main className="flex-grow">
+            <main className="flex-grow w-full overflow-x-hidden">
                 {children}
+                <ConditionalFooter />
             </main>
-            {!isTechSchool && !isMarketingSchool && <WhatsAppButton />}
+            {!isTechSchool && !isMarketingSchool && !isFinanceSchool && <WhatsAppButton />}
             {isHome && <BottomReserveCta />}
         </>
     );

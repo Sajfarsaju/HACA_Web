@@ -32,7 +32,7 @@ const LOGOS = [
         key: "tedx",
         src: "/photos/main/tedx.svg",
         alt: "TEDx",
-        wrapperClass: "flex items-center justify-center w-[clamp(90px,10vw,150px)] h-auto max-md:w-[75px] shrink-0 opacity-70",
+        wrapperClass: "flex items-center justify-center w-[clamp(65px,7vw,90px)] h-auto max-md:w-[60px] shrink-0 opacity-70",
         width: 240,
         height: 81,
     },
@@ -40,7 +40,7 @@ const LOGOS = [
         key: "josh",
         src: "/photos/main/josh talks.svg",
         alt: "Josh Talks",
-        wrapperClass: "flex items-center justify-center w-[clamp(80px,9vw,130px)] h-auto max-md:w-[65px] shrink-0",
+        wrapperClass: "flex items-center justify-center w-[clamp(45px,5vw,65px)] h-auto max-md:w-[40px] shrink-0",
         width: 129,
         height: 81,
     },
@@ -52,6 +52,14 @@ const LOGOS = [
         width: 160,
         height: 40,
     },
+    {
+        key: "press_new_2",
+        src: "/photos/main/press new 2.png",
+        alt: "Press Logo 2",
+        wrapperClass: "flex items-center justify-center w-[clamp(140px,15vw,220px)] h-auto max-md:w-[115px] shrink-0",
+        width: 220,
+        height: 55,
+    },
 ]
 
 // Repeat logos multiple times so the marquee feels visually "infinite"
@@ -61,7 +69,7 @@ const TRACK = Array(6)
 
 export function PressLogos() {
     return (
-        <section className="w-full h-[91.81px] flex items-center justify-center mx-auto gap-[26px] opacity-100 relative max-md:w-full max-md:h-auto max-md:min-h-[14px] max-md:py-[10px] max-md:px-0 max-md:gap-[15px] max-md:opacity-50">
+        <section className="w-full h-[91.81px] flex items-center justify-center mx-auto gap-[26px] opacity-100 relative max-md:w-full max-md:h-auto max-md:min-h-[14px] max-md:py-[10px] max-md:px-0 max-md:gap-[15px]">
             <style>{`
                 @keyframes press-marquee {
                     0%   { transform: translateX(-50%); }
@@ -86,7 +94,6 @@ export function PressLogos() {
                                 width={logo.width}
                                 height={logo.height}
                                 className="w-full h-auto"
-                                style={{ width: "auto", height: "auto", maxWidth: "100%" }}
                             />
                         </div>
                     ))}
