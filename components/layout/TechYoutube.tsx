@@ -171,7 +171,7 @@ export function TechYoutube() {
 
     return (
         <section
-            className="w-full relative overflow-hidden bg-transparent flex flex-col items-center justify-center min-h-auto py-[60px] gap-[36px] sm:min-h-[828px] sm:py-[100px] sm:gap-[60px]"
+            className="w-full relative overflow-visible bg-transparent flex flex-col items-center justify-center min-h-auto py-[60px] -mb-[100px] sm:mb-0 gap-[36px] sm:min-h-[828px] sm:py-[100px] sm:gap-[60px]"
         >
             {/* Header */}
             <div className="z-10 flex flex-col items-center gap-4 text-center px-6">
@@ -184,24 +184,30 @@ export function TechYoutube() {
             </div>
 
             {/* Background decorative gradients for cards */}
-            <div className="absolute inset-0 pointer-events-none z-0">
-                {/* Left side — Group 50.svg touching left edge */}
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[220px] h-[420px] md:w-[380px] md:h-full opacity-30">
+            <div 
+                className="absolute inset-x-0 top-[200px] bottom-[100px] pointer-events-none z-0"
+                style={{
+                    maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+                }}
+            >
+                {/* Left side — Group 50.svg touches left edge exactly matching side card width */}
+                <div className="absolute -left-[80px] md:left-0 top-1/2 -translate-y-1/2 w-[250px] h-[400px] md:w-[400px] md:h-[600px] lg:w-[500px] lg:h-[700px] opacity-100 mix-blend-screen">
                     <Image
                         src="/photos/schools/tech/Group 50.svg"
                         alt=""
                         fill
-                        className="object-contain object-left"
+                        className="object-fill brightness-100 saturate-[1.2]"
                         aria-hidden
                     />
                 </div>
-                {/* Right side — Group 49.svg touching right edge */}
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[220px] h-[420px] md:w-[380px] md:h-[840px] opacity-30">
+                {/* Right side — Group 49.svg touches right edge exactly matching side card width */}
+                <div className="absolute -right-[80px] md:right-0 top-1/2 -translate-y-1/2 w-[250px] h-[400px] md:w-[400px] md:h-[600px] lg:w-[500px] lg:h-[700px] opacity-100 mix-blend-screen">
                     <Image
                         src="/photos/schools/tech/Group 49.svg"
                         alt=""
                         fill
-                        className="object-contain object-right"
+                        className="object-fill brightness-100 saturate-[1.2]"
                         aria-hidden
                     />
                 </div>
@@ -248,11 +254,9 @@ export function TechYoutube() {
                                 border: isCenter
                                     ? `${centerBorderWidth}px solid transparent`
                                     : `${sideBorderWidth}px solid rgba(255,255,255,0.15)`,
-                                boxShadow: isCenter
-                                    ? "0px 0px 60px rgba(255, 86, 0, 0.15), 0px 0px 20px rgba(105, 74, 255, 0.1)"
-                                    : "none",
+                                boxShadow: "none",
                                 transform: `translateX(${translateX}px) scale(${isCenter ? 1 : 0.96})`,
-                                opacity: isCenter ? 1 : isVisible ? 0.55 : 0,
+                                opacity: isVisible ? 1 : 0,
                                 transition: "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, width 0.5s ease, height 0.5s ease, box-shadow 0.5s ease",
                             }}
                         >
@@ -271,20 +275,34 @@ export function TechYoutube() {
             </div>
 
             {/* Navigation Controls */}
-            <div className="z-10 flex gap-4">
+            <div className="z-10 flex gap-4 -mt-[26px] sm:mt-0">
                 <button
                     onClick={prev}
                     aria-label="Previous"
-                    className="w-[33.48px] h-[33.48px] rounded-full border-[0.72px] border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 rotate-90 cursor-pointer transition-opacity duration-200 hover:!opacity-100 opacity-80"
+                    className="rounded-full border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 rotate-90 cursor-pointer transition-opacity duration-200 hover:opacity-80"
+                    style={{ width: "46.67px", height: "46.67px", borderWidth: "1px", opacity: 1 }}
                 >
-                    <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt="prev" width={12} height={12} className="brightness-0 invert" />
+                    <Image 
+                        src="/photos/schools/tech/Arrow_FAQ.svg" 
+                        alt="prev" 
+                        width={18} height={18} 
+                        className="brightness-0 invert" 
+                        style={{ width: "17.71px", height: "17.71px" }}
+                    />
                 </button>
                 <button
                     onClick={next}
                     aria-label="Next"
-                    className="w-[33.48px] h-[33.48px] rounded-full border-[0.72px] border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 -rotate-90 cursor-pointer transition-opacity duration-200 hover:!opacity-80"
+                    className="rounded-full border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 -rotate-90 cursor-pointer transition-opacity duration-200 hover:opacity-80"
+                    style={{ width: "46.67px", height: "46.67px", borderWidth: "1px", opacity: 1 }}
                 >
-                    <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt="next" width={12} height={12} className="brightness-0 invert" />
+                    <Image 
+                        src="/photos/schools/tech/Arrow_FAQ.svg" 
+                        alt="next" 
+                        width={18} height={18} 
+                        className="brightness-0 invert" 
+                        style={{ width: "17.71px", height: "17.71px" }}
+                    />
                 </button>
             </div>
         </section>

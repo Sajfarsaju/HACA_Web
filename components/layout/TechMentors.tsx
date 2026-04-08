@@ -93,7 +93,7 @@ export function TechMentors() {
     const { centerW, centerH, sideW, sideH, gap, showSide } = getCardSizes(windowWidth);
 
     return (
-        <section className="w-full flex flex-col items-center relative overflow-hidden h-auto min-h-[828px] bg-transparent pt-0 lg:pt-[20px] xl:pt-[60px] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
+        <section className="w-full flex flex-col items-center relative overflow-hidden h-auto min-h-[828px] bg-transparent pt-0 lg:pt-[10px] xl:pt-[60px] pb-[80px] -mb-[120px] sm:mb-0 px-[clamp(16px,4vw,60px)] gap-[60px]">
 
             {/* Local mask — tablet gradient */}
             <style>{`
@@ -261,7 +261,7 @@ export function TechMentors() {
                 </div>
 
                 {/* Navigation Arrows */}
-                <div className="flex gap-[16px] mt-[12px]">
+                <div className="flex gap-[16px] -mt-[50px] sm:mt-[12px]">
                     <button
                         type="button"
                         aria-label="Previous mentor"
