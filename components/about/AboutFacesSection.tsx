@@ -43,11 +43,11 @@ export function AboutFacesSection() {
                         {/* Founder details container */}
                         <div className="w-full flex flex-col gap-[clamp(20px,2vw,26px)]">
                             {/* Name + position */}
-                            <div className="flex flex-col gap-[clamp(4px,0.8vw,10px)] max-w-[319px]">
+                            <div className="flex flex-col gap-[clamp(4px,0.8vw,10px)]">
                                 <h3 className="font-rethink font-semibold text-[clamp(26px,3vw,36px)] leading-[34px] text-white m-0">
                                     Haris Aboobacker
                                 </h3>
-                                <p className="font-rethink font-semibold text-[clamp(12px,1.1vw,16px)] leading-[1.6] text-left text-[#A7ADBE] m-0 max-w-[295px]">
+                                <p className="font-rethink font-semibold text-[clamp(12px,1.1vw,16px)] leading-[1.6] text-left text-[#A7ADBE] m-0 whitespace-nowrap">
                                     Founder of Haris&Co &amp; Director of HACA
                                 </p>
                             </div>
@@ -115,11 +115,11 @@ export function AboutFacesSection() {
                     {/* Text column */}
                     <div className="w-full max-w-[794px] flex flex-col gap-[20px] max-md:max-w-[345px] lg:h-full lg:justify-between">
                         <div className="w-full flex flex-col gap-[clamp(20px,2vw,26px)]">
-                            <div className="flex flex-col gap-[clamp(4px,0.8vw,10px)] max-w-[319px]">
+                            <div className="flex flex-col gap-[clamp(4px,0.8vw,10px)]">
                                 <h3 className="font-rethink font-semibold text-[clamp(26px,3vw,36px)] leading-[34px] text-white m-0">
                                     Rizwan Ramzan Ahamed
                                 </h3>
-                                <p className="font-rethink font-semibold text-[clamp(12px,1.1vw,16px)] leading-[1.6] text-left text-[#A7ADBE] m-0 max-w-[295px]">
+                                <p className="font-rethink font-semibold text-[clamp(12px,1.1vw,16px)] leading-[1.6] text-left text-[#A7ADBE] m-0 whitespace-nowrap">
                                     Co-Founder &amp; CEO, Haris &amp; Co Academy
                                 </p>
                             </div>
@@ -182,11 +182,11 @@ export function AboutFacesSection() {
                     {/* Text column */}
                     <div className="w-full max-w-[794px] flex flex-col gap-[20px] max-md:max-w-[345px] lg:h-full lg:justify-between">
                         <div className="w-full flex flex-col gap-[clamp(20px,2vw,26px)]">
-                            <div className="flex flex-col gap-[clamp(4px,0.8vw,10px)] max-w-[319px]">
+                            <div className="flex flex-col gap-[clamp(4px,0.8vw,10px)]">
                                 <h3 className="font-rethink font-semibold text-[clamp(26px,3vw,36px)] leading-[34px] text-white m-0">
                                     Abu Nabhan
                                 </h3>
-                                <p className="font-rethink font-semibold text-[clamp(12px,1.1vw,16px)] leading-[1.6] text-left text-[#A7ADBE] m-0 max-w-[295px]">
+                                <p className="font-rethink font-semibold text-[clamp(12px,1.1vw,16px)] leading-[1.6] text-left text-[#A7ADBE] m-0 whitespace-nowrap">
                                     Founder, Design School  |  Co-Founder, HACA
                                 </p>
                             </div>

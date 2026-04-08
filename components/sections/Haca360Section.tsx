@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export function Haca360Section() {
     return (
-        <section className="w-full section-4k mx-auto py-[16px] px-[60px] flex flex-col gap-[20px] relative max-md:max-w-full max-md:p-[10px_20px_20px_20px] max-md:gap-[26px]">
+        <section className="w-full section-4k mx-auto py-[16px] px-[60px] flex flex-col gap-[20px] relative max-md:max-w-full max-md:p-[10px_clamp(16px,5vw,24px)_20px_clamp(16px,5vw,24px)] max-md:gap-[26px]">
             <div className="w-full max-w-[min(1320px,91vw)] mx-auto flex flex-col gap-[36px] max-md:gap-[26px]">
 
                 {/* ── Upper: Badge Button + Heading ── */}
@@ -37,11 +37,11 @@ export function Haca360Section() {
                             />
                         </span>
                     </button>
-                    <h2 className="font-rethink font-bold text-[32px] leading-[110%] tracking-[0%] text-[#ffffff] m-0 w-[1320px] max-w-full whitespace-nowrap text-center max-md:text-[22px] max-md:w-[335px]">Let&apos;s Talk About HACA</h2>
+                    <h2 className="font-rethink font-bold text-[32px] leading-[110%] tracking-[0%] text-[#ffffff] m-0 w-[1320px] max-w-full whitespace-nowrap text-center max-md:text-[22px] max-md:w-[335px] max-md:max-w-full max-md:whitespace-normal">Let&apos;s Talk About HACA</h2>
                 </div>
 
                 {/* ── Video Container ── */}
-                <div className="w-full aspect-[1320/619] rounded-[20px] overflow-hidden relative bg-[#000210] max-md:rounded-[12px]">
+                <div className="w-full aspect-[1320/619] rounded-[20px] overflow-hidden relative bg-[#000210] border-white/30 max-md:aspect-[335/189] max-md:rounded-[5.08px] max-md:border-[0.76px] border-solid border-0 max-md:border">
 
                     {/*
                         VIDEO PLACEHOLDER
@@ -62,7 +62,7 @@ export function Haca360Section() {
 
                         {/* Centered pause button */}
                         <div className="absolute inset-0 flex items-center justify-center z-[2]">
-                            <button className="w-[70px] h-[70px] flex items-center justify-center bg-transparent border-none cursor-pointer transition-all duration-200 ease-in hover:scale-[1.1] hover:opacity-85 max-md:w-[27.91px] max-md:h-[27.91px]" aria-label="Pause video">
+                            <button className="w-[70px] h-[70px] flex items-center justify-center bg-transparent border-none cursor-pointer transition-all duration-200 ease-in hover:scale-[1.1] hover:opacity-85 max-md:w-[46px] max-md:h-[46px]" aria-label="Pause video">
                                 {/*
                                     Pause SVG — replace with:
                                     <Image src="/photos/main/pause button.svg" alt="" width={70} height={70} />

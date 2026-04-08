@@ -104,12 +104,12 @@ export function TestimonialsSection() {
 
     return (
         <section
-            className="w-full bg-[#000210] py-[36px] px-0 flex flex-col items-center gap-[36px] box-border overflow-hidden max-md:py-[20px] max-md:gap-[26px]"
+            className="w-full bg-[#000210] py-[36px] px-0 flex flex-col items-center gap-[36px] box-border overflow-hidden max-md:py-[20px] max-md:px-[clamp(16px,5vw,24px)] max-md:gap-[26px]"
             aria-label="Testimonials"
         >
             {/* ─── Header ─── */}
             <motion.div
-                className="w-full section-4k mx-auto px-[60px] box-border flex flex-col items-center gap-[20px] max-md:px-[20px] max-md:gap-[7.97px]"
+                className="w-full section-4k mx-auto px-[60px] box-border flex flex-col items-center gap-[20px] max-md:px-0 max-md:gap-[7.97px]"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -149,7 +149,7 @@ export function TestimonialsSection() {
                             if (offset > 1)     tx = `calc(${centerHalf} + ${cardGap} + ${sideHalf} + 100vw)`
                             if (offset < -1)    tx = `calc(-1 * (${centerHalf} + ${cardGap} + ${sideHalf} + 100vw))`
 
-                            const cardW         = isCenter ? "clamp(280px,72vw,1037px)"  : "clamp(200px,59vw,847px)"
+                            const cardW         = isMobile ? "100%" : isCenter ? "clamp(280px,72vw,1037px)"  : "clamp(200px,59vw,847px)"
                             const cardH         = isCenter ? "clamp(220px,27.6vw,398px)" : "clamp(180px,22.6vw,325px)"
                             const borderRadius  = isCenter ? "clamp(14px,2.3vw,33px)"    : "clamp(14px,1.9vw,27px)"
 

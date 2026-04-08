@@ -34,7 +34,7 @@ export function MentorsSection() {
     const prefersReducedMotion = useReducedMotion()
 
     return (
-        <section className="w-full max-w-[1440px] mx-auto p-[40px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,22px)] max-md:gap-[26px] max-md:items-start">
+        <section className="w-full max-w-[1440px] mx-auto p-[40px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,24px)] max-md:gap-[26px] max-md:items-start">
             {/* Header */}
             <div className="w-full max-w-[1320px] flex flex-col items-start gap-[20px] max-md:w-full max-md:gap-[clamp(6px,2.1vw,10px)] max-md:items-center">
                 {/* Badge Button */}
@@ -58,11 +58,11 @@ export function MentorsSection() {
             </div>
 
             {/* Cards Grid */}
-            <div className="w-full max-w-[1320px] h-[428px] flex justify-between items-center gap-[17.33px] max-md:w-full max-md:max-w-[335px] max-md:h-[909.27px] max-md:flex-col max-md:gap-[20px] max-md:items-center max-md:self-center">
+            <div className="w-full max-w-[1320px] h-[428px] flex justify-between items-center gap-[17.33px] max-md:w-full max-md:max-w-none max-md:h-auto max-md:flex-col max-md:gap-[20px] max-md:items-center">
                 {mentors.map((mentor, index) => (
                     <motion.div
                         key={mentor.id}
-                        className="flex-1 max-w-[317px] h-full flex flex-col gap-[10px] max-md:w-full max-md:max-w-[335px] max-md:h-auto max-md:gap-[10.57px] [&:nth-child(n+3)]:max-md:hidden"
+                        className="flex-1 max-w-[317px] h-full flex flex-col gap-[10px] max-md:w-full max-md:max-w-full max-md:h-auto max-md:gap-[10.57px] [&:nth-child(n+3)]:max-md:hidden"
                         initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
                         whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.15, margin: "-48px 0px -32px 0px" }}

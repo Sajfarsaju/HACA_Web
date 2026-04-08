@@ -21,7 +21,7 @@ export function LifeAtHacaSection() {
 
     return (
         /* ─── Outer Section: 1440×868 desktop, 375×510 mobile ─── */
-        <section className="w-full section-4k mx-auto bg-[#000210] p-[20px_40px] flex flex-col items-center gap-[20px] box-border max-md:p-[20px] max-md:gap-[26px]" aria-label="Life at HACA">
+        <section className="w-full section-4k mx-auto bg-[#000210] p-[20px_60px] flex flex-col items-center gap-[20px] box-border max-[1100px]:px-[clamp(24px,4vw,50px)] max-md:p-[20px_clamp(16px,5vw,24px)] max-md:gap-[26px]" aria-label="Life at HACA">
 
             {/* ─── Header Container: 1312×141 desktop, 335×88 mobile ─── */}
             <motion.div
