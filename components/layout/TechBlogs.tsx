@@ -133,10 +133,8 @@ export function TechBlogs() {
                             <Image src="/photos/schools/tech/blogQuote.svg" alt="quote" width={48} height={48} />
                         </div>
 
-                        {/* Testimonial Content */}
-                        <div
-                            className="w-[85%] flex items-center justify-center max-lg:pb-[40px] max-lg:pt-[60px]"
-                        >
+                        {/* Desktop: centered testimonial text */}
+                        <div className="hidden lg:flex w-[85%] items-center justify-center">
                             <p
                                 style={{
                                     fontFamily: "var(--font-outfit)",
@@ -150,26 +148,46 @@ export function TechBlogs() {
                                 Tech school Made the best change in my life, where i learn coding from basics where i never knew how to do coding.
                                 Mentors in the academy is good that they help in every part of the design.
                                 Tech school Made the best change in my life, where i learn coding from basics where i never knew how to do coding.
-                                Mentors in the academy is good that they help in every part of the design.
                             </p>
                         </div>
 
-                        {/* Mobile-only Person Profile at bottom */}
+                        {/* Mobile: flex-col layout with guaranteed gaps */}
                         <div
-                            className="absolute bottom-6 left-6 lg:hidden flex items-center"
+                            className="lg:hidden absolute inset-0 flex flex-col px-[8%]"
                             style={{
-                                width: "149px",
-                                height: "40px",
-                                gap: "10px",
-                                transform: "rotate(0deg)"
+                                paddingTop: "88px",
+                                paddingBottom: "16px",
+                                justifyContent: "space-between",
                             }}
                         >
-                            <div className="w-[40px] h-[40px] rounded-full overflow-hidden relative shrink-0 bg-white/10">
-                                {/* <Image src="/photos/schools/tech/person-blog.png" alt="Person" fill className="object-cover" /> */}
-                            </div>
-                            <div className="flex flex-col justify-center gap-1">
-                                <span className="font-outfit text-white text-[14px] leading-none font-medium">Person Name</span>
-                                <span className="font-outfit text-[#A7A7A7] text-[12px] leading-none">Subtitle</span>
+                            {/* Description */}
+                            <p
+                                style={{
+                                    fontFamily: "var(--font-outfit)",
+                                    fontWeight: 400,
+                                    fontSize: "14px",
+                                    lineHeight: "150%",
+                                    letterSpacing: "0",
+                                    color: "#FFFFFF",
+                                }}
+                            >
+                                Tech school Made the best change in my life, where i learn coding from basics where i never knew how to do coding.
+                                Mentors in the academy is good that they help in every part of the design.
+                                Tech school Made the best change in my life, where i learn coding from basics where i never knew how to do coding.
+                            </p>
+
+                            {/* Avatar — always 10px below description, 16px from card bottom */}
+                            <div
+                                className="flex items-center shrink-0"
+                                style={{ gap: "10px", marginTop: "10px" }}
+                            >
+                                <div className="w-[40px] h-[40px] rounded-full overflow-hidden relative shrink-0 bg-white/10">
+                                    {/* <Image src="/photos/schools/tech/person-blog.png" alt="Person" fill className="object-cover" /> */}
+                                </div>
+                                <div className="flex flex-col justify-center gap-1">
+                                    <span className="font-outfit text-white text-[14px] leading-none font-medium">Person Name</span>
+                                    <span className="font-outfit text-[#A7A7A7] text-[12px] leading-none">Subtitle</span>
+                                </div>
                             </div>
                         </div>
                     </div>

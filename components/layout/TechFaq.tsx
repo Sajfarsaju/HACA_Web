@@ -49,6 +49,21 @@ export function TechFaq() {
                 />
             </div>
 
+            {/* 📱 Mobile Background (using Group 23 (2).svg) */}
+            <div className="md:hidden absolute inset-0 w-full h-full pointer-events-none z-0"
+                style={{
+                    maskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
+                }}
+            >
+                <Image
+                    src="/photos/Tech/Group 23 (2).svg"
+                    alt=""
+                    fill
+                    className="object-cover object-top"
+                />
+            </div>
+
             {/* 4️⃣ Cinematic Flare Gradient - Desktop/Tablet Only */}
             <div
                 className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] blur-[150px] opacity-15 z-[6] pointer-events-none"

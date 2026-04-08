@@ -14,9 +14,9 @@ function useIsTabletOrSmaller() {
     return isTabletOrSmaller;
 }
 
-// ── Card border: purple only (orange reserved for section title text only) ─
+// ── Card border: orange to purple gradient (matches TechMentors reference) ──
 const CARD_GRAD = `linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
-    linear-gradient(90deg, rgba(105,74,255,0.35) 0%, rgba(132,0,255,0.28) 100%)`;
+    linear-gradient(135deg, rgba(255,86,0,0.6) 0%, rgba(132,0,255,0.8) 100%)`;
 
 // ── Card data ─────────────────────────────────────────────────────────────
 const CARDS = [
@@ -24,12 +24,9 @@ const CARDS = [
         title: "AI-Integrated Learning",
         description: "Every course uses real AI tools to solve real problems. You don't just learn about AI; you use it.",
         icon: (
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <path d="M24 4L29 13H39L32 20L35 30L24 24L13 30L16 20L9 13H19L24 4Z" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
-                <circle cx="24" cy="24" r="5" stroke="white" strokeWidth="1.5" />
-                <line x1="20" y1="24" x2="28" y2="24" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-                <line x1="24" y1="20" x2="24" y2="28" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            <div className="relative w-full h-full">
+                <Image src="/photos/Tech/Group.svg" alt="AI Icon" fill className="object-contain" />
+            </div>
         ),
     },
     {
@@ -138,7 +135,7 @@ function FeatureCard({
                     <h3 className="font-outfit font-semibold text-[20px] leading-[26px] tracking-[-0.01em] text-white m-0">
                         {card.title}
                     </h3>
-                    <p className="font-outfit font-normal text-[14px] leading-[21px] tracking-[-0.1px] text-[#A7A7A7] m-0">
+                    <p className="font-outfit font-normal text-[14px] leading-[21px] tracking-[-0.1px] text-white m-0">
                         {card.description}
                     </p>
                 </div>
