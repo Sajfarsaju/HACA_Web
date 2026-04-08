@@ -23,11 +23,12 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
         pathname.startsWith("/design-school/") ||
         pathname === "/schools/design" ||
         pathname.startsWith("/schools/design/");
+    const isFinanceSchool =
+        pathname === "/finance-school" ||
+        pathname.startsWith("/finance-school/");
     const isHome = pathname === "/";
-        
-    const excludeLayout = isTechSchool || isMarketingSchool || isDesignSchool;
-    // console.log(excludeLayout);
-    
+    const excludeLayout =
+        isTechSchool || isMarketingSchool || isDesignSchool || isFinanceSchool;
 
     return (
         <>

@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { Navbar } from "./Navbar";
+import { FinanceNavbar } from "./FinanceNavbar";
 
 export function ConditionalNavbar() {
     const pathname = usePathname();
@@ -11,12 +12,18 @@ export function ConditionalNavbar() {
         "/tech-school",
         "/tech-school/tech-courses",
         "/tech-school/tech-projects",
+        "/finance-school",
     ];
 
 
     const shouldHide = hideOnPaths.some(path => pathname === path || pathname.startsWith(path + "/"));
 
-    if (shouldHide) return null;
+    if (shouldHide) {
+        if (pathname.startsWith("/finance-school")) {
+            return <FinanceNavbar />;
+        }
+        return null;
+    }
 
     return <Navbar />;
 }
