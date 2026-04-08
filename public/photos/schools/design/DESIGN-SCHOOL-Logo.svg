@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="164" viewBox="0 0 800 164" fill="none">
+  <rect width="800" height="164" rx="24" fill="#FCFCFC"/>
+  <rect x="10" y="10" width="780" height="144" rx="18" fill="#FFF3EC" stroke="#FF5C00" stroke-width="4"/>
+  <text x="56" y="96" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700" fill="#111111">
+    DESIGN SCHOOL
+  </text>
+  <circle cx="738" cy="82" r="22" fill="#FF5C00"/>
+  <circle cx="738" cy="82" r="10" fill="#FCFCFC"/>
+</svg>
