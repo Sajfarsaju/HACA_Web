@@ -3,7 +3,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { PlacementCropModal } from "@/components/admin/PlacementCropModal";
-import { BlogEditor } from "@/components/admin/BlogEditor";
+import { BlogBlockBuilder } from "@/components/admin/BlogBlockBuilder";
+import type { BlogBlock } from "@/lib/blog-blocks";
 import {
   PLACEMENT_SCHOOL_OPTIONS,
   type PlacementSchoolName,
@@ -53,7 +54,8 @@ type BlogDoc = {
   readTime: string;
   category: string;
   bannerUrl?: string;
-  content: string;
+  content?: string;
+  blocks?: BlogBlock[];
   createdAt: string;
 };
 
@@ -77,6 +79,55 @@ const COURSE_SCHOOL_OPTIONS = [
 type CourseSchoolName = (typeof COURSE_SCHOOL_OPTIONS)[number];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function escapeHtml(s: string) {
+  return s
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+/**
+ * Backward-compat: older backend requires a `content` HTML string.
+ * We generate a minimal HTML version from `blocks` so publish works even
+ * if the server hasn't been updated yet.
+ */
+function blocksToLegacyHtml(blocks: BlogBlock[]) {
+  return blocks
+    .map((b) => {
+      if (b.type === "heading") {
+        const tag = b.level === 1 ? "h1" : "h2";
+        return `<${tag}>${escapeHtml(b.text || "")}</${tag}>`;
+      }
+      if (b.type === "paragraph") {
+        return `<p>${escapeHtml(b.text || "")}</p>`;
+      }
+      if (b.type === "callout") {
+        const title = b.title?.trim() ? `<strong>${escapeHtml(b.title)}</strong><br/>` : "";
+        return `<blockquote>${title}${escapeHtml(b.text || "")}</blockquote>`;
+      }
+      if (b.type === "list") {
+        const tag = b.ordered ? "ol" : "ul";
+        const items = (b.items || [])
+          .filter((it) => it && it.trim())
+          .map((it) => `<li>${escapeHtml(it)}</li>`)
+          .join("");
+        return `<${tag}>${items}</${tag}>`;
+      }
+      if (b.type === "image") {
+        const alt = escapeHtml(b.alt || "");
+        const url = escapeHtml(b.url || "");
+        const caption = b.caption?.trim()
+          ? `<figcaption>${escapeHtml(b.caption)}</figcaption>`
+          : "";
+        return `<figure><img src="${url}" alt="${alt}" />${caption}</figure>`;
+      }
+      return "";
+    })
+    .join("\n");
+}
 
 function sortGroupsBySchoolOrder(groups: PlacementGroup[]): PlacementGroup[] {
   const order = [...PLACEMENT_SCHOOL_OPTIONS];
@@ -152,12 +203,17 @@ export default function AdminPage() {
   const [blogTitle, setBlogTitle] = useState("");
   const [blogAuthorName, setBlogAuthorName] = useState("");
   const [blogAuthorRole, setBlogAuthorRole] = useState("");
+  const [blogAuthorBio, setBlogAuthorBio] = useState("");
   const [blogReadTime, setBlogReadTime] = useState("");
   const [blogCategory, setBlogCategory] = useState("Marketing");
-  const [blogContent, setBlogContent] = useState("");
+  const [blogBlocks, setBlogBlocks] = useState<BlogBlock[]>([]);
   const [blogBannerFile, setBlogBannerFile] = useState<File | null>(null);
   const [blogCropOpen, setBlogCropOpen] = useState(false);
   const [blogCropSrc, setBlogCropSrc] = useState<string | null>(null);
+  // Author photo crop state
+  const [blogAuthorPhotoFile, setBlogAuthorPhotoFile] = useState<File | null>(null);
+  const [authorPhotoCropOpen, setAuthorPhotoCropOpen] = useState(false);
+  const [authorPhotoCropSrc, setAuthorPhotoCropSrc] = useState<string | null>(null);
 
   // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -379,11 +435,48 @@ export default function AdminPage() {
     setBlogBannerFile(file);
   }
 
+  function handleAuthorPhotoPick(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f || !f.type.startsWith("image/")) {
+      setError("Please choose an image file.");
+      return;
+    }
+    setAuthorPhotoCropSrc((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return URL.createObjectURL(f);
+    });
+    setAuthorPhotoCropOpen(true);
+  }
+
+  function handleAuthorPhotoCropClose() {
+    setAuthorPhotoCropOpen(false);
+    setAuthorPhotoCropSrc((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
+  }
+
+  function handleAuthorPhotoCropped(file: File) {
+    setAuthorPhotoCropSrc((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
+    setAuthorPhotoCropOpen(false);
+    setBlogAuthorPhotoFile(file);
+  }
+
   async function handleBlogSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!token) return;
-    if (!blogTitle.trim() || !blogAuthorName.trim() || !blogContent.trim()) {
-      setError("Please fill in Title, Author Name, and Article Content.");
+    const hasAnyBlocks = blogBlocks.some((b) => {
+      if (b.type === "heading" || b.type === "paragraph" || b.type === "callout") return Boolean(b.text?.trim());
+      if (b.type === "image") return Boolean(b.url?.trim());
+      if (b.type === "list") return b.items.some((it) => it.trim());
+      return false;
+    });
+    if (!blogTitle.trim() || !blogAuthorName.trim() || !hasAnyBlocks) {
+      setError("Please fill in Title, Author Name, and add at least one content block.");
       return;
     }
     setError(null);
@@ -393,10 +486,13 @@ export default function AdminPage() {
       form.append("title", blogTitle.trim());
       form.append("authorName", blogAuthorName.trim());
       form.append("authorRole", blogAuthorRole.trim());
+      form.append("authorBio", blogAuthorBio.trim());
       form.append("readTime", blogReadTime.trim());
       form.append("category", blogCategory);
-      form.append("content", blogContent);
+      form.append("blocks", JSON.stringify(blogBlocks));
+      form.append("content", blocksToLegacyHtml(blogBlocks));
       if (blogBannerFile) form.append("banner", blogBannerFile);
+      if (blogAuthorPhotoFile) form.append("authorPhoto", blogAuthorPhotoFile);
       await axios.post(`${backendUrl}/api/admin/blogs`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -404,10 +500,12 @@ export default function AdminPage() {
       setBlogTitle("");
       setBlogAuthorName("");
       setBlogAuthorRole("");
+      setBlogAuthorBio("");
       setBlogReadTime("");
       setBlogCategory("Marketing");
-      setBlogContent("");
+      setBlogBlocks([]);
       setBlogBannerFile(null);
+      setBlogAuthorPhotoFile(null);
       await refreshBlogs(token);
     } catch (e: unknown) {
       setError(getApiErrorMessage(e, "Blog publish failed"));
@@ -582,6 +680,17 @@ export default function AdminPage() {
           onClose={handleBlogCropClose}
           onCropped={handleBlogCroppedFile}
           aspect={16 / 9}
+        />
+      ) : null}
+      {/* Author photo crop modal — 1:1 square */}
+      {authorPhotoCropSrc ? (
+        <PlacementCropModal
+          key={authorPhotoCropSrc}
+          imageSrc={authorPhotoCropSrc}
+          open={authorPhotoCropOpen}
+          onClose={handleAuthorPhotoCropClose}
+          onCropped={handleAuthorPhotoCropped}
+          aspect={1}
         />
       ) : null}
 
@@ -1245,6 +1354,45 @@ export default function AdminPage() {
                     </div>
                   </div>
 
+                  {/* Author photo + bio */}
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <span className="text-xs font-medium text-[#A7ADBE]">
+                        Author photo <span className="font-normal text-[#8890a0]">(1:1, optional)</span>
+                      </span>
+                      <div className="flex flex-col gap-3 rounded-xl border border-dashed border-white/20 bg-white/[0.06] p-3">
+                        <label className="relative flex cursor-pointer flex-col items-center justify-center rounded-lg border border-white/15 bg-white/[0.06] py-5 transition hover:border-[#4C75FF]/40 hover:bg-white/10">
+                          <input
+                            className="absolute inset-0 cursor-pointer opacity-0"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleAuthorPhotoPick}
+                          />
+                          <span className="text-sm font-medium text-[#d1d5e0]">Click or drop photo</span>
+                          <span className="mt-1 text-xs text-[#8890a0]">Square crop · shown in sidebar</span>
+                        </label>
+                        {blogAuthorPhotoFile ? (
+                          <p className="text-center text-xs font-medium text-emerald-400/90">Ready: {blogAuthorPhotoFile.name}</p>
+                        ) : (
+                          <p className="text-center text-xs text-[#8890a0]">No photo selected</p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="blog-author-bio" className="text-xs font-medium text-[#A7ADBE]">
+                        Author bio <span className="font-normal text-[#8890a0]">(optional)</span>
+                      </label>
+                      <textarea
+                        id="blog-author-bio"
+                        rows={5}
+                        className="w-full resize-none rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                        value={blogAuthorBio}
+                        onChange={(e) => setBlogAuthorBio(e.target.value)}
+                        placeholder="Short bio shown in the sidebar of the blog detail page…"
+                      />
+                    </div>
+                  </div>
+
                   {/* Row 3: Read Time + Category */}
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div className="space-y-2">
@@ -1303,14 +1451,14 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                  {/* Rich text editor */}
+                  {/* Block builder */}
                   <div className="space-y-2">
                     <label className="text-xs font-medium text-[#A7ADBE]">
                       Article content <span className="text-red-400">*</span>
                     </label>
-                    <BlogEditor
-                      value={blogContent}
-                      onChange={setBlogContent}
+                    <BlogBlockBuilder
+                      value={blogBlocks}
+                      onChange={setBlogBlocks}
                       onImageUpload={handleBlogImageUpload}
                     />
                   </div>

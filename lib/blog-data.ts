@@ -1,4 +1,5 @@
 import type { TocItem } from "@/lib/blog-types"
+import type { BlogBlock } from "@/lib/blog-blocks"
 
 export type BlogPost = {
     id: number | string
@@ -9,10 +10,13 @@ export type BlogPost = {
     title: string
     author: string
     authorRole?: string
+    authorPhotoUrl?: string
+    authorBio?: string
     readTime: string
     toc?: TocItem[]
     bannerUrl?: string
     content?: string
+    blocks?: BlogBlock[]
 }
 
 const DEFAULT_TOC = [

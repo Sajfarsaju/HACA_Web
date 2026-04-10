@@ -67,9 +67,11 @@ export function PlacementCropModal({ imageSrc, open, onClose, onCropped, aspect 
               Crop image
             </h2>
             <p className="mt-1 text-xs leading-relaxed text-[#A7ADBE]">
-              {aspect
-                ? `Crop ratio: ${aspect.toFixed(2)}. Drag to reposition; use zoom to fit.`
-                : "Fixed ratio matches placement cards (247.656 × 270). Drag to reposition; use zoom to fit."}
+              {aspect === 1
+                ? "Square crop (1:1). Drag to reposition; use zoom to fit."
+                : aspect
+                  ? `Crop ratio: ${aspect.toFixed(2)}. Drag to reposition; use zoom to fit.`
+                  : "Fixed ratio matches placement cards (247.656 × 270). Drag to reposition; use zoom to fit."}
             </p>
           </div>
           <button

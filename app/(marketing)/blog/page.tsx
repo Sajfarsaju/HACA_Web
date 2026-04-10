@@ -11,21 +11,43 @@ async function getDynamicBlogs(): Promise<BlogPost[]> {
         const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000"
         const res = await fetch(`${backendUrl}/api/admin/public-blogs`, { next: { revalidate: 0 } })
         if (!res.ok) return []
-        const data = await res.json()
+        const data: { items?: unknown[] } = await res.json()
 
-        return (data.items || []).map((blog: any) => ({
-            id: blog._id.toString(),
-            slug: blog._id.toString(), // Use ID as the string slug for dynamic routing
-            category: blog.category,
-            categorySlug: blog.category?.toLowerCase() || "marketing",
-            date: new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
-            title: blog.title,
-            author: blog.authorName,
-            authorRole: blog.authorRole,
-            readTime: blog.readTime || "5 Mins",
-            bannerUrl: blog.bannerUrl,
-        }))
-    } catch (e) {
+        return (data.items || []).flatMap((blog): BlogPost[] => {
+            if (!blog || typeof blog !== "object") return []
+            const b = blog as Record<string, unknown>
+            const idRaw = b._id
+            const id = typeof idRaw === "string" || typeof idRaw === "number" ? String(idRaw) : null
+            if (!id) return []
+
+            const title = typeof b.title === "string" ? b.title : ""
+            const authorName = typeof b.authorName === "string" ? b.authorName : ""
+            if (!title || !authorName) return []
+
+            const category = typeof b.category === "string" ? b.category : "Marketing"
+            const createdAt =
+                typeof b.createdAt === "string" || typeof b.createdAt === "number" ? new Date(b.createdAt) : new Date()
+
+            return [
+                {
+                    id,
+                    slug: typeof b.slug === "string" && b.slug ? b.slug : id,
+                    category,
+                    categorySlug: category.toLowerCase() || "marketing",
+                    date: createdAt.toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "2-digit",
+                        year: "numeric",
+                    }),
+                    title,
+                    author: authorName,
+                    authorRole: typeof b.authorRole === "string" ? b.authorRole : undefined,
+                    readTime: typeof b.readTime === "string" && b.readTime ? b.readTime : "5 Mins",
+                    bannerUrl: typeof b.bannerUrl === "string" ? b.bannerUrl : undefined,
+                },
+            ]
+        })
+    } catch {
         return []
     }
 }

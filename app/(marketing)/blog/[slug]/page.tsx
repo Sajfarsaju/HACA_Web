@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 import Image from "next/image"
-import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Calendar, Clock, User } from "lucide-react"
 import { InThisArticle } from "@/components/blog/InThisArticle"
@@ -8,6 +7,7 @@ import { BlogAuthorBio } from "@/components/blog/BlogAuthorBio"
 import { BlogShareButtons } from "@/components/blog/BlogShareButtons"
 import { SectionReveal } from "@/components/animations/SectionReveal"
 import { BLOG_POSTS, getBlogBySlug, BlogPost } from "@/lib/blog-data"
+import { BlogRenderer } from "@/components/blog/BlogRenderer"
 
 const BLOG_COVER_IMAGE = "/photos/main/blog cover.png"
 
@@ -22,21 +22,37 @@ async function getDynamicBlog(slug: string): Promise<BlogPost | null> {
         if (!res.ok) return null
         const data = await res.json()
         if (!data.blog) return null
+        const blocks = Array.isArray(data.blog.blocks) ? data.blog.blocks : undefined
+        // Auto-build TOC from heading blocks
+        let tocCounter = 0
+        const toc = blocks
+            ? blocks
+                .filter((b: { type: string }) => b.type === "heading")
+                .map((b: { id: string; text: string }) => ({
+                    number: String(++tocCounter),
+                    label: b.text,
+                    anchorId: `heading-${b.id}`,
+                }))
+            : undefined
+
         return {
             id: data.blog._id,
-            slug: data.blog._id,
+            slug: data.blog.slug || data.blog._id,
             category: data.blog.category,
             categorySlug: data.blog.category?.toLowerCase() || "marketing",
             date: new Date(data.blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
             title: data.blog.title,
             author: data.blog.authorName,
             authorRole: data.blog.authorRole,
+            authorPhotoUrl: data.blog.authorPhotoUrl || undefined,
+            authorBio: data.blog.authorBio || undefined,
             readTime: data.blog.readTime || "5 Mins",
             bannerUrl: data.blog.bannerUrl,
             content: data.blog.content,
-            toc: undefined,
+            blocks,
+            toc: toc && toc.length > 0 ? toc : undefined,
         }
-    } catch (e) {
+    } catch {
         return null
     }
 }
@@ -136,10 +152,14 @@ export default async function BlogDetailPage({ params }: Props) {
                             <div className="hidden lg:flex flex-col gap-[30px] w-full max-w-[878px] mx-auto lg:mx-0">
                                 {dynamicPost ? (
                                     <SectionReveal sectionIndex={2}>
-                                        <div 
-                                            className="prose prose-invert max-w-none w-full"
-                                            dangerouslySetInnerHTML={{ __html: dynamicPost.content || "" }}
-                                        />
+                                        {dynamicPost.blocks && dynamicPost.blocks.length > 0 ? (
+                                            <BlogRenderer blocks={dynamicPost.blocks} />
+                                        ) : (
+                                            <div
+                                                className="blog-content w-full"
+                                                dangerouslySetInnerHTML={{ __html: dynamicPost.content || "" }}
+                                            />
+                                        )}
                                     </SectionReveal>
                                 ) : (
                                     <>
@@ -257,7 +277,7 @@ export default async function BlogDetailPage({ params }: Props) {
                             )}
                             {/* Center container: author card (desktop) */}
                             <SectionReveal sectionIndex={3} className="w-full">
-                            <BlogAuthorBio author={post.author} authorRole={post.authorRole} />
+                            <BlogAuthorBio author={post.author} authorRole={post.authorRole} authorPhotoUrl={post.authorPhotoUrl} bio={post.authorBio} />
                             </SectionReveal>
                             {/* Bottom container: share buttons (desktop) */}
                             <SectionReveal sectionIndex={4} className="w-full">
@@ -269,10 +289,14 @@ export default async function BlogDetailPage({ params }: Props) {
                         <div className="flex lg:hidden flex-col gap-4 w-full px-0">
                             {dynamicPost ? (
                                 <SectionReveal sectionIndex={2} className="w-full">
-                                    <div 
-                                        className="prose prose-invert max-w-none w-full"
-                                        dangerouslySetInnerHTML={{ __html: dynamicPost.content || "" }}
-                                    />
+                                    {dynamicPost.blocks && dynamicPost.blocks.length > 0 ? (
+                                        <BlogRenderer blocks={dynamicPost.blocks} />
+                                    ) : (
+                                        <div
+                                            className="blog-content w-full"
+                                            dangerouslySetInnerHTML={{ __html: dynamicPost.content || "" }}
+                                        />
+                                    )}
                                 </SectionReveal>
                             ) : (
                                 <>

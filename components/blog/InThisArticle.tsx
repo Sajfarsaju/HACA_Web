@@ -47,6 +47,11 @@ export function InThisArticle({ items }: Props) {
                                 <button
                                     type="button"
                                     className="font-semibold text-[16px] leading-[100%] tracking-[-0.02em] text-[#A7ADBE] text-left hover:text-white/90 transition-colors"
+                                    onClick={() => {
+                                        if (!item.anchorId) return
+                                        const el = document.getElementById(item.anchorId)
+                                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
+                                    }}
                                 >
                                     {item.label}
                                 </button>
@@ -62,6 +67,11 @@ export function InThisArticle({ items }: Props) {
                                     <button
                                         type="button"
                                         className="font-semibold text-[16px] leading-[100%] tracking-[-0.02em] text-[#A7ADBE] text-left hover:text-white/90 transition-colors"
+                                        onClick={() => {
+                                            if (!sub.anchorId) return
+                                            const el = document.getElementById(sub.anchorId)
+                                            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
+                                        }}
                                     >
                                         {sub.label}
                                     </button>

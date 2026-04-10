@@ -15,7 +15,10 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
     const [openModuleId, setOpenModuleId] = useState<number | null>(null)
 
     useEffect(() => {
-        if (!course) setOpenModuleId(null)
+        if (!course) {
+            // Avoid synchronous state update in effect body (eslint rule)
+            queueMicrotask(() => setOpenModuleId(null))
+        }
     }, [course])
 
     const handleKeyDown = useCallback(
