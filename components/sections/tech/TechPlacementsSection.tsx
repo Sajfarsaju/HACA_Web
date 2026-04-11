@@ -52,7 +52,7 @@ function getOffset(index: number, active: number, total: number) {
 
 export function TechPlacementsSection() {
     return (
-        <section className="w-full relative overflow-hidden bg-[#111111]" id="tech-placements">
+        <section className="w-full relative overflow-hidden" id="tech-placements">
             {/* Local style for gradient border masks */}
             <style>{`
                 .tech-placements-glass-side::before {
@@ -96,14 +96,6 @@ export function TechPlacementsSection() {
 
             {/* Background layers */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden min-h-[400px]">
-                <Image
-                    src="/photos/Tech/Image.svg"
-                    alt=""
-                    fill
-                    sizes="100vw"
-                    className="object-cover object-center"
-                    aria-hidden
-                />
                 <div className="absolute inset-0 tech-placements-glow" aria-hidden />
                 <div
                     className="absolute top-[40px] left-0 right-0 w-full h-[800px] max-md:top-[30px] max-md:h-[440px] pointer-events-none"

@@ -107,6 +107,44 @@ export function TechPathSection() {
                     }
                 }
 
+                /* ── Orange gradient random float animations ─────────────────── */
+                @keyframes orange-float-desk {
+                    0%   { transform: translateX(-50%) rotate(-164.21deg) translate(0px, 0px); }
+                    12%  { transform: translateX(-50%) rotate(-164.21deg) translate(58px, -42px); }
+                    26%  { transform: translateX(-50%) rotate(-164.21deg) translate(-48px, 60px); }
+                    41%  { transform: translateX(-50%) rotate(-164.21deg) translate(72px, 28px); }
+                    57%  { transform: translateX(-50%) rotate(-164.21deg) translate(-38px, -55px); }
+                    71%  { transform: translateX(-50%) rotate(-164.21deg) translate(52px, 48px); }
+                    85%  { transform: translateX(-50%) rotate(-164.21deg) translate(-62px, -30px); }
+                    100% { transform: translateX(-50%) rotate(-164.21deg) translate(0px, 0px); }
+                }
+                @keyframes orange-float-mob-1 {
+                    0%   { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
+                    18%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(35px, -28px); }
+                    38%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-32px, 38px); }
+                    58%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(42px, 20px); }
+                    78%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-26px, -40px); }
+                    100% { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
+                }
+                @keyframes orange-float-mob-2 {
+                    0%   { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
+                    22%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-40px, 32px); }
+                    44%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(38px, -36px); }
+                    66%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-30px, 44px); }
+                    88%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(44px, -24px); }
+                    100% { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
+                }
+                .tech-path-orange-float-desk {
+                    animation: orange-float-desk 18s ease-in-out infinite;
+                }
+                .tech-path-orange-float-mob-1 {
+                    animation: orange-float-mob-1 14s ease-in-out infinite;
+                }
+                .tech-path-orange-float-mob-2 {
+                    animation: orange-float-mob-2 14s ease-in-out infinite;
+                    animation-delay: -5s;
+                }
+
                 /* Desktop 1440px+ and 4K: slightly shorter band with softer bottom fade (mirror of tablet feel) */
                 @media (min-width: 1024px) {
                     .tech-path-card-border::before {
@@ -231,15 +269,15 @@ export function TechPathSection() {
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1300px] max-w-[calc(100vw+200px)] min-w-full h-full min-h-[2500px] opacity-[0.87]">
                     <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" />
                 </div>
-                <div className="absolute top-[850px] left-1/2 -translate-x-1/2 w-[715px] max-w-[90vw] h-[935px] rotate-[-164.21deg] opacity-100 max-md:hidden">
+                <div className="tech-path-orange-float-desk absolute top-[850px] left-1/2 w-[715px] max-w-[90vw] h-[935px] opacity-100 max-md:hidden">
                     <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-cover object-center" />
                 </div>
                 {/* Mobile-only: orange gradient at center of card 1 */}
-                <div className="hidden max-md:block absolute top-[430px] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[400px] rotate-[-164.21deg] opacity-90 pointer-events-none">
+                <div className="tech-path-orange-float-mob-1 hidden max-md:block absolute top-[430px] left-1/2 w-[90vw] h-[400px] opacity-90 pointer-events-none">
                     <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
                 </div>
                 {/* Mobile-only: orange gradient at center of card 5 */}
-                <div className="hidden max-md:block absolute top-[1704px] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[400px] rotate-[-164.21deg] opacity-90 pointer-events-none">
+                <div className="tech-path-orange-float-mob-2 hidden max-md:block absolute top-[1704px] left-1/2 w-[90vw] h-[400px] opacity-90 pointer-events-none">
                     <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
                 </div>
             </div>

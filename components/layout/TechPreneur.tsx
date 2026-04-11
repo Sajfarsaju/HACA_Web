@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { TechPreneurFlowDots } from "@/components/tech/TechPreneurFlowDots";
 
 export function TechPreneur() {
     return (
@@ -28,17 +28,12 @@ export function TechPreneur() {
             </div>
 
 
-            {/* Decorative SVG — full bleed using negative margin technique, touches both edges on ALL screens */}
+            {/* Animated flowing purple dots — replaces Group.svg */}
             <div
                 className="relative h-[140px] md:h-[280px] lg:h-[380px] xl:h-[480px] shrink-0 -mt-[20px] md:-mt-[50px] lg:-mt-[100px] xl:-mt-[140px]"
                 style={{ width: "100vw", marginLeft: "calc(-50vw + 50%)" }}
             >
-                <Image
-                    src="/photos/schools/tech/Group.svg"
-                    alt=""
-                    fill
-                    className="object-contain object-top"
-                />
+                <TechPreneurFlowDots />
             </div>
         </div>
     );

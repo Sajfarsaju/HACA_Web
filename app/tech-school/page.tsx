@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { TechDotsBackground } from "@/components/tech/TechDotsBackground";
 import TechHero from "@/components/sections/tech/TechHeroSection";
 import { TechIntroSection } from "@/components/sections/tech/TechIntroSection";
 import { TechShowcaseSection } from "@/components/sections/tech/TechShowcaseSection";
@@ -29,16 +30,9 @@ export default function TechSchoolPage() {
                 {/* ── All sections: TechIntro → TechQuote with single Image.svg background ── */}
                 <div className="relative w-full bg-[#111111]">
 
-                    {/* Background layer: Image.svg — covers all sections from TechIntro to TechQuote, all screen sizes */}
+                    {/* Background layer: animated dot grid with cursor repulsion */}
                     <div className="absolute top-0 left-0 w-full h-full z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
-                        <Image
-                            src="/photos/Tech/Image.svg"
-                            alt=""
-                            fill
-                            sizes="100vw"
-                            className="object-cover object-top"
-                            priority
-                        />
+                        <TechDotsBackground />
                     </div>
 
                     {/* Content components — TechIntro → TechPlacements */}
