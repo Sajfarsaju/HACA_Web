@@ -21,7 +21,7 @@ export function MarketingNavbar() {
     // Hide navbar on scroll down, show on scroll up
     useEffect(() => {
         const handleScroll = () => {
-            const current = window.scrollY || 0;
+            const current = window.scrollY || 0
 
             // Always show near the very top
             if (current < 40) {
