@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    The design canvas is 1440 × 1044 px (Figma spec).
@@ -17,6 +17,81 @@ const DESKTOP_HERO_END = 916; // stats box bottom (826 + 90) - hero ends here, n
 const MOBILE_DESIGN_W = 375;
 const MOBILE_DESIGN_H = 706; // nav 63 + content 643
 
+// ── Count-up number animation ─────────────────────────────────────────────────
+const STAT_GRADIENT = "linear-gradient(0deg, rgba(247,247,247,0.5), rgba(247,247,247,0.5)), radial-gradient(50.91% 97.54% at 50% 2.46%, #FF5600 0%, #9600FF 100%)";
+
+function CountUp({
+    target,
+    suffix,
+    duration = 1400,
+    desktopW,
+    desktopH,
+    desktopFs,
+    mobileW,
+    mobileH,
+    mobileFs,
+    isMobile,
+    startAnimation,
+}: {
+    target: number;
+    suffix: string;
+    duration?: number;
+    desktopW: number;
+    desktopH: number;
+    desktopFs: number;
+    mobileW: number;
+    mobileH: number;
+    mobileFs: number;
+    isMobile: boolean;
+    startAnimation: boolean;
+}) {
+    const [count, setCount] = useState(0);
+    const rafRef = useRef<number | null>(null);
+    const startRef = useRef<number | null>(null);
+    const w = isMobile ? mobileW : desktopW;
+    const h = isMobile ? mobileH : desktopH;
+    const fs = isMobile ? mobileFs : desktopFs;
+
+    useEffect(() => {
+        if (!startAnimation) return;
+        startRef.current = null;
+        function step(ts: number) {
+            if (startRef.current === null) startRef.current = ts;
+            const elapsed = ts - startRef.current;
+            const progress = Math.min(elapsed / duration, 1);
+            // ease-out quad
+            const eased = 1 - (1 - progress) * (1 - progress);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) {
+                rafRef.current = requestAnimationFrame(step);
+            } else {
+                setCount(target);
+            }
+        }
+        rafRef.current = requestAnimationFrame(step);
+        return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+    }, [startAnimation, target, duration]);
+
+    return (
+        <span
+            className="font-outfit font-medium leading-none shrink-0"
+            style={{
+                width: w,
+                height: h,
+                fontSize: fs,
+                display: "inline-flex",
+                alignItems: "center",
+                background: STAT_GRADIENT,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+            }}
+        >
+            {count}{suffix}
+        </span>
+    );
+}
+
 const TECH_NAV_LINKS = [
     { href: "/tech-school", label: "Home" },
     { href: "/tech-school/tech-courses", label: "Courses" },
@@ -29,6 +104,11 @@ export default function TechHero() {
     const [desktopScale, setDesktopScale] = useState(1);
     const [mobileScale, setMobileScale] = useState(1);
     const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
+    const desktopStatsRef = useRef<HTMLDivElement>(null);
+    const mobileStatsRef = useRef<HTMLDivElement>(null);
+    const desktopStatsVisible = useInView(desktopStatsRef, { once: true, amount: 0.5 });
+    const mobileStatsVisible = useInView(mobileStatsRef, { once: true, amount: 0.5 });
+    const statsVisible = desktopStatsVisible || mobileStatsVisible;
     const desktopMenuRef = useRef<HTMLDivElement>(null);
     const desktopMenuToggleRef = useRef<HTMLButtonElement>(null);
 
@@ -471,23 +551,33 @@ export default function TechHero() {
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                        ref={desktopStatsRef}
                     >
                         {/* Stat 1 */}
                         <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
-                            <Image src="/photos/Tech/200+.svg" alt="200+" width={95} height={30} style={{ objectFit: "contain" }} priority />
-                            <span className="flex items-center font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100">Students Learned</span>
+                            <CountUp target={200} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={false} startAnimation={statsVisible} />
+                            <span className="flex flex-col justify-center font-outfit font-normal text-[18px] leading-[1.1] tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-left">
+                                <span>Students</span>
+                                <span>Learned</span>
+                            </span>
                         </div>
 
                         {/* Stat 2 */}
                         <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
-                            <Image src="/photos/Tech/100-percent.svg" alt="100%" width={93} height={30} style={{ objectFit: "contain" }} priority />
-                            <span className="flex items-center font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100">Placement Support</span>
+                            <CountUp target={100} suffix="%" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={false} startAnimation={statsVisible} />
+                            <span className="flex flex-col justify-center font-outfit font-normal text-[18px] leading-[1.1] tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-left">
+                                <span>Placement</span>
+                                <span>Support</span>
+                            </span>
                         </div>
 
                         {/* Stat 3 */}
                         <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
-                            <Image src="/photos/Tech/500+.svg" alt="500+" width={95} height={30} style={{ objectFit: "contain" }} priority />
-                            <span className="flex items-center font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100">Projects Completed</span>
+                            <CountUp target={500} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={false} startAnimation={statsVisible} />
+                            <span className="flex flex-col justify-center font-outfit font-normal text-[18px] leading-[1.1] tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-left">
+                                <span>Projects</span>
+                                <span>Completed</span>
+                            </span>
                         </div>
                     </motion.div>
 
@@ -647,18 +737,19 @@ export default function TechHero() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.7 }}
+                            ref={mobileStatsRef}
                         >
                             <div className="w-[235px] h-[134px] flex flex-col gap-[10px]">
                                 <div className="w-[220px] h-[38px] flex gap-[10px] items-center opacity-100 rotate-0">
-                                    <Image src="/photos/Tech/200+.svg" alt="200+" width={72} height={22} style={{ objectFit: "contain" }} priority />
+                                    <CountUp target={200} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
                                     <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[138px]">Students Learned</span>
                                 </div>
                                 <div className="w-[231px] h-[38px] flex gap-[11px] items-center opacity-100 rotate-0">
-                                    <Image src="/photos/Tech/100-percent.svg" alt="100%" width={70} height={22} style={{ objectFit: "contain" }} priority />
+                                    <CountUp target={100} suffix="%" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
                                     <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[150px]">Placement Support</span>
                                 </div>
                                 <div className="w-[235px] h-[38px] flex gap-[8px] items-center opacity-100 rotate-0">
-                                    <Image src="/photos/Tech/500+.svg" alt="500+" width={73} height={22} style={{ objectFit: "contain" }} priority />
+                                    <CountUp target={500} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
                                     <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[154px]">Projects Completed</span>
                                 </div>
                             </div>

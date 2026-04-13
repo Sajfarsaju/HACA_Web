@@ -21,10 +21,15 @@ const PLACEMENTS = [
 
 /* ── Responsive card sizing (same approach as TechYoutube) ── */
 function getCardSizes(width: number) {
-    if (width < 480) {
-        // Mobile: single card only, nearly full-width
+    if (width < 360) {
+        // Very small mobile: single card only, nearly full-width
         const centerW = width - 48;
         return { centerW, centerH: centerW * 1.4, sideW: 0, sideH: 0, gap: 0, showSide: false };
+    } else if (width < 480) {
+        // Mobile: center card + side peeks (so left/right cards are visible)
+        const centerW = Math.min(260, width - 80);
+        const sideW = Math.max(140, Math.floor(centerW * 0.62));
+        return { centerW, centerH: centerW * 1.4, sideW, sideH: sideW * 1.14, gap: 14, showSide: true };
     } else if (width < 768) {
         // Large mobile: center card + side peek
         const centerW = Math.min(260, width - 80);
@@ -166,9 +171,6 @@ function PlacementsCarousel() {
         return () => clearInterval(timer);
     }, [active, total]);
 
-    const prev = () => setActive((i) => (i - 1 + total) % total);
-    const next = () => setActive((i) => (i + 1) % total);
-
     const { centerW, centerH, sideW, sideH, gap, showSide } = getCardSizes(windowWidth);
 
     return (
@@ -196,17 +198,10 @@ function PlacementsCarousel() {
                             : -(centerHalf + gap + sideHalf) + (offset + 1) * (sideW + gap);
                     }
 
-                    const isLeft = offset === -1;
-                    const isRight = offset === 1;
-
                     return (
                         <div
                             key={i}
-                            onClick={() => {
-                                if (isLeft) prev();
-                                if (isRight) next();
-                            }}
-                            className={`absolute overflow-hidden ${isCenter ? "cursor-default z-[2]" : "cursor-pointer z-[1]"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+                            className={`absolute overflow-hidden cursor-default ${isCenter ? "z-[2]" : "z-[1]"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
                             style={{
                                 width: `${cardW}px`,
                                 height: `${cardH}px`,
@@ -269,24 +264,6 @@ function PlacementsCarousel() {
                         </div>
                     );
                 })}
-            </div>
-
-            {/* Navigation — same nav buttons as TechYoutube */}
-            <div className="flex gap-4 mt-[10px] max-md:pt-[32px] max-md:pb-[8px]">
-                <button
-                    onClick={prev}
-                    aria-label="Previous placement"
-                    className="w-[46.67px] h-[46.67px] rounded-full border-[0.72px] border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 rotate-90 cursor-pointer transition-opacity duration-200 opacity-40 hover:!opacity-100 max-md:w-[38.41px] max-md:h-[38.41px]"
-                >
-                    <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt="Previous" width={12} height={12} className="brightness-0 invert" />
-                </button>
-                <button
-                    onClick={next}
-                    aria-label="Next placement"
-                    className="w-[46.67px] h-[46.67px] rounded-full border-[0.72px] border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 -rotate-90 cursor-pointer transition-opacity duration-200 hover:!opacity-80 max-md:w-[38.41px] max-md:h-[38.41px]"
-                >
-                    <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt="Next" width={12} height={12} className="brightness-0 invert" />
-                </button>
             </div>
         </>
     );

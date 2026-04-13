@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
+import { GradientBlobOrb } from "@/components/tech/GradientBlobOrb";
 
 const COURSES = [
     {
@@ -52,7 +56,11 @@ const COURSES = [
     }
 ];
 
+const cardRevealEase = [0.21, 0.47, 0.32, 0.98] as const;
+
 export function TechPathSection() {
+    const reduceMotion = useReducedMotion();
+
     return (
         <section className="w-full relative overflow-visible flex flex-col items-center bg-transparent" id="tech-paths">
 
@@ -105,44 +113,6 @@ export function TechPathSection() {
                         transform: scale(1.06) !important;
                         transform-origin: center center !important;
                     }
-                }
-
-                /* ── Orange gradient random float animations ─────────────────── */
-                @keyframes orange-float-desk {
-                    0%   { transform: translateX(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                    12%  { transform: translateX(-50%) rotate(-164.21deg) translate(58px, -42px); }
-                    26%  { transform: translateX(-50%) rotate(-164.21deg) translate(-48px, 60px); }
-                    41%  { transform: translateX(-50%) rotate(-164.21deg) translate(72px, 28px); }
-                    57%  { transform: translateX(-50%) rotate(-164.21deg) translate(-38px, -55px); }
-                    71%  { transform: translateX(-50%) rotate(-164.21deg) translate(52px, 48px); }
-                    85%  { transform: translateX(-50%) rotate(-164.21deg) translate(-62px, -30px); }
-                    100% { transform: translateX(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                }
-                @keyframes orange-float-mob-1 {
-                    0%   { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                    18%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(35px, -28px); }
-                    38%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-32px, 38px); }
-                    58%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(42px, 20px); }
-                    78%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-26px, -40px); }
-                    100% { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                }
-                @keyframes orange-float-mob-2 {
-                    0%   { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                    22%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-40px, 32px); }
-                    44%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(38px, -36px); }
-                    66%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-30px, 44px); }
-                    88%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(44px, -24px); }
-                    100% { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                }
-                .tech-path-orange-float-desk {
-                    animation: orange-float-desk 18s ease-in-out infinite;
-                }
-                .tech-path-orange-float-mob-1 {
-                    animation: orange-float-mob-1 14s ease-in-out infinite;
-                }
-                .tech-path-orange-float-mob-2 {
-                    animation: orange-float-mob-2 14s ease-in-out infinite;
-                    animation-delay: -5s;
                 }
 
                 /* Desktop 1440px+ and 4K: slightly shorter band with softer bottom fade (mirror of tablet feel) */
@@ -263,22 +233,108 @@ export function TechPathSection() {
                     WebkitMaskComposite: "source-in",
                 }}
             >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1312px] max-w-[calc(100vw+200px)] min-w-full h-full min-h-[2500px] opacity-100">
-                    <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover object-center" />
+                {/* Outer purple layer 1 — desktop large ellipse + mobile narrow pill + embedded orange (was Gradient2.1.svg) */}
+                <div className="absolute top-0 left-0 right-0 h-full min-h-[2500px] pointer-events-none">
+                    {/* Desktop purple ellipse */}
+                    <div
+                        className="max-md:hidden"
+                        style={{
+                            position: 'absolute',
+                            left: '50%',
+                            top: 316,
+                            width: 1300,
+                            height: 2249,
+                            transform: 'translateX(-50%)',
+                            borderRadius: '50%',
+                            background: 'rgba(132,0,255,0.7)',
+                            filter: 'blur(158.3px)',
+                            opacity: 0.87,
+                        }}
+                    />
+                    {/* Mobile purple — narrow tall pill */}
+                    <div
+                        className="md:hidden"
+                        style={{
+                            position: 'absolute',
+                            left: 17,
+                            top: 0,
+                            width: 342,
+                            height: 2505,
+                            borderRadius: 250,
+                            background: 'rgba(132,0,255,0.7)',
+                            filter: 'blur(88.73px)',
+                            opacity: 0.87,
+                        }}
+                    />
+                    {/* Embedded orange blob from Gradient2.1 — desktop only, cursor-interactive */}
+                    <GradientBlobOrb
+                        className="max-md:hidden"
+                        style={{ top: 700, left: '50%' }}
+                        width={715}
+                        height={936}
+                        rotation={-164.21}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={198.45}
+                        maxDrift={70}
+                        repelRadius={400}
+                    />
                 </div>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1300px] max-w-[calc(100vw+200px)] min-w-full h-full min-h-[2500px] opacity-[0.87]">
-                    <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" />
+                {/* Outer purple layer 2 — desktop only (was Ellipse 156.svg) */}
+                <div className="absolute top-0 left-0 right-0 h-full min-h-[2500px] pointer-events-none max-md:hidden">
+                    <div
+                        style={{
+                            position: 'absolute',
+                            left: '50%',
+                            top: 316,
+                            width: 1300,
+                            height: 2249,
+                            transform: 'translateX(-50%)',
+                            borderRadius: '50%',
+                            background: 'rgba(132,0,255,0.7)',
+                            filter: 'blur(158.3px)',
+                            opacity: 0.87,
+                        }}
+                    />
                 </div>
-                <div className="tech-path-orange-float-desk absolute top-[850px] left-1/2 w-[715px] max-w-[90vw] h-[935px] opacity-100 max-md:hidden">
-                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-cover object-center" />
+                {/* Desktop orange blob — cursor-interactive free drift */}
+                <div className="absolute top-[850px] left-1/2 max-md:hidden pointer-events-none">
+                    <GradientBlobOrb
+                        width={715}
+                        height={936}
+                        rotation={-164.21}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={198.45}
+                        maxDrift={90}
+                        repelRadius={420}
+                    />
                 </div>
-                {/* Mobile-only: orange gradient at center of card 1 */}
-                <div className="tech-path-orange-float-mob-1 hidden max-md:block absolute top-[430px] left-1/2 w-[90vw] h-[400px] opacity-90 pointer-events-none">
-                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
+                {/* Mobile orange blob 1 — near card 1, cursor-interactive */}
+                {/* top-[281px] = 430 (original centre) − 149 (half blob height) */}
+                <div className="hidden max-md:block absolute top-[281px] left-1/2 pointer-events-none">
+                    <GradientBlobOrb
+                        width={220}
+                        height={298}
+                        rotation={-159.39}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={111.23}
+                        opacity={0.9}
+                        maxDrift={45}
+                        repelRadius={200}
+                    />
                 </div>
-                {/* Mobile-only: orange gradient at center of card 5 */}
-                <div className="tech-path-orange-float-mob-2 hidden max-md:block absolute top-[1704px] left-1/2 w-[90vw] h-[400px] opacity-90 pointer-events-none">
-                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
+                {/* Mobile orange blob 2 — near card 5, cursor-interactive */}
+                {/* top-[1555px] = 1704 − 149 */}
+                <div className="hidden max-md:block absolute top-[1555px] left-1/2 pointer-events-none">
+                    <GradientBlobOrb
+                        width={220}
+                        height={298}
+                        rotation={-175.61}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={111.23}
+                        opacity={0.9}
+                        maxDrift={45}
+                        repelRadius={200}
+                    />
                 </div>
             </div>
 
@@ -287,19 +343,33 @@ export function TechPathSection() {
 
                 {/* Header */}
                 <div className="flex flex-col gap-[20px] items-center text-center w-full max-w-[1349px] mx-auto pt-[60px] max-md:pt-[40px] max-md:max-w-full">
-                    <h2 className="font-outfit font-normal text-[60px] leading-[1.03] tracking-[-0.02em] text-white max-w-[722px] m-0 max-md:text-[40px] max-md:leading-[1.1]">
-                        Choose Your Path.<br />We&apos;ll Guide You Through It.
+                    <h2 className="font-outfit font-normal text-[60px] leading-[1.03] tracking-[-0.02em] text-white max-w-[722px] m-0 max-md:text-[40px] max-md:leading-[1.1] max-md:px-[6px] max-[480px]:text-[34px] max-[420px]:text-[30px] max-[360px]:text-[26px]">
+                        Choose Your Path.<br />
+                        We&apos;ll Guide You Through It.
                     </h2>
                     <p className="font-outfit font-normal text-[24px] leading-[1.4] tracking-[-0.2px] text-[#A7A7A7] max-w-[1203px] m-0 max-md:text-[16px] max-md:leading-[1.3]">
                         Each course is packed with real-world skills and AI integration to help you build smarter, faster, and better.
                     </p>
                 </div>
 
-                {/* Course Grid */}
+                {/* Course Grid — each card animates when it becomes visible */}
                 <div className="w-full max-w-[1320px] mx-auto">
                     <div className="grid grid-cols-2 gap-[60px] max-lg:gap-[40px] max-md:grid-cols-1 max-md:gap-[24px] max-md:max-w-[500px] max-md:mx-auto max-sm:max-w-full">
                         {COURSES.map((course, idx) => (
-                            <div key={idx} className="tech-path-card-border relative w-full min-h-[394px] rounded-[22px] flex flex-col cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-[5px] hover:brightness-[1.1] group max-lg:min-h-[360px] max-md:min-h-[313px] max-md:border-transparent max-md:bg-transparent max-md:backdrop-blur-[12px]">
+                            <motion.div
+                                key={idx}
+                                initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                // Trigger earlier on small screens: expand bottom rootMargin so cards start animating
+                                // before they fully enter the viewport.
+                                viewport={{ once: true, amount: 0.12, margin: "0px 0px 25% 0px" }}
+                                transition={{
+                                    duration: reduceMotion ? 0 : 0.55,
+                                    ease: cardRevealEase,
+                                    delay: reduceMotion ? 0 : idx * 0.09,
+                                }}
+                                className="tech-path-card-border relative w-full min-h-[394px] rounded-[22px] flex flex-col cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-[5px] hover:brightness-[1.1] group max-lg:min-h-[360px] max-md:min-h-[313px] max-md:border-transparent max-md:bg-transparent max-md:backdrop-blur-[12px]"
+                            >
                                 {/* Clip layer: bg sits inside border; on ≤1024px clip-path insets so SVG stroke never touches edge */}
                                 <div className="tech-path-card-inner absolute inset-0 overflow-hidden rounded-[22px] z-0">
                                     <Image
@@ -344,7 +414,7 @@ export function TechPathSection() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>

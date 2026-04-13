@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useInView } from "framer-motion";
 
 const BASE_PROJECTS = [
     {
@@ -22,28 +23,75 @@ const BASE_PROJECTS = [
     }
 ];
 
-const PROJECTS = [...BASE_PROJECTS, ...BASE_PROJECTS];
+const PROJECTS = BASE_PROJECTS;
 
-function getOffset(index: number, active: number, total: number) {
-    let diff = index - active;
-    if (diff > total / 2) diff -= total;
-    if (diff < -total / 2) diff += total;
-    return diff;
+/** Start on second item when possible so a left peek exists (index 0 alone leaves the left side empty). */
+const INITIAL_PROJECT_INDEX = Math.min(1, PROJECTS.length - 1);
+
+/** Linear slide index (finite list). Do not wrap — circular math caused wrong-way slides after we removed infinite looping. */
+function getOffset(index: number, active: number) {
+    return index - active;
+}
+
+function CountUp({
+    target,
+    suffix = "",
+    duration = 1200,
+    startAnimation,
+}: {
+    target: number;
+    suffix?: string;
+    duration?: number;
+    startAnimation: boolean;
+}) {
+    const [count, setCount] = useState(0);
+    const rafRef = useRef<number | null>(null);
+    const startRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        if (!startAnimation) return;
+        startRef.current = null;
+
+        function step(ts: number) {
+            if (startRef.current === null) startRef.current = ts;
+            const elapsed = ts - startRef.current;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - (1 - progress) * (1 - progress);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) {
+                rafRef.current = requestAnimationFrame(step);
+            } else {
+                setCount(target);
+            }
+        }
+
+        rafRef.current = requestAnimationFrame(step);
+        return () => {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        };
+    }, [startAnimation, target, duration]);
+
+    return (
+        <span>
+            {count}
+            {suffix}
+        </span>
+    );
 }
 
 export function TechProjectsSection() {
-    const [activeProject, setActiveProject] = useState(0);
+    const [activeProject, setActiveProject] = useState(INITIAL_PROJECT_INDEX);
     const totalProjects = PROJECTS.length;
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setActiveProject((prev) => (prev + 1) % totalProjects);
-        }, 3000);
-        return () => clearInterval(timer);
-    }, [activeProject, totalProjects]);
+    const canPrev = activeProject > 0;
+    const canNext = activeProject < totalProjects - 1;
 
-    const nextProject = () => setActiveProject((prev) => (prev + 1) % totalProjects);
-    const prevProject = () => setActiveProject((prev) => (prev - 1 + totalProjects) % totalProjects);
+    const nextProject = () =>
+        setActiveProject((prev) => Math.min(prev + 1, totalProjects - 1));
+    const prevProject = () => setActiveProject((prev) => Math.max(prev - 1, 0));
+
+    const statsRef = useRef<HTMLDivElement>(null);
+    const statsVisible = useInView(statsRef, { once: true, amount: 0.5 });
 
     return (
         <section className="w-full relative overflow-visible" id="tech-projects">
@@ -92,7 +140,7 @@ export function TechProjectsSection() {
                             <div className="relative w-full h-full flex flex-col justify-between overflow-hidden">
                                 <div className="relative w-full h-full flex items-center">
                                     {PROJECTS.map((proj, i) => {
-                                        const offset = getOffset(i, activeProject, totalProjects);
+                                        const offset = getOffset(i, activeProject);
                                         const isVisible = Math.abs(offset) <= 1;
 
                                         return (
@@ -100,11 +148,14 @@ export function TechProjectsSection() {
                                                 key={i}
                                                 className="absolute inset-0 flex flex-col gap-[20px]"
                                                 style={{
-                                                    transform: `translateX(${offset * 105}%)`,
+                                                    transform: `translateX(${offset * 105}%) translateZ(0)`,
                                                     opacity: isVisible ? 1 : 0,
                                                     pointerEvents: offset === 0 ? "auto" : "none",
-                                                    transition: "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease"
+                                                    zIndex: offset === 0 ? 2 : Math.max(0, 1 - Math.abs(offset)),
+                                                    transition:
+                                                        "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.45s ease",
                                                 }}
+                                                aria-hidden={offset !== 0}
                                             >
                                                 <div className="relative w-full h-[309px] rounded-[22px] overflow-hidden shrink-0 max-md:h-[220px]">
                                                     <Image
@@ -130,19 +181,24 @@ export function TechProjectsSection() {
                                 <div className="absolute bottom-0 right-0 flex gap-[10px] items-center z-20 max-md:left-[51%] max-md:right-auto max-md:-translate-x-1/2">
                                     <button
                                         onClick={() => {
+                                            if (!canPrev) return;
                                             prevProject();
-                                            // Reset timer logic optionally if needed, standard relies on active project dep
                                         }}
-                                        className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] rotate-[-180deg] opacity-70 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-100"
+                                        disabled={!canPrev}
+                                        aria-disabled={!canPrev}
+                                        className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] rotate-[-180deg] opacity-70 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                                         aria-label="Previous project"
                                     >
                                         <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
                                     </button>
                                     <button
                                         onClick={() => {
+                                            if (!canNext) return;
                                             nextProject();
                                         }}
-                                        className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] opacity-100 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-80"
+                                        disabled={!canNext}
+                                        aria-disabled={!canNext}
+                                        className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] opacity-100 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                                         aria-label="Next project"
                                     >
                                         <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
@@ -153,18 +209,23 @@ export function TechProjectsSection() {
 
                         {/* Right Card: Stats */}
                         <div
+                            ref={statsRef}
                             className="tech-projects-card-gradient relative bg-[#D9D9D91A] rounded-[22px] shadow-[0px_2.18px_2.18px_0px_rgba(0,0,0,0.25)] backdrop-blur-[6.5px] flex flex-col w-full max-w-[650px] h-[428px] py-[35px] px-[100px] gap-[44px] justify-center items-center max-lg:px-[40px] max-md:px-[20px] max-md:h-[396px] max-md:py-[40px] overflow-hidden"
                         >
 
                             <div className="flex flex-col items-center gap-[13px] w-full">
-                                <div className="font-outfit font-normal text-[64px] leading-[130%] text-white text-center m-0 max-md:text-[48px]">10+</div>
+                                <div className="font-outfit font-normal text-[64px] leading-[130%] text-white text-center m-0 max-md:text-[48px]">
+                                    <CountUp target={10} suffix="+" startAnimation={statsVisible} />
+                                </div>
                                 <div className="font-outfit font-extralight text-[20px] leading-[130%] tracking-[0.5em] uppercase text-white text-center m-0 max-md:text-[16px] max-md:tracking-[0.3em]">Projects</div>
                             </div>
 
                             <div className="w-[249.8px] h-[1px] bg-white shrink-0"></div>
 
                             <div className="flex flex-col items-center gap-[13px] w-full">
-                                <div className="font-outfit font-normal text-[64px] leading-[130%] text-white text-center m-0 max-md:text-[48px]">250+</div>
+                                <div className="font-outfit font-normal text-[64px] leading-[130%] text-white text-center m-0 max-md:text-[48px]">
+                                    <CountUp target={250} suffix="+" startAnimation={statsVisible} />
+                                </div>
                                 <div className="font-outfit font-extralight text-[20px] leading-[130%] tracking-[0.5em] uppercase text-white text-center m-0 max-md:text-[16px] max-md:tracking-[0.3em]">Hours of work</div>
                             </div>
 
@@ -178,11 +239,11 @@ export function TechProjectsSection() {
                             href="/tech-school/tech-projects"
                             className="group relative w-[188px] h-[44px] rounded-[8px] flex items-center justify-center overflow-hidden bg-white text-[#111111] transition-transform duration-200 ease-out hover:scale-[1.05]"
                         >
-                            <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full">
-                                View Projects
+                            <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[20px] leading-[1] text-center text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:text-[16px] max-md:leading-[16px]">
+                                Explore Projects
                             </span>
-                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
-                                View Projects
+                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[20px] leading-[1] text-center text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:text-[16px] max-md:leading-[16px]">
+                                Explore Projects
                             </span>
                         </Link>
                     </div>

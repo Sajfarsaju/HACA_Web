@@ -30,7 +30,7 @@ export default function TechSchoolPage() {
                 {/* ── All sections: TechIntro → TechQuote with single Image.svg background ── */}
                 <div className="relative w-full bg-[#111111]">
 
-                    {/* Background layer: animated dot grid with cursor repulsion */}
+                    {/* Dot grid follows pointer (mouse/touch); see TechDotsBackground.tsx for physics + tuning */}
                     <div className="absolute top-0 left-0 w-full h-full z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
                         <TechDotsBackground />
                     </div>

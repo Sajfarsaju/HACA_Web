@@ -1,22 +1,40 @@
 "use client"
 
+/*
+ * TechDotsBackground — pointer-driven dot animation (tech-school hero layer)
+ *
+ * What it does
+ *   Full-screen canvas of a regular dot grid. Dots are pushed away from the
+ *   pointer (mouse or touch) within a radius, then spring back to rest when the
+ *   pointer moves away. The canvas is pointer-events-none; coordinates come from
+ *   window-level mousemove / touch events and are converted to canvas space each
+ *   frame (getBoundingClientRect) so motion stays aligned while scrolling.
+ *
+ * Tuning (top of file)
+ *   SPACING, DOT_R, BASE_ALPHA — grid density and dot look
+ *   REPEL_RADIUS_DESKTOP / _MOBILE — how far the “bubble” extends (larger on touch)
+ *   REPEL_FORCE, MAX_DISP — how strong / far dots can move before clamping
+ *   SPRING_K, DAMPING — return-to-home motion (higher damping = less wobble)
+ *
+ * Used by: app/tech-school/page.tsx (background z-[1] behind content)
+ */
+
 import { useEffect, useRef } from "react"
 
 // ── Grid ──────────────────────────────────────────────────────────────────────
-const SPACING    = 22     // px between dot centres
-const DOT_R      = 1.0    // resting radius (tiny, crisp)
-const BASE_ALPHA = 0.28   // resting opacity
+const SPACING    = 28
+const DOT_R      = 0.9
+const BASE_ALPHA = 0.35
 
-// ── Repulsion (magnet) ────────────────────────────────────────────────────────
-const REPEL_RADIUS = 110  // influence radius (px)
-const REPEL_FORCE  = 20   // push strength
-const SPRING_K     = 0.16 // spring-back stiffness
-const DAMPING      = 0.70 // velocity decay
+// ── Cursor / touch repulsion ──────────────────────────────────────────────────
+const REPEL_RADIUS_DESKTOP = 90    // px — desktop
+const REPEL_RADIUS_MOBILE  = 160   // px — bigger on mobile/touch
+const REPEL_FORCE  = 90
+const MAX_DISP     = 130
 
-// ── Idle flow (keeps dots moving when cursor is still) ────────────────────────
-const FLOW_AMP   = 0.28   // max idle displacement amplitude (px)
-const FLOW_SPEED = 0.0008 // how fast the flow wave moves (rad/ms)
-const FLOW_SCALE = 0.018  // spatial frequency of the wave
+// ── Spring back (underdamped → bouncy snap-back, completely still at rest) ────
+const SPRING_K = 0.12
+const DAMPING  = 0.76
 
 export function TechDotsBackground() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -28,9 +46,9 @@ export function TechDotsBackground() {
         if (!ctx) return
 
         let cols = 0, rows = 0
-        let hx: Float32Array, hy: Float32Array  // home positions (canvas px)
-        let dx: Float32Array, dy: Float32Array  // displacement
-        let vx: Float32Array, vy: Float32Array  // velocity
+        let hx: Float32Array, hy: Float32Array
+        let dx: Float32Array, dy: Float32Array
+        let vx: Float32Array, vy: Float32Array
         let prevTop = 0, prevBot = 0
 
         function buildGrid(W: number, H: number) {
@@ -55,54 +73,81 @@ export function TechDotsBackground() {
             buildGrid(canvas.width, canvas.height)
             prevTop = 0; prevBot = 0
         }
+
         const ro = new ResizeObserver(resize)
         ro.observe(canvas)
         resize()
 
-        // ── Mouse in VIEWPORT coords (so scroll doesn't stale the value) ──────
-        const mouse = { vx: -9999, vy: -9999, active: false }
+        // Pointer state — viewport coords, works for both mouse and touch
+        const pointer = { vx: -9999, vy: -9999, active: false, isTouch: false }
 
-        function onMove(e: MouseEvent) {
-            mouse.vx = e.clientX   // viewport X — never changes on scroll
-            mouse.vy = e.clientY   // viewport Y — never changes on scroll
-            mouse.active = true
+        function onMouseMove(e: MouseEvent) {
+            pointer.vx = e.clientX
+            pointer.vy = e.clientY
+            pointer.active = true
+            pointer.isTouch = false
         }
-        function onLeave() { mouse.active = false; mouse.vx = -9999; mouse.vy = -9999 }
+        function onMouseLeave() {
+            pointer.active = false
+            pointer.vx = -9999
+            pointer.vy = -9999
+        }
 
-        window.addEventListener("mousemove", onMove,  { passive: true })
-        window.addEventListener("mouseleave", onLeave)
+        function onTouchStart(e: TouchEvent) {
+            // Don't call preventDefault — avoids scroll bugs
+            const t = e.touches[0]
+            if (!t) return
+            pointer.vx = t.clientX
+            pointer.vy = t.clientY
+            pointer.active = true
+            pointer.isTouch = true
+        }
+        function onTouchMove(e: TouchEvent) {
+            const t = e.touches[0]
+            if (!t) return
+            pointer.vx = t.clientX
+            pointer.vy = t.clientY
+            pointer.active = true
+            pointer.isTouch = true
+        }
+        function onTouchEnd() {
+            pointer.active = false
+            pointer.vx = -9999
+            pointer.vy = -9999
+        }
 
-        // ── Draw loop ─────────────────────────────────────────────────────────
+        window.addEventListener("mousemove",  onMouseMove,  { passive: true })
+        window.addEventListener("mouseleave", onMouseLeave)
+        window.addEventListener("touchstart", onTouchStart, { passive: true })
+        window.addEventListener("touchmove",  onTouchMove,  { passive: true })
+        window.addEventListener("touchend",   onTouchEnd,   { passive: true })
+        window.addEventListener("touchcancel",onTouchEnd,   { passive: true })
+
         let raf: number
-        const startTime = performance.now()
 
-        function draw(now: number) {
+        function draw() {
             raf = requestAnimationFrame(draw)
             if (!canvas || !ctx || !hx) return
 
-            const W   = canvas.width
-            const H   = canvas.height
-            const t   = (now - startTime) * FLOW_SPEED  // time for idle flow
+            const W = canvas.width
+            const H = canvas.height
 
-            // Convert viewport mouse → canvas-local coords each frame
-            // getBoundingClientRect().top changes as page scrolls → always correct
+            // Convert viewport pointer → canvas coords each frame (scroll-safe)
             const rect = canvas.getBoundingClientRect()
-            const mx   = mouse.active ? mouse.vx - rect.left : -9999
-            const my   = mouse.active ? mouse.vy - rect.top  : -9999
-            const act  = mouse.active
+            const mx   = pointer.active ? pointer.vx - rect.left : -9999
+            const my   = pointer.active ? pointer.vy - rect.top  : -9999
+            const act  = pointer.active
+            const repelR = pointer.isTouch ? REPEL_RADIUS_MOBILE : REPEL_RADIUS_DESKTOP
 
-            // Visible band in canvas coords
             const viewTop = Math.max(0, -rect.top)
             const viewBot = Math.min(H, viewTop + window.innerHeight)
 
-            // Clear union of prev + current band
-            const ct = Math.max(0, Math.min(prevTop, viewTop) - SPACING)
-            const cb = Math.min(H, Math.max(prevBot, viewBot) + SPACING)
+            const ct = Math.max(0, Math.min(prevTop, viewTop) - SPACING * 2)
+            const cb = Math.min(H, Math.max(prevBot, viewBot) + SPACING * 2)
             ctx.clearRect(0, ct, W, cb - ct)
             prevTop = viewTop; prevBot = viewBot
 
-            // Simulation band (adds repel + idle buffer)
-            const buf  = REPEL_RADIUS + 60 + SPACING
+            const buf  = REPEL_RADIUS_MOBILE + MAX_DISP + SPACING
             const simT = Math.max(0,    Math.floor((viewTop - buf) / SPACING))
             const simB = Math.min(rows, Math.ceil( (viewBot + buf) / SPACING) + 1)
 
@@ -111,43 +156,33 @@ export function TechDotsBackground() {
                 for (let c = 0; c < cols; c++) {
                     const i = base + c
 
-                    // ── Idle flow force ─────────────────────────────────────
-                    // Two overlapping sine waves give a gentle organic drift
-                    const wave1 = Math.sin(hx[i] * FLOW_SCALE + t)
-                    const wave2 = Math.cos(hy[i] * FLOW_SCALE + t * 0.7)
-                    let fx = wave1 * FLOW_AMP * 0.06
-                    let fy = wave2 * FLOW_AMP * 0.06
+                    const px = hx[i] + dx[i]
+                    const py = hy[i] + dy[i]
 
-                    // ── Magnet repulsion ────────────────────────────────────
+                    // Spring back to exact home — zero target → fully still at rest
+                    let fx = -dx[i] * SPRING_K
+                    let fy = -dy[i] * SPRING_K
+
+                    // Repulsion when pointer is active
                     if (act) {
-                        const px = hx[i] + dx[i]
-                        const py = hy[i] + dy[i]
                         const ex = px - mx
                         const ey = py - my
                         const d2 = ex * ex + ey * ey
-                        if (d2 < REPEL_RADIUS * REPEL_RADIUS) {
-                            const d = Math.sqrt(d2) + 0.001
-                            const f = (1.0 - d / REPEL_RADIUS) * (1.0 - d / REPEL_RADIUS) * REPEL_FORCE / d
+                        if (d2 < repelR * repelR && d2 > 0) {
+                            const d = Math.sqrt(d2)
+                            const norm = 1.0 - d / repelR
+                            const f = norm * norm * REPEL_FORCE / d
                             fx += ex * f
                             fy += ey * f
                         }
                     }
-
-                    // ── Spring back to home ─────────────────────────────────
-                    // Target is idle offset, not absolute home, so flow is smooth
-                    const idleX = Math.sin(hx[i] * FLOW_SCALE * 0.5 + t * 0.8) * FLOW_AMP
-                    const idleY = Math.cos(hy[i] * FLOW_SCALE * 0.5 + t * 0.6) * FLOW_AMP
-                    fx += (idleX - dx[i]) * SPRING_K
-                    fy += (idleY - dy[i]) * SPRING_K
 
                     vx[i] = (vx[i] + fx) * DAMPING
                     vy[i] = (vy[i] + fy) * DAMPING
                     dx[i] += vx[i]
                     dy[i] += vy[i]
 
-                    // Clamp displacement
                     const dSq = dx[i] * dx[i] + dy[i] * dy[i]
-                    const MAX_DISP = act ? 50 : 4
                     if (dSq > MAX_DISP * MAX_DISP) {
                         const s = MAX_DISP / Math.sqrt(dSq)
                         dx[i] *= s; dy[i] *= s
@@ -160,29 +195,30 @@ export function TechDotsBackground() {
             const drawT = Math.max(0,    Math.floor((viewTop - SPACING) / SPACING))
             const drawB = Math.min(rows, Math.ceil( (viewBot + SPACING) / SPACING) + 1)
 
+            ctx.beginPath()
+            ctx.fillStyle = `rgba(255,255,255,${BASE_ALPHA})`
             for (let r = drawT; r < drawB; r++) {
                 const base = r * cols
                 for (let c = 0; c < cols; c++) {
                     const i = base + c
                     const x = hx[i] + dx[i]
                     const y = hy[i] + dy[i]
-
-                    const alpha = BASE_ALPHA
-                    const r2    = DOT_R
-
-                    ctx.beginPath()
-                    ctx.arc(x, y, r2, 0, 6.2832)
-                    ctx.fillStyle = `rgba(255,255,255,${alpha.toFixed(3)})`
-                    ctx.fill()
+                    ctx.moveTo(x + DOT_R, y)
+                    ctx.arc(x, y, DOT_R, 0, 6.2832)
                 }
             }
+            ctx.fill()
         }
 
         raf = requestAnimationFrame(draw)
         return () => {
             cancelAnimationFrame(raf)
-            window.removeEventListener("mousemove", onMove)
-            window.removeEventListener("mouseleave", onLeave)
+            window.removeEventListener("mousemove",   onMouseMove)
+            window.removeEventListener("mouseleave",  onMouseLeave)
+            window.removeEventListener("touchstart",  onTouchStart)
+            window.removeEventListener("touchmove",   onTouchMove)
+            window.removeEventListener("touchend",    onTouchEnd)
+            window.removeEventListener("touchcancel", onTouchEnd)
             ro.disconnect()
         }
     }, [])
