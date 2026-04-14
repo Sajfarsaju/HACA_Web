@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 
 // ── Responsive breakpoints ──────────────────────────────────────────────────
 function useIsTabletOrSmaller() {
@@ -98,9 +97,7 @@ const CARDS = [
 
 const TOTAL = CARDS.length;
 // Card width + gap
-const CARD_W = 400;
 const GAP = 20;
-const STEP = CARD_W + GAP; // 420px
 
 // ── Single card shell ────────────────────────────────────────────────────
 function FeatureCard({

@@ -1,6 +1,5 @@
 import { Geist, Geist_Mono, Rethink_Sans, Outfit, Manrope } from "next/font/google";
 import "../styles/globals.css";
-import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { ClientLayoutProvider } from "@/components/layout/ClientLayoutProvider";
 import Image from "next/image";
 

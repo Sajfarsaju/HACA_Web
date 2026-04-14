@@ -12,8 +12,6 @@ import {
 } from "@/components/sections/tech-courses";
 import { DESIGN_W, MOBILE_DESIGN_W } from "@/components/sections/tech-courses/constants";
 import { TechFooter } from "@/components/layout/TechFooter";
-import { SectionReveal } from "@/components/animations/SectionReveal";
-
 export default function CoursesPage() {
     const [mounted, setMounted] = useState(false);
     const [scales, setScales] = useState({ desktop: 1, mobile: 1 });

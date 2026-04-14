@@ -3,10 +3,10 @@
 import React, { useEffect, useRef, useState } from "react"
 
 const RAW_STATS = [
-    { value: 600, suffix: "+", label: "Successful\nStudents &\nCounting" },
-    { value: 350, suffix: "+", label: "Hours of\nHands-On\nLearning" },
-    { value: 150, suffix: "+", label: "Expert\nMentors\nGuiding You" },
-    { value: 200, suffix: "+", label: "Partner\nCompanies\nfor Careers" },
+    { value: 600, suffix: "+", lines: ["Successful", "Students &", "Counting"] },
+    { value: 350, suffix: "+", lines: ["Hours of", "Hands-On", "Learning"] },
+    { value: 150, suffix: "+", lines: ["Expert", "Mentors", "Guiding You"] },
+    { value: 200, suffix: "+", lines: ["Partner", "Companies", "for Careers"] },
 ]
 
 export function MarketingStatsSection() {
@@ -57,7 +57,64 @@ export function MarketingStatsSection() {
     return (
         <section ref={sectionRef} className="w-full bg-black">
             <style jsx>{`
+                .stat-number,
+                .stat-plus {
+                    font-family: "Satoshi", sans-serif;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-size: 68px;
+                    line-height: 100%;
+                    letter-spacing: 0%;
+                    opacity: 1;
+                }
+
+                .stat-number {
+                    color: #ffffff;
+                }
+
+                .stat-plus {
+                    color: #015aff;
+                }
+
                 .stat-label {
+                    font-family: "Satoshi", sans-serif;
+                    font-weight: 400;
+                    font-style: normal;
+                    font-size: clamp(12px, 1.1vw, 14px);
+                    line-height: 120%;
+                    letter-spacing: 0%;
+                    color: #8a8a8a;
+                    /* Keep 3 explicit lines readable on all screens */
+                    width: clamp(66px, 8vw, 92px);
+                    height: calc(3 * 1.2em);
+                    opacity: 1;
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+
+                /* Mobile layout uses Tailwind so md:hidden is not overridden by display:flex in this block. */
+                .mobile-stat-num,
+                .mobile-stat-plus {
+                    font-family: "Satoshi", sans-serif;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-size: 40px;
+                    line-height: 100%;
+                    letter-spacing: 0%;
+                }
+                .mobile-stat-num {
+                    color: #ffffff;
+                }
+                .mobile-stat-plus {
+                    color: #015aff;
+                    margin-left: 4px;
+                }
+                .mobile-stat-label {
                     font-family: "Satoshi", sans-serif;
                     font-weight: 400;
                     font-style: normal;
@@ -65,58 +122,72 @@ export function MarketingStatsSection() {
                     line-height: 120%;
                     letter-spacing: 0%;
                     color: #8a8a8a;
-                    width: 66px;
+                    width: 74.101px;
                     height: 51px;
-                    opacity: 1;
                     display: flex;
-                    align-items: center;
+                    flex-direction: column;
+                    justify-content: center;
+                    white-space: nowrap;
+                    overflow: hidden;
                 }
             `}</style>
-            <div className="w-full max-w-[1320px] mx-auto px-[clamp(16px,4.16vw,60px)] py-[clamp(28px,3.5vw,44px)]">
-                {/* Desktop */}
-                <div className="hidden md:flex w-full items-center justify-between gap-[clamp(18px,3vw,42px)]">
+            <div className="mx-auto w-full max-w-[1320px] px-0 py-[clamp(16px,2.5vw,32px)]">
+                {/* Desktop: single row only (md+) */}
+                <div className="hidden w-full items-center justify-between gap-[clamp(18px,3vw,42px)] md:flex">
                     {RAW_STATS.map((stat) => {
                         const current = Math.round(stat.value * progress)
                         return (
                             <div
-                                key={stat.label}
+                                key={stat.lines.join("|")}
                                 className="flex items-center gap-[clamp(10px,1.2vw,16px)]"
                             >
                                 <div className="flex items-baseline">
-                                    <span className="font-rethink font-semibold text-white text-[clamp(44px,4.6vw,66px)] leading-[1]">
+                                    <span className="stat-number">
                                         {current}
                                     </span>
-                                    <span className="font-rethink font-semibold text-[#015AFF] text-[clamp(44px,4.6vw,66px)] leading-[1] ml-[6px]">
+                                    <span className="stat-plus ml-[6px]">
                                         {stat.suffix}
                                     </span>
                                 </div>
-                                <span className="stat-label whitespace-pre-line">
-                                    {stat.label}
+                                <span className="stat-label">
+                                    {stat.lines.map((line, i) => (
+                                        <React.Fragment key={i}>
+                                            {line}
+                                            {i < stat.lines.length - 1 ? <br /> : null}
+                                        </React.Fragment>
+                                    ))}
                                 </span>
                             </div>
                         )
                     })}
                 </div>
 
-                {/* Mobile */}
-                <div className="md:hidden w-full max-w-[343px] mx-auto grid grid-cols-2 gap-x-[22px] gap-y-[38px]">
+                {/* Mobile only: tighter zig-zag inside a narrow track so L/R alternation reads clearly */}
+                <div className="mobile-stats md:hidden mx-auto flex w-full min-w-0 max-w-[min(300px,100%)] min-h-0 flex-col gap-5 opacity-100">
                     {RAW_STATS.map((stat, index) => {
                         const current = Math.round(stat.value * progress)
-                        const align =
-                            index === 1 || index === 3 ? "justify-self-end text-right" : "justify-self-start text-left"
+                        const rowAlign =
+                            index === 1 || index === 3
+                                ? "flex w-full shrink-0 flex-row items-center justify-end gap-[10px]"
+                                : "flex w-full shrink-0 flex-row items-center justify-start gap-[10px]"
 
                         return (
-                            <div key={stat.label} className={`flex flex-col ${align}`}>
-                                <div className="flex items-baseline">
-                                    <span className="font-rethink font-semibold text-white text-[64px] leading-[1]">
+                            <div key={stat.lines.join("|")} className={`${rowAlign} min-w-0`}>
+                                <div className="flex h-[48px] w-[min(100px,28vw)] shrink-0 flex-row flex-nowrap items-center justify-start">
+                                    <span className="mobile-stat-num !text-[clamp(1.75rem,8vw,2.375rem)] !leading-none">
                                         {current}
                                     </span>
-                                    <span className="font-rethink font-semibold text-[#015AFF] text-[64px] leading-[1] ml-[6px]">
+                                    <span className="mobile-stat-plus !text-[clamp(1.75rem,8vw,2.375rem)] !leading-none">
                                         {stat.suffix}
                                     </span>
                                 </div>
-                                <span className="stat-label whitespace-pre-line mt-[10px]">
-                                    {stat.label}
+                                <span className="mobile-stat-label">
+                                    {stat.lines.map((line, i) => (
+                                        <React.Fragment key={i}>
+                                            {line}
+                                            {i < stat.lines.length - 1 ? <br /> : null}
+                                        </React.Fragment>
+                                    ))}
                                 </span>
                             </div>
                         )

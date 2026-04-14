@@ -14,10 +14,6 @@ type CourseBreakdownModalProps = {
 export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalProps) {
     const [openModuleId, setOpenModuleId] = useState<number | null>(null)
 
-    useEffect(() => {
-        if (!course) setOpenModuleId(null)
-    }, [course])
-
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
             if (e.key === "Escape") onClose()

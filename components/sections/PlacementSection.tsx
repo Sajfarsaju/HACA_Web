@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
@@ -83,7 +83,6 @@ const placementCardClassName =
 
 export function PlacementSection() {
     const router = useRouter()
-    const columnRefs = useRef<(HTMLDivElement | null)[]>([])
     const [slots, setSlots] = useState<(PlacementItem | null)[]>(() =>
         Array.from({ length: TOTAL_SLOTS }, () => null)
     )

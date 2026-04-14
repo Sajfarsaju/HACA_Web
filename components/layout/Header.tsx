@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { Navigation } from "./Navigation"
 import { Button } from "@/components/ui/button"
-import { LucideRocket, LucideMenu } from "lucide-react"
+import { LucideMenu } from "lucide-react"
 import {
     DropdownMenu,
     DropdownMenuContent,

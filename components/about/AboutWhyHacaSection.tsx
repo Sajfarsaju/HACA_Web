@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { useLayoutEffect, useState } from "react"
+import { useState } from "react"
 
 /** Filenames in `public/photos/main/` include spaces — encode for URLs */
 function aboutWhyLogoSrc(index: number) {
@@ -109,13 +109,7 @@ function AboutWhyCard({
 }
 
 export function AboutWhyHacaSection() {
-    const [cardDelays, setCardDelays] = useState<number[]>(() =>
-        aboutWhyCards.map((_, i) => i * STAGGER_SEC)
-    )
-
-    useLayoutEffect(() => {
-        setCardDelays(shuffleDelays(aboutWhyCards.length))
-    }, [])
+    const [cardDelays] = useState<number[]>(() => shuffleDelays(aboutWhyCards.length))
 
     return (
         <section className="w-full section-4k mx-auto bg-[#000210] px-[clamp(20px,4vw,60px)] py-[40px] flex flex-col items-center gap-[30px] lg:px-[clamp(20px,3.2vw,52px)] lg:py-[34px] lg:gap-[24px] xl:px-[clamp(20px,4vw,60px)] xl:py-[40px] xl:gap-[30px]">

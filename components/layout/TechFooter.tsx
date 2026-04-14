@@ -88,7 +88,8 @@ export function TechFooter() {
                 </div>
             </div>
 
-            {/* Bottom Gradient */}
+            {/* Bottom Gradient — raw img for full-width SVG gradient (layout) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
                 src="/photos/schools/tech/footer-gradient.svg"
                 alt=""
@@ -175,8 +176,11 @@ export function TechFooter() {
                     <div
                         className="flex items-center h-[clamp(30px,4vw,59px)] gap-[clamp(12px,1.5vw,24px)]"
                     >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src="/photos/schools/tech/InstaIcon_footer.svg" alt="Instagram" className="h-[100%] w-auto" />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src="/photos/schools/tech/FBIcon_footer.svg" alt="Facebook" className="h-[100%] w-auto" />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src="/photos/schools/tech/YutubIcon_footer.svg" alt="Youtube" className="h-[100%] w-auto" />
                     </div>
 
