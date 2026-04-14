@@ -17,11 +17,13 @@ import { TechFaq } from "@/components/layout/TechFaq";
 import { TechGlobalLearning } from "@/components/layout/TechGlobalLearning";
 import { TechQuote } from "@/components/layout/TechQuote";
 import { TechFooter } from "@/components/layout/TechFooter";
+import { TechWhatsAppFloatingButton } from "@/components/layout/TechWhatsAppFloatingButton";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 
 export default function TechSchoolPage() {
     return (
         <div className="w-full min-h-[1391px] bg-[#111111] overflow-x-hidden relative" role="main">
+            <TechWhatsAppFloatingButton />
 
             {/* ── Page content ── */}
             <div className="relative z-[2]">

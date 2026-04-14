@@ -6,6 +6,7 @@ import { TechCoursesGlobalBg, TechCoursesStyles } from "@/components/sections/te
 import { TechProjectsHero, TechProjectsMobileHero, TechProjectsHeaderSection } from "@/components/sections/tech-projects";
 import { DESIGN_W, MOBILE_DESIGN_W } from "@/components/sections/tech-courses/constants";
 import { TechFooter } from "@/components/layout/TechFooter";
+import { TechWhatsAppFloatingButton } from "@/components/layout/TechWhatsAppFloatingButton";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 
 type ProjectCategory = "all" | "web-application" | "automation";
@@ -114,6 +115,7 @@ export default function TechProjectsPage() {
                 overflowX: "hidden",
             }}
         >
+            <TechWhatsAppFloatingButton />
             <TechCoursesGlobalBg />
             <TechProjectsHero scale={scales.desktop} />
             <TechProjectsMobileHero scale={scales.mobile} />

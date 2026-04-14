@@ -12,6 +12,7 @@ import {
 } from "@/components/sections/tech-courses";
 import { DESIGN_W, MOBILE_DESIGN_W } from "@/components/sections/tech-courses/constants";
 import { TechFooter } from "@/components/layout/TechFooter";
+import { TechWhatsAppFloatingButton } from "@/components/layout/TechWhatsAppFloatingButton";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 
 export default function CoursesPage() {
@@ -51,6 +52,7 @@ export default function CoursesPage() {
                 overflowX: "hidden",
             }}
         >
+            <TechWhatsAppFloatingButton />
             <TechCoursesGlobalBg />
             <TechCoursesHero scale={scales.desktop} />
             <TechCoursesMobileHero scale={scales.mobile} />

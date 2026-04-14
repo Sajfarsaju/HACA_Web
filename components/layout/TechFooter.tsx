@@ -3,7 +3,7 @@ import Image from "next/image";
 export function TechFooter() {
     return (
         <footer
-            className="flex flex-col items-center w-full relative overflow-hidden px-6 pt-2 pb-10 md:px-[40px] md:py-[40px] lg:pb-[100px] bg-[#111111] min-h-[700px]"
+            className="flex flex-col items-center w-full relative overflow-hidden px-6 pt-2 pb-24 md:px-[40px] md:py-[40px] lg:pb-[100px] bg-[#111111] min-h-[700px]"
         >
             {/* Top Section */}
             <div
@@ -88,13 +88,61 @@ export function TechFooter() {
                 </div>
             </div>
 
-            {/* Bottom Gradient */}
-            <img
-                src="/photos/schools/tech/footer-gradient.svg"
-                alt=""
-                className="absolute bottom-0 left-0 w-full h-auto pointer-events-none z-0 mt-[-500px] object-cover"
-                style={{ maxHeight: "500px", objectFit: "cover" }}
-            />
+            {/* ── Bottom Gradient MOBILE — matches mobile hero top gradient ── */}
+            <div
+                aria-hidden="true"
+                className="absolute pointer-events-none z-0 md:hidden"
+                style={{ width: "420px", height: "128px", bottom: "-85px", left: 0 }}
+            >
+                <div style={{
+                    position: "absolute",
+                    width: "460px", height: "120px",
+                    bottom: "14px", left: "-70px",
+                    borderRadius: "50%",
+                    background: "linear-gradient(261.66deg, rgba(255,86,0,1) 17.08%, rgba(105,74,255,1) 72.9%)",
+                    filter: "blur(30px) saturate(1.28) contrast(1.03)",
+                }} />
+                <div style={{
+                    position: "absolute",
+                    width: "290px", height: "58px",
+                    bottom: "38px", left: "10px",
+                    borderRadius: "50%",
+                    background: "#FFFFFF",
+                    filter: "blur(38px) saturate(1.08)",
+                    opacity: 0.76,
+                }} />
+            </div>
+
+            {/* ── Bottom Gradient DESKTOP — matches desktop hero top gradient ── */}
+            <div
+                aria-hidden="true"
+                className="absolute pointer-events-none z-0 hidden md:block"
+                style={{
+                    width: "1593.45px",
+                    height: "374px",
+                    bottom: "-250px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                }}
+            >
+                <div style={{
+                    position: "absolute",
+                    width: "1580.98px", height: "355.6px",
+                    bottom: 0, left: 0,
+                    borderRadius: "50%",
+                    background: "linear-gradient(261.66deg, rgba(255,86,0,1) 17.08%, rgba(105,74,255,1) 72.9%)",
+                    filter: "blur(70px) saturate(1.25) contrast(1.03)",
+                }} />
+                <div style={{
+                    position: "absolute",
+                    width: "981.61px", height: "175.12px",
+                    bottom: "81.3px", left: "266.48px",
+                    borderRadius: "50%",
+                    background: "#FFFFFF",
+                    filter: "blur(90px) saturate(1.08)",
+                    opacity: 0.76,
+                }} />
+            </div>
 
             {/* Bottom Section: Addresses & Socials */}
             <div

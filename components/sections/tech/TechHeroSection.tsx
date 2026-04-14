@@ -76,11 +76,13 @@ function CountUp({
         <span
             className="font-outfit font-medium leading-none shrink-0"
             style={{
-                width: w,
-                height: h,
+                minWidth: w,
+                minHeight: h,
                 fontSize: fs,
                 display: "inline-flex",
                 alignItems: "center",
+                justifyContent: "center",
+                whiteSpace: "nowrap",
                 background: STAT_GRADIENT,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -588,18 +590,6 @@ export default function TechHero() {
                         </div>
                     </motion.div>
 
-                    {/* ── WHATSAPP FLOATING BUTTON (hidden on smaller screens) ── */}
-                    <div className="absolute hidden lg:block w-[80px] h-[80px] rounded-[200px] border-[1px] border-white/30 top-[719px] left-[1302px] overflow-hidden p-0 z-[8] cursor-pointer bg-white/5">
-                        <Image
-                            src="/photos/Tech/ic_baseline-whatsapp.svg"
-                            alt="WhatsApp"
-                            width={80}
-                            height={80}
-                            className="block w-[80px] h-[80px] min-w-[80px] min-h-[80px] shrink-0"
-                            style={{ objectFit: "contain" }}
-                        />
-                    </div>
-
                     {/* ── BOTTOM STATS BAR ── */}
                     <motion.div
                         className="absolute w-[1322px] h-[90px] top-[826px] left-[60px] z-[7] rounded-[20px] flex justify-center items-center py-[20px] px-[40px] gap-[80px] border border-transparent bg-[#A3A3A3]/[.15] backdrop-blur-[51.4px] tech-hero-stats-border"
@@ -803,17 +793,17 @@ export default function TechHero() {
                             ref={mobileStatsRef}
                         >
                             <div className="w-[235px] h-[134px] flex flex-col gap-[10px]">
-                                <div className="w-[220px] h-[38px] flex gap-[10px] items-center opacity-100 rotate-0">
+                                <div className="w-full h-[38px] flex gap-[14px] items-center justify-center opacity-100 rotate-0">
                                     <CountUp target={200} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
-                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[138px]">Students Learned</span>
+                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-center whitespace-nowrap">Students Learned</span>
                                 </div>
-                                <div className="w-[231px] h-[38px] flex gap-[11px] items-center opacity-100 rotate-0">
+                                <div className="w-full h-[38px] flex gap-[14px] items-center justify-center opacity-100 rotate-0">
                                     <CountUp target={100} suffix="%" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
-                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[150px]">Placement Support</span>
+                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-center whitespace-nowrap">Placement Support</span>
                                 </div>
-                                <div className="w-[235px] h-[38px] flex gap-[8px] items-center opacity-100 rotate-0">
+                                <div className="w-full h-[38px] flex gap-[14px] items-center justify-center opacity-100 rotate-0">
                                     <CountUp target={500} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
-                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[154px]">Projects Completed</span>
+                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-center whitespace-nowrap">Projects Completed</span>
                                 </div>
                             </div>
                         </motion.div>

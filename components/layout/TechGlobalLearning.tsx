@@ -15,7 +15,7 @@ const LOCATIONS = [
 export function TechGlobalLearning() {
     return (
         <section
-            className="flex flex-col items-center relative px-6 overflow-hidden py-8 md:py-[80px] lg:py-[140px] gap-4 md:gap-8 lg:gap-[40px] min-h-[600px] md:min-h-[700px] lg:min-h-[1123.84px] w-full bg-transparent opacity-100"
+            className="flex flex-col items-center relative px-6 overflow-x-hidden overflow-y-hidden py-8 md:py-[80px] lg:py-[140px] gap-4 md:gap-8 lg:gap-[40px] min-h-[600px] md:min-h-[700px] lg:min-h-[1123.84px] w-full bg-transparent opacity-100"
         >
             {/* ✅ Main Purple Radial Glow */}
             <div
@@ -31,25 +31,29 @@ export function TechGlobalLearning() {
                             rgba(17, 17, 17, 0) 100%
                         )
                     `,
-                    filter: "blur(clamp(60px, 15vw, 220px))",
+                    filter: "blur(clamp(60px, 15vw, 220px)) saturate(1.25) contrast(1.08)",
                     maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
                     WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
                 }}
             />
 
             {/* ✅ Mobile Background (using 99.svg) */}
-            <div className="md:hidden absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
-                <div className="relative w-full h-[600px] top-[140px]"
+            <div className="md:hidden absolute inset-0 w-full h-full pointer-events-none z-0 overflow-x-visible overflow-y-hidden">
+                <div
+                    className="relative left-1/2 -translate-x-1/2 w-[140vw] max-w-none h-[600px] top-[140px]"
                     style={{
-                        maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 40%, transparent 90%)",
-                        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 40%, transparent 90%)"
+                        maskImage:
+                            "linear-gradient(to bottom, transparent 0%, black 15%, black 40%, transparent 90%), linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+                        WebkitMaskImage:
+                            "linear-gradient(to bottom, transparent 0%, black 15%, black 40%, transparent 90%), linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+                        filter: "saturate(1.25) contrast(1.08)",
                     }}
                 >
                     <Image
                         src="/photos/Tech/99.svg"
                         alt=""
                         fill
-                        className="object-cover w-full h-full"
+                        className="object-cover object-center w-full h-full"
                     />
                 </div>
             </div>

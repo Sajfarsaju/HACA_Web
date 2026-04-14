@@ -99,6 +99,23 @@ export function TechMentors() {
 
             {/* Local mask — tablet gradient */}
             <style>{`
+                /* Mobile background gradient style (match TechPlacementsSection) */
+                .tech-mentors-mobile-glow {
+                    background: radial-gradient(
+                        ellipse 55% 55% at 50% 58%,
+                        rgba(132, 0, 255, 0.32) 0%,
+                        rgba(132, 0, 255, 0.14) 25%,
+                        rgba(132, 0, 255, 0.05) 50%,
+                        rgba(132, 0, 255, 0.01) 70%,
+                        transparent 85%
+                    );
+                }
+                .tech-mentors-mobile-bg {
+                    overflow: visible;
+                    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+                    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+                }
+
                 .tech-mentors-gradient {
                     mask-image: radial-gradient(
                         ellipse 82% 78% at 50% 50%,
@@ -154,9 +171,23 @@ export function TechMentors() {
                 }
             `}</style>
 
+            {/* Mobile background gradient (match placements) */}
+            <div className="absolute inset-0 z-0 pointer-events-none md:hidden overflow-x-visible overflow-y-hidden">
+                <div className="absolute inset-0 tech-mentors-mobile-glow" aria-hidden />
+                <div className="tech-mentors-mobile-bg absolute top-[30px] left-1/2 -translate-x-1/2 w-[140vw] max-w-none h-[520px] pointer-events-none">
+                    <Image
+                        src="/photos/Tech/Group 46.svg"
+                        fill
+                        alt=""
+                        className="object-contain object-center"
+                        aria-hidden
+                    />
+                </div>
+            </div>
+
             {/* Mentor gradient background */}
             <div
-                className="tech-mentors-gradient absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[36%] md:top-[40%] w-[120%] min-h-[900px] md:min-h-[820px] min-[1920px]:max-w-[1400px] min-[1920px]:w-[85%] min-[1920px]:min-h-[750px] z-0 pointer-events-none"
+                className="tech-mentors-gradient hidden md:block absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[40%] w-[120%] min-h-[820px] min-[1920px]:max-w-[1400px] min-[1920px]:w-[85%] min-[1920px]:min-h-[750px] z-0 pointer-events-none"
                 style={{ aspectRatio: "1440 / 1203" }}
             >
                 <Image

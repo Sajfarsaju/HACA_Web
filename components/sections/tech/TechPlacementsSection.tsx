@@ -57,7 +57,7 @@ function getOffset(index: number, active: number, total: number) {
 
 export function TechPlacementsSection() {
     return (
-        <section className="w-full relative overflow-hidden" id="tech-placements">
+        <section className="w-full relative overflow-visible" id="tech-placements">
             {/* Local style for gradient border masks */}
             <style>{`
                 .tech-placements-glass-side::before {
@@ -97,19 +97,52 @@ export function TechPlacementsSection() {
                         transparent 85%
                     );
                 }
+                /* Mentor-style gradient mask — same as TechMentors */
+                .tech-placements-mentor-gradient {
+                    mask-image: radial-gradient(
+                        ellipse 82% 78% at 50% 50%,
+                        black 0%, black 18%,
+                        rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 46%,
+                        rgba(0,0,0,0.32) 60%, rgba(0,0,0,0.14) 74%,
+                        rgba(0,0,0,0.05) 86%, transparent 94%
+                    );
+                    -webkit-mask-image: radial-gradient(
+                        ellipse 82% 78% at 50% 50%,
+                        black 0%, black 18%,
+                        rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 46%,
+                        rgba(0,0,0,0.32) 60%, rgba(0,0,0,0.14) 74%,
+                        rgba(0,0,0,0.05) 86%, transparent 94%
+                    );
+                }
+                @media (min-width: 1024px) {
+                    .tech-placements-mentor-gradient {
+                        mask-image:
+                            linear-gradient(to bottom, transparent 0%, transparent 22%, rgba(0,0,0,0.08) 28%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0.55) 42%, rgba(0,0,0,0.82) 48%, black 55%),
+                            linear-gradient(to top, transparent 0%, rgba(0,0,0,0.06) 20%, rgba(0,0,0,0.24) 36%, rgba(0,0,0,0.52) 52%, black 64%),
+                            radial-gradient(ellipse 82% 78% at 50% 50%, black 0%, black 18%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 46%, rgba(0,0,0,0.32) 60%, rgba(0,0,0,0.16) 74%, rgba(0,0,0,0.04) 86%, transparent 96%);
+                        -webkit-mask-image:
+                            linear-gradient(to bottom, transparent 0%, transparent 22%, rgba(0,0,0,0.08) 28%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0.55) 42%, rgba(0,0,0,0.82) 48%, black 55%),
+                            linear-gradient(to top, transparent 0%, rgba(0,0,0,0.06) 20%, rgba(0,0,0,0.24) 36%, rgba(0,0,0,0.52) 52%, black 64%),
+                            radial-gradient(ellipse 82% 78% at 50% 50%, black 0%, black 18%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 46%, rgba(0,0,0,0.32) 60%, rgba(0,0,0,0.16) 74%, rgba(0,0,0,0.04) 86%, transparent 96%);
+                        mask-composite: intersect;
+                        -webkit-mask-composite: source-in;
+                    }
+                }
             `}</style>
 
             {/* Background layers */}
-            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden min-h-[400px]">
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-visible min-h-[400px]">
                 <div className="absolute inset-0 tech-placements-glow" aria-hidden />
                 <div
-                    className="absolute top-[40px] left-0 right-0 w-full h-[800px] max-md:top-[30px] max-md:h-[440px] pointer-events-none"
+                    className="tech-placements-mentor-gradient absolute left-1/2 -translate-x-1/2 top-[40px] w-[120%] pointer-events-none max-md:top-[30px]"
+                    style={{ aspectRatio: "1440 / 1203", minHeight: "800px" }}
                 >
                     <Image
-                        src="/photos/Tech/Group 46.svg"
-                        fill
+                        src="/photos/Tech/mentorsGradient.svg"
                         alt=""
+                        fill
                         className="object-contain object-center"
+                        sizes="120vw"
                         aria-hidden
                     />
                 </div>
