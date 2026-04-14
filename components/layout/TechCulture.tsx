@@ -185,43 +185,65 @@ export function TechCulture() {
                     </div>
                 </motion.div>
 
-                {/* ── MOBILE (< sm) — single column ── */}
+                {/* ── MOBILE (< sm) — Figma 4-row layout, 343px reference, fully responsive ── */}
                 <motion.div
-                    className="flex flex-col sm:hidden w-full gap-[10px]"
+                    className="flex flex-col sm:hidden w-full max-w-[343px] mx-auto gap-[6px]"
                     variants={container}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.14, margin: "0px 0px 20% 0px" }}
                 >
-                    {[
-                        { label: "Culture Photo A", imgSrc: "/photos/schools/tech/cultureGrid1.png", h: 180, r: "10px" },
-                        { label: "Culture Photo B", imgSrc: "/photos/schools/tech/cultureGrid2.png", h: 200, r: "14px" },
-                        { label: "Culture Photo C", imgSrc: "/photos/schools/tech/cultureGrid3.png", h: 180, r: "10px" },
-                        { label: "Culture Photo G", imgSrc: "/photos/schools/tech/cultureGrid7.png", h: 220, r: "14px" },
-                        { label: "Culture Photo F", imgSrc: undefined, h: 180, r: "14px" },
-                    ].map(({ label, imgSrc, h, r }) => (
-                        <motion.div key={label} variants={item}>
-                            <BentoCell label={label} imgSrc={imgSrc} style={{ height: `${h}px`, borderRadius: r }} className="w-full" />
-                        </motion.div>
-                    ))}
-                    {/* D & E side by side */}
-                    <div className="flex gap-[10px] w-full">
-                        <motion.div variants={item} className="flex-1">
-                            <BentoCell label="Photo D" className="w-full h-[140px] rounded-[14px]" />
-                        </motion.div>
-                        <motion.div variants={item} className="flex-1">
-                            <BentoCell label="Photo E" className="w-full h-[140px] rounded-[14px]" />
-                        </motion.div>
-                    </div>
-                    {/* H & I side by side */}
-                    <div className="flex gap-[10px] w-full">
-                        <motion.div variants={item} className="flex-1">
-                            <BentoCell label="Photo H" className="w-full h-[140px] rounded-[14px]" />
-                        </motion.div>
-                        <motion.div variants={item} className="flex-1">
-                            <BentoCell label="Photo I" className="w-full h-[140px] rounded-[14px]" />
-                        </motion.div>
-                    </div>
+                    {/* Row 1 — img1: 200px, img2: 137px, height: 125px */}
+                    <motion.div variants={item} className="flex gap-[6px] w-full" style={{ aspectRatio: "343/125" }}>
+                        <BentoCell
+                            label="Culture Photo A"
+                            imgSrc="/photos/schools/tech/cultureGrid1.png"
+                            style={{ flex: "200 0 0%", borderRadius: "6.55px" }}
+                        />
+                        <BentoCell
+                            label="Culture Photo B"
+                            imgSrc="/photos/schools/tech/cultureGrid2.png"
+                            style={{ flex: "137 0 0%", borderRadius: "10.32px" }}
+                        />
+                    </motion.div>
+
+                    {/* Row 2 — img1: 174px, img2: 163px, height: 170px */}
+                    <motion.div variants={item} className="flex gap-[6px] w-full" style={{ aspectRatio: "343/170" }}>
+                        <BentoCell
+                            label="Culture Photo C"
+                            imgSrc="/photos/schools/tech/cultureGrid3.png"
+                            style={{ flex: "174 0 0%", borderRadius: "6.8px" }}
+                        />
+                        <BentoCell
+                            label="Culture Photo G"
+                            imgSrc="/photos/schools/tech/cultureGrid7.png"
+                            style={{ flex: "163 0 0%", borderRadius: "9.83px" }}
+                        />
+                    </motion.div>
+
+                    {/* Row 3 — img1: 138px, img2: 199px, height: 140px */}
+                    <motion.div variants={item} className="flex gap-[6px] w-full" style={{ aspectRatio: "343/140" }}>
+                        <BentoCell
+                            label="Culture Photo D"
+                            style={{ flex: "138 0 0%", borderRadius: "9.83px" }}
+                        />
+                        <BentoCell
+                            label="Culture Photo E"
+                            style={{ flex: "199 0 0%", borderRadius: "6.69px" }}
+                        />
+                    </motion.div>
+
+                    {/* Row 4 — img1: 168px, img2: 169px, height: 130px */}
+                    <motion.div variants={item} className="flex gap-[6px] w-full" style={{ aspectRatio: "343/130" }}>
+                        <BentoCell
+                            label="Culture Photo H"
+                            style={{ flex: "168 0 0%", borderRadius: "5.93px" }}
+                        />
+                        <BentoCell
+                            label="Culture Photo I"
+                            style={{ flex: "169 0 0%", borderRadius: "5.93px" }}
+                        />
+                    </motion.div>
                 </motion.div>
 
             </div>

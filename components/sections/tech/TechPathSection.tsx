@@ -275,8 +275,12 @@ export function TechPathSection() {
                         rotation={-164.21}
                         gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
                         blurPx={198.45}
-                        maxDrift={70}
+                        maxDrift={280}
                         repelRadius={400}
+                        driftSpring={0.010}
+                        damping={0.82}
+                        minDriftMs={1200}
+                        maxDriftMs={3000}
                     />
                 </div>
                 {/* Outer purple layer 2 — desktop only (was Ellipse 156.svg) */}
@@ -304,12 +308,15 @@ export function TechPathSection() {
                         rotation={-164.21}
                         gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
                         blurPx={198.45}
-                        maxDrift={90}
+                        maxDrift={320}
                         repelRadius={420}
+                        driftSpring={0.010}
+                        damping={0.82}
+                        minDriftMs={1200}
+                        maxDriftMs={3000}
                     />
                 </div>
-                {/* Mobile orange blob 1 — near card 1, cursor-interactive */}
-                {/* top-[281px] = 430 (original centre) − 149 (half blob height) */}
+                {/* Mobile orange blob 1 */}
                 <div className="hidden max-md:block absolute top-[281px] left-1/2 pointer-events-none">
                     <GradientBlobOrb
                         width={220}
@@ -318,12 +325,15 @@ export function TechPathSection() {
                         gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
                         blurPx={111.23}
                         opacity={0.9}
-                        maxDrift={45}
+                        maxDrift={160}
                         repelRadius={200}
+                        driftSpring={0.012}
+                        damping={0.80}
+                        minDriftMs={1000}
+                        maxDriftMs={2500}
                     />
                 </div>
-                {/* Mobile orange blob 2 — near card 5, cursor-interactive */}
-                {/* top-[1555px] = 1704 − 149 */}
+                {/* Mobile orange blob 2 */}
                 <div className="hidden max-md:block absolute top-[1555px] left-1/2 pointer-events-none">
                     <GradientBlobOrb
                         width={220}
@@ -332,8 +342,12 @@ export function TechPathSection() {
                         gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
                         blurPx={111.23}
                         opacity={0.9}
-                        maxDrift={45}
+                        maxDrift={160}
                         repelRadius={200}
+                        driftSpring={0.012}
+                        damping={0.80}
+                        minDriftMs={1000}
+                        maxDriftMs={2500}
                     />
                 </div>
             </div>

@@ -5,6 +5,28 @@
  * components that use .courses-section, .course-card, etc.
  */
 const TECH_COURSES_CSS = `
+/* ── Hero top gradient animations (shared across all tech pages) ── */
+@keyframes heroGradOuterD {
+    0%, 100% { transform: rotate(-179.33deg) translateX(0px); }
+    50%      { transform: rotate(-179.33deg) translateX(-36px); }
+}
+@keyframes heroGradInnerD {
+    0%, 100% { transform: rotate(-177.88deg) translateX(0px); }
+    50%      { transform: rotate(-177.88deg) translateX(68px); }
+}
+@keyframes heroGradOuterM {
+    0%, 100% { transform: rotate(-179.33deg) translateX(0px); }
+    50%      { transform: rotate(-179.33deg) translateX(-18px); }
+}
+@keyframes heroGradInnerM {
+    0%, 100% { transform: rotate(-177.88deg) translateX(0px); }
+    50%      { transform: rotate(-177.88deg) translateX(24px); }
+}
+.hero-grad-outer-d { animation: heroGradOuterD 10s ease-in-out infinite; }
+.hero-grad-inner-d { animation: heroGradInnerD  6s ease-in-out infinite; }
+.hero-grad-outer-m { animation: heroGradOuterM 10s ease-in-out infinite; }
+.hero-grad-inner-m { animation: heroGradInnerM  6s ease-in-out infinite; }
+
 /* ── Main container: flex column, header above cards in flow ── */
 .tech-page-root {
     width: 100%;

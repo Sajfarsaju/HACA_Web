@@ -115,7 +115,7 @@ export function TechProjectsMobileHero({ scale }: TechProjectsMobileHeroProps) {
             )}
 
             <div
-                className="tech-mobile-hero-wrapper relative z-20 w-full overflow-hidden block md:hidden bg-[#111111]"
+                className="tech-mobile-hero-wrapper relative z-20 w-full overflow-x-hidden block md:hidden bg-[#111111]"
                 style={{
                     height: `${MOBILE_DESIGN_H * scale}px`,
                 }}
@@ -151,16 +151,22 @@ export function TechProjectsMobileHero({ scale }: TechProjectsMobileHeroProps) {
                                 style={{ objectFit: "contain" }}
                             />
                         </div>
-                        {/* Navbar gradient: same as tech home mobile (HeroTopGradientMobile.svg) */}
-                        <div className="absolute top-0 left-0 w-[375px] h-[160px] pointer-events-none z-0" aria-hidden="true">
-                            <Image
-                                src="/photos/Tech/HeroTopGradientMobile.svg"
-                                alt=""
-                                width={375}
-                                height={160}
-                                className="w-full h-full object-cover object-top"
-                                priority
-                            />
+                        {/* ── Mobile Top Gradient (CSS — animated) ── */}
+                        <div aria-hidden="true" className="absolute z-0 pointer-events-none"
+                            style={{ width: '420px', height: '128px', top: 0, left: 0 }}>
+                            <div className="hero-grad-outer-m" style={{
+                                position: 'absolute', width: '460px', height: '120px',
+                                top: '-14px', left: '-70px', borderRadius: '50%',
+                                background: 'linear-gradient(261.66deg, rgba(255,86,0,1) 17.08%, rgba(105,74,255,1) 72.9%)',
+                                filter: 'blur(30px) saturate(1.28) contrast(1.03)',
+                            }} />
+                            <div className="hero-grad-inner-m" style={{
+                                position: 'absolute', width: '290px', height: '58px',
+                                top: '16px', left: '10px', borderRadius: '50%',
+                                background: '#FFFFFF',
+                                filter: 'blur(38px) saturate(1.08)',
+                                opacity: 0.76,
+                            }} />
                         </div>
                     </div>
 

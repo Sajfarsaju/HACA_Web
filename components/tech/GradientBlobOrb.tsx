@@ -48,6 +48,14 @@ interface GradientBlobOrbProps {
     whiteOverlay?: number
     repelRadius?: number
     maxDrift?: number
+    /** How strongly the blob accelerates toward its drift target (default 0.003) */
+    driftSpring?: number
+    /** Velocity decay per frame — lower = faster/bouncier (default 0.90) */
+    damping?: number
+    /** Min ms between new drift targets (default 3000) */
+    minDriftMs?: number
+    /** Max ms between new drift targets (default 7000) */
+    maxDriftMs?: number
 }
 
 // ── Component ────────────────────────────────────────────────────────────────
@@ -63,6 +71,10 @@ export function GradientBlobOrb({
     whiteOverlay = 0.2,
     repelRadius = 320,
     maxDrift = 80,
+    driftSpring = DRIFT_SPRING,
+    damping = DAMPING,
+    minDriftMs = MIN_DRIFT_MS,
+    maxDriftMs = MAX_DRIFT_MS,
 }: GradientBlobOrbProps) {
     const ref = useRef<HTMLDivElement>(null)
 
@@ -83,7 +95,7 @@ export function GradientBlobOrb({
             const r     = Math.random() * maxDrift
             targetX    = Math.cos(angle) * r
             targetY    = Math.sin(angle) * r
-            nextDriftAt = now + MIN_DRIFT_MS + Math.random() * (MAX_DRIFT_MS - MIN_DRIFT_MS)
+            nextDriftAt = now + minDriftMs + Math.random() * (maxDriftMs - minDriftMs)
         }
 
         // ── Pointer state ──────────────────────────────────────────────────
@@ -121,8 +133,8 @@ export function GradientBlobOrb({
             if (now >= nextDriftAt) pickNewDrift(now)
 
             // Spring force toward drift target
-            let fx = (targetX - dx) * DRIFT_SPRING
-            let fy = (targetY - dy) * DRIFT_SPRING
+            let fx = (targetX - dx) * driftSpring
+            let fy = (targetY - dy) * driftSpring
 
             // Cursor repulsion — use current viewport rect (scroll-safe)
             if (ptr.active) {
@@ -142,8 +154,8 @@ export function GradientBlobOrb({
                 }
             }
 
-            vx = (vx + fx) * DAMPING
-            vy = (vy + fy) * DAMPING
+            vx = (vx + fx) * damping
+            vy = (vy + fy) * damping
             dx += vx
             dy += vy
 
@@ -163,7 +175,7 @@ export function GradientBlobOrb({
             window.removeEventListener("touchend",    onTouchEnd)
             window.removeEventListener("touchcancel", onTouchEnd)
         }
-    }, [rotation, repelRadius, maxDrift])
+    }, [rotation, repelRadius, maxDrift, driftSpring, damping, minDriftMs, maxDriftMs])
 
     return (
         <div

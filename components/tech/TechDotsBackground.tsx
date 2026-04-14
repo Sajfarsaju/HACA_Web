@@ -3,20 +3,10 @@
 /*
  * TechDotsBackground — pointer-driven dot animation (tech-school hero layer)
  *
- * What it does
- *   Full-screen canvas of a regular dot grid. Dots are pushed away from the
- *   pointer (mouse or touch) within a radius, then spring back to rest when the
- *   pointer moves away. The canvas is pointer-events-none; coordinates come from
- *   window-level mousemove / touch events and are converted to canvas space each
- *   frame (getBoundingClientRect) so motion stays aligned while scrolling.
- *
- * Tuning (top of file)
- *   SPACING, DOT_R, BASE_ALPHA — grid density and dot look
- *   REPEL_RADIUS_DESKTOP / _MOBILE — how far the “bubble” extends (larger on touch)
- *   REPEL_FORCE, MAX_DISP — how strong / far dots can move before clamping
- *   SPRING_K, DAMPING — return-to-home motion (higher damping = less wobble)
- *
- * Used by: app/tech-school/page.tsx (background z-[1] behind content)
+ * Desktop : reacts to mouse cursor position
+ * Mobile  : reacts to touch position AND scroll momentum
+ *           — dots stay active for TOUCH_LINGER_MS after finger lifts
+ *           — scroll events keep dots alive at the last known touch position
  */
 
 import { useEffect, useRef } from "react"
@@ -27,14 +17,17 @@ const DOT_R      = 0.9
 const BASE_ALPHA = 0.35
 
 // ── Cursor / touch repulsion ──────────────────────────────────────────────────
-const REPEL_RADIUS_DESKTOP = 90    // px — desktop
-const REPEL_RADIUS_MOBILE  = 160   // px — bigger on mobile/touch
-const REPEL_FORCE  = 90
-const MAX_DISP     = 130
+const REPEL_RADIUS_DESKTOP = 90
+const REPEL_RADIUS_MOBILE  = 200   // larger bubble on touch
+const REPEL_FORCE          = 90
+const MAX_DISP             = 130
 
-// ── Spring back (underdamped → bouncy snap-back, completely still at rest) ────
+// ── Spring back ───────────────────────────────────────────────────────────────
 const SPRING_K = 0.12
 const DAMPING  = 0.76
+
+// ── Mobile linger: keep dots active this long after finger lifts (ms) ─────────
+const TOUCH_LINGER_MS = 600
 
 export function TechDotsBackground() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -78,66 +71,84 @@ export function TechDotsBackground() {
         ro.observe(canvas)
         resize()
 
-        // Pointer state — viewport coords, works for both mouse and touch
-        const pointer = { vx: -9999, vy: -9999, active: false, isTouch: false }
+        // ── Pointer state ─────────────────────────────────────────────────────
+        const ptr = {
+            vx: -9999, vy: -9999,
+            active: false,
+            isTouch: false,
+            lastTouchAt: 0,       // timestamp of last touch activity
+        }
 
+        // ── Mouse ─────────────────────────────────────────────────────────────
         function onMouseMove(e: MouseEvent) {
-            pointer.vx = e.clientX
-            pointer.vy = e.clientY
-            pointer.active = true
-            pointer.isTouch = false
+            ptr.vx = e.clientX; ptr.vy = e.clientY
+            ptr.active = true; ptr.isTouch = false
         }
         function onMouseLeave() {
-            pointer.active = false
-            pointer.vx = -9999
-            pointer.vy = -9999
+            ptr.active = false; ptr.vx = -9999; ptr.vy = -9999
         }
 
+        // ── Touch ─────────────────────────────────────────────────────────────
         function onTouchStart(e: TouchEvent) {
-            // Don't call preventDefault — avoids scroll bugs
             const t = e.touches[0]
             if (!t) return
-            pointer.vx = t.clientX
-            pointer.vy = t.clientY
-            pointer.active = true
-            pointer.isTouch = true
+            ptr.vx = t.clientX; ptr.vy = t.clientY
+            ptr.active = true; ptr.isTouch = true
+            ptr.lastTouchAt = performance.now()
         }
         function onTouchMove(e: TouchEvent) {
             const t = e.touches[0]
             if (!t) return
-            pointer.vx = t.clientX
-            pointer.vy = t.clientY
-            pointer.active = true
-            pointer.isTouch = true
+            ptr.vx = t.clientX; ptr.vy = t.clientY
+            ptr.active = true; ptr.isTouch = true
+            ptr.lastTouchAt = performance.now()
         }
         function onTouchEnd() {
-            pointer.active = false
-            pointer.vx = -9999
-            pointer.vy = -9999
+            // Don't clear immediately — let linger logic in draw() handle fade
+            ptr.lastTouchAt = performance.now()
+            // ptr.active stays true; draw() will clear it after TOUCH_LINGER_MS
         }
 
-        window.addEventListener("mousemove",  onMouseMove,  { passive: true })
-        window.addEventListener("mouseleave", onMouseLeave)
-        window.addEventListener("touchstart", onTouchStart, { passive: true })
-        window.addEventListener("touchmove",  onTouchMove,  { passive: true })
-        window.addEventListener("touchend",   onTouchEnd,   { passive: true })
-        window.addEventListener("touchcancel",onTouchEnd,   { passive: true })
+        // ── Scroll: keep dots alive at last known touch position ──────────────
+        function onScroll() {
+            if (ptr.isTouch && ptr.vx !== -9999) {
+                ptr.active = true
+                ptr.lastTouchAt = performance.now()
+            }
+        }
 
+        window.addEventListener("mousemove",   onMouseMove,  { passive: true })
+        window.addEventListener("mouseleave",  onMouseLeave)
+        window.addEventListener("touchstart",  onTouchStart, { passive: true })
+        window.addEventListener("touchmove",   onTouchMove,  { passive: true })
+        window.addEventListener("touchend",    onTouchEnd,   { passive: true })
+        window.addEventListener("touchcancel", onTouchEnd,   { passive: true })
+        window.addEventListener("scroll",      onScroll,     { passive: true })
+
+        // ── Animation loop ────────────────────────────────────────────────────
         let raf: number
 
-        function draw() {
+        function draw(now: number) {
             raf = requestAnimationFrame(draw)
             if (!canvas || !ctx || !hx) return
+
+            // Linger: deactivate touch pointer after TOUCH_LINGER_MS
+            if (ptr.isTouch && ptr.active) {
+                const age = now - ptr.lastTouchAt
+                if (age > TOUCH_LINGER_MS) {
+                    ptr.active = false
+                    ptr.vx = -9999; ptr.vy = -9999
+                }
+            }
 
             const W = canvas.width
             const H = canvas.height
 
-            // Convert viewport pointer → canvas coords each frame (scroll-safe)
             const rect = canvas.getBoundingClientRect()
-            const mx   = pointer.active ? pointer.vx - rect.left : -9999
-            const my   = pointer.active ? pointer.vy - rect.top  : -9999
-            const act  = pointer.active
-            const repelR = pointer.isTouch ? REPEL_RADIUS_MOBILE : REPEL_RADIUS_DESKTOP
+            const mx   = ptr.active ? ptr.vx - rect.left  : -9999
+            const my   = ptr.active ? ptr.vy - rect.top   : -9999
+            const act  = ptr.active
+            const repelR = ptr.isTouch ? REPEL_RADIUS_MOBILE : REPEL_RADIUS_DESKTOP
 
             const viewTop = Math.max(0, -rect.top)
             const viewBot = Math.min(H, viewTop + window.innerHeight)
@@ -155,23 +166,20 @@ export function TechDotsBackground() {
                 const base = r * cols
                 for (let c = 0; c < cols; c++) {
                     const i = base + c
-
                     const px = hx[i] + dx[i]
                     const py = hy[i] + dy[i]
 
-                    // Spring back to exact home — zero target → fully still at rest
                     let fx = -dx[i] * SPRING_K
                     let fy = -dy[i] * SPRING_K
 
-                    // Repulsion when pointer is active
                     if (act) {
                         const ex = px - mx
                         const ey = py - my
                         const d2 = ex * ex + ey * ey
                         if (d2 < repelR * repelR && d2 > 0) {
-                            const d = Math.sqrt(d2)
+                            const d    = Math.sqrt(d2)
                             const norm = 1.0 - d / repelR
-                            const f = norm * norm * REPEL_FORCE / d
+                            const f    = norm * norm * REPEL_FORCE / d
                             fx += ex * f
                             fy += ey * f
                         }
@@ -191,7 +199,6 @@ export function TechDotsBackground() {
                 }
             }
 
-            // ── Draw ──────────────────────────────────────────────────────────
             const drawT = Math.max(0,    Math.floor((viewTop - SPACING) / SPACING))
             const drawB = Math.min(rows, Math.ceil( (viewBot + SPACING) / SPACING) + 1)
 
@@ -211,6 +218,7 @@ export function TechDotsBackground() {
         }
 
         raf = requestAnimationFrame(draw)
+
         return () => {
             cancelAnimationFrame(raf)
             window.removeEventListener("mousemove",   onMouseMove)
@@ -219,6 +227,7 @@ export function TechDotsBackground() {
             window.removeEventListener("touchmove",   onTouchMove)
             window.removeEventListener("touchend",    onTouchEnd)
             window.removeEventListener("touchcancel", onTouchEnd)
+            window.removeEventListener("scroll",      onScroll)
             ro.disconnect()
         }
     }, [])

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { TechNavbar } from "@/components/sections/tech/TechNavbar";
 import { motion } from "framer-motion";
 import { BANNER_VISIBLE_H, DESIGN_H, DESIGN_W } from "@/components/sections/tech-courses/constants";
@@ -12,13 +11,13 @@ interface TechProjectsHeroProps {
 export function TechProjectsHero({ scale }: TechProjectsHeroProps) {
     return (
         <div
-            className="relative z-20 w-full overflow-hidden hidden md:block"
+            className="relative z-20 w-full overflow-x-hidden overflow-y-hidden hidden md:block"
             style={{
                 height: `${BANNER_VISIBLE_H * scale}px`,
             }}
         >
             <section
-                className="tech-main-hero-canvas absolute top-0 left-1/2 w-[1440px] h-[1044px] overflow-hidden bg-[#111111]"
+                className="tech-main-hero-canvas absolute top-0 left-1/2 w-[1440px] h-[1044px] overflow-x-hidden bg-[#111111]"
                 style={{
                     transform: `translateX(-50%) scale(${scale})`,
                     transformOrigin: "top center",
@@ -27,23 +26,23 @@ export function TechProjectsHero({ scale }: TechProjectsHeroProps) {
                     width: `${DESIGN_W}px`,
                 }}
             >
-                <div className="absolute inset-0 w-[1593.45px] h-[304px] top-[-29px] left-[-36px] opacity-100 z-0 pointer-events-none">
-                    <Image src="/photos/Tech/Gradiant.svg" alt="Gradient" fill className="!object-cover" priority />
-                    <div className="absolute inset-0 z-[1]">
-                        <Image src="/photos/Tech/Ellipse 2.svg" alt="Ellipse Gradient" fill className="!object-cover" priority />
-                    </div>
+                {/* ── TOP GRADIENT (CSS — animated) ── */}
+                <div aria-hidden="true" className="absolute z-0 pointer-events-none"
+                    style={{ width: '1593.45px', height: '374px', top: '-219px', left: '-36px' }}>
+                    <div className="hero-grad-outer-d" style={{
+                        position: 'absolute', width: '1580.98px', height: '355.6px',
+                        top: 0, left: 0, borderRadius: '50%',
+                        background: 'linear-gradient(261.66deg, rgba(255,86,0,1) 17.08%, rgba(105,74,255,1) 72.9%)',
+                        filter: 'blur(70px) saturate(1.25) contrast(1.03)',
+                    }} />
+                    <div className="hero-grad-inner-d" style={{
+                        position: 'absolute', width: '981.61px', height: '175.12px',
+                        top: '81.3px', left: '266.48px', borderRadius: '50%',
+                        background: '#FFFFFF',
+                        filter: 'blur(90px) saturate(1.08)',
+                        opacity: 0.76,
+                    }} />
                 </div>
-
-                {/* Soft fade: navbar gradient blends into hero theme (same as tech home) */}
-                <div
-                    className="absolute left-0 right-0 z-[3] pointer-events-none"
-                    style={{
-                        top: "80px",
-                        height: "220px",
-                        background: "linear-gradient(to bottom, transparent 0%, rgba(17,17,17,0.12) 20%, rgba(17,17,17,0.4) 50%, rgba(17,17,17,0.85) 85%, #111111 100%)",
-                    }}
-                    aria-hidden="true"
-                />
 
                 <TechNavbar />
 

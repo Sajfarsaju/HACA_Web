@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { GradientBlobOrb } from "@/components/tech/GradientBlobOrb";
 
 // ── Responsive breakpoints ──────────────────────────────────────────────────
 function useIsTabletOrSmaller() {
@@ -202,6 +203,51 @@ export function TechWhyChoose() {
 
     return (
         <section className="relative z-10 w-full flex flex-col items-center min-h-[940px] pt-[clamp(60px,10vw,140px)] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
+
+            {/* ── Mobile background: purple pill + orange blobs ── */}
+            <div className="md:hidden absolute pointer-events-none z-0"
+                style={{
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: "-280px", /* extend past section bottom into next section */
+                    maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 2%, black 5%, black 88%, rgba(0,0,0,0.4) 95%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 2%, black 5%, black 88%, rgba(0,0,0,0.4) 95%, transparent 100%)",
+                    overflow: "hidden",
+                }}
+            >
+                {/* Purple narrow pill */}
+                <div style={{
+                    position: "absolute",
+                    left: 17,
+                    top: 0,
+                    width: 342,
+                    height: "100%",
+                    minHeight: 3000,
+                    borderRadius: 250,
+                    background: "rgba(132,0,255,0.8)",
+                    filter: "blur(88.73px)",
+                    opacity: 1,
+                }} />
+                {/* Orange blob — upper card area */}
+                <div style={{ position: "absolute", top: 300, left: "50%" }}>
+                    <GradientBlobOrb
+                        width={260} height={340} rotation={-159.39}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={111.23} opacity={1} maxDrift={45} repelRadius={200}
+                        whiteOverlay={0.2}
+                    />
+                </div>
+                {/* Orange blob — lower card area */}
+                <div style={{ position: "absolute", top: 1600, left: "50%" }}>
+                    <GradientBlobOrb
+                        width={260} height={340} rotation={-175.61}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={111.23} opacity={1} maxDrift={45} repelRadius={200}
+                        whiteOverlay={0.2}
+                    />
+                </div>
+            </div>
 
             {/* ── Header ── */}
             <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-[1] relative">

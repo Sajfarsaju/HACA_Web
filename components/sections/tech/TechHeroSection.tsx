@@ -111,6 +111,8 @@ export default function TechHero() {
     const statsVisible = desktopStatsVisible || mobileStatsVisible;
     const desktopMenuRef = useRef<HTMLDivElement>(null);
     const desktopMenuToggleRef = useRef<HTMLButtonElement>(null);
+    const desktopHeroRef = useRef<HTMLDivElement>(null);
+    const rafMouseRef = useRef<number | null>(null);
 
     useEffect(() => {
         const update = () => {
@@ -145,6 +147,47 @@ export default function TechHero() {
             document.body.style.overflow = "";
         };
     }, [isDesktopMenuOpen]);
+
+    // Premium cursor-reactive gradient motion (desktop only)
+    useEffect(() => {
+        const el = desktopHeroRef.current;
+        if (!el) return;
+
+        const handlePointerMove = (e: PointerEvent) => {
+            if (rafMouseRef.current) cancelAnimationFrame(rafMouseRef.current);
+            rafMouseRef.current = requestAnimationFrame(() => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const cx = rect.width / 2;
+                const cy = rect.height / 2;
+                const nx = cx ? (x - cx) / cx : 0; // -1..1
+                const ny = cy ? (y - cy) / cy : 0; // -1..1
+
+                // Subtle parallax; keep values bounded to avoid jumpiness
+                const mx = Math.max(-1, Math.min(1, nx)) * 42;
+                const my = Math.max(-1, Math.min(1, ny)) * 18;
+                el.style.setProperty("--hero-mx", `${mx}px`);
+                el.style.setProperty("--hero-my", `${my}px`);
+                el.style.setProperty("--cursor-x", `${x}px`);
+                el.style.setProperty("--cursor-y", `${y}px`);
+            });
+        };
+
+        const handlePointerLeave = () => {
+            el.style.setProperty("--hero-mx", "0px");
+            el.style.setProperty("--hero-my", "0px");
+        };
+
+        el.addEventListener("pointermove", handlePointerMove);
+        el.addEventListener("pointerleave", handlePointerLeave);
+        return () => {
+            el.removeEventListener("pointermove", handlePointerMove);
+            el.removeEventListener("pointerleave", handlePointerLeave);
+            if (rafMouseRef.current) cancelAnimationFrame(rafMouseRef.current);
+        };
+    }, []);
+
     return (
         <>
             {/* Desktop/Tablet/Mobile nav drawer — high z-index, handles all screen sizes when open */}
@@ -209,7 +252,7 @@ export default function TechHero() {
                 </div>
             )}
 
-            {/* Gradient border mask - same pattern as project cards */}
+            {/* Gradient border mask + hero gradient animations */}
             <style>{`
                 .tech-hero-stats-border::before {
                     content: "";
@@ -228,24 +271,43 @@ export default function TechHero() {
                     animation: techNavDropdownIn 0.3s ease-in-out forwards;
                 }
                 @keyframes techNavDropdownIn {
-                    from {
-                        opacity: 0;
-                        transform: translateY(-12px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
+                    from { opacity: 0; transform: translateY(-12px); }
+                    to   { opacity: 1; transform: translateY(0); }
                 }
                 .tech-desktop-nav-toggle-open {
                     transform: rotate(90deg);
                 }
+                @keyframes heroGradOuterD {
+                    0%   { transform: rotate(-179.33deg) translate3d(calc(var(--hero-mx, 0px) + 0px), calc(var(--hero-my, 0px) + 0px), 0) scale(1); }
+                    50%  { transform: rotate(-179.33deg) translate3d(calc(var(--hero-mx, 0px) + -140px), calc(var(--hero-my, 0px) + 0px), 0) scale(1.04); }
+                    100% { transform: rotate(-179.33deg) translate3d(calc(var(--hero-mx, 0px) + 0px), calc(var(--hero-my, 0px) + 0px), 0) scale(1); }
+                }
+                @keyframes heroGradInnerD {
+                    0%   { transform: rotate(-177.88deg) translate3d(calc(var(--hero-mx, 0px) + 0px), calc(var(--hero-my, 0px) + 0px), 0) scale(1); }
+                    50%  { transform: rotate(-177.88deg) translate3d(calc(var(--hero-mx, 0px) + 220px), calc(var(--hero-my, 0px) + 0px), 0) scale(1.025); }
+                    100% { transform: rotate(-177.88deg) translate3d(calc(var(--hero-mx, 0px) + 0px), calc(var(--hero-my, 0px) + 0px), 0) scale(1); }
+                }
+                @keyframes heroGradOuterM {
+                    0%   { transform: rotate(-179.33deg) translate3d(0px, 0px, 0) scale(1); }
+                    50%  { transform: rotate(-179.33deg) translate3d(-34px, 0px, 0) scale(1.03); }
+                    100% { transform: rotate(-179.33deg) translate3d(0px, 0px, 0) scale(1); }
+                }
+                @keyframes heroGradInnerM {
+                    0%   { transform: rotate(-177.88deg) translate3d(0px, 0px, 0) scale(1); }
+                    50%  { transform: rotate(-177.88deg) translate3d(48px, 0px, 0) scale(1.02); }
+                    100% { transform: rotate(-177.88deg) translate3d(0px, 0px, 0) scale(1); }
+                }
+                .hero-grad-outer-d { animation: heroGradOuterD 14s cubic-bezier(0.22, 1, 0.36, 1) infinite; will-change: transform; }
+                .hero-grad-inner-d { animation: heroGradInnerD  9s cubic-bezier(0.22, 1, 0.36, 1) infinite; will-change: transform; }
+                .hero-grad-outer-m { animation: heroGradOuterM 14s cubic-bezier(0.22, 1, 0.36, 1) infinite; will-change: transform; }
+                .hero-grad-inner-m { animation: heroGradInnerM  9s cubic-bezier(0.22, 1, 0.36, 1) infinite; will-change: transform; }
             `}</style>
             {/* ══════════════════════════════════════════════
                 DESKTOP HERO (hidden on mobile <= 768px)
                 ══════════════════════════════════════════════ */}
             <div
-                className="hidden md:block w-full overflow-hidden relative z-20 bg-[#111111]"
+                ref={desktopHeroRef}
+                className="hidden md:block w-full overflow-x-hidden overflow-y-hidden relative z-20 bg-transparent"
                 style={{
                     height: `${DESKTOP_HERO_END * desktopScale}px`,
                 }}
@@ -259,37 +321,30 @@ export default function TechHero() {
                     }}
                 >
                     {/* ... (rest of desktop content) ... */}
-                    {/* ── Soft fade overlay: gradient dissolves into hero bg (150–250px) ── */}
-                    <div
-                        className="absolute left-0 right-0 z-[3] pointer-events-none"
+                    {/* ── TOP GRADIENT (CSS — animated) ── */}
+                    <div aria-hidden="true" className="absolute z-0 pointer-events-none"
                         style={{
-                            top: "80px",
-                            height: "220px",
-                            background: "linear-gradient(to bottom, transparent 0%, rgba(17,17,17,0.12) 20%, rgba(17,17,17,0.4) 50%, rgba(17,17,17,0.85) 85%, #111111 100%)",
-                        }}
-                        aria-hidden="true"
-                    />
-                    {/* ── GRADIENT + ELLIPSE layer ── */}
-                    <div className="absolute w-[1593.45px] h-[304px] top-[-29px] left-[-36px] opacity-100 z-0 pointer-events-none">
-                        {/* Base gradient */}
-                        <Image
-                            src="/photos/Tech/Gradiant.svg"
-                            alt="Gradient"
-                            fill
-                            className="!object-cover"
-                            priority
-                        />
-
-                        {/* Ellipse 2 — layered on top of the gradient */}
-                        <div className="absolute inset-0 z-[1]">
-                            <Image
-                                src="/photos/Tech/Ellipse 2.svg"
-                                alt="Ellipse Gradient"
-                                fill
-                                className="!object-cover"
-                                priority
-                            />
-                        </div>
+                            width: "1593.45px",
+                            height: "374px",
+                            top: 0,
+                            left: "-36px",
+                            transform: "translateY(-219px)",
+                        }}>
+                        {/* Outer orange-purple blob */}
+                        <div className="hero-grad-outer-d" style={{
+                            position: 'absolute', width: '1580.98px', height: '355.6px',
+                            top: 0, left: 0, borderRadius: '50%',
+                            background: 'linear-gradient(261.66deg, rgba(255,86,0,1) 17.08%, rgba(105,74,255,1) 72.9%)',
+                            filter: 'blur(70px) saturate(1.25) contrast(1.03)',
+                        }} />
+                        {/* Inner white shimmer */}
+                        <div className="hero-grad-inner-d" style={{
+                            position: 'absolute', width: '981.61px', height: '175.12px',
+                            top: '81.3px', left: '266.48px', borderRadius: '50%',
+                            background: '#FFFFFF',
+                            filter: 'blur(90px) saturate(1.08)',
+                            opacity: 0.76,
+                        }} />
                     </div>
 
                     {/* ── HEADER ── */}
@@ -588,7 +643,7 @@ export default function TechHero() {
                 MOBILE HERO (visible only on <= 768px)
                 ══════════════════════════════════════════════ */}
             <div
-                className="block md:hidden relative w-full bg-[#111111] overflow-hidden"
+                className="block md:hidden relative w-full bg-[#111111] overflow-x-hidden"
                 style={{
                     height: `${MOBILE_DESIGN_H * mobileScale}px`,
                 }}
@@ -601,16 +656,24 @@ export default function TechHero() {
                         left: "50%",
                     }}
                 >
-                    {/* ── Mobile Top Gradient (HeroTopGradientMobile.svg) ── */}
-                    <div className="absolute top-0 left-0 w-[375px] h-[160px] pointer-events-none z-0" aria-hidden="true">
-                        <Image
-                            src="/photos/Tech/HeroTopGradientMobile.svg"
-                            alt=""
-                            width={375}
-                            height={160}
-                            className="w-full h-full object-cover object-top"
-                            priority
-                        />
+                    {/* ── Mobile Top Gradient (CSS — animated) ── */}
+                    <div aria-hidden="true" className="absolute z-0 pointer-events-none"
+                        style={{ width: '420px', height: '128px', top: 0, left: 0 }}>
+                        {/* Outer orange-purple blob */}
+                        <div className="hero-grad-outer-m" style={{
+                            position: 'absolute', width: '460px', height: '120px',
+                            top: '-14px', left: '-70px', borderRadius: '50%',
+                            background: 'linear-gradient(261.66deg, rgba(255,86,0,1) 17.08%, rgba(105,74,255,1) 72.9%)',
+                            filter: 'blur(30px) saturate(1.28) contrast(1.03)',
+                        }} />
+                        {/* Inner white shimmer */}
+                        <div className="hero-grad-inner-m" style={{
+                            position: 'absolute', width: '290px', height: '58px',
+                            top: '16px', left: '10px', borderRadius: '50%',
+                            background: '#FFFFFF',
+                            filter: 'blur(38px) saturate(1.08)',
+                            opacity: 0.76,
+                        }} />
                     </div>
                     {/* ── Soft fade overlay: below gradient, BELOW content (z-1) so titles stay crisp ── */}
                     <div
