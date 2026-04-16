@@ -3,6 +3,8 @@ import { MarketingHeroSection } from "@/components/marketing/MarketingHeroSectio
 import { MarketingImpactSection } from "@/components/marketing/MarketingImpactSection";
 import { MarketingCoursesSection } from "@/components/marketing/MarketingCoursesSection";
 import { MarketingMentorsSection } from "@/components/marketing/MarketingMentorsSection";
+import { MarketingCultureSection } from "@/components/marketing/MarketingCultureSection";
+import { MarketingYoutubeHubSection } from "@/components/marketing/MarketingYoutubeHubSection";
 import { MarketingPlacementsSection } from "@/components/marketing/MarketingPlacementsSection";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
@@ -20,6 +22,8 @@ export default function MarketingSchoolPage() {
             <MarketingCoursesSection />
             <MarketingMentorsSection />
             <MarketingPlacementsSection />
+            <MarketingCultureSection />
+            <MarketingYoutubeHubSection />
         </main>
     );
 }

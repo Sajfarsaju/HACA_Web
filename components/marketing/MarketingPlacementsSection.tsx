@@ -24,30 +24,102 @@ function PlacementDummyCard() {
     )
 }
 
+function ArrowRightIcon({ className }: { className?: string }) {
+    return (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden className={className}>
+            <path
+                d="M5 12h14m0 0-6-6m6 6-6 6"
+                stroke="currentColor"
+                strokeWidth={2.25}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    )
+}
+
+function JoinNowPill() {
+    return (
+        <button
+            type="button"
+            className="
+                group inline-flex h-[60px] w-[166px] items-center justify-between rounded-full bg-[#E8F1FF]
+                pl-6 pr-1
+                font-['Satoshi',sans-serif] text-[14px] font-medium leading-none text-black
+                transition-colors duration-300 ease-out hover:bg-white/90
+            "
+        >
+            <span className="pr-3">Join Now</span>
+            <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-black transition-colors group-hover:bg-neutral-900">
+                <ArrowRightIcon className="text-white" />
+            </span>
+        </button>
+    )
+}
+
 function ViewMorePill() {
     return (
         <button
             type="button"
             className="
-                group inline-flex h-[44px] items-center justify-between rounded-full bg-[#E8F1FF]
-                pl-5 pr-1
+                group inline-flex h-[60px] w-[171px] items-center justify-between gap-[10px]
+                rounded-[30px] bg-[#E8F1FF]
+                pl-[20px] pr-2
                 font-['Satoshi',sans-serif] text-[14px] font-medium leading-none text-black
                 transition-colors duration-300 ease-out hover:bg-white/90
             "
         >
-            <span className="pr-3">View More</span>
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0066FF] transition-colors group-hover:bg-[#015AFF]">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden className="text-white">
-                    <path
-                        d="M5 12h14m0 0-6-6m6 6-6 6"
-                        stroke="currentColor"
-                        strokeWidth={2.25}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
+            <span className="shrink-0">View More</span>
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0066FF] transition-colors group-hover:bg-[#015AFF]">
+                <ArrowRightIcon className="text-white" />
             </span>
         </button>
+    )
+}
+
+function PlacementsDecisionCard() {
+    return (
+        <div
+            className="
+                relative mx-auto flex w-full max-w-[1320px] min-w-0 flex-col items-center justify-center
+                overflow-hidden rounded-[20px] bg-[#0066FF]
+                px-5 py-10 sm:px-8 sm:py-12
+                lg:h-[500px] lg:min-h-[500px] lg:px-12 lg:py-0
+            "
+        >
+            <img
+                src="/photos/schools/marketing/placements/placement-cta-star-tr.svg"
+                alt=""
+                width={297}
+                height={301}
+                className="pointer-events-none absolute right-0 top-0 h-auto w-[min(297px,72%)] max-sm:w-[min(200px,58%)] select-none"
+                aria-hidden
+            />
+            <img
+                src="/photos/schools/marketing/placements/placement-cta-star-bl.svg"
+                alt=""
+                width={246}
+                height={250}
+                className="pointer-events-none absolute bottom-0 left-0 h-auto w-[min(246px,68%)] max-sm:w-[min(180px,55%)] select-none"
+                aria-hidden
+            />
+            <div className="relative z-10 mx-auto flex w-full max-w-[min(1320px,100%)] flex-col items-center gap-[30px] text-center">
+                <p
+                    className="
+                        font-semibold tracking-normal text-white [font-family:'Darker_Grotesque',sans-serif]
+                        text-[clamp(1.375rem,5vw,2.5rem)] leading-[1.12] sm:leading-[1.1]
+                        lg:h-[138px] lg:w-[min(1320px,100%)] lg:text-[70px] lg:leading-[0.98] lg:text-center
+                    "
+                >
+                    <span>
+                        You&apos;re Only One Decision Away
+                        <br />
+                        from a Different Future
+                    </span>
+                </p>
+                <JoinNowPill />
+            </div>
+        </div>
     )
 }
 
@@ -124,7 +196,13 @@ export function MarketingPlacementsSection() {
                     </div>
                 </div>
 
-                <div className="flex w-full items-center justify-center pt-2">
+                <div className="hidden w-full justify-center lg:flex">
+                    <ViewMorePill />
+                </div>
+
+                <PlacementsDecisionCard />
+
+                <div className="flex w-full items-center justify-center pt-1 max-md:pt-5 md:pt-3 lg:hidden">
                     <ViewMorePill />
                 </div>
             </div>
