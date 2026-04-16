@@ -70,7 +70,7 @@ export function TechFaq() {
     return (
         <section
             ref={sectionRef}
-            className="w-full relative overflow-hidden md:overflow-visible flex flex-col items-center justify-center py-8 px-6 md:py-16 md:px-10 lg:p-0 lg:h-[862px] min-h-[400px] bg-transparent opacity-100"
+            className="w-full relative overflow-hidden md:overflow-visible flex flex-col items-center justify-center pt-3 pb-8 px-6 md:py-16 md:px-10 lg:p-0 lg:h-[862px] min-h-[400px] bg-transparent opacity-100"
         >
             {/* Center Gradient Glow — Desktop/Tablet */}
             <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220%] max-w-[1400px] aspect-[1/1] min-w-[900px] opacity-80 z-0 pointer-events-none">

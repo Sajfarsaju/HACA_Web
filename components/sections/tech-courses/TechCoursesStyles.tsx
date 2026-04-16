@@ -134,7 +134,7 @@ const TECH_COURSES_CSS = `
     align-items: center;
     width: 100%;
     margin-top: 60px;
-    padding-bottom: 200px;
+    padding-bottom: 60px;
     overflow: hidden;
 }
 
@@ -453,6 +453,14 @@ const TECH_COURSES_CSS = `
     line-height: 100%;
     color: #FFFFFF;
 }
+.tech-project-card-student-name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
 .tech-project-card-tech {
     width: 100%;
     min-height: 120px;
@@ -461,6 +469,13 @@ const TECH_COURSES_CSS = `
     line-height: 140%;
     letter-spacing: 0;
     color: #FFFFFF;
+}
+.tech-project-card-tech-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    word-break: break-word;
 }
 .tech-project-card-cta {
     width: 133px;
@@ -695,7 +710,7 @@ const TECH_COURSES_CSS = `
     /* Gap between header and first card; header padding provides solid bg */
     .courses-section {
         margin-top: 0;
-        padding: 0 20px 100px 20px;
+        padding: 0 20px 40px 20px;
     }
     /* Group 23: extends to 6th card only; stops exactly after 6th card (no gradient in bottom padding) */
     .courses-mobile-bg {

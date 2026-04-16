@@ -173,7 +173,7 @@ export function TechYoutube() {
 
     return (
         <section
-            className="w-full relative overflow-visible bg-transparent flex flex-col items-center justify-center min-h-auto py-[60px] -mb-[100px] sm:mb-0 gap-[36px] sm:min-h-[828px] sm:py-[100px] sm:gap-[60px]"
+            className="w-full relative overflow-visible bg-transparent flex flex-col items-center justify-center min-h-auto pt-[36px] pb-[60px] -mb-[100px] sm:mb-0 gap-[36px] sm:min-h-[828px] sm:py-[100px] sm:gap-[60px]"
         >
             {/* Header */}
             <div className="z-10 flex flex-col items-center gap-4 text-center px-6">

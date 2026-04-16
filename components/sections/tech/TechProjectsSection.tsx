@@ -126,14 +126,14 @@ export function TechProjectsSection() {
                 </div>
 
                 {/* Content */}
-                <div className="w-full max-w-[1320px] mx-auto flex flex-col gap-[60px]">
+                <div className="w-full max-w-[1320px] mx-auto flex flex-col gap-[60px] max-md:gap-[24px]">
 
                     {/* Two Column Layout */}
                     <div className="w-full max-w-[1340px] flex justify-center items-stretch gap-[40px] max-lg:flex-col max-lg:items-center">
 
                         {/* Left Card: Project Show (Sliding Carousel) */}
                         <div
-                            className="tech-projects-card-gradient relative bg-[#D9D9D91A] rounded-[22px] shadow-[0px_2.18px_2.18px_0px_rgba(0,0,0,0.25)] backdrop-blur-[6.5px] flex flex-col w-full max-w-[650px] h-[428px] p-[20px] max-md:p-[16px] max-md:h-[396px] overflow-hidden"
+                            className="tech-projects-card-gradient relative bg-[#D9D9D91A] rounded-[22px] shadow-[0px_2.18px_2.18px_0px_rgba(0,0,0,0.25)] backdrop-blur-[6.5px] flex flex-col w-full max-w-[650px] h-[428px] p-[20px] max-md:p-[16px] max-md:h-[340px] max-sm:h-[328px] overflow-hidden"
                         >
 
                             {/* Inner Sliding Track wrapper */}
@@ -146,7 +146,7 @@ export function TechProjectsSection() {
                                         return (
                                             <div
                                                 key={i}
-                                                className="absolute inset-0 flex flex-col gap-[20px]"
+                                                className="absolute inset-0 flex flex-col gap-[20px] max-md:gap-[12px]"
                                                 style={{
                                                     transform: `translateX(${offset * 105}%) translateZ(0)`,
                                                     opacity: isVisible ? 1 : 0,
@@ -165,12 +165,39 @@ export function TechProjectsSection() {
                                                         className="object-cover rounded-[22px]"
                                                     />
                                                 </div>
-                                                <div className="w-full flex justify-between items-center max-md:justify-center">
-                                                    <p className="w-[330px] font-outfit font-light text-[18px] leading-none text-white m-0 max-md:w-full max-md:text-[16px] max-md:text-center max-md:px-[20px]">
+                                                <div className="w-full flex justify-between items-center gap-3">
+                                                    <p className="w-[330px] font-outfit font-light text-[18px] leading-none text-white m-0 max-md:w-auto max-md:flex-1 max-md:text-[16px] max-md:text-left max-md:px-0">
                                                         {proj.desc}
                                                     </p>
                                                     {/* Desktop spacer to keep text left aligned while arrows sit on the right */}
                                                     <div className="w-[103px] hidden md:block shrink-0"></div>
+                                                    {/* Mobile arrows — keep on right of text */}
+                                                    <div className="flex gap-[10px] items-center shrink-0 md:hidden">
+                                                        <button
+                                                            onClick={() => {
+                                                                if (!canPrev) return;
+                                                                prevProject();
+                                                            }}
+                                                            disabled={!canPrev}
+                                                            aria-disabled={!canPrev}
+                                                            className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] rotate-[-180deg] opacity-70 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
+                                                            aria-label="Previous project"
+                                                        >
+                                                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
+                                                        </button>
+                                                        <button
+                                                            onClick={() => {
+                                                                if (!canNext) return;
+                                                                nextProject();
+                                                            }}
+                                                            disabled={!canNext}
+                                                            aria-disabled={!canNext}
+                                                            className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] opacity-100 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
+                                                            aria-label="Next project"
+                                                        >
+                                                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         )
@@ -178,7 +205,7 @@ export function TechProjectsSection() {
                                 </div>
 
                                 {/* Fixed Navigation Arrows */}
-                                <div className="absolute bottom-0 right-0 flex gap-[10px] items-center z-20 max-md:left-[51%] max-md:right-auto max-md:-translate-x-1/2">
+                                <div className="absolute bottom-0 right-0 hidden md:flex gap-[10px] items-center z-20">
                                     <button
                                         onClick={() => {
                                             if (!canPrev) return;
@@ -239,10 +266,10 @@ export function TechProjectsSection() {
                             href="/tech-school/tech-projects"
                             className="group relative w-[188px] h-[44px] rounded-[8px] flex items-center justify-center overflow-hidden bg-white text-[#111111] transition-transform duration-200 ease-out hover:scale-[1.05]"
                         >
-                            <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[20px] leading-[1] text-center text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:text-[16px] max-md:leading-[16px]">
+                            <span className="pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[20px] leading-[1] text-center text-[#111111] transition-transform duration-300 ease-out will-change-transform transform-gpu group-hover:-translate-y-full max-md:text-[16px] max-md:leading-[16px]">
                                 Explore Projects
                             </span>
-                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[20px] leading-[1] text-center text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:text-[16px] max-md:leading-[16px]">
+                            <span className="pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[20px] leading-[1] text-center text-[#111111] translate-y-full transition-transform duration-300 ease-out will-change-transform transform-gpu group-hover:translate-y-0 max-md:text-[16px] max-md:leading-[16px]">
                                 Explore Projects
                             </span>
                         </Link>

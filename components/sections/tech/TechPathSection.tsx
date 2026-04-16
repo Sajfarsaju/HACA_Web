@@ -353,10 +353,10 @@ export function TechPathSection() {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 w-full max-w-[1440px] mx-auto py-[40px] px-[60px] flex flex-col gap-[60px] max-lg:px-[40px] max-md:py-[40px] max-md:px-[20px] max-md:gap-[30px] max-md:items-center max-sm:px-[16px]">
+            <div className="relative z-10 w-full max-w-[1440px] mx-auto py-[40px] px-[60px] flex flex-col gap-[60px] max-lg:px-[40px] max-md:py-[24px] max-md:px-[20px] max-md:gap-[30px] max-md:items-center max-sm:px-[16px]">
 
                 {/* Header */}
-                <div className="flex flex-col gap-[20px] items-center text-center w-full max-w-[1349px] mx-auto pt-[60px] max-md:pt-[40px] max-md:max-w-full">
+                <div className="flex flex-col gap-[20px] items-center text-center w-full max-w-[1349px] mx-auto pt-[60px] max-md:pt-[24px] max-md:max-w-full">
                     <h2 className="font-outfit font-normal text-[60px] leading-[1.03] tracking-[-0.02em] text-white max-w-[722px] m-0 max-md:text-[40px] max-md:leading-[1.1] max-md:px-[6px] max-[480px]:text-[34px] max-[420px]:text-[30px] max-[360px]:text-[26px]">
                         Choose Your Path.<br />
                         We&apos;ll Guide You Through It.
@@ -395,25 +395,31 @@ export function TechPathSection() {
                                 </div>
 
                                 <div className="relative z-10 flex flex-col flex-1 justify-between gap-[40px] p-[24px] max-md:p-[20px] max-md:gap-[16px] max-md:z-[2]">
-                                    {/* Top row: title + duration — wraps on tablet so duration has room */}
-                                    <div className="flex justify-between items-start gap-[12px] max-lg:flex-wrap max-lg:gap-3 max-md:gap-3">
+                                    {/* Top row: title (left) + duration (right); mobile stays one row — tablet can wrap */}
+                                    <div className="flex justify-between items-start gap-2 max-md:flex-nowrap md:flex-wrap lg:flex-nowrap md:gap-3">
                                         <h3
-                                            className="font-outfit font-medium text-[32px] leading-[1.2] tracking-[-0.2px] text-white m-0 max-lg:text-[26px] max-lg:min-w-0 max-lg:flex-1 max-lg:max-w-[calc(100%-120px)] max-md:text-[20px] max-md:flex-1 max-md:min-w-0 max-md:max-w-full"
-                                            style={{ maxWidth: "min(325px, 100%)" }}
+                                            className="font-outfit font-medium text-[32px] leading-[1.2] tracking-[-0.2px] text-white m-0 min-w-0 flex-1 max-lg:text-[26px] max-lg:max-w-[calc(100%-120px)] max-md:text-[20px] max-md:pr-1 max-md:flex-1 lg:max-w-[min(325px,100%)]"
                                         >
                                             {course.title}
                                         </h3>
-                                        <div className="flex flex-col items-end text-right shrink-0 min-w-0 w-full max-w-[50%] max-lg:w-full max-lg:max-w-full max-md:max-w-full">
-                                            <span className="font-outfit font-normal text-[14px] leading-tight text-[#E8FFEE] max-lg:text-[13px] max-md:text-[12px]">Duration</span>
-                                            <span className="font-outfit font-normal text-[20px] leading-tight text-[#E8FFEE] mt-[4px] max-lg:text-[16px] max-lg:leading-[1.3] max-md:text-[13px] max-md:leading-[1.35] break-words text-right">{course.duration}</span>
-                                            <span className="font-outfit font-normal text-[14px] leading-tight text-[#E8FFEE] mt-[4px] max-lg:text-[13px] max-md:text-[12px] text-right">{course.location}</span>
+                                        <div className="flex flex-col items-end text-right shrink-0 min-w-0 w-full max-w-[50%] max-md:w-auto max-md:max-w-[min(140px,42%)] max-md:shrink-0 max-lg:w-full max-lg:max-w-full gap-y-1 lg:gap-y-[6px] lg:justify-start">
+                                            {/* Desktop (lg+): three stacked lines — label → duration → location */}
+                                            <span className="block w-full font-outfit font-normal text-[14px] leading-tight text-[#E8FFEE] max-lg:text-[13px] max-md:text-[12px]">
+                                                Duration
+                                            </span>
+                                            <span className="block w-full font-outfit font-normal text-[20px] leading-[1.25] text-[#E8FFEE] max-lg:text-[16px] max-lg:leading-[1.3] max-md:text-[13px] max-md:leading-[1.35] break-words text-right">
+                                                {course.duration}
+                                            </span>
+                                            <span className="block w-full font-outfit font-normal text-[14px] leading-tight text-[#E8FFEE] max-lg:text-[13px] max-md:text-[12px] text-right">
+                                                {course.location}
+                                            </span>
                                         </div>
                                     </div>
 
                                     {/* Bottom: description + button */}
                                     <div className="flex flex-col gap-[30px] mt-auto max-md:gap-[20px] max-md:mt-0">
                                         <p className="font-outfit font-light text-[16px] leading-[1.3] text-white max-w-[85%] m-0 max-lg:text-[15px] max-md:text-[14px] max-md:leading-[1.35] max-md:max-w-full">{course.description}</p>
-                                        <div className="flex justify-start max-md:mt-0">
+                                        <div className="flex justify-start max-md:justify-end max-md:mt-0">
                                             <Link
                                                 href="/contact"
                                                 className="group relative flex h-[44px] w-[123px] items-center justify-center overflow-hidden rounded-[10px] bg-white px-[20px] text-black shadow-[0px_2px_5px_0px_#00000040] transition-transform duration-200 ease-out hover:scale-105 max-md:h-[40px] max-md:w-[119px] max-md:rounded-[8px] max-md:px-[18px]"
@@ -446,11 +452,11 @@ export function TechPathSection() {
                             href="/contact"
                             className="group relative w-[186px] h-[44px] rounded-[8px] flex items-center justify-center overflow-hidden bg-white text-[#111111] transition-transform duration-200 ease-out hover:scale-105 max-md:w-[186px] max-md:h-[44px]"
                         >
-                            <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full">
-                                Claim Free Course
+                            <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[20px] leading-[100%] text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:text-[16px] max-md:leading-[16px]">
+                                Explore Courses
                             </span>
-                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
-                                Claim Free Course
+                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[20px] leading-[100%] text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:text-[16px] max-md:leading-[16px]">
+                                Explore Courses
                             </span>
                         </Link>
                     </div>

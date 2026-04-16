@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { TechMenuOverlay } from "@/components/sections/tech/TechMenuOverlay";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    The design canvas is 1440 × 1044 px (Figma spec).
@@ -192,67 +193,12 @@ export default function TechHero() {
 
     return (
         <>
-            {/* Desktop/Tablet/Mobile nav drawer — high z-index, handles all screen sizes when open */}
-            {isDesktopMenuOpen && (
-                <div
-                    ref={desktopMenuRef}
-                    className="tech-nav-dropdown fixed inset-x-0 top-0 z-[9999] flex flex-col items-center"
-                    style={{ pointerEvents: "auto" }}
-                >
-                    {/* Backdrop for mobile closing */}
-                    <div
-                        className="absolute inset-0 bg-black/40 backdrop-blur-sm md:hidden"
-                        onClick={() => setIsDesktopMenuOpen(false)}
-                    />
-
-                    <div
-                        className="relative mx-auto w-full md:max-w-[1320px] rounded-b-[24px] border-x border-b border-white/10 py-10 px-6 flex-shrink-0"
-                        style={{
-                            background: "linear-gradient(180deg, rgba(17,17,17,0.98) 0%, rgba(20,20,35,0.95) 100%)",
-                            backdropFilter: "blur(24px)",
-                            WebkitBackdropFilter: "blur(24px)",
-                            boxShadow: "0 10px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)",
-                        }}
-                    >
-                        {/* Close Button (X) */}
-                        <button
-                            onClick={() => setIsDesktopMenuOpen(false)}
-                            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                            aria-label="Close menu"
-                        >
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                            </svg>
-                        </button>
-
-                        <nav className="flex flex-col gap-0.5 mt-8 items-center">
-                            {TECH_NAV_LINKS.map(({ href, label }) => (
-                                <Link
-                                    key={href}
-                                    href={href}
-                                    onClick={() => setIsDesktopMenuOpen(false)}
-                                    className="font-outfit font-normal text-[20px] leading-[1.35] text-white no-underline py-4 px-8 rounded-[12px] transition-all duration-[280ms] ease-in-out hover:bg-white/10 hover:shadow-[0_0_16px_rgba(255,255,255,0.06)]"
-                                    style={{ textShadow: "0 0 24px rgba(255,255,255,0.06)" }}
-                                >
-                                    {label}
-                                </Link>
-                            ))}
-                            <Link
-                                href="/contact"
-                                onClick={() => setIsDesktopMenuOpen(false)}
-                                className="group relative mt-4 flex w-[118px] h-[44px] rounded-[8px] px-[10px] py-[10px] bg-white text-[#1a1a1a] font-outfit font-semibold text-[14px] leading-none no-underline overflow-hidden"
-                            >
-                                <span className="absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] transition-transform duration-300 ease-out group-hover:-translate-y-full">
-                                    Let&apos;s Connect
-                                </span>
-                                <span className="pointer-events-none absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
-                                    Let&apos;s Connect
-                                </span>
-                            </Link>
-                        </nav>
-                    </div>
-                </div>
-            )}
+            <TechMenuOverlay
+                isOpen={isDesktopMenuOpen}
+                onClose={() => setIsDesktopMenuOpen(false)}
+                navLinks={TECH_NAV_LINKS}
+                containerRef={desktopMenuRef}
+            />
 
             {/* Gradient border mask + hero gradient animations */}
             <style>{`
@@ -442,7 +388,7 @@ export default function TechHero() {
                                 What&apos;s Next in Tech
                             </div>
 
-                            {/* Button — 129×44, gradient border + radial fill, slide animation */}
+                            {/* Button — 129×44 (md+ hero only), gradient border + radial fill, slide animation */}
                             <motion.div
                                 className="w-[129px] h-[44px] shrink-0 rounded-[12px] p-[1px] flex items-center justify-center"
                                 style={{
@@ -723,22 +669,35 @@ export default function TechHero() {
                                 </div>
                             </div>
 
-                            {/* CTA Button (107 × 40) — match original purple pill + slide animation */}
-                            <Link
-                                href="/contact"
-                                className="group relative w-[207px] h-[40px] rounded-[10px] flex items-center justify-center shrink-0 overflow-hidden"
+                            {/* CTA Button — 107×40, 10px radius, 0.87px gradient border, px 18 (py 12 fits 14px type in 40px frame) */}
+                            <motion.div
+                                className="w-[107px] h-[40px] shrink-0 rounded-[10px] p-[0.87px] flex items-center justify-center"
                                 style={{
-                                    background: "radial-gradient(circle at 20% 0%, #927DF7 0%, #694AFF 100%)",
+                                    background: "linear-gradient(110.55deg, #CDA4FF 12.15%, #8831F2 115.98%)",
                                     boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
                                 }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-white transition-transform duration-300 ease-out group-hover:-translate-y-full">
-                                    I&apos;m Ready
-                                </span>
-                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-white translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
-                                    I&apos;m Ready
-                                </span>
-                            </Link>
+                                <div
+                                    className="w-full h-full rounded-[9.13px] overflow-hidden flex items-center justify-center"
+                                    style={{
+                                        background: "radial-gradient(71.34% 136.68% at 50% 14.3%, #927DF7 0%, #694AFF 100%)",
+                                    }}
+                                >
+                                    <Link
+                                        href="/contact"
+                                        className="group relative flex h-full w-full items-center justify-center overflow-hidden px-[18px] py-[12px] box-border"
+                                    >
+                                        <span className="absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[14px] leading-[100%] text-center text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                            I&apos;m Ready
+                                        </span>
+                                        <span className="pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[14px] leading-[100%] text-center text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                            I&apos;m Ready
+                                        </span>
+                                    </Link>
+                                </div>
+                            </motion.div>
                         </motion.div>
 
                         {/* ── Bust image (230 × 271) ── */}

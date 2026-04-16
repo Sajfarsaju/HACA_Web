@@ -17,45 +17,101 @@ export function TechGlobalLearning() {
         <section
             className="flex flex-col items-center relative px-6 overflow-x-hidden overflow-y-hidden py-8 md:py-[80px] lg:py-[140px] gap-4 md:gap-8 lg:gap-[40px] min-h-[600px] md:min-h-[700px] lg:min-h-[1123.84px] w-full bg-transparent opacity-100"
         >
-            {/* ✅ Main Purple Radial Glow */}
+            {/* ✅ Base purple wash behind the map (matches reference) */}
             <div
-                className="absolute md:block hidden md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-[1600px] md:h-[1000px] left-1/2 -translate-x-1/2 top-[192px] w-[373.17px] h-[244px] z-0 pointer-events-none"
+                aria-hidden="true"
+                className="absolute inset-0 z-0 pointer-events-none"
                 style={{
-                    background: `
-                        radial-gradient(
-                            ellipse 55% 40% at 50% 50%,
-                            rgba(168, 85, 247, 0.90) 0%,
-                            rgba(147, 51, 234, 0.80) 25%,
-                            rgba(109, 40, 217, 0.60) 50%,
-                            rgba(67, 20, 140, 0.30) 75%,
-                            rgba(17, 17, 17, 0) 100%
-                        )
-                    `,
-                    filter: "blur(clamp(60px, 15vw, 220px)) saturate(1.25) contrast(1.08)",
-                    maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
-                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+                    background:
+                        "radial-gradient(62% 40% at 50% 62%, rgba(132,0,255,0.58) 0%, rgba(132,0,255,0.32) 34%, rgba(132,0,255,0.12) 54%, rgba(17,17,17,0) 72%)",
+                    filter: "blur(14px) saturate(1.1)",
+                    opacity: 1,
+                    maskImage: "linear-gradient(to bottom, black 0%, black 84%, rgba(0,0,0,0.55) 92%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 84%, rgba(0,0,0,0.55) 92%, transparent 100%)",
                 }}
             />
 
-            {/* ✅ Mobile Background (using 99.svg) */}
-            <div className="md:hidden absolute inset-0 w-full h-full pointer-events-none z-0 overflow-x-visible overflow-y-hidden">
+            {/* ✅ Desktop Background Gradient (design spec) */}
+            <div
+                className="absolute inset-0 hidden md:block z-0 pointer-events-none"
+                style={{
+                    opacity: 1,
+                    maskImage: "linear-gradient(to bottom, black 0%, black 82%, rgba(0,0,0,0.55) 92%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 82%, rgba(0,0,0,0.55) 92%, transparent 100%)",
+                }}
+            >
+                {/* Outer */}
                 <div
-                    className="relative left-1/2 -translate-x-1/2 w-[140vw] max-w-none h-[600px] top-[140px]"
                     style={{
-                        maskImage:
-                            "linear-gradient(to bottom, transparent 0%, black 15%, black 40%, transparent 90%), linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-                        WebkitMaskImage:
-                            "linear-gradient(to bottom, transparent 0%, black 15%, black 40%, transparent 90%), linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-                        filter: "saturate(1.25) contrast(1.08)",
+                        position: "absolute",
+                        width: "260px",
+                        height: "780px",
+                        top: "62%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%) rotate(85.49deg)",
+                        opacity: 1,
+                        background: "linear-gradient(322.3deg, #8400FF 7.42%, #8400FF 82.2%)",
+                        filter: "blur(240px) brightness(1.15) saturate(1.2)",
                     }}
-                >
-                    <Image
-                        src="/photos/Tech/99.svg"
-                        alt=""
-                        fill
-                        className="object-cover object-center w-full h-full"
-                    />
-                </div>
+                />
+
+                {/* Inner (bright center glow for desktop, like reference) */}
+                <div
+                    style={{
+                        position: "absolute",
+                        width: "420px",
+                        height: "96px",
+                        left: "50%",
+                        top: "62%",
+                        transform: "translate(-50%, -50%)",
+                        opacity: 1,
+                        background:
+                            "linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%), linear-gradient(0deg, rgba(255,255,255,0.22), rgba(255,255,255,0.22))",
+                        filter: "blur(190px) brightness(1.55) saturate(1.25)",
+                        mixBlendMode: "screen",
+                    }}
+                />
+            </div>
+
+            {/* ✅ Mobile Background Gradient (design spec) */}
+            <div
+                className="md:hidden absolute inset-0 w-full h-full pointer-events-none z-0"
+                style={{
+                    maskImage: "linear-gradient(to bottom, black 0%, black 82%, rgba(0,0,0,0.55) 92%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 82%, rgba(0,0,0,0.55) 92%, transparent 100%)",
+                }}
+            >
+                {/* Outer */}
+                <div
+                    style={{
+                        position: "absolute",
+                        width: "120px",
+                        height: "360px",
+                        top: "62%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%) rotate(85.49deg)",
+                        opacity: 1,
+                        background: "linear-gradient(322.3deg, #8400FF 7.42%, #8400FF 82.2%)",
+                        filter: "blur(110px) brightness(1.15) saturate(1.2)",
+                    }}
+                />
+
+                {/* Inner */}
+                <div
+                    style={{
+                        position: "absolute",
+                        width: "240px",
+                        height: "44px",
+                        left: "50%",
+                        top: "62%",
+                        transform: "translate(-50%, -50%)",
+                        opacity: 1,
+                        background:
+                            "linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%), linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2))",
+                        filter: "blur(150px) brightness(1.45) saturate(1.25)",
+                        mixBlendMode: "screen",
+                    }}
+                />
             </div>
 
             {/* Title & Subtitle Container (zIndex 10) */}

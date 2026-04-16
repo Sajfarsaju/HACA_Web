@@ -3,6 +3,7 @@
 import { TechNavbar } from "@/components/sections/tech/TechNavbar";
 import { motion } from "framer-motion";
 import { BANNER_VISIBLE_H, DESIGN_H, DESIGN_W } from "@/components/sections/tech-courses/constants";
+import { TECH_PROJECTS_HERO_DESC } from "./copy";
 
 interface TechProjectsHeroProps {
     scale: number;
@@ -62,7 +63,7 @@ export function TechProjectsHero({ scale }: TechProjectsHeroProps) {
                         className="w-[1275px] m-0 text-[24px] leading-none text-[#A7A7A7] font-normal"
                         style={{ fontFamily: "'Outfit', sans-serif" }}
                     >
-                        Every project you see below started as an idea in class and grew into something worth showing off.
+                        {TECH_PROJECTS_HERO_DESC}
                     </p>
                 </motion.div>
 

@@ -23,7 +23,13 @@ const CARD_GRAD = `linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
 // ── Card data ─────────────────────────────────────────────────────────────
 const CARDS = [
     {
-        title: "AI-Integrated Learning",
+        title: (
+            <>
+                AI-Integrated
+                <br />
+                Learning
+            </>
+        ),
         description: "Every course uses real AI tools to solve real problems. You don't just learn about AI; you use it.",
         icon: (
             <div className="relative w-full h-full">
@@ -32,7 +38,13 @@ const CARDS = [
         ),
     },
     {
-        title: "Project-First Approach",
+        title: (
+            <>
+                Project-First
+                <br />
+                Approach
+            </>
+        ),
         description: "50+ projects to build a strong portfolio from day one.",
         icon: (
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -42,7 +54,13 @@ const CARDS = [
         ),
     },
     {
-        title: "Cohort-Based Learning",
+        title: (
+            <>
+                Cohort-Based
+                <br />
+                Learning
+            </>
+        ),
         description: "Study in small groups of 6–12 with live discussions and mentor feedback.",
         icon: (
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -56,7 +74,13 @@ const CARDS = [
         ),
     },
     {
-        title: "Confidence & Career Growth",
+        title: (
+            <>
+                Confidence &amp;
+                <br />
+                Career Growth
+            </>
+        ),
         description: "We help you grow as a person, communicate effectively, and think like a techpreneur.",
         icon: (
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -67,7 +91,12 @@ const CARDS = [
         ),
     },
     {
-        title: "Industry Exposure & Guest Sessions",
+        title: (
+            <>
+                Industry Exposure
+                <br />&amp; Guest Sessions
+            </>
+        ),
         description: "Guest sessions, business talks, and real-world advice to help gain industry updates and insights.",
         icon: (
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -81,7 +110,13 @@ const CARDS = [
         ),
     },
     {
-        title: "Team Up Across Campuses",
+        title: (
+            <>
+                Team Up
+                <br />
+                Across Campuses
+            </>
+        ),
         description: "Work with students from other schools to build even better projects and get fresh perspectives.",
         icon: (
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -174,10 +209,11 @@ function FeatureCard({
                 </div>
                 <div className="flex flex-col gap-3">
                     <h3
-                        className="font-outfit font-semibold text-white m-0 tracking-[-0.01em]"
+                        className="font-outfit font-semibold text-white m-0 tracking-[-0.01em] line-clamp-2"
                         style={{
                             fontSize: Math.max(16, Math.min(20, Math.round(20 * (w / CARD_W_MAX)))),
                             lineHeight: 1.3,
+                            minHeight: "2.6em",
                         }}
                     >
                         {card.title}
@@ -202,7 +238,7 @@ export function TechWhyChoose() {
     const isTabletOrSmaller = useIsTabletOrSmaller();
 
     return (
-        <section className="relative z-10 w-full flex flex-col items-center min-h-[940px] pt-[clamp(60px,10vw,140px)] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
+        <section className="relative z-10 w-full flex flex-col items-center min-h-[940px] pt-[clamp(24px,4.5vw,72px)] max-md:pt-[40px] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
 
             {/* ── Mobile background: purple pill + orange blobs ── */}
             <div className="md:hidden absolute pointer-events-none z-0"
@@ -251,7 +287,7 @@ export function TechWhyChoose() {
 
             {/* ── Header ── */}
             <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-[1] relative">
-                <h2 className="font-outfit font-normal text-[clamp(32px,5vw,60px)] leading-[62px] tracking-[-0.02em] text-center capitalize max-w-[938px] m-0 text-white">
+                <h2 className="font-outfit font-normal text-[clamp(32px,6vw,60px)] leading-[1.1] tracking-[-0.02em] text-center capitalize max-w-[938px] m-0 text-white">
                     Why Choose Smarter Learning with<br className="hidden md:block" /> Us?
                 </h2>
                 <p className="font-outfit font-normal text-[clamp(16px,2vw,24px)] leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7] text-center max-w-[1128px] m-0">
