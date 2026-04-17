@@ -1,5 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
+import type { Variants } from "framer-motion";
+import { GradientBlobOrb } from "@/components/tech/GradientBlobOrb";
 
 const COURSES = [
     {
@@ -52,7 +57,25 @@ const COURSES = [
     }
 ];
 
+const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 64, scale: 0.92 },
+    visible: (idx: number) => ({
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            type: "spring" as const,
+            stiffness: 240,
+            damping: 22,
+            mass: 0.75,
+            delay: (idx % 2) * 0.12,
+        },
+    }),
+};
+
 export function TechPathSection() {
+    const reduceMotion = useReducedMotion();
+
     return (
         <section className="w-full relative overflow-visible flex flex-col items-center bg-transparent" id="tech-paths">
 
@@ -105,44 +128,6 @@ export function TechPathSection() {
                         transform: scale(1.06) !important;
                         transform-origin: center center !important;
                     }
-                }
-
-                /* ── Orange gradient random float animations ─────────────────── */
-                @keyframes orange-float-desk {
-                    0%   { transform: translateX(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                    12%  { transform: translateX(-50%) rotate(-164.21deg) translate(58px, -42px); }
-                    26%  { transform: translateX(-50%) rotate(-164.21deg) translate(-48px, 60px); }
-                    41%  { transform: translateX(-50%) rotate(-164.21deg) translate(72px, 28px); }
-                    57%  { transform: translateX(-50%) rotate(-164.21deg) translate(-38px, -55px); }
-                    71%  { transform: translateX(-50%) rotate(-164.21deg) translate(52px, 48px); }
-                    85%  { transform: translateX(-50%) rotate(-164.21deg) translate(-62px, -30px); }
-                    100% { transform: translateX(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                }
-                @keyframes orange-float-mob-1 {
-                    0%   { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                    18%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(35px, -28px); }
-                    38%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-32px, 38px); }
-                    58%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(42px, 20px); }
-                    78%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-26px, -40px); }
-                    100% { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                }
-                @keyframes orange-float-mob-2 {
-                    0%   { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                    22%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-40px, 32px); }
-                    44%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(38px, -36px); }
-                    66%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(-30px, 44px); }
-                    88%  { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(44px, -24px); }
-                    100% { transform: translateX(-50%) translateY(-50%) rotate(-164.21deg) translate(0px, 0px); }
-                }
-                .tech-path-orange-float-desk {
-                    animation: orange-float-desk 18s ease-in-out infinite;
-                }
-                .tech-path-orange-float-mob-1 {
-                    animation: orange-float-mob-1 14s ease-in-out infinite;
-                }
-                .tech-path-orange-float-mob-2 {
-                    animation: orange-float-mob-2 14s ease-in-out infinite;
-                    animation-delay: -5s;
                 }
 
                 /* Desktop 1440px+ and 4K: slightly shorter band with softer bottom fade (mirror of tablet feel) */
@@ -263,43 +248,153 @@ export function TechPathSection() {
                     WebkitMaskComposite: "source-in",
                 }}
             >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1312px] max-w-[calc(100vw+200px)] min-w-full h-full min-h-[2500px] opacity-100">
-                    <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover object-center" />
+                {/* Outer purple layer 1 — desktop large ellipse + mobile narrow pill + embedded orange (was Gradient2.1.svg) */}
+                <div className="absolute top-0 left-0 right-0 h-full min-h-[2500px] pointer-events-none">
+                    {/* Desktop purple ellipse */}
+                    <div
+                        className="max-md:hidden"
+                        style={{
+                            position: 'absolute',
+                            left: '50%',
+                            top: 316,
+                            width: 1300,
+                            height: 2249,
+                            transform: 'translateX(-50%)',
+                            borderRadius: '50%',
+                            background: 'rgba(132,0,255,0.7)',
+                            filter: 'blur(158.3px)',
+                            opacity: 0.87,
+                        }}
+                    />
+                    {/* Mobile purple — narrow tall pill */}
+                    <div
+                        className="md:hidden"
+                        style={{
+                            position: 'absolute',
+                            left: 17,
+                            top: 0,
+                            width: 342,
+                            height: 2505,
+                            borderRadius: 250,
+                            background: 'rgba(132,0,255,0.7)',
+                            filter: 'blur(88.73px)',
+                            opacity: 0.87,
+                        }}
+                    />
+                    {/* Embedded orange blob from Gradient2.1 — desktop only, cursor-interactive */}
+                    <GradientBlobOrb
+                        className="max-md:hidden"
+                        style={{ top: 700, left: '50%' }}
+                        width={715}
+                        height={936}
+                        rotation={-164.21}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={198.45}
+                        maxDrift={280}
+                        repelRadius={400}
+                        driftSpring={0.010}
+                        damping={0.82}
+                        minDriftMs={1200}
+                        maxDriftMs={3000}
+                    />
                 </div>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1300px] max-w-[calc(100vw+200px)] min-w-full h-full min-h-[2500px] opacity-[0.87]">
-                    <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" />
+                {/* Outer purple layer 2 — desktop only (was Ellipse 156.svg) */}
+                <div className="absolute top-0 left-0 right-0 h-full min-h-[2500px] pointer-events-none max-md:hidden">
+                    <div
+                        style={{
+                            position: 'absolute',
+                            left: '50%',
+                            top: 316,
+                            width: 1300,
+                            height: 2249,
+                            transform: 'translateX(-50%)',
+                            borderRadius: '50%',
+                            background: 'rgba(132,0,255,0.7)',
+                            filter: 'blur(158.3px)',
+                            opacity: 0.87,
+                        }}
+                    />
                 </div>
-                <div className="tech-path-orange-float-desk absolute top-[850px] left-1/2 w-[715px] max-w-[90vw] h-[935px] opacity-100 max-md:hidden">
-                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-cover object-center" />
+                {/* Desktop orange blob — cursor-interactive free drift */}
+                <div className="absolute top-[850px] left-1/2 max-md:hidden pointer-events-none">
+                    <GradientBlobOrb
+                        width={715}
+                        height={936}
+                        rotation={-164.21}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={198.45}
+                        maxDrift={320}
+                        repelRadius={420}
+                        driftSpring={0.010}
+                        damping={0.82}
+                        minDriftMs={1200}
+                        maxDriftMs={3000}
+                    />
                 </div>
-                {/* Mobile-only: orange gradient at center of card 1 */}
-                <div className="tech-path-orange-float-mob-1 hidden max-md:block absolute top-[430px] left-1/2 w-[90vw] h-[400px] opacity-90 pointer-events-none">
-                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
+                {/* Mobile orange blob 1 */}
+                <div className="hidden max-md:block absolute top-[281px] left-1/2 pointer-events-none">
+                    <GradientBlobOrb
+                        width={220}
+                        height={298}
+                        rotation={-159.39}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={111.23}
+                        opacity={0.9}
+                        maxDrift={160}
+                        repelRadius={200}
+                        driftSpring={0.012}
+                        damping={0.80}
+                        minDriftMs={1000}
+                        maxDriftMs={2500}
+                    />
                 </div>
-                {/* Mobile-only: orange gradient at center of card 5 */}
-                <div className="tech-path-orange-float-mob-2 hidden max-md:block absolute top-[1704px] left-1/2 w-[90vw] h-[400px] opacity-90 pointer-events-none">
-                    <Image src="/photos/Tech/Ellipse 4.svg" alt="" fill className="object-contain object-center" />
+                {/* Mobile orange blob 2 */}
+                <div className="hidden max-md:block absolute top-[1555px] left-1/2 pointer-events-none">
+                    <GradientBlobOrb
+                        width={220}
+                        height={298}
+                        rotation={-175.61}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={111.23}
+                        opacity={0.9}
+                        maxDrift={160}
+                        repelRadius={200}
+                        driftSpring={0.012}
+                        damping={0.80}
+                        minDriftMs={1000}
+                        maxDriftMs={2500}
+                    />
                 </div>
             </div>
 
             {/* Content */}
-            <div className="relative z-10 w-full max-w-[1440px] mx-auto py-[40px] px-[60px] flex flex-col gap-[60px] max-lg:px-[40px] max-md:py-[40px] max-md:px-[20px] max-md:gap-[30px] max-md:items-center max-sm:px-[16px]">
+            <div className="relative z-10 w-full max-w-[1440px] mx-auto py-[40px] px-[60px] flex flex-col gap-[60px] max-lg:px-[40px] max-md:py-[24px] max-md:px-[20px] max-md:gap-[30px] max-md:items-center max-sm:px-[16px]">
 
                 {/* Header */}
-                <div className="flex flex-col gap-[20px] items-center text-center w-full max-w-[1349px] mx-auto pt-[60px] max-md:pt-[40px] max-md:max-w-full">
-                    <h2 className="font-outfit font-normal text-[60px] leading-[1.03] tracking-[-0.02em] text-white max-w-[722px] m-0 max-md:text-[40px] max-md:leading-[1.1]">
-                        Choose Your Path.<br />We&apos;ll Guide You Through It.
+                <div className="flex flex-col gap-[20px] items-center text-center w-full max-w-[1349px] mx-auto pt-[60px] max-md:pt-[24px] max-md:max-w-full">
+                    <h2 className="font-outfit font-normal text-[60px] leading-[1.03] tracking-[-0.02em] text-white max-w-[722px] m-0 max-md:text-[40px] max-md:leading-[1.1] max-md:px-[6px] max-[480px]:text-[34px] max-[420px]:text-[30px] max-[360px]:text-[26px]">
+                        Choose Your Path.<br />
+                        We&apos;ll Guide You Through It.
                     </h2>
                     <p className="font-outfit font-normal text-[24px] leading-[1.4] tracking-[-0.2px] text-[#A7A7A7] max-w-[1203px] m-0 max-md:text-[16px] max-md:leading-[1.3]">
                         Each course is packed with real-world skills and AI integration to help you build smarter, faster, and better.
                     </p>
                 </div>
 
-                {/* Course Grid */}
+                {/* Course Grid — each card animates when it becomes visible */}
                 <div className="w-full max-w-[1320px] mx-auto">
                     <div className="grid grid-cols-2 gap-[60px] max-lg:gap-[40px] max-md:grid-cols-1 max-md:gap-[24px] max-md:max-w-[500px] max-md:mx-auto max-sm:max-w-full">
                         {COURSES.map((course, idx) => (
-                            <div key={idx} className="tech-path-card-border relative w-full min-h-[394px] rounded-[22px] flex flex-col cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-[5px] hover:brightness-[1.1] group max-lg:min-h-[360px] max-md:min-h-[313px] max-md:border-transparent max-md:bg-transparent max-md:backdrop-blur-[12px]">
+                            <motion.div
+                                key={idx}
+                                custom={idx}
+                                variants={reduceMotion ? undefined : cardVariants}
+                                initial={reduceMotion ? { opacity: 1 } : "hidden"}
+                                whileInView={reduceMotion ? { opacity: 1 } : "visible"}
+                                viewport={{ once: true, amount: 0.12, margin: "0px 0px 25% 0px" }}
+                                style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
+                                className="tech-path-card-border relative w-full min-h-[394px] rounded-[22px] flex flex-col cursor-pointer transition-[transform,filter,box-shadow] duration-300 ease-out hover:-translate-y-2 hover:brightness-110 hover:shadow-[0_0_36px_rgba(132,0,255,0.25)] group max-lg:min-h-[360px] max-md:min-h-[313px] max-md:border-transparent max-md:bg-transparent max-md:backdrop-blur-[12px]"
+                            >
                                 {/* Clip layer: bg sits inside border; on ≤1024px clip-path insets so SVG stroke never touches edge */}
                                 <div className="tech-path-card-inner absolute inset-0 overflow-hidden rounded-[22px] z-0">
                                     <Image
@@ -311,25 +406,31 @@ export function TechPathSection() {
                                 </div>
 
                                 <div className="relative z-10 flex flex-col flex-1 justify-between gap-[40px] p-[24px] max-md:p-[20px] max-md:gap-[16px] max-md:z-[2]">
-                                    {/* Top row: title + duration — wraps on tablet so duration has room */}
-                                    <div className="flex justify-between items-start gap-[12px] max-lg:flex-wrap max-lg:gap-3 max-md:gap-3">
+                                    {/* Top row: title (left) + duration (right); mobile stays one row — tablet can wrap */}
+                                    <div className="flex justify-between items-start gap-2 max-md:flex-nowrap md:flex-wrap lg:flex-nowrap md:gap-3">
                                         <h3
-                                            className="font-outfit font-medium text-[32px] leading-[1.2] tracking-[-0.2px] text-white m-0 max-lg:text-[26px] max-lg:min-w-0 max-lg:flex-1 max-lg:max-w-[calc(100%-120px)] max-md:text-[20px] max-md:flex-1 max-md:min-w-0 max-md:max-w-full"
-                                            style={{ maxWidth: "min(325px, 100%)" }}
+                                            className="font-outfit font-medium text-[32px] leading-[1.2] tracking-[-0.2px] text-white m-0 min-w-0 flex-1 max-lg:text-[26px] max-lg:max-w-[calc(100%-120px)] max-md:text-[20px] max-md:pr-1 max-md:flex-1 lg:max-w-[min(325px,100%)]"
                                         >
                                             {course.title}
                                         </h3>
-                                        <div className="flex flex-col items-end text-right shrink-0 min-w-0 w-full max-w-[50%] max-lg:w-full max-lg:max-w-full max-md:max-w-full">
-                                            <span className="font-outfit font-normal text-[14px] leading-tight text-[#E8FFEE] max-lg:text-[13px] max-md:text-[12px]">Duration</span>
-                                            <span className="font-outfit font-normal text-[20px] leading-tight text-[#E8FFEE] mt-[4px] max-lg:text-[16px] max-lg:leading-[1.3] max-md:text-[13px] max-md:leading-[1.35] break-words text-right">{course.duration}</span>
-                                            <span className="font-outfit font-normal text-[14px] leading-tight text-[#E8FFEE] mt-[4px] max-lg:text-[13px] max-md:text-[12px] text-right">{course.location}</span>
+                                        <div className="flex flex-col items-end text-right shrink-0 min-w-0 w-full max-w-[50%] max-md:w-auto max-md:max-w-[min(140px,42%)] max-md:shrink-0 max-lg:w-full max-lg:max-w-full gap-y-1 lg:gap-y-[6px] lg:justify-start">
+                                            {/* Desktop (lg+): three stacked lines — label → duration → location */}
+                                            <span className="block w-full font-outfit font-normal text-[14px] leading-tight text-[#E8FFEE] max-lg:text-[13px] max-md:text-[12px]">
+                                                Duration
+                                            </span>
+                                            <span className="block w-full font-outfit font-normal text-[20px] leading-[1.25] text-[#E8FFEE] max-lg:text-[16px] max-lg:leading-[1.3] max-md:text-[13px] max-md:leading-[1.35] break-words text-right">
+                                                {course.duration}
+                                            </span>
+                                            <span className="block w-full font-outfit font-normal text-[14px] leading-tight text-[#E8FFEE] max-lg:text-[13px] max-md:text-[12px] text-right">
+                                                {course.location}
+                                            </span>
                                         </div>
                                     </div>
 
                                     {/* Bottom: description + button */}
                                     <div className="flex flex-col gap-[30px] mt-auto max-md:gap-[20px] max-md:mt-0">
                                         <p className="font-outfit font-light text-[16px] leading-[1.3] text-white max-w-[85%] m-0 max-lg:text-[15px] max-md:text-[14px] max-md:leading-[1.35] max-md:max-w-full">{course.description}</p>
-                                        <div className="flex justify-start max-md:mt-0">
+                                        <div className="flex justify-start max-md:justify-end max-md:mt-0">
                                             <Link
                                                 href="/contact"
                                                 className="group relative flex h-[44px] w-[123px] items-center justify-center overflow-hidden rounded-[10px] bg-white px-[20px] text-black shadow-[0px_2px_5px_0px_#00000040] transition-transform duration-200 ease-out hover:scale-105 max-md:h-[40px] max-md:w-[119px] max-md:rounded-[8px] max-md:px-[18px]"
@@ -344,7 +445,7 @@ export function TechPathSection() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
@@ -362,11 +463,11 @@ export function TechPathSection() {
                             href="/contact"
                             className="group relative w-[186px] h-[44px] rounded-[8px] flex items-center justify-center overflow-hidden bg-white text-[#111111] transition-transform duration-200 ease-out hover:scale-105 max-md:w-[186px] max-md:h-[44px]"
                         >
-                            <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full">
-                                Claim Free Course
+                            <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[20px] leading-[100%] text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:text-[16px] max-md:leading-[16px]">
+                                Explore Courses
                             </span>
-                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
-                                Claim Free Course
+                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[20px] leading-[100%] text-[#111111] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:text-[16px] max-md:leading-[16px]">
+                                Explore Courses
                             </span>
                         </Link>
                     </div>

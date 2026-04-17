@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { TECH_PROJECTS_HERO_DESC } from "./copy";
 
 type ProjectCategory = "all" | "web-application" | "automation";
 type SortOrder = "latest" | "oldest";
@@ -37,7 +38,7 @@ export function TechProjectsHeaderSection({
             <section className="tech-courses-header-section tech-courses-header-mobile-only">
                 <h1 className="tech-courses-hero-heading">Student Projects</h1>
                 <p className="tech-courses-hero-desc">
-                    Every project you see below started as an idea in class and grew into something worth showing off.
+                    {TECH_PROJECTS_HERO_DESC}
                 </p>
             </section>
 

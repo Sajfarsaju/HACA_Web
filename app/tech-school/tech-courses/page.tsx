@@ -11,7 +11,10 @@ import {
     TechCoursesStyles,
 } from "@/components/sections/tech-courses";
 import { DESIGN_W, MOBILE_DESIGN_W } from "@/components/sections/tech-courses/constants";
+import { TechDotsBackground } from "@/components/tech/TechDotsBackground";
+import { TechPageGradientBg } from "@/components/tech/TechPageGradientBg";
 import { TechFooter } from "@/components/layout/TechFooter";
+import { TechWhatsAppFloatingButton } from "@/components/layout/TechWhatsAppFloatingButton";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 
 export default function CoursesPage() {
@@ -51,6 +54,13 @@ export default function CoursesPage() {
                 overflowX: "hidden",
             }}
         >
+            <TechWhatsAppFloatingButton />
+            {/* Purple + orange gradient — same as TechPathSection */}
+            <TechPageGradientBg />
+            {/* Cursor-interactive dot grid — same as TechSchool home */}
+            <div className="absolute top-0 left-0 w-full h-full z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
+                <TechDotsBackground />
+            </div>
             <TechCoursesGlobalBg />
             <TechCoursesHero scale={scales.desktop} />
             <TechCoursesMobileHero scale={scales.mobile} />

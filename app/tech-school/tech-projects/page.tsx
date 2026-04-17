@@ -2,10 +2,15 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { TechCoursesGlobalBg, TechCoursesStyles } from "@/components/sections/tech-courses";
 import { TechProjectsHero, TechProjectsMobileHero, TechProjectsHeaderSection } from "@/components/sections/tech-projects";
 import { DESIGN_W, MOBILE_DESIGN_W } from "@/components/sections/tech-courses/constants";
+import { TechDotsBackground } from "@/components/tech/TechDotsBackground";
+import { TechPageGradientBg } from "@/components/tech/TechPageGradientBg";
 import { TechFooter } from "@/components/layout/TechFooter";
+import { TechWhatsAppFloatingButton } from "@/components/layout/TechWhatsAppFloatingButton";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 
 type ProjectCategory = "all" | "web-application" | "automation";
@@ -50,7 +55,16 @@ const BASE_PROJECT_CARDS: ProjectCardConfig[] = [
     },
 ];
 
+const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 64, scale: 0.92 },
+    visible: (idx: number) => ({
+        opacity: 1, y: 0, scale: 1,
+        transition: { type: "spring" as const, stiffness: 240, damping: 22, mass: 0.75, delay: (idx % 3) * 0.12 },
+    }),
+};
+
 export default function TechProjectsPage() {
+    const reduceMotion = useReducedMotion();
     const [mounted, setMounted] = useState(false);
     const [scales, setScales] = useState({ desktop: 1, mobile: 1 });
     const [viewportWidth, setViewportWidth] = useState<number | null>(null);
@@ -114,6 +128,13 @@ export default function TechProjectsPage() {
                 overflowX: "hidden",
             }}
         >
+            <TechWhatsAppFloatingButton />
+            {/* Purple + orange gradient — same as TechPathSection */}
+            <TechPageGradientBg />
+            {/* Cursor-interactive dot grid — same as TechSchool home */}
+            <div className="absolute top-0 left-0 w-full h-full z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
+                <TechDotsBackground />
+            </div>
             <TechCoursesGlobalBg />
             <TechProjectsHero scale={scales.desktop} />
             <TechProjectsMobileHero scale={scales.mobile} />
@@ -128,57 +149,25 @@ export default function TechProjectsPage() {
                 />
             </SectionReveal>
 
-            {/* Mobile only: DOTsBG (1).svg background — starts from description, faded at top, up to end of 6th card */}
-            <div className="tech-projects-mobile-dots-bg" aria-hidden="true">
-                <Image
-                    src="/photos/Tech/DOTsBG (1).svg"
-                    alt=""
-                    fill
-                    style={{ objectFit: "cover", objectPosition: "center top" }}
-                />
-            </div>
-
-            {/* Mobile only: Group 23 (1).svg — starts from toolbar ("All" section), ends at last card bottom */}
-            <div className="tech-projects-mobile-group23-bg" aria-hidden="true">
-                <Image
-                    src="/photos/Tech/Group 23 (1).svg"
-                    alt=""
-                    fill
-                    style={{ objectFit: "cover", objectPosition: "center top" }}
-                />
-            </div>
-
             {/* Projects cards grid: same layout/styling as Tech Courses section */}
-            <SectionReveal>
-                <section className="tech-projects-cards-section w-full flex flex-col items-center justify-center relative overflow-hidden mt-[60px] pb-[200px] px-[60px] box-border">
-                    {/* Desktop only: main background image, starts 20px above first card */}
-                    <div className="tech-projects-cards-bg" aria-hidden="true">
-                        <Image
-                            src="/photos/Tech/Image (5).svg"
-                            alt=""
-                            fill
-                            style={{ objectFit: "cover", objectPosition: "center top" }}
-                        />
-                    </div>
-                    {/* Desktop only: purple gradient (Gradient2 (2).svg) — starts ~10px below description, smooth top/bottom/sides */}
-                    <div className="tech-projects-cards-gradient2" aria-hidden="true">
-                        <Image
-                            src="/photos/Tech/Gradient2 (2).svg"
-                            alt=""
-                            fill
-                            style={{ objectFit: "cover", objectPosition: "center top" }}
-                        />
-                    </div>
+                <section className="tech-projects-cards-section w-full flex flex-col items-center justify-center relative overflow-hidden box-border">
                     <div className="tech-projects-cards-inner w-full max-w-[1320px] flex flex-col gap-10">
                         {filteredCards.length === 0 ? (
                             <div className="w-full text-center text-[#A7A7A7] font-outfit text-[16px] py-10">
                                 No projects found. Try a different search or filter.
                             </div>
                         ) : isTabletOrBelow ? (
-                            <div className="tech-projects-grid-row w-full max-w-[1320px] flex flex-wrap justify-between items-stretch gap-6">
+                            <div key={`${category}-${searchQuery}-${sortOrder}-mobile`} className="tech-projects-grid-row w-full max-w-[1320px] flex flex-wrap justify-between items-stretch gap-6">
                                 {filteredCards.slice(0, 6).map((card, index) => (
-                                    <article
+                                    <motion.article
                                         key={index}
+                                        custom={index}
+                                        variants={reduceMotion ? undefined : cardVariants}
+                                        initial="hidden"
+                                        {...(index < 2
+                                            ? { animate: "visible" }
+                                            : { whileInView: "visible", viewport: { once: true, amount: 0, margin: "0px 0px 120px 0px" } }
+                                        )}
                                         className="tech-project-card w-full flex flex-col gap-5 rounded-[22px] p-5 md:p-6 bg-[#D9D9D91A] border border-transparent shadow-[0px_4px_4px_0px_#00000040] backdrop-blur-[12px] box-border"
                                     >
                                         {/* Top: title + image */}
@@ -202,14 +191,14 @@ export default function TechProjectsPage() {
                                             <div className="tech-project-card-student w-full min-h-10 font-['Outfit',sans-serif] text-base leading-none text-white">
                                                 <span className="font-semibold">{card.studentLabel}</span>
                                                 <br />
-                                                <span className="font-light">{card.studentName}</span>
+                                                <span className="font-light tech-project-card-student-name">{card.studentName}</span>
                                             </div>
 
                                             {/* Technologies */}
                                             <div className="tech-project-card-tech w-full min-h-[120px] font-['Outfit',sans-serif] text-base leading-[1.4] text-white">
                                                 <span className="font-semibold">Technologies</span>
                                                 <br />
-                                                <span className="font-light">{card.technologies}</span>
+                                                <span className="font-light tech-project-card-tech-desc">{card.technologies}</span>
                                             </div>
 
                                             {/* CTA button */}
@@ -222,14 +211,19 @@ export default function TechProjectsPage() {
                                                 />
                                             </div>
                                         </div>
-                                    </article>
+                                    </motion.article>
                                 ))}
                             </div>
                         ) : (
-                            <div className="w-full max-w-[1320px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div key={`${category}-${searchQuery}-${sortOrder}-desktop`} className="w-full max-w-[1320px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {filteredCards.map((card, index) => (
-                                    <article
+                                    <motion.article
                                         key={index}
+                                        custom={index}
+                                        variants={reduceMotion ? undefined : cardVariants}
+                                        initial="hidden"
+                                        whileInView="visible"
+                                        viewport={{ once: true, amount: 0.15 }}
                                         className="tech-project-card flex flex-col gap-5 rounded-[22px] p-5 md:p-6 bg-[#D9D9D91A] border border-transparent shadow-[0px_4px_4px_0px_#00000040] backdrop-blur-[12px] box-border"
                                     >
                                         {/* Top: title + image */}
@@ -253,14 +247,14 @@ export default function TechProjectsPage() {
                                             <div className="tech-project-card-student w-full min-h-10 font-['Outfit',sans-serif] text-base leading-none text-white">
                                                 <span className="font-semibold">{card.studentLabel}</span>
                                                 <br />
-                                                <span className="font-light">{card.studentName}</span>
+                                                <span className="font-light tech-project-card-student-name">{card.studentName}</span>
                                             </div>
 
                                             {/* Technologies */}
                                             <div className="tech-project-card-tech w-full min-h-[120px] font-['Outfit',sans-serif] text-base leading-[1.4] text-white">
                                                 <span className="font-semibold">Technologies</span>
                                                 <br />
-                                                <span className="font-light">{card.technologies}</span>
+                                                <span className="font-light tech-project-card-tech-desc">{card.technologies}</span>
                                             </div>
 
                                             {/* CTA button */}
@@ -273,13 +267,12 @@ export default function TechProjectsPage() {
                                                 />
                                             </div>
                                         </div>
-                                    </article>
+                                    </motion.article>
                                 ))}
                             </div>
                         )}
                     </div>
                 </section>
-            </SectionReveal>
 
             <TechCoursesStyles />
 

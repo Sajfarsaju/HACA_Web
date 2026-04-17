@@ -1,6 +1,9 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect, useCallback } from "react";
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
+import type { Variants } from "framer-motion";
+import { GradientBlobOrb } from "@/components/tech/GradientBlobOrb";
 
 // ── Responsive breakpoints ──────────────────────────────────────────────────
 function useIsTabletOrSmaller() {
@@ -21,7 +24,13 @@ const CARD_GRAD = `linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
 // ── Card data ─────────────────────────────────────────────────────────────
 const CARDS = [
     {
-        title: "AI-Integrated Learning",
+        title: (
+            <>
+                AI-Integrated
+                <br />
+                Learning
+            </>
+        ),
         description: "Every course uses real AI tools to solve real problems. You don't just learn about AI; you use it.",
         icon: (
             <div className="relative w-full h-full">
@@ -30,7 +39,13 @@ const CARDS = [
         ),
     },
     {
-        title: "Project-First Approach",
+        title: (
+            <>
+                Project-First
+                <br />
+                Approach
+            </>
+        ),
         description: "50+ projects to build a strong portfolio from day one.",
         icon: (
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -40,7 +55,13 @@ const CARDS = [
         ),
     },
     {
-        title: "Cohort-Based Learning",
+        title: (
+            <>
+                Cohort-Based
+                <br />
+                Learning
+            </>
+        ),
         description: "Study in small groups of 6–12 with live discussions and mentor feedback.",
         icon: (
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -54,7 +75,13 @@ const CARDS = [
         ),
     },
     {
-        title: "Confidence & Career Growth",
+        title: (
+            <>
+                Confidence &amp;
+                <br />
+                Career Growth
+            </>
+        ),
         description: "We help you grow as a person, communicate effectively, and think like a techpreneur.",
         icon: (
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -65,7 +92,12 @@ const CARDS = [
         ),
     },
     {
-        title: "Industry Exposure & Guest Sessions",
+        title: (
+            <>
+                Industry Exposure
+                <br />&amp; Guest Sessions
+            </>
+        ),
         description: "Guest sessions, business talks, and real-world advice to help gain industry updates and insights.",
         icon: (
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -79,7 +111,13 @@ const CARDS = [
         ),
     },
     {
-        title: "Team Up Across Campuses",
+        title: (
+            <>
+                Team Up
+                <br />
+                Across Campuses
+            </>
+        ),
         description: "Work with students from other schools to build even better projects and get fresh perspectives.",
         icon: (
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -93,28 +131,89 @@ const CARDS = [
     },
 ];
 
+// ── Scroll-triggered entrance variants ───────────────────────────────────────
+const headerVariants: Variants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+        opacity: 1, y: 0,
+        transition: { type: "spring" as const, stiffness: 200, damping: 24, mass: 0.8 },
+    },
+};
+
+const descVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1, y: 0,
+        transition: { type: "spring" as const, stiffness: 200, damping: 24, mass: 0.8, delay: 0.12 },
+    },
+};
+
+const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 64, scale: 0.92 },
+    visible: (idx: number) => ({
+        opacity: 1, y: 0, scale: 1,
+        transition: { type: "spring" as const, stiffness: 240, damping: 22, mass: 0.75, delay: idx * 0.1 },
+    }),
+};
+
+const carouselVariants: Variants = {
+    hidden: { opacity: 0, y: 48 },
+    visible: {
+        opacity: 1, y: 0,
+        transition: { type: "spring" as const, stiffness: 200, damping: 26, mass: 0.85, delay: 0.1 },
+    },
+};
+
 const TOTAL = CARDS.length;
-// Card width + gap
-const CARD_W = 400;
-const GAP = 20;
-const STEP = CARD_W + GAP; // 420px
+const CARD_W_MAX = 400;
+const CARD_H_RATIO = 312 / 400;
+/** Gap scales slightly with viewport; keeps three cards + 2 gaps inside usable width */
+function carouselGap(usableWidth: number) {
+    return Math.max(12, Math.min(20, Math.round(usableWidth * 0.018)));
+}
+/** Fits 3 cards + 2 gaps in usable width without clipping side cards; capped at design max */
+function carouselCardWidth(usableWidth: number) {
+    const gap = carouselGap(usableWidth);
+    const raw = (usableWidth - 2 * gap) / 3;
+    return Math.max(220, Math.min(CARD_W_MAX, Math.floor(raw)));
+}
+
+/** Three full copies: seamless loop (reset when crossing middle → end of 2nd copy) */
+const TRIPLE: (typeof CARDS)[number][] = [...CARDS, ...CARDS, ...CARDS];
 
 // ── Single card shell ────────────────────────────────────────────────────
 function FeatureCard({
     card,
     isCenter,
     className = "",
+    /** Set in carousel so width tracks viewport; omit for stacked / tablet layout */
+    widthPx,
 }: {
     card: (typeof CARDS)[0];
     isCenter: boolean;
     className?: string;
+    widthPx?: number;
 }) {
+    const w = widthPx ?? CARD_W_MAX;
+    const h = Math.round(w * CARD_H_RATIO);
+    const padX = Math.round(42 * (w / CARD_W_MAX));
+    const padY = Math.round(40 * (w / CARD_W_MAX));
+    const radius = Math.max(16, Math.round(22 * (w / CARD_W_MAX)));
+    const isFluid = widthPx != null;
+
     return (
-        <div className={`relative w-[400px] max-w-full h-[312px] min-h-[312px] rounded-[22px] shrink-0 transition-all duration-500 ease-in-out ${className}`}>
+        <div
+            className={`relative max-w-full rounded-[22px] shrink-0 transition-all duration-500 ease-in-out ${isFluid ? "" : "w-[400px] h-[312px] min-h-[312px]"} ${className}`}
+            style={
+                isFluid
+                    ? { width: w, height: h, minHeight: h, borderRadius: radius }
+                    : undefined
+            }
+        >
             {/* Gradient border ring */}
             <div
                 style={{
-                    position: "absolute", inset: 0, borderRadius: 22,
+                    position: "absolute", inset: 0, borderRadius: radius,
                     padding: "1px", background: CARD_GRAD,
                     WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
                     WebkitMaskComposite: "xor", maskComposite: "exclude",
@@ -125,17 +224,41 @@ function FeatureCard({
             />
             {/* Card content */}
             <div
-                className="absolute inset-0 rounded-[22px] backdrop-blur-[24px] pt-10 pb-10 pl-[42px] pr-[42px] flex flex-col gap-5 z-[1] transition-all duration-500 ease-in-out border border-white/10"
+                className="absolute inset-0 backdrop-blur-[24px] flex flex-col z-[1] transition-all duration-500 ease-in-out border border-white/10"
                 style={{
+                    borderRadius: radius,
+                    padding: `${padY}px ${padX}px`,
+                    gap: Math.max(12, Math.round(20 * (w / CARD_W_MAX))),
                     background: isCenter ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.08)",
                 }}
             >
-                <div className="w-12 h-12 shrink-0">{card.icon}</div>
+                <div
+                    className="relative shrink-0"
+                    style={{
+                        width: Math.round(48 * (w / CARD_W_MAX)),
+                        height: Math.round(48 * (w / CARD_W_MAX)),
+                    }}
+                >
+                    {card.icon}
+                </div>
                 <div className="flex flex-col gap-3">
-                    <h3 className="font-outfit font-semibold text-[20px] leading-[26px] tracking-[-0.01em] text-white m-0">
+                    <h3
+                        className="font-outfit font-semibold text-white m-0 tracking-[-0.01em] line-clamp-2"
+                        style={{
+                            fontSize: Math.max(16, Math.min(20, Math.round(20 * (w / CARD_W_MAX)))),
+                            lineHeight: 1.3,
+                            minHeight: "2.6em",
+                        }}
+                    >
                         {card.title}
                     </h3>
-                    <p className="font-outfit font-normal text-[14px] leading-[21px] tracking-[-0.1px] text-white m-0">
+                    <p
+                        className="font-outfit font-normal text-white m-0 tracking-[-0.1px]"
+                        style={{
+                            fontSize: Math.max(12, Math.min(14, Math.round(14 * (w / CARD_W_MAX)))),
+                            lineHeight: 1.5,
+                        }}
+                    >
                         {card.description}
                     </p>
                 </div>
@@ -146,33 +269,78 @@ function FeatureCard({
 
 // ── Main Section ─────────────────────────────────────────────────────────
 export function TechWhyChoose() {
-    const [active, setActive] = useState(0);
     const isTabletOrSmaller = useIsTabletOrSmaller();
-
-    const advance = useCallback(() => setActive(p => (p + 1) % TOTAL), []);
-
-    useEffect(() => {
-        if (!isTabletOrSmaller) {
-            const t = setInterval(advance, 3500);
-            return () => clearInterval(t);
-        }
-    }, [advance, isTabletOrSmaller]);
-
-    const prevIdx = (active - 1 + TOTAL) % TOTAL;
-    const nextIdx = (active + 1) % TOTAL;
+    const reduceMotion = useReducedMotion();
 
     return (
-        <section className="relative z-10 w-full flex flex-col items-center min-h-[940px] pt-[clamp(60px,10vw,140px)] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
+        <section className="relative z-10 w-full flex flex-col items-center min-h-[940px] pt-[clamp(24px,4.5vw,72px)] max-md:pt-[40px] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
+
+            {/* ── Mobile background: purple pill + orange blobs ── */}
+            <div className="md:hidden absolute pointer-events-none z-0"
+                style={{
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: "-280px", /* extend past section bottom into next section */
+                    maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 2%, black 5%, black 88%, rgba(0,0,0,0.4) 95%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 2%, black 5%, black 88%, rgba(0,0,0,0.4) 95%, transparent 100%)",
+                    overflow: "hidden",
+                }}
+            >
+                {/* Purple narrow pill */}
+                <div style={{
+                    position: "absolute",
+                    left: 17,
+                    top: 0,
+                    width: 342,
+                    height: "100%",
+                    minHeight: 3000,
+                    borderRadius: 250,
+                    background: "rgba(132,0,255,0.8)",
+                    filter: "blur(88.73px)",
+                    opacity: 1,
+                }} />
+                {/* Orange blob — upper card area */}
+                <div style={{ position: "absolute", top: 300, left: "50%" }}>
+                    <GradientBlobOrb
+                        width={260} height={340} rotation={-159.39}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={111.23} opacity={1} maxDrift={45} repelRadius={200}
+                        whiteOverlay={0.2}
+                    />
+                </div>
+                {/* Orange blob — lower card area */}
+                <div style={{ position: "absolute", top: 1600, left: "50%" }}>
+                    <GradientBlobOrb
+                        width={260} height={340} rotation={-175.61}
+                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                        blurPx={111.23} opacity={1} maxDrift={45} repelRadius={200}
+                        whiteOverlay={0.2}
+                    />
+                </div>
+            </div>
 
             {/* ── Header ── */}
             <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-[1] relative">
-                <h2 className="font-outfit font-normal text-[clamp(32px,5vw,60px)] leading-[62px] tracking-[-0.02em] text-center capitalize max-w-[938px] m-0 text-white">
+                <motion.h2
+                    className="font-outfit font-normal text-[clamp(32px,6vw,60px)] leading-[1.1] tracking-[-0.02em] text-center capitalize max-w-[938px] m-0 text-white"
+                    variants={reduceMotion ? undefined : headerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                >
                     Why Choose Smarter Learning with<br className="hidden md:block" /> Us?
-                </h2>
-                <p className="font-outfit font-normal text-[clamp(16px,2vw,24px)] leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7] text-center max-w-[1128px] m-0">
+                </motion.h2>
+                <motion.p
+                    className="font-outfit font-normal text-[clamp(16px,2vw,24px)] leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7] text-center max-w-[1128px] m-0"
+                    variants={reduceMotion ? undefined : descVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                >
                     Tech School by Haris&amp;Co Academy is a beginner-friendly, industry-aligned tech learning program
                     designed to help students and professionals build strong foundations in software, design, and digital skills.
-                </p>
+                </motion.p>
             </div>
 
             {/* ── Cards: tablet & smaller = single column; desktop = 3-card carousel ── */}
@@ -180,61 +348,154 @@ export function TechWhyChoose() {
                 /* Tablet and smaller: all cards in a single column, one per row */
                 <div className="w-full max-w-[420px] md:max-w-[400px] flex flex-col items-center gap-6 relative z-[1]">
                     {CARDS.map((card, idx) => (
-                        <FeatureCard
+                        <motion.div
                             key={idx}
-                            card={card}
-                            isCenter={true}
-                            className="w-full max-w-full"
-                        />
+                            custom={idx}
+                            variants={reduceMotion ? undefined : cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.15 }}
+                            className="w-full"
+                        >
+                            <FeatureCard
+                                card={card}
+                                isCenter={true}
+                                className="w-full max-w-full"
+                            />
+                        </motion.div>
                     ))}
                 </div>
             ) : (
-                /* Desktop (lg+): 3-card stagger carousel */
-                <div className="relative z-10 w-full max-w-[1320px] h-[448px] overflow-visible">
-                    <TrackCarousel active={active} prevIdx={prevIdx} nextIdx={nextIdx} />
-                </div>
+                /* Desktop (lg+): 3-card stagger carousel — horizontal padding avoids clipping on narrow desktop */
+                <motion.div
+                    className="relative z-10 w-full max-w-[1320px] overflow-visible px-[clamp(8px,2.5vw,28px)]"
+                    variants={reduceMotion ? undefined : carouselVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
+                    <TrackCarousel />
+                </motion.div>
             )}
 
         </section>
     );
 }
 
-// ── Track component handles the sliding animation ─────────────────────────
-function TrackCarousel({
-    active,
-    prevIdx,
-    nextIdx,
-}: {
-    active: number;
-    prevIdx: number;
-    nextIdx: number;
-}) {
-    // We always show exactly 3 cards in the fixed stagger layout.
-    // Left slot (index 0) → prevIdx card  → translateY(136px)
-    // Center slot (index 1) → active card → translateY(0)
-    // Right slot (index 2) → nextIdx card → translateY(136px)
-    // The WHOLE row slides left on each tick to give the illusion of scrolling.
+/*
+ * ── Carousel & card animation (desktop TrackCarousel) ────────────────────────
+ *
+ * CAROUSEL (horizontal): The track is three copies of the same card list (TRIPLE).
+ * slideIndex moves forward only (TOTAL → 2×TOTAL). Each tick, x animates with a
+ * spring (TRACK_SPRING) so the strip slides—new center card enters from the right
+ * (LTR). At the end of the middle copy (slideIndex === 2×TOTAL), the same frame
+ * as the first card repeats; we reset slideIndex to TOTAL with duration 0 so the
+ * loop is seamless (no big rewind across the deck). Autoplay every 3500 ms.
+ *
+ * CARD CHANGE (vertical stagger): Each slot is a motion.div whose y is 0 for the
+ * centered card and ySide for neighbours (scaled from 136px by card width).
+ * STAGGER_SPRING handles that vertical motion when the center index changes.
+ *
+ * Responsive: card width and gap come from the measured viewport so side cards
+ * are not clipped on smaller desktop widths.
+ *
+ * Pointer / cursor animation (elsewhere): the tech-school page uses
+ * components/tech/TechDotsBackground.tsx — a canvas dot grid that reacts to
+ * mouse/touch position (repulsion + spring), not the carousel above.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
 
-    // The WHOLE row slides left on each tick to give the illusion of scrolling.
+const TRACK_SPRING = {
+    type: "spring" as const,
+    stiffness: 118,
+    damping: 26,
+    mass: 0.95,
+};
 
-    // Reset large offsets without visible jump (happens when wrapping)
-    // Removed unused resetOffset
+const STAGGER_SPRING = {
+    type: "spring" as const,
+    stiffness: 260,
+    damping: 32,
+    mass: 0.88,
+};
+
+// ── Sliding track: triple strip + instant reset at duplicate → seamless cycle (always forward) ──
+function TrackCarousel() {
+    const viewportRef = useRef<HTMLDivElement>(null);
+    const [usableW, setUsableW] = useState(1200);
+    /** Centered slot in TRIPLE: second copy [TOTAL .. 2*TOTAL], then reset to TOTAL (invisible) */
+    const [slideIndex, setSlideIndex] = useState(TOTAL);
+    const [instantTransition, setInstantTransition] = useState(false);
+    const slideIndexRef = useRef(slideIndex);
+    slideIndexRef.current = slideIndex;
+
+    useLayoutEffect(() => {
+        const el = viewportRef.current;
+        if (!el) return;
+        const measure = () => setUsableW(el.clientWidth);
+        measure();
+        const ro = new ResizeObserver(measure);
+        ro.observe(el);
+        return () => ro.disconnect();
+    }, []);
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            setSlideIndex((s) => {
+                if (s >= 2 * TOTAL) return s;
+                return s + 1;
+            });
+        }, 3500);
+        return () => clearInterval(id);
+    }, []);
+
+    const onTrackAnimationComplete = useCallback(() => {
+        if (slideIndexRef.current !== 2 * TOTAL) return;
+        setInstantTransition(true);
+        setSlideIndex(TOTAL);
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => setInstantTransition(false));
+        });
+    }, []);
+
+    const gap = carouselGap(usableW);
+    const cardW = carouselCardWidth(usableW);
+    const step = cardW + gap;
+    const ySide = Math.round(136 * (cardW / CARD_W_MAX));
+    const rowH = Math.round(cardW * CARD_H_RATIO) + ySide;
+    const base = usableW / 2 - cardW / 2;
+    /** Forward step: strip moves left so the next card enters from the right (natural LTR carousel) */
+    const trackX = base - slideIndex * step;
+
     return (
-        <div className="absolute top-0 left-0 w-full flex flex-row items-start justify-center h-[448px]" style={{ gap: GAP }}>
-            {/* LEFT */}
-            <div className="opacity-100 shrink-0 transition-all duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] translate-y-[136px]">
-                <FeatureCard card={CARDS[prevIdx]} isCenter={true} />
-            </div>
-
-            {/* CENTER (elevated) */}
-            <div className="opacity-100 shrink-0 transition-all duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] translate-y-0">
-                <FeatureCard card={CARDS[active]} isCenter={true} />
-            </div>
-
-            {/* RIGHT */}
-            <div className="opacity-100 shrink-0 transition-all duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] translate-y-[136px]">
-                <FeatureCard card={CARDS[nextIdx]} isCenter={true} />
-            </div>
+        <div
+            ref={viewportRef}
+            className="relative w-full overflow-x-hidden overflow-y-visible"
+            style={{ height: rowH }}
+            aria-roledescription="carousel"
+        >
+            <motion.div
+                className="flex flex-row items-start justify-start will-change-transform"
+                style={{ gap }}
+                initial={false}
+                animate={{ x: trackX }}
+                transition={instantTransition ? { duration: 0 } : TRACK_SPRING}
+                onAnimationComplete={onTrackAnimationComplete}
+            >
+                {TRIPLE.map((card, i) => {
+                    const isCenter = i === slideIndex;
+                    return (
+                        <motion.div
+                            key={i}
+                            className="shrink-0"
+                            animate={{ y: isCenter ? 0 : ySide }}
+                            transition={STAGGER_SPRING}
+                        >
+                            <FeatureCard card={card} isCenter={true} widthPx={cardW} />
+                        </motion.div>
+                    );
+                })}
+            </motion.div>
         </div>
     );
 }

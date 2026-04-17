@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { MOBILE_DESIGN_H } from "@/components/sections/tech-courses/constants";
+import { TechMenuOverlay } from "@/components/sections/tech/TechMenuOverlay";
 
 interface TechProjectsMobileHeroProps {
     scale: number;
@@ -53,69 +54,15 @@ export function TechProjectsMobileHero({ scale }: TechProjectsMobileHeroProps) {
 
     return (
         <>
-            {isMenuOpen && (
-                <div
-                    ref={menuRef}
-                    className="tech-nav-dropdown fixed inset-x-0 top-0 z-[9999] flex flex-col items-center"
-                    style={{ pointerEvents: "auto" }}
-                >
-                    {/* Backdrop for mobile closing */}
-                    <div
-                        className="absolute inset-0 bg-black/40 backdrop-blur-sm md:hidden"
-                        onClick={() => setIsMenuOpen(false)}
-                    />
-
-                    <div
-                        className="relative mx-auto w-full md:max-w-[1320px] rounded-b-[24px] border-x border-b border-white/10 py-10 px-6 flex-shrink-0"
-                        style={{
-                            background: "linear-gradient(180deg, rgba(17,17,17,0.98) 0%, rgba(20,20,35,0.95) 100%)",
-                            backdropFilter: "blur(24px)",
-                            WebkitBackdropFilter: "blur(24px)",
-                            boxShadow: "0 10px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)",
-                        }}
-                    >
-                        {/* Close Button (X) */}
-                        <button
-                            onClick={() => setIsMenuOpen(false)}
-                            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                            aria-label="Close menu"
-                        >
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                            </svg>
-                        </button>
-
-                        <nav className="flex flex-col gap-0.5 mt-8 items-center">
-                            {TECH_MOBILE_NAV_LINKS.map(({ href, label }) => (
-                                <Link
-                                    key={href}
-                                    href={href}
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="font-outfit font-normal text-[20px] leading-[1.35] text-white no-underline py-4 px-8 rounded-[12px] transition-all duration-[280ms] ease-in-out hover:bg-white/10 hover:shadow-[0_0_16px_rgba(255,255,255,0.06)]"
-                                    style={{ textShadow: "0 0 24px rgba(255,255,255,0.06)" }}
-                                >
-                                    {label}
-                                </Link>
-                            ))}
-                            <Link
-                                href="/contact"
-                                onClick={() => setIsMenuOpen(false)}
-                                className="group relative mt-4 flex w-[118px] h-[44px] rounded-[8px] px-[10px] py-[10px] bg-white text-[#1a1a1a] font-outfit font-semibold text-[14px] leading-none no-underline overflow-hidden"
-                            >
-                                <span className="absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] transition-transform duration-300 ease-out group-hover:-translate-y-full">
-                                    Let&apos;s Connect
-                                </span>
-                                <span className="pointer-events-none absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
-                                    Let&apos;s Connect
-                                </span>
-                            </Link>
-                        </nav>
-                    </div>
-                </div>
-            )}
+            <TechMenuOverlay
+                isOpen={isMenuOpen}
+                onClose={() => setIsMenuOpen(false)}
+                navLinks={TECH_MOBILE_NAV_LINKS}
+                containerRef={menuRef}
+            />
 
             <div
-                className="tech-mobile-hero-wrapper relative z-20 w-full overflow-hidden block md:hidden bg-[#111111]"
+                className="tech-mobile-hero-wrapper relative z-20 w-full overflow-x-hidden block md:hidden bg-[#111111]"
                 style={{
                     height: `${MOBILE_DESIGN_H * scale}px`,
                 }}
@@ -151,16 +98,22 @@ export function TechProjectsMobileHero({ scale }: TechProjectsMobileHeroProps) {
                                 style={{ objectFit: "contain" }}
                             />
                         </div>
-                        {/* Navbar gradient: same as tech home mobile (HeroTopGradientMobile.svg) */}
-                        <div className="absolute top-0 left-0 w-[375px] h-[160px] pointer-events-none z-0" aria-hidden="true">
-                            <Image
-                                src="/photos/Tech/HeroTopGradientMobile.svg"
-                                alt=""
-                                width={375}
-                                height={160}
-                                className="w-full h-full object-cover object-top"
-                                priority
-                            />
+                        {/* ── Mobile Top Gradient (CSS — animated) ── */}
+                        <div aria-hidden="true" className="absolute z-0 pointer-events-none"
+                            style={{ width: '420px', height: '128px', top: 0, left: 0 }}>
+                            <div className="hero-grad-outer-m" style={{
+                                position: 'absolute', width: '460px', height: '120px',
+                                top: '-14px', left: '-70px', borderRadius: '50%',
+                                background: 'linear-gradient(261.66deg, rgba(255,86,0,1) 17.08%, rgba(105,74,255,1) 72.9%)',
+                                filter: 'blur(30px) saturate(1.28) contrast(1.03)',
+                            }} />
+                            <div className="hero-grad-inner-m" style={{
+                                position: 'absolute', width: '290px', height: '58px',
+                                top: '16px', left: '10px', borderRadius: '50%',
+                                background: '#FFFFFF',
+                                filter: 'blur(38px) saturate(1.08)',
+                                opacity: 0.76,
+                            }} />
                         </div>
                     </div>
 

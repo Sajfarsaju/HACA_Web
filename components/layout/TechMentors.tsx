@@ -35,11 +35,20 @@ const MENTORS = [
     },
 ] as const;
 
+/** Start on second mentor when possible so a left peek exists. */
+const INITIAL_MENTOR_INDEX = Math.min(1, MENTORS.length - 1);
+
 /* ── Responsive card sizing (same approach as TechYoutube / Placements) ── */
 function getCardSizes(width: number) {
-    if (width < 480) {
+    if (width < 360) {
+        // Very small mobile: single card only
         const centerW = width - 48;
         return { centerW, centerH: centerW * 1.25, sideW: 0, sideH: 0, gap: 0, showSide: false };
+    } else if (width < 480) {
+        // Mobile: slightly reduced sizes so side peeks are visible
+        const centerW = Math.min(260, width - 80);
+        const sideW = Math.max(140, Math.floor(centerW * 0.62));
+        return { centerW, centerH: centerW * 1.25, sideW, sideH: sideW * 1.24, gap: 14, showSide: true };
     } else if (width < 768) {
         const centerW = Math.min(260, width - 80);
         return { centerW, centerH: centerW * 1.25, sideW: 160, sideH: 160 * 1.24, gap: 16, showSide: true };
@@ -53,17 +62,14 @@ function getCardSizes(width: number) {
     }
 }
 
-/* ── Circular offset utility ── */
-function getOffset(index: number, active: number, total: number) {
-    let diff = index - active;
-    if (diff > total / 2) diff -= total;
-    if (diff < -total / 2) diff += total;
-    return diff;
+/** Linear offset for finite carousel (no circular wrap). */
+function getOffset(index: number, active: number) {
+    return index - active;
 }
 
 // ── Main TechMentors Component ──────────────────────────────────────────
 export function TechMentors() {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(INITIAL_MENTOR_INDEX);
     const [windowWidth, setWindowWidth] = useState(() =>
         typeof window !== "undefined" ? window.innerWidth : 1280
     );
@@ -79,24 +85,37 @@ export function TechMentors() {
 
     const total = MENTORS.length;
 
-    // Auto-scroll every 3 seconds; resets when activeIndex changes (including manual clicks)
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setActiveIndex((i) => (i + 1) % total);
-        }, 3000);
-        return () => clearInterval(timer);
-    }, [activeIndex, total]);
+    const canPrev = activeIndex > 0;
+    const canNext = activeIndex < total - 1;
 
-    const prev = () => setActiveIndex((i) => (i - 1 + total) % total);
-    const next = () => setActiveIndex((i) => (i + 1) % total);
+    const prev = () => setActiveIndex((i) => Math.max(0, i - 1));
+    const next = () => setActiveIndex((i) => Math.min(total - 1, i + 1));
 
     const { centerW, centerH, sideW, sideH, gap, showSide } = getCardSizes(windowWidth);
+    const isMobileView = windowWidth < 768;
 
     return (
         <section className="w-full flex flex-col items-center relative overflow-hidden h-auto min-h-[828px] bg-transparent pt-0 lg:pt-[10px] xl:pt-[60px] pb-[80px] -mb-[120px] sm:mb-0 px-[clamp(16px,4vw,60px)] gap-[60px]">
 
             {/* Local mask — tablet gradient */}
             <style>{`
+                /* Mobile background gradient style (match TechPlacementsSection) */
+                .tech-mentors-mobile-glow {
+                    background: radial-gradient(
+                        ellipse 55% 55% at 50% 58%,
+                        rgba(132, 0, 255, 0.32) 0%,
+                        rgba(132, 0, 255, 0.14) 25%,
+                        rgba(132, 0, 255, 0.05) 50%,
+                        rgba(132, 0, 255, 0.01) 70%,
+                        transparent 85%
+                    );
+                }
+                .tech-mentors-mobile-bg {
+                    overflow: visible;
+                    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+                    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+                }
+
                 .tech-mentors-gradient {
                     mask-image: radial-gradient(
                         ellipse 82% 78% at 50% 50%,
@@ -139,11 +158,36 @@ export function TechMentors() {
                         -webkit-mask-composite: source-in;
                     }
                 }
+
+                @keyframes mentorInfoReveal {
+                    from {
+                        transform: translateY(110%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateY(0%);
+                        opacity: 1;
+                    }
+                }
             `}</style>
+
+            {/* Mobile background gradient (match placements) */}
+            <div className="absolute inset-0 z-0 pointer-events-none md:hidden overflow-x-visible overflow-y-hidden">
+                <div className="absolute inset-0 tech-mentors-mobile-glow" aria-hidden />
+                <div className="tech-mentors-mobile-bg absolute top-[30px] left-1/2 -translate-x-1/2 w-[140vw] max-w-none h-[520px] pointer-events-none">
+                    <Image
+                        src="/photos/Tech/Group 46.svg"
+                        fill
+                        alt=""
+                        className="object-contain object-center"
+                        aria-hidden
+                    />
+                </div>
+            </div>
 
             {/* Mentor gradient background */}
             <div
-                className="tech-mentors-gradient absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[36%] md:top-[40%] w-[120%] min-h-[900px] md:min-h-[820px] min-[1920px]:max-w-[1400px] min-[1920px]:w-[85%] min-[1920px]:min-h-[750px] z-0 pointer-events-none"
+                className="tech-mentors-gradient hidden md:block absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-[40%] w-[120%] min-h-[820px] min-[1920px]:max-w-[1400px] min-[1920px]:w-[85%] min-[1920px]:min-h-[750px] z-0 pointer-events-none"
                 style={{ aspectRatio: "1440 / 1203" }}
             >
                 <Image
@@ -174,7 +218,7 @@ export function TechMentors() {
                     style={{ height: `${centerH + 40}px` }}
                 >
                     {MENTORS.map((mentor, i) => {
-                        const offset = getOffset(i, activeIndex, total);
+                        const offset = getOffset(i, activeIndex);
                         const isCenter = offset === 0;
                         const isVisible = showSide ? Math.abs(offset) <= 1 : isCenter;
 
@@ -197,8 +241,8 @@ export function TechMentors() {
                             <div
                                 key={i}
                                 onClick={() => {
-                                    if (isLeft) prev();
-                                    if (isRight) next();
+                                    if (isLeft && canPrev) prev();
+                                    if (isRight && canNext) next();
                                 }}
                                 className={`absolute overflow-hidden rounded-[24px] ${isCenter ? "cursor-default z-[2]" : "cursor-pointer z-[1]"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
                                 style={{
@@ -235,52 +279,72 @@ export function TechMentors() {
                                 <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(70,20,200,0.25)_100%)] z-[1]" />
 
                                 {/* Name box */}
-                                <div
-                                    className="absolute bottom-0 left-0 right-0 flex flex-col justify-center border-t border-[rgba(140,100,255,0.2)] backdrop-blur-[28px] z-[2]"
-                                    style={{
-                                        height: "109px",
-                                        gap: "8px",
-                                        padding: "20px 24px",
-                                        borderBottomLeftRadius: "19.58px",
-                                        borderBottomRightRadius: "19.58px",
-                                        background: "linear-gradient(135deg, rgba(180,120,255,0.18) 0%, rgba(132,80,255,0.12) 50%, rgba(100,50,200,0.08) 100%)",
-                                    }}
-                                >
-                                    <div className="flex flex-col gap-[8px] w-full">
-                                        <h4 className={`font-outfit font-normal leading-none text-[#FFFFFF] m-0 text-center ${isCenter ? "text-[26px]" : "text-[22px]"}`}>
-                                            {mentor.name}
-                                        </h4>
-                                        <p className={`font-outfit font-normal leading-none text-[#FFFFFF] m-0 text-center ${isCenter ? "text-[18px]" : "text-[16px]"}`}>
-                                            {mentor.role}
-                                        </p>
+                                {(!isMobileView || isCenter) && (
+                                    <div
+                                        key={isMobileView ? activeIndex : undefined}
+                                        className="absolute bottom-0 left-0 right-0 flex flex-col justify-center border-t border-[rgba(140,100,255,0.2)] backdrop-blur-[28px] z-[2]"
+                                        style={{
+                                            height: windowWidth < 480 ? (isCenter ? "76px" : "64px") : "109px",
+                                            gap: windowWidth < 480 ? (isCenter ? "6px" : "4px") : "8px",
+                                            padding: windowWidth < 480 ? (isCenter ? "12px 16px" : "10px 12px") : "20px 24px",
+                                            borderBottomLeftRadius: "19.58px",
+                                            borderBottomRightRadius: "19.58px",
+                                            background:
+                                                "linear-gradient(135deg, rgba(180,120,255,0.18) 0%, rgba(132,80,255,0.12) 50%, rgba(100,50,200,0.08) 100%)",
+                                            animation: isMobileView ? "mentorInfoReveal 420ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both" : undefined,
+                                            willChange: isMobileView ? "transform, opacity" : undefined,
+                                        }}
+                                    >
+                                        <div className="flex flex-col gap-[8px] w-full">
+                                            <h4
+                                                className={`font-outfit font-normal leading-none text-[#FFFFFF] m-0 text-center ${
+                                                    isCenter ? "text-[26px]" : "text-[22px]"
+                                                } ${windowWidth < 480 ? (isCenter ? "text-[18px]" : "text-[16px]") : ""}`}
+                                            >
+                                                {mentor.name}
+                                            </h4>
+                                            <p
+                                                className={`font-outfit font-normal leading-none text-[#FFFFFF] m-0 text-center ${
+                                                    isCenter ? "text-[18px]" : "text-[16px]"
+                                                } ${windowWidth < 480 ? (isCenter ? "text-[13px]" : "text-[12px]") : ""}`}
+                                            >
+                                                {mentor.role}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         );
                     })}
                 </div>
 
-                {/* Navigation Arrows */}
-                <div className="flex gap-[16px] -mt-[50px] sm:mt-[12px]">
+                {/* Navigation — match TechProjectsSection arrow style */}
+                <div className="flex gap-[10px] -mt-[50px] sm:mt-[12px]">
                     <button
                         type="button"
                         aria-label="Previous mentor"
-                        onClick={prev}
-                        className="w-[48px] h-[48px] rounded-full border border-white/20 flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out bg-[#111111]/40 hover:bg-white/10 p-0"
+                        onClick={() => {
+                            if (!canPrev) return;
+                            prev();
+                        }}
+                        disabled={!canPrev}
+                        aria-disabled={!canPrev}
+                        className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] rotate-[-180deg] opacity-70 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                     >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
+                        <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
                     </button>
                     <button
                         type="button"
                         aria-label="Next mentor"
-                        onClick={next}
-                        className="w-[48px] h-[48px] rounded-full border border-white/20 flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out bg-[#111111]/40 hover:bg-white/10 p-0"
+                        onClick={() => {
+                            if (!canNext) return;
+                            next();
+                        }}
+                        disabled={!canNext}
+                        aria-disabled={!canNext}
+                        className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] opacity-100 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                     >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: "rotate(180deg)" }}>
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
+                        <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
                     </button>
                 </div>
             </div>

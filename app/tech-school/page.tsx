@@ -17,11 +17,13 @@ import { TechFaq } from "@/components/layout/TechFaq";
 import { TechGlobalLearning } from "@/components/layout/TechGlobalLearning";
 import { TechQuote } from "@/components/layout/TechQuote";
 import { TechFooter } from "@/components/layout/TechFooter";
+import { TechWhatsAppFloatingButton } from "@/components/layout/TechWhatsAppFloatingButton";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 
 export default function TechSchoolPage() {
     return (
         <div className="w-full min-h-[1391px] bg-[#111111] overflow-x-hidden relative" role="main">
+            <TechWhatsAppFloatingButton />
 
             {/* ── Page content ── */}
             <div className="relative z-[2]">
@@ -30,7 +32,7 @@ export default function TechSchoolPage() {
                 {/* ── All sections: TechIntro → TechQuote with single Image.svg background ── */}
                 <div className="relative w-full bg-[#111111]">
 
-                    {/* Background layer: animated dot grid with cursor repulsion */}
+                    {/* Dot grid follows pointer (mouse/touch); see TechDotsBackground.tsx for physics + tuning */}
                     <div className="absolute top-0 left-0 w-full h-full z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
                         <TechDotsBackground />
                     </div>
@@ -89,81 +91,6 @@ export default function TechSchoolPage() {
                                 </div>
                                 <div style={{ position: "absolute", inset: 0, opacity: 0.45 }}>
                                     <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" aria-hidden />
-                                </div>
-                            </div>
-
-                            {/* Mobile: Gradient Layer (Rectangle 15 + Ellipses) */}
-                            <div
-                                className="md:hidden absolute left-1/2 -translate-x-1/2 z-0 pointer-events-none"
-                                style={{
-                                    top: "0",
-                                    width: "304px",
-                                    height: "2800px",
-                                    borderRadius: "250px",
-                                    opacity: 0.87,
-                                    backdropFilter: "blur(88.726px)",
-                                    WebkitBackdropFilter: "blur(88.726px)",
-                                    // Two-way mask for smooth spread on all sides
-                                    maskImage: `
-                                        linear-gradient(to bottom, transparent, black 10%, black 90%, transparent),
-                                        linear-gradient(to right, transparent, black 5%, black 95%, transparent)
-                                    `,
-                                    WebkitMaskImage: `
-                                        linear-gradient(to bottom, transparent, black 10%, black 90%, transparent),
-                                        linear-gradient(to right, transparent, black 5%, black 95%, transparent)
-                                    `,
-                                    maskComposite: "intersect",
-                                    WebkitMaskComposite: "source-in",
-                                }}
-                                aria-hidden="true"
-                            >
-                                {/* Base Rectangle 15 - Added extra blur for smoother horizontal spread */}
-                                <Image 
-                                    src="/photos/Tech/Rectangle 15.svg" 
-                                    alt="" 
-                                    fill 
-                                    className="object-cover rounded-[250px]"
-                                    style={{ filter: "blur(10px)" }} 
-                                />
-
-                                {/* Ellipse 4 (1) - Positioned for WhyChoose first card */}
-                                <div
-                                    className="absolute"
-                                    style={{
-                                        width: "237.52px",
-                                        height: "277.25px",
-                                        top: "16%", // Adjusted for better central alignment in first card
-                                        left: "75%",
-                                        transform: "translateX(-50%) rotate(-162.46deg)",
-                                        opacity: 1,
-                                        filter: "blur(20px) brightness(1.5)",
-                                        backdropFilter: "blur(111.23px)",
-                                        WebkitBackdropFilter: "blur(111.23px)",
-                                        maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
-                                        WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)"
-                                    }}
-                                >
-                                    <Image src="/photos/Tech/Ellipse 4 (1).svg" alt="" fill className="object-cover" />
-                                </div>
-
-                                {/* Ellipse 5 - Positioned for WhyChoose last card */}
-                                <div
-                                    className="absolute"
-                                    style={{
-                                        width: "237.52px",
-                                        height: "277.25px",
-                                        top: "75.5%", // Adjusted for central alignment with the 6th card
-                                        left: "75%",
-                                        transform: "translateX(-50%) rotate(-162.46deg)",
-                                        opacity: 1,
-                                        filter: "blur(20px)",
-                                        backdropFilter: "blur(111.23px)",
-                                        WebkitBackdropFilter: "blur(111.23px)",
-                                        maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
-                                        WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)"
-                                    }}
-                                >
-                                    <Image src="/photos/Tech/Ellipse 5.svg" alt="" fill className="object-cover" />
                                 </div>
                             </div>
 

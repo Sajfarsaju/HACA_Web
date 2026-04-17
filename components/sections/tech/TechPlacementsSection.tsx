@@ -21,10 +21,15 @@ const PLACEMENTS = [
 
 /* ── Responsive card sizing (same approach as TechYoutube) ── */
 function getCardSizes(width: number) {
-    if (width < 480) {
-        // Mobile: single card only, nearly full-width
+    if (width < 360) {
+        // Very small mobile: single card only, nearly full-width
         const centerW = width - 48;
         return { centerW, centerH: centerW * 1.4, sideW: 0, sideH: 0, gap: 0, showSide: false };
+    } else if (width < 480) {
+        // Mobile: center card + side peeks (so left/right cards are visible)
+        const centerW = Math.min(260, width - 80);
+        const sideW = Math.max(140, Math.floor(centerW * 0.62));
+        return { centerW, centerH: centerW * 1.4, sideW, sideH: sideW * 1.14, gap: 14, showSide: true };
     } else if (width < 768) {
         // Large mobile: center card + side peek
         const centerW = Math.min(260, width - 80);
@@ -52,7 +57,7 @@ function getOffset(index: number, active: number, total: number) {
 
 export function TechPlacementsSection() {
     return (
-        <section className="w-full relative overflow-hidden" id="tech-placements">
+        <section className="w-full relative overflow-visible" id="tech-placements">
             {/* Local style for gradient border masks */}
             <style>{`
                 .tech-placements-glass-side::before {
@@ -92,19 +97,52 @@ export function TechPlacementsSection() {
                         transparent 85%
                     );
                 }
+                /* Mentor-style gradient mask — same as TechMentors */
+                .tech-placements-mentor-gradient {
+                    mask-image: radial-gradient(
+                        ellipse 82% 78% at 50% 50%,
+                        black 0%, black 18%,
+                        rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 46%,
+                        rgba(0,0,0,0.32) 60%, rgba(0,0,0,0.14) 74%,
+                        rgba(0,0,0,0.05) 86%, transparent 94%
+                    );
+                    -webkit-mask-image: radial-gradient(
+                        ellipse 82% 78% at 50% 50%,
+                        black 0%, black 18%,
+                        rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 46%,
+                        rgba(0,0,0,0.32) 60%, rgba(0,0,0,0.14) 74%,
+                        rgba(0,0,0,0.05) 86%, transparent 94%
+                    );
+                }
+                @media (min-width: 1024px) {
+                    .tech-placements-mentor-gradient {
+                        mask-image:
+                            linear-gradient(to bottom, transparent 0%, transparent 22%, rgba(0,0,0,0.08) 28%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0.55) 42%, rgba(0,0,0,0.82) 48%, black 55%),
+                            linear-gradient(to top, transparent 0%, rgba(0,0,0,0.06) 20%, rgba(0,0,0,0.24) 36%, rgba(0,0,0,0.52) 52%, black 64%),
+                            radial-gradient(ellipse 82% 78% at 50% 50%, black 0%, black 18%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 46%, rgba(0,0,0,0.32) 60%, rgba(0,0,0,0.16) 74%, rgba(0,0,0,0.04) 86%, transparent 96%);
+                        -webkit-mask-image:
+                            linear-gradient(to bottom, transparent 0%, transparent 22%, rgba(0,0,0,0.08) 28%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0.55) 42%, rgba(0,0,0,0.82) 48%, black 55%),
+                            linear-gradient(to top, transparent 0%, rgba(0,0,0,0.06) 20%, rgba(0,0,0,0.24) 36%, rgba(0,0,0,0.52) 52%, black 64%),
+                            radial-gradient(ellipse 82% 78% at 50% 50%, black 0%, black 18%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 46%, rgba(0,0,0,0.32) 60%, rgba(0,0,0,0.16) 74%, rgba(0,0,0,0.04) 86%, transparent 96%);
+                        mask-composite: intersect;
+                        -webkit-mask-composite: source-in;
+                    }
+                }
             `}</style>
 
             {/* Background layers */}
-            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden min-h-[400px]">
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-visible min-h-[400px]">
                 <div className="absolute inset-0 tech-placements-glow" aria-hidden />
                 <div
-                    className="absolute top-[40px] left-0 right-0 w-full h-[800px] max-md:top-[30px] max-md:h-[440px] pointer-events-none"
+                    className="tech-placements-mentor-gradient absolute left-1/2 -translate-x-1/2 top-[40px] w-[120%] pointer-events-none max-md:top-[30px]"
+                    style={{ aspectRatio: "1440 / 1203", minHeight: "800px" }}
                 >
                     <Image
-                        src="/photos/Tech/Group 46.svg"
-                        fill
+                        src="/photos/Tech/mentorsGradient.svg"
                         alt=""
+                        fill
                         className="object-contain object-center"
+                        sizes="120vw"
                         aria-hidden
                     />
                 </div>
@@ -166,9 +204,6 @@ function PlacementsCarousel() {
         return () => clearInterval(timer);
     }, [active, total]);
 
-    const prev = () => setActive((i) => (i - 1 + total) % total);
-    const next = () => setActive((i) => (i + 1) % total);
-
     const { centerW, centerH, sideW, sideH, gap, showSide } = getCardSizes(windowWidth);
 
     return (
@@ -196,17 +231,10 @@ function PlacementsCarousel() {
                             : -(centerHalf + gap + sideHalf) + (offset + 1) * (sideW + gap);
                     }
 
-                    const isLeft = offset === -1;
-                    const isRight = offset === 1;
-
                     return (
                         <div
                             key={i}
-                            onClick={() => {
-                                if (isLeft) prev();
-                                if (isRight) next();
-                            }}
-                            className={`absolute overflow-hidden ${isCenter ? "cursor-default z-[2]" : "cursor-pointer z-[1]"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+                            className={`absolute overflow-hidden cursor-default ${isCenter ? "z-[2]" : "z-[1]"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
                             style={{
                                 width: `${cardW}px`,
                                 height: `${cardH}px`,
@@ -269,24 +297,6 @@ function PlacementsCarousel() {
                         </div>
                     );
                 })}
-            </div>
-
-            {/* Navigation — same nav buttons as TechYoutube */}
-            <div className="flex gap-4 mt-[10px] max-md:pt-[32px] max-md:pb-[8px]">
-                <button
-                    onClick={prev}
-                    aria-label="Previous placement"
-                    className="w-[46.67px] h-[46.67px] rounded-full border-[0.72px] border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 rotate-90 cursor-pointer transition-opacity duration-200 opacity-40 hover:!opacity-100 max-md:w-[38.41px] max-md:h-[38.41px]"
-                >
-                    <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt="Previous" width={12} height={12} className="brightness-0 invert" />
-                </button>
-                <button
-                    onClick={next}
-                    aria-label="Next placement"
-                    className="w-[46.67px] h-[46.67px] rounded-full border-[0.72px] border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 -rotate-90 cursor-pointer transition-opacity duration-200 hover:!opacity-80 max-md:w-[38.41px] max-md:h-[38.41px]"
-                >
-                    <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt="Next" width={12} height={12} className="brightness-0 invert" />
-                </button>
             </div>
         </>
     );

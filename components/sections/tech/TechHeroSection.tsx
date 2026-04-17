@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { TechMenuOverlay } from "@/components/sections/tech/TechMenuOverlay";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    The design canvas is 1440 × 1044 px (Figma spec).
@@ -17,6 +18,83 @@ const DESKTOP_HERO_END = 916; // stats box bottom (826 + 90) - hero ends here, n
 const MOBILE_DESIGN_W = 375;
 const MOBILE_DESIGN_H = 706; // nav 63 + content 643
 
+// ── Count-up number animation ─────────────────────────────────────────────────
+const STAT_GRADIENT = "linear-gradient(0deg, rgba(247,247,247,0.5), rgba(247,247,247,0.5)), radial-gradient(50.91% 97.54% at 50% 2.46%, #FF5600 0%, #9600FF 100%)";
+
+function CountUp({
+    target,
+    suffix,
+    duration = 1400,
+    desktopW,
+    desktopH,
+    desktopFs,
+    mobileW,
+    mobileH,
+    mobileFs,
+    isMobile,
+    startAnimation,
+}: {
+    target: number;
+    suffix: string;
+    duration?: number;
+    desktopW: number;
+    desktopH: number;
+    desktopFs: number;
+    mobileW: number;
+    mobileH: number;
+    mobileFs: number;
+    isMobile: boolean;
+    startAnimation: boolean;
+}) {
+    const [count, setCount] = useState(0);
+    const rafRef = useRef<number | null>(null);
+    const startRef = useRef<number | null>(null);
+    const w = isMobile ? mobileW : desktopW;
+    const h = isMobile ? mobileH : desktopH;
+    const fs = isMobile ? mobileFs : desktopFs;
+
+    useEffect(() => {
+        if (!startAnimation) return;
+        startRef.current = null;
+        function step(ts: number) {
+            if (startRef.current === null) startRef.current = ts;
+            const elapsed = ts - startRef.current;
+            const progress = Math.min(elapsed / duration, 1);
+            // ease-out quad
+            const eased = 1 - (1 - progress) * (1 - progress);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) {
+                rafRef.current = requestAnimationFrame(step);
+            } else {
+                setCount(target);
+            }
+        }
+        rafRef.current = requestAnimationFrame(step);
+        return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+    }, [startAnimation, target, duration]);
+
+    return (
+        <span
+            className="font-outfit font-medium leading-none shrink-0"
+            style={{
+                minWidth: w,
+                minHeight: h,
+                fontSize: fs,
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                whiteSpace: "nowrap",
+                background: STAT_GRADIENT,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+            }}
+        >
+            {count}{suffix}
+        </span>
+    );
+}
+
 const TECH_NAV_LINKS = [
     { href: "/tech-school", label: "Home" },
     { href: "/tech-school/tech-courses", label: "Courses" },
@@ -29,8 +107,15 @@ export default function TechHero() {
     const [desktopScale, setDesktopScale] = useState(1);
     const [mobileScale, setMobileScale] = useState(1);
     const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
+    const desktopStatsRef = useRef<HTMLDivElement>(null);
+    const mobileStatsRef = useRef<HTMLDivElement>(null);
+    const desktopStatsVisible = useInView(desktopStatsRef, { once: true, amount: 0.5 });
+    const mobileStatsVisible = useInView(mobileStatsRef, { once: true, amount: 0.5 });
+    const statsVisible = desktopStatsVisible || mobileStatsVisible;
     const desktopMenuRef = useRef<HTMLDivElement>(null);
     const desktopMenuToggleRef = useRef<HTMLButtonElement>(null);
+    const desktopHeroRef = useRef<HTMLDivElement>(null);
+    const rafMouseRef = useRef<number | null>(null);
 
     useEffect(() => {
         const update = () => {
@@ -65,71 +150,57 @@ export default function TechHero() {
             document.body.style.overflow = "";
         };
     }, [isDesktopMenuOpen]);
+
+    // Premium cursor-reactive gradient motion (desktop only)
+    useEffect(() => {
+        const el = desktopHeroRef.current;
+        if (!el) return;
+
+        const handlePointerMove = (e: PointerEvent) => {
+            if (rafMouseRef.current) cancelAnimationFrame(rafMouseRef.current);
+            rafMouseRef.current = requestAnimationFrame(() => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const cx = rect.width / 2;
+                const cy = rect.height / 2;
+                const nx = cx ? (x - cx) / cx : 0; // -1..1
+                const ny = cy ? (y - cy) / cy : 0; // -1..1
+
+                // Subtle parallax; keep values bounded to avoid jumpiness
+                const mx = Math.max(-1, Math.min(1, nx)) * 42;
+                const my = Math.max(-1, Math.min(1, ny)) * 18;
+                el.style.setProperty("--hero-mx", `${mx}px`);
+                el.style.setProperty("--hero-my", `${my}px`);
+                el.style.setProperty("--cursor-x", `${x}px`);
+                el.style.setProperty("--cursor-y", `${y}px`);
+            });
+        };
+
+        const handlePointerLeave = () => {
+            el.style.setProperty("--hero-mx", "0px");
+            el.style.setProperty("--hero-my", "0px");
+        };
+
+        el.addEventListener("pointermove", handlePointerMove);
+        el.addEventListener("pointerleave", handlePointerLeave);
+        return () => {
+            el.removeEventListener("pointermove", handlePointerMove);
+            el.removeEventListener("pointerleave", handlePointerLeave);
+            if (rafMouseRef.current) cancelAnimationFrame(rafMouseRef.current);
+        };
+    }, []);
+
     return (
         <>
-            {/* Desktop/Tablet/Mobile nav drawer — high z-index, handles all screen sizes when open */}
-            {isDesktopMenuOpen && (
-                <div
-                    ref={desktopMenuRef}
-                    className="tech-nav-dropdown fixed inset-x-0 top-0 z-[9999] flex flex-col items-center"
-                    style={{ pointerEvents: "auto" }}
-                >
-                    {/* Backdrop for mobile closing */}
-                    <div
-                        className="absolute inset-0 bg-black/40 backdrop-blur-sm md:hidden"
-                        onClick={() => setIsDesktopMenuOpen(false)}
-                    />
+            <TechMenuOverlay
+                isOpen={isDesktopMenuOpen}
+                onClose={() => setIsDesktopMenuOpen(false)}
+                navLinks={TECH_NAV_LINKS}
+                containerRef={desktopMenuRef}
+            />
 
-                    <div
-                        className="relative mx-auto w-full md:max-w-[1320px] rounded-b-[24px] border-x border-b border-white/10 py-10 px-6 flex-shrink-0"
-                        style={{
-                            background: "linear-gradient(180deg, rgba(17,17,17,0.98) 0%, rgba(20,20,35,0.95) 100%)",
-                            backdropFilter: "blur(24px)",
-                            WebkitBackdropFilter: "blur(24px)",
-                            boxShadow: "0 10px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)",
-                        }}
-                    >
-                        {/* Close Button (X) */}
-                        <button
-                            onClick={() => setIsDesktopMenuOpen(false)}
-                            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                            aria-label="Close menu"
-                        >
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                            </svg>
-                        </button>
-
-                        <nav className="flex flex-col gap-0.5 mt-8 items-center">
-                            {TECH_NAV_LINKS.map(({ href, label }) => (
-                                <Link
-                                    key={href}
-                                    href={href}
-                                    onClick={() => setIsDesktopMenuOpen(false)}
-                                    className="font-outfit font-normal text-[20px] leading-[1.35] text-white no-underline py-4 px-8 rounded-[12px] transition-all duration-[280ms] ease-in-out hover:bg-white/10 hover:shadow-[0_0_16px_rgba(255,255,255,0.06)]"
-                                    style={{ textShadow: "0 0 24px rgba(255,255,255,0.06)" }}
-                                >
-                                    {label}
-                                </Link>
-                            ))}
-                            <Link
-                                href="/contact"
-                                onClick={() => setIsDesktopMenuOpen(false)}
-                                className="group relative mt-4 flex w-[118px] h-[44px] rounded-[8px] px-[10px] py-[10px] bg-white text-[#1a1a1a] font-outfit font-semibold text-[14px] leading-none no-underline overflow-hidden"
-                            >
-                                <span className="absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] transition-transform duration-300 ease-out group-hover:-translate-y-full">
-                                    Let&apos;s Connect
-                                </span>
-                                <span className="pointer-events-none absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
-                                    Let&apos;s Connect
-                                </span>
-                            </Link>
-                        </nav>
-                    </div>
-                </div>
-            )}
-
-            {/* Gradient border mask - same pattern as project cards */}
+            {/* Gradient border mask + hero gradient animations */}
             <style>{`
                 .tech-hero-stats-border::before {
                     content: "";
@@ -148,24 +219,43 @@ export default function TechHero() {
                     animation: techNavDropdownIn 0.3s ease-in-out forwards;
                 }
                 @keyframes techNavDropdownIn {
-                    from {
-                        opacity: 0;
-                        transform: translateY(-12px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
+                    from { opacity: 0; transform: translateY(-12px); }
+                    to   { opacity: 1; transform: translateY(0); }
                 }
                 .tech-desktop-nav-toggle-open {
                     transform: rotate(90deg);
                 }
+                @keyframes heroGradOuterD {
+                    0%   { transform: rotate(-179.33deg) translate3d(calc(var(--hero-mx, 0px) + 0px), calc(var(--hero-my, 0px) + 0px), 0) scale(1); }
+                    50%  { transform: rotate(-179.33deg) translate3d(calc(var(--hero-mx, 0px) + -140px), calc(var(--hero-my, 0px) + 0px), 0) scale(1.04); }
+                    100% { transform: rotate(-179.33deg) translate3d(calc(var(--hero-mx, 0px) + 0px), calc(var(--hero-my, 0px) + 0px), 0) scale(1); }
+                }
+                @keyframes heroGradInnerD {
+                    0%   { transform: rotate(-177.88deg) translate3d(calc(var(--hero-mx, 0px) + 0px), calc(var(--hero-my, 0px) + 0px), 0) scale(1); }
+                    50%  { transform: rotate(-177.88deg) translate3d(calc(var(--hero-mx, 0px) + 220px), calc(var(--hero-my, 0px) + 0px), 0) scale(1.025); }
+                    100% { transform: rotate(-177.88deg) translate3d(calc(var(--hero-mx, 0px) + 0px), calc(var(--hero-my, 0px) + 0px), 0) scale(1); }
+                }
+                @keyframes heroGradOuterM {
+                    0%   { transform: rotate(-179.33deg) translate3d(0px, 0px, 0) scale(1); }
+                    50%  { transform: rotate(-179.33deg) translate3d(-34px, 0px, 0) scale(1.03); }
+                    100% { transform: rotate(-179.33deg) translate3d(0px, 0px, 0) scale(1); }
+                }
+                @keyframes heroGradInnerM {
+                    0%   { transform: rotate(-177.88deg) translate3d(0px, 0px, 0) scale(1); }
+                    50%  { transform: rotate(-177.88deg) translate3d(48px, 0px, 0) scale(1.02); }
+                    100% { transform: rotate(-177.88deg) translate3d(0px, 0px, 0) scale(1); }
+                }
+                .hero-grad-outer-d { animation: heroGradOuterD 14s cubic-bezier(0.22, 1, 0.36, 1) infinite; will-change: transform; }
+                .hero-grad-inner-d { animation: heroGradInnerD  9s cubic-bezier(0.22, 1, 0.36, 1) infinite; will-change: transform; }
+                .hero-grad-outer-m { animation: heroGradOuterM 14s cubic-bezier(0.22, 1, 0.36, 1) infinite; will-change: transform; }
+                .hero-grad-inner-m { animation: heroGradInnerM  9s cubic-bezier(0.22, 1, 0.36, 1) infinite; will-change: transform; }
             `}</style>
             {/* ══════════════════════════════════════════════
                 DESKTOP HERO (hidden on mobile <= 768px)
                 ══════════════════════════════════════════════ */}
             <div
-                className="hidden md:block w-full overflow-hidden relative z-20 bg-[#111111]"
+                ref={desktopHeroRef}
+                className="hidden md:block w-full overflow-x-hidden overflow-y-hidden relative z-20 bg-transparent"
                 style={{
                     height: `${DESKTOP_HERO_END * desktopScale}px`,
                 }}
@@ -179,37 +269,30 @@ export default function TechHero() {
                     }}
                 >
                     {/* ... (rest of desktop content) ... */}
-                    {/* ── Soft fade overlay: gradient dissolves into hero bg (150–250px) ── */}
-                    <div
-                        className="absolute left-0 right-0 z-[3] pointer-events-none"
+                    {/* ── TOP GRADIENT (CSS — animated) ── */}
+                    <div aria-hidden="true" className="absolute z-0 pointer-events-none"
                         style={{
-                            top: "80px",
-                            height: "220px",
-                            background: "linear-gradient(to bottom, transparent 0%, rgba(17,17,17,0.12) 20%, rgba(17,17,17,0.4) 50%, rgba(17,17,17,0.85) 85%, #111111 100%)",
-                        }}
-                        aria-hidden="true"
-                    />
-                    {/* ── GRADIENT + ELLIPSE layer ── */}
-                    <div className="absolute w-[1593.45px] h-[304px] top-[-29px] left-[-36px] opacity-100 z-0 pointer-events-none">
-                        {/* Base gradient */}
-                        <Image
-                            src="/photos/Tech/Gradiant.svg"
-                            alt="Gradient"
-                            fill
-                            className="!object-cover"
-                            priority
-                        />
-
-                        {/* Ellipse 2 — layered on top of the gradient */}
-                        <div className="absolute inset-0 z-[1]">
-                            <Image
-                                src="/photos/Tech/Ellipse 2.svg"
-                                alt="Ellipse Gradient"
-                                fill
-                                className="!object-cover"
-                                priority
-                            />
-                        </div>
+                            width: "1593.45px",
+                            height: "374px",
+                            top: 0,
+                            left: "-36px",
+                            transform: "translateY(-219px)",
+                        }}>
+                        {/* Outer orange-purple blob */}
+                        <div className="hero-grad-outer-d" style={{
+                            position: 'absolute', width: '1580.98px', height: '355.6px',
+                            top: 0, left: 0, borderRadius: '50%',
+                            background: 'linear-gradient(261.66deg, rgba(255,86,0,1) 17.08%, rgba(105,74,255,1) 72.9%)',
+                            filter: 'blur(70px) saturate(1.25) contrast(1.03)',
+                        }} />
+                        {/* Inner white shimmer */}
+                        <div className="hero-grad-inner-d" style={{
+                            position: 'absolute', width: '981.61px', height: '175.12px',
+                            top: '81.3px', left: '266.48px', borderRadius: '50%',
+                            background: '#FFFFFF',
+                            filter: 'blur(90px) saturate(1.08)',
+                            opacity: 0.76,
+                        }} />
                     </div>
 
                     {/* ── HEADER ── */}
@@ -305,7 +388,7 @@ export default function TechHero() {
                                 What&apos;s Next in Tech
                             </div>
 
-                            {/* Button — 129×44, gradient border + radial fill, slide animation */}
+                            {/* Button — 129×44 (md+ hero only), gradient border + radial fill, slide animation */}
                             <motion.div
                                 className="w-[129px] h-[44px] shrink-0 rounded-[12px] p-[1px] flex items-center justify-center"
                                 style={{
@@ -453,41 +536,39 @@ export default function TechHero() {
                         </div>
                     </motion.div>
 
-                    {/* ── WHATSAPP FLOATING BUTTON (hidden on smaller screens) ── */}
-                    <div className="absolute hidden lg:block w-[80px] h-[80px] rounded-[200px] border-[1px] border-white/30 top-[719px] left-[1302px] overflow-hidden p-0 z-[8] cursor-pointer bg-white/5">
-                        <Image
-                            src="/photos/Tech/ic_baseline-whatsapp.svg"
-                            alt="WhatsApp"
-                            width={80}
-                            height={80}
-                            className="block w-[80px] h-[80px] min-w-[80px] min-h-[80px] shrink-0"
-                            style={{ objectFit: "contain" }}
-                        />
-                    </div>
-
                     {/* ── BOTTOM STATS BAR ── */}
                     <motion.div
                         className="absolute w-[1322px] h-[90px] top-[826px] left-[60px] z-[7] rounded-[20px] flex justify-center items-center py-[20px] px-[40px] gap-[80px] border border-transparent bg-[#A3A3A3]/[.15] backdrop-blur-[51.4px] tech-hero-stats-border"
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                        ref={desktopStatsRef}
                     >
                         {/* Stat 1 */}
                         <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
-                            <Image src="/photos/Tech/200+.svg" alt="200+" width={95} height={30} style={{ objectFit: "contain" }} priority />
-                            <span className="flex items-center font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100">Students Learned</span>
+                            <CountUp target={200} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={false} startAnimation={statsVisible} />
+                            <span className="flex flex-col justify-center font-outfit font-normal text-[18px] leading-[1.1] tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-left">
+                                <span>Students</span>
+                                <span>Learned</span>
+                            </span>
                         </div>
 
                         {/* Stat 2 */}
                         <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
-                            <Image src="/photos/Tech/100-percent.svg" alt="100%" width={93} height={30} style={{ objectFit: "contain" }} priority />
-                            <span className="flex items-center font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100">Placement Support</span>
+                            <CountUp target={100} suffix="%" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={false} startAnimation={statsVisible} />
+                            <span className="flex flex-col justify-center font-outfit font-normal text-[18px] leading-[1.1] tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-left">
+                                <span>Placement</span>
+                                <span>Support</span>
+                            </span>
                         </div>
 
                         {/* Stat 3 */}
                         <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
-                            <Image src="/photos/Tech/500+.svg" alt="500+" width={95} height={30} style={{ objectFit: "contain" }} priority />
-                            <span className="flex items-center font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100">Projects Completed</span>
+                            <CountUp target={500} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={false} startAnimation={statsVisible} />
+                            <span className="flex flex-col justify-center font-outfit font-normal text-[18px] leading-[1.1] tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-left">
+                                <span>Projects</span>
+                                <span>Completed</span>
+                            </span>
                         </div>
                     </motion.div>
 
@@ -498,7 +579,7 @@ export default function TechHero() {
                 MOBILE HERO (visible only on <= 768px)
                 ══════════════════════════════════════════════ */}
             <div
-                className="block md:hidden relative w-full bg-[#111111] overflow-hidden"
+                className="block md:hidden relative w-full bg-[#111111] overflow-x-hidden"
                 style={{
                     height: `${MOBILE_DESIGN_H * mobileScale}px`,
                 }}
@@ -511,16 +592,24 @@ export default function TechHero() {
                         left: "50%",
                     }}
                 >
-                    {/* ── Mobile Top Gradient (HeroTopGradientMobile.svg) ── */}
-                    <div className="absolute top-0 left-0 w-[375px] h-[160px] pointer-events-none z-0" aria-hidden="true">
-                        <Image
-                            src="/photos/Tech/HeroTopGradientMobile.svg"
-                            alt=""
-                            width={375}
-                            height={160}
-                            className="w-full h-full object-cover object-top"
-                            priority
-                        />
+                    {/* ── Mobile Top Gradient (CSS — animated) ── */}
+                    <div aria-hidden="true" className="absolute z-0 pointer-events-none"
+                        style={{ width: '420px', height: '128px', top: 0, left: 0 }}>
+                        {/* Outer orange-purple blob */}
+                        <div className="hero-grad-outer-m" style={{
+                            position: 'absolute', width: '460px', height: '120px',
+                            top: '-14px', left: '-70px', borderRadius: '50%',
+                            background: 'linear-gradient(261.66deg, rgba(255,86,0,1) 17.08%, rgba(105,74,255,1) 72.9%)',
+                            filter: 'blur(30px) saturate(1.28) contrast(1.03)',
+                        }} />
+                        {/* Inner white shimmer */}
+                        <div className="hero-grad-inner-m" style={{
+                            position: 'absolute', width: '290px', height: '58px',
+                            top: '16px', left: '10px', borderRadius: '50%',
+                            background: '#FFFFFF',
+                            filter: 'blur(38px) saturate(1.08)',
+                            opacity: 0.76,
+                        }} />
                     </div>
                     {/* ── Soft fade overlay: below gradient, BELOW content (z-1) so titles stay crisp ── */}
                     <div
@@ -580,22 +669,35 @@ export default function TechHero() {
                                 </div>
                             </div>
 
-                            {/* CTA Button (107 × 40) — match original purple pill + slide animation */}
-                            <Link
-                                href="/contact"
-                                className="group relative w-[207px] h-[40px] rounded-[10px] flex items-center justify-center shrink-0 overflow-hidden"
+                            {/* CTA Button — 107×40, 10px radius, 0.87px gradient border, px 18 (py 12 fits 14px type in 40px frame) */}
+                            <motion.div
+                                className="w-[107px] h-[40px] shrink-0 rounded-[10px] p-[0.87px] flex items-center justify-center"
                                 style={{
-                                    background: "radial-gradient(circle at 20% 0%, #927DF7 0%, #694AFF 100%)",
+                                    background: "linear-gradient(110.55deg, #CDA4FF 12.15%, #8831F2 115.98%)",
                                     boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
                                 }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-white transition-transform duration-300 ease-out group-hover:-translate-y-full">
-                                    I&apos;m Ready
-                                </span>
-                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-outfit font-semibold text-[14px] leading-none text-white translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
-                                    I&apos;m Ready
-                                </span>
-                            </Link>
+                                <div
+                                    className="w-full h-full rounded-[9.13px] overflow-hidden flex items-center justify-center"
+                                    style={{
+                                        background: "radial-gradient(71.34% 136.68% at 50% 14.3%, #927DF7 0%, #694AFF 100%)",
+                                    }}
+                                >
+                                    <Link
+                                        href="/contact"
+                                        className="group relative flex h-full w-full items-center justify-center overflow-hidden px-[18px] py-[12px] box-border"
+                                    >
+                                        <span className="absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[14px] leading-[100%] text-center text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                                            I&apos;m Ready
+                                        </span>
+                                        <span className="pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[14px] leading-[100%] text-center text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                                            I&apos;m Ready
+                                        </span>
+                                    </Link>
+                                </div>
+                            </motion.div>
                         </motion.div>
 
                         {/* ── Bust image (230 × 271) ── */}
@@ -647,19 +749,20 @@ export default function TechHero() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.7 }}
+                            ref={mobileStatsRef}
                         >
                             <div className="w-[235px] h-[134px] flex flex-col gap-[10px]">
-                                <div className="w-[220px] h-[38px] flex gap-[10px] items-center opacity-100 rotate-0">
-                                    <Image src="/photos/Tech/200+.svg" alt="200+" width={72} height={22} style={{ objectFit: "contain" }} priority />
-                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[138px]">Students Learned</span>
+                                <div className="w-full h-[38px] flex gap-[14px] items-center justify-center opacity-100 rotate-0">
+                                    <CountUp target={200} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
+                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-center whitespace-nowrap">Students Learned</span>
                                 </div>
-                                <div className="w-[231px] h-[38px] flex gap-[11px] items-center opacity-100 rotate-0">
-                                    <Image src="/photos/Tech/100-percent.svg" alt="100%" width={70} height={22} style={{ objectFit: "contain" }} priority />
-                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[150px]">Placement Support</span>
+                                <div className="w-full h-[38px] flex gap-[14px] items-center justify-center opacity-100 rotate-0">
+                                    <CountUp target={100} suffix="%" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
+                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-center whitespace-nowrap">Placement Support</span>
                                 </div>
-                                <div className="w-[235px] h-[38px] flex gap-[8px] items-center opacity-100 rotate-0">
-                                    <Image src="/photos/Tech/500+.svg" alt="500+" width={73} height={22} style={{ objectFit: "contain" }} priority />
-                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 w-[154px]">Projects Completed</span>
+                                <div className="w-full h-[38px] flex gap-[14px] items-center justify-center opacity-100 rotate-0">
+                                    <CountUp target={500} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
+                                    <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-center whitespace-nowrap">Projects Completed</span>
                                 </div>
                             </div>
                         </motion.div>

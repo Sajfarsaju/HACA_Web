@@ -131,6 +131,7 @@ function getOffset(index: number, active: number, total: number) {
 
 export function TechYoutube() {
     const [active, setActive] = useState(1);
+    const [isHoveringStage, setIsHoveringStage] = useState(false);
     const [windowWidth, setWindowWidth] = useState(() =>
         typeof window !== "undefined" ? window.innerWidth : 1280
     );
@@ -148,11 +149,12 @@ export function TechYoutube() {
 
     // Auto-advance every 3 seconds; timer resets when user clicks arrow (same as mentor/placement)
     useEffect(() => {
+        if (isHoveringStage) return;
         const timer = setInterval(() => {
             setActive((i) => (i + 1) % total);
         }, 3000);
         return () => clearInterval(timer);
-    }, [active, total]);
+    }, [active, total, isHoveringStage]);
 
     const prev = () => setActive((i) => (i - 1 + total) % total);
     const next = () => setActive((i) => (i + 1) % total);
@@ -171,7 +173,7 @@ export function TechYoutube() {
 
     return (
         <section
-            className="w-full relative overflow-visible bg-transparent flex flex-col items-center justify-center min-h-auto py-[60px] -mb-[100px] sm:mb-0 gap-[36px] sm:min-h-[828px] sm:py-[100px] sm:gap-[60px]"
+            className="w-full relative overflow-visible bg-transparent flex flex-col items-center justify-center min-h-auto pt-[36px] pb-[60px] -mb-[100px] sm:mb-0 gap-[36px] sm:min-h-[828px] sm:py-[100px] sm:gap-[60px]"
         >
             {/* Header */}
             <div className="z-10 flex flex-col items-center gap-4 text-center px-6">
@@ -217,6 +219,10 @@ export function TechYoutube() {
             <div
                 className="z-10 w-full relative flex items-center justify-center overflow-hidden"
                 style={{ height: `${centerH + 40}px` }}
+                onMouseEnter={() => setIsHoveringStage(true)}
+                onMouseLeave={() => setIsHoveringStage(false)}
+                onFocusCapture={() => setIsHoveringStage(true)}
+                onBlurCapture={() => setIsHoveringStage(false)}
             >
                 {THUMBNAILS.map((thumb, i) => {
                     const offset = getOffset(i, active, total);
@@ -262,48 +268,31 @@ export function TechYoutube() {
                         >
                             <Image src={thumb.src} alt={thumb.alt} fill className="object-fill" />
                             {isCenter && (
-                                <div className="absolute inset-0 bg-black/10 flex flex-col items-center justify-center gap-4 z-10 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                                    <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-xl">
-                                        <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-white border-b-[10px] border-b-transparent ml-1" />
+                                <div className="absolute inset-0 bg-black/10 flex flex-col items-center justify-center z-10 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                    {/* Play button — match TechShowcaseSection */}
+                                    <div className="w-[94px] h-[78px] relative z-10 flex items-center justify-center cursor-pointer transition-transform duration-300 ease-in-out hover:scale-[1.08] max-md:w-[67px] max-md:h-[60px] max-[480px]:w-[48px] max-[480px]:h-[48px]">
+                                        <Image
+                                            src="/photos/Tech/gridicons_play copy.svg"
+                                            alt=""
+                                            width={94}
+                                            height={78}
+                                            aria-hidden="true"
+                                        />
+                                        <div className="w-[78px] h-[78px] relative left-[8px] flex items-center justify-center max-md:w-[53px] max-md:h-[53px] max-md:left-[5px] max-[480px]:w-[40px] max-[480px]:h-[40px] max-[480px]:left-[3px]">
+                                            <Image
+                                                src="/photos/Tech/Vector (1).svg"
+                                                alt="Play video"
+                                                width={78}
+                                                height={78}
+                                                className="w-full h-full object-contain drop-shadow-[0_4px_24px_rgba(105,74,255,0.55)]"
+                                            />
+                                        </div>
                                     </div>
-                                    <span className="text-white uppercase tracking-[0.2em] font-medium text-xs drop-shadow-md">Watch Now</span>
                                 </div>
                             )}
                         </div>
                     );
                 })}
-            </div>
-
-            {/* Navigation Controls */}
-            <div className="z-10 flex gap-4 -mt-[26px] sm:mt-0">
-                <button
-                    onClick={prev}
-                    aria-label="Previous"
-                    className="rounded-full border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 rotate-90 cursor-pointer transition-opacity duration-200 hover:opacity-80"
-                    style={{ width: "46.67px", height: "46.67px", borderWidth: "1px", opacity: 1 }}
-                >
-                    <Image 
-                        src="/photos/schools/tech/Arrow_FAQ.svg" 
-                        alt="prev" 
-                        width={18} height={18} 
-                        className="brightness-0 invert" 
-                        style={{ width: "17.71px", height: "17.71px" }}
-                    />
-                </button>
-                <button
-                    onClick={next}
-                    aria-label="Next"
-                    className="rounded-full border-[#FFFFFF] flex items-center justify-center bg-[#000000] shrink-0 -rotate-90 cursor-pointer transition-opacity duration-200 hover:opacity-80"
-                    style={{ width: "46.67px", height: "46.67px", borderWidth: "1px", opacity: 1 }}
-                >
-                    <Image 
-                        src="/photos/schools/tech/Arrow_FAQ.svg" 
-                        alt="next" 
-                        width={18} height={18} 
-                        className="brightness-0 invert" 
-                        style={{ width: "17.71px", height: "17.71px" }}
-                    />
-                </button>
             </div>
         </section>
     );
