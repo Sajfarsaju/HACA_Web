@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import type { RefObject } from "react";
 
 export type TechNavLink = { href: string; label: string };
@@ -24,12 +25,16 @@ const backdropVariants = {
     exit: { opacity: 0, transition: { duration: 0.3, delay: 0.05 } },
 };
 
-const linkVariants = {
+const linkVariants: Variants = {
     hidden: { opacity: 0, x: 28 },
     visible: (i: number) => ({
         opacity: 1,
         x: 0,
-        transition: { delay: 0.15 + i * 0.06, duration: 0.38, ease: "easeOut" },
+        transition: {
+            delay: 0.15 + i * 0.06,
+            duration: 0.38,
+            ease: [0.16, 1, 0.3, 1],
+        },
     }),
 };
 
