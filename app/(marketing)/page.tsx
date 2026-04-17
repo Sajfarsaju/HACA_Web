@@ -1,4 +1,4 @@
-import { HomePageContent } from "@/components/sections/HomePageContent"
+import { HomePageContent } from "@/components/sections/HomePageContent";
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
