@@ -3,6 +3,7 @@ import Image from "next/image";
 export function TechFooter() {
     return (
         <footer
+            id="tech-school-footer"
             className="flex flex-col items-center w-full relative overflow-hidden px-6 pt-2 pb-24 md:px-[40px] md:py-[40px] lg:pb-[100px] bg-[#111111] min-h-[700px]"
         >
             {/* Top Section */}

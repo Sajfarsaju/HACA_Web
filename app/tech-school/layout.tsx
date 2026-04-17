@@ -1,3 +1,4 @@
+import { TechReserveBottomBar } from "@/components/layout/TechReserveBottomBar";
 import { Outfit } from "next/font/google";
 
 const outfit = Outfit({
@@ -6,6 +7,11 @@ const outfit = Outfit({
 });
 
 export default function TechSchoolLayout({ children }: { children: React.ReactNode }) {
-    return <div className={outfit.className}>{children}</div>;
+    return (
+        <div className={outfit.className}>
+            {children}
+            <TechReserveBottomBar />
+        </div>
+    );
 }
 

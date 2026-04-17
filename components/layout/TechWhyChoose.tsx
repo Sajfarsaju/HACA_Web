@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect, useRef, useLayoutEffect, useCallback } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { GradientBlobOrb } from "@/components/tech/GradientBlobOrb";
 
 // ── Responsive breakpoints ──────────────────────────────────────────────────
@@ -130,6 +131,39 @@ const CARDS = [
     },
 ];
 
+// ── Scroll-triggered entrance variants ───────────────────────────────────────
+const headerVariants: Variants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+        opacity: 1, y: 0,
+        transition: { type: "spring" as const, stiffness: 200, damping: 24, mass: 0.8 },
+    },
+};
+
+const descVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1, y: 0,
+        transition: { type: "spring" as const, stiffness: 200, damping: 24, mass: 0.8, delay: 0.12 },
+    },
+};
+
+const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 64, scale: 0.92 },
+    visible: (idx: number) => ({
+        opacity: 1, y: 0, scale: 1,
+        transition: { type: "spring" as const, stiffness: 240, damping: 22, mass: 0.75, delay: idx * 0.1 },
+    }),
+};
+
+const carouselVariants: Variants = {
+    hidden: { opacity: 0, y: 48 },
+    visible: {
+        opacity: 1, y: 0,
+        transition: { type: "spring" as const, stiffness: 200, damping: 26, mass: 0.85, delay: 0.1 },
+    },
+};
+
 const TOTAL = CARDS.length;
 const CARD_W_MAX = 400;
 const CARD_H_RATIO = 312 / 400;
@@ -236,6 +270,7 @@ function FeatureCard({
 // ── Main Section ─────────────────────────────────────────────────────────
 export function TechWhyChoose() {
     const isTabletOrSmaller = useIsTabletOrSmaller();
+    const reduceMotion = useReducedMotion();
 
     return (
         <section className="relative z-10 w-full flex flex-col items-center min-h-[940px] pt-[clamp(24px,4.5vw,72px)] max-md:pt-[40px] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
@@ -287,13 +322,25 @@ export function TechWhyChoose() {
 
             {/* ── Header ── */}
             <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-[1] relative">
-                <h2 className="font-outfit font-normal text-[clamp(32px,6vw,60px)] leading-[1.1] tracking-[-0.02em] text-center capitalize max-w-[938px] m-0 text-white">
+                <motion.h2
+                    className="font-outfit font-normal text-[clamp(32px,6vw,60px)] leading-[1.1] tracking-[-0.02em] text-center capitalize max-w-[938px] m-0 text-white"
+                    variants={reduceMotion ? undefined : headerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                >
                     Why Choose Smarter Learning with<br className="hidden md:block" /> Us?
-                </h2>
-                <p className="font-outfit font-normal text-[clamp(16px,2vw,24px)] leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7] text-center max-w-[1128px] m-0">
+                </motion.h2>
+                <motion.p
+                    className="font-outfit font-normal text-[clamp(16px,2vw,24px)] leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7] text-center max-w-[1128px] m-0"
+                    variants={reduceMotion ? undefined : descVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                >
                     Tech School by Haris&amp;Co Academy is a beginner-friendly, industry-aligned tech learning program
                     designed to help students and professionals build strong foundations in software, design, and digital skills.
-                </p>
+                </motion.p>
             </div>
 
             {/* ── Cards: tablet & smaller = single column; desktop = 3-card carousel ── */}
@@ -301,19 +348,34 @@ export function TechWhyChoose() {
                 /* Tablet and smaller: all cards in a single column, one per row */
                 <div className="w-full max-w-[420px] md:max-w-[400px] flex flex-col items-center gap-6 relative z-[1]">
                     {CARDS.map((card, idx) => (
-                        <FeatureCard
+                        <motion.div
                             key={idx}
-                            card={card}
-                            isCenter={true}
-                            className="w-full max-w-full"
-                        />
+                            custom={idx}
+                            variants={reduceMotion ? undefined : cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.15 }}
+                            className="w-full"
+                        >
+                            <FeatureCard
+                                card={card}
+                                isCenter={true}
+                                className="w-full max-w-full"
+                            />
+                        </motion.div>
                     ))}
                 </div>
             ) : (
                 /* Desktop (lg+): 3-card stagger carousel — horizontal padding avoids clipping on narrow desktop */
-                <div className="relative z-10 w-full max-w-[1320px] overflow-visible px-[clamp(8px,2.5vw,28px)]">
+                <motion.div
+                    className="relative z-10 w-full max-w-[1320px] overflow-visible px-[clamp(8px,2.5vw,28px)]"
+                    variants={reduceMotion ? undefined : carouselVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
                     <TrackCarousel />
-                </div>
+                </motion.div>
             )}
 
         </section>

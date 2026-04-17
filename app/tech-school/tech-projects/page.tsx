@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { TechCoursesGlobalBg, TechCoursesStyles } from "@/components/sections/tech-courses";
 import { TechProjectsHero, TechProjectsMobileHero, TechProjectsHeaderSection } from "@/components/sections/tech-projects";
 import { DESIGN_W, MOBILE_DESIGN_W } from "@/components/sections/tech-courses/constants";
@@ -54,7 +55,16 @@ const BASE_PROJECT_CARDS: ProjectCardConfig[] = [
     },
 ];
 
+const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 64, scale: 0.92 },
+    visible: (idx: number) => ({
+        opacity: 1, y: 0, scale: 1,
+        transition: { type: "spring" as const, stiffness: 240, damping: 22, mass: 0.75, delay: (idx % 3) * 0.12 },
+    }),
+};
+
 export default function TechProjectsPage() {
+    const reduceMotion = useReducedMotion();
     const [mounted, setMounted] = useState(false);
     const [scales, setScales] = useState({ desktop: 1, mobile: 1 });
     const [viewportWidth, setViewportWidth] = useState<number | null>(null);
@@ -140,8 +150,7 @@ export default function TechProjectsPage() {
             </SectionReveal>
 
             {/* Projects cards grid: same layout/styling as Tech Courses section */}
-            <SectionReveal>
-                <section className="tech-projects-cards-section w-full flex flex-col items-center justify-center relative overflow-hidden mt-[60px] pb-[60px] px-[60px] box-border">
+                <section className="tech-projects-cards-section w-full flex flex-col items-center justify-center relative overflow-hidden box-border">
                     <div className="tech-projects-cards-inner w-full max-w-[1320px] flex flex-col gap-10">
                         {filteredCards.length === 0 ? (
                             <div className="w-full text-center text-[#A7A7A7] font-outfit text-[16px] py-10">
@@ -152,11 +161,14 @@ export default function TechProjectsPage() {
                                 {filteredCards.slice(0, 6).map((card, index) => (
                                     <motion.article
                                         key={index}
+                                        custom={index}
+                                        variants={reduceMotion ? undefined : cardVariants}
+                                        initial="hidden"
+                                        {...(index < 2
+                                            ? { animate: "visible" }
+                                            : { whileInView: "visible", viewport: { once: true, amount: 0, margin: "0px 0px 120px 0px" } }
+                                        )}
                                         className="tech-project-card w-full flex flex-col gap-5 rounded-[22px] p-5 md:p-6 bg-[#D9D9D91A] border border-transparent shadow-[0px_4px_4px_0px_#00000040] backdrop-blur-[12px] box-border"
-                                        initial={{ opacity: 0, y: 40 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true, amount: 0.15 }}
-                                        transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
                                     >
                                         {/* Top: title + image */}
                                         <div className="tech-project-card-top w-full flex flex-col gap-[13px]">
@@ -207,11 +219,12 @@ export default function TechProjectsPage() {
                                 {filteredCards.map((card, index) => (
                                     <motion.article
                                         key={index}
-                                        className="tech-project-card flex flex-col gap-5 rounded-[22px] p-5 md:p-6 bg-[#D9D9D91A] border border-transparent shadow-[0px_4px_4px_0px_#00000040] backdrop-blur-[12px] box-border"
-                                        initial={{ opacity: 0, y: 40 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
+                                        custom={index}
+                                        variants={reduceMotion ? undefined : cardVariants}
+                                        initial="hidden"
+                                        whileInView="visible"
                                         viewport={{ once: true, amount: 0.15 }}
-                                        transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+                                        className="tech-project-card flex flex-col gap-5 rounded-[22px] p-5 md:p-6 bg-[#D9D9D91A] border border-transparent shadow-[0px_4px_4px_0px_#00000040] backdrop-blur-[12px] box-border"
                                     >
                                         {/* Top: title + image */}
                                         <div className="tech-project-card-top w-full flex flex-col gap-[13px]">
@@ -260,7 +273,6 @@ export default function TechProjectsPage() {
                         )}
                     </div>
                 </section>
-            </SectionReveal>
 
             <TechCoursesStyles />
 

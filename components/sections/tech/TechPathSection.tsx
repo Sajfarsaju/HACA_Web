@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { GradientBlobOrb } from "@/components/tech/GradientBlobOrb";
 
 const COURSES = [
@@ -56,7 +57,21 @@ const COURSES = [
     }
 ];
 
-const cardRevealEase = [0.21, 0.47, 0.32, 0.98] as const;
+const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 64, scale: 0.92 },
+    visible: (idx: number) => ({
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            type: "spring" as const,
+            stiffness: 240,
+            damping: 22,
+            mass: 0.75,
+            delay: (idx % 2) * 0.12,
+        },
+    }),
+};
 
 export function TechPathSection() {
     const reduceMotion = useReducedMotion();
@@ -372,17 +387,13 @@ export function TechPathSection() {
                         {COURSES.map((course, idx) => (
                             <motion.div
                                 key={idx}
-                                initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                // Trigger earlier on small screens: expand bottom rootMargin so cards start animating
-                                // before they fully enter the viewport.
+                                custom={idx}
+                                variants={reduceMotion ? undefined : cardVariants}
+                                initial={reduceMotion ? { opacity: 1 } : "hidden"}
+                                whileInView={reduceMotion ? { opacity: 1 } : "visible"}
                                 viewport={{ once: true, amount: 0.12, margin: "0px 0px 25% 0px" }}
-                                transition={{
-                                    duration: reduceMotion ? 0 : 0.55,
-                                    ease: cardRevealEase,
-                                    delay: reduceMotion ? 0 : idx * 0.09,
-                                }}
-                                className="tech-path-card-border relative w-full min-h-[394px] rounded-[22px] flex flex-col cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-[5px] hover:brightness-[1.1] group max-lg:min-h-[360px] max-md:min-h-[313px] max-md:border-transparent max-md:bg-transparent max-md:backdrop-blur-[12px]"
+                                style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
+                                className="tech-path-card-border relative w-full min-h-[394px] rounded-[22px] flex flex-col cursor-pointer transition-[transform,filter,box-shadow] duration-300 ease-out hover:-translate-y-2 hover:brightness-110 hover:shadow-[0_0_36px_rgba(132,0,255,0.25)] group max-lg:min-h-[360px] max-md:min-h-[313px] max-md:border-transparent max-md:bg-transparent max-md:backdrop-blur-[12px]"
                             >
                                 {/* Clip layer: bg sits inside border; on ≤1024px clip-path insets so SVG stroke never touches edge */}
                                 <div className="tech-path-card-inner absolute inset-0 overflow-hidden rounded-[22px] z-0">

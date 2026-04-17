@@ -391,7 +391,7 @@ const TECH_COURSES_CSS = `
     align-items: center;
     justify-content: center;
     margin-top: 60px;
-    padding-bottom: 200px;
+    padding-bottom: 60px;
     padding-left: 60px;
     padding-right: 60px;
     box-sizing: border-box;
@@ -882,7 +882,7 @@ const TECH_COURSES_CSS = `
         padding-left: clamp(24px, 4vw, 48px);
         padding-right: clamp(24px, 4vw, 48px);
         margin-top: 60px;
-        margin-bottom: 80px;
+        margin-bottom: 0px;
     }
     .tech-projects-page .tech-projects-cards-inner {
         width: 100%;

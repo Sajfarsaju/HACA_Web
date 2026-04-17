@@ -52,7 +52,8 @@
              rel="noopener noreferrer"
              aria-label="Contact us on WhatsApp"
              className={[
-                 "fixed right-[16px] bottom-[20px] md:right-[24px] md:bottom-[28px] lg:right-[34px] lg:bottom-[110px]",
+                 /* Clear TechReserveBottomBar (fixed bottom bar) + safe area */
+                 "fixed right-[16px] bottom-[calc(124px+env(safe-area-inset-bottom,0px))] md:right-[24px] lg:right-[34px]",
                  "w-[56px] h-[56px] md:w-[62px] md:h-[62px] lg:w-[70px] lg:h-[70px]",
                  "rounded-[200px] border border-white/30 overflow-hidden p-0 z-[9999]",
                  "cursor-pointer bg-white/5 flex items-center justify-center",
