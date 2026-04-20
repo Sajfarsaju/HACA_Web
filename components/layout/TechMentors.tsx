@@ -67,6 +67,40 @@ function getOffset(index: number, active: number) {
     return index - active;
 }
 
+// ── Name box: mounts in "entering" state, transitions to final on next frame ──
+function MentorInfoBox({ height, gap, padding, name, role, windowWidth, isCenter }: {
+    height: string; gap: string; padding: string;
+    name: string; role: string;
+    windowWidth: number; isCenter: boolean;
+}) {
+    const [entered, setEntered] = useState(false);
+    useEffect(() => {
+        const id = requestAnimationFrame(() => setEntered(true));
+        return () => cancelAnimationFrame(id);
+    }, []);
+
+    return (
+        <div
+            className={`mentor-info-box${entered ? "" : " entering"} absolute bottom-0 left-0 right-0 flex flex-col justify-center border-t border-[rgba(140,100,255,0.2)] backdrop-blur-[28px] z-[2]`}
+            style={{
+                height, gap, padding,
+                borderBottomLeftRadius: "19.58px",
+                borderBottomRightRadius: "19.58px",
+                background: "linear-gradient(135deg, rgba(180,120,255,0.18) 0%, rgba(132,80,255,0.12) 50%, rgba(100,50,200,0.08) 100%)",
+            }}
+        >
+            <div className="flex flex-col gap-[6px] w-full">
+                <h4 className={`font-outfit font-normal leading-none text-[#FFFFFF] m-0 text-center ${windowWidth < 480 ? (isCenter ? "text-[13px]" : "text-[11px]") : (isCenter ? "text-[20px]" : "text-[17px]")}`}>
+                    {name}
+                </h4>
+                <p className={`font-outfit font-normal leading-none text-[#FFFFFF] m-0 text-center ${windowWidth < 480 ? (isCenter ? "text-[10px]" : "text-[9px]") : (isCenter ? "text-[14px]" : "text-[12px]")}`}>
+                    {role}
+                </p>
+            </div>
+        </div>
+    );
+}
+
 // ── Main TechMentors Component ──────────────────────────────────────────
 export function TechMentors() {
     const [activeIndex, setActiveIndex] = useState(INITIAL_MENTOR_INDEX);
@@ -159,15 +193,14 @@ export function TechMentors() {
                     }
                 }
 
-                @keyframes mentorInfoReveal {
-                    from {
-                        transform: translateY(110%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateY(0%);
-                        opacity: 1;
-                    }
+                .mentor-info-box {
+                    transform: translateY(0%);
+                    opacity: 1;
+                    transition: transform 200ms cubic-bezier(0, 0, 0.2, 1), opacity 160ms ease-out;
+                }
+                .mentor-info-box.entering {
+                    transform: translateY(50%);
+                    opacity: 0;
                 }
             `}</style>
 
@@ -280,38 +313,16 @@ export function TechMentors() {
 
                                 {/* Name box */}
                                 {(!isMobileView || isCenter) && (
-                                    <div
+                                    <MentorInfoBox
                                         key={isMobileView ? activeIndex : undefined}
-                                        className="absolute bottom-0 left-0 right-0 flex flex-col justify-center border-t border-[rgba(140,100,255,0.2)] backdrop-blur-[28px] z-[2]"
-                                        style={{
-                                            height: windowWidth < 480 ? (isCenter ? "76px" : "64px") : "109px",
-                                            gap: windowWidth < 480 ? (isCenter ? "6px" : "4px") : "8px",
-                                            padding: windowWidth < 480 ? (isCenter ? "12px 16px" : "10px 12px") : "20px 24px",
-                                            borderBottomLeftRadius: "19.58px",
-                                            borderBottomRightRadius: "19.58px",
-                                            background:
-                                                "linear-gradient(135deg, rgba(180,120,255,0.18) 0%, rgba(132,80,255,0.12) 50%, rgba(100,50,200,0.08) 100%)",
-                                            animation: isMobileView ? "mentorInfoReveal 420ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both" : undefined,
-                                            willChange: isMobileView ? "transform, opacity" : undefined,
-                                        }}
-                                    >
-                                        <div className="flex flex-col gap-[8px] w-full">
-                                            <h4
-                                                className={`font-outfit font-normal leading-none text-[#FFFFFF] m-0 text-center ${
-                                                    isCenter ? "text-[26px]" : "text-[22px]"
-                                                } ${windowWidth < 480 ? (isCenter ? "text-[18px]" : "text-[16px]") : ""}`}
-                                            >
-                                                {mentor.name}
-                                            </h4>
-                                            <p
-                                                className={`font-outfit font-normal leading-none text-[#FFFFFF] m-0 text-center ${
-                                                    isCenter ? "text-[18px]" : "text-[16px]"
-                                                } ${windowWidth < 480 ? (isCenter ? "text-[13px]" : "text-[12px]") : ""}`}
-                                            >
-                                                {mentor.role}
-                                            </p>
-                                        </div>
-                                    </div>
+                                        height={windowWidth < 480 ? (isCenter ? "76px" : "64px") : "109px"}
+                                        gap={windowWidth < 480 ? (isCenter ? "6px" : "4px") : "8px"}
+                                        padding={windowWidth < 480 ? (isCenter ? "12px 16px" : "10px 12px") : "20px 24px"}
+                                        name={mentor.name}
+                                        role={mentor.role}
+                                        windowWidth={windowWidth}
+                                        isCenter={isCenter}
+                                    />
                                 )}
                             </div>
                         );

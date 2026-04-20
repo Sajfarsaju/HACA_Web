@@ -7,6 +7,11 @@
  * Mobile  : reacts to touch position AND scroll momentum
  *           — dots stay active for TOUCH_LINGER_MS after finger lifts
  *           — scroll events keep dots alive at the last known touch position
+ *
+ * Performance (no visual compromise):
+ *  - getBoundingClientRect() cached; refreshed only on resize / scroll
+ *  - RAF loop self-pauses when all dots settle and pointer is inactive
+ *  - Mobile capped at 30fps (imperceptible at touch speeds)
  */
 
 import { useEffect, useRef } from "react"
@@ -18,7 +23,7 @@ const BASE_ALPHA = 0.35
 
 // ── Cursor / touch repulsion ──────────────────────────────────────────────────
 const REPEL_RADIUS_DESKTOP = 90
-const REPEL_RADIUS_MOBILE  = 200   // larger bubble on touch
+const REPEL_RADIUS_MOBILE  = 200
 const REPEL_FORCE          = 90
 const MAX_DISP             = 130
 
@@ -26,8 +31,14 @@ const MAX_DISP             = 130
 const SPRING_K = 0.12
 const DAMPING  = 0.76
 
-// ── Mobile linger: keep dots active this long after finger lifts (ms) ─────────
+// ── Idle: pause RAF when max velocity drops below this ────────────────────────
+const IDLE_VEL_SQ = 0.001 * 0.001  // (px/frame)²
+
+// ── Mobile linger ─────────────────────────────────────────────────────────────
 const TOUCH_LINGER_MS = 600
+
+// ── Mobile 30fps cap ──────────────────────────────────────────────────────────
+const MOBILE_FRAME_MS = 1000 / 30
 
 export function TechDotsBackground() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -38,11 +49,23 @@ export function TechDotsBackground() {
         const ctx = canvas.getContext("2d", { alpha: true })
         if (!ctx) return
 
+        const mobile = () => window.innerWidth < 768
+
         let cols = 0, rows = 0
         let hx: Float32Array, hy: Float32Array
         let dx: Float32Array, dy: Float32Array
         let vx: Float32Array, vy: Float32Array
         let prevTop = 0, prevBot = 0
+
+        // ── Cached rect — avoids getBoundingClientRect() inside draw loop ─────
+        // Store canvas position in document coords (doesn't change on scroll)
+        let cacheLeft = 0, cacheDocTop = 0
+        function refreshRect() {
+            if (!canvas) return
+            const r = canvas.getBoundingClientRect()
+            cacheLeft   = r.left
+            cacheDocTop = window.scrollY + r.top  // document-relative top (stable)
+        }
 
         function buildGrid(W: number, H: number) {
             cols = Math.ceil(W / SPACING) + 2
@@ -65,6 +88,7 @@ export function TechDotsBackground() {
             canvas.height = canvas.offsetHeight
             buildGrid(canvas.width, canvas.height)
             prevTop = 0; prevBot = 0
+            refreshRect()
         }
 
         const ro = new ResizeObserver(resize)
@@ -76,13 +100,14 @@ export function TechDotsBackground() {
             vx: -9999, vy: -9999,
             active: false,
             isTouch: false,
-            lastTouchAt: 0,       // timestamp of last touch activity
+            lastTouchAt: 0,
         }
 
         // ── Mouse ─────────────────────────────────────────────────────────────
         function onMouseMove(e: MouseEvent) {
             ptr.vx = e.clientX; ptr.vy = e.clientY
             ptr.active = true; ptr.isTouch = false
+            wakeUp()
         }
         function onMouseLeave() {
             ptr.active = false; ptr.vx = -9999; ptr.vy = -9999
@@ -95,6 +120,7 @@ export function TechDotsBackground() {
             ptr.vx = t.clientX; ptr.vy = t.clientY
             ptr.active = true; ptr.isTouch = true
             ptr.lastTouchAt = performance.now()
+            wakeUp()
         }
         function onTouchMove(e: TouchEvent) {
             const t = e.touches[0]
@@ -102,18 +128,19 @@ export function TechDotsBackground() {
             ptr.vx = t.clientX; ptr.vy = t.clientY
             ptr.active = true; ptr.isTouch = true
             ptr.lastTouchAt = performance.now()
+            wakeUp()
         }
         function onTouchEnd() {
-            // Don't clear immediately — let linger logic in draw() handle fade
             ptr.lastTouchAt = performance.now()
-            // ptr.active stays true; draw() will clear it after TOUCH_LINGER_MS
         }
 
-        // ── Scroll: keep dots alive at last known touch position ──────────────
+        // ── Scroll: refresh cached rect + keep touch dots alive ───────────────
         function onScroll() {
+            refreshRect()
             if (ptr.isTouch && ptr.vx !== -9999) {
                 ptr.active = true
                 ptr.lastTouchAt = performance.now()
+                wakeUp()
             }
         }
 
@@ -125,17 +152,34 @@ export function TechDotsBackground() {
         window.addEventListener("touchcancel", onTouchEnd,   { passive: true })
         window.addEventListener("scroll",      onScroll,     { passive: true })
 
-        // ── Animation loop ────────────────────────────────────────────────────
-        let raf: number
+        // ── RAF with idle-pause ────────────────────────────────────────────────
+        let raf = 0
+        let sleeping = false
+        let lastFrameTime = 0
+
+        function wakeUp() {
+            if (sleeping) {
+                sleeping = false
+                raf = requestAnimationFrame(draw)
+            }
+        }
 
         function draw(now: number) {
-            raf = requestAnimationFrame(draw)
-            if (!canvas || !ctx || !hx) return
+            if (!canvas || !ctx || !hx) {
+                raf = requestAnimationFrame(draw)
+                return
+            }
+
+            // 30fps cap on mobile (touch interaction is imperceptible above 30)
+            if (mobile() && now - lastFrameTime < MOBILE_FRAME_MS) {
+                raf = requestAnimationFrame(draw)
+                return
+            }
+            lastFrameTime = now
 
             // Linger: deactivate touch pointer after TOUCH_LINGER_MS
             if (ptr.isTouch && ptr.active) {
-                const age = now - ptr.lastTouchAt
-                if (age > TOUCH_LINGER_MS) {
+                if (now - ptr.lastTouchAt > TOUCH_LINGER_MS) {
                     ptr.active = false
                     ptr.vx = -9999; ptr.vy = -9999
                 }
@@ -144,14 +188,15 @@ export function TechDotsBackground() {
             const W = canvas.width
             const H = canvas.height
 
-            const rect = canvas.getBoundingClientRect()
-            const mx   = ptr.active ? ptr.vx - rect.left  : -9999
-            const my   = ptr.active ? ptr.vy - rect.top   : -9999
+            const scrollY   = window.scrollY
+            const rectTop   = cacheDocTop - scrollY  // viewport-relative top (recomputed each frame from stable doc pos)
+            const viewTop   = Math.max(0, -rectTop)
+            const viewBot   = Math.min(H, viewTop + window.innerHeight)
+
+            const mx   = ptr.active ? ptr.vx - cacheLeft : -9999
+            const my   = ptr.active ? ptr.vy - rectTop   : -9999
             const act  = ptr.active
             const repelR = ptr.isTouch ? REPEL_RADIUS_MOBILE : REPEL_RADIUS_DESKTOP
-
-            const viewTop = Math.max(0, -rect.top)
-            const viewBot = Math.min(H, viewTop + window.innerHeight)
 
             const ct = Math.max(0, Math.min(prevTop, viewTop) - SPACING * 2)
             const cb = Math.min(H, Math.max(prevBot, viewBot) + SPACING * 2)
@@ -161,6 +206,8 @@ export function TechDotsBackground() {
             const buf  = REPEL_RADIUS_MOBILE + MAX_DISP + SPACING
             const simT = Math.max(0,    Math.floor((viewTop - buf) / SPACING))
             const simB = Math.min(rows, Math.ceil( (viewBot + buf) / SPACING) + 1)
+
+            let maxVelSq = 0
 
             for (let r = simT; r < simB; r++) {
                 const base = r * cols
@@ -196,6 +243,9 @@ export function TechDotsBackground() {
                         dx[i] *= s; dy[i] *= s
                         vx[i] *= s; vy[i] *= s
                     }
+
+                    const velSq = vx[i] * vx[i] + vy[i] * vy[i]
+                    if (velSq > maxVelSq) maxVelSq = velSq
                 }
             }
 
@@ -215,6 +265,14 @@ export function TechDotsBackground() {
                 }
             }
             ctx.fill()
+
+            // ── Idle detection: sleep when dots settle and pointer is inactive ─
+            if (!act && maxVelSq < IDLE_VEL_SQ) {
+                sleeping = true
+                return  // wakeUp() restarts on next pointer event
+            }
+
+            raf = requestAnimationFrame(draw)
         }
 
         raf = requestAnimationFrame(draw)
