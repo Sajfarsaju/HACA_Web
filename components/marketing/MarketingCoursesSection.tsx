@@ -1,0 +1,264 @@
+import React from "react"
+
+type CourseRow = {
+    badge: string
+    /** Desktop: explicit line breaks */
+    titleLines: readonly string[]
+    /** Mobile: single flowing title (screenshot) */
+    titleMobile: string
+    descriptionLines: readonly [string, string, string]
+}
+
+const ACCENT = "#0066FF"
+
+const COURSES: CourseRow[] = [
+    {
+        badge: "Offline | 6 Months",
+        titleLines: ["Basic to Advanced AI-", "integrated Digital", "Marketing Program"],
+        titleMobile: "Basic to Advanced AI-integrated Digital Marketing Program",
+        descriptionLines: [
+            "Learn in person with hands-on training and real work experience. This includes",
+            "5 months of advanced training with the latest AI tools, plus 1 month focused",
+            "internship on a special skill.",
+        ],
+    },
+    {
+        badge: "Online | 5 Months",
+        titleLines: ["Basic to Advanced AI-", "integrated Digital", "Marketing Program"],
+        titleMobile: "Basic to Advanced AI-integrated Digital Marketing Program",
+        descriptionLines: [
+            "Study from home with live classes covering the same advanced training,",
+            "practical projects and AI tools. This course is perfect if you’re working or busy",
+            "during the day.",
+        ],
+    },
+    {
+        badge: "Online | 2 Months",
+        titleLines: ["Performance Marketing", "Mastery"],
+        titleMobile: "Performance Marketing Mastery",
+        descriptionLines: [
+            "Specialise in running high-ROI ad campaigns across Google, Facebook,",
+            "Instagram and more. Perfect for those who want to master paid ads in less",
+            "time.",
+        ],
+    },
+    {
+        badge: "Coming Soon",
+        titleLines: ["Content Creation & Social", "Media Mastery Course"],
+        titleMobile: "Content Creation & Social Media Mastery Course",
+        descriptionLines: [
+            "Learn how to grow, engage, and monetise audiences on platforms like",
+            "Instagram, LinkedIn, YouTube, and Facebook with proven strategies and",
+            "content planning.",
+        ],
+    },
+]
+
+const ARROW_W = 35.3
+const ARROW_H = 41.166
+
+function CourseArrowVector({ className }: { className?: string }) {
+    return (
+        <svg
+            width={ARROW_W}
+            height={ARROW_H}
+            viewBox="0 0 33 31"
+            fill="none"
+            className={className}
+            preserveAspectRatio="xMidYMid meet"
+            aria-hidden
+        >
+            <path
+                d="M31.0463 25.2203L32.3732 4.46569C32.4228 3.68739 32.1613 2.9211 31.6462 2.33533C31.1311 1.74957 30.4045 1.39229 29.6262 1.34208L8.8722 0.00604453C8.09389 -0.0440589 7.3277 0.217078 6.74216 0.732013C6.45223 0.986982 6.21539 1.29659 6.04515 1.64315C5.8749 1.98971 5.7746 2.36644 5.74996 2.75183C5.72532 3.13722 5.77683 3.52372 5.90154 3.88927C6.02626 4.25481 6.22174 4.59225 6.47682 4.8823C6.99198 5.46809 7.71864 5.82533 8.49695 5.87544L22.1655 6.75535L0.998772 25.37C0.41315 25.885 0.0561907 26.6116 0.00642165 27.3901C-0.0433474 28.1685 0.218151 28.935 0.73339 29.5209C1.24863 30.1068 1.9754 30.4641 2.75382 30.5142C3.53225 30.5643 4.29857 30.3031 4.88419 29.7881L26.0509 11.1735L25.177 24.8424C25.1513 25.2281 25.202 25.615 25.3263 25.981C25.4506 26.3471 25.646 26.6849 25.9013 26.9752C26.1566 27.2655 26.4667 27.5025 26.8138 27.6725C27.161 27.8426 27.5383 27.9423 27.924 27.9661C28.7023 28.016 29.4684 27.7549 30.054 27.2399C30.6395 26.725 30.9964 25.9986 31.0463 25.2203Z"
+                fill="currentColor"
+            />
+        </svg>
+    )
+}
+
+function CourseRowArrows() {
+    return (
+        <span className="inline-flex h-[41.166px] w-[35.3px] shrink-0 items-center justify-center">
+            <CourseArrowVector className="text-[#0066FF] transition-colors duration-300 ease-out group-hover:text-white group-focus-within:text-white" />
+        </span>
+    )
+}
+
+/** Mobile-only: pill + blue circle + white → (screenshot) */
+function KnowMorePill() {
+    return (
+        <div
+            className="
+                flex w-full min-w-0 items-center justify-between gap-3 rounded-full bg-[#E8F1FF] px-4 py-2.5
+                transition-[background-color,color] duration-300 ease-out
+                group-hover:bg-white/15 group-focus-within:bg-white/15
+            "
+        >
+            <span className="font-['Satoshi',sans-serif] text-[14px] font-medium text-black transition-colors group-hover:text-white group-focus-within:text-white">
+                Know More
+            </span>
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0066FF] transition-colors group-hover:bg-white group-focus-within:bg-white">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden className="text-white transition-colors group-hover:text-[#0066FF] group-focus-within:text-[#0066FF]">
+                    <path
+                        d="M5 12h14m0 0-6-6m6 6-6 6"
+                        stroke="currentColor"
+                        strokeWidth={2.25}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            </span>
+        </div>
+    )
+}
+
+export function MarketingCoursesSection() {
+    return (
+        <section
+            id="marketing-courses"
+            className="w-full bg-white opacity-100"
+            aria-labelledby="marketing-courses-heading"
+        >
+            <div
+                className="
+                    mx-auto box-border flex w-full min-w-0 max-w-[1440px] flex-col gap-[10px]
+                    px-[clamp(16px,4.16vw,60px)]
+                    pt-5 pb-10
+                    max-lg:min-h-0 lg:min-h-[1070px]
+                "
+            >
+                <header className="flex w-full min-w-0 flex-col gap-5 border-t border-[#E5E5E5] pb-8 pt-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10 lg:pb-12 lg:pt-8">
+                    {/* Mobile: thin blue accent line (top-left) */}
+                    <div className="h-0.5 w-14 shrink-0 bg-[#0066FF] lg:hidden" aria-hidden />
+
+                    <div className="flex shrink-0 items-center gap-[clamp(10px,1.5vw,14px)] lg:pt-1">
+                        <span
+                            className="h-[10px] w-[10px] shrink-0 rounded-full lg:h-3 lg:w-3"
+                            style={{ backgroundColor: ACCENT }}
+                            aria-hidden
+                        />
+                        <p className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal text-black">
+                            Courses
+                        </p>
+                    </div>
+                    <h2
+                        id="marketing-courses-heading"
+                        className="
+                            w-full min-w-0 max-w-full text-left font-semibold tracking-normal text-black
+                            [font-family:'Darker_Grotesque',sans-serif]
+                            text-[clamp(1.5rem,5vw,3.125rem)] leading-[1.08]
+                            lg:ml-auto lg:max-w-[min(100%,720px)] lg:leading-[1.08]
+                        "
+                    >
+                        {/* Mobile: We’ve Career-Focused / Programs Just for You */}
+                        <span className="lg:hidden">
+                            We&apos;ve Career-Focused
+                            <br />
+                            Programs Just for You
+                        </span>
+                        {/* Desktop / large: We’ve Career-Focused Programs Just / for You */}
+                        <span className="hidden lg:inline">
+                            We&apos;ve Career-Focused Programs Just
+                            <br />
+                            for You
+                        </span>
+                    </h2>
+                </header>
+
+                <div className="flex w-full min-w-0 flex-col">
+                    {COURSES.map((course) => (
+                        <article
+                            key={course.badge}
+                            className="border-b border-[#E5E5E5] last:border-b-0 lg:border-black"
+                        >
+                            <div
+                                className="
+                                    group relative cursor-pointer rounded-[16px] px-0 py-6
+                                    transition-[background-color,color] duration-300 ease-out
+                                    hover:bg-[#0066FF] focus-within:bg-[#0066FF]
+                                    focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0066FF]
+                                    lg:rounded-[20px] lg:px-[clamp(14px,2vw,28px)] lg:py-[clamp(22px,3vw,34px)]
+                                "
+                                tabIndex={0}
+                            >
+                                <div
+                                    className="
+                                        grid w-full min-w-0 grid-cols-1 gap-6
+                                        lg:grid-cols-[minmax(0,42%)_minmax(0,1fr)] lg:items-center lg:gap-x-[clamp(32px,4.5vw,56px)]
+                                    "
+                                >
+                                    <div className="flex min-w-0 flex-col items-start justify-center">
+                                        <span
+                                            className="
+                                                inline-flex max-w-full rounded-full bg-[#E8F1FF] px-[14px] py-[7px]
+                                                font-['Satoshi',sans-serif] text-[clamp(12px,1.1vw,14px)] font-bold leading-none tracking-normal text-black
+                                                transition-[background-color,color] duration-300 ease-out
+                                                group-hover:bg-transparent group-hover:text-white
+                                                group-focus-within:bg-transparent group-focus-within:text-white
+                                            "
+                                        >
+                                            {course.badge}
+                                        </span>
+                                        <h3
+                                            className="
+                                                mt-4 w-full min-w-0 text-left font-bold tracking-normal text-black
+                                                transition-colors duration-300 ease-out
+                                                [font-family:'Darker_Grotesque',sans-serif]
+                                                text-[clamp(1.125rem,4.2vw,2.125rem)] leading-[1.15]
+                                                group-hover:text-white group-focus-within:text-white
+                                                lg:mt-[18px] lg:leading-[1.12]
+                                            "
+                                        >
+                                            <span className="lg:hidden">{course.titleMobile}</span>
+                                            <span className="hidden lg:inline">
+                                                {course.titleLines.map((line, i) => (
+                                                    <React.Fragment key={`${line}-${i}`}>
+                                                        {line}
+                                                        {i < course.titleLines.length - 1 ? (
+                                                            <>
+                                                                <br aria-hidden />
+                                                            </>
+                                                        ) : null}
+                                                    </React.Fragment>
+                                                ))}
+                                            </span>
+                                        </h3>
+                                    </div>
+
+                                    <div
+                                        className="
+                                            flex w-full min-w-0 max-w-[min(100%,681.225px)] flex-col gap-4 overflow-visible
+                                            lg:ml-auto lg:min-h-[66px] lg:flex-row lg:items-center lg:justify-between lg:gap-6
+                                        "
+                                    >
+                                        <p
+                                            className="
+                                                m-0 min-w-0 flex-1 text-left font-medium tracking-normal text-black
+                                                transition-colors duration-300 ease-out
+                                                font-['Satoshi',sans-serif]
+                                                text-[16px] leading-[1.45] lg:leading-[100%]
+                                                group-hover:text-white group-focus-within:text-white
+                                            "
+                                        >
+                                            {course.descriptionLines[0]}
+                                            <br aria-hidden />
+                                            {course.descriptionLines[1]}
+                                            <br aria-hidden />
+                                            {course.descriptionLines[2]}
+                                        </p>
+                                        <div className="hidden shrink-0 items-center lg:flex lg:self-center">
+                                            <CourseRowArrows />
+                                        </div>
+                                        <div className="w-full lg:hidden">
+                                            <KnowMorePill />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            </div>
+        </section>
+    )
+}

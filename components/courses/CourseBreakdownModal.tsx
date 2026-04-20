@@ -20,7 +20,6 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
             queueMicrotask(() => setOpenModuleId(null))
         }
     }, [course])
-
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
             if (e.key === "Escape") onClose()

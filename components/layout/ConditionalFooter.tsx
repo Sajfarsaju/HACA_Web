@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import { Footer } from "./Footer";
-import { TechFooter } from "./TechFooter";
 
 export function ConditionalFooter() {
     const pathname = usePathname();

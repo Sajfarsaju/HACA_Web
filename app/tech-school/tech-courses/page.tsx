@@ -15,7 +15,6 @@ import { TechDotsBackground } from "@/components/tech/TechDotsBackground";
 import { TechPageGradientBg } from "@/components/tech/TechPageGradientBg";
 import { TechFooter } from "@/components/layout/TechFooter";
 import { TechWhatsAppFloatingButton } from "@/components/layout/TechWhatsAppFloatingButton";
-import { SectionReveal } from "@/components/animations/SectionReveal";
 
 export default function CoursesPage() {
     const [mounted, setMounted] = useState(false);

@@ -88,7 +88,11 @@ export function CourseCardsGrid({ activeCategory }: { activeCategory: string }) 
                 </div>
             </div>
 
-            <CourseBreakdownModal course={breakdownCourse} onClose={() => setBreakdownCourse(null)} />
+            <CourseBreakdownModal
+                key={breakdownCourse?.id ?? "closed"}
+                course={breakdownCourse}
+                onClose={() => setBreakdownCourse(null)}
+            />
         </>
     )
 }

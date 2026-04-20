@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react"
 import { PressLogos } from "@/components/sections/PressLogos"
 import { MarketingStatsSection } from "@/components/marketing/MarketingStatsSection"
+import { MarketingApproachSection } from "@/components/marketing/MarketingApproachSection"
 import Image from "next/image"
 
 export function MarketingImpactSection() {
@@ -101,7 +102,10 @@ export function MarketingImpactSection() {
                         width: 100%;
                         max-width: 1320px;
                         display: flex;
-                        justify-content: center;
+                        flex-direction: column;
+                        align-items: stretch;
+                        justify-content: flex-start;
+                        box-sizing: border-box;
                     }
                     .video-container {
                         position: relative;
@@ -184,7 +188,7 @@ export function MarketingImpactSection() {
                     </div>
 
                     {/* Video Container Portion */}
-                    <div className="video-section-wrapper flex flex-col items-center">
+                    <div className="video-section-wrapper flex w-full min-w-0 max-w-[1320px] flex-col self-stretch items-stretch">
                         <div className="video-container">
                             {/* Background photo from Haca360Section */}
                             <div className="absolute inset-0 z-0">
@@ -228,8 +232,12 @@ export function MarketingImpactSection() {
                             </button>
                         </div>
 
-                        <div className="w-full mt-[clamp(24px,3vw,40px)]">
+                        <div className="mt-[clamp(16px,2.5vw,28px)] w-full min-w-0 shrink-0 px-0">
                             <MarketingStatsSection />
+                        </div>
+
+                        <div className="box-border w-full min-w-0 shrink-0 px-0">
+                            <MarketingApproachSection />
                         </div>
                     </div>
                 </div>

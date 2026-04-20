@@ -1,7 +1,5 @@
 "use client"
 
-import { useState } from "react"
-
 const CATEGORIES = [
     { id: "all", label: "All" },
     { id: "marketing", label: "Marketing" },
