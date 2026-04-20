@@ -66,7 +66,8 @@ export function MarketingMentorsSection() {
                     className="
                         m-0 grid w-full list-none grid-cols-1 gap-8 p-0
                         sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10
-                        lg:grid-cols-4 lg:gap-x-8 lg:gap-y-10
+                        lg:grid-cols-3 lg:gap-x-8 lg:gap-y-10
+                        xl:grid-cols-4
                     "
                 >
                     {MENTORS.map((mentor) => (
@@ -79,7 +80,7 @@ export function MarketingMentorsSection() {
                             ].join(" ")}
                         >
                             {/* Desktop card frame: 308×415, gap 10px (Figma). Mobile stays fluid. */}
-                            <article className="flex w-full flex-col gap-[10px] max-lg:h-auto lg:h-[415px] lg:w-[308px]">
+                            <article className="mx-auto flex w-full max-w-[308px] flex-col gap-[10px] max-lg:h-auto lg:h-[415px]">
                                 <div
                                     className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl max-lg:h-[260px] lg:h-[308px]"
                                     style={{ backgroundColor: CARD_BG }}
