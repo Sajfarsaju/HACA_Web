@@ -122,6 +122,18 @@ export function GradientBlobOrb({
         window.addEventListener("touchend",    onTouchEnd,   { passive: true })
         window.addEventListener("touchcancel", onTouchEnd,   { passive: true })
 
+        // ── Cached rect — refreshed on scroll/resize, not every frame ──────────
+        let cachedCx = 0, cachedCy = 0
+        function refreshRect() {
+            if (!el) return
+            const r = el.getBoundingClientRect()
+            cachedCx = r.left + r.width  / 2
+            cachedCy = r.top  + r.height / 2
+        }
+        refreshRect()
+        window.addEventListener("scroll", refreshRect, { passive: true })
+        window.addEventListener("resize", refreshRect, { passive: true })
+
         // ── Animation loop ─────────────────────────────────────────────────
         let raf: number
 
@@ -136,15 +148,12 @@ export function GradientBlobOrb({
             let fx = (targetX - dx) * driftSpring
             let fy = (targetY - dy) * driftSpring
 
-            // Cursor repulsion — use current viewport rect (scroll-safe)
+            // Cursor repulsion — uses cached centre (no layout thrash)
             if (ptr.active) {
-                const rect = el.getBoundingClientRect()
-                const cx   = rect.left + rect.width  / 2
-                const cy   = rect.top  + rect.height / 2
-                const ex   = cx - ptr.x
-                const ey   = cy - ptr.y
-                const d2   = ex * ex + ey * ey
-                const r    = ptr.isTouch ? repelRadius * 1.5 : repelRadius
+                const ex = cachedCx - ptr.x
+                const ey = cachedCy - ptr.y
+                const d2 = ex * ex + ey * ey
+                const r  = ptr.isTouch ? repelRadius * 1.5 : repelRadius
                 if (d2 < r * r && d2 > 0) {
                     const d    = Math.sqrt(d2)
                     const norm = 1 - d / r
@@ -174,6 +183,8 @@ export function GradientBlobOrb({
             window.removeEventListener("touchmove",   onTouchMove)
             window.removeEventListener("touchend",    onTouchEnd)
             window.removeEventListener("touchcancel", onTouchEnd)
+            window.removeEventListener("scroll",      refreshRect)
+            window.removeEventListener("resize",      refreshRect)
         }
     }, [rotation, repelRadius, maxDrift, driftSpring, damping, minDriftMs, maxDriftMs])
 

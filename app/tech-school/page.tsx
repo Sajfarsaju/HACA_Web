@@ -1,24 +1,26 @@
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { TechDotsBackground } from "@/components/tech/TechDotsBackground";
 import TechHero from "@/components/sections/tech/TechHeroSection";
 import { TechIntroSection } from "@/components/sections/tech/TechIntroSection";
-import { TechShowcaseSection } from "@/components/sections/tech/TechShowcaseSection";
-import { TechProjectsSection } from "@/components/sections/tech/TechProjectsSection";
-import { TechPlacementsSection } from "@/components/sections/tech/TechPlacementsSection";
-import { TechPathSection } from "@/components/sections/tech/TechPathSection";
-
-import { TechPreneur } from "@/components/layout/TechPreneur";
-import { TechMentors } from "@/components/layout/TechMentors";
-import { TechWhyChoose } from "@/components/layout/TechWhyChoose";
-import { TechCulture } from "@/components/layout/TechCulture";
-import { TechYoutube } from "@/components/layout/TechYoutube";
-import { TechBlogs } from "@/components/layout/TechBlogs";
-import { TechFaq } from "@/components/layout/TechFaq";
-import { TechGlobalLearning } from "@/components/layout/TechGlobalLearning";
-import { TechQuote } from "@/components/layout/TechQuote";
-import { TechFooter } from "@/components/layout/TechFooter";
-import { TechWhatsAppFloatingButton } from "@/components/layout/TechWhatsAppFloatingButton";
 import { SectionReveal } from "@/components/animations/SectionReveal";
+
+// Below-fold sections — loaded only when browser is idle / user scrolls
+const TechShowcaseSection   = dynamic(() => import("@/components/sections/tech/TechShowcaseSection").then(m => ({ default: m.TechShowcaseSection })));
+const TechPathSection       = dynamic(() => import("@/components/sections/tech/TechPathSection").then(m => ({ default: m.TechPathSection })));
+const TechProjectsSection   = dynamic(() => import("@/components/sections/tech/TechProjectsSection").then(m => ({ default: m.TechProjectsSection })));
+const TechPlacementsSection = dynamic(() => import("@/components/sections/tech/TechPlacementsSection").then(m => ({ default: m.TechPlacementsSection })));
+const TechPreneur           = dynamic(() => import("@/components/layout/TechPreneur").then(m => ({ default: m.TechPreneur })));
+const TechMentors           = dynamic(() => import("@/components/layout/TechMentors").then(m => ({ default: m.TechMentors })));
+const TechWhyChoose         = dynamic(() => import("@/components/layout/TechWhyChoose").then(m => ({ default: m.TechWhyChoose })));
+const TechCulture           = dynamic(() => import("@/components/layout/TechCulture").then(m => ({ default: m.TechCulture })));
+const TechYoutube           = dynamic(() => import("@/components/layout/TechYoutube").then(m => ({ default: m.TechYoutube })));
+const TechBlogs             = dynamic(() => import("@/components/layout/TechBlogs").then(m => ({ default: m.TechBlogs })));
+const TechFaq               = dynamic(() => import("@/components/layout/TechFaq").then(m => ({ default: m.TechFaq })));
+const TechGlobalLearning    = dynamic(() => import("@/components/layout/TechGlobalLearning").then(m => ({ default: m.TechGlobalLearning })));
+const TechQuote             = dynamic(() => import("@/components/layout/TechQuote").then(m => ({ default: m.TechQuote })));
+const TechFooter            = dynamic(() => import("@/components/layout/TechFooter").then(m => ({ default: m.TechFooter })));
+const TechWhatsAppFloatingButton = dynamic(() => import("@/components/layout/TechWhatsAppFloatingButton").then(m => ({ default: m.TechWhatsAppFloatingButton })));
 
 export default function TechSchoolPage() {
     return (

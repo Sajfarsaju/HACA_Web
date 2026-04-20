@@ -55,30 +55,21 @@ const enterTransition = { duration: 0.55, ease: "easeOut" } as const;
 const exitTransition  = { duration: 0.3,  ease: "easeIn"  } as const;
 
 // ── Arrow Button ────────────────────────────────────────────────────────────
-function ArrowBtn({ rotate, onClick, disabled, label }: {
-    rotate: string;
+function ArrowBtn({ onClick, disabled, label, isPrev }: {
     onClick: () => void;
     disabled: boolean;
     label: string;
+    isPrev?: boolean;
 }) {
     return (
         <button
+            type="button"
             aria-label={label}
             onClick={onClick}
             disabled={disabled}
-            style={{
-                width: "33.48px", height: "33.48px",
-                borderRadius: "50%",
-                border: "0.72px solid #FFFFFF",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                background: "#000000", flexShrink: 0,
-                transform: `rotate(${rotate})`,
-                opacity: disabled ? 0.3 : 1,
-                cursor: disabled ? "not-allowed" : "pointer",
-                transition: "opacity 0.2s ease",
-            }}
+            className={`relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] cursor-pointer transition-opacity duration-200 ease-in-out disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30 ${isPrev ? "rotate-[-180deg] opacity-70 hover:opacity-100" : "opacity-100 hover:opacity-80"}`}
         >
-            <Image src="/photos/schools/tech/Arrow_FAQ.svg" alt={label} width={12} height={12} className="brightness-0 invert" />
+            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
         </button>
     );
 }
@@ -135,8 +126,8 @@ export function TechBlogs() {
                     </h2>
 
                     <div className="hidden lg:flex gap-4">
-                        <ArrowBtn rotate="90deg"  onClick={prev} disabled={index === 0}                  label="Previous" />
-                        <ArrowBtn rotate="-90deg" onClick={next} disabled={index === SLIDES.length - 1} label="Next" />
+                        <ArrowBtn isPrev onClick={prev} disabled={index === 0}                  label="Previous" />
+                        <ArrowBtn        onClick={next} disabled={index === SLIDES.length - 1} label="Next" />
                     </div>
                 </div>
 
@@ -222,8 +213,8 @@ export function TechBlogs() {
 
                     {/* Arrow Controls — Mobile */}
                     <div className="flex lg:hidden gap-4 z-10">
-                        <ArrowBtn rotate="90deg"  onClick={prev} disabled={index === 0}                  label="Previous" />
-                        <ArrowBtn rotate="-90deg" onClick={next} disabled={index === SLIDES.length - 1} label="Next" />
+                        <ArrowBtn isPrev onClick={prev} disabled={index === 0}                  label="Previous" />
+                        <ArrowBtn        onClick={next} disabled={index === SLIDES.length - 1} label="Next" />
                     </div>
                 </div>
 

@@ -200,7 +200,10 @@ export default function Threads({
       container.addEventListener("mouseleave", handleMouseLeave);
     }
 
+    let isVisible = false;
+
     function update(t: number) {
+      if (!isVisible) return; // paused — IntersectionObserver will restart
       if (enableMouseInteraction) {
         const smoothing = 0.05;
         currentMouse[0] += smoothing * (targetMouse[0] - currentMouse[0]);
@@ -215,9 +218,23 @@ export default function Threads({
       renderer.render({ scene: mesh });
       animationFrameId.current = requestAnimationFrame(update);
     }
-    animationFrameId.current = requestAnimationFrame(update);
+
+    // Pause WebGL when not in viewport — saves GPU when user hasn't scrolled there
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          animationFrameId.current = requestAnimationFrame(update);
+        } else if (animationFrameId.current !== undefined) {
+          cancelAnimationFrame(animationFrameId.current);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(container);
 
     return () => {
+      observer.disconnect();
       if (animationFrameId.current !== undefined) {
         cancelAnimationFrame(animationFrameId.current);
       }
