@@ -6,6 +6,7 @@ import { DesignVideoSection } from "@/components/design/DesignVideoSection";
 import { DesignPressLogos } from "@/components/design/DesignPressLogos";
 import { DesignStatsSection } from "@/components/design/DesignStatsSection";
 import { DesignProgramsHeadingSection } from "@/components/design/DesignProgramsHeadingSection";
+import { DesignProgramsSection } from "@/components/design/DesignProgramsSection";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -236,6 +237,9 @@ export default function DesignSchoolPage() {
 
             {/* Programs heading section (Design School specific) */}
             <DesignProgramsHeadingSection />
+
+            {/* Programs cards section */}
+            <DesignProgramsSection />
         </div>
     );
 }
