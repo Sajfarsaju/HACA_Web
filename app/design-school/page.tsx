@@ -15,9 +15,7 @@ export default function DesignSchoolPage() {
             <DesignSchoolNavbar />
 
             {/* Hero Section */}
-            <main className="max-w-[1440px] mx-auto w-full lg:h-[810px] h-auto min-h-[400px]">
-                {/* Responsive Hero Layout Content */}
-            </main>
+            <main className="max-w-[1440px] mx-auto w-full lg:h-[810px] h-auto min-h-[400px]">{/* ... */}</main>
         </div>
     );
 }

@@ -42,13 +42,16 @@ async function fetchMarketingPlacements(): Promise<PlacementItem[]> {
 export default async function MarketingSuccessStoryPage() {
     const marketingItems = await fetchMarketingPlacements();
 
-    // Pad items to explicitly render 4 rows (16 items) if data has fewer items, repeating the available ones.
-    const paddedItems = marketingItems.length > 0
-        ? Array.from({ length: 16 }).map((_, i) => {
-              const baseItem = marketingItems[i % marketingItems.length];
-              return { ...baseItem, _id: `${baseItem._id}-copy-${i}` };
-          })
-        : [];
+    // Ensure at least 16 cards for the initial grid; keep ALL items if more than 16.
+    const items: PlacementItem[] =
+        marketingItems.length >= 16
+            ? marketingItems
+            : marketingItems.length > 0
+              ? Array.from({ length: 16 }).map((_, i) => {
+                    const baseItem = marketingItems[i % marketingItems.length];
+                    return { ...baseItem, _id: `${baseItem._id}-copy-${i}` };
+                })
+              : [];
 
     return (
         <div className="w-full bg-white overflow-x-hidden min-h-screen flex flex-col justify-between text-black">
@@ -75,7 +78,7 @@ export default async function MarketingSuccessStoryPage() {
 
                     <div className="flex flex-col w-full items-center">
                         <div className="w-full">
-                            <SchoolPlacementSection schoolName="Marketing School" items={paddedItems.length > 0 ? paddedItems : marketingItems} />
+                            <SchoolPlacementSection schoolName="Marketing School" items={items} />
                         </div>
                     </div>
                 </section>
