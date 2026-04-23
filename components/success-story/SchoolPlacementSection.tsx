@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useCallback, useLayoutEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PlacementCardMedia } from "@/components/success-story/PlacementCardMedia";
 
@@ -148,10 +148,20 @@ function ScrollRevealCard({ children }: { children: ReactNode }) {
 export function SchoolPlacementSection({ schoolName, items }: Props) {
     const rowCapacity = useRowCapacity();
     const [expanded, setExpanded] = useState(false);
+    const scrollYBeforeExpand = useRef(0);
+    const prevExpanded = useRef(false);
 
     const firstRow = items.slice(0, rowCapacity);
     const rest = items.slice(rowCapacity);
     const hasMore = rest.length > 0;
+
+    /** After expand, restore scroll so the page does not jump (append-only layout + stable scroll position). */
+    useLayoutEffect(() => {
+        if (expanded && !prevExpanded.current) {
+            window.scrollTo({ top: scrollYBeforeExpand.current, left: 0, behavior: "auto" });
+        }
+        prevExpanded.current = expanded;
+    }, [expanded]);
 
     const renderStaggerCard = useCallback(
         (item: PlacementItem) => (
@@ -187,33 +197,35 @@ export function SchoolPlacementSection({ schoolName, items }: Props) {
 
     return (
         <div className="flex w-full flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-            {!expanded ? (
-                <>
-                    <StaggerGrid>{firstRow.map((item) => renderStaggerCard(item))}</StaggerGrid>
-                    {hasMore ? (
-                        <button
-                            type="button"
-                            onClick={() => setExpanded(true)}
-                            className="font-rethink font-medium tracking-[0%] text-[#A7ADBE] hover:text-[#FFFFFF] m-0 self-center text-[15px] md:text-[16px] leading-[100%] underline underline-offset-4 decoration-[#232D6B]/50 hover:decoration-[#FFFFFF]/60 transition-colors"
-                        >
-                            View more
-                        </button>
-                    ) : null}
-                </>
-            ) : (
-                <>
-                    <div className={gridClassName}>
-                        {items.map((item) => renderScrollRevealCard(item))}
-                    </div>
-                    <button
-                        type="button"
-                        onClick={() => setExpanded(false)}
-                        className="font-rethink font-medium tracking-[0%] text-[#A7ADBE] hover:text-[#FFFFFF] m-0 self-center text-[15px] md:text-[16px] leading-[100%] underline underline-offset-4 decoration-[#232D6B]/50 hover:decoration-[#FFFFFF]/60 transition-colors"
-                    >
-                        View less
-                    </button>
-                </>
-            )}
+            {/* First batch always stays mounted; expanded content appends below (no full-grid swap). */}
+            <StaggerGrid>{firstRow.map((item) => renderStaggerCard(item))}</StaggerGrid>
+
+            {expanded && rest.length > 0 ? (
+                <div className={gridClassName}>{rest.map((item) => renderScrollRevealCard(item))}</div>
+            ) : null}
+
+            {!expanded && hasMore ? (
+                <button
+                    type="button"
+                    onClick={() => {
+                        scrollYBeforeExpand.current = window.scrollY;
+                        setExpanded(true);
+                    }}
+                    className="font-rethink font-medium tracking-[0%] text-[#A7ADBE] hover:text-[#FFFFFF] m-0 self-center text-[15px] md:text-[16px] leading-[100%] underline underline-offset-4 decoration-[#232D6B]/50 hover:decoration-[#FFFFFF]/60 transition-colors"
+                >
+                    View more
+                </button>
+            ) : null}
+
+            {expanded ? (
+                <button
+                    type="button"
+                    onClick={() => setExpanded(false)}
+                    className="font-rethink font-medium tracking-[0%] text-[#A7ADBE] hover:text-[#FFFFFF] m-0 self-center text-[15px] md:text-[16px] leading-[100%] underline underline-offset-4 decoration-[#232D6B]/50 hover:decoration-[#FFFFFF]/60 transition-colors"
+                >
+                    View less
+                </button>
+            ) : null}
         </div>
     );
 }
