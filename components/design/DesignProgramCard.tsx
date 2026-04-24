@@ -139,10 +139,122 @@ export function DesignProgramCard({
         <div className="relative w-full overflow-hidden lg:!h-[757px]"
              style={{ backgroundColor: bgColor, height: `${cardMobileH}px` }}>
 
+            {/* ── Tablet layout (md → <lg): cleaner, no overlaps ── */}
+            <div className="hidden md:flex lg:hidden w-full h-[720px] px-[40px] py-[40px] gap-[28px]">
+                {/* Photo (left) */}
+                <div className="relative w-[44%] h-full">
+                    <Image
+                        src={photoSrc}
+                        alt={`${titleLine1} ${titleLine2}`}
+                        fill
+                        className="object-contain object-center"
+                    />
+                </div>
+
+                {/* Content (right) */}
+                <div className="flex-1 flex flex-col">
+                    {/* Badge */}
+                    <div className="inline-flex items-center self-start gap-[8px]
+                                    bg-white rounded-[30px]
+                                    px-[14px] py-[10px]">
+                        <span className="leading-none text-[#100F0E]"
+                              style={{ fontFamily: font, fontWeight: 500, fontSize: "16px" }}>
+                            {mode}
+                        </span>
+                        <div className="border-l-[4px] h-[18px]" style={{ borderColor: divColor }} />
+                        <span className="leading-none text-[#000000]"
+                              style={{ fontFamily: font, fontWeight: 500, fontSize: "16px" }}>
+                            {duration}
+                        </span>
+                    </div>
+
+                    {/* Heading + paragraph */}
+                    <div className="mt-[24px] flex flex-col gap-[18px]">
+                        <div className="relative inline-block">
+                            {decoration && decoStyle && (
+                                <div className="pointer-events-none absolute" style={decoStyle}>
+                                    <Image src={decoration.src} alt="" fill className="object-contain" />
+                                </div>
+                            )}
+
+                            <h2
+                                className="m-0 text-white"
+                                style={{ fontFamily: font, fontWeight: 500, lineHeight: "110%", fontSize: "52px" }}
+                            >
+                                {titleLine1}
+                                <br />
+                                <span className="relative inline-block" style={{ paddingBottom: underline ? "22px" : undefined }}>
+                                    {titleLine2}
+                                    {underline && (
+                                        <span
+                                            className="pointer-events-none absolute"
+                                            style={{
+                                                top: `calc(100% - 24px + ${ulYOffset})`,
+                                                left: `${underline.anchorPct ?? 84}%`,
+                                                transform: "translateX(-50%)",
+                                                width: ulWidth!,
+                                                height: ulHeight!,
+                                            }}
+                                            aria-hidden="true"
+                                        >
+                                            <Image
+                                                src={underline.src}
+                                                alt=""
+                                                fill
+                                                className="object-contain"
+                                                style={{
+                                                    transform: underline.desktop.rotation ? `rotate(${underline.desktop.rotation}deg)` : undefined,
+                                                    transformOrigin: "center",
+                                                }}
+                                            />
+                                        </span>
+                                    )}
+                                </span>
+                            </h2>
+                        </div>
+
+                        <p
+                            className="m-0 text-white max-w-[520px]"
+                            style={{ fontFamily: font, fontWeight: 400, lineHeight: "130%", fontSize: "16px" }}
+                        >
+                            {description}
+                        </p>
+                    </div>
+
+                    {/* Tools + button row */}
+                    <div className="mt-auto flex items-end justify-between gap-[20px]">
+                        <div className="flex flex-col gap-[10px]">
+                            <span className="text-white leading-none"
+                                  style={{ fontFamily: font, fontWeight: 500, fontSize: "14px" }}>
+                                Tools you will Study
+                            </span>
+                            <ToolGrid tools={tools} size={38} gap={8} />
+                        </div>
+
+                        <Link
+                            href={href}
+                            className="w-fit inline-flex items-center gap-[8px]
+                                       rounded-[30px] px-[18px] py-[14px]"
+                            style={{ backgroundColor: btnBg }}
+                        >
+                            <span className="text-[#FCFCFC] leading-none whitespace-nowrap"
+                                  style={{ fontFamily: font, fontWeight: 500, fontSize: "16px" }}>
+                                Explore Now
+                            </span>
+                            <svg viewBox="0 0 34 34" fill="none" className="shrink-0" style={{ width: 22, height: 22 }}>
+                                <path d={ARROW_PATH} fill="white" />
+                            </svg>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+
             {/* ── Left info block ── */}
             <div className="absolute top-[32px] left-[16px] w-[calc(100%-32px)]
+                            flex flex-col gap-[14px]
+                            md:hidden lg:flex
                             lg:top-[36px] lg:left-[4.17%] lg:w-[42.92%]
-                            flex flex-col gap-[14px] lg:gap-[clamp(32px,4.44vw,64px)]">
+                            lg:gap-[clamp(32px,4.44vw,64px)]">
 
                 {/* Badge */}
                 <div className="inline-flex items-center self-start gap-[6px] lg:gap-[clamp(6px,0.69vw,10px)]
@@ -217,7 +329,7 @@ export function DesignProgramCard({
             </div>
 
             {/* ── Photo — mobile ── */}
-            <div className="lg:hidden absolute" style={mobilePhotoStyle}>
+            <div className="md:hidden absolute" style={mobilePhotoStyle}>
                 <Image
                     src={photoSrc}
                     alt={`${titleLine1} ${titleLine2}`}
@@ -235,6 +347,7 @@ export function DesignProgramCard({
             {/* ── Explore Now button ── */}
             <Link href={href}
                   className="absolute bottom-[15px] left-1/2 -translate-x-1/2
+                             md:hidden lg:inline-flex
                              lg:bottom-auto lg:left-auto lg:translate-x-0 lg:top-[37px] lg:right-[4.17%]
                              w-fit inline-flex items-center gap-[6px] lg:gap-[clamp(6px,0.56vw,8px)]
                              rounded-[27px] lg:rounded-[30px]
