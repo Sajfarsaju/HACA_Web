@@ -1,4 +1,5 @@
 import { DesignProgramCard, type DesignProgramCardProps } from "./DesignProgramCard";
+import { DesignPickOneToExploreSection } from "./DesignPickOneToExploreSection";
 
 const DUMMY_TOOLS = Array.from({ length: 10 }, (_, i) => ({ alt: `Tool ${i + 1}` }));
 
@@ -141,16 +142,39 @@ const PROGRAMS: DesignProgramCardProps[] = [
         },
     },
     {
-        bgColor: "#2D1060",
-        mobileCardHeight: 828,
-        mode: "Offline",
-        duration: "6 Month",
-        titleLine1: "Program Title",
-        titleLine2: "Line Two",
-        description: "Program description goes here. This will be updated with the actual content for program 5.",
+        bgColor: "#2592FF",
+        dividerColor: "#2592FF",
+        buttonColor: "#FF5C00",
+        mobileCardHeight: 900,
+        mode: "Online",
+        duration: "3 Months",
+        titleLine1: "AI Integrated Video",
+        titleLine2: "Editing Mastery",
+        description:
+            "Editing is storytelling. This module focuses on how visuals, sound, and cuts work together to hold attention and deliver meaning.",
         tools: DUMMY_TOOLS,
-        photoSrc: "/photos/schools/design/program 1 photo.webp",
+        photoSrc: "/photos/schools/design/program 5 photo.webp",
+        photoConfig: {
+            desktop: { top: 78.63, left: 788, width: 420, height: 599.8787841796875 },
+            mobile: { top: 384, left: 38, width: 300, height: 428.4848327636719 },
+        },
         href: "/design-school/courses/program-5",
+        underline: {
+            src: "/photos/schools/design/program 5 vector 1.svg",
+            desktop: { width: 248.32049643390252, height: 21.790195537783195, rotation: -2.85 },
+            mobile: { width: 103.72389255795225, height: 13.465850875002188 },
+            anchorPct: 72,
+        },
+        decoration: {
+            src: "/photos/schools/design/program 5 vector 2.svg",
+            desktop: { width: 49.026123239136666, height: 71.09472684130627 },
+            mobile: { width: 24.000000094118803, height: 34.80335249244244 },
+            offset: {
+                // Figma: deco ~ top 79.63 / left 693 on canvas — anchored to title block top-right
+                desktop: { top: -20, right: -28 },
+                mobile: { top: -22, right: -20 },
+            },
+        },
     },
     {
         bgColor: "#0F3460",
@@ -171,7 +195,7 @@ export function DesignProgramsSection() {
         <div className="w-full">
             {PROGRAMS.map((program, i) => (
                 <div key={i} className={i === 3 ? "max-md:mt-[18px]" : undefined}>
-                    <DesignProgramCard {...program} />
+                    {i === 5 ? <DesignPickOneToExploreSection /> : <DesignProgramCard {...program} />}
                 </div>
             ))}
         </div>
