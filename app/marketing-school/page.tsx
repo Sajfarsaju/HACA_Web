@@ -6,6 +6,9 @@ import { MarketingMentorsSection } from "@/components/marketing/MarketingMentors
 import { MarketingCultureSection } from "@/components/marketing/MarketingCultureSection";
 import { MarketingYoutubeHubSection } from "@/components/marketing/MarketingYoutubeHubSection";
 import { MarketingPlacementsSection } from "@/components/marketing/MarketingPlacementsSection";
+import { MarketingTestimonialsSection } from "@/components/marketing/MarketingTestimonialsSection";
+import { MarketingFaqSection } from "@/components/marketing/MarketingFaqSection";
+import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
 export const metadata: Metadata = {
@@ -24,6 +27,9 @@ export default function MarketingSchoolPage() {
             <MarketingPlacementsSection />
             <MarketingCultureSection />
             <MarketingYoutubeHubSection />
+            <MarketingTestimonialsSection />
+            <MarketingFaqSection />
+            <MarketingFooter />
         </main>
     );
 }
