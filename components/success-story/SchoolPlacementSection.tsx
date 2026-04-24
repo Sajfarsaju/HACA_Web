@@ -65,7 +65,7 @@ const cardClassName =
     "group relative flex flex-col bg-[#0A0C16] overflow-hidden border border-[#232D6B]/30 hover:border-[#232D6B] transition-all duration-500 shadow-2xl w-full min-w-0 rounded-[10.13px] aspect-[312.88/359.61]";
 
 const gridClassName =
-    "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full gap-[14px] md:gap-[50px]";
+    "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 w-full gap-[14px] md:gap-[50px]";
 
 const scrollViewport = {
     once: true,
