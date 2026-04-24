@@ -60,9 +60,9 @@ export default async function DesignSchoolSuccessStoryPage() {
             <DesignSchoolNavbar />
 
             {/* Title block */}
-            <section className="max-w-[1440px] mx-auto w-full h-[301px] pt-[40px] pr-[60px] pb-[40px] pl-[60px] flex flex-col gap-[40px]">
+            <section className="max-w-[1440px] mx-auto w-full h-auto md:h-auto pt-[40px] px-[20px] pb-0 flex flex-col gap-[10px] items-start text-left md:items-start md:text-left md:px-6 lg:px-[60px] md:pb-0 md:gap-[4px]">
                 <h1
-                    className="w-[335px] h-[142px] md:w-[675px] md:h-[161px] text-[40px] md:text-[70px] leading-[120%] text-black"
+                    className="w-[335px] h-[142px] md:w-[675px] md:h-[161px] text-[40px] md:text-[70px] leading-[120%] text-black mx-0 text-left md:text-left"
                     style={{ fontFamily: '"VC Nudge Trial Normal", sans-serif', fontWeight: 500 }}
                 >
                     From Learning Here to Getting{" "}
@@ -73,7 +73,7 @@ export default async function DesignSchoolSuccessStoryPage() {
             </section>
 
             {/* Cards section */}
-            <section className="w-full pt-[40px] pb-[40px] flex flex-col gap-[50px] lg:min-h-[1260px]">
+            <section className="w-full pt-[10px] pb-[40px] flex flex-col gap-[50px] md:pt-[20px] lg:min-h-[1260px]">
                 <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-[60px]">
                     <SchoolPlacementSection schoolName="Design School" items={items} />
                 </div>

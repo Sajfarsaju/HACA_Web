@@ -246,7 +246,7 @@ function CourseCard({
 }: CourseCardProps) {
     return (
         <article
-            className="w-full max-w-[1320px] min-h-0 min-w-0 rounded-[20px] flex flex-col gap-[30px] p-[20px] shadow-sm border border-black/5 overflow-hidden box-border max-[360px]:p-[16px] max-[360px]:gap-[24px] min-[1300px]:flex-row min-[1300px]:items-stretch min-[1300px]:gap-[25px] min-[1300px]:pt-[20px] min-[1300px]:pr-[16px] min-[1300px]:pb-[20px] min-[1300px]:pl-[16px] min-[1440px]:pr-[24px] min-[1440px]:pl-[24px] min-[1440px]:pr-[24px] min-[1440px]:pl-[24px] min-[1300px]:min-h-[698px] min-[1440px]:overflow-visible"
+            className="w-full max-w-[1320px] min-h-0 min-w-0 rounded-[20px] flex flex-col gap-[30px] p-[20px] shadow-sm border border-black/5 overflow-hidden box-border max-[360px]:p-[16px] max-[360px]:gap-[24px] min-[1300px]:flex-row min-[1300px]:items-stretch min-[1300px]:gap-[25px] min-[1300px]:pt-[20px] min-[1300px]:pr-[16px] min-[1300px]:pb-[20px] min-[1300px]:pl-[16px] min-[1300px]:min-h-[698px] min-[1440px]:h-[698px] min-[1440px]:overflow-visible"
             style={{ backgroundColor: cardBg }}
         >
             <div
@@ -533,35 +533,37 @@ export default function DesignSchoolCoursesPage() {
         <div className="w-full bg-[#FCFCFC] min-h-screen">
             <DesignSchoolNavbar />
 
-            <section className="w-full max-w-[375px] [@media(min-width:425px)_and_(max-width:767px)]:max-w-none md:max-w-[1440px] mx-auto h-[154px] md:h-[301px] pt-[60px] md:pt-[40px] px-[20px] [@media(min-width:425px)_and_(max-width:767px)]:px-[16px] md:pr-[60px] md:pl-[60px] md:pb-[16px] pb-[10px] flex flex-col gap-[10px] md:gap-[24px] items-center md:items-start [@media(min-width:425px)_and_(max-width:767px)]:items-start md:text-left [@media(min-width:425px)_and_(max-width:767px)]:text-left max-[340px]:text-left">
-                <h1
-                    className="w-full max-w-[329px] h-[94px] md:w-[644px] md:h-[165px] text-[38px] max-[340px]:text-[34px] md:text-[70px] leading-[120%] text-black"
-                    style={{ ...vcNudge, fontWeight: 500 }}
-                >
-                    <span className="block lg:hidden">
-                        <span className="whitespace-nowrap">Explore Our</span>
-                        <br />
-                        <span className="whitespace-nowrap">
-                            <span style={{ fontFamily: '"IvyPresto Display", serif', fontWeight: 300 }} className="italic">
-                                Creative
-                            </span>{" "}
-                            Programs
+            <section className="w-full max-w-[375px] [@media(min-width:425px)_and_(max-width:767px)]:max-w-none md:max-w-[1440px] mx-auto h-auto md:h-auto pt-[60px] md:pt-[40px] px-[20px] [@media(min-width:425px)_and_(max-width:767px)]:px-[16px] md:px-8 min-[1300px]:px-[32px] min-[1440px]:px-[40px] md:pb-0 pb-0 flex flex-col gap-[10px] md:gap-[4px] items-center md:items-start lg:items-start [@media(min-width:425px)_and_(max-width:767px)]:items-start md:text-left lg:text-left [@media(min-width:425px)_and_(max-width:767px)]:text-left max-[340px]:text-left">
+                <div className="w-full min-[1440px]:max-w-[1280px] min-[1440px]:mx-auto">
+                    <h1
+                        className="w-full max-w-[329px] h-[94px] md:w-[644px] md:h-[165px] text-[38px] max-[340px]:text-[34px] md:text-[70px] leading-[120%] text-black"
+                        style={{ ...vcNudge, fontWeight: 500 }}
+                    >
+                        <span className="block lg:hidden">
+                            <span className="whitespace-nowrap">Explore Our</span>
+                            <br />
+                            <span className="whitespace-nowrap">
+                                <span style={{ fontFamily: '"IvyPresto Display", serif', fontWeight: 300 }} className="italic">
+                                    Creative
+                                </span>{" "}
+                                Programs
+                            </span>
                         </span>
-                    </span>
-                    <span className="hidden lg:block">
-                        <span className="whitespace-nowrap">Let&apos;s Find the Right</span>
-                        <br />
-                        <span className="whitespace-nowrap">
-                            <span style={{ fontFamily: '"IvyPresto Display", serif', fontWeight: 300 }} className="italic">
-                                Course
-                            </span>{" "}
-                            for You
+                        <span className="hidden lg:block">
+                            <span className="whitespace-nowrap">Let&apos;s Find the Right</span>
+                            <br />
+                            <span className="whitespace-nowrap">
+                                <span style={{ fontFamily: '"IvyPresto Display", serif', fontWeight: 300 }} className="italic">
+                                    Course
+                                </span>{" "}
+                                for You
+                            </span>
                         </span>
-                    </span>
-                </h1>
+                    </h1>
+                </div>
             </section>
 
-            <section className="w-full px-4 md:px-8 min-[1300px]:px-[32px] min-[1440px]:px-[40px] min-[1440px]:max-w-[1440px] min-[1440px]:mx-auto pb-[40px] flex flex-col gap-[20px] max-[1023px]:min-h-[6295.7031px] pt-[10px] md:pt-0">
+            <section className="w-full px-4 md:px-8 min-[1300px]:px-[32px] min-[1440px]:px-[40px] min-[1440px]:max-w-[1440px] min-[1440px]:mx-auto pb-[40px] flex flex-col gap-[20px] pt-[10px]">
                 <div className="w-full max-w-[1280px] mx-auto flex flex-col gap-[20px]">
                     {/* Row 1 — original Creative Design */}
                     <CourseCard
