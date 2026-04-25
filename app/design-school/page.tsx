@@ -7,6 +7,9 @@ import { DesignStatsSection } from "@/components/design/DesignStatsSection";
 import { DesignProgramsHeadingSection } from "@/components/design/DesignProgramsHeadingSection";
 import { DesignProgramsSection } from "@/components/design/DesignProgramsSection";
 import { DesignWhyCreativitySection } from "@/components/design/DesignWhyCreativitySection";
+import { DesignFigmaRecognizedSection } from "@/components/design/DesignFigmaRecognizedSection";
+import { DesignEnterCreativeZoneSection } from "@/components/design/DesignEnterCreativeZoneSection";
+import { DesignMentorsSection } from "@/components/design/DesignMentorsSection";
 
 const school = schoolData.design;
 
@@ -39,6 +42,15 @@ export default function DesignSchoolPage() {
 
             {/* Why Creativity section */}
             <DesignWhyCreativitySection />
+
+            {/* Figma recognized section */}
+            <DesignFigmaRecognizedSection />
+
+            {/* Enter creative zone */}
+            <DesignEnterCreativeZoneSection />
+
+            {/* Mentors section */}
+            <DesignMentorsSection />
         </div>
     );
 }

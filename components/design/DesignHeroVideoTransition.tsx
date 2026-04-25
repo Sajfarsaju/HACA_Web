@@ -288,33 +288,6 @@ export function DesignHeroVideoTransition({ src }: Props) {
                     </div>
                 </div>
 
-                {/* ── Desktop video section ─────────────────────────────────────
-                    Rendered in normal document flow immediately after the scroll
-                    container. At animation end the morphed element lands here
-                    perfectly — same size, same viewport position.
-                ──────────────────────────────────────────────────────────────── */}
-                <section
-                    className="relative w-full max-w-[1440px] mx-auto overflow-hidden cursor-pointer"
-                    style={{ height: `${VIDEO_HEIGHT}px` }}
-                    onClick={() => toggle(videoRef2)}
-                >
-                    <Image
-                        src="/photos/schools/design/57d01472fcc68dc28b23f66493f860df1603a284.webp"
-                        alt="" fill className="object-cover"
-                    />
-                    {src && (
-                        <video ref={videoRef2} src={src}
-                               className="absolute inset-0 w-full h-full object-cover"
-                               playsInline loop />
-                    )}
-                    <div className="absolute inset-0 flex items-center justify-center"
-                         style={{ backgroundColor: "#00000066" }}>
-                        <button className="transition-transform duration-200 hover:scale-110 focus:outline-none"
-                                aria-label={playing ? "Pause" : "Play"}>
-                            {playing ? <PauseIcon size={100} /> : <PlayIcon size={100} />}
-                        </button>
-                    </div>
-                </section>
             </div>
 
             {/* ════════════════════════════════════════════════════════════
