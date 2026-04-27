@@ -53,7 +53,7 @@ export function MarketingMentorsSection() {
                             w-full min-w-0 max-w-full text-left font-semibold tracking-normal text-black
                             [font-family:'Darker_Grotesque',sans-serif]
                             text-[clamp(1.75rem,4.5vw,3rem)] leading-[1.05]
-                            lg:ml-auto lg:max-w-[min(100%,640px)] lg:text-right lg:leading-[1.08]
+                            lg:w-auto lg:ml-auto lg:max-w-[min(100%,640px)] lg:text-left lg:leading-[1.08]
                         "
                     >
                         The Right People to

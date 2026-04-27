@@ -27,7 +27,7 @@ function SocialIcon({
         <Link
             href={href}
             aria-label={label}
-            className="grid h-8 w-8 place-items-center rounded-full border border-white/30 text-white/90 transition-colors hover:text-white"
+            className="inline-flex h-10 w-10 items-center justify-center text-white transition-opacity hover:opacity-90"
         >
             {children}
         </Link>
@@ -42,14 +42,21 @@ function BackToTopBlue() {
                 if (typeof window === "undefined") return
                 window.scrollTo({ top: 0, behavior: "smooth" })
             }}
-            className="grid h-[50px] w-[50px] place-items-center rounded-full bg-[#0066FF] text-white transition-transform duration-200 hover:scale-105 active:scale-95"
+            className="flex h-[54.8242px] w-[54.8242px] items-center justify-center rounded-[20px] bg-[#0066FF] px-[16.18px] py-[4.49px] text-white transition-transform duration-200 hover:scale-105 active:scale-95"
             aria-label="Back to top"
         >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <svg
+                width="16.6425"
+                height="22.070982"
+                viewBox="0 0 16.6425 22.070982"
+                fill="none"
+                aria-hidden
+                className="block"
+            >
                 <path
-                    d="M12 19V5m0 0-6 6m6-6 6 6"
+                    d="M8.32125 20.720982V3.120982M8.32125 3.120982L2.07125 9.370982M8.32125 3.120982L14.57125 9.370982"
                     stroke="currentColor"
-                    strokeWidth={2.25}
+                    strokeWidth="2.6"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                 />
@@ -64,7 +71,7 @@ export function MarketingFooter() {
             <div className="mx-auto box-border w-full min-w-0 max-w-[1440px] px-[clamp(16px,4.16vw,60px)] py-[clamp(20px,3vw,30px)]">
                 <div className="flex w-full min-w-0 flex-col gap-[40px]">
                     {/* Top row */}
-                    <div className="relative w-full min-w-0 lg:grid lg:grid-cols-[1fr_240px] lg:gap-[120px]">
+                    <div className="relative w-full min-w-0 md:grid md:grid-cols-[1fr_240px] md:gap-[80px] lg:gap-[120px]">
                         {/* Left: logo + contact columns */}
                         <div className="flex min-w-0 flex-col gap-6">
                             <div className="flex items-center gap-3">
@@ -78,36 +85,33 @@ export function MarketingFooter() {
                                 />
                             </div>
 
-                            <div className="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-[26px]">
-                                <div className="min-w-0">
-                                    <p className="m-0 font-['Satoshi',sans-serif] text-[14px] font-semibold leading-none text-white">
+                            {/* Contact block size on desktop: 531px wide, 6px title↔content gap */}
+                            <div className="grid w-full min-w-0 grid-cols-1 gap-8 md:max-w-[531px] md:grid-cols-[130px_158px_231px] md:gap-x-[15px] md:gap-y-0">
+                                <div className="min-w-0 flex flex-col gap-[14px]">
+                                    <p className="m-0 text-white [font-family:'Darker_Grotesque',sans-serif] text-[24px] font-semibold leading-[100%] tracking-[-0.02em]">
                                         Address
                                     </p>
-                                    <p className="mt-3 m-0 max-w-[260px] font-['Satoshi',sans-serif] text-[13px] font-normal leading-[1.35] text-white/70">
-                                        SECOND FLOOR,
-                                        <br />
-                                        4 Wing Avenue,
-                                        <br />
-                                        Panniyankara,
-                                        <br />
-                                        Kozhikode, Kerala
-                                        <br />
-                                        673003
+                                    <p className="m-0 max-w-[260px] text-white font-['Satoshi',sans-serif] text-[16px] font-medium leading-[150%] tracking-[0em]">
+                                        <span className="block whitespace-nowrap">SECOND FLOOR,</span>
+                                        <span className="block whitespace-nowrap">4 Wing Avenue,</span>
+                                        <span className="block whitespace-nowrap">Panniyankara,</span>
+                                        <span className="block whitespace-nowrap">Kozhikode, Kerala</span>
+                                        <span className="block whitespace-nowrap">673003</span>
                                     </p>
                                 </div>
-                                <div className="min-w-0">
-                                    <p className="m-0 font-['Satoshi',sans-serif] text-[14px] font-semibold leading-none text-white">
+                                <div className="min-w-0 flex flex-col gap-[14px]">
+                                    <p className="m-0 text-white [font-family:'Darker_Grotesque',sans-serif] text-[24px] font-semibold leading-[100%] tracking-[-0.02em]">
                                         Phone Number
                                     </p>
-                                    <p className="mt-3 m-0 font-['Satoshi',sans-serif] text-[13px] font-normal leading-[1.35] text-white/70">
+                                    <p className="m-0 text-white font-['Satoshi',sans-serif] text-[16px] font-medium leading-[100%] tracking-[0em]">
                                         +91 08031332470
                                     </p>
                                 </div>
-                                <div className="min-w-0">
-                                    <p className="m-0 font-['Satoshi',sans-serif] text-[14px] font-semibold leading-none text-white">
+                                <div className="min-w-0 flex flex-col gap-[14px]">
+                                    <p className="m-0 text-white [font-family:'Darker_Grotesque',sans-serif] text-[24px] font-semibold leading-[100%] tracking-[-0.02em]">
                                         Email
                                     </p>
-                                    <p className="mt-3 m-0 font-['Satoshi',sans-serif] text-[13px] font-normal leading-[1.35] text-white/70">
+                                    <p className="m-0 text-white font-['Satoshi',sans-serif] text-[16px] font-medium leading-[100%] tracking-[0em]">
                                         info@harisandcoacademy.com
                                     </p>
                                 </div>
@@ -115,27 +119,37 @@ export function MarketingFooter() {
                         </div>
 
                         {/* Right: quick links + back-to-top (desktop placement like screenshot) */}
-                        <div className="mt-10 flex min-w-0 flex-col items-start gap-4 lg:mt-0 lg:items-start lg:pt-1">
-                            <p className="m-0 font-['Satoshi',sans-serif] text-[14px] font-semibold leading-none text-white">
-                                Quick Links
-                            </p>
-                            <ul className="m-0 flex list-none flex-col gap-[6px] p-0">
-                                {QUICK_LINKS.map((l) => (
-                                    <li key={l.label}>
-                                        <Link
-                                            href={l.href}
-                                            className="font-['Satoshi',sans-serif] text-[13px] font-normal leading-none text-white/70 transition-colors hover:text-white"
-                                        >
-                                            {l.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
+                        <div className="mt-8 min-w-0 md:mt-0 md:pt-1">
+                            {/* Quick links frame size on desktop: 169px wide, 40px gap to button */}
+                            <div className="flex w-full min-w-0 flex-col items-start md:w-[169px]">
+                                <div className="flex flex-col items-start gap-[14px]">
+                                    <p className="m-0 text-white [font-family:'Darker_Grotesque',sans-serif] text-[28px] font-semibold leading-[150%] tracking-[-0.05em] capitalize">
+                                        Quick Links
+                                    </p>
+                                    <ul className="m-0 flex list-none flex-col gap-[6px] p-0">
+                                        {QUICK_LINKS.map((l) => (
+                                            <li key={l.label}>
+                                                <Link
+                                                    href={l.href}
+                                                    className="text-white font-['Satoshi',sans-serif] text-[16px] font-medium leading-[100%] tracking-[0em] transition-opacity hover:opacity-90"
+                                                >
+                                                    {l.label}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
 
-                            {/* Desktop: the button sits lower (not in bottom row) */}
-                            <div className="hidden lg:block pt-[26px]">
-                                <BackToTopBlue />
+                                {/* Desktop: arrow below quick links like screenshot */}
+                                <div className="hidden md:flex w-full justify-end pt-6">
+                                    <BackToTopBlue />
+                                </div>
                             </div>
+                        </div>
+
+                        {/* Mobile: arrow top-right like screenshot */}
+                        <div className="absolute right-0 top-0 md:hidden">
+                            <BackToTopBlue />
                         </div>
                     </div>
 
@@ -144,52 +158,54 @@ export function MarketingFooter() {
 
                     {/* Bottom row */}
                     <div className="flex w-full min-w-0 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-4">
                             <SocialIcon href="#" label="Facebook">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                <svg width="34" height="34" viewBox="0 0 30 30" fill="none" aria-hidden>
+                                    <circle cx="15" cy="15" r="12.5" stroke="currentColor" strokeWidth="2" />
                                     <path
-                                        d="M14 8h3V5h-3c-2.21 0-4 1.79-4 4v3H7v3h3v7h3v-7h3l1-3h-4V9c0-.55.45-1 1-1Z"
+                                        d="M16.7 23v-7h2.3l.4-2.5h-2.7v-1.6c0-.7.2-1.2 1.2-1.2h1.6V8.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v1.4H11v2.5h2.3v7h3.4Z"
                                         fill="currentColor"
                                     />
                                 </svg>
                             </SocialIcon>
                             <SocialIcon href="#" label="LinkedIn">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                <svg width="34" height="34" viewBox="0 0 30 30" fill="none" aria-hidden>
+                                    <rect x="3.5" y="3.5" width="23" height="23" stroke="currentColor" strokeWidth="2" />
                                     <path
-                                        d="M6 6.5A1.5 1.5 0 1 1 6 3.5a1.5 1.5 0 0 1 0 3ZM4.75 20.5h2.5V9h-2.5v11.5ZM9.5 9h2.4v1.6h.03c.33-.62 1.15-1.28 2.37-1.28 2.53 0 3 1.67 3 3.84v7.34h-2.5v-6.5c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.69-2.49 3.43v6.61H9.5V9Z"
+                                        d="M10.8 13.2V22H8.4v-8.8h2.4ZM9.6 12.1c-.8 0-1.3-.6-1.3-1.3 0-.7.5-1.3 1.3-1.3.8 0 1.3.6 1.3 1.3 0 .7-.5 1.3-1.3 1.3ZM22 22h-2.4v-4.7c0-1.1 0-2.5-1.5-2.5-1.5 0-1.7 1.2-1.7 2.4V22H14v-8.8h2.3v1.2h.1c.3-.6 1.2-1.3 2.5-1.3 2.7 0 3.2 1.8 3.2 4.1V22Z"
                                         fill="currentColor"
                                     />
                                 </svg>
                             </SocialIcon>
                             <SocialIcon href="#" label="Instagram">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                    <path
-                                        d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 4a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.4-2.2a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"
-                                        fill="currentColor"
-                                    />
+                                <svg width="34" height="34" viewBox="0 0 30 30" fill="none" aria-hidden>
+                                    <rect x="4.5" y="4.5" width="21" height="21" rx="6" stroke="currentColor" strokeWidth="2" />
+                                    <circle cx="15" cy="15" r="5" stroke="currentColor" strokeWidth="2" />
+                                    <circle cx="21" cy="9" r="1.2" fill="currentColor" />
                                 </svg>
                             </SocialIcon>
                             <SocialIcon href="#" label="YouTube">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                    <path
-                                        d="M21.8 8.1a3 3 0 0 0-2.1-2.1C17.9 5.5 12 5.5 12 5.5s-5.9 0-7.7.5A3 3 0 0 0 2.2 8.1 31.1 31.1 0 0 0 1.9 12c0 1.3.1 2.6.3 3.9a3 3 0 0 0 2.1 2.1c1.8.5 7.7.5 7.7.5s5.9 0 7.7-.5a3 3 0 0 0 2.1-2.1c.2-1.3.3-2.6.3-3.9 0-1.3-.1-2.6-.3-3.9ZM10.2 14.8V9.2L15 12l-4.8 2.8Z"
-                                        fill="currentColor"
-                                    />
+                                <svg width="38" height="30" viewBox="0 0 34 26" fill="none" aria-hidden>
+                                    <rect x="1.5" y="1.5" width="31" height="23" rx="6" stroke="currentColor" strokeWidth="2" />
+                                    <path d="M15 9.5v7l6-3.5-6-3.5Z" fill="currentColor" />
                                 </svg>
                             </SocialIcon>
                         </div>
 
-                        <div className="flex items-center justify-between gap-4 sm:justify-end">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end sm:gap-6">
+                            <p className="m-0 font-['Satoshi',sans-serif] text-[12px] font-normal text-white sm:hidden">
+                                © 2026 HACA. All rights reserved
+                            </p>
                             <div className="flex items-center gap-6">
                                 <Link
                                     href="/privacy-policy"
-                                    className="font-['Satoshi',sans-serif] text-[12px] font-normal text-white/70 hover:text-white"
+                                    className="font-['Satoshi',sans-serif] text-[14px] font-medium text-white transition-opacity hover:opacity-90"
                                 >
                                     Privacy Policy
                                 </Link>
                                 <Link
                                     href="/terms-conditions"
-                                    className="font-['Satoshi',sans-serif] text-[12px] font-normal text-white/70 hover:text-white"
+                                    className="font-['Satoshi',sans-serif] text-[14px] font-medium text-white transition-opacity hover:opacity-90"
                                 >
                                     Terms And Conditions
                                 </Link>

@@ -14,27 +14,27 @@ const FAQS: FaqItem[] = [
     {
         id: "faq-1",
         q: "Do I need any background in marketing to join?",
-        a: "No. We start from fundamentals and quickly move into hands-on practice. You’ll learn by doing—running campaigns, writing copy, and fixing real mistakes with mentor support.",
+        a: "No. You don’t need prior marketing knowledge. We start from zero and gradually move to advanced, AI-integrated marketing concepts. All you need is curiosity, commitment, and the willingness to learn by doing.",
     },
     {
         id: "faq-2",
-        q: "Can working professionals join this course?",
-        a: "Yes. The program is designed to fit alongside work. You’ll have structured outcomes each week and support from mentors so you can stay consistent without burning out.",
+        q: "Can working professionals or housewives join this course?",
+        a: "Yes. We have evening batches with live online learning. Many working professionals, housewives,  freelancers, and business owners choose the online program for flexibility.",
     },
     {
         id: "faq-3",
         q: "What career roles can I apply for after completing the digital marketing program?",
-        a: "Based on your portfolio and strengths, you can apply for roles like Digital Marketer, Performance Marketer, Social Media Marketer, Content Marketer, SEO Associate, and Growth/Marketing Executive.",
+        a: "You’ll be ready for roles like Social Media Manager, Digital Marketing Specialist, SEO Analyst, Content Strategist, Performance Marketer, Brand Manager, or even start freelancing.",
     },
     {
         id: "faq-4",
         q: "What is the monthly income of a digital marketer?",
-        a: "It depends on location, skills, and experience. We focus on building proof-of-work (projects + results) so you can confidently apply and negotiate based on what you can do.",
+        a: "A fresher digital marketer usually starts between ₹18,000 and ₹35,000 per month in India. With strong skills and a well-structured portfolio, it can even exceed ₹40K in a few months. As your portfolio and experience grow, so does your income.",
     },
     {
         id: "faq-5",
         q: "Is a 6-month digital marketing course worth it?",
-        a: "Yes—if it’s execution-first. In 6 months you can build a portfolio, learn the tools, and develop repeatable skills. The key is consistent practice and feedback, not just watching videos.",
+        a: "It is worth it if you actually learn by doing. If those 6 months include real campaigns, ad setups, SEO work, and guidance, you can learn a lot in that time.",
     },
 ]
 
@@ -86,7 +86,7 @@ export function MarketingFaqSection() {
                             w-full min-w-0 max-w-full text-left font-semibold tracking-normal text-white
                             [font-family:'Darker_Grotesque',sans-serif]
                             text-[clamp(2.25rem,8vw,3.25rem)] leading-[1.05]
-                            lg:ml-auto lg:flex lg:max-w-[min(100%,720px)] lg:justify-end lg:text-right lg:leading-[1.08]
+                            lg:w-auto lg:ml-auto lg:max-w-[min(100%,720px)] lg:text-left lg:leading-[1.08]
                         "
                     >
                         {heading}

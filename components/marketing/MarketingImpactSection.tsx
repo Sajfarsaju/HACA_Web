@@ -40,7 +40,7 @@ export function MarketingImpactSection() {
                         <div className="flex shrink-0 items-center gap-2">
                             <span className="h-[10px] w-[10px] shrink-0 rounded-full bg-[#015AFF]" aria-hidden />
                             <span className="font-['Satoshi',sans-serif] text-[clamp(12px,1.1vw,16px)] font-medium leading-none text-white">
-                                About Us
+                                About Marketing School
                             </span>
                         </div>
                         <div className="w-full min-w-0 max-w-[702px] font-['Satoshi',sans-serif] text-[clamp(18px,2.2vw,28px)] font-light leading-[1.35] text-white md:leading-[1.4]">
@@ -95,6 +95,9 @@ export function MarketingImpactSection() {
                         </div>
 
                         <div className="mt-[clamp(16px,2.5vw,28px)] w-full min-w-0 shrink-0 px-0">
+                            <p className="m-0 pb-[clamp(10px,1.5vw,16px)] text-left text-white [font-family:'Darker_Grotesque',sans-serif] text-[clamp(22px,3.2vw,32px)] font-semibold leading-[100%] tracking-[-0.02em]">
+                                Our Journey in Simple Numbers
+                            </p>
                             <MarketingStatsSection />
                         </div>
 
