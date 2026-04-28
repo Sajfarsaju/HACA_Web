@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Footer } from "@/components/layout/Footer";
+import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
 export const metadata: Metadata = {
@@ -443,7 +443,7 @@ export default function MarketingCoursesPage() {
                 </main>
             </div>
 
-            <Footer />
+            <MarketingFooter />
         </div>
     );
 }
