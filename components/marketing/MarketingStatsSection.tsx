@@ -3,10 +3,10 @@
 import React, { useEffect, useRef, useState } from "react"
 
 const RAW_STATS = [
-    { value: 600, suffix: "+", lines: ["Successful", "Students &", "Counting"] },
     { value: 350, suffix: "+", lines: ["Hours of", "Hands-On", "Learning"] },
-    { value: 150, suffix: "+", lines: ["Expert", "Mentors", "Guiding You"] },
+    { value: 5000, suffix: "+", lines: ["Successful", "Students &", "Counting"] },
     { value: 200, suffix: "+", lines: ["Partner", "Companies", "for Careers"] },
+    { value: 150, suffix: "+", lines: ["Expert", "Mentors", "Guiding You"] },
 ]
 
 export function MarketingStatsSection() {

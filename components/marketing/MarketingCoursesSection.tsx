@@ -7,13 +7,14 @@ type CourseRow = {
     /** Mobile: single flowing title (screenshot) */
     titleMobile: string
     descriptionLines: readonly [string, string, string]
+    group?: "main" | "mastery"
 }
 
 const ACCENT = "#0066FF"
 
 const COURSES: CourseRow[] = [
     {
-        badge: "Offline | 6 Months",
+        badge: "Offline (5 Months +1 Month Internship)",
         titleLines: ["Basic to Advanced AI-", "integrated Digital", "Marketing Program"],
         titleMobile: "Basic to Advanced AI-integrated Digital Marketing Program",
         descriptionLines: [
@@ -21,9 +22,10 @@ const COURSES: CourseRow[] = [
             "5 months of advanced training with the latest AI tools, plus 1 month focused",
             "internship on a special skill.",
         ],
+        group: "main",
     },
     {
-        badge: "Online | 5 Months",
+        badge: "Online (5 Months Project-Based Learning)",
         titleLines: ["Basic to Advanced AI-", "integrated Digital", "Marketing Program"],
         titleMobile: "Basic to Advanced AI-integrated Digital Marketing Program",
         descriptionLines: [
@@ -31,9 +33,10 @@ const COURSES: CourseRow[] = [
             "practical projects and AI tools. This course is perfect if you’re working or busy",
             "during the day.",
         ],
+        group: "main",
     },
     {
-        badge: "Online | 2 Months",
+        badge: "2-Month Online",
         titleLines: ["Performance Marketing", "Mastery"],
         titleMobile: "Performance Marketing Mastery",
         descriptionLines: [
@@ -41,6 +44,7 @@ const COURSES: CourseRow[] = [
             "Instagram and more. Perfect for those who want to master paid ads in less",
             "time.",
         ],
+        group: "mastery",
     },
     {
         badge: "Coming Soon",
@@ -51,6 +55,7 @@ const COURSES: CourseRow[] = [
             "Instagram, LinkedIn, YouTube, and Facebook with proven strategies and",
             "content planning.",
         ],
+        group: "mastery",
     },
 ]
 
@@ -166,9 +171,14 @@ export function MarketingCoursesSection() {
                 </header>
 
                 <div className="flex w-full min-w-0 flex-col">
-                    {COURSES.map((course) => (
+                    {COURSES.map((course, idx) => (
+                        <React.Fragment key={course.badge}>
+                            {course.group === "mastery" &&
+                            (idx === 2 ||
+                                (idx > 0 && COURSES[idx - 1]?.group !== "mastery")) ? (
+                                null
+                            ) : null}
                         <article
-                            key={course.badge}
                             className="border-b border-[#E5E5E5] last:border-b-0 lg:border-black"
                         >
                             <div
@@ -256,6 +266,7 @@ export function MarketingCoursesSection() {
                                 </div>
                             </div>
                         </article>
+                        </React.Fragment>
                     ))}
                 </div>
             </div>

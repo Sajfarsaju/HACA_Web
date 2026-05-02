@@ -9,6 +9,7 @@ import Image from "next/image"
 export function MarketingImpactSection() {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
+    const VIDEO_SRC = ""
 
     const togglePlay = () => {
         if (videoRef.current) {
@@ -25,162 +26,24 @@ export function MarketingImpactSection() {
         <>
             <section
                 id="marketing-impact"
-                className="w-full bg-[#000000] flex flex-col items-center opacity-100 overflow-hidden"
-                style={{
-                    minHeight: "1666.82px",
-                    paddingTop: "40px",
-                    paddingBottom: "40px",
-                    gap: "30px",
-                }}
+                className="w-full bg-black opacity-100 overflow-hidden py-[clamp(20px,3vw,40px)]"
             >
-                {/* Desktop Styles (using CSS variables for clean responsive handling if needed, or standard tailwind) */}
-                <style jsx>{`
-                    section {
-                        min-height: 1666.82px;
-                        padding-top: 40px;
-                        padding-bottom: 40px;
-                    }
-                    .content-container {
-                        padding-left: clamp(16px, 4.16vw, 60px);
-                        padding-right: clamp(16px, 4.16vw, 60px);
-                        width: 100%;
-                        max-width: 1440px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                    }
-                    .about-us-container {
-                        width: 100%;
-                        max-width: 1320px;
-                        min-height: clamp(152px, 15vw, 198px);
-                        display: flex;
-                        flex-direction: row;
-                        align-items: flex-start;
-                        justify-content: center;
-                        gap: clamp(20px, 27vw, 393px);
-                        opacity: 1;
-                    }
-                    .info-button {
-                        width: clamp(65.68px, 6vw, 88px);
-                        height: clamp(16px, 2vw, 22px);
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        gap: clamp(7.47px, 1vw, 10px);
-                        flex-shrink: 0;
-                    }
-                    .blue-dot {
-                        width: clamp(8.215px, 0.8vw, 11px);
-                        height: clamp(8.215px, 0.8vw, 11px);
-                        background: #015aff;
-                        border-radius: 50%;
-                        flex-shrink: 0;
-                    }
-                    .info-text {
-                        width: clamp(50px, 5vw, 67px);
-                        height: clamp(16px, 2vw, 22px);
-                        color: #ffffff;
-                        font-family: "Satoshi", sans-serif;
-                        font-weight: 500;
-                        font-size: clamp(12px, 1.1vw, 16px);
-                        line-height: 100%;
-                        white-space: nowrap;
-                    }
-                    .note-text {
-                        width: 100%;
-                        max-width: 702px;
-                        height: auto;
-                        min-height: 152px;
-                        color: #ffffff;
-                        font-family: "Satoshi", sans-serif;
-                        font-weight: 300;
-                        font-size: 28px;
-                        line-height: 140%;
-                    }
-                    .video-section-wrapper {
-                        margin-top: clamp(20px, 3vw, 40px);
-                        width: 100%;
-                        max-width: 1320px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: stretch;
-                        justify-content: flex-start;
-                        box-sizing: border-box;
-                    }
-                    .video-container {
-                        position: relative;
-                        width: 100%;
-                        height: clamp(256px, 40vw, 579px);
-                        background: #111; /* Fallback */
-                        border-radius: 0px;
-                        overflow: hidden;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                    }
-                    .video-element {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-                    .play-pause-btn {
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%) rotate(0deg);
-                        width: clamp(158.55px, 12.8vw, 184px);
-                        height: clamp(51.61px, 4.2vw, 60px);
-                        z-index: 10;
-                        border: none;
-                        background: transparent;
-                        padding: 0;
-                        cursor: pointer;
-                        opacity: 1;
-                        transition: opacity 0.3s ease, transform 0.3s ease;
-                    }
-                    @media (max-width: 768px) {
-                        section {
-                            min-height: 2645.01px;
-                            padding-top: 20px;
-                            padding-bottom: 40px;
-                        }
-                        .about-us-container {
-                            width: 343px;
-                            height: auto;
-                            min-height: 198px;
-                            flex-direction: column;
-                            gap: 20px;
-                            align-items: flex-start;
-                        }
-                        .note-text {
-                            width: 343px;
-                            height: auto;
-                            min-height: 162px;
-                            font-size: 20px;
-                            font-weight: 300;
-                            line-height: 130%;
-                        }
-                        .video-container {
-                            max-width: 343px;
-                            border-radius: 2.84px;
-                        }
-                    }
-                `}</style>
-
                 {/* Press Logo Container - Full Width */}
                 <div className="w-full">
                     <PressLogos />
                 </div>
 
                 {/* Content constrained by horizontal padding */}
-                <div className="content-container">
+                <div className="mx-auto box-border flex w-full min-w-0 max-w-[1440px] flex-col items-center gap-[clamp(20px,3vw,30px)] px-[clamp(16px,4.16vw,60px)]">
                     {/* About Us Portion */}
-                    <div className="about-us-container">
-                        <div className="info-button">
-                            <div className="blue-dot" />
-                            <span className="info-text">About Us</span>
+                    <div className="flex w-full min-w-0 max-w-[1320px] flex-col items-start gap-5 md:flex-row md:items-start md:justify-between md:gap-[clamp(20px,27vw,393px)]">
+                        <div className="flex shrink-0 items-center gap-2">
+                            <span className="h-[10px] w-[10px] shrink-0 rounded-full bg-[#015AFF]" aria-hidden />
+                            <span className="font-['Satoshi',sans-serif] text-[clamp(12px,1.1vw,16px)] font-medium leading-none text-white">
+                                About Marketing School
+                            </span>
                         </div>
-                        <div className="note-text">
+                        <div className="w-full min-w-0 max-w-[702px] font-['Satoshi',sans-serif] text-[clamp(18px,2.2vw,28px)] font-light leading-[1.35] text-white md:leading-[1.4]">
                             Here, we don’t just explain marketing; we make you apply it. You’ll run ads, write copy,
                             build websites, optimise for SEO, launch campaigns, and fix mistakes, with someone guiding
                             you whenever you get stuck.
@@ -188,8 +51,8 @@ export function MarketingImpactSection() {
                     </div>
 
                     {/* Video Container Portion */}
-                    <div className="video-section-wrapper flex w-full min-w-0 max-w-[1320px] flex-col self-stretch items-stretch">
-                        <div className="video-container">
+                    <div className="mt-[clamp(16px,3vw,40px)] flex w-full min-w-0 max-w-[1320px] flex-col self-stretch items-stretch">
+                        <div className="relative w-full overflow-hidden rounded-[2.84px] bg-[#111] md:rounded-none [aspect-ratio:1320/579] max-md:[aspect-ratio:343/256]">
                             {/* Background photo from Haca360Section */}
                             <div className="absolute inset-0 z-0">
                                 <Image
@@ -203,7 +66,7 @@ export function MarketingImpactSection() {
 
                             <video
                                 ref={videoRef}
-                                className={`video-element relative z-1 transition-opacity duration-300 ${isPlaying ? "opacity-100" : "opacity-0"}`}
+                                className={`relative z-[1] h-full w-full object-cover transition-opacity duration-300 ${isPlaying ? "opacity-100" : "opacity-0"}`}
                                 style={{ pointerEvents: isPlaying ? "auto" : "none" }}
                                 playsInline
                                 loop
@@ -211,17 +74,16 @@ export function MarketingImpactSection() {
                                 onPause={() => setIsPlaying(false)}
                                 aria-label="Marketing application demonstration video"
                             >
-                                {/* Fallback src or future real source */}
-                                <source src="" type="video/mp4" />
+                                {VIDEO_SRC ? <source src={VIDEO_SRC} type="video/mp4" /> : null}
                                 Your browser does not support the video tag.
                             </video>
 
                             <button
-                                className="play-pause-btn"
+                                className="absolute left-1/2 top-1/2 z-10 h-[clamp(51.61px,4.2vw,60px)] w-[clamp(158.55px,12.8vw,184px)] -translate-x-1/2 -translate-y-1/2 cursor-pointer border-none bg-transparent p-0 transition-opacity duration-300"
                                 onClick={togglePlay}
                                 aria-label={isPlaying ? "Pause video" : "Play video"}
                             >
-                                <div className="relative w-full h-full">
+                                <div className="relative h-full w-full">
                                     <Image
                                         src="/photos/schools/marketing/play-pause-btn.svg"
                                         alt=""
@@ -233,6 +95,9 @@ export function MarketingImpactSection() {
                         </div>
 
                         <div className="mt-[clamp(16px,2.5vw,28px)] w-full min-w-0 shrink-0 px-0">
+                            <p className="m-0 pb-[clamp(10px,1.5vw,16px)] text-left text-white [font-family:'Darker_Grotesque',sans-serif] text-[clamp(22px,3.2vw,32px)] font-semibold leading-[100%] tracking-[-0.02em]">
+                                Our Journey in Simple Numbers
+                            </p>
                             <MarketingStatsSection />
                         </div>
 

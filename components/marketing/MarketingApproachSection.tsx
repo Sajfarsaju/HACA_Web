@@ -65,6 +65,14 @@ export function MarketingApproachSection() {
                         </h2>
                     </div>
 
+                    <div className="mt-[clamp(12px,2.2vw,18px)] w-full min-w-0 lg:mt-4">
+                        <p className="m-0 text-white font-['Satoshi',sans-serif] text-[clamp(16px,2vw,20px)] font-medium leading-[130%]">
+                            Anyone can teach you what marketing is.
+                            <br />
+                            We teach you how to become a marketer.
+                        </p>
+                    </div>
+
                     <div className="mt-[clamp(28px,4.5vw,48px)] w-full min-w-0">
                         <MarketingFeaturesGrid />
                     </div>

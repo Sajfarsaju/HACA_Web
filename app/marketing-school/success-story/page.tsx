@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import axios from "axios";
-import { Footer } from "@/components/layout/Footer";
+import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import {
     SchoolPlacementSection,
@@ -84,7 +84,7 @@ export default async function MarketingSuccessStoryPage() {
                 </section>
             </div>
 
-            <Footer />
+            <MarketingFooter />
         </div>
     );
 }

@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image"
-import React from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 
 const ACCENT = "#0066FF"
 
@@ -58,6 +60,31 @@ function CultureAbsTile({ src, alt, left, top, width, height, priority, radius =
 }
 
 export function MarketingCultureSection() {
+    const desktopViewportRef = useRef<HTMLDivElement | null>(null)
+    const [desktopScale, setDesktopScale] = useState(1)
+
+    // Extra breathing room inside the desktop viewport (in addition to section padding)
+    const desktopGutterPx = useMemo(() => 24, [])
+
+    useEffect(() => {
+        const el = desktopViewportRef.current
+        if (!el) return
+
+        const BASE_WIDTH = 1320
+
+        const compute = () => {
+            const available = el.clientWidth - desktopGutterPx * 2
+            const next = Math.min(1, Math.max(0.5, available / BASE_WIDTH))
+            setDesktopScale(next)
+        }
+
+        compute()
+
+        const ro = new ResizeObserver(() => compute())
+        ro.observe(el)
+        return () => ro.disconnect()
+    }, [desktopGutterPx])
+
     return (
         <section id="marketing-culture" className="w-full bg-white" aria-labelledby="marketing-culture-heading">
             <div
@@ -238,8 +265,16 @@ export function MarketingCultureSection() {
 
                     {/* Desktop: exact pixel-perfect mosaic from Figma */}
                     <div className="hidden w-full min-w-0 lg:flex lg:justify-center">
-                        {/* Canvas is 1320px wide; positions are relative to left=60 in Figma */}
-                        <div className="relative w-full max-w-[1320px] min-w-0" style={{ height: 693 }}>
+                        {/* Canvas is 1320px wide. Keep the exact layout; scale uniformly so it never clips. */}
+                        <div ref={desktopViewportRef} className="flex w-full min-w-0 justify-center overflow-visible">
+                            <div
+                                className="cultureMosaic w-[1320px]"
+                                style={{
+                                    transform: `scale(${desktopScale})`,
+                                    transformOrigin: "top center",
+                                }}
+                            >
+                                <div className="relative h-[693px] w-[1320px]">
                             <CultureAbsTile
                                 src="/photos/schools/marketing/culture/rectangle-34.png"
                                 alt="Culture moment"
@@ -313,10 +348,28 @@ export function MarketingCultureSection() {
                                 width={315.5838}
                                 height={335}
                             />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <style>{`
+                @media (min-width: 1024px) {
+                    /* Fit the 1320px mosaic into the padded container with a small responsive gutter.
+                       This keeps the exact layout/positions and prevents right-side clipping on small desktops. */
+                    #marketing-culture .cultureMosaic {
+                        --cultureGutter: clamp(12px, 2vw, 28px);
+                        transform: scale(
+                            min(
+                                1,
+                                calc((min(1320px, 100%) - (2 * var(--cultureGutter))) / 1320)
+                            )
+                        );
+                    }
+                }
+            `}</style>
         </section>
     )
 }
