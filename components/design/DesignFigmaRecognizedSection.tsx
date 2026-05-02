@@ -3,14 +3,13 @@ import Image from "next/image";
 export function DesignFigmaRecognizedSection() {
     return (
         <section
-            className="w-full bg-[#FCFCFC] px-0 lg:px-[clamp(16px,4.167vw,60px)]"
+            className="w-full bg-[#FCFCFC] px-0"
         >
-            <div className="w-full max-w-[1440px] mx-auto flex flex-col lg:flex-row gap-0 items-center lg:items-stretch justify-center">
+            <div className="w-full flex flex-col lg:flex-row gap-0 items-stretch lg:items-stretch lg:justify-start">
                 {/* Left artwork */}
                 <div
-                    className="relative shrink-0"
+                    className="relative shrink-0 w-full aspect-square lg:w-[504.2643px] lg:h-[504.2643px]"
                     style={{
-                        width: "min(100%, clamp(320px, 35.019vw, 504.2643127441406px))",
                         // Keep it perfectly square based on actual rendered width (prevents extra top/bottom space on mobile)
                         aspectRatio: "1 / 1",
                     }}
@@ -26,13 +25,9 @@ export function DesignFigmaRecognizedSection() {
 
                 {/* Right black container */}
                 <div
-                    className="bg-black shrink-0 flex flex-col items-center justify-center"
-                    style={{
-                        width: "min(100%, clamp(320px, 64.981vw, 935.7357177734375px))",
-                        height: "clamp(260px, 34.990vw, 503.8576965332031px)",
-                        padding: "clamp(20px, 1.389vw, 20px)",
-                        gap: "clamp(20px, 1.389vw, 20px)",
-                    }}
+                    className="bg-black shrink-0 w-full flex flex-col items-center justify-center
+                               h-[260px] p-[20px] gap-[20px]
+                               lg:w-[935.7357px] lg:h-[503.8577px] lg:p-[10px] lg:gap-[10px]"
                 >
                     <div
                         className="relative"

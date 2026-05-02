@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { schoolData } from "@/lib/schools-data";
+import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntroAnimation";
 import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
 import { DesignHeroVideoTransition } from "@/components/design/DesignHeroVideoTransition";
 import { DesignPressLogos } from "@/components/design/DesignPressLogos";
@@ -10,6 +11,8 @@ import { DesignWhyCreativitySection } from "@/components/design/DesignWhyCreativ
 import { DesignFigmaRecognizedSection } from "@/components/design/DesignFigmaRecognizedSection";
 import { DesignEnterCreativeZoneSection } from "@/components/design/DesignEnterCreativeZoneSection";
 import { DesignMentorsSection } from "@/components/design/DesignMentorsSection";
+import { DesignPlacementsTeaserSection } from "@/components/design/DesignPlacementsTeaserSection";
+import { DesignStudentProjectsSection } from "@/components/design/DesignStudentProjectsSection";
 
 const school = schoolData.design;
 
@@ -21,6 +24,7 @@ export const metadata: Metadata = {
 export default function DesignSchoolPage() {
     return (
         <div className="w-full bg-[#FCFCFC] min-h-screen">
+            <DesignSchoolIntroAnimation />
             <DesignSchoolNavbar />
 
             {/* Hero → Video scroll transition */}
@@ -51,6 +55,12 @@ export default function DesignSchoolPage() {
 
             {/* Mentors section */}
             <DesignMentorsSection />
+
+            {/* Placements teaser */}
+            <DesignPlacementsTeaserSection />
+
+            {/* Student projects */}
+            <DesignStudentProjectsSection />
         </div>
     );
 }

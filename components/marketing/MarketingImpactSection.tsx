@@ -1,39 +1,76 @@
 "use client";
 
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { PressLogos } from "@/components/sections/PressLogos"
 import { MarketingStatsSection } from "@/components/marketing/MarketingStatsSection"
 import { MarketingApproachSection } from "@/components/marketing/MarketingApproachSection"
 import Image from "next/image"
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
 
 export function MarketingImpactSection() {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     const togglePlay = () => {
         if (videoRef.current) {
-            if (isPlaying) {
-                videoRef.current.pause();
-            } else {
-                videoRef.current.play();
-            }
+            isPlaying ? videoRef.current.pause() : videoRef.current.play();
             setIsPlaying(!isPlaying);
         }
     };
 
+    // ── Scroll-driven stack animation ───────────────────────────────────────
+    const scrollY      = useMotionValue(0);
+    const sectionTopRef = useRef(0);
+
+    // Measure section's absolute top once (and on resize)
+    useEffect(() => {
+        const measure = () => {
+            if (!wrapperRef.current) return;
+            let top = 0, node: HTMLElement | null = wrapperRef.current;
+            while (node) { top += node.offsetTop; node = node.offsetParent as HTMLElement | null; }
+            sectionTopRef.current = top;
+        };
+        measure();
+        window.addEventListener("resize", measure, { passive: true });
+        return () => window.removeEventListener("resize", measure);
+    }, []);
+
+    useEffect(() => {
+        const onScroll = () => scrollY.set(window.scrollY);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [scrollY]);
+
+    const ANIM_RANGE = 420; // px of scroll over which the transition plays
+
+    // Progress 0→1: starts when section enters viewport, ends ANIM_RANGE px later.
+    // Math.max(0, …) ensures progress is always 0 at scroll=0 regardless of
+    // how tall the hero is relative to the viewport.
+    const rawProgress = useTransform(scrollY, v => {
+        const animStart = Math.max(0, sectionTopRef.current - window.innerHeight);
+        return Math.max(0, Math.min(1, (v - animStart) / ANIM_RANGE));
+    });
+    const progress  = useSpring(rawProgress, { stiffness: 80, damping: 25 });
+
+    const bgColor   = useTransform(progress, [0, 1], ["#FFFFFF", "#000000"]);
+    const textColor = useTransform(progress, [0, 1], ["#000000", "#ffffff"]);
+
     return (
-        <>
-            <section
-                id="marketing-impact"
-                className="w-full bg-[#000000] flex flex-col items-center opacity-100 overflow-hidden"
+        <motion.section
+            ref={wrapperRef}
+            id="marketing-impact"
+                className="w-full flex flex-col items-center opacity-100 overflow-hidden"
                 style={{
                     minHeight: "1666.82px",
                     paddingTop: "40px",
                     paddingBottom: "40px",
                     gap: "30px",
+                    backgroundColor: bgColor,
                 }}
             >
-                {/* Desktop Styles (using CSS variables for clean responsive handling if needed, or standard tailwind) */}
+                {/* Desktop Styles */}
                 <style jsx>{`
                     section {
                         min-height: 1666.82px;
@@ -61,10 +98,12 @@ export function MarketingImpactSection() {
                         opacity: 1;
                     }
                     .info-button {
-                        width: clamp(65.68px, 6vw, 88px);
+                        width: auto;
+                        min-width: max-content;
                         height: clamp(16px, 2vw, 22px);
                         display: flex;
                         flex-direction: row;
+                        flex-wrap: nowrap;
                         align-items: center;
                         gap: clamp(7.47px, 1vw, 10px);
                         flex-shrink: 0;
@@ -77,21 +116,21 @@ export function MarketingImpactSection() {
                         flex-shrink: 0;
                     }
                     .info-text {
-                        width: clamp(50px, 5vw, 67px);
+                        width: auto;
+                        min-width: max-content;
                         height: clamp(16px, 2vw, 22px);
-                        color: #ffffff;
                         font-family: "Satoshi", sans-serif;
                         font-weight: 500;
                         font-size: clamp(12px, 1.1vw, 16px);
                         line-height: 100%;
                         white-space: nowrap;
+                        flex-shrink: 0;
                     }
                     .note-text {
                         width: 100%;
                         max-width: 702px;
                         height: auto;
                         min-height: 152px;
-                        color: #ffffff;
                         font-family: "Satoshi", sans-serif;
                         font-weight: 300;
                         font-size: 28px;
@@ -111,7 +150,7 @@ export function MarketingImpactSection() {
                         position: relative;
                         width: 100%;
                         height: clamp(256px, 40vw, 579px);
-                        background: #111; /* Fallback */
+                        background: #111;
                         border-radius: 0px;
                         overflow: hidden;
                         display: flex;
@@ -146,11 +185,16 @@ export function MarketingImpactSection() {
                         }
                         .about-us-container {
                             width: 343px;
+                            max-width: 100%;
                             height: auto;
                             min-height: 198px;
                             flex-direction: column;
                             gap: 20px;
                             align-items: flex-start;
+                        }
+                        .info-button,
+                        .info-text {
+                            white-space: nowrap;
                         }
                         .note-text {
                             width: 343px;
@@ -178,19 +222,19 @@ export function MarketingImpactSection() {
                     <div className="about-us-container">
                         <div className="info-button">
                             <div className="blue-dot" />
-                            <span className="info-text">About Us</span>
+                            <motion.span className="info-text" style={{ color: textColor }}>About Us</motion.span>
                         </div>
-                        <div className="note-text">
-                            Here, we don’t just explain marketing; we make you apply it. You’ll run ads, write copy,
+                        <motion.div className="note-text" style={{ color: textColor }}>
+                            Here, we don't just explain marketing; we make you apply it. You'll run ads, write copy,
                             build websites, optimise for SEO, launch campaigns, and fix mistakes, with someone guiding
                             you whenever you get stuck.
-                        </div>
+                        </motion.div>
                     </div>
 
                     {/* Video Container Portion */}
                     <div className="video-section-wrapper flex w-full min-w-0 max-w-[1320px] flex-col self-stretch items-stretch">
                         <div className="video-container">
-                            {/* Background photo from Haca360Section */}
+                            {/* Background photo */}
                             <div className="absolute inset-0 z-0">
                                 <Image
                                     src="/photos/main/Rectangle 2.png"
@@ -211,8 +255,6 @@ export function MarketingImpactSection() {
                                 onPause={() => setIsPlaying(false)}
                                 aria-label="Marketing application demonstration video"
                             >
-                                {/* Fallback src or future real source */}
-                                <source src="" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
 
@@ -241,7 +283,6 @@ export function MarketingImpactSection() {
                         </div>
                     </div>
                 </div>
-            </section>
-        </>
+        </motion.section>
     )
 }
