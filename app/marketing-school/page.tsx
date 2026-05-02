@@ -14,7 +14,7 @@ import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 export const metadata: Metadata = {
     title: "Marketing School | HACA",
     description: "HACA Marketing School page.",
-}
+};
 
 export default function MarketingSchoolPage() {
     return (
