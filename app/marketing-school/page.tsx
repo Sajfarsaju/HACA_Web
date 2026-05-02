@@ -8,8 +8,8 @@ import { MarketingYoutubeHubSection } from "@/components/marketing/MarketingYout
 import { MarketingPlacementsSection } from "@/components/marketing/MarketingPlacementsSection";
 import { MarketingTestimonialsSection } from "@/components/marketing/MarketingTestimonialsSection";
 import { MarketingFaqSection } from "@/components/marketing/MarketingFaqSection";
-import { MarketingFooter } from "@/components/marketing/MarketingFooter";
-import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
+import { MarketingFooter } from "@/components/marketing/MarketingFooter"
+import { MarketingNavbar } from "@/components/marketing/MarketingNavbar"
 
 export const metadata: Metadata = {
     title: "Marketing School | HACA",
