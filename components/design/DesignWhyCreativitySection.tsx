@@ -4,6 +4,7 @@ type Row = {
     title: string;
     description: string;
     lineColor: string;
+    iconSrc: string;
 };
 
 const ROWS: Row[] = [
@@ -12,36 +13,45 @@ const ROWS: Row[] = [
         description:
             "We offer courses both online and in-person within a dynamic creative environment, letting you explore all areas of design and beyond.",
         lineColor: "#FF5659",
+        iconSrc: "/photos/schools/design/Vector (3).svg",
     },
     {
         title: "Learning Through\nCreative Practices",
         description:
             "Our platform is tailored for creative learners, providing easy access to lessons, tools, and projects that help you grow as a designer.",
         lineColor: "#29C76B",
+        iconSrc: "/photos/schools/design/Vector (4).svg",
     },
     {
         title: "Creative EdTech\nPlatform",
         description:
             "We emphasise learning by doing. You’ll get hands-on experience through real design projects rather than just theory.",
         lineColor: "#2592FF",
+        iconSrc: "/photos/schools/design/Vector (5).svg",
     },
     {
         title: "Placement Support\nand Job Assistance",
         description:
             "We help you prepare for your career with resume support, mock interviews, and job placement assistance so you can step confidently into the design world.",
         lineColor: "#8F56FF",
+        iconSrc: "/photos/schools/design/Vector (6).svg",
     },
     {
         title: "Taught by Designers,\nfor Designers",
         description:
             "Learn directly from experienced designers who have worked in the industry. They know the challenges and will guide you with practical, real-world insights.",
         lineColor: "#FF5C00",
+        iconSrc: "/photos/schools/design/Vector (7).svg",
     },
 ];
 
 export function DesignWhyCreativitySection() {
     const font = '"VC Nudge Trial Normal", sans-serif';
     const serif = '"IvyPresto Display", serif';
+    const underlineW = "clamp(200px, 24.236vw, 349px)";
+    const underlineH = "clamp(12.261973198333923px, 1.485vw, 21.39714399880051px)";
+    const decoW = "clamp(40.00000025737364px, 4.933vw, 71.03475997854625px)";
+    const decoH = "clamp(39.24771906356837px, 4.840vw, 69.69880721116121px)";
 
     return (
         <section
@@ -52,30 +62,116 @@ export function DesignWhyCreativitySection() {
         >
             <div className="w-full max-w-[1440px] mx-auto flex flex-col gap-[60px] lg:gap-[70px]">
                 {/* Heading */}
-                <h2
-                    className="m-0 text-[#000000]"
-                    style={{
-                        fontFamily: font,
-                        fontWeight: 500,
-                        lineHeight: "115%",
-                        letterSpacing: "0%",
-                        fontSize: "clamp(34px,3.47vw,50px)",
-                    }}
-                >
-                    Why{" "}
-                    <span style={{ fontFamily: serif, fontWeight: 300, fontStyle: "italic" }}>
-                        Creativity
-                    </span>
-                    <br className="hidden lg:block" />
-                    <span className="lg:hidden">
+                <div>
+                    {/* Desktop heading (underline + top-right anchored to "Environment") */}
+                    <h2
+                        className="hidden lg:block m-0 text-[#000000] text-[50px]"
+                        style={{
+                            fontFamily: font,
+                            fontWeight: 500,
+                            lineHeight: "115%",
+                            letterSpacing: "0%",
+                        }}
+                    >
+                        Why{" "}
+                        <span style={{ fontFamily: serif, fontWeight: 300, fontStyle: "italic" }}>
+                            Creativity
+                        </span>
                         <br />
-                    </span>
-                    Flourishes in the
-                    <span className="lg:hidden">
+                        Flourishes in the Right{" "}
+                        <span className="relative inline-block">
+                            Environment
+
+                            {/* Top-right decoration */}
+                            <span
+                                className="pointer-events-none absolute"
+                                style={{
+                                    top: "-42px",
+                                    right: "-46px",
+                                    width: decoW,
+                                    height: decoH,
+                                    transform: "rotate(-12.46deg)",
+                                    transformOrigin: "center",
+                                }}
+                                aria-hidden="true"
+                            >
+                                <Image src="/photos/schools/design/Group.svg" alt="" fill className="object-contain" />
+                            </span>
+
+                            {/* Underline */}
+                            <span
+                                className="pointer-events-none absolute"
+                                style={{
+                                    top: "calc(100% - 2px)",
+                                    left: "50%",
+                                    transform: "translateX(-50%) rotate(-1.88deg)",
+                                    width: underlineW,
+                                    height: underlineH,
+                                    transformOrigin: "center",
+                                }}
+                                aria-hidden="true"
+                            >
+                                <Image src="/photos/schools/design/Vector (8).svg" alt="" fill className="object-contain" />
+                            </span>
+                        </span>
+                    </h2>
+
+                    {/* Mobile heading (underline anchored to "Environment", top-right anchored to "the") */}
+                    <h2
+                        className="lg:hidden m-0 text-[#000000] text-[34px]"
+                        style={{
+                            fontFamily: font,
+                            fontWeight: 500,
+                            lineHeight: "115%",
+                            letterSpacing: "0%",
+                        }}
+                    >
+                        Why{" "}
+                        <span style={{ fontFamily: serif, fontWeight: 300, fontStyle: "italic" }}>
+                            Creativity
+                        </span>
                         <br />
-                    </span>{" "}
-                    Right Environment
-                </h2>
+                        Flourishes in{" "}
+                        <span className="relative inline-block">
+                            the
+                            {/* Top-right decoration (mobile: on "the") */}
+                            <span
+                                className="pointer-events-none absolute"
+                                style={{
+                                    top: "-26px",
+                                    right: "-32px",
+                                    width: decoW,
+                                    height: decoH,
+                                    transform: "rotate(-12.46deg)",
+                                    transformOrigin: "center",
+                                }}
+                                aria-hidden="true"
+                            >
+                                <Image src="/photos/schools/design/Group.svg" alt="" fill className="object-contain" />
+                            </span>
+                        </span>
+                        <br />
+                        Right{" "}
+                        <span className="relative inline-block">
+                            Environment
+                            {/* Underline (mobile: under "Environment") */}
+                            <span
+                                className="pointer-events-none absolute"
+                                style={{
+                                    top: "calc(100% - 1px)",
+                                    left: "50%",
+                                    transform: "translateX(-50%) rotate(-1.88deg)",
+                                    width: underlineW,
+                                    height: underlineH,
+                                    transformOrigin: "center",
+                                }}
+                                aria-hidden="true"
+                            >
+                                <Image src="/photos/schools/design/Vector (8).svg" alt="" fill className="object-contain" />
+                            </span>
+                        </span>
+                    </h2>
+                </div>
 
                 {/* Table-like rows */}
                 <div className="w-full flex flex-col gap-[60px] lg:gap-[80px]">
@@ -85,16 +181,9 @@ export function DesignWhyCreativitySection() {
                             <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-[24px]">
                                 {/* left: icon + heading */}
                                 <div className="flex items-start gap-[30px] lg:gap-[50px]">
-                                    <div
-                                        className="relative shrink-0"
-                                        style={{
-                                            width: "clamp(40px,3.47vw,50px)",
-                                            height: "clamp(40px,3.47vw,50px)",
-                                        }}
-                                    >
-                                        {/* Same vector for all rows for now (you'll swap later) */}
+                                    <div className="relative shrink-0 w-[40px] h-[40px] lg:w-[50px] lg:h-[50px]">
                                         <Image
-                                            src="/photos/schools/design/Vector (3).svg"
+                                            src={row.iconSrc}
                                             alt=""
                                             fill
                                             className="object-contain"
@@ -102,12 +191,11 @@ export function DesignWhyCreativitySection() {
                                     </div>
 
                                     <h3
-                                        className="m-0 text-[#000000] whitespace-pre-line"
+                                        className="m-0 text-[#000000] whitespace-pre-line text-[26px] lg:text-[30px]"
                                         style={{
                                             fontFamily: font,
                                             fontWeight: 500,
                                             lineHeight: "115%",
-                                            fontSize: "clamp(26px,2.08vw,30px)",
                                         }}
                                     >
                                         {row.title}
@@ -116,13 +204,11 @@ export function DesignWhyCreativitySection() {
 
                                 {/* right: paragraph */}
                                 <p
-                                    className="m-0 text-[#0A0A0A]"
+                                    className="m-0 text-[#0A0A0A] text-[16px] lg:text-[18px] leading-[120%] lg:leading-[28px]"
                                     style={{
                                         fontFamily: font,
                                         fontWeight: 500,
                                         letterSpacing: "0%",
-                                        fontSize: "clamp(16px,1.25vw,18px)",
-                                        lineHeight: "clamp(19.2px,1.94vw,28px)",
                                         maxWidth: "485px",
                                     }}
                                 >
