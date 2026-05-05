@@ -63,6 +63,15 @@ export function MarketingImpactSection() {
     const bgColor   = useTransform(progress, [0, 1], ["#FFFFFF", "#000000"]);
     const textColor = useTransform(progress, [0, 1], ["#000000", "#ffffff"]);
 
+    // Share animated text color with child Stats section via CSS variable
+    useEffect(() => {
+        const node = wrapperRef.current;
+        if (!node) return;
+        const unsub = textColor.on("change", v => node.style.setProperty("--impact-text", v));
+        node.style.setProperty("--impact-text", textColor.get());
+        return unsub;
+    }, [textColor]);
+
     return (
         <motion.section
             ref={wrapperRef}

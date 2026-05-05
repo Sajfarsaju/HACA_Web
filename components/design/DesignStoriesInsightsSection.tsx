@@ -48,25 +48,25 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
     return (
         <section
             ref={sectionRef}
-            className="w-full bg-[#FCFCFC]"
-            style={{
-                paddingTop: "clamp(30px, 4.17vw, 60px)",
-                paddingBottom: "clamp(30px, 4.17vw, 60px)",
-                paddingLeft: "clamp(20px, 4.17vw, 60px)",
-                paddingRight: "clamp(20px, 4.17vw, 60px)",
-            }}
+            id="design-stories-insights"
+            className="
+                box-border w-full max-w-[1440px] bg-[#FCFCFC]
+                px-5 pb-[30px] pt-[30px]
+                lg:px-[60px] lg:pb-[40px] lg:pt-[40px]
+            "
         >
-            <div className="w-full max-w-[1380px] mx-auto flex flex-col gap-[30px]">
-                {/* Heading */}
-                <h2
-                    className="m-0 text-black"
-                    style={{
-                        fontFamily: font,
-                        fontWeight: 500,
-                        fontSize: "34px",
-                        lineHeight: "114.99999999999999%",
-                    }}
-                >
+            <div className="flex w-full min-w-0 flex-col gap-[50px] lg:gap-[80px]">
+                {/* Heading — desktop frame: ~447 × 124 */}
+                <div className="w-full min-h-0 lg:min-h-[123.574px] lg:w-[447px] lg:max-w-full">
+                    <h2
+                        className="m-0 w-full max-w-full text-black"
+                        style={{
+                            fontFamily: font,
+                            fontWeight: 500,
+                            fontSize: "34px",
+                            lineHeight: "114.99999999999999%",
+                        }}
+                    >
                     <span className="hidden lg:inline">
                         Stories, Insights, and Life
                         <br />
@@ -124,10 +124,11 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                             }
                         }
                     `}</style>
-                </h2>
+                    </h2>
+                </div>
 
                 {/* Videos container + desktop-only button row */}
-                <div className="w-full flex flex-col lg:gap-[40px]" style={{ gap: "20.66px" }}>
+                <div className="flex w-full min-w-0 flex-col lg:gap-[40px]" style={{ gap: "20.66px" }}>
                     {/* Desktop: mentor-like scrolling (edge-only gaps, touch right border) */}
                     <div
                         className="hidden lg:block"

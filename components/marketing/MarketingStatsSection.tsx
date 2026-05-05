@@ -10,7 +10,7 @@ const RAW_STATS = [
 ]
 
 export function MarketingStatsSection() {
-    const [progress, setProgress] = useState(0) // 0 → 1
+    const [progress, setProgress] = useState(0)
     const [hasAnimated, setHasAnimated] = useState(false)
     const sectionRef = useRef<HTMLElement | null>(null)
 
@@ -24,7 +24,7 @@ export function MarketingStatsSection() {
                 if (!entry.isIntersecting) return
 
                 let frameId: number
-                const duration = 1200 // ms
+                const duration = 1200
                 const start = performance.now()
 
                 const tick = (now: number) => {
@@ -55,8 +55,8 @@ export function MarketingStatsSection() {
     }, [hasAnimated])
 
     return (
-        <section ref={sectionRef} className="w-full bg-black">
-            <style jsx>{`
+        <section ref={sectionRef} className="w-full bg-transparent">
+            <style>{`
                 .stat-number,
                 .stat-plus {
                     font-family: "Satoshi", sans-serif;
@@ -69,7 +69,7 @@ export function MarketingStatsSection() {
                 }
 
                 .stat-number {
-                    color: #ffffff;
+                    color: var(--impact-text, #ffffff);
                 }
 
                 .stat-plus {
@@ -84,7 +84,6 @@ export function MarketingStatsSection() {
                     line-height: 120%;
                     letter-spacing: 0%;
                     color: #8a8a8a;
-                    /* Keep 3 explicit lines readable on all screens */
                     width: clamp(66px, 8vw, 92px);
                     height: calc(3 * 1.2em);
                     opacity: 1;
@@ -97,7 +96,6 @@ export function MarketingStatsSection() {
                     overflow: hidden;
                 }
 
-                /* Mobile layout uses Tailwind so md:hidden is not overridden by display:flex in this block. */
                 .mobile-stat-num,
                 .mobile-stat-plus {
                     font-family: "Satoshi", sans-serif;
@@ -108,7 +106,7 @@ export function MarketingStatsSection() {
                     letter-spacing: 0%;
                 }
                 .mobile-stat-num {
-                    color: #ffffff;
+                    color: var(--impact-text, #ffffff);
                 }
                 .mobile-stat-plus {
                     color: #015aff;
@@ -162,7 +160,7 @@ export function MarketingStatsSection() {
                     })}
                 </div>
 
-                {/* Mobile only: tighter zig-zag inside a narrow track so L/R alternation reads clearly */}
+                {/* Mobile only */}
                 <div className="mobile-stats md:hidden mx-auto flex w-full min-w-0 max-w-[min(300px,100%)] min-h-0 flex-col gap-5 opacity-100">
                     {RAW_STATS.map((stat, index) => {
                         const current = Math.round(stat.value * progress)
@@ -197,4 +195,3 @@ export function MarketingStatsSection() {
         </section>
     )
 }
-

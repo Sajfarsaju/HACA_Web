@@ -2,32 +2,9 @@
 
 import Image from "next/image"
 import React, { useEffect, useMemo, useRef, useState } from "react"
+import { motion, useScroll, useSpring, useTransform } from "framer-motion"
 
 const ACCENT = "#0066FF"
-
-type CultureTileProps = {
-    src: string
-    alt: string
-    className: string
-    priority?: boolean
-    sizes?: string
-}
-
-function CultureTile({ src, alt, className, priority, sizes }: CultureTileProps) {
-    return (
-        <div className={`relative w-full min-w-0 overflow-hidden rounded-[10px] bg-[#E9E9E9] ${className}`}>
-            <Image
-                src={src}
-                alt={alt}
-                fill
-                quality={100}
-                sizes={sizes ?? "(min-width: 1024px) 50vw, 100vw"}
-                className="object-cover"
-                priority={priority}
-            />
-        </div>
-    )
-}
 
 type CultureAbsTileProps = {
     src: string
@@ -60,10 +37,10 @@ function CultureAbsTile({ src, alt, left, top, width, height, priority, radius =
 }
 
 export function MarketingCultureSection() {
+    const sectionRef = useRef<HTMLElement>(null)
     const desktopViewportRef = useRef<HTMLDivElement | null>(null)
     const [desktopScale, setDesktopScale] = useState(1)
 
-    // Extra breathing room inside the desktop viewport (in addition to section padding)
     const desktopGutterPx = useMemo(() => 24, [])
 
     useEffect(() => {
@@ -85,8 +62,23 @@ export function MarketingCultureSection() {
         return () => ro.disconnect()
     }, [desktopGutterPx])
 
+    // Scroll color animation
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"],
+    })
+    const progress  = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
+    const bgColor   = useTransform(progress, [0, 0.3, 1], ["#000000", "#FFFFFF", "#FFFFFF"])
+    const textColor = useTransform(progress, [0, 0.3, 1], ["#FFFFFF", "#000000", "#000000"])
+
     return (
-        <section id="marketing-culture" className="w-full bg-white" aria-labelledby="marketing-culture-heading">
+        <motion.section
+            ref={sectionRef}
+            id="marketing-culture"
+            className="w-full"
+            style={{ backgroundColor: bgColor }}
+            aria-labelledby="marketing-culture-heading"
+        >
             <div
                 className="
                     mx-auto box-border flex w-full min-w-0 max-w-[1440px] flex-col
@@ -102,32 +94,35 @@ export function MarketingCultureSection() {
                             style={{ backgroundColor: ACCENT }}
                             aria-hidden
                         />
-                        <p className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal text-black">
+                        <motion.p
+                            className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
+                            style={{ color: textColor }}
+                        >
                             Culture
-                        </p>
+                        </motion.p>
                     </div>
 
-                    <h2
+                    <motion.h2
                         id="marketing-culture-heading"
                         className="
-                            w-full min-w-0 max-w-full text-left font-semibold tracking-normal text-black
+                            w-full min-w-0 max-w-full text-left font-semibold tracking-normal
                             [font-family:'Darker_Grotesque',sans-serif]
                             text-[clamp(1.75rem,4.8vw,3.125rem)] leading-[1.05]
                             lg:ml-auto lg:flex lg:max-w-[min(100%,720px)] lg:justify-end lg:text-left lg:leading-[1.08]
                         "
+                        style={{ color: textColor }}
                     >
                         <span className="inline-block text-left">
                             <span className="block">The Energy Here Feels</span>
                             <span className="block">Different</span>
                         </span>
-                    </h2>
+                    </motion.h2>
                 </header>
 
                 {/* Mosaic dummy cards (desktop) + simple stack (mobile) */}
                 <div className="w-full min-w-0">
                     {/* Mobile layout: exact pixel sizes/positions */}
                     <div className="md:hidden">
-                        {/* Normalize Figma positions to section padding (baseLeft=16, baseTop=144) */}
                         <div className="mx-auto w-full max-w-[391px] max-[360px]:max-w-[320px]">
                             <div className="relative w-[375px] min-w-0 max-[360px]:[zoom:0.85]" style={{ height: 372 }}>
                                 <CultureAbsTile
@@ -185,79 +180,15 @@ export function MarketingCultureSection() {
                         <div className="w-full max-w-[768px] min-w-0">
                             <div className="mx-auto w-[1320px] md:[zoom:0.58]">
                                 <div className="relative w-[1320px]" style={{ height: 693 }}>
-                                    <CultureAbsTile
-                                        src="/photos/schools/marketing/culture/rectangle-34.png"
-                                        alt="Culture moment"
-                                        left={0}
-                                        top={0}
-                                        width={313.4869}
-                                        height={455}
-                                        priority
-                                    />
-                                    <CultureAbsTile
-                                        src="/photos/schools/marketing/culture/rectangle-36.png"
-                                        alt="Culture moment"
-                                        left={333.41}
-                                        top={0}
-                                        width={423.5743}
-                                        height={217}
-                                    />
-                                    <CultureAbsTile
-                                        src="/photos/schools/marketing/culture/rectangle-39.png"
-                                        alt="Culture moment"
-                                        left={776.9}
-                                        top={0}
-                                        width={207.5933}
-                                        height={217}
-                                    />
-                                    <CultureAbsTile
-                                        src="/photos/schools/marketing/culture/rectangle-41.png"
-                                        alt="Culture moment"
-                                        left={1004.42}
-                                        top={0}
-                                        width={315.5838}
-                                        height={335}
-                                    />
-                                    <CultureAbsTile
-                                        src="/photos/schools/marketing/culture/rectangle-35.png"
-                                        alt="Culture moment"
-                                        left={333.41}
-                                        top={238}
-                                        width={315.5838}
-                                        height={217}
-                                    />
-                                    <CultureAbsTile
-                                        src="/photos/schools/marketing/culture/rectangle-40.png"
-                                        alt="Culture moment"
-                                        left={668.91}
-                                        top={238}
-                                        width={315.5838}
-                                        height={455}
-                                    />
-                                    <CultureAbsTile
-                                        src="/photos/schools/marketing/culture/rectangle-38.png"
-                                        alt="Culture moment"
-                                        left={0}
-                                        top={475}
-                                        width={199.2057}
-                                        height={218}
-                                    />
-                                    <CultureAbsTile
-                                        src="/photos/schools/marketing/culture/rectangle-37.png"
-                                        alt="Culture moment"
-                                        left={222.27}
-                                        top={475}
-                                        width={426.7196}
-                                        height={218}
-                                    />
-                                    <CultureAbsTile
-                                        src="/photos/schools/marketing/culture/rectangle-42.png"
-                                        alt="Culture moment"
-                                        left={1004.42}
-                                        top={358}
-                                        width={315.5838}
-                                        height={335}
-                                    />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-34.png" alt="Culture moment" left={0} top={0} width={313.4869} height={455} priority />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-36.png" alt="Culture moment" left={333.41} top={0} width={423.5743} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-39.png" alt="Culture moment" left={776.9} top={0} width={207.5933} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-41.png" alt="Culture moment" left={1004.42} top={0} width={315.5838} height={335} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-35.png" alt="Culture moment" left={333.41} top={238} width={315.5838} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-40.png" alt="Culture moment" left={668.91} top={238} width={315.5838} height={455} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-38.png" alt="Culture moment" left={0} top={475} width={199.2057} height={218} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-37.png" alt="Culture moment" left={222.27} top={475} width={426.7196} height={218} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-42.png" alt="Culture moment" left={1004.42} top={358} width={315.5838} height={335} />
                                 </div>
                             </div>
                         </div>
@@ -265,7 +196,6 @@ export function MarketingCultureSection() {
 
                     {/* Desktop: exact pixel-perfect mosaic from Figma */}
                     <div className="hidden w-full min-w-0 lg:flex lg:justify-center">
-                        {/* Canvas is 1320px wide. Keep the exact layout; scale uniformly so it never clips. */}
                         <div ref={desktopViewportRef} className="flex w-full min-w-0 justify-center overflow-visible">
                             <div
                                 className="cultureMosaic w-[1320px]"
@@ -275,79 +205,15 @@ export function MarketingCultureSection() {
                                 }}
                             >
                                 <div className="relative h-[693px] w-[1320px]">
-                            <CultureAbsTile
-                                src="/photos/schools/marketing/culture/rectangle-34.png"
-                                alt="Culture moment"
-                                left={0}
-                                top={0}
-                                width={313.4869}
-                                height={455}
-                                priority
-                            />
-                            <CultureAbsTile
-                                src="/photos/schools/marketing/culture/rectangle-36.png"
-                                alt="Culture moment"
-                                left={333.41}
-                                top={0}
-                                width={423.5743}
-                                height={217}
-                            />
-                            <CultureAbsTile
-                                src="/photos/schools/marketing/culture/rectangle-39.png"
-                                alt="Culture moment"
-                                left={776.9}
-                                top={0}
-                                width={207.5933}
-                                height={217}
-                            />
-                            <CultureAbsTile
-                                src="/photos/schools/marketing/culture/rectangle-41.png"
-                                alt="Culture moment"
-                                left={1004.42}
-                                top={0}
-                                width={315.5838}
-                                height={335}
-                            />
-                            <CultureAbsTile
-                                src="/photos/schools/marketing/culture/rectangle-35.png"
-                                alt="Culture moment"
-                                left={333.41}
-                                top={238}
-                                width={315.5838}
-                                height={217}
-                            />
-                            <CultureAbsTile
-                                src="/photos/schools/marketing/culture/rectangle-40.png"
-                                alt="Culture moment"
-                                left={668.91}
-                                top={238}
-                                width={315.5838}
-                                height={455}
-                            />
-                            <CultureAbsTile
-                                src="/photos/schools/marketing/culture/rectangle-38.png"
-                                alt="Culture moment"
-                                left={0}
-                                top={475}
-                                width={199.2057}
-                                height={218}
-                            />
-                            <CultureAbsTile
-                                src="/photos/schools/marketing/culture/rectangle-37.png"
-                                alt="Culture moment"
-                                left={222.27}
-                                top={475}
-                                width={426.7196}
-                                height={218}
-                            />
-                            <CultureAbsTile
-                                src="/photos/schools/marketing/culture/rectangle-42.png"
-                                alt="Culture moment"
-                                left={1004.42}
-                                top={358}
-                                width={315.5838}
-                                height={335}
-                            />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-34.png" alt="Culture moment" left={0} top={0} width={313.4869} height={455} priority />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-36.png" alt="Culture moment" left={333.41} top={0} width={423.5743} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-39.png" alt="Culture moment" left={776.9} top={0} width={207.5933} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-41.png" alt="Culture moment" left={1004.42} top={0} width={315.5838} height={335} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-35.png" alt="Culture moment" left={333.41} top={238} width={315.5838} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-40.png" alt="Culture moment" left={668.91} top={238} width={315.5838} height={455} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-38.png" alt="Culture moment" left={0} top={475} width={199.2057} height={218} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-37.png" alt="Culture moment" left={222.27} top={475} width={426.7196} height={218} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-42.png" alt="Culture moment" left={1004.42} top={358} width={315.5838} height={335} />
                                 </div>
                             </div>
                         </div>
@@ -357,8 +223,6 @@ export function MarketingCultureSection() {
 
             <style>{`
                 @media (min-width: 1024px) {
-                    /* Fit the 1320px mosaic into the padded container with a small responsive gutter.
-                       This keeps the exact layout/positions and prevents right-side clipping on small desktops. */
                     #marketing-culture .cultureMosaic {
                         --cultureGutter: clamp(12px, 2vw, 28px);
                         transform: scale(
@@ -370,7 +234,6 @@ export function MarketingCultureSection() {
                     }
                 }
             `}</style>
-        </section>
+        </motion.section>
     )
 }
-
