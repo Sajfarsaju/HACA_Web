@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { isDesignSchoolSeoPath } from "@/lib/design-school-seo";
 
 const NAV_LINKS = [
     { label: "Home", href: "/design-school" },
@@ -22,6 +23,7 @@ const ACTIVE_LINK_COLORS: Record<(typeof NAV_LINKS)[number]["href"], string> = {
 
 export function DesignSchoolNavbar() {
     const pathname = usePathname();
+    const onDesignSchoolSeoLanding = isDesignSchoolSeoPath(pathname);
 
     return (
         <nav className="max-w-[1440px] mx-auto w-full flex justify-between items-center lg:h-[120.56px] pt-[20px] pb-[20px] px-6 lg:px-[60px] lg:pb-[40px]">
@@ -39,7 +41,9 @@ export function DesignSchoolNavbar() {
             {/* Navlinks */}
             <div className="hidden lg:flex items-center gap-[30px] w-[490px] h-[54px] pt-[16px] pr-[20px] pb-[16px] pl-[20px] rounded-[10px]">
                 {NAV_LINKS.map((link) => {
-                    const isActive = pathname === link.href;
+                    const isActive =
+                        pathname === link.href ||
+                        (onDesignSchoolSeoLanding && link.href === "/design-school/courses");
                     const activeColor = ACTIVE_LINK_COLORS[link.href];
                     return (
                         <Link

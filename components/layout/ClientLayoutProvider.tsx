@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { isDesignSchoolSeoPath } from "@/lib/design-school-seo";
 import { Navbar } from "./Navbar";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { BottomReserveCta } from "./BottomReserveCta";
@@ -22,7 +23,8 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
         pathname === "/design-school" ||
         pathname.startsWith("/design-school/") ||
         pathname === "/schools/design" ||
-        pathname.startsWith("/schools/design/");
+        pathname.startsWith("/schools/design/") ||
+        isDesignSchoolSeoPath(pathname);
     const isFinanceSchool =
         pathname === "/finance-school" ||
         pathname.startsWith("/finance-school/");

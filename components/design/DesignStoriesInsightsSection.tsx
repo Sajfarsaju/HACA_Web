@@ -14,35 +14,21 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
     const sectionRef = useRef<HTMLElement>(null);
     const desktopScrollerRef = useRef<HTMLDivElement | null>(null);
     const mobileScrollerRef = useRef<HTMLDivElement | null>(null);
-    const [desktopShift, setDesktopShift] = useState(0);
-    const [mobileShift, setMobileShift] = useState(0);
-    const [desktopPad, setDesktopPad] = useState(60);
-    const [mobilePad, setMobilePad] = useState(20);
+    const [inView, setInView] = useState(false);
 
     useEffect(() => {
-        const el = desktopScrollerRef.current;
+        const el = sectionRef.current;
         if (!el) return;
-        const update = () => {
-            const pad = sectionRef.current ? parseFloat(getComputedStyle(sectionRef.current).paddingLeft) : 60;
-            setDesktopPad(pad);
-            setDesktopShift(Math.min(el.scrollLeft, pad));
-        };
-        update();
-        el.addEventListener("scroll", update, { passive: true });
-        return () => el.removeEventListener("scroll", update);
-    }, []);
-
-    useEffect(() => {
-        const el = mobileScrollerRef.current;
-        if (!el) return;
-        const update = () => {
-            const pad = sectionRef.current ? parseFloat(getComputedStyle(sectionRef.current).paddingLeft) : 20;
-            setMobilePad(pad);
-            setMobileShift(Math.min(el.scrollLeft, pad));
-        };
-        update();
-        el.addEventListener("scroll", update, { passive: true });
-        return () => el.removeEventListener("scroll", update);
+        const obs = new IntersectionObserver(
+            ([entry]) => {
+                if (!entry.isIntersecting) return;
+                setInView(true);
+                obs.disconnect();
+            },
+            { threshold: 0.2 }
+        );
+        obs.observe(el);
+        return () => obs.disconnect();
     }, []);
 
     return (
@@ -52,11 +38,9 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
             style={{
                 paddingTop: "clamp(30px, 4.17vw, 60px)",
                 paddingBottom: "clamp(30px, 4.17vw, 60px)",
-                paddingLeft: "clamp(20px, 4.17vw, 60px)",
-                paddingRight: "clamp(20px, 4.17vw, 60px)",
             }}
         >
-            <div className="w-full max-w-[1380px] mx-auto flex flex-col gap-[30px]">
+            <div className="mx-auto w-full max-w-[1380px] flex flex-col gap-[30px]">
                 {/* Heading */}
                 <h2
                     className="m-0 text-black"
@@ -128,16 +112,8 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
 
                 {/* Videos container + desktop-only button row */}
                 <div className="w-full flex flex-col lg:gap-[40px]" style={{ gap: "20.66px" }}>
-                    {/* Desktop: mentor-like scrolling (edge-only gaps, touch right border) */}
-                    <div
-                        className="hidden lg:block"
-                        style={{
-                            marginLeft: `-${desktopShift}px`,
-                            marginRight: `-${desktopPad}px`,
-                            width: `calc(100% + ${desktopShift + desktopPad}px)`,
-                            transition: "margin-left 0.2s ease-out, width 0.2s ease-out, margin-right 0.2s ease-out",
-                        }}
-                    >
+                    {/* Desktop: full-bleed scroller (no side gaps) */}
+                    <div className="hidden lg:block w-screen max-w-none overflow-hidden ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]">
                         <div
                             ref={desktopScrollerRef}
                             className="storiesScroller flex overflow-x-auto overflow-y-hidden scroll-smooth"
@@ -152,8 +128,12 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                             {Array.from({ length: 3 }, (_, i) => i).map((i) => (
                                 <div
                                     key={i}
-                                    className="shrink-0"
+                                    className={[
+                                        "shrink-0 transition-all duration-700 ease-out",
+                                        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
+                                    ].join(" ")}
                                     style={{
+                                        transitionDelay: `${Math.min(i * 90, 240)}ms`,
                                         width: "644px",
                                         height: "392.5577697753906px",
                                         borderStyle: "solid",
@@ -166,21 +146,14 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                         </div>
                     </div>
 
-                    {/* Mobile: mentor-like scrolling (edge-only gaps, touch right border) */}
-                    <div
-                        className="lg:hidden"
-                        style={{
-                            marginLeft: `-${mobileShift}px`,
-                            marginRight: `-${mobilePad}px`,
-                            width: `calc(100% + ${mobileShift + mobilePad}px)`,
-                        }}
-                    >
+                    {/* Mobile: full-bleed scroller (no side gaps) */}
+                    <div className="lg:hidden w-screen max-w-none overflow-hidden ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]">
                         <div
                             ref={mobileScrollerRef}
-                            className="storiesScroller flex overflow-x-auto overflow-y-hidden"
+                            className="storiesScroller flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory"
                             style={{
                                 width: "100%",
-                                gap: "1.03px",
+                                gap: "0px",
                                 WebkitOverflowScrolling: "touch",
                                 scrollbarWidth: "none",
                                 msOverflowStyle: "none",
@@ -189,10 +162,14 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                             {Array.from({ length: 3 }, (_, i) => i).map((i) => (
                                 <div
                                     key={i}
-                                    className="shrink-0"
+                                    className={[
+                                        "shrink-0 snap-start transition-all duration-700 ease-out",
+                                        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
+                                    ].join(" ")}
                                     style={{
-                                        width: "332.6446228027344px",
-                                        height: "202.76744079589844px",
+                                        transitionDelay: `${Math.min(i * 90, 240)}ms`,
+                                        width: "100vw",
+                                        height: "180px",
                                         borderStyle: "solid",
                                         borderWidth: "0.52px",
                                         borderColor: "rgba(0,0,0,0.18)",
