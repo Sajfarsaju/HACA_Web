@@ -13,6 +13,13 @@ import { DesignEnterCreativeZoneSection } from "@/components/design/DesignEnterC
 import { DesignMentorsSection } from "@/components/design/DesignMentorsSection";
 import { DesignPlacementsTeaserSection } from "@/components/design/DesignPlacementsTeaserSection";
 import { DesignStudentProjectsSection } from "@/components/design/DesignStudentProjectsSection";
+import { DesignTestimonialsSection } from "@/components/design/DesignTestimonialsSection";
+import { DesignStoriesInsightsSection } from "@/components/design/DesignStoriesInsightsSection";
+import { DesignFaqSection } from "@/components/design/DesignFaqSection";
+
+/** Match testimonials / hero typography on design school pages */
+const DESIGN_HEADING_FONT = '"VC Nudge Trial Normal", sans-serif';
+const DESIGN_SERIF_FONT = '"IvyPresto Display", serif';
 
 const school = schoolData.design;
 
@@ -61,6 +68,19 @@ export default function DesignSchoolPage() {
 
             {/* Student projects */}
             <DesignStudentProjectsSection />
+
+            {/* Testimonials */}
+            <DesignTestimonialsSection />
+
+            {/* Stories & insights — below testimonials */}
+            <div className="flex w-full justify-center">
+                <DesignStoriesInsightsSection font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
+            </div>
+
+            {/* FAQ — below stories */}
+            <div className="flex w-full justify-center">
+                <DesignFaqSection font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
+            </div>
         </div>
     );
 }

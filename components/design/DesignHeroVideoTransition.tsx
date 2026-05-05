@@ -47,6 +47,12 @@ const M_PHOTO_HEIGHT = 48;
 const M_SCROLL_RANGE = M_VIDEO_HEIGHT; // 254
 const M_HOLD         = 60;
 
+/** Avoid `window` during SSR — `useTransform` may run on the server. */
+function viewportInnerWidth(fallback = 390): number {
+    if (typeof window === "undefined") return fallback;
+    return window.innerWidth || fallback;
+}
+
 interface Props { src?: string; }
 
 export function DesignHeroVideoTransition({ src }: Props) {
@@ -167,11 +173,11 @@ export function DesignHeroVideoTransition({ src }: Props) {
     );
     const mImgHeight    = useTransform(mobileProgress, [0, 1], [M_PHOTO_HEIGHT, M_VIDEO_HEIGHT]);
     const mImgLeft      = useTransform(mobileProgress, v => {
-        const startPct = (mPhotoPos.left / (window.innerWidth || 390)) * 100;
+        const startPct = (mPhotoPos.left / viewportInnerWidth(390)) * 100;
         return `${startPct + (0 - startPct) * v}%`;
     });
     const mImgWidth     = useTransform(mobileProgress, v => {
-        const startPct = (mPhotoPos.width / (window.innerWidth || 390)) * 100;
+        const startPct = (mPhotoPos.width / viewportInnerWidth(390)) * 100;
         return `${startPct + (100 - startPct) * v}%`;
     });
     const mImgRadius    = useTransform(mobileProgress, [0, 1], [7.46, 0]);

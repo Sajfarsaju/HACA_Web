@@ -1,4 +1,7 @@
-import React from "react"
+"use client";
+
+import React, { useRef } from "react"
+import { motion, useScroll, useSpring, useTransform } from "framer-motion"
 
 const ACCENT = "#0066FF"
 
@@ -14,7 +17,7 @@ function PlacementDummyCard() {
     return (
         <div
             className="
-                relative w-full min-w-0 overflow-hidden bg-white rounded-[7.88px]
+                relative w-full min-w-0 overflow-hidden bg-[#E8F1FF] rounded-[7.88px]
                 aspect-[243/280]
                 md:aspect-auto md:h-[240px] md:w-[208px]
                 lg:h-[279.7px] lg:w-[243.35px]
@@ -124,10 +127,22 @@ function PlacementsDecisionCard() {
 }
 
 export function MarketingPlacementsSection() {
+    const sectionRef = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"],
+    });
+    const progress  = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+
+    const bgColor   = useTransform(progress, [0, 0.3, 1], ["#FFFFFF", "#000000", "#000000"]);
+    const textColor = useTransform(progress, [0, 0.3, 1], ["#000000", "#FFFFFF", "#FFFFFF"]);
+
     return (
-        <section
+        <motion.section
+            ref={sectionRef}
             id="marketing-placements"
-            className="w-full bg-black opacity-100"
+            className="w-full opacity-100"
+            style={{ backgroundColor: bgColor }}
             aria-labelledby="marketing-placements-heading"
         >
             <div
@@ -145,18 +160,22 @@ export function MarketingPlacementsSection() {
                             style={{ backgroundColor: ACCENT }}
                             aria-hidden
                         />
-                        <p className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal text-white">
+                        <motion.p
+                            className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
+                            style={{ color: textColor }}
+                        >
                             Placements
-                        </p>
+                        </motion.p>
                     </div>
-                    <h2
+                    <motion.h2
                         id="marketing-placements-heading"
                         className="
-                            w-full min-w-0 max-w-full text-left font-semibold tracking-normal text-white
+                            w-full min-w-0 max-w-full text-left font-semibold tracking-normal
                             [font-family:'Darker_Grotesque',sans-serif]
                             text-[clamp(1.75rem,4.8vw,3.125rem)] leading-[1.05]
                             lg:ml-auto lg:flex lg:max-w-[min(100%,720px)] lg:justify-end lg:text-left lg:leading-[1.08]
                         "
+                        style={{ color: textColor }}
                     >
                         <span className="inline-block text-left">
                             <span className="block whitespace-nowrap">
@@ -164,17 +183,17 @@ export function MarketingPlacementsSection() {
                             </span>
                             <span className="block">Our Success List</span>
                         </span>
-                    </h2>
+                    </motion.h2>
                 </header>
 
-                {/* Mobile: fixed 2×2 grid (no horizontal scroll) — matches screenshot */}
+                {/* Mobile: fixed 2×2 grid */}
                 <div className="grid w-full min-w-0 grid-cols-2 gap-4 md:hidden">
                     {PLACEMENTS.slice(0, 4).map((card) => (
                         <PlacementDummyCard key={card.id} />
                     ))}
                 </div>
 
-                {/* md+: 2-row horizontal scroller (top from right, bottom from left) */}
+                {/* md+: 2-row horizontal scroller */}
                 <div
                     className="
                         hidden w-full min-w-0 overflow-x-auto overflow-y-hidden md:block
@@ -206,7 +225,6 @@ export function MarketingPlacementsSection() {
                     <ViewMorePill />
                 </div>
             </div>
-        </section>
+        </motion.section>
     )
 }
-

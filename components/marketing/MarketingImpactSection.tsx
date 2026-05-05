@@ -7,6 +7,11 @@ import { MarketingApproachSection } from "@/components/marketing/MarketingApproa
 import Image from "next/image"
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
 
+function viewportInnerHeight(fallback = 900): number {
+    if (typeof window === "undefined") return fallback;
+    return window.innerHeight || fallback;
+}
+
 export function MarketingImpactSection() {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -50,13 +55,22 @@ export function MarketingImpactSection() {
     // Math.max(0, …) ensures progress is always 0 at scroll=0 regardless of
     // how tall the hero is relative to the viewport.
     const rawProgress = useTransform(scrollY, v => {
-        const animStart = Math.max(0, sectionTopRef.current - window.innerHeight);
+        const animStart = Math.max(0, sectionTopRef.current - viewportInnerHeight(900));
         return Math.max(0, Math.min(1, (v - animStart) / ANIM_RANGE));
     });
     const progress  = useSpring(rawProgress, { stiffness: 80, damping: 25 });
 
     const bgColor   = useTransform(progress, [0, 1], ["#FFFFFF", "#000000"]);
     const textColor = useTransform(progress, [0, 1], ["#000000", "#ffffff"]);
+
+    // Share animated text color with child Stats section via CSS variable
+    useEffect(() => {
+        const node = wrapperRef.current;
+        if (!node) return;
+        const unsub = textColor.on("change", v => node.style.setProperty("--impact-text", v));
+        node.style.setProperty("--impact-text", textColor.get());
+        return unsub;
+    }, [textColor]);
 
     return (
         <motion.section

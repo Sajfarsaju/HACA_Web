@@ -2,14 +2,11 @@ import Image from "next/image"
 import React from "react"
 
 const ACCENT = "#0066FF"
-
-/** Pastel card backdrop (screenshot) */
 const CARD_BG = "#E8F1FF"
 
 type Mentor = {
     name: string
     role: string
-    /** Swap to `/photos/schools/marketing/mentors/{slug}.webp` when assets exist */
     imageSrc: string
 }
 
@@ -24,7 +21,8 @@ export function MarketingMentorsSection() {
     return (
         <section
             id="marketing-mentors"
-            className="w-full bg-white opacity-100"
+            className="w-full opacity-100"
+            style={{ backgroundColor: "var(--cm-bg, #000000)" }}
             aria-labelledby="marketing-mentors-heading"
         >
             <div
@@ -35,7 +33,11 @@ export function MarketingMentorsSection() {
                     lg:gap-9 lg:pb-14 lg:pt-10
                 "
             >
-                <div className="w-full border-t border-black" aria-hidden />
+                <div
+                    className="w-full border-t"
+                    style={{ borderColor: "var(--cm-text, #ffffff)" }}
+                    aria-hidden
+                />
                 <header className="flex w-full min-w-0 flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
                     <div className="flex shrink-0 items-center gap-[clamp(10px,1.5vw,14px)] lg:pt-1">
                         <span
@@ -43,18 +45,22 @@ export function MarketingMentorsSection() {
                             style={{ backgroundColor: ACCENT }}
                             aria-hidden
                         />
-                        <p className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal text-black">
+                        <p
+                            className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
+                            style={{ color: "var(--cm-text, #ffffff)" }}
+                        >
                             Mentors
                         </p>
                     </div>
                     <h2
                         id="marketing-mentors-heading"
                         className="
-                            w-full min-w-0 max-w-full text-left font-semibold tracking-normal text-black
+                            w-full min-w-0 max-w-full text-left font-semibold tracking-normal
                             [font-family:'Darker_Grotesque',sans-serif]
                             text-[clamp(1.75rem,4.5vw,3rem)] leading-[1.05]
                             lg:w-auto lg:ml-auto lg:max-w-[min(100%,640px)] lg:text-left lg:leading-[1.08]
                         "
+                        style={{ color: "var(--cm-text, #ffffff)" }}
                     >
                         The Right People to
                         <br />
@@ -75,11 +81,9 @@ export function MarketingMentorsSection() {
                             key={mentor.name}
                             className={[
                                 "min-w-0",
-                                // Mobile: only show first mentor (Hima) per design request
                                 mentor.name !== "Hima" ? "hidden sm:block" : "",
                             ].join(" ")}
                         >
-                            {/* Desktop card frame: 308×415, gap 10px (Figma). Mobile stays fluid. */}
                             <article className="mx-auto flex w-full max-w-[308px] flex-col gap-[10px] max-lg:h-auto lg:h-[415px]">
                                 <div
                                     className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl max-lg:h-[260px] lg:h-[308px]"
@@ -96,10 +100,11 @@ export function MarketingMentorsSection() {
                                 <div className="flex min-h-0 flex-col gap-1 text-left">
                                     <h3
                                         className="
-                                            m-0 font-bold tracking-normal text-black
+                                            m-0 font-bold tracking-normal
                                             [font-family:'Darker_Grotesque',sans-serif]
                                             text-[clamp(1.25rem,2.6vw,1.5rem)] leading-[1.05]
                                         "
+                                        style={{ color: "var(--cm-text, #ffffff)" }}
                                     >
                                         {mentor.name}
                                     </h3>
