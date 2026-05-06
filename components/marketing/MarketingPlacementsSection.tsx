@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react"
-import { motion, useScroll, useSpring, useTransform } from "framer-motion"
+import React, { useRef, useState } from "react"
+import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 
 const ACCENT = "#0066FF"
 
@@ -132,17 +132,18 @@ export function MarketingPlacementsSection() {
         target: sectionRef,
         offset: ["start end", "end start"],
     });
-    const progress  = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-    const bgColor   = useTransform(progress, [0, 0.3, 1], ["#FFFFFF", "#000000", "#000000"]);
-    const textColor = useTransform(progress, [0, 0.3, 1], ["#000000", "#FFFFFF", "#FFFFFF"]);
+    const [isDark, setIsDark] = useState(false);
+    useMotionValueEvent(scrollYProgress, "change", (v) => setIsDark(v > 0.08));
+    const colorTransition = { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] as const };
 
     return (
         <motion.section
             ref={sectionRef}
             id="marketing-placements"
             className="w-full opacity-100"
-            style={{ backgroundColor: bgColor }}
+            animate={{ backgroundColor: isDark ? "#000000" : "#FFFFFF" }}
+            transition={colorTransition}
             aria-labelledby="marketing-placements-heading"
         >
             <div
@@ -162,7 +163,8 @@ export function MarketingPlacementsSection() {
                         />
                         <motion.p
                             className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
-                            style={{ color: textColor }}
+                            animate={{ color: isDark ? "#FFFFFF" : "#000000" }}
+                            transition={colorTransition}
                         >
                             Placements
                         </motion.p>
@@ -175,7 +177,8 @@ export function MarketingPlacementsSection() {
                             text-[clamp(1.75rem,4.8vw,3.125rem)] leading-[1.05]
                             lg:ml-auto lg:flex lg:max-w-[min(100%,720px)] lg:justify-end lg:text-left lg:leading-[1.08]
                         "
-                        style={{ color: textColor }}
+                        animate={{ color: isDark ? "#FFFFFF" : "#000000" }}
+                        transition={colorTransition}
                     >
                         <span className="inline-block text-left">
                             <span className="block whitespace-nowrap">

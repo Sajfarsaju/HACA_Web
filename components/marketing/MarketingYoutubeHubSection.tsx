@@ -76,7 +76,7 @@ function YoutubeThumbnailCard({
 
 export function MarketingYoutubeHubSection() {
     return (
-        <section id="marketing-youtube-hub" className="w-full bg-white" aria-labelledby="marketing-youtube-hub-heading">
+        <section id="marketing-youtube-hub" className="w-full" aria-labelledby="marketing-youtube-hub-heading">
             <div
                 className="
                     mx-auto box-border flex w-full min-w-0 max-w-[1440px] flex-col
@@ -92,7 +92,7 @@ export function MarketingYoutubeHubSection() {
                             style={{ backgroundColor: ACCENT }}
                             aria-hidden
                         />
-                        <p className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal text-black">
+                        <p className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal" style={{ color: "var(--cy-text, #000000)", transition: "color 0.55s ease" }}>
                             Youtube Hub
                         </p>
                     </div>
@@ -100,11 +100,12 @@ export function MarketingYoutubeHubSection() {
                     <h2
                         id="marketing-youtube-hub-heading"
                         className="
-                            w-full min-w-0 max-w-full text-left font-semibold tracking-normal text-black
+                            w-full min-w-0 max-w-full text-left font-semibold tracking-normal
                             [font-family:'Darker_Grotesque',sans-serif]
                             text-[clamp(1.75rem,4.8vw,3.125rem)] leading-[1.05]
                             lg:ml-auto lg:flex lg:max-w-[min(100%,720px)] lg:justify-end lg:text-left lg:leading-[1.08]
                         "
+                        style={{ color: "var(--cy-text, #000000)", transition: "color 0.55s ease" }}
                     >
                         <span className="inline-block text-left">
                             <span className="block lg:hidden">What We Build. How We</span>

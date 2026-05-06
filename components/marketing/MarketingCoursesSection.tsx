@@ -144,7 +144,6 @@ export function MarketingCoursesSection() {
         <section
             id="marketing-courses"
             className="w-full opacity-100"
-            style={{ backgroundColor: "var(--cm-bg, #000000)" }}
             aria-labelledby="marketing-courses-heading"
         >
             <div
