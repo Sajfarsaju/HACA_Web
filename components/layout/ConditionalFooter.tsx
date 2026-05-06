@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { isDesignSchoolSeoPath } from "@/lib/design-school-seo";
 import { Footer } from "./Footer";
 
 export function ConditionalFooter() {
@@ -34,6 +35,9 @@ export function ConditionalFooter() {
 
     // Design School uses its own layout (no global HACA footer)
     if (pathname === "/design-school" || pathname.startsWith("/design-school/")) {
+        return null;
+    }
+    if (isDesignSchoolSeoPath(pathname)) {
         return null;
     }
     if (pathname === "/schools/design" || pathname.startsWith("/schools/design/")) {
