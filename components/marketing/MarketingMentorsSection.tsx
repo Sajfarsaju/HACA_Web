@@ -22,7 +22,6 @@ export function MarketingMentorsSection() {
         <section
             id="marketing-mentors"
             className="w-full opacity-100"
-            style={{ backgroundColor: "var(--cm-bg, #000000)" }}
             aria-labelledby="marketing-mentors-heading"
         >
             <div

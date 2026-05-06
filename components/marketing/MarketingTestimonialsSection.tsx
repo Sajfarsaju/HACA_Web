@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image"
-import React, { useCallback, useMemo, useRef, useState } from "react"
-import { motion, useScroll, useSpring, useTransform } from "framer-motion"
+import React, { useCallback, useMemo, useState } from "react"
 
 const ACCENT = "#0066FF"
 
@@ -34,6 +33,8 @@ const TESTIMONIALS: Testimonial[] = [
     },
 ]
 
+const COLOR_TRANSITION = "0.55s ease"
+
 function ArrowIcon({ dir }: { dir: "left" | "right" }) {
     return (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -57,18 +58,6 @@ export function MarketingTestimonialsSection() {
     const prev = useCallback(() => setActive((a) => (a - 1 + total) % total), [total])
     const next = useCallback(() => setActive((a) => (a + 1) % total), [total])
 
-    const sectionRef = useRef<HTMLElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"],
-    })
-    const progress    = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
-
-    // white → black, stays black (no fade-out)
-    const bgColor     = useTransform(progress, [0, 0.3, 1], ["#FFFFFF", "#000000", "#000000"])
-    const textColor   = useTransform(progress, [0, 0.3, 1], ["#000000", "#FFFFFF", "#FFFFFF"])
-    const borderColor = useTransform(progress, [0, 0.3, 1], ["#000000", "#FFFFFF", "#FFFFFF"])
-
     const heading = useMemo(
         () => (
             <span className="inline-block text-left leading-[1]">
@@ -80,11 +69,9 @@ export function MarketingTestimonialsSection() {
     )
 
     return (
-        <motion.section
-            ref={sectionRef}
+        <section
             id="marketing-testimonials"
             className="w-full"
-            style={{ backgroundColor: bgColor }}
             aria-labelledby="marketing-testimonials-heading"
         >
             <div
@@ -93,15 +80,15 @@ export function MarketingTestimonialsSection() {
                 <header className="flex w-full min-w-0 flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
                     <div className="flex shrink-0 items-center gap-[clamp(10px,1.5vw,14px)] lg:pt-1">
                         <span className="h-[10px] w-[10px] shrink-0 rounded-full lg:h-3 lg:w-3" style={{ backgroundColor: ACCENT }} aria-hidden />
-                        <motion.p
+                        <p
                             className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
-                            style={{ color: textColor }}
+                            style={{ color: "var(--tf-text, #000000)", transition: `color ${COLOR_TRANSITION}` }}
                         >
                             Testimonials
-                        </motion.p>
+                        </p>
                     </div>
 
-                    <motion.h2
+                    <h2
                         id="marketing-testimonials-heading"
                         className="
                             w-full min-w-0 max-w-full text-left font-semibold tracking-normal
@@ -109,18 +96,18 @@ export function MarketingTestimonialsSection() {
                             text-[clamp(1.75rem,4.8vw,3.125rem)] leading-[1]
                             lg:ml-auto lg:flex lg:max-w-[min(100%,720px)] lg:justify-end lg:text-right lg:leading-[1.08]
                         "
-                        style={{ color: textColor }}
+                        style={{ color: "var(--tf-text, #000000)", transition: `color ${COLOR_TRANSITION}` }}
                     >
                         {heading}
-                    </motion.h2>
+                    </h2>
                 </header>
 
                 <div className="relative flex w-full min-w-0 flex-1 flex-col items-center justify-center">
                     <div className="relative mx-auto w-full max-w-[min(100%,940px)] pt-[clamp(26px,3.2vw,36px)]">
                         {/* Quote mark — bg matches section so it "cuts" the card border */}
-                        <motion.div
+                        <div
                             className="pointer-events-none absolute left-[clamp(18px,2.6vw,30px)] top-[calc(clamp(26px,3.2vw,36px)-6px)] z-10 -translate-y-[80%] px-2"
-                            style={{ backgroundColor: bgColor }}
+                            style={{ backgroundColor: "var(--tf-bg, #FFFFFF)", transition: `background-color ${COLOR_TRANSITION}` }}
                         >
                             <Image
                                 src="/images/testimonials/inverted-comma.svg"
@@ -131,10 +118,10 @@ export function MarketingTestimonialsSection() {
                                 aria-hidden
                                 priority
                             />
-                        </motion.div>
+                        </div>
 
                         {/* Card */}
-                        <motion.div
+                        <div
                             className="
                                 flex flex-col
                                 rounded-[20px] bg-transparent
@@ -142,16 +129,16 @@ export function MarketingTestimonialsSection() {
                                 gap-[clamp(16px,2.4vw,26px)]
                                 lg:h-[312px] lg:w-[940px] lg:px-[20px] lg:pb-[20px] lg:pt-[30px] lg:gap-[26px]
                             "
-                            style={{ border: "1px solid", borderColor }}
+                            style={{ border: "1px solid", borderColor: "var(--tf-border, #000000)", transition: `border-color ${COLOR_TRANSITION}` }}
                         >
-                            <motion.div
+                            <div
                                 className="
                                     m-0 text-left font-['Satoshi',sans-serif] font-medium tracking-normal text-[clamp(14px,1.8vw,18px)]
                                     leading-[1.45]
                                     lg:h-[169px] lg:w-[900px] lg:text-[24px] lg:leading-[1]
                                     overflow-hidden
                                 "
-                                style={{ color: textColor }}
+                                style={{ color: "var(--tf-text, #000000)", transition: `color ${COLOR_TRANSITION}` }}
                             >
                                 {t.id === "t-1" ? (
                                     <>
@@ -167,15 +154,15 @@ export function MarketingTestimonialsSection() {
                                 ) : (
                                     <span>{t.quote}</span>
                                 )}
-                            </motion.div>
+                            </div>
 
                             <div className="text-left lg:mt-auto">
-                                <motion.p
+                                <p
                                     className="m-0 font-['Satoshi',sans-serif] text-[clamp(16px,1.9vw,20px)] font-bold leading-none"
-                                    style={{ color: textColor }}
+                                    style={{ color: "var(--tf-text, #000000)", transition: `color ${COLOR_TRANSITION}` }}
                                 >
                                     {t.name}
-                                </motion.p>
+                                </p>
                                 <p className="mt-2 m-0 font-['Satoshi',sans-serif] text-[clamp(12px,1.3vw,14px)] font-medium leading-none text-[#A7ADBE]">
                                     {t.role}
                                 </p>
@@ -190,7 +177,7 @@ export function MarketingTestimonialsSection() {
                                     <ArrowIcon dir="right" />
                                 </button>
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* Tablet/Desktop arrows */}
@@ -204,6 +191,6 @@ export function MarketingTestimonialsSection() {
                     </div>
                 </div>
             </div>
-        </motion.section>
+        </section>
     )
 }

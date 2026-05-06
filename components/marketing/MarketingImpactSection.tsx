@@ -5,17 +5,12 @@ import { PressLogos } from "@/components/sections/PressLogos"
 import { MarketingStatsSection } from "@/components/marketing/MarketingStatsSection"
 import { MarketingApproachSection } from "@/components/marketing/MarketingApproachSection"
 import Image from "next/image"
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
-
-function viewportInnerHeight(fallback = 900): number {
-    if (typeof window === "undefined") return fallback;
-    return window.innerHeight || fallback;
-}
+import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 
 export function MarketingImpactSection() {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const wrapperRef = useRef<HTMLDivElement>(null);
+    const wrapperRef = useRef<HTMLElement>(null);
     const VIDEO_SRC = "";
 
     const togglePlay = () => {
@@ -25,65 +20,34 @@ export function MarketingImpactSection() {
         }
     };
 
-    // ── Scroll-driven stack animation ───────────────────────────────────────
-    const scrollY      = useMotionValue(0);
-    const sectionTopRef = useRef(0);
-
-    // Measure section's absolute top once (and on resize)
-    useEffect(() => {
-        const measure = () => {
-            if (!wrapperRef.current) return;
-            let top = 0, node: HTMLElement | null = wrapperRef.current;
-            while (node) { top += node.offsetTop; node = node.offsetParent as HTMLElement | null; }
-            sectionTopRef.current = top;
-        };
-        measure();
-        window.addEventListener("resize", measure, { passive: true });
-        return () => window.removeEventListener("resize", measure);
-    }, []);
-
-    useEffect(() => {
-        const onScroll = () => scrollY.set(window.scrollY);
-        onScroll();
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
-    }, [scrollY]);
-
-    const ANIM_RANGE = 420; // px of scroll over which the transition plays
-
-    // Progress 0→1: starts when section enters viewport, ends ANIM_RANGE px later.
-    // Math.max(0, …) ensures progress is always 0 at scroll=0 regardless of
-    // how tall the hero is relative to the viewport.
-    const rawProgress = useTransform(scrollY, v => {
-        const animStart = Math.max(0, sectionTopRef.current - viewportInnerHeight(900));
-        return Math.max(0, Math.min(1, (v - animStart) / ANIM_RANGE));
+    const { scrollYProgress } = useScroll({
+        target: wrapperRef,
+        offset: ["start end", "end start"],
     });
-    const progress  = useSpring(rawProgress, { stiffness: 80, damping: 25 });
+    const [isDark, setIsDark] = useState(false);
+    useMotionValueEvent(scrollYProgress, "change", (v) => setIsDark(v > 0.08));
 
-    const bgColor   = useTransform(progress, [0, 1], ["#FFFFFF", "#000000"]);
-    const textColor = useTransform(progress, [0, 1], ["#000000", "#ffffff"]);
+    const colorTransition = { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] as const };
 
-    // Share animated text color with child Stats section via CSS variable
     useEffect(() => {
         const node = wrapperRef.current;
         if (!node) return;
-        const unsub = textColor.on("change", v => node.style.setProperty("--impact-text", v));
-        node.style.setProperty("--impact-text", textColor.get());
-        return unsub;
-    }, [textColor]);
+        node.style.setProperty("--impact-text", isDark ? "#ffffff" : "#000000");
+    }, [isDark]);
 
     return (
         <motion.section
             ref={wrapperRef}
             id="marketing-impact"
-                className="w-full flex flex-col items-center opacity-100 overflow-hidden"
-                style={{
-                    minHeight: "1666.82px",
-                    paddingTop: "40px",
-                    paddingBottom: "40px",
-                    gap: "30px",
-                    backgroundColor: bgColor,
-                }}
+            className="w-full flex flex-col items-center opacity-100 overflow-hidden"
+            animate={{ backgroundColor: isDark ? "#000000" : "#FFFFFF" }}
+            transition={colorTransition}
+            style={{
+                minHeight: "1666.82px",
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                gap: "30px",
+            }}
             >
                 {/* Desktop Styles */}
                 <style jsx>{`
@@ -237,15 +201,15 @@ export function MarketingImpactSection() {
                     <div className="about-us-container">
                         <div className="info-button">
                             <div className="blue-dot" />
-                            <motion.span className="info-text" style={{ color: textColor }}>
+                            <span className="info-text" style={{ color: "var(--impact-text, #000000)", transition: "color 0.55s ease" }}>
                                 About Marketing School
-                            </motion.span>
+                            </span>
                         </div>
-                        <motion.div className="note-text" style={{ color: textColor }}>
+                        <div className="note-text" style={{ color: "var(--impact-text, #000000)", transition: "color 0.55s ease" }}>
                             Here, we don't just explain marketing; we make you apply it. You'll run ads, write copy,
                             build websites, optimise for SEO, launch campaigns, and fix mistakes, with someone guiding
                             you whenever you get stuck.
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* Video Container Portion */}
@@ -293,12 +257,12 @@ export function MarketingImpactSection() {
                         </div>
 
                         <div className="mt-[clamp(16px,2.5vw,28px)] w-full min-w-0 shrink-0 px-0">
-                            <motion.p
+                            <p
                                 className="m-0 pb-[clamp(10px,1.5vw,16px)] text-left [font-family:'Darker_Grotesque',sans-serif] text-[clamp(22px,3.2vw,32px)] font-semibold leading-[100%] tracking-[-0.02em]"
-                                style={{ color: textColor }}
+                                style={{ color: "var(--impact-text, #000000)", transition: "color 0.55s ease" }}
                             >
                                 Our Journey in Simple Numbers
-                            </motion.p>
+                            </p>
                             <MarketingStatsSection />
                         </div>
 

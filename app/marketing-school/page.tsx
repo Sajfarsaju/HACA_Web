@@ -6,11 +6,13 @@ import { MarketingMentorsSection } from "@/components/marketing/MarketingMentors
 import { MarketingCoursesAndMentorsWrapper } from "@/components/marketing/MarketingCoursesAndMentorsWrapper";
 import { MarketingCultureSection } from "@/components/marketing/MarketingCultureSection";
 import { MarketingYoutubeHubSection } from "@/components/marketing/MarketingYoutubeHubSection";
+import { MarketingCultureAndYoutubeWrapper } from "@/components/marketing/MarketingCultureAndYoutubeWrapper";
 import { MarketingPlacementsSection } from "@/components/marketing/MarketingPlacementsSection";
 import { MarketingTestimonialsSection } from "@/components/marketing/MarketingTestimonialsSection";
 import { MarketingFaqSection } from "@/components/marketing/MarketingFaqSection";
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
+import { MarketingTestimonialsAndFaqWrapper } from "@/components/marketing/MarketingTestimonialsAndFaqWrapper";
 
 export const metadata: Metadata = {
     title: "Marketing School | HACA",
@@ -28,10 +30,14 @@ export default function MarketingSchoolPage() {
                 <MarketingMentorsSection />
             </MarketingCoursesAndMentorsWrapper>
             <MarketingPlacementsSection />
-            <MarketingCultureSection />
-            <MarketingYoutubeHubSection />
-            <MarketingTestimonialsSection />
-            <MarketingFaqSection />
+            <MarketingCultureAndYoutubeWrapper>
+                <MarketingCultureSection />
+                <MarketingYoutubeHubSection />
+            </MarketingCultureAndYoutubeWrapper>
+            <MarketingTestimonialsAndFaqWrapper>
+                <MarketingTestimonialsSection />
+                <MarketingFaqSection />
+            </MarketingTestimonialsAndFaqWrapper>
             <MarketingFooter />
         </main>
     );

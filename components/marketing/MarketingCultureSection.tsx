@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import React, { useEffect, useMemo, useRef, useState } from "react"
-import { motion, useScroll, useSpring, useTransform } from "framer-motion"
 
 const ACCENT = "#0066FF"
 
@@ -37,7 +36,6 @@ function CultureAbsTile({ src, alt, left, top, width, height, priority, radius =
 }
 
 export function MarketingCultureSection() {
-    const sectionRef = useRef<HTMLElement>(null)
     const desktopViewportRef = useRef<HTMLDivElement | null>(null)
     const [desktopScale, setDesktopScale] = useState(1)
 
@@ -62,21 +60,10 @@ export function MarketingCultureSection() {
         return () => ro.disconnect()
     }, [desktopGutterPx])
 
-    // Scroll color animation
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"],
-    })
-    const progress  = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
-    const bgColor   = useTransform(progress, [0, 0.3, 1], ["#000000", "#FFFFFF", "#FFFFFF"])
-    const textColor = useTransform(progress, [0, 0.3, 1], ["#FFFFFF", "#000000", "#000000"])
-
     return (
-        <motion.section
-            ref={sectionRef}
+        <section
             id="marketing-culture"
             className="w-full"
-            style={{ backgroundColor: bgColor }}
             aria-labelledby="marketing-culture-heading"
         >
             <div
@@ -94,15 +81,15 @@ export function MarketingCultureSection() {
                             style={{ backgroundColor: ACCENT }}
                             aria-hidden
                         />
-                        <motion.p
+                        <p
                             className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
-                            style={{ color: textColor }}
+                            style={{ color: "var(--cy-text, #FFFFFF)", transition: "color 0.55s ease" }}
                         >
                             Culture
-                        </motion.p>
+                        </p>
                     </div>
 
-                    <motion.h2
+                    <h2
                         id="marketing-culture-heading"
                         className="
                             w-full min-w-0 max-w-full text-left font-semibold tracking-normal
@@ -110,13 +97,13 @@ export function MarketingCultureSection() {
                             text-[clamp(1.75rem,4.8vw,3.125rem)] leading-[1.05]
                             lg:ml-auto lg:flex lg:max-w-[min(100%,720px)] lg:justify-end lg:text-left lg:leading-[1.08]
                         "
-                        style={{ color: textColor }}
+                        style={{ color: "var(--cy-text, #FFFFFF)", transition: "color 0.55s ease" }}
                     >
                         <span className="inline-block text-left">
                             <span className="block">The Energy Here Feels</span>
                             <span className="block">Different</span>
                         </span>
-                    </motion.h2>
+                    </h2>
                 </header>
 
                 {/* Mosaic dummy cards (desktop) + simple stack (mobile) */}
@@ -234,6 +221,6 @@ export function MarketingCultureSection() {
                     }
                 }
             `}</style>
-        </motion.section>
+        </section>
     )
 }

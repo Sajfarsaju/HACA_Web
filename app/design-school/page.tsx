@@ -16,6 +16,7 @@ import { DesignStudentProjectsSection } from "@/components/design/DesignStudentP
 import { DesignTestimonialsSection } from "@/components/design/DesignTestimonialsSection";
 import { DesignStoriesInsightsSection } from "@/components/design/DesignStoriesInsightsSection";
 import { DesignFaqSection } from "@/components/design/DesignFaqSection";
+import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
 
 /** Match testimonials / hero typography on design school pages */
 const DESIGN_HEADING_FONT = '"VC Nudge Trial Normal", sans-serif';
@@ -81,6 +82,8 @@ export default function DesignSchoolPage() {
             <div className="flex w-full justify-center">
                 <DesignFaqSection font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
             </div>
+
+            <DesignSchoolFooter font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
         </div>
     );
 }
