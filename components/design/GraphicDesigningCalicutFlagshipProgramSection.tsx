@@ -65,8 +65,8 @@ const CARDS: Card[] = [
 export function GraphicDesigningCalicutFlagshipProgramSection() {
     const ref = useRef<HTMLElement | null>(null);
     const cardsScrollerRef = useRef<HTMLDivElement | null>(null);
+    const dragScrollRef = useRef({ active: false, startX: 0, scrollLeft: 0 });
     const [inView, setInView] = useState(false);
-    const [isHoveringCards, setIsHoveringCards] = useState(false);
 
     useEffect(() => {
         const el = ref.current;
@@ -83,69 +83,42 @@ export function GraphicDesigningCalicutFlagshipProgramSection() {
         return () => obs.disconnect();
     }, []);
 
-    useEffect(() => {
-        const el = cardsScrollerRef.current;
-        if (!el) return;
-        if (!inView) return;
-        if (isHoveringCards) return;
-        if (typeof window !== "undefined" && window.innerWidth < 1024) return; // auto-scroll desktop only
-
-        let raf = 0;
-        let last = performance.now();
-        const speed = 22; // px/sec (gentle)
-
-        const tick = (now: number) => {
-            const dt = now - last;
-            last = now;
-
-            // If user is actively dragging/scrolling, don't fight them.
-            if (el.matches(":active")) {
-                raf = requestAnimationFrame(tick);
-                return;
-            }
-
-            el.scrollLeft += (speed * dt) / 1000;
-
-            // Loop back when reaching the end.
-            const max = el.scrollWidth - el.clientWidth;
-            if (max > 0 && el.scrollLeft >= max - 1) {
-                el.scrollLeft = 0;
-            }
-
-            raf = requestAnimationFrame(tick);
-        };
-
-        raf = requestAnimationFrame(tick);
-        return () => cancelAnimationFrame(raf);
-    }, [inView, isHoveringCards]);
-
     return (
         <section ref={ref} className="w-full bg-white">
             <div className="mx-auto box-border w-full max-w-[1440px] px-4 py-8 sm:px-6 md:px-8 lg:px-[60px] lg:py-[40px]">
-                <div className="flex w-full flex-col gap-[30px] lg:gap-[60px]">
-                    <div className="flex w-full flex-col items-center gap-6">
-                        <h2
-                            className="m-0 w-full text-center text-black"
-                            style={{
-                                fontFamily: vc,
-                                fontWeight: 700,
-                                fontStyle: "normal",
-                                fontSize: "clamp(28px, 3.25vw, 44px)",
-                                lineHeight: "110%",
-                                letterSpacing: "-0.02em",
-                            }}
-                        >
-                            What We Teach in Our Flagship Program
-                        </h2>
+                <div className="flex w-full flex-col gap-6 sm:gap-8 lg:gap-10">
+                    {/* Centered on all breakpoints; stacks to 3 lines on small screens like the design */}
+                    <h2
+                        className="m-0 w-full px-1 text-center text-balance text-black sm:px-0"
+                        style={{
+                            fontFamily: vc,
+                            fontWeight: 700,
+                            fontStyle: "normal",
+                            fontSize: "clamp(26px, 3.25vw, 44px)",
+                            lineHeight: "110%",
+                            letterSpacing: "-0.02em",
+                        }}
+                    >
+                        <span className="lg:hidden">
+                            What We Teach in
+                            <br />
+                            Our Flagship
+                            <br />
+                            Program
+                        </span>
+                        <span className="hidden lg:inline">What We Teach in Our Flagship Program</span>
+                    </h2>
 
-                        <div className="flex w-full flex-col items-start gap-3">
+                    {/* CDC + cards: left-aligned together; inset matches card strip at every breakpoint */}
+                    <div className="flex w-screen max-w-none flex-col gap-4 sm:gap-5 ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] box-border pl-[clamp(16px,4.16vw,60px)] pr-[clamp(16px,4.16vw,60px)]">
+                        <div className="flex w-full min-w-0 flex-col items-start gap-2.5 sm:gap-3">
                             <h3
-                                className="m-0 w-full text-left text-black"
+                                className="m-0 w-full max-w-[22rem] text-left text-black sm:max-w-[min(100%,28rem)] md:max-w-none"
                                 style={{
                                     fontFamily: vc,
                                     fontWeight: 600,
                                     fontStyle: "normal",
-                                    fontSize: "clamp(22px, 2.5vw, 32px)",
+                                    fontSize: "clamp(20px, 2.5vw, 32px)",
                                     lineHeight: "112%",
                                     letterSpacing: "-0.01em",
                                 }}
@@ -156,64 +129,107 @@ export function GraphicDesigningCalicutFlagshipProgramSection() {
                             </h3>
 
                             <div
-                                className="inline-flex items-center rounded-[999px] bg-[#EAEAEA] px-4 py-2 text-black"
+                                className="inline-flex w-full max-w-full items-stretch gap-3 rounded-[999px] bg-[#00000033] px-3 py-2.5 text-black sm:w-auto sm:gap-4 sm:px-4 sm:py-3 md:flex-nowrap"
                                 style={{
                                     fontFamily: vc,
-                                    fontWeight: 500,
                                     fontStyle: "normal",
-                                    fontSize: "16px",
-                                    lineHeight: "28px",
+                                    fontSize: "clamp(14px, 3.6vw, 16px)",
                                     letterSpacing: "0",
                                 }}
                             >
-                                Offline&nbsp;&nbsp;|&nbsp;&nbsp;5 Months of Learning + 1 Month of Internship
+                                <span
+                                    className="flex shrink-0 items-center self-center"
+                                    style={{ fontFamily: vc, fontWeight: 700, lineHeight: 1.2 }}
+                                >
+                                    Offline
+                                </span>
+                                <span
+                                    className="w-px shrink-0 self-stretch bg-black opacity-[0.28]"
+                                    aria-hidden
+                                />
+                                {/* Mobile: 2 lines. Desktop: single line. */}
+                                <div
+                                    className="flex min-w-0 flex-col justify-center gap-0.5 leading-tight md:hidden"
+                                    style={{
+                                        fontFamily: vc,
+                                        fontWeight: 500,
+                                        fontStyle: "normal",
+                                        lineHeight: 1.25,
+                                    }}
+                                >
+                                    <span>5 Months of Learning</span>
+                                    <span style={{ fontWeight: 400 }}>+ 1 Month of Internship</span>
+                                </div>
+                                <span
+                                    className="hidden min-w-0 items-center whitespace-nowrap md:inline-flex"
+                                    style={{ fontFamily: vc, fontWeight: 500, fontStyle: "normal", lineHeight: 1.25 }}
+                                >
+                                    5 Months of Learning + 1 Month of Internship
+                                </span>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Cards scroller — full-bleed (no side spacing) */}
-                    <div className="w-screen max-w-none overflow-hidden pl-[clamp(16px,4.16vw,60px)] ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]">
+                    {/* Cards — horizontal scroll only (wheel / trackpad / touch / drag); no auto-scroll */}
+                    {/* Expand width + cancel right padding so cards touch viewport right edge */}
+                    <div className="min-w-0 w-[calc(100%+clamp(16px,4.16vw,60px))] pr-0 -mr-[clamp(16px,4.16vw,60px)]">
                         <div
                             ref={cardsScrollerRef}
                             className={[
-                                "flex w-max overflow-x-auto overflow-y-hidden scroll-smooth",
+                                "w-full max-w-full overflow-x-auto overflow-y-hidden scroll-smooth",
                                 "snap-x snap-mandatory",
-                                /* keep snap aligned with left inset */
-                                "scroll-pl-[clamp(16px,4.16vw,60px)]",
                                 "[-ms-overflow-style:'none'] [scrollbar-width:'none'] [&::-webkit-scrollbar]:hidden",
-                                "lg:cursor-grab active:cursor-grabbing",
+                                "cursor-grab active:cursor-grabbing",
                             ].join(" ")}
                             style={{
-                                gap: "20px",
                                 WebkitOverflowScrolling: "touch",
                                 scrollbarWidth: "none",
                                 msOverflowStyle: "none",
                             }}
-                            onMouseEnter={() => setIsHoveringCards(true)}
-                            onMouseLeave={() => setIsHoveringCards(false)}
                             onWheel={(e) => {
-                                // Desktop: when hovering, mouse wheel scrolls cards horizontally (like a carousel).
-                                // Keep mobile/touch behavior unchanged.
-                                if (window.innerWidth < 1024) return;
                                 const el = cardsScrollerRef.current;
                                 if (!el) return;
-                                // Convert vertical wheel into horizontal scroll.
-                                if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                                    e.preventDefault();
-                                    el.scrollLeft += e.deltaY;
-                                }
+                                // Vertical wheel / trackpad scroll pans the row horizontally (no auto drift).
+                                if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+                                e.preventDefault();
+                                el.scrollLeft += e.deltaY;
+                            }}
+                            onPointerDown={(e) => {
+                                // Touch uses native horizontal scroll + page vertical scroll; drag is mouse-only.
+                                if (e.pointerType !== "mouse" || e.button !== 0) return;
+                                const el = cardsScrollerRef.current;
+                                if (!el) return;
+                                dragScrollRef.current = {
+                                    active: true,
+                                    startX: e.clientX,
+                                    scrollLeft: el.scrollLeft,
+                                };
+                                el.setPointerCapture(e.pointerId);
+                            }}
+                            onPointerMove={(e) => {
+                                const el = cardsScrollerRef.current;
+                                const d = dragScrollRef.current;
+                                if (!el || !d.active) return;
+                                el.scrollLeft = d.scrollLeft - (e.clientX - d.startX);
+                            }}
+                            onPointerUp={(e) => {
+                                const el = cardsScrollerRef.current;
+                                dragScrollRef.current.active = false;
+                                if (el?.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
+                            }}
+                            onPointerCancel={(e) => {
+                                const el = cardsScrollerRef.current;
+                                dragScrollRef.current.active = false;
+                                if (el?.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
                             }}
                         >
+                            <div className="flex w-max" style={{ gap: "20px" }}>
                             {CARDS.map((card, idx) => (
                                 <div
                                     key={card.n}
                                     className={[
                                         "relative shrink-0 overflow-hidden rounded-[16px] text-white",
                                         "snap-start",
-                                        /* Mobile card sizing like screenshot */
                                         "h-[300px] w-[343px] max-w-[92vw]",
-                                        /* Small devices */
-                                        "sm:h-[380px] sm:w-[420px]",
                                         "sm:h-[380px] sm:w-[420px]",
                                         "lg:h-[380px] lg:w-[566px]",
                                         "transition-all duration-700 ease-out",
@@ -221,10 +237,20 @@ export function GraphicDesigningCalicutFlagshipProgramSection() {
                                     ].join(" ")}
                                     style={{
                                         transitionDelay: `${Math.min(idx * 90, 360)}ms`,
-                                        background: `linear-gradient(90deg, ${card.leftBg} 0%, ${card.leftBg} 50%, ${card.rightBg} 50%, ${card.rightBg} 100%)`,
+                                        backgroundColor: card.rightBg,
                                     }}
                                 >
-                                    <div className="absolute left-5 top-5">
+                                    {/* Left pane: rounded right edge = curved split vs. darker right side (see design ref) */}
+                                    <div
+                                        className="absolute inset-y-0 left-0 z-[1] w-[50%] sm:w-[51%]"
+                                        style={{
+                                            backgroundColor: card.leftBg,
+                                            borderTopRightRadius: "16px",
+                                            borderBottomRightRadius: "16px",
+                                        }}
+                                        aria-hidden
+                                    />
+                                    <div className="absolute left-5 top-5 z-[2]">
                                         <div
                                             className="text-white"
                                             style={{
@@ -240,7 +266,7 @@ export function GraphicDesigningCalicutFlagshipProgramSection() {
                                         </div>
                                     </div>
 
-                                    <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4">
+                                    <div className="absolute bottom-5 left-5 z-[2] flex max-w-[min(46%,200px)] items-end sm:max-w-[min(48%,240px)] lg:max-w-[min(50%,280px)]">
                                         <div
                                             style={{
                                                 fontFamily: vc,
@@ -256,7 +282,7 @@ export function GraphicDesigningCalicutFlagshipProgramSection() {
                                     </div>
 
                                     <div
-                                        className="absolute left-[52%] top-[72px] pr-5 sm:top-[96px] sm:pr-6"
+                                        className="absolute left-[calc(50%+10px)] top-[72px] z-[2] pr-5 sm:left-[calc(50%+12px)] sm:top-[96px] sm:pr-6"
                                         style={{
                                             fontFamily: vc,
                                             fontWeight: 400,
@@ -282,9 +308,11 @@ export function GraphicDesigningCalicutFlagshipProgramSection() {
                                     </div>
                                 </div>
                             ))}
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
     );
