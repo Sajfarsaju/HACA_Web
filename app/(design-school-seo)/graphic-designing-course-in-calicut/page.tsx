@@ -2,6 +2,7 @@ import { GraphicDesigningCalicutHeroSection } from "@/components/design/GraphicD
 import { GraphicDesigningCalicutStatsSection } from "@/components/design/GraphicDesigningCalicutStatsSection";
 import { GraphicDesigningCalicutWhatWeHaveSection } from "@/components/design/GraphicDesigningCalicutWhatWeHaveSection";
 import { GraphicDesigningCalicutFlagshipProgramSection } from "@/components/design/GraphicDesigningCalicutFlagshipProgramSection";
+import { GraphicDesigningCalicutBecomeSection } from "@/components/design/GraphicDesigningCalicutBecomeSection";
 import { buildDesignSchoolSeoMetadata } from "@/lib/design-school-seo";
 
 /**
@@ -16,6 +17,7 @@ export default function GraphicDesigningCourseInCalicutPage() {
             <GraphicDesigningCalicutStatsSection />
             <GraphicDesigningCalicutWhatWeHaveSection />
             <GraphicDesigningCalicutFlagshipProgramSection />
+            <GraphicDesigningCalicutBecomeSection />
         </>
     );
 }
