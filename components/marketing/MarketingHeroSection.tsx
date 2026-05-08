@@ -46,7 +46,7 @@ export function MarketingHeroSection() {
     return (
         <section
             ref={ref}
-            className="w-full pt-5 pb-0 px-4 md:pt-0 md:px-[clamp(24px,5vw,48px)] lg:pt-0 lg:px-[clamp(16px,3.5vw,48px)] xl:pt-0 xl:px-[60px] overflow-x-hidden"
+            className="w-full pt-5 pb-0 px-[clamp(16px,4.16vw,60px)] md:pt-0 md:px-[clamp(24px,5vw,48px)] lg:pt-0 lg:px-[clamp(16px,3.5vw,48px)] xl:pt-0 xl:px-[60px] overflow-x-hidden"
             aria-label="Marketing School hero"
         >
             <div className="w-full max-w-[1440px] mx-auto min-w-0 flex flex-col lg:flex-row lg:items-start gap-[10px] md:gap-[clamp(16px,3vw,28px)] lg:gap-[clamp(8px,1.2vw,20px)] xl:gap-6 relative">
@@ -65,10 +65,10 @@ export function MarketingHeroSection() {
                 </div>
 
                 {/* Left column: copy + enquire + summit logo */}
-                <div className="w-full max-w-[343px] md:max-w-[min(520px,90vw)] lg:max-w-none lg:w-[min(469px,34%)] xl:w-[469px] lg:min-w-0 lg:shrink-[1] mx-auto lg:mx-0 flex flex-col justify-between pt-[clamp(24px,4vw,60px)] lg:pt-[clamp(32px,5vw,70px)] xl:pt-[45px] min-h-0 md:min-h-[clamp(360px,48vw,520px)] lg:min-h-0 xl:min-h-[550px]">
+                <div className="w-full max-w-none md:max-w-[min(520px,90vw)] lg:max-w-none lg:w-[min(469px,34%)] xl:w-[469px] lg:min-w-0 lg:shrink-[1] mx-0 md:mx-auto lg:mx-0 flex flex-col justify-between pt-[clamp(24px,4vw,60px)] lg:pt-[clamp(32px,5vw,70px)] xl:pt-[45px] min-h-0 md:min-h-[clamp(360px,48vw,520px)] lg:min-h-0 xl:min-h-[550px]">
                     <div className="flex flex-col gap-6 md:gap-8 lg:gap-8 xl:gap-10 w-full min-h-0">
                         <h1
-                            className="m-0 font-semibold text-[clamp(28px,8.5vw,38px)] md:text-[clamp(38px,5.2vw,52px)] leading-[95%] tracking-[-1px] md:tracking-[-1.2px] lg:text-[clamp(36px,3.8vw,56px)] lg:leading-[1.05] lg:tracking-[-1.4px] xl:text-[68px] xl:leading-[72px] xl:tracking-[-1.92px] max-w-[343px] md:max-w-[min(469px,90vw)] lg:max-w-full [text-rendering:geometricPrecision]"
+                            className="m-0 font-semibold text-[clamp(28px,8.5vw,38px)] md:text-[clamp(38px,5.2vw,52px)] leading-[95%] tracking-[-1px] md:tracking-[-1.2px] lg:text-[clamp(36px,3.8vw,56px)] lg:leading-[1.05] lg:tracking-[-1.4px] xl:text-[68px] xl:leading-[72px] xl:tracking-[-1.92px] max-w-full md:max-w-[min(469px,90vw)] lg:max-w-full [text-rendering:geometricPrecision]"
                             style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                         >
                             <span className="block align-middle whitespace-nowrap">Learn the skill.</span>
@@ -92,7 +92,7 @@ export function MarketingHeroSection() {
                             <MarketingCtaArrowCircle className="absolute right-0 top-0" />
                         </Link>
 
-                        <p className="lg:hidden m-0 font-rethink font-medium text-[clamp(12px,3.8vw,18px)] md:text-[clamp(15px,2.2vw,18px)] leading-[1.45] max-w-[343px] md:max-w-[min(520px,90vw)]">
+                        <p className="lg:hidden m-0 font-rethink font-medium text-[clamp(12px,3.8vw,18px)] md:text-[clamp(15px,2.2vw,18px)] leading-[1.45] max-w-full md:max-w-[min(520px,90vw)]">
                             <span className="block whitespace-nowrap">Learn in a space where ideas flow,</span>
                             <span className="block whitespace-nowrap">projects matter, and your growth is the priority.</span>
                         </p>

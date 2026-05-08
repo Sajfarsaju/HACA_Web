@@ -122,7 +122,18 @@ export function MarketingNavbar() {
             </button>
 
             {isMobileMenuOpen ? (
-                <div className="fixed inset-0 z-[80] lg:hidden bg-black p-[55px_20px] flex flex-col gap-[40px] overflow-y-auto">
+                <div
+                    className="
+                        fixed inset-0 z-[80] lg:hidden
+                        left-1/2 top-0 -translate-x-1/2
+                        w-[375px] max-w-full
+                        h-[850px] min-h-[100dvh]
+                        bg-black opacity-100
+                        p-[55px_20px]
+                        flex flex-col gap-[40px]
+                        overflow-y-auto
+                    "
+                >
                     <div className="w-full max-w-[335px] flex flex-col gap-[40px]">
                         <div className="w-full h-[44px] flex items-center justify-between">
                             <button

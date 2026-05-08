@@ -7,7 +7,7 @@ export function MarketingApproachSection() {
     return (
         <div
             className="box-border w-full min-w-0 max-w-full overflow-x-hidden opacity-100
-                        px-4 md:px-[clamp(24px,5vw,48px)] lg:px-[clamp(16px,3.5vw,48px)] xl:px-[60px]"
+                        px-0"
             role="region"
             aria-labelledby="marketing-approach-title"
         >
@@ -40,7 +40,7 @@ export function MarketingApproachSection() {
                                 w-full min-w-0 max-w-full text-left
                                 min-h-0 pb-1
                                 font-semibold tracking-normal [font-family:'Darker_Grotesque',sans-serif]
-                                text-[clamp(1.625rem,5.8vw,2.25rem)] leading-[95%]
+                                text-[36px] leading-[95%]
                                 lg:max-w-none lg:pb-0 lg:text-[clamp(34px,3.4vw,50px)] lg:leading-[115%]
                             "
                         >

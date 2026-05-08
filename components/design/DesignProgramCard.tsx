@@ -354,8 +354,10 @@ export function DesignProgramCard({
                              px-[14px] lg:px-[clamp(14px,1.39vw,20px)]
                              py-[14px] lg:py-[clamp(12px,1.11vw,16px)]"
                   style={{ backgroundColor: btnBg }}>
-                <span className="text-[#FCFCFC] leading-none whitespace-nowrap"
-                      style={{ fontFamily: font, fontWeight: 500, fontSize: "clamp(13px,1.11vw,16px)" }}>
+                <span
+                      className="text-[#FCFCFC] leading-none whitespace-nowrap text-[16px] lg:text-[clamp(13px,1.11vw,16px)]"
+                      style={{ fontFamily: font, fontWeight: 500 }}
+                >
                     Explore Now
                 </span>
                 <svg viewBox="0 0 34 34" fill="none" className="shrink-0"

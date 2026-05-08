@@ -159,7 +159,7 @@ export function MarketingImpactSection() {
                             padding-bottom: 40px;
                         }
                         .about-us-container {
-                            width: 343px;
+                            width: 100%;
                             max-width: 100%;
                             height: auto;
                             min-height: 198px;
@@ -172,10 +172,10 @@ export function MarketingImpactSection() {
                             white-space: nowrap;
                         }
                         .info-text {
-                            font-size: clamp(12px, 1.1vw, 16px);
+                            font-size: 14px;
                         }
                         .note-text {
-                            width: 343px;
+                            width: 100%;
                             height: auto;
                             min-height: 162px;
                             font-size: 20px;
@@ -188,13 +188,13 @@ export function MarketingImpactSection() {
                             border-radius: 2.84px;
                         }
                         .video-section-wrapper {
-                            padding-left: 16px;
-                            padding-right: 16px;
+                            padding-left: 0px;
+                            padding-right: 0px;
                             box-sizing: border-box;
                         }
                         .impact-stats-block {
-                            padding-left: 16px;
-                            padding-right: 16px;
+                            padding-left: 0px;
+                            padding-right: 0px;
                             box-sizing: border-box;
                         }
                     }

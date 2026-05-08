@@ -39,7 +39,7 @@ function YoutubeThumbnailCard({
     return (
         <div
             className={[
-                "relative mx-auto w-full min-w-0 max-w-[553px] overflow-hidden bg-transparent lg:mx-0 lg:h-full lg:max-w-none lg:flex-1",
+                "relative flex-none overflow-hidden bg-transparent w-[min(553px,85vw)] lg:w-[553px] lg:h-[306.1628112792969px]",
                 className,
             ]
                 .filter(Boolean)
@@ -102,20 +102,29 @@ export function MarketingYoutubeHubSection() {
                     </h2>
                 </header>
 
-                <div className="mx-auto flex w-full min-w-0 flex-col items-center gap-6 lg:h-[306.1628112792969px] lg:w-[1320px] lg:flex-row lg:items-stretch lg:justify-between lg:gap-[45.83px]">
+                <div
+                    className="
+                        flex w-full min-w-0 flex-row items-stretch gap-6
+                        overflow-x-auto overflow-y-hidden
+                        [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+                        lg:gap-[45.83px]
+                    "
+                    aria-label="YouTube thumbnails"
+                >
                     <YoutubeThumbnailCard
-                        className="hidden lg:block"
-                        src="/images/youtube-hub/rectangle-43.png"
+                        src="/photos/schools/marketing/3e0b6431c0a1ce2edb5d9f2b9cf1935a0298f97d.webp"
                         alt="YouTube video thumbnail 1"
                     />
                     <YoutubeThumbnailCard
-                        className="lg:flex-none lg:h-[306.1628112792969px] lg:w-[553px]"
-                        src="/images/youtube-hub/rectangle-44.png"
+                        src="/photos/schools/marketing/700659e2027945d5a13c08eb0820dca74b2bce51.webp"
                         alt="YouTube video thumbnail 2"
                         fit="contain"
                         priority
                     />
-                    <YoutubeThumbnailCard className="hidden lg:block" src="/images/youtube-hub/rectangle-58.png" alt="YouTube video thumbnail 3" />
+                    <YoutubeThumbnailCard
+                        src="/photos/schools/marketing/e8f4127c19d1ab67ffbd3ef91b18894f38b5261a.webp"
+                        alt="YouTube video thumbnail 3"
+                    />
                 </div>
 
                 <div className="flex w-full items-center justify-center pt-1 md:pt-3">

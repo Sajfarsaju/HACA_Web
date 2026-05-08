@@ -32,11 +32,6 @@ export function MarketingMentorsSection() {
                     lg:gap-9 lg:pb-14 lg:pt-10
                 "
             >
-                <div
-                    className="w-full border-t"
-                    style={{ borderColor: "currentColor" }}
-                    aria-hidden
-                />
                 <header className="flex w-full min-w-0 flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
                     <div className="flex shrink-0 items-center gap-[clamp(10px,1.5vw,14px)] lg:pt-1">
                         <span
@@ -67,8 +62,10 @@ export function MarketingMentorsSection() {
 
                 <ul
                     className="
-                        m-0 grid w-full list-none grid-cols-1 gap-8 p-0
-                        sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10
+                        m-0 flex w-full list-none flex-row items-stretch gap-6 p-0
+                        overflow-x-auto overflow-y-hidden
+                        [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+                        sm:grid sm:overflow-visible sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10
                         lg:grid-cols-3 lg:gap-x-8 lg:gap-y-10
                         xl:grid-cols-4
                     "
@@ -76,14 +73,11 @@ export function MarketingMentorsSection() {
                     {MENTORS.map((mentor) => (
                         <li
                             key={mentor.name}
-                            className={[
-                                "min-w-0",
-                                mentor.name !== "Hima" ? "hidden sm:block" : "",
-                            ].join(" ")}
+                            className="min-w-0 flex-none sm:flex-auto"
                         >
-                            <article className="mx-auto flex w-full max-w-[308px] flex-col gap-[10px] max-lg:h-auto lg:h-[415px]">
+                            <article className="mx-0 flex w-[343px] max-w-[343px] flex-col gap-[10px] max-lg:h-auto sm:mx-auto sm:w-full sm:max-w-[343px] lg:h-auto lg:max-w-[308px]">
                                 <div
-                                    className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl max-lg:h-[260px] lg:h-[308px]"
+                                    className="relative w-full overflow-hidden aspect-[308/340] rounded-[16.7px] lg:rounded-[15px]"
                                     style={{ backgroundColor: CARD_BG }}
                                 >
                                     <Image

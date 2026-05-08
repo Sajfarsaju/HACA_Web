@@ -86,15 +86,15 @@ export function DesignWhyCreativitySection() {
                         </span>
                         <br />
                         Flourishes in the Right{" "}
-                        <span className="relative inline-block">
+                        <span className="relative inline-block z-0">
                             Environment
 
                             {/* Top-right decoration */}
                             <span
-                                className="pointer-events-none absolute"
+                                className="pointer-events-none absolute -z-10 lg:[--decoTop:-26px] lg:[--decoRight:-26px] xl:[--decoTop:-34px] xl:[--decoRight:-34px]"
                                 style={{
-                                    top: "-42px",
-                                    right: "-46px",
+                                    top: "var(--decoTop, -34px)",
+                                    right: "var(--decoRight, -34px)",
                                     width: decoW,
                                     height: decoH,
                                     transform: "rotate(-12.46deg)",
@@ -139,14 +139,14 @@ export function DesignWhyCreativitySection() {
                         </span>
                         <br />
                         Flourishes in{" "}
-                        <span className="relative inline-block">
+                        <span className="relative inline-block z-0">
                             the
                             {/* Top-right decoration (mobile: on "the") */}
                             <span
-                                className="pointer-events-none absolute"
+                                className="pointer-events-none absolute -z-10"
                                 style={{
-                                    top: "-26px",
-                                    right: "-32px",
+                                    top: "-8px",
+                                    right: "-22px",
                                     width: decoW,
                                     height: decoH,
                                     transform: "rotate(-12.46deg)",
