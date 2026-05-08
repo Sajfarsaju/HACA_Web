@@ -107,20 +107,20 @@ export function MarketingFeaturesGrid() {
                 className="
                     m-0 grid w-full list-none grid-cols-1 items-start justify-items-stretch gap-x-6 gap-y-10 p-0
                     sm:grid-cols-2 sm:gap-x-10 sm:gap-y-14
-                    lg:grid-cols-4 lg:gap-x-[40px] lg:gap-y-[142px]
+                    lg:grid-cols-4 lg:justify-items-start lg:gap-x-[40px] lg:gap-y-[142px]
                 "
             >
                 {FEATURES.map((item, idx) => (
                     <li
                         key={item.titleLines.join(" ")}
                         className={[
-                            "flex w-full min-w-0 flex-col items-start text-left",
-                            /* Mobile: subtle zig-zag — odd rows start ~35–38% from left (not full ml-auto), like Figma */
+                            "flex w-full min-w-0 flex-col items-start text-left max-sm:w-fit lg:w-fit",
+                            /* Mobile: zig-zag — alternate left/right alignment without extra side gaps */
                             idx % 2 === 0
-                                ? "max-sm:ml-0 max-sm:max-w-[min(220px,min(92%,calc(100%-1.25rem)))] sm:max-w-none"
+                                ? "max-sm:justify-self-start max-sm:max-w-[220px] sm:max-w-none"
                                 : [
-                                      "max-sm:ml-[35%] max-sm:mr-0 max-sm:self-start",
-                                      "max-sm:max-w-[min(220px,calc(65%-0.75rem))]",
+                                      "max-sm:justify-self-end max-sm:self-start",
+                                      "max-sm:max-w-[220px]",
                                       "sm:ml-0 sm:max-w-none",
                                   ].join(" "),
                             "lg:max-w-none",
@@ -131,11 +131,10 @@ export function MarketingFeaturesGrid() {
                         </div>
                         <h3
                             className="
-                                mb-2 w-full min-w-0 text-left font-bold tracking-normal text-white
-                                [font-family:'Darker_Grotesque',sans-serif]
+                                mb-2 w-full min-w-0 text-left font-bold tracking-normal                                [font-family:'Darker_Grotesque',sans-serif]
                                 max-sm:mb-2 max-sm:text-[1.125rem] max-sm:leading-[1.05]
                                 sm:text-xl sm:leading-[100%]
-                                lg:mb-2.5 lg:text-2xl
+                                lg:mb-2.5 lg:w-auto lg:text-2xl
                             "
                         >
                             {item.titleLines[0]}
@@ -144,11 +143,10 @@ export function MarketingFeaturesGrid() {
                         </h3>
                         <p
                             className="
-                                m-0 w-full min-w-0 max-w-none text-left font-medium tracking-normal text-white
-                                font-['Satoshi',sans-serif]
+                                m-0 w-full min-w-0 max-w-none text-left font-medium tracking-normal                                font-['Satoshi',sans-serif]
                                 max-sm:text-[0.8125rem] max-sm:leading-[130%]
                                 sm:text-[0.9375rem] sm:leading-[125%]
-                                lg:text-base lg:leading-[120%]
+                                lg:w-auto lg:text-base lg:leading-[120%]
                             "
                         >
                             {item.descriptionLines[0]}

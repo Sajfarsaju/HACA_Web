@@ -24,10 +24,10 @@ export function DesignPickOneToExploreSection() {
 
     return (
         <section
-            className="w-full bg-black flex flex-col items-center justify-center
+            className="w-full h-full bg-black flex flex-col items-center justify-center
                        gap-[30px] lg:gap-[60px]
                        px-[20px] lg:px-[54px]
-                       py-[40px] lg:py-[214px]"
+                       py-[40px]"
         >
             <h2
                 className="m-0 text-white text-center"

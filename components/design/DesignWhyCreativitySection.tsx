@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 type Row = {
     title: string;
@@ -44,6 +47,10 @@ const ROWS: Row[] = [
         iconSrc: "/photos/schools/design/Vector (7).svg",
     },
 ];
+
+const SPIN_DUR     = 0.7;                                          // one full spin
+const COOLDOWN     = 1;                                            // pause after last icon before cycle repeats
+const REPEAT_DELAY = (ROWS.length - 1) * SPIN_DUR + COOLDOWN;     // 4*0.7+1 = 3.8 s
 
 export function DesignWhyCreativitySection() {
     const font = '"VC Nudge Trial Normal", sans-serif';
@@ -176,19 +183,48 @@ export function DesignWhyCreativitySection() {
                 {/* Table-like rows */}
                 <div className="w-full flex flex-col gap-[60px] lg:gap-[80px]">
                     {ROWS.map((row, idx) => (
-                        <div key={idx} className="w-full flex flex-col gap-[30px] lg:gap-[40px]">
-                            {/* inner row */}
+                        <motion.div
+                            key={idx}
+                            className="w-full flex flex-col gap-[30px] lg:gap-[40px]"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.25 }}
+                            variants={{
+                                hidden: {},
+                                visible: { transition: { staggerChildren: 0.18 } },
+                            }}
+                        >
+                            {/* inner row — left + right slide in from opposite sides */}
                             <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-[24px]">
                                 {/* left: icon + heading */}
-                                <div className="flex items-start gap-[30px] lg:gap-[50px]">
-                                    <div className="relative shrink-0 w-[40px] h-[40px] lg:w-[50px] lg:h-[50px]">
+                                <motion.div
+                                    className="flex items-start gap-[30px] lg:gap-[50px]"
+                                    variants={{
+                                        hidden: { opacity: 0, x: -48, filter: "blur(10px)" },
+                                        visible: {
+                                            opacity: 1, x: 0, filter: "blur(0px)",
+                                            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                                        },
+                                    }}
+                                >
+                                    <motion.div
+                                        className="relative shrink-0 w-[40px] h-[40px] lg:w-[50px] lg:h-[50px]"
+                                        animate={{ rotate: [0, 360] }}
+                                        transition={{
+                                            duration: SPIN_DUR,
+                                            ease: "easeInOut",
+                                            repeat: Infinity,
+                                            repeatDelay: REPEAT_DELAY,
+                                            delay: idx * SPIN_DUR,
+                                        }}
+                                    >
                                         <Image
                                             src={row.iconSrc}
                                             alt=""
                                             fill
                                             className="object-contain"
                                         />
-                                    </div>
+                                    </motion.div>
 
                                     <h3
                                         className="m-0 text-[#000000] whitespace-pre-line text-[26px] lg:text-[30px]"
@@ -200,10 +236,10 @@ export function DesignWhyCreativitySection() {
                                     >
                                         {row.title}
                                     </h3>
-                                </div>
+                                </motion.div>
 
                                 {/* right: paragraph */}
-                                <p
+                                <motion.p
                                     className="m-0 text-[#0A0A0A] text-[16px] lg:text-[18px] leading-[120%] lg:leading-[28px]"
                                     style={{
                                         fontFamily: font,
@@ -211,14 +247,31 @@ export function DesignWhyCreativitySection() {
                                         letterSpacing: "0%",
                                         maxWidth: "485px",
                                     }}
+                                    variants={{
+                                        hidden: { opacity: 0, x: 48, filter: "blur(10px)" },
+                                        visible: {
+                                            opacity: 1, x: 0, filter: "blur(0px)",
+                                            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                                        },
+                                    }}
                                 >
                                     {row.description}
-                                </p>
+                                </motion.p>
                             </div>
 
-                            {/* divider line */}
-                            <div className="w-full border-t" style={{ borderColor: row.lineColor }} />
-                        </div>
+                            {/* divider — scan-line draw from left */}
+                            <motion.div
+                                className="w-full border-t"
+                                style={{ borderColor: row.lineColor, transformOrigin: "left center" }}
+                                variants={{
+                                    hidden: { scaleX: 0, opacity: 0.3 },
+                                    visible: {
+                                        scaleX: 1, opacity: 1,
+                                        transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+                                    },
+                                }}
+                            />
+                        </motion.div>
                     ))}
                 </div>
             </div>

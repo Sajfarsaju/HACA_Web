@@ -1,38 +1,24 @@
 import React from "react"
 import Image from "next/image"
+import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle"
 
 const ACCENT = "#0066FF"
-
-function ArrowRightIcon({ className }: { className?: string }) {
-    return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden className={className}>
-            <path
-                d="M5 12h14m0 0-6-6m6 6-6 6"
-                stroke="currentColor"
-                strokeWidth={2.25}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
-    )
-}
 
 function ViewMorePill() {
     return (
         <button
             type="button"
-            className="
-                group inline-flex h-[60px] w-[171px] items-center justify-between gap-[10px]
-                rounded-[30px] bg-[#E8F1FF]
-                pl-[20px] pr-2
-                font-['Satoshi',sans-serif] text-[14px] font-medium leading-none text-black
-                transition-colors duration-300 ease-out hover:bg-black/5
-            "
+            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline"
         >
-            <span className="shrink-0">View More</span>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0066FF] transition-colors group-hover:bg-[#015AFF]">
-                <ArrowRightIcon className="text-white" />
-            </span>
+            <div className="relative h-[60px] w-fit rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
+                <span
+                    className="flex h-full items-center whitespace-nowrap text-black"
+                    style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}
+                >
+                    View More
+                </span>
+            </div>
+            <MarketingCtaArrowCircle size="60" className="absolute right-0 top-0" />
         </button>
     )
 }

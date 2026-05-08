@@ -3,10 +3,10 @@
 import React, { useEffect, useRef, useState } from "react"
 
 const RAW_STATS = [
+    { value: 600, suffix: "+", lines: ["Successful", "Students &", "Counting"] },
     { value: 350, suffix: "+", lines: ["Hours of", "Hands-On", "Learning"] },
-    { value: 5000, suffix: "+", lines: ["Successful", "Students &", "Counting"] },
-    { value: 200, suffix: "+", lines: ["Partner", "Companies", "for Careers"] },
     { value: 150, suffix: "+", lines: ["Expert", "Mentors", "Guiding You"] },
+    { value: 200, suffix: "+", lines: ["Partner", "Companies", "for Careers"] },
 ]
 
 export function MarketingStatsSection() {
@@ -161,7 +161,7 @@ export function MarketingStatsSection() {
                 </div>
 
                 {/* Mobile only */}
-                <div className="mobile-stats md:hidden mx-auto flex w-full min-w-0 max-w-[min(300px,100%)] min-h-0 flex-col gap-5 opacity-100">
+                <div className="mobile-stats md:hidden flex w-full min-w-0 min-h-0 flex-col gap-5 opacity-100">
                     {RAW_STATS.map((stat, index) => {
                         const current = Math.round(stat.value * progress)
                         const rowAlign =
@@ -172,10 +172,10 @@ export function MarketingStatsSection() {
                         return (
                             <div key={stat.lines.join("|")} className={`${rowAlign} min-w-0`}>
                                 <div className="flex h-[48px] w-[min(100px,28vw)] shrink-0 flex-row flex-nowrap items-center justify-start">
-                                    <span className="mobile-stat-num !text-[clamp(1.75rem,8vw,2.375rem)] !leading-none">
+                                    <span className="mobile-stat-num !text-[clamp(2.1rem,9.5vw,2.9rem)] !leading-none">
                                         {current}
                                     </span>
-                                    <span className="mobile-stat-plus !text-[clamp(1.75rem,8vw,2.375rem)] !leading-none">
+                                    <span className="mobile-stat-plus !text-[clamp(2.1rem,9.5vw,2.9rem)] !leading-none">
                                         {stat.suffix}
                                     </span>
                                 </div>

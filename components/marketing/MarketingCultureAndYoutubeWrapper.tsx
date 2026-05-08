@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
-import { motion, useScroll, useMotionValueEvent } from "framer-motion"
+import { useScroll, useMotionValueEvent } from "framer-motion"
 
 export function MarketingCultureAndYoutubeWrapper({ children }: { children: React.ReactNode }) {
     const ref = useRef<HTMLDivElement>(null)
@@ -18,16 +18,15 @@ export function MarketingCultureAndYoutubeWrapper({ children }: { children: Reac
         const node = ref.current
         if (!node) return
         node.style.setProperty("--cy-text", isLight ? "#000000" : "#FFFFFF")
+        window.dispatchEvent(new CustomEvent("marketing-page-color", { detail: { isDark: !isLight } }))
     }, [isLight])
 
     return (
-        <motion.div
+        <div
             ref={ref}
-            animate={{ backgroundColor: isLight ? "#FFFFFF" : "#000000" }}
-            transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{ ["--cy-text" as string]: "#FFFFFF" }}
         >
             {children}
-        </motion.div>
+        </div>
     )
 }

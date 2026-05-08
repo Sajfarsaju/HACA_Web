@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
+import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle"
 
 const ACCENT = "#0066FF"
 
@@ -45,17 +46,17 @@ function JoinNowPill() {
     return (
         <button
             type="button"
-            className="
-                group inline-flex h-[60px] w-[166px] items-center justify-between rounded-full bg-[#E8F1FF]
-                pl-6 pr-1
-                font-['Satoshi',sans-serif] text-[14px] font-medium leading-none text-black
-                transition-colors duration-300 ease-out hover:bg-white/90
-            "
+            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline"
         >
-            <span className="pr-3">Join Now</span>
-            <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-black transition-colors group-hover:bg-neutral-900">
-                <ArrowRightIcon className="text-white" />
-            </span>
+            <div className="relative h-[60px] w-fit rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
+                <span
+                    className="flex h-full items-center whitespace-nowrap text-black"
+                    style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}
+                >
+                    Join Now
+                </span>
+            </div>
+            <MarketingCtaArrowCircle size="60" background="#000000" className="absolute right-0 top-0" />
         </button>
     )
 }
@@ -64,18 +65,17 @@ function ViewMorePill() {
     return (
         <button
             type="button"
-            className="
-                group inline-flex h-[60px] w-[171px] items-center justify-between gap-[10px]
-                rounded-[30px] bg-[#E8F1FF]
-                pl-[20px] pr-2
-                font-['Satoshi',sans-serif] text-[14px] font-medium leading-none text-black
-                transition-colors duration-300 ease-out hover:bg-white/90
-            "
+            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline"
         >
-            <span className="shrink-0">View More</span>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0066FF] transition-colors group-hover:bg-[#015AFF]">
-                <ArrowRightIcon className="text-white" />
-            </span>
+            <div className="relative h-[60px] w-fit rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
+                <span
+                    className="flex h-full items-center whitespace-nowrap text-black"
+                    style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}
+                >
+                    View More
+                </span>
+            </div>
+            <MarketingCtaArrowCircle size="60" className="absolute right-0 top-0" />
         </button>
     )
 }
@@ -84,9 +84,10 @@ function PlacementsDecisionCard() {
     return (
         <div
             className="
-                relative mx-auto flex w-full max-w-[1320px] min-w-0 flex-col items-center justify-center
+                relative mx-auto flex w-full max-w-[343px] h-[413px] min-w-0 flex-col items-center justify-center
                 overflow-hidden rounded-[20px] bg-[#0066FF]
                 px-5 py-10 sm:px-8 sm:py-12
+                sm:max-w-[1320px] sm:h-auto
                 lg:h-[500px] lg:min-h-[500px] lg:px-12 lg:py-0
             "
         >
@@ -106,7 +107,7 @@ function PlacementsDecisionCard() {
                 className="pointer-events-none absolute bottom-0 left-0 h-auto w-[min(246px,68%)] max-sm:w-[min(180px,55%)] select-none"
                 aria-hidden
             />
-            <div className="relative z-10 mx-auto flex w-full max-w-[min(1320px,100%)] flex-col items-center gap-[30px] text-center">
+            <div className="relative z-10 mx-auto flex w-full max-w-[min(1320px,100%)] flex-col items-center gap-5 sm:gap-[30px] text-center">
                 <p
                     className="
                         font-semibold tracking-normal text-white [font-family:'Darker_Grotesque',sans-serif]
@@ -137,13 +138,15 @@ export function MarketingPlacementsSection() {
     useMotionValueEvent(scrollYProgress, "change", (v) => setIsDark(v > 0.08));
     const colorTransition = { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] as const };
 
+    useEffect(() => {
+        window.dispatchEvent(new CustomEvent("marketing-page-color", { detail: { isDark } }))
+    }, [isDark])
+
     return (
-        <motion.section
+        <section
             ref={sectionRef}
             id="marketing-placements"
             className="w-full opacity-100"
-            animate={{ backgroundColor: isDark ? "#000000" : "#FFFFFF" }}
-            transition={colorTransition}
             aria-labelledby="marketing-placements-heading"
         >
             <div
@@ -228,6 +231,6 @@ export function MarketingPlacementsSection() {
                     <ViewMorePill />
                 </div>
             </div>
-        </motion.section>
+        </section>
     )
 }

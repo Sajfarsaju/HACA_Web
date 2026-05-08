@@ -2,41 +2,91 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
+import { motion, type TargetAndTransition } from "framer-motion"
 
 const ARROW_PATH =
     "M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z"
 
-const SPRING = (delay: number) => ({
-    type: "spring" as const,
-    stiffness: 75,
-    damping: 13,
-    delay,
-})
+// ── Timing matches DesignWhyCreativitySection exactly ─────────────────────────
+const ANIM_DUR  = 0.7
+const COOLDOWN  = 1
+const N_DECOS   = 4
+const RPT_DELAY = (N_DECOS - 1) * ANIM_DUR + COOLDOWN   // 3.1 s
+
+const decoDelay = (idx: number) =>
+    idx === 0 ? 0 : COOLDOWN + idx * ANIM_DUR
+
+// ── Per-decoration animations ─────────────────────────────────────────────────
+// 0 – Concepts  : color shift (hue-rotate)
+// 1 – Tools     : fill + stroke (scale + saturate + hue)
+// 2 – Talent    : color shift (opposite hue direction)
+// 3 – End       : rotate 180° and back
+const DECO_ANIM: Array<{ animate: TargetAndTransition; transition: object }> = [
+    {
+        animate: {
+            filter: ["brightness(1)", "brightness(0)", "brightness(1)"],
+        },
+        transition: {
+            duration: ANIM_DUR, ease: "easeInOut",
+            repeat: Infinity, repeatDelay: RPT_DELAY, delay: decoDelay(0),
+        },
+    },
+    {
+        animate: {
+            filter: [
+                "hue-rotate(0deg) saturate(1)",
+                "hue-rotate(140deg) saturate(4)",
+                "hue-rotate(0deg) saturate(1)",
+            ],
+        },
+        transition: {
+            duration: ANIM_DUR, ease: "easeInOut",
+            repeat: Infinity, repeatDelay: RPT_DELAY, delay: decoDelay(1),
+        },
+    },
+    {
+        animate: {
+            filter: [
+                "hue-rotate(0deg) brightness(1)",
+                "hue-rotate(-140deg) brightness(1.2)",
+                "hue-rotate(0deg) brightness(1)",
+            ],
+        },
+        transition: {
+            duration: ANIM_DUR, ease: "easeInOut",
+            repeat: Infinity, repeatDelay: RPT_DELAY, delay: decoDelay(2),
+        },
+    },
+    {
+        animate: {
+            scaleX: [1, -1, -1, 1],
+        },
+        transition: {
+            duration: ANIM_DUR, ease: "easeInOut",
+            times: [0, 0.42, 0.58, 1],
+            repeat: Infinity, repeatDelay: RPT_DELAY, delay: decoDelay(3),
+        },
+    },
+]
 
 export function DesignEnterCreativeZoneSection() {
-    const ref = useRef<HTMLElement>(null)
-    const inView = useInView(ref, { once: true, amount: 0.25 })
-
     const font = '"VC Nudge Trial Normal", sans-serif'
 
     const decoConcepts = "/photos/schools/design/Group (1).svg"
-    const decoTools = "/photos/schools/design/Ellipse.svg"
-    const decoTalent = "/photos/schools/design/Exclude.svg"
-    const decoEnd = "/photos/schools/design/Group (2).svg"
+    const decoTools    = "/photos/schools/design/Ellipse.svg"
+    const decoTalent   = "/photos/schools/design/Exclude.svg"
+    const decoEnd      = "/photos/schools/design/Group (2).svg"
     const mobileTextSize = "clamp(26px, 8.5vw, 32px)"
     const mobileDecoSize = "clamp(26px, 8vw, 32px)"
 
     return (
         <section
-            ref={ref}
             className="w-full bg-[#FCFCFC]"
             style={{
-                paddingTop: "clamp(40px, 8.6vw, 124px)",
+                paddingTop:    "clamp(40px, 8.6vw, 124px)",
                 paddingBottom: "clamp(40px, 6.95vw, 100px)",
-                paddingLeft: "clamp(20px, 0.7vw, 10px)",
-                paddingRight: "clamp(20px, 0.7vw, 10px)",
+                paddingLeft:   "clamp(20px, 0.7vw, 10px)",
+                paddingRight:  "clamp(20px, 0.7vw, 10px)",
             }}
         >
             <div
@@ -55,9 +105,7 @@ export function DesignEnterCreativeZoneSection() {
                             decoW={76.74749755859375}
                             decoH={76.7490234375}
                             gap={13.7}
-                            fromX="-110vw"
-                            delay={0}
-                            inView={inView}
+                            decoIdx={0}
                         />
                         <WordWithDeco
                             label="Tools"
@@ -67,9 +115,7 @@ export function DesignEnterCreativeZoneSection() {
                             decoW={76.74749755859375}
                             decoH={76.7490234375}
                             gap={13.7}
-                            fromX="-110vw"
-                            delay={0.14}
-                            inView={inView}
+                            decoIdx={1}
                         />
                         <WordWithDeco
                             label="Talent"
@@ -79,9 +125,7 @@ export function DesignEnterCreativeZoneSection() {
                             decoW={76.74749755859375}
                             decoH={76.7490234375}
                             gap={13.7}
-                            fromX="-110vw"
-                            delay={0.28}
-                            inView={inView}
+                            decoIdx={2}
                         />
                         <span
                             className="text-[#0A0A0A]"
@@ -103,9 +147,7 @@ export function DesignEnterCreativeZoneSection() {
                             decoSrc={decoEnd}
                             w={112.5585}
                             h={76.7475}
-                            fromX="110vw"
-                            delay={0.14}
-                            inView={inView}
+                            decoIdx={3}
                         />
                     </div>
 
@@ -128,9 +170,7 @@ export function DesignEnterCreativeZoneSection() {
                                 <InlineDeco
                                     decoSrc={decoConcepts}
                                     size={mobileDecoSize}
-                                    fromX="-110vw"
-                                    delay={0}
-                                    inView={inView}
+                                    decoIdx={0}
                                 />
                             </div>
                             <span
@@ -142,9 +182,7 @@ export function DesignEnterCreativeZoneSection() {
                             <InlineDeco
                                 decoSrc={decoTools}
                                 size={mobileDecoSize}
-                                fromX="110vw"
-                                delay={0.12}
-                                inView={inView}
+                                decoIdx={1}
                             />
                         </div>
 
@@ -159,9 +197,7 @@ export function DesignEnterCreativeZoneSection() {
                             <InlineDeco
                                 decoSrc={decoTalent}
                                 size={mobileDecoSize}
-                                fromX="-110vw"
-                                delay={0.24}
-                                inView={inView}
+                                decoIdx={2}
                             />
                             <span
                                 className="text-[#0A0A0A]"
@@ -193,9 +229,7 @@ export function DesignEnterCreativeZoneSection() {
                                 decoSrc={decoEnd}
                                 w={46.96}
                                 h={32}
-                                fromX="110vw"
-                                delay={0.18}
-                                inView={inView}
+                                decoIdx={3}
                             />
                         </div>
                     </div>
@@ -213,19 +247,17 @@ export function DesignEnterCreativeZoneSection() {
 /* ─────────────────────────────────────────────────────────── */
 
 function InlineDeco({
-    decoSrc, w, h, size,
-    fromX, delay, inView,
+    decoSrc, w, h, size, decoIdx,
 }: {
-    decoSrc: string; w?: number; h?: number; size?: string
-    fromX: string; delay: number; inView: boolean
+    decoSrc: string; w?: number; h?: number; size?: string; decoIdx: number
 }) {
+    const anim = DECO_ANIM[decoIdx]
     return (
         <motion.span
-            className="relative shrink-0"
+            className="relative shrink-0 inline-block"
             style={{ width: size ?? `${w}px`, height: size ?? `${h}px`, zIndex: 10 }}
-            initial={{ x: fromX }}
-            animate={inView ? { x: 0 } : { x: fromX }}
-            transition={SPRING(delay)}
+            animate={anim.animate}
+            transition={anim.transition}
             aria-hidden="true"
         >
             <Image src={decoSrc} alt="" fill className="object-contain" />
@@ -234,13 +266,13 @@ function InlineDeco({
 }
 
 function WordWithDeco({
-    label, font, textSize, decoSrc, decoW, decoH, gap,
-    fromX, delay, inView,
+    label, font, textSize, decoSrc, decoW, decoH, gap, decoIdx,
 }: {
     label: string; font: string; textSize: number
     decoSrc: string; decoW: number; decoH: number; gap: number
-    fromX: string; delay: number; inView: boolean
+    decoIdx: number
 }) {
+    const anim = DECO_ANIM[decoIdx]
     return (
         <span className="inline-flex items-center" style={{ gap: `${gap}px` }}>
             <span
@@ -250,11 +282,10 @@ function WordWithDeco({
                 {label}
             </span>
             <motion.span
-                className="relative shrink-0"
+                className="relative shrink-0 inline-block"
                 style={{ width: `${decoW}px`, height: `${decoH}px`, zIndex: 10 }}
-                initial={{ x: fromX }}
-                animate={inView ? { x: 0 } : { x: fromX }}
-                transition={SPRING(delay)}
+                animate={anim.animate}
+                transition={anim.transition}
                 aria-hidden="true"
             >
                 <Image src={decoSrc} alt="" fill className="object-contain" />
@@ -264,18 +295,18 @@ function WordWithDeco({
 }
 
 function ZoneButton({ font, isMobile }: { font: string; isMobile?: boolean }) {
-    const wrapW = isMobile ? 207.83334350585938 : 246.2222137451172
-    const wrapH = isMobile ? 50.19047546386719 : 60.5555534362793
-    const pillW = isMobile ? 155.85714721679688 : 180.66665649414062
-    const pillH = wrapH
-    const circle = isMobile ? 47.57143020629883 : 60
-    const gap = isMobile ? 4.4 : 5.56
-    const borderW = isMobile ? 0.88 : 1.11
-    const radius = isMobile ? 39.64 : 50
-    const padY = isMobile ? 14.1 : 17.78
-    const padX = isMobile ? 26.43 : 33.33
-    const fontSize = isMobile ? 16 : 17.78
-    const arrowBox = isMobile ? 26 : 33.33
+    const wrapW  = isMobile ? 207.83334350585938  : 246.2222137451172
+    const wrapH  = isMobile ? 50.19047546386719   : 60.5555534362793
+    const pillW  = isMobile ? 155.85714721679688  : 180.66665649414062
+    const pillH  = wrapH
+    const circle = isMobile ? 47.57143020629883   : 60
+    const gap    = isMobile ? 4.4                 : 5.56
+    const borderW  = isMobile ? 0.88  : 1.11
+    const radius   = isMobile ? 39.64 : 50
+    const padY     = isMobile ? 14.1  : 17.78
+    const padX     = isMobile ? 26.43 : 33.33
+    const fontSize = isMobile ? 16    : 17.78
+    const arrowBox = isMobile ? 26    : 33.33
 
     return (
         <div className="w-full flex items-center justify-center">
@@ -287,14 +318,10 @@ function ZoneButton({ font, isMobile }: { font: string; isMobile?: boolean }) {
                     href="/design-school/courses"
                     className="flex items-center justify-center bg-transparent transition-colors duration-300 group-hover:bg-[#FF5C00]"
                     style={{
-                        width: `${pillW}px`,
-                        height: `${pillH}px`,
-                        borderWidth: `${borderW}px`,
-                        borderColor: "#FF5C00",
-                        borderStyle: "solid",
-                        borderRadius: `${radius}px`,
-                        fontFamily: font,
-                        fontWeight: 550,
+                        width: `${pillW}px`, height: `${pillH}px`,
+                        borderWidth: `${borderW}px`, borderColor: "#FF5C00",
+                        borderStyle: "solid", borderRadius: `${radius}px`,
+                        fontFamily: font, fontWeight: 550,
                         padding: `${padY}px ${padX}px`,
                     }}
                 >
@@ -312,22 +339,12 @@ function ZoneButton({ font, isMobile }: { font: string; isMobile?: boolean }) {
                     style={{ width: `${circle}px`, height: `${circle}px` }}
                     aria-label="Enter the Zone"
                 >
-                    <div
-                        className={[
-                            "absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0",
-                            isMobile ? "-translate-x-[36px]" : "-translate-x-[45.56px]",
-                        ].join(" ")}
-                    >
+                    <div className={["absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0", isMobile ? "-translate-x-[36px]" : "-translate-x-[45.56px]"].join(" ")}>
                         <svg viewBox="0 0 34 34" fill="none" style={{ width: `${arrowBox}px`, height: `${arrowBox}px` }}>
                             <path d={ARROW_PATH} fill="white" />
                         </svg>
                     </div>
-                    <div
-                        className={[
-                            "absolute inset-0 flex items-center justify-center transition-transform duration-300",
-                            isMobile ? "group-hover:translate-x-[36px]" : "group-hover:translate-x-[46px]",
-                        ].join(" ")}
-                    >
+                    <div className={["absolute inset-0 flex items-center justify-center transition-transform duration-300", isMobile ? "group-hover:translate-x-[36px]" : "group-hover:translate-x-[46px]"].join(" ")}>
                         <svg viewBox="0 0 34 34" fill="none" style={{ width: `${arrowBox}px`, height: `${arrowBox}px` }}>
                             <path d={ARROW_PATH} fill="white" />
                         </svg>

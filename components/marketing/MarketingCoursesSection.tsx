@@ -165,8 +165,7 @@ export function MarketingCoursesSection() {
                         />
                         <p
                             className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
-                            style={{ color: "var(--cm-text, #ffffff)" }}
-                        >
+                                                    >
                             Courses
                         </p>
                     </div>
@@ -178,8 +177,7 @@ export function MarketingCoursesSection() {
                             text-[clamp(1.5rem,5vw,3.125rem)] leading-[1.08]
                             lg:ml-auto lg:max-w-[min(100%,720px)] lg:leading-[1.08]
                         "
-                        style={{ color: "var(--cm-text, #ffffff)" }}
-                    >
+                                            >
                         <span className="lg:hidden">
                             We&apos;ve Career-Focused
                             <br />
@@ -230,8 +228,7 @@ export function MarketingCoursesSection() {
                                                 lg:mt-[18px] lg:font-bold lg:text-[clamp(1.125rem,4.2vw,2.125rem)] lg:leading-[1.12]
                                                 group-hover:text-white group-focus-within:text-white
                                             "
-                                            style={{ color: "var(--cm-text, #ffffff)" }}
-                                        >
+                                                                                    >
                                             <span className="lg:hidden">{course.titleMobile}</span>
                                             <span className="hidden lg:inline">
                                                 {course.titleLines.map((line, i) => (
@@ -260,8 +257,7 @@ export function MarketingCoursesSection() {
                                                 lg:min-h-[72px] lg:w-[572px] lg:max-w-[572px] lg:shrink-0 lg:leading-[1.45]
                                                 group-hover:text-white group-focus-within:text-white
                                             "
-                                            style={{ color: "var(--cm-text, #ffffff)" }}
-                                        >
+                                                                                    >
                                             {course.descriptionLines.join("\n")}
                                         </p>
                                         <div className="flex w-full justify-start lg:hidden">

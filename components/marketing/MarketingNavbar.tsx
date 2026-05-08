@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 const MARKETING_NAV_LINKS = [
     { href: "/marketing-school", label: "Home" },
@@ -12,18 +14,28 @@ const MARKETING_NAV_LINKS = [
     { href: "/marketing-school/courses", label: "Courses" },
 ] as const;
 
+const BG_TRANSITION = { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] as const };
+
 export function MarketingNavbar() {
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
+    const [isDark, setIsDark] = useState(false);
     const lastScrollY = useRef(0);
 
-    // Hide navbar on scroll down, show on scroll up
+    useEffect(() => {
+        const handler = (e: Event) => {
+            const { isDark: d } = (e as CustomEvent<{ isDark: boolean }>).detail
+            setIsDark(d)
+        }
+        window.addEventListener("marketing-page-color", handler)
+        return () => window.removeEventListener("marketing-page-color", handler)
+    }, [])
+
     useEffect(() => {
         const handleScroll = () => {
             const current = window.scrollY || 0
 
-            // Always show near the very top
             if (current < 40) {
                 setIsVisible(true);
                 lastScrollY.current = current;
@@ -31,10 +43,8 @@ export function MarketingNavbar() {
             }
 
             if (current > lastScrollY.current) {
-                // Scrolling down
                 setIsVisible(false);
             } else if (current < lastScrollY.current) {
-                // Scrolling up
                 setIsVisible(true);
             }
 
@@ -46,9 +56,13 @@ export function MarketingNavbar() {
     }, []);
 
     return (
-        <header className={`sticky top-0 z-50 w-full bg-white h-[52px] md:h-16 lg:h-[120px] px-4 md:px-8 lg:px-[60px] py-[10px] md:py-3 lg:py-[30px] flex items-center justify-between transition-transform duration-300 ease-out ${
-            isVisible ? "translate-y-0" : "-translate-y-full"
-        }`}>
+        <motion.header
+            className={`sticky top-0 z-50 w-full h-[52px] md:h-16 lg:h-[120px] px-4 md:px-8 lg:px-[60px] py-[10px] md:py-3 lg:py-[30px] flex items-center justify-between transition-transform duration-300 ease-out ${
+                isVisible ? "translate-y-0" : "-translate-y-full"
+            }`}
+            animate={{ backgroundColor: isDark ? "#000000" : "#ffffff" }}
+            transition={BG_TRANSITION}
+        >
             <Link
                 href="/marketing-school"
                 className="relative w-[123px] h-[32px] md:w-[clamp(140px,22vw,200px)] md:h-[clamp(36px,5vw,48px)] lg:w-[220px] lg:h-[53.496px] shrink-0"
@@ -58,7 +72,7 @@ export function MarketingNavbar() {
                     src="/photos/schools/marketing/marketing school logo.svg"
                     alt="Marketing School logo"
                     fill
-                    className="object-contain"
+                    className={`object-contain transition-[filter] duration-[550ms] ${isDark ? "brightness-0 invert" : ""}`}
                     priority
                 />
             </Link>
@@ -85,22 +99,14 @@ export function MarketingNavbar() {
                 aria-label="Contact us"
             >
                 <div className="absolute left-0 top-0 w-[175px] h-[60px] bg-[#E6EFFF] rounded-[30px] flex items-center pl-[20px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
-                    <span 
+                    <span
                         className="text-black whitespace-nowrap"
                         style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}
                     >
                         Contact Us
                     </span>
                 </div>
-                <div className="absolute right-0 top-0 w-[60px] h-[60px] pointer-events-none transition-transform duration-300 group-hover:translate-x-1">
-                    <Image
-                        src="/photos/schools/marketing/button arrow.svg"
-                        alt=""
-                        width={60}
-                        height={60}
-                        className="w-full h-full object-contain"
-                    />
-                </div>
+                <MarketingCtaArrowCircle className="absolute right-0 top-0" />
             </Link>
 
             <button
@@ -110,9 +116,9 @@ export function MarketingNavbar() {
                 aria-expanded={isMobileMenuOpen}
                 onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             >
-                <span className="block h-[2.73px] w-full rounded-full bg-black" />
-                <span className="block h-[2.73px] w-full rounded-full bg-black" />
-                <span className="block h-[2.73px] w-full rounded-full bg-black" />
+                <span className={`block h-[2.73px] w-full rounded-full transition-colors duration-[550ms] ${isDark ? "bg-white" : "bg-black"}`} />
+                <span className={`block h-[2.73px] w-full rounded-full transition-colors duration-[550ms] ${isDark ? "bg-white" : "bg-black"}`} />
+                <span className={`block h-[2.73px] w-full rounded-full transition-colors duration-[550ms] ${isDark ? "bg-white" : "bg-black"}`} />
             </button>
 
             {isMobileMenuOpen ? (
@@ -136,22 +142,14 @@ export function MarketingNavbar() {
                                 aria-label="Enquire now"
                             >
                                 <div className="absolute left-0 top-0 w-[154.6px] h-[44px] bg-[#E6EFFF] rounded-[22px] flex items-center pl-[12px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
-                                    <span 
+                                    <span
                                         className="text-black whitespace-nowrap text-[16px]"
                                         style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, lineHeight: "100%" }}
                                     >
                                         Enquire Now
                                     </span>
                                 </div>
-                                <div className="absolute right-0 top-0 w-[44px] h-[44px] pointer-events-none transition-transform duration-300 group-hover:translate-x-1">
-                                    <Image
-                                        src="/photos/schools/marketing/button arrow.svg"
-                                        alt=""
-                                        width={44}
-                                        height={44}
-                                        className="w-full h-full object-contain"
-                                    />
-                                </div>
+                                <MarketingCtaArrowCircle className="absolute right-0 top-0" />
                             </Link>
                         </div>
 
@@ -216,6 +214,6 @@ export function MarketingNavbar() {
                     </div>
                 </div>
             ) : null}
-        </header>
+        </motion.header>
     );
 }

@@ -34,7 +34,7 @@ export function MarketingMentorsSection() {
             >
                 <div
                     className="w-full border-t"
-                    style={{ borderColor: "var(--cm-text, #ffffff)" }}
+                    style={{ borderColor: "currentColor" }}
                     aria-hidden
                 />
                 <header className="flex w-full min-w-0 flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
@@ -46,8 +46,7 @@ export function MarketingMentorsSection() {
                         />
                         <p
                             className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
-                            style={{ color: "var(--cm-text, #ffffff)" }}
-                        >
+                                                    >
                             Mentors
                         </p>
                     </div>
@@ -59,8 +58,7 @@ export function MarketingMentorsSection() {
                             text-[clamp(1.75rem,4.5vw,3rem)] leading-[1.05]
                             lg:w-auto lg:ml-auto lg:max-w-[min(100%,640px)] lg:text-left lg:leading-[1.08]
                         "
-                        style={{ color: "var(--cm-text, #ffffff)" }}
-                    >
+                                            >
                         The Right People to
                         <br />
                         Learn From
@@ -103,8 +101,7 @@ export function MarketingMentorsSection() {
                                             [font-family:'Darker_Grotesque',sans-serif]
                                             text-[clamp(1.25rem,2.6vw,1.5rem)] leading-[1.05]
                                         "
-                                        style={{ color: "var(--cm-text, #ffffff)" }}
-                                    >
+                                                                            >
                                         {mentor.name}
                                     </h3>
                                     <p className="m-0 font-['Satoshi',sans-serif] text-[clamp(13px,1.4vw,15px)] font-bold leading-snug text-[#6B6B6B]">
