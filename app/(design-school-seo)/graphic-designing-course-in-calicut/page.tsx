@@ -3,6 +3,8 @@ import { GraphicDesigningCalicutStatsSection } from "@/components/design/Graphic
 import { GraphicDesigningCalicutWhatWeHaveSection } from "@/components/design/GraphicDesigningCalicutWhatWeHaveSection";
 import { GraphicDesigningCalicutFlagshipProgramSection } from "@/components/design/GraphicDesigningCalicutFlagshipProgramSection";
 import { GraphicDesigningCalicutBecomeSection } from "@/components/design/GraphicDesigningCalicutBecomeSection";
+import { GraphicDesigningCalicutToolsSection } from "@/components/design/GraphicDesigningCalicutToolsSection";
+import { GraphicDesigningCalicutExploreProgramsSection } from "@/components/design/GraphicDesigningCalicutExploreProgramsSection";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
 import { buildDesignSchoolSeoMetadata } from "@/lib/design-school-seo";
 import type { CSSProperties } from "react";
@@ -133,6 +135,8 @@ export default function GraphicDesigningCourseInCalicutPage() {
             <GraphicDesigningCalicutWhatWeHaveSection />
             <GraphicDesigningCalicutFlagshipProgramSection />
             <GraphicDesigningCalicutBecomeSection />
+            <GraphicDesigningCalicutToolsSection />
+            <GraphicDesigningCalicutExploreProgramsSection />
             <section
                 className="w-full flex justify-center bg-[#FCFCFC] px-6 lg:px-0"
                 aria-label="Join the course"
