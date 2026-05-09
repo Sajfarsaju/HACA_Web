@@ -6,6 +6,7 @@ import { GraphicDesigningCalicutBecomeSection } from "@/components/design/Graphi
 import { GraphicDesigningCalicutToolsSection } from "@/components/design/GraphicDesigningCalicutToolsSection";
 import { GraphicDesigningCalicutExploreProgramsSection } from "@/components/design/GraphicDesigningCalicutExploreProgramsSection";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
+import { DesignSeoFaqList } from "@/components/design/DesignSeoFaqList";
 import { buildDesignSchoolSeoMetadata } from "@/lib/design-school-seo";
 import type { CSSProperties } from "react";
 import Link from "next/link";
@@ -137,6 +138,160 @@ export default function GraphicDesigningCourseInCalicutPage() {
             <GraphicDesigningCalicutBecomeSection />
             <GraphicDesigningCalicutToolsSection />
             <GraphicDesigningCalicutExploreProgramsSection />
+
+            <section className="w-full bg-[#FCFCFC] flex justify-center" aria-label="Design culture and events">
+                <div
+                    className="
+                        w-full max-w-[1440px] box-border
+                        flex flex-col items-center
+                        px-[20px] pt-[30px] pb-[30px]
+                        gap-[30px]
+                        h-[885.9034423828125px]
+                        lg:px-[40px] lg:pt-[60px] lg:pb-[60px]
+                        xl:px-[60px]
+                        lg:gap-[60px]
+                        lg:h-[920px]
+                    "
+                >
+                    {/* Title + subtitle */}
+                    <div className="w-full flex flex-col items-center text-center gap-[10px] lg:gap-[16px] lg:h-[140px]">
+                        {/* Mobile title */}
+                        <h2
+                            className="m-0 w-full lg:hidden"
+                            style={{
+                                fontFamily: DESIGN_HEADING_FONT,
+                                fontWeight: 500,
+                                fontStyle: "normal",
+                                fontSize: 35,
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                                color: "#000000",
+                            }}
+                        >
+                            Design Culture,
+                            <br />
+                            Collabs &amp; Creative
+                            <br />
+                            Events
+                        </h2>
+
+                        {/* Desktop title */}
+                        <h2
+                            className="m-0 hidden w-full max-w-[530px] text-center lg:block"
+                            style={{
+                                fontFamily: DESIGN_HEADING_FONT,
+                                fontWeight: 500,
+                                fontStyle: "normal",
+                                fontSize: 45,
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                                color: "#000000",
+                            }}
+                        >
+                            Design Culture, Collabs
+                            <br />
+                            &amp; Creative Events
+                        </h2>
+
+                        {/* Subtitle */}
+                        <p
+                            className="m-0 w-full max-w-[335px] lg:max-w-[872px] lg:whitespace-nowrap"
+                            style={{
+                                fontFamily: DESIGN_HEADING_FONT,
+                                fontWeight: 400,
+                                fontStyle: "normal",
+                                color: "#000000B2",
+                                lineHeight: "120%",
+                                letterSpacing: 0,
+                                fontSize: 14,
+                                textAlign: "center",
+                            }}
+                        >
+                            <span className="lg:hidden">Workshops, design sessions, collaborations, and community events.</span>
+                            <span className="hidden lg:inline" style={{ fontSize: 20 }}>
+                                Workshops, design sessions, collaborations, and community events.
+                            </span>
+                        </p>
+                    </div>
+
+                    {/* Cards */}
+                    <div className="w-full flex justify-center">
+                        {/* Mobile grid (4 rows × 2) */}
+                        <div className="w-[345px] h-[634.9034423828125px] flex flex-col gap-[10px] lg:hidden">
+                            <div className="flex gap-[10px]">
+                                <div className="h-[151.22586059570312px] w-[205.052001953125px] rounded-[10.25px] bg-gradient-to-br from-[#FDE7F3] to-[#E0F2FE]" />
+                                <div className="h-[151.22586059570312px] w-[134.30906677246094px] rounded-[10.25px] bg-gradient-to-br from-[#EDE9FE] to-[#DCFCE7]" />
+                            </div>
+                            <div className="flex gap-[10px]">
+                                <div className="h-[151.22586059570312px] w-[165.57949829101562px] rounded-[10.25px] bg-gradient-to-br from-[#FEF9C3] to-[#DBEAFE]" />
+                                <div className="h-[151.22586059570312px] w-[173.7815704345703px] rounded-[10.25px] bg-gradient-to-br from-[#FFE4E6] to-[#E0E7FF]" />
+                            </div>
+                            <div className="flex gap-[10px]">
+                                <div className="h-[151.22586059570312px] w-[134.30906677246094px] rounded-[10.25px] bg-gradient-to-tl from-[#ECFCCB] to-[#E0F2FE] rotate-180" />
+                                <div className="h-[151.22586059570312px] w-[205.052001953125px] rounded-[10.25px] bg-gradient-to-tl from-[#FCE7F3] to-[#FFEDD5] rotate-180" />
+                            </div>
+                            <div className="flex gap-[10px]">
+                                <div className="h-[151.22586059570312px] w-[173.7815704345703px] rounded-[10.25px] bg-gradient-to-tl from-[#E0E7FF] to-[#DCFCE7] rotate-180" />
+                                <div className="h-[151.22586059570312px] w-[165.57949829101562px] rounded-[10.25px] bg-gradient-to-tl from-[#DBEAFE] to-[#FEF9C3] rotate-180" />
+                            </div>
+                        </div>
+
+                        {/* Desktop grid (2 rows × 4) */}
+                        <div className="hidden w-full lg:flex lg:flex-col lg:gap-[11px] lg:px-0 lg:h-[600px]">
+                            <div className="flex w-full justify-center gap-[11px]">
+                                <div className="h-[295px] w-[400px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#FDE7F3] to-[#E0F2FE]" />
+                                <div className="h-[295px] w-[262px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#EDE9FE] to-[#DCFCE7]" />
+                                <div className="h-[295px] w-[336px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#FEF9C3] to-[#DBEAFE]" />
+                                <div className="h-[295px] w-[269px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#FFE4E6] to-[#E0E7FF]" />
+                            </div>
+                            <div className="flex w-full justify-center gap-[11px]">
+                                <div className="h-[295px] w-[323px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#ECFCCB] to-[#E0F2FE]" />
+                                <div className="h-[295px] w-[262px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#FCE7F3] to-[#FFEDD5]" />
+                                <div className="h-[295px] w-[302px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#E0E7FF] to-[#DCFCE7]" />
+                                <div className="h-[295px] w-[380px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#DBEAFE] to-[#FEF9C3]" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="w-full bg-[#FCFCFC] flex justify-center" aria-label="FAQ">
+                <div
+                    className="
+                        w-full max-w-[1440px]
+                        flex flex-col
+                        px-[20px] py-[30px]
+                        gap-[30px]
+                        lg:flex-row lg:justify-between
+                        lg:px-[60px] lg:py-[60px]
+                    "
+                >
+                    <div className="w-full flex justify-center md:justify-start">
+                        <div className="w-full max-w-[500px] md:max-w-none lg:w-[clamp(320px,34vw,500px)] lg:min-h-[108px] flex items-center justify-center md:justify-start">
+                            <h2
+                                className="m-0 w-full max-w-[335px] md:max-w-none text-left text-black"
+                                style={{
+                                    fontFamily: DESIGN_HEADING_FONT,
+                                    fontWeight: 500,
+                                    fontStyle: "normal",
+                                    fontSize: 45,
+                                    lineHeight: "120%",
+                                    letterSpacing: 0,
+                                }}
+                            >
+                                Here’s What Most People Ask
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div className="w-full flex justify-center md:justify-start lg:justify-end">
+                        <div className="w-full md:max-w-none lg:w-[clamp(520px,55vw,794px)] lg:min-h-[557.9268188476562px]">
+                            <DesignSeoFaqList font={DESIGN_HEADING_FONT} />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section
                 className="w-full flex justify-center bg-[#FCFCFC] px-6 lg:px-0"
                 aria-label="Join the course"
