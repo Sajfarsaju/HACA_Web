@@ -167,8 +167,8 @@ export function DesignFaqSection({ font, serif }: { font: string; serif: string 
                                     >
                                         <span
                                             className="
-                                                min-w-0 max-w-[241px] font-medium leading-[120%] tracking-normal text-[#0A0A0A]
-                                                text-[14px] align-middle lg:max-w-[853px] lg:flex-1 lg:text-[22px]
+                                                min-w-0 max-w-[241px] align-middle font-medium leading-[120%] tracking-normal text-[#0A0A0A]
+                                                text-[16px] lg:max-w-[853px] lg:flex-1 lg:text-[22px]
                                             "
                                             style={{ fontFamily: font }}
                                         >
@@ -193,7 +193,7 @@ export function DesignFaqSection({ font, serif }: { font: string; serif: string 
                                     >
                                         <div className="overflow-hidden">
                                             <p
-                                                className="m-0 max-w-none pb-5 font-['Satoshi',sans-serif] text-[15px] font-normal leading-relaxed text-[#0A0A0A]/85 lg:max-w-[853px] lg:pb-6 lg:text-[16px]"
+                                                className="m-0 max-w-none pb-5 font-['Satoshi',sans-serif] text-[16px] font-normal leading-relaxed text-[#0A0A0A]/85 lg:max-w-[853px] lg:pb-6"
                                             >
                                                 {item.a}
                                             </p>

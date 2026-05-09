@@ -49,6 +49,14 @@ const MENTORS: MentorCard[] = [
     },
 ];
 
+/** Desktop mentor cards layout — matches `lg:w-[403.5px]` + `gap-[2px]` in `DesignMentorsSection`. */
+const MENTOR_DESKTOP_CARD_WIDTH_PX = 403.5;
+const MENTOR_DESKTOP_CARD_GAP_PX = 2;
+/** Horizontal centre of gutter between the 3rd and 4th cards (matches Figma stacking). */
+const MENTOR_DESKTOP_ARROW_GAP_CENTER_X =
+    3 * MENTOR_DESKTOP_CARD_WIDTH_PX +
+    (2 + 0.5) * MENTOR_DESKTOP_CARD_GAP_PX;
+
 export function DesignMentorsSection() {
     const font = '"VC Nudge Trial Normal", sans-serif';
     const serif = '"IvyPresto Display", serif';
@@ -236,13 +244,12 @@ export function DesignMentorsSection() {
                                             behavior: "smooth",
                                         });
                                     }}
-                                    className="absolute top-1/2 -translate-y-1/2 z-10"
+                                    className="absolute top-1/2 z-10 pointer-events-auto"
                                     style={{
-                                        right: desktopAtStart ? 0 : undefined,
-                                        left: desktopAtStart ? undefined : 0,
+                                        left: MENTOR_DESKTOP_ARROW_GAP_CENTER_X,
                                         width: "clamp(64px, 5.694vw, 81.99998474121125px)",
                                         height: "clamp(64px, 5.694vw, 81.99998474121125px)",
-                                        transform: `translateY(-50%) rotate(${desktopAtStart ? 0 : 180}deg)`,
+                                        transform: `translate(-50%, -50%) rotate(${desktopAtStart ? 0 : 180}deg)`,
                                         transformOrigin: "center",
                                     }}
                                 >
@@ -297,13 +304,17 @@ export function DesignMentorsSection() {
     );
 }
 
+/** Reference frame for mobile label placement (matches Figma card). */
+const MENTOR_CARD_REF_W = 175.43478393554688
+const MENTOR_CARD_REF_H = 242.10000610351562
 function MentorCardView({ mentor }: { mentor: MentorCard }) {
     const font = '"VC Nudge Trial Normal", sans-serif';
+    const labelLeftPct = (17 / MENTOR_CARD_REF_W) * 100
+    const labelWidthPct = (151 / MENTOR_CARD_REF_W) * 100
+    const labelBottomPct = ((MENTOR_CARD_REF_H - 198 - 31) / MENTOR_CARD_REF_H) * 100
 
     return (
-        <div
-            className="group relative shrink-0 overflow-hidden w-[175.4348px] h-[242.1px] lg:w-[403.5px] lg:h-[556.83px]"
-        >
+        <div className="group relative h-auto w-[min(300px,calc(100vw-40px))] shrink-0 overflow-hidden opacity-100 aspect-[403.5/556.83] lg:w-[403.5px]">
             {/* Photo */}
             <div className="absolute inset-0">
                 <Image
@@ -328,10 +339,9 @@ function MentorCardView({ mentor }: { mentor: MentorCard }) {
             <div
                 className="absolute lg:hidden"
                 style={{
-                    left: "17px",
-                    top: "198px",
-                    width: "151px",
-                    height: "31px",
+                    left: `${labelLeftPct}%`,
+                    bottom: `${labelBottomPct}%`,
+                    width: `${labelWidthPct}%`,
                 }}
             >
                 <div

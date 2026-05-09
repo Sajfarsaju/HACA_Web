@@ -39,7 +39,11 @@ export function MarketingCultureSection() {
     const desktopViewportRef = useRef<HTMLDivElement | null>(null)
     const [desktopScale, setDesktopScale] = useState(1)
 
-    const desktopGutterPx = useMemo(() => 24, [])
+    const mobileViewportRef = useRef<HTMLDivElement | null>(null)
+    const [mobileScale, setMobileScale] = useState(1)
+
+    // Desktop: don't subtract any extra gutter beyond the section padding.
+    const desktopGutterPx = useMemo(() => 0, [])
 
     useEffect(() => {
         const el = desktopViewportRef.current
@@ -59,6 +63,28 @@ export function MarketingCultureSection() {
         ro.observe(el)
         return () => ro.disconnect()
     }, [desktopGutterPx])
+
+    useEffect(() => {
+        const el = mobileViewportRef.current
+        if (!el) return
+
+        // Mobile mosaic was authored in pixels; scale it to the available width
+        // (inside the section padding) so large phones don't show extra side gaps.
+        const BASE_W = 343
+        const MIN_S = 0.85
+        const MAX_S = 1.35
+
+        const compute = () => {
+            const available = el.clientWidth
+            const next = Math.min(MAX_S, Math.max(MIN_S, available / BASE_W))
+            setMobileScale(next)
+        }
+
+        compute()
+        const ro = new ResizeObserver(() => compute())
+        ro.observe(el)
+        return () => ro.disconnect()
+    }, [])
 
     return (
         <section
@@ -110,8 +136,23 @@ export function MarketingCultureSection() {
                 <div className="w-full min-w-0">
                     {/* Mobile layout: exact pixel sizes/positions */}
                     <div className="md:hidden">
-                        <div className="mx-auto w-full max-w-[391px] max-[360px]:max-w-[320px]">
-                            <div className="relative w-[375px] min-w-0 max-[360px]:[zoom:0.85]" style={{ height: 372 }}>
+                        <div ref={mobileViewportRef} className="w-full min-w-0">
+                            <div
+                                className="relative min-w-0"
+                                style={{
+                                    width: 343 * mobileScale,
+                                    height: 372 * mobileScale,
+                                }}
+                            >
+                                <div
+                                    className="relative"
+                                    style={{
+                                        width: 343,
+                                        height: 372,
+                                        transform: `scale(${mobileScale})`,
+                                        transformOrigin: "top left",
+                                    }}
+                                >
                                 <CultureAbsTile
                                     src="/photos/schools/marketing/culture/rectangle-34.png"
                                     alt="Culture moment"
@@ -158,6 +199,7 @@ export function MarketingCultureSection() {
                                     height={116.5669}
                                     radius={5.35}
                                 />
+                                </div>
                             </div>
                         </div>
                     </div>

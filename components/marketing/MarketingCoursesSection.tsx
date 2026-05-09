@@ -66,15 +66,15 @@ function DurationPill({ mode, duration }: { mode: string; duration?: string }) {
                 inline-flex max-w-full items-center gap-[10px] rounded-full bg-[#E8F1FF] px-[14px] py-[7px]
                 font-['Satoshi',sans-serif] text-[clamp(12px,1.1vw,14px)] font-medium leading-none tracking-normal text-black
                 transition-[background-color,color] duration-300 ease-out
-                group-hover:bg-transparent group-hover:text-white
-                group-focus-within:bg-transparent group-focus-within:text-white
+                lg:group-hover:bg-transparent lg:group-hover:text-white
+                lg:group-focus-within:bg-transparent lg:group-focus-within:text-white
             "
         >
             <span className="shrink-0 whitespace-nowrap">{mode}</span>
             {detail ? (
                 <>
                     <span
-                        className="h-[14px] w-px shrink-0 bg-black opacity-90 transition-colors group-hover:bg-white group-focus-within:bg-white"
+                        className="h-[14px] w-px shrink-0 bg-black opacity-90 transition-colors lg:group-hover:bg-white lg:group-focus-within:bg-white"
                         aria-hidden
                     />
                     <span className="min-w-0 whitespace-normal text-left">{detail}</span>
@@ -118,14 +118,14 @@ function KnowMorePill() {
                 inline-flex w-max max-w-full shrink-0 items-center gap-2 rounded-full bg-[#E8F1FF]
                 py-[6px] pl-[14px] pr-[6px]
                 transition-[background-color,color] duration-300 ease-out
-                group-hover:bg-white/15 group-focus-within:bg-white/15
+                lg:group-hover:bg-white/15 lg:group-focus-within:bg-white/15
             "
         >
-            <span className="whitespace-nowrap font-['Satoshi',sans-serif] text-[14px] font-medium leading-none text-black transition-colors group-hover:text-white group-focus-within:text-white">
+            <span className="whitespace-nowrap font-['Satoshi',sans-serif] text-[14px] font-medium leading-none text-black transition-colors lg:group-hover:text-white lg:group-focus-within:text-white">
                 Know More
             </span>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0066FF] transition-colors group-hover:bg-white group-focus-within:bg-white">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden className="text-white transition-colors group-hover:text-[#0066FF] group-focus-within:text-[#0066FF]">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0066FF] transition-colors lg:group-hover:bg-white lg:group-focus-within:bg-white">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden className="text-white transition-colors lg:group-hover:text-[#0066FF] lg:group-focus-within:text-[#0066FF]">
                     <path
                         d="M5 12h14m0 0-6-6m6 6-6 6"
                         stroke="currentColor"
@@ -154,7 +154,7 @@ export function MarketingCoursesSection() {
                     max-lg:min-h-0 lg:min-h-[1070px]
                 "
             >
-                <header className="flex w-full min-w-0 flex-col gap-5 border-t border-[#3a3a3a] pb-8 pt-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10 lg:border-t-0 lg:pb-12 lg:pt-8">
+                <header className="flex w-full min-w-0 flex-col gap-5 border-t border-[#3a3a3a] pb-8 pt-6 max-lg:border-t-0 lg:flex-row lg:items-start lg:justify-between lg:gap-10 lg:border-t-0 lg:pb-12 lg:pt-8">
                     <div className="flex shrink-0 items-center gap-[clamp(10px,1.5vw,14px)] lg:pt-1">
                         <span
                             className="h-[10px] w-[10px] shrink-0 rounded-full lg:h-3 lg:w-3"
@@ -197,14 +197,16 @@ export function MarketingCoursesSection() {
                                 (idx > 0 && COURSES[idx - 1]?.group !== "mastery")) ? (
                                 null
                             ) : null}
-                        <article className="course-row group relative border-b border-[#3a3a3a] transition-[border-color] duration-300 ease-out hover:border-transparent focus-within:border-transparent">
+                        <article className="course-row group relative border-b border-[#3a3a3a] transition-[border-color] duration-300 ease-out lg:hover:border-transparent lg:focus-within:border-transparent">
                             <div
                                 className="
                                     relative cursor-pointer rounded-[16px] px-0 py-6
                                     transition-[background-color,color] duration-300 ease-out
-                                    group-hover:bg-[#0066FF] group-focus-within:bg-[#0066FF]
+                                    lg:group-hover:bg-[#0066FF] lg:group-focus-within:bg-[#0066FF]
                                     focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0066FF]
-                                    lg:rounded-[20px] lg:px-[clamp(14px,2vw,28px)] lg:py-[clamp(22px,3vw,34px)]
+                                    lg:rounded-[20px]
+                                    lg:-mx-[clamp(16px,4.16vw,60px)] lg:px-[clamp(16px,4.16vw,60px)]
+                                    lg:py-[clamp(22px,3vw,34px)]
                                 "
                                 tabIndex={0}
                             >
@@ -224,7 +226,7 @@ export function MarketingCoursesSection() {
                                                 max-lg:max-w-[min(100%,343px)] max-lg:min-h-[44px] max-lg:text-[26px] max-lg:font-semibold
                                                 max-lg:leading-[85%]
                                                 lg:mt-[18px] lg:font-bold lg:text-[clamp(1.125rem,4.2vw,2.125rem)] lg:leading-[1.12]
-                                                group-hover:text-white group-focus-within:text-white
+                                                lg:group-hover:text-white lg:group-focus-within:text-white
                                             "
                                                                                     >
                                             <span className="lg:hidden">{course.titleMobile}</span>
@@ -254,7 +256,7 @@ export function MarketingCoursesSection() {
                                                 font-['Satoshi',sans-serif] text-[16px] font-medium leading-[1.5] tracking-normal
                                                 transition-colors duration-300 ease-out
                                                 lg:min-h-[72px] lg:max-w-[572px] lg:w-full lg:shrink lg:leading-[1.45]
-                                                group-hover:text-white group-focus-within:text-white
+                                                lg:group-hover:text-white lg:group-focus-within:text-white
                                             "
                                                                                     >
                                             {course.descriptionLines.join("\n")}
@@ -266,7 +268,7 @@ export function MarketingCoursesSection() {
                                 </div>
                             </div>
                             {/* Arrow — inside the card padding, right-aligned with the content edge */}
-                            <div className="absolute right-[clamp(14px,2vw,28px)] top-1/2 hidden -translate-y-1/2 lg:top-auto lg:bottom-[clamp(36px,4.2vw,52px)] lg:flex lg:translate-y-0 lg:items-center">
+                            <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 lg:right-[clamp(16px,4.16vw,60px)] lg:top-auto lg:bottom-[clamp(36px,4.2vw,52px)] lg:flex lg:translate-y-0 lg:items-center">
                                 <CourseRowArrows />
                             </div>
                         </article>
@@ -276,9 +278,11 @@ export function MarketingCoursesSection() {
             </div>
 
             <style>{`
-                #marketing-courses .group:hover .course-text,
-                #marketing-courses .group:focus-within .course-text {
+                @media (min-width: 1024px) {
+                    #marketing-courses .group:hover .course-text,
+                    #marketing-courses .group:focus-within .course-text {
                     color: white !important;
+                    }
                 }
             `}</style>
         </section>

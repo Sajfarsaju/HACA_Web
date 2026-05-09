@@ -182,10 +182,10 @@ export function MarketingTestimonialsSection() {
 
                             {/* Mobile-only arrows */}
                             <div className="flex w-full items-center justify-center gap-[clamp(8px,1vw,10px)] md:hidden">
-                                <button type="button" onClick={prev} aria-label="Previous testimonial" className="grid h-[clamp(40px,4.2vw,48px)] w-[clamp(40px,4.2vw,48px)] place-items-center rounded-full bg-[#0066FF] text-white transition-transform duration-200 active:scale-95">
+                                <button type="button" onClick={prev} aria-label="Previous testimonial" className="grid h-[clamp(40px,4.2vw,48px)] w-[clamp(40px,4.2vw,48px)] cursor-pointer place-items-center rounded-full bg-[#0066FF] text-white transition-transform duration-200 active:scale-95">
                                     <ArrowIcon dir="left" />
                                 </button>
-                                <button type="button" onClick={next} aria-label="Next testimonial" className="grid h-[clamp(40px,4.2vw,48px)] w-[clamp(40px,4.2vw,48px)] place-items-center rounded-full bg-[#0066FF] text-white transition-transform duration-200 active:scale-95">
+                                <button type="button" onClick={next} aria-label="Next testimonial" className="grid h-[clamp(40px,4.2vw,48px)] w-[clamp(40px,4.2vw,48px)] cursor-pointer place-items-center rounded-full bg-[#0066FF] text-white transition-transform duration-200 active:scale-95">
                                     <ArrowIcon dir="right" />
                                 </button>
                             </div>
@@ -194,10 +194,10 @@ export function MarketingTestimonialsSection() {
 
                     {/* Tablet/Desktop arrows */}
                     <div className="mt-[clamp(16px,2.8vw,24px)] hidden w-full items-center justify-center gap-[clamp(8px,1vw,10px)] md:flex">
-                        <button type="button" onClick={prev} aria-label="Previous testimonial" className="grid h-[clamp(40px,4.2vw,48px)] w-[clamp(40px,4.2vw,48px)] place-items-center rounded-full bg-[#0066FF] text-white transition-transform duration-200 hover:scale-105 active:scale-95">
+                        <button type="button" onClick={prev} aria-label="Previous testimonial" className="grid h-[clamp(40px,4.2vw,48px)] w-[clamp(40px,4.2vw,48px)] cursor-pointer place-items-center rounded-full bg-[#0066FF] text-white transition-transform duration-200 hover:scale-105 active:scale-95">
                             <ArrowIcon dir="left" />
                         </button>
-                        <button type="button" onClick={next} aria-label="Next testimonial" className="grid h-[clamp(40px,4.2vw,48px)] w-[clamp(40px,4.2vw,48px)] place-items-center rounded-full bg-[#0066FF] text-white transition-transform duration-200 hover:scale-105 active:scale-95">
+                        <button type="button" onClick={next} aria-label="Next testimonial" className="grid h-[clamp(40px,4.2vw,48px)] w-[clamp(40px,4.2vw,48px)] cursor-pointer place-items-center rounded-full bg-[#0066FF] text-white transition-transform duration-200 hover:scale-105 active:scale-95">
                             <ArrowIcon dir="right" />
                         </button>
                     </div>

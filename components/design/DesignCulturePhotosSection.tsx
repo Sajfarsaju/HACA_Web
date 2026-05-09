@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 
-const ARROW_PATH =
-    "M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z";
+import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
 
 export function DesignCulturePhotosSection({ font, serif }: { font: string; serif: string }) {
     // Placeholder-only (user will add real photos later)
@@ -17,12 +16,10 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
 
     return (
         <section
-            className="w-full bg-[#FCFCFC]"
+            className="w-full bg-[#FCFCFC] px-4 lg:px-[clamp(20px,4.17vw,60px)]"
             style={{
                 paddingTop: "clamp(30px, 4.17vw, 60px)",
                 paddingBottom: "clamp(30px, 2.78vw, 40px)",
-                paddingLeft: "clamp(20px, 4.17vw, 60px)",
-                paddingRight: "clamp(20px, 4.17vw, 60px)",
             }}
         >
             <div className="w-full max-w-[1320px] mx-auto flex flex-col gap-[20px] lg:gap-0">
@@ -258,7 +255,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
 
                 {/* Mobile collage (4 rows) + paragraph/button */}
                 <div className="lg:hidden w-full flex flex-col gap-[20px]">
-                    <div className="w-full max-w-[335px] mx-auto flex flex-col" style={{ gap: "10px" }}>
+                    <div className="w-full flex flex-col" style={{ gap: "10px" }}>
                         {/* Row 1 */}
                         <div className="w-full flex items-end" style={{ gap: "10px" }}>
                             <div
@@ -358,7 +355,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                         </div>
                     </div>
 
-                    <div className="w-full max-w-[335px] mx-auto flex flex-col items-start" style={{ gap: "24px" }}>
+                    <div className="w-full flex flex-col items-start" style={{ gap: "24px" }}>
                         <p
                             className="m-0"
                             style={{
@@ -382,56 +379,43 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
 }
 
 function DesignCultureJoinNowButton({ font, isMobile }: { font: string; isMobile?: boolean }) {
+    const wrapW = isMobile ? "226.97142824707031px" : "252px";
+    const dims = isMobile
+        ? {
+              gapPx: 4.4,
+              pillWidth: 178.8333282470703,
+              pillHeight: 50.19047546386719,
+              borderWidth: 0.88,
+              radiusPx: 39.64,
+              padX: 26.43,
+              padY: 14.1,
+              fontSizePx: 16,
+              circlePx: 47.5714,
+              arrowSvgPx: 26,
+          }
+        : {
+              gapPx: 5,
+              pillWidth: 193,
+              pillHeight: 54,
+              borderWidth: 1.11,
+              radiusPx: 50,
+              padX: 33.33,
+              padY: 17.78,
+              fontSizePx: 17.78,
+              circlePx: 54,
+              arrowSvgPx: 30,
+          };
+
     return (
-        <div className="flex items-center gap-[4.4px] lg:gap-[5px] group">
-            <button
-                type="button"
-                className="flex items-center justify-center rounded-[50px] border bg-transparent transition-colors duration-300 group-hover:bg-[#FF5C00]"
-                style={{
-                    width: isMobile ? "178.8333282470703px" : "193px",
-                    height: isMobile ? "50.19047546386719px" : "54px",
-                    borderColor: "#FF5C00",
-                    fontFamily: font,
-                    fontWeight: 550,
-                    fontSize: isMobile ? 16 : 17.78,
-                    lineHeight: "100%",
-                }}
-            >
-                <span className="text-[#000000] leading-none transition-colors duration-300 group-hover:text-white">Join Now</span>
-            </button>
-            <button
-                type="button"
-                className="relative rounded-full overflow-hidden shrink-0"
-                style={{
-                    width: isMobile ? "47.5714px" : "54px",
-                    height: isMobile ? "47.5714px" : "54px",
-                    backgroundColor: "#FF5C00",
-                }}
-                aria-label="Join Now"
-            >
-                {/* Same sliding-arrow pattern as JoinClubLikeButton */}
-                <div
-                    className={[
-                        "absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0",
-                        isMobile ? "-translate-x-[36px]" : "-translate-x-[45.56px]",
-                    ].join(" ")}
-                >
-                    <svg viewBox="0 0 34 34" fill="none" style={{ width: isMobile ? 26 : 30, height: isMobile ? 26 : 30 }}>
-                        <path d={ARROW_PATH} fill="white" />
-                    </svg>
-                </div>
-                <div
-                    className={[
-                        "absolute inset-0 flex items-center justify-center transition-transform duration-300",
-                        isMobile ? "group-hover:translate-x-[36px]" : "group-hover:translate-x-[46px]",
-                    ].join(" ")}
-                >
-                    <svg viewBox="0 0 34 34" fill="none" style={{ width: isMobile ? 26 : 30, height: isMobile ? 26 : 30 }}>
-                        <path d={ARROW_PATH} fill="white" />
-                    </svg>
-                </div>
-            </button>
-        </div>
+        <DesignSplitArrowCta
+            asButton
+            ariaLabel="Join Now"
+            label="Join Now"
+            fontFamily={font}
+            arrowPreset={isMobile ? "mobile36" : "desktop"}
+            wrapperStyle={{ width: wrapW, height: dims.pillHeight }}
+            dims={dims}
+        />
     );
 }
 

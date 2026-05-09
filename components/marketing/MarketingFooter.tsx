@@ -42,7 +42,7 @@ function BackToTopBlue() {
                 if (typeof window === "undefined") return
                 window.scrollTo({ top: 0, behavior: "smooth" })
             }}
-            className="flex h-[54.8242px] w-[54.8242px] items-center justify-center rounded-[20px] bg-[#0066FF] px-[16.18px] py-[4.49px] text-white transition-transform duration-200 hover:scale-105 active:scale-95"
+            className="flex h-[54.8242px] w-[54.8242px] cursor-pointer items-center justify-center rounded-[20px] bg-[#0066FF] px-[16.18px] py-[4.49px] text-white transition-transform duration-200 hover:scale-105 active:scale-95"
             aria-label="Back to top"
         >
             <svg

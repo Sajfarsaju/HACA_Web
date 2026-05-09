@@ -1,11 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-const ARROW_PATH =
-    "M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z";
+import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
 
 export function DesignStoriesInsightsSection({ font, serif }: { font: string; serif: string }) {
     const cardGradient =
@@ -199,46 +197,29 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
 }
 
 function VisitPageButton({ font }: { font: string }) {
-    const vcFont = font;
+    const wrapW = "220.2265625px";
     return (
-        <div className="flex items-center gap-[5.56px] group">
-            <Link
-                href="/design-school/blog"
-                className="flex items-center justify-center rounded-[50px] border-[1.11px] border-[#8F56FF] bg-transparent transition-colors duration-300 group-hover:bg-[#8F56FF]"
-                style={{
-                    width: "154.66665649414062px",
-                    height: "60.5555534362793px",
-                    paddingTop: "17.78px",
-                    paddingRight: "33.33px",
-                    paddingBottom: "17.78px",
-                    paddingLeft: "33.33px",
-                    fontFamily: vcFont,
-                    fontWeight: 550,
-                }}
-            >
-                <span className="text-[#000000] leading-none whitespace-nowrap transition-colors duration-300 group-hover:text-white" style={{ fontSize: 17.78 }}>
-                    Visit Page
-                </span>
-            </Link>
-
-            <Link
-                href="/design-school/blog"
-                className="relative rounded-full overflow-hidden shrink-0"
-                style={{ width: "60px", height: "60px", backgroundColor: "#8F56FF" }}
-                aria-label="Visit Page"
-            >
-                <div className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0 -translate-x-[45.56px]">
-                    <svg viewBox="0 0 34 34" fill="none" style={{ width: 33.33, height: 33.33 }}>
-                        <path d={ARROW_PATH} fill="white" />
-                    </svg>
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-[46px]">
-                    <svg viewBox="0 0 34 34" fill="none" style={{ width: 33.33, height: 33.33 }}>
-                        <path d={ARROW_PATH} fill="white" />
-                    </svg>
-                </div>
-            </Link>
-        </div>
+        <DesignSplitArrowCta
+            href="/design-school/blog"
+            accent="#8F56FF"
+            ariaLabel="Visit Page"
+            label="Visit Page"
+            fontFamily={font}
+            arrowPreset="desktop"
+            wrapperStyle={{ width: wrapW, height: "60.5555534362793px" }}
+            dims={{
+                gapPx: 5.56,
+                pillWidth: 154.66665649414062,
+                pillHeight: 60.5555534362793,
+                borderWidth: 1.11,
+                radiusPx: 50,
+                padX: 33.33,
+                padY: 17.78,
+                fontSizePx: 17.78,
+                circlePx: 60,
+                arrowSvgPx: 33.33,
+            }}
+        />
     );
 }
 

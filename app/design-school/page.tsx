@@ -14,7 +14,6 @@ import { DesignMentorsSection } from "@/components/design/DesignMentorsSection";
 import { DesignPlacementsTeaserSection } from "@/components/design/DesignPlacementsTeaserSection";
 import { DesignStudentProjectsSection } from "@/components/design/DesignStudentProjectsSection";
 import { DesignTestimonialsSection } from "@/components/design/DesignTestimonialsSection";
-import { DesignStoriesInsightsSection } from "@/components/design/DesignStoriesInsightsSection";
 import { DesignFaqSection } from "@/components/design/DesignFaqSection";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
 
@@ -73,12 +72,7 @@ export default function DesignSchoolPage() {
             {/* Testimonials */}
             <DesignTestimonialsSection />
 
-            {/* Stories & insights — below testimonials */}
-            <div className="flex w-full justify-center">
-                <DesignStoriesInsightsSection font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
-            </div>
-
-            {/* FAQ — below stories */}
+            {/* FAQ */}
             <div className="flex w-full justify-center">
                 <DesignFaqSection font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
             </div>

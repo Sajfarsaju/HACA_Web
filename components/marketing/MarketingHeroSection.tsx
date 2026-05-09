@@ -78,7 +78,7 @@ export function MarketingHeroSection() {
 
                         <Link
                             href="/contact"
-                            className="relative flex items-center shrink-0 group no-underline transition-all duration-300 w-[158.26px] h-[44px] md:w-[194px] md:h-[60px]"
+                            className="relative flex cursor-pointer items-center shrink-0 group no-underline transition-all duration-300 w-[158.26px] h-[44px] md:w-[194px] md:h-[60px]"
                             aria-label="Enquire now"
                         >
                             <div className="absolute left-0 top-0 bg-[#E6EFFF] flex items-center transition-colors duration-300 group-hover:bg-[#d6e4ff] w-[154.6px] h-[44px] rounded-[22px] pl-[12px] md:w-[189px] md:h-[60px] md:rounded-[30px] md:pl-[20px]">
