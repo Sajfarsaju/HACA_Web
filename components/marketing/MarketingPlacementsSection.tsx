@@ -46,7 +46,7 @@ function JoinNowPill() {
     return (
         <button
             type="button"
-            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline"
+            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline cursor-pointer"
         >
             <div className="relative h-[60px] w-fit rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
                 <span
@@ -65,7 +65,7 @@ function ViewMorePill() {
     return (
         <button
             type="button"
-            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline"
+            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline cursor-pointer"
         >
             <div className="relative h-[60px] w-fit rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
                 <span
@@ -84,7 +84,7 @@ function PlacementsDecisionCard() {
     return (
         <div
             className="
-                relative mx-auto flex w-full max-w-[343px] h-[413px] min-w-0 flex-col items-center justify-center
+                relative mx-auto flex w-full max-w-[min(100%,520px)] h-[413px] min-w-0 flex-col items-center justify-center
                 overflow-hidden rounded-[20px] bg-[#0066FF]
                 px-5 py-10 sm:px-8 sm:py-12
                 sm:max-w-[1320px] sm:h-auto

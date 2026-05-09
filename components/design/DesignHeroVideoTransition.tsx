@@ -3,8 +3,8 @@
 import { useRef, useState, useEffect } from "react";
 import { useTransform, motion, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import { DesignEventCard } from "./DesignEventCard";
+import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
 
 const CIRCLE =
     "M90.625 50C90.625 60.7744 86.3449 71.1075 78.7262 78.7262C71.1075 86.3449 60.7744 90.625 50 90.625C39.2256 90.625 28.8925 86.3449 21.2738 78.7262C13.6551 71.1075 9.375 60.7744 9.375 50C9.375 39.2256 13.6551 28.8925 21.2738 21.2738C28.8925 13.6551 39.2256 9.375 50 9.375C60.7744 9.375 71.1075 13.6551 78.7262 21.2738C86.3449 28.8925 90.625 39.2256 90.625 50Z";
@@ -282,28 +282,28 @@ export function DesignHeroVideoTransition({ src }: Props) {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-[5.56px] w-[246.22px] h-[60.56px] group pointer-events-auto">
-                                        <Link href="/design-school/courses"
-                                              className="flex items-center justify-center w-[180.67px] h-[60.56px] rounded-[50px] border-[1.11px] border-[#8F56FF] px-[33.33px] py-[17.78px] bg-transparent transition-colors duration-300 group-hover:bg-[#8F56FF]"
-                                              style={{ fontFamily: vcFont, fontWeight: 550 }}>
-                                            <span className="text-[#000000] text-[17.78px] leading-none whitespace-nowrap transition-colors duration-300 group-hover:text-white">
-                                                Join the Club
-                                            </span>
-                                        </Link>
-                                        <Link href="/design-school/courses"
-                                              className="relative w-[60px] h-[60px] rounded-full bg-[#8F56FF] overflow-hidden shrink-0"
-                                              aria-label="Join the Club">
-                                            <div className="absolute top-[13.89px] left-[13.89px] w-[33.33px] h-[33.33px] -translate-x-[45.56px] transition-transform duration-300 group-hover:translate-x-0">
-                                                <svg width="33" height="33" viewBox="0 0 34 34" fill="none">
-                                                    <path d="M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z" fill="white"/>
-                                                </svg>
-                                            </div>
-                                            <div className="absolute top-[13.89px] left-[13.89px] w-[33.33px] h-[33.33px] transition-transform duration-300 group-hover:translate-x-[46px]">
-                                                <svg width="33" height="33" viewBox="0 0 34 34" fill="none">
-                                                    <path d="M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z" fill="white"/>
-                                                </svg>
-                                            </div>
-                                        </Link>
+                                    <div className="pointer-events-auto w-[246.22px]">
+                                        <DesignSplitArrowCta
+                                            href="/design-school/courses"
+                                            accent="#8F56FF"
+                                            label="Join the Club"
+                                            ariaLabel="Join the Club"
+                                            fontFamily={vcFont}
+                                            arrowPreset="desktop"
+                                            wrapperStyle={{ width: "246.22px", height: "60.56px" }}
+                                            dims={{
+                                                gapPx: 5.56,
+                                                pillWidth: 180.67,
+                                                pillHeight: 60.56,
+                                                borderWidth: 1.11,
+                                                radiusPx: 50,
+                                                padX: 33.33,
+                                                padY: 17.78,
+                                                fontSizePx: 17.78,
+                                                circlePx: 60,
+                                                arrowSvgPx: 33.33,
+                                            }}
+                                        />
                                     </div>
                                 </div>
 
@@ -450,26 +450,28 @@ export function DesignHeroVideoTransition({ src }: Props) {
                                                     </div>
                                                 </div>
 
-                                                <div className="-mt-[4px] flex items-center gap-[6px] w-[min(258px,86vw)] h-[56px] group pointer-events-auto">
-                                                    <Link href="/design-school/courses"
-                                                          className="flex items-center justify-center w-[190px] h-[56px] rounded-[46px] border-[1px] border-[#8F56FF] px-[30px] py-[15px] bg-transparent transition-colors duration-300 group-hover:bg-[#8F56FF]"
-                                                          style={{ fontFamily: vcFont, fontWeight: 550 }}>
-                                                        <span className="text-[#000000] text-[18px] leading-none whitespace-nowrap transition-colors duration-300 group-hover:text-white">Join the Club</span>
-                                                    </Link>
-                                                    <Link href="/design-school/courses"
-                                                          className="relative w-[52px] h-[52px] rounded-full bg-[#8F56FF] overflow-hidden shrink-0"
-                                                          aria-label="Join the Club">
-                                                        <div className="absolute top-[11.5px] left-[11.5px] w-[29px] h-[29px] -translate-x-[40.5px] transition-transform duration-300 group-hover:translate-x-0">
-                                                            <svg width="29" height="29" viewBox="0 0 34 34" fill="none">
-                                                                <path d="M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z" fill="white"/>
-                                                            </svg>
-                                                        </div>
-                                                        <div className="absolute top-[11.5px] left-[11.5px] w-[29px] h-[29px] transition-transform duration-300 group-hover:translate-x-[40.5px]">
-                                                            <svg width="29" height="29" viewBox="0 0 34 34" fill="none">
-                                                                <path d="M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z" fill="white"/>
-                                                            </svg>
-                                                        </div>
-                                                    </Link>
+                                                <div className="pointer-events-auto -mt-[4px] w-[min(258px,86vw)]">
+                                                    <DesignSplitArrowCta
+                                                        href="/design-school/courses"
+                                                        accent="#8F56FF"
+                                                        label="Join the Club"
+                                                        ariaLabel="Join the Club"
+                                                        fontFamily={vcFont}
+                                                        arrowPreset="mobile405"
+                                                        wrapperStyle={{ width: "100%", maxWidth: "258px", height: "56px" }}
+                                                        dims={{
+                                                            gapPx: 6,
+                                                            pillWidth: 190,
+                                                            pillHeight: 56,
+                                                            borderWidth: 1,
+                                                            radiusPx: 46,
+                                                            padX: 30,
+                                                            padY: 15,
+                                                            fontSizePx: 18,
+                                                            circlePx: 52,
+                                                            arrowSvgPx: 29,
+                                                        }}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>

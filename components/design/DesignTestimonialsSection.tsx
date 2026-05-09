@@ -3,7 +3,7 @@
 import type { PanInfo } from "framer-motion";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 const FONT = '"VC Nudge Trial Normal", sans-serif';
 const SERIF = '"IvyPresto Display", serif';
@@ -215,6 +215,86 @@ function depthOf(order: StackOrder, itemIndex: number) {
 function rotateDeckForward(order: StackOrder): StackOrder  { return [order[1], order[2], order[0]]; }
 function rotateDeckBackward(order: StackOrder): StackOrder { return [order[2], order[0], order[1]]; }
 
+/** Collapsed quote cap: mobile matches card snippet; desktop ~8 lines at 24px / 115% leading. */
+const QUOTE_COLLAPSED_MAX: Record<"mobile" | "desktop", string> = {
+    mobile: "6.75rem",
+    desktop: "14rem",
+};
+
+function ExpandableTestimonialQuote({ quote, variant }: { quote: string; variant: "mobile" | "desktop" }) {
+    const [expanded, setExpanded] = useState(false);
+    const [overflowsCollapsed, setOverflowsCollapsed] = useState(false);
+    const textRef = useRef<HTMLParagraphElement>(null);
+
+    useLayoutEffect(() => {
+        if (expanded) return;
+        const el = textRef.current;
+        if (!el) return;
+        const id = requestAnimationFrame(() => {
+            const overflow = el.scrollHeight > Math.ceil(el.clientHeight) + 1;
+            setOverflowsCollapsed(overflow);
+        });
+        return () => cancelAnimationFrame(id);
+    }, [quote, variant, expanded]);
+
+    const paragraphStyle =
+        variant === "mobile"
+            ? {
+                  fontFamily: FONT,
+                  fontWeight: 400 as const,
+                  fontSize: "14px",
+                  lineHeight: "120%",
+                  letterSpacing: "0.02em",
+              }
+            : {
+                  fontFamily: FONT,
+                  fontWeight: 400 as const,
+                  fontSize: "24px",
+                  lineHeight: "114.99999999999999%",
+                  letterSpacing: "0.02em",
+              };
+
+    const collapsedMax = { maxHeight: QUOTE_COLLAPSED_MAX[variant] };
+
+    return (
+        <div
+            className={[
+                "flex w-full flex-col items-center gap-1",
+                expanded ? "min-h-0 max-h-full flex-1 overflow-y-auto" : "",
+            ].join(" ")}
+        >
+            <p
+                ref={textRef}
+                className={[
+                    "m-0 w-full text-center align-middle text-black",
+                    variant === "mobile" ? "text-pretty" : "max-w-full text-pretty",
+                    expanded ? "min-h-0 overflow-visible" : "overflow-hidden",
+                ].join(" ")}
+                style={{ ...paragraphStyle, ...(expanded ? {} : collapsedMax) }}
+            >
+                {quote}
+            </p>
+            {overflowsCollapsed && (
+                <button
+                    type="button"
+                    className="m-0 shrink-0 cursor-pointer border-0 bg-transparent p-0 text-center text-black/75 underline decoration-from-font underline-offset-[3px] hover:text-black"
+                    style={{
+                        fontFamily: FONT,
+                        fontWeight: 500,
+                        fontSize: variant === "mobile" ? "12px" : "14px",
+                        lineHeight: variant === "mobile" ? "120%" : "114.99999999999999%",
+                        letterSpacing: variant === "mobile" ? "0.02em" : 0,
+                    }}
+                    aria-expanded={expanded}
+                    onClick={() => setExpanded((v) => !v)}
+                >
+                    {expanded ? "Read less" : "Read more"}
+                </button>
+            )}
+        </div>
+    );
+}
+
 // ── Desktop card stack ───────────────────────────────────────────────────────
 
 function DesktopCardStack({
@@ -299,11 +379,29 @@ function DesktopCardStack({
 
                             {/* Back card content — decorative, partially visible through the fan */}
                             {!isFront && (
-                                <div className="flex min-h-0 min-w-0 flex-1 flex-col items-center justify-center gap-5 text-center font-['Satoshi',sans-serif]" style={{ paddingTop: 4 }}>
-                                    <p className="m-0 w-full max-w-full overflow-hidden text-pretty text-[17px] font-medium leading-[1.4] text-black lg:text-[18px]">
+                                <div className="flex min-h-0 min-w-0 flex-1 flex-col items-center justify-center gap-5 text-center" style={{ paddingTop: 4 }}>
+                                    <p
+                                        className="m-0 w-full max-w-full overflow-hidden text-pretty text-center align-middle text-black"
+                                        style={{
+                                            fontFamily: FONT,
+                                            fontWeight: 400,
+                                            fontSize: "24px",
+                                            lineHeight: "114.99999999999999%",
+                                            letterSpacing: "0.02em",
+                                        }}
+                                    >
                                         {item.quote}
                                     </p>
-                                    <p className="m-0 w-full shrink-0 text-[15px] font-bold leading-none text-black lg:text-base">
+                                    <p
+                                        className="m-0 w-full shrink-0 text-center align-middle text-black"
+                                        style={{
+                                            fontFamily: FONT,
+                                            fontWeight: 500,
+                                            fontSize: "24px",
+                                            lineHeight: "114.99999999999999%",
+                                            letterSpacing: 0,
+                                        }}
+                                    >
                                         ~ {item.name}
                                     </p>
                                 </div>
@@ -335,7 +433,7 @@ function DesktopCardStack({
                     <HeartAccent />
                 </div>
 
-                <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-[17.94px] px-10 py-10">
+                <div className="flex h-full min-h-0 w-full items-center justify-center overflow-hidden rounded-[17.94px] px-10 py-10">
                     <AnimatePresence mode="wait" custom={direction}>
                         <motion.div
                             key={frontItem.id}
@@ -345,13 +443,20 @@ function DesktopCardStack({
                             animate="center"
                             exit="exit"
                             transition={CONTENT_TRANSITION}
-                            className="flex w-full min-h-0 flex-1 flex-col items-center justify-center gap-5 text-center font-['Satoshi',sans-serif]"
+                            className="pointer-events-auto flex min-h-0 w-full flex-1 flex-col items-center justify-center gap-5 text-center"
                             style={{ paddingTop: 4 }}
                         >
-                            <p className="m-0 w-full max-w-full overflow-hidden text-pretty text-[17px] font-medium leading-[1.4] text-black lg:text-[18px]">
-                                {frontItem.quote}
-                            </p>
-                            <p className="m-0 w-full shrink-0 text-[15px] font-bold leading-none text-black lg:text-base">
+                            <ExpandableTestimonialQuote key={frontItem.id} quote={frontItem.quote} variant="desktop" />
+                            <p
+                                className="m-0 w-full shrink-0 text-center align-middle text-black"
+                                style={{
+                                    fontFamily: FONT,
+                                    fontWeight: 500,
+                                    fontSize: "24px",
+                                    lineHeight: "114.99999999999999%",
+                                    letterSpacing: 0,
+                                }}
+                            >
                                 ~ {frontItem.name}
                             </p>
                         </motion.div>
@@ -464,11 +569,31 @@ function MobileCardStack({
                             )}
 
                             {!isFront && (
-                                <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col justify-center gap-[10px] overflow-hidden text-center font-['Satoshi',sans-serif]">
-                                    <p className="m-0 max-h-[4.5rem] w-full min-h-0 overflow-hidden text-[10px] font-medium leading-[1.28] text-black">
+                                <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col justify-center gap-[10px] overflow-hidden text-center">
+                                    <p
+                                        className="m-0 max-h-[6.75rem] w-full min-h-0 overflow-hidden text-center align-middle text-black"
+                                        style={{
+                                            fontFamily: FONT,
+                                            fontWeight: 400,
+                                            fontSize: "14px",
+                                            lineHeight: "120%",
+                                            letterSpacing: "0.02em",
+                                        }}
+                                    >
                                         {item.quote}
                                     </p>
-                                    <p className="m-0 shrink-0 text-[11px] font-bold leading-none text-black">~ {item.name}</p>
+                                    <p
+                                        className="m-0 shrink-0 text-center align-middle text-black"
+                                        style={{
+                                            fontFamily: FONT,
+                                            fontWeight: 500,
+                                            fontSize: "14px",
+                                            lineHeight: "120%",
+                                            letterSpacing: "0.02em",
+                                        }}
+                                    >
+                                        ~ {item.name}
+                                    </p>
                                 </div>
                             )}
 
@@ -494,7 +619,7 @@ function MobileCardStack({
                     <HeartAccent />
                 </div>
 
-                <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-[13.38px] px-[22.31px] py-[40px]">
+                <div className="flex h-full min-h-0 w-full items-center justify-center overflow-hidden rounded-[13.38px] px-[22.31px] py-[40px]">
                     <AnimatePresence mode="wait" custom={direction}>
                         <motion.div
                             key={frontItem.id}
@@ -504,12 +629,21 @@ function MobileCardStack({
                             animate="center"
                             exit="exit"
                             transition={CONTENT_TRANSITION}
-                            className="flex w-full flex-col justify-center gap-[10px] text-center font-['Satoshi',sans-serif]"
+                            className="pointer-events-auto flex min-h-0 w-full flex-1 flex-col justify-center gap-[10px] text-center"
                         >
-                            <p className="m-0 max-h-[4.5rem] w-full min-h-0 overflow-hidden text-[10px] font-medium leading-[1.28] text-black">
-                                {frontItem.quote}
+                            <ExpandableTestimonialQuote key={frontItem.id} quote={frontItem.quote} variant="mobile" />
+                            <p
+                                className="m-0 shrink-0 text-center align-middle text-black"
+                                style={{
+                                    fontFamily: FONT,
+                                    fontWeight: 500,
+                                    fontSize: "14px",
+                                    lineHeight: "120%",
+                                    letterSpacing: "0.02em",
+                                }}
+                            >
+                                ~ {frontItem.name}
                             </p>
-                            <p className="m-0 shrink-0 text-[11px] font-bold leading-none text-black">~ {frontItem.name}</p>
                         </motion.div>
                     </AnimatePresence>
                 </div>

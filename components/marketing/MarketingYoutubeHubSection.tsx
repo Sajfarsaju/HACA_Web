@@ -8,7 +8,7 @@ function ViewMorePill() {
     return (
         <button
             type="button"
-            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline"
+            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline cursor-pointer"
         >
             <div className="relative h-[60px] w-fit rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
                 <span

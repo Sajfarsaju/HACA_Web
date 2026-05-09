@@ -107,7 +107,7 @@ export function MarketingFaqSection() {
                                             type="button"
                                             onClick={() => setOpenId((prev) => (prev === item.id ? null : item.id))}
                                             className="
-                                                flex w-full min-w-0 items-center justify-between gap-6 text-left
+                                                flex w-full min-w-0 cursor-pointer items-center justify-between gap-6 text-left
                                                 py-[clamp(18px,2.6vw,28px)]
                                                 lg:h-[88px] lg:py-0
                                             "

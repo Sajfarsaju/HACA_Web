@@ -1,13 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import type { CSSProperties } from "react";
+import React, { type CSSProperties } from "react";
 import { DesignCulturePhotosSection } from "./DesignCulturePhotosSection";
+import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
 import { DesignStoriesInsightsSection } from "./DesignStoriesInsightsSection";
-
-const ARROW_PATH =
-    "M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z";
 
 /** Gradient shown behind / when image is absent (fallback). */
 const FALLBACK_GRADIENT =
@@ -31,24 +28,22 @@ export function DesignStudentProjectsSection() {
     return (
         <>
             <section
-                className="w-full bg-[#FCFCFC]"
+                className="w-full bg-[#FCFCFC] px-4 lg:px-[clamp(20px,4.17vw,60px)]"
                 style={{
                     paddingTop: "clamp(30px, 4.17vw, 60px)",
                     paddingBottom: "clamp(30px, 4.17vw, 60px)",
-                    paddingLeft: "clamp(20px, 4.17vw, 60px)",
-                    paddingRight: "clamp(20px, 4.17vw, 60px)",
                 }}
             >
                 <div className="w-full max-w-[1320px] mx-auto flex flex-col gap-[20px] lg:flex-row lg:gap-[39px]">
                     {/* Left block */}
                     <div className="w-full lg:w-[324px] lg:shrink-0 flex flex-col items-start">
-                        <div className="w-[230px] h-[310px] px-[12.07px] pt-[22px] lg:w-[324px] lg:h-[487px] lg:px-[17px] lg:pt-[22px] lg:pb-[32px] lg:-ml-[17px]">
+                        <div className="w-[min(336px,100%)] max-lg:h-auto max-lg:aspect-[230/310] max-lg:pl-0 max-lg:pr-[17.62px] max-lg:pt-[32px] lg:aspect-auto lg:w-[324px] lg:h-[487px] lg:px-[17px] lg:pt-[22px] lg:pb-[32px] lg:-ml-[17px]">
                             <div className="relative w-full h-full">
                                 <Image
                                     src="/photos/schools/design/Frame 2131331224.svg"
                                     alt=""
                                     fill
-                                    className="object-contain"
+                                    className="object-contain object-left lg:object-center"
                                     priority={false}
                                 />
                             </div>
@@ -63,15 +58,29 @@ export function DesignStudentProjectsSection() {
                                 See more work <br />
                                 from our students
                             </p>
-                            <JoinClubLikeButton color="#8F56FF" label="View Projects" />
+                            <JoinClubLikeButton label="View more Projects" />
                         </div>
                     </div>
 
                     {/* Right cards */}
                     <div className="w-full flex-1 min-w-0 flex flex-col gap-[30px] lg:gap-[50px]">
-                        <div className="grid grid-cols-1 gap-[30px] lg:grid-cols-2 lg:gap-[50px] justify-items-center lg:justify-items-start">
+                        <div className="grid grid-cols-1 gap-[0px] lg:grid-cols-2 lg:gap-[50px] justify-items-center lg:justify-items-start">
                             {STUDENT_PROJECTS.map((project, i) => (
-                                <StudentProjectCard key={`${project.imageSrc}-${i}`} imageSrc={project.imageSrc} font={font} />
+                                <React.Fragment key={`${project.imageSrc}-${i}`}>
+                                    <StudentProjectCard imageSrc={project.imageSrc} font={font} />
+                                    {i < STUDENT_PROJECTS.length - 1 ? (
+                                        <div
+                                            role="presentation"
+                                            aria-hidden
+                                            className="
+                                                col-span-full mx-auto my-[30px]
+                                                box-border h-0 w-full max-w-[459.55078125px] shrink-0
+                                                border-0 border-t border-solid border-black
+                                                lg:hidden
+                                            "
+                                        />
+                                    ) : null}
+                                </React.Fragment>
                             ))}
                         </div>
 
@@ -84,7 +93,7 @@ export function DesignStudentProjectsSection() {
                                 See more work <br />
                                 from our students
                             </p>
-                            <JoinClubLikeButton color="#8F56FF" label="View Projects" isMobile />
+                            <JoinClubLikeButton label="View moreProjects" isMobile />
                         </div>
                     </div>
                 </div>
@@ -176,70 +185,43 @@ function StudentProjectCard({ imageSrc, font }: { imageSrc: string; font: string
                     </div>
                 </div>
             </div>
+
         </article>
     );
 }
 
-function JoinClubLikeButton({
-    color,
-    label,
-    isMobile,
-    href = "/design-school/projects",
-    pillStyle,
-}: {
-    color: string;
-    label: string;
-    isMobile?: boolean;
-    href?: string;
-    pillStyle?: CSSProperties;
-}) {
+const VIEW_PROJECTS_ACCENT = "#8F56FF";
+
+function JoinClubLikeButton({ label, isMobile, href = "/design-school/projects" }: { label: string; isMobile?: boolean; href?: string }) {
     const vcFont = '"VC Nudge Trial Normal", sans-serif';
-    // Using the same pattern as Join the Club / Contact Us (pill + arrow circle, sliding arrow)
+    const gapPx = isMobile ? 4.4 : 5.56;
+    const outerW = isMobile ? "310.8014px" : "342.56px";
+    const pillW = isMobile ? 258.8333435058594 : 277;
+    const pillH = isMobile ? 50.19047546386719 : 54;
+    const bw = isMobile ? 0.88 : 1.11;
+
     return (
-        <div className="flex items-center gap-[4.4px] lg:gap-[5.56px] group">
-            <Link
-                href={href}
-                className="flex items-center justify-center rounded-[50px] border-[0.88px] lg:border-[1.11px] border-[#8F56FF] px-[26.43px] py-[14.1px] lg:px-[33.33px] lg:py-[17.78px] bg-transparent transition-colors duration-300 group-hover:bg-[#8F56FF]"
-                style={{
-                    fontFamily: vcFont,
-                    fontWeight: 550,
-                    width: isMobile ? "258.8333435058594px" : "277px",
-                    height: isMobile ? "50.19047546386719px" : "54px",
-                    ...(pillStyle ?? {}),
-                }}
-            >
-                <span className="text-[#000000] leading-none whitespace-nowrap transition-colors duration-300 group-hover:text-white" style={{ fontSize: isMobile ? 16 : 17.78 }}>
-                    {label}
-                </span>
-            </Link>
-            <Link
-                href={href}
-                className="relative rounded-full overflow-hidden shrink-0"
-                style={{ width: isMobile ? "47.5714px" : "60px", height: isMobile ? "47.5714px" : "60px", backgroundColor: color }}
-                aria-label={label}
-            >
-                <div
-                    className={[
-                        "absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0",
-                        isMobile ? "-translate-x-[36px]" : "-translate-x-[45.56px]",
-                    ].join(" ")}
-                >
-                    <svg viewBox="0 0 34 34" fill="none" style={{ width: isMobile ? 26 : 33.33, height: isMobile ? 26 : 33.33 }}>
-                        <path d={ARROW_PATH} fill="white" />
-                    </svg>
-                </div>
-                <div
-                    className={[
-                        "absolute inset-0 flex items-center justify-center transition-transform duration-300",
-                        isMobile ? "group-hover:translate-x-[36px]" : "group-hover:translate-x-[46px]",
-                    ].join(" ")}
-                >
-                    <svg viewBox="0 0 34 34" fill="none" style={{ width: isMobile ? 26 : 33.33, height: isMobile ? 26 : 33.33 }}>
-                        <path d={ARROW_PATH} fill="white" />
-                    </svg>
-                </div>
-            </Link>
-        </div>
+        <DesignSplitArrowCta
+            href={href}
+            accent={VIEW_PROJECTS_ACCENT}
+            label={label}
+            ariaLabel={label}
+            fontFamily={vcFont}
+            arrowPreset={isMobile ? "mobile36" : "desktop"}
+            wrapperStyle={{ width: outerW, height: pillH }}
+            dims={{
+                gapPx,
+                pillWidth: pillW,
+                pillHeight: pillH,
+                borderWidth: bw,
+                radiusPx: 50,
+                padX: isMobile ? 26.43 : 33.33,
+                padY: isMobile ? 14.1 : 17.78,
+                fontSizePx: isMobile ? 16 : 17.78,
+                circlePx: isMobile ? 47.5714 : 60,
+                arrowSvgPx: isMobile ? 26 : 33.33,
+            }}
+        />
     );
 }
 

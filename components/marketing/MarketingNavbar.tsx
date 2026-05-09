@@ -95,7 +95,7 @@ export function MarketingNavbar() {
 
             <Link
                 href="/contact"
-                className="hidden lg:flex relative items-center w-[180px] h-[60px] shrink-0 group no-underline"
+                className="hidden lg:flex relative cursor-pointer items-center w-[180px] h-[60px] shrink-0 group no-underline"
                 aria-label="Contact us"
             >
                 <div className="absolute left-0 top-0 w-[175px] h-[60px] bg-[#E6EFFF] rounded-[30px] flex items-center pl-[20px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
@@ -149,7 +149,7 @@ export function MarketingNavbar() {
                             <Link
                                 href="/contact"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="relative flex items-center w-[158.26px] h-[44px] shrink-0 group no-underline"
+                                className="relative flex cursor-pointer items-center w-[158.26px] h-[44px] shrink-0 group no-underline"
                                 aria-label="Enquire now"
                             >
                                 <div className="absolute left-0 top-0 w-[154.6px] h-[44px] bg-[#E6EFFF] rounded-[22px] flex items-center pl-[12px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">

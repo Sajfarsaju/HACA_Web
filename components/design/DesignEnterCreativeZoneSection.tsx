@@ -1,11 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
 import { motion, type TargetAndTransition } from "framer-motion"
 
-const ARROW_PATH =
-    "M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z"
+import { DesignSplitArrowCta } from "./DesignSplitArrowCta"
 
 // ── Timing matches DesignWhyCreativitySection exactly ─────────────────────────
 const ANIM_DUR  = 0.7
@@ -309,48 +307,27 @@ function ZoneButton({ font, isMobile }: { font: string; isMobile?: boolean }) {
     const arrowBox = isMobile ? 26    : 33.33
 
     return (
-        <div className="w-full flex items-center justify-center">
-            <div
-                className="flex items-center gap-[5.56px] group cursor-pointer"
-                style={{ width: `${wrapW}px`, height: `${wrapH}px`, gap: `${gap}px` }}
-            >
-                <Link
-                    href="/design-school/courses"
-                    className="flex items-center justify-center bg-transparent transition-colors duration-300 group-hover:bg-[#FF5C00]"
-                    style={{
-                        width: `${pillW}px`, height: `${pillH}px`,
-                        borderWidth: `${borderW}px`, borderColor: "#FF5C00",
-                        borderStyle: "solid", borderRadius: `${radius}px`,
-                        fontFamily: font, fontWeight: 550,
-                        padding: `${padY}px ${padX}px`,
-                    }}
-                >
-                    <span
-                        className="leading-none whitespace-nowrap transition-colors duration-300 group-hover:text-white"
-                        style={{ fontSize: `${fontSize}px`, color: "#000000" }}
-                    >
-                        Enter the Zone
-                    </span>
-                </Link>
-
-                <Link
-                    href="/design-school/courses"
-                    className="relative rounded-full bg-[#FF5C00] overflow-hidden shrink-0"
-                    style={{ width: `${circle}px`, height: `${circle}px` }}
-                    aria-label="Enter the Zone"
-                >
-                    <div className={["absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0", isMobile ? "-translate-x-[36px]" : "-translate-x-[45.56px]"].join(" ")}>
-                        <svg viewBox="0 0 34 34" fill="none" style={{ width: `${arrowBox}px`, height: `${arrowBox}px` }}>
-                            <path d={ARROW_PATH} fill="white" />
-                        </svg>
-                    </div>
-                    <div className={["absolute inset-0 flex items-center justify-center transition-transform duration-300", isMobile ? "group-hover:translate-x-[36px]" : "group-hover:translate-x-[46px]"].join(" ")}>
-                        <svg viewBox="0 0 34 34" fill="none" style={{ width: `${arrowBox}px`, height: `${arrowBox}px` }}>
-                            <path d={ARROW_PATH} fill="white" />
-                        </svg>
-                    </div>
-                </Link>
-            </div>
+        <div className="flex w-full items-center justify-center">
+            <DesignSplitArrowCta
+                href="/design-school/courses"
+                label="Enter the Zone"
+                ariaLabel="Enter the Zone"
+                fontFamily={font}
+                arrowPreset={isMobile ? "mobile36" : "desktop"}
+                wrapperStyle={{ width: `${wrapW}px`, height: `${wrapH}px` }}
+                dims={{
+                    gapPx: gap,
+                    pillWidth: pillW,
+                    pillHeight: pillH,
+                    borderWidth: borderW,
+                    radiusPx: radius,
+                    padX,
+                    padY,
+                    fontSizePx: fontSize,
+                    circlePx: circle,
+                    arrowSvgPx: arrowBox,
+                }}
+            />
         </div>
     )
 }

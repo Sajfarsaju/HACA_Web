@@ -4,11 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
+
 const LOGO_SRC = "/photos/main/haca%20design%20school.svg";
 const FOOTER_ILLUSTRATION_SRC = "/photos/schools/design/677899dc62a1d1abef869da860d62739ce98ca75.webp";
-
-const ARROW_PATH =
-    "M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z";
 
 /** Footer heading decorations — sizes only (“Hey designers!”) */
 const FOOTER_HEADING_DECO = {
@@ -95,115 +94,55 @@ function Deco4({ color, style }: { color: string; style?: React.CSSProperties })
 /* ── Schedule a Call button ── */
 
 function ScheduleCallButton({ font, accentColor }: { font: string; accentColor: string }) {
-    const wrapW = 224.83334350585938;
-    const wrapH = 50.19047546386719;
-    const pillW = 168.76;
-    const circle = 47.57143020629883;
-    const gap = 4.4;
-    const borderW = 0.88;
-    const radius = 39.64;
-    const padY = 14.1;
-    const padX = 26.43;
-    const fontSize = 16;
-    const arrowBox = 26;
-
-    const wrapWDesk = 265.2221984863281;
-    const wrapHDesk = 60.5555534362793;
-    const pillWDesk = 199.666;
-    const circleDesk = 60;
-    const gapDesk = 5.56;
-    const borderWDesk = 1.11;
-    const radiusDesk = 50;
-    const padYDesk = 17.78;
-    const padXDesk = 33.33;
-    const fontSizeDesk = 17.78;
-    const arrowBoxDesk = 33.33;
-
-    const pillBase: React.CSSProperties = {
-        borderStyle: "solid",
-        borderColor: accentColor,
-        fontFamily: font,
-        fontWeight: 550,
-        transition: "background-color 500ms ease, border-color 500ms ease",
-    };
-
-    const circleBg: React.CSSProperties = {
-        backgroundColor: accentColor,
-        transition: "background-color 500ms ease",
-    };
-
     return (
         <>
-            {/* Mobile */}
-            <div
-                className="dsf-btn-group flex shrink-0 items-center group cursor-pointer lg:hidden"
-                style={{ width: wrapW, height: wrapH, gap }}
-            >
-                <Link
+            <div className="pointer-events-auto shrink-0 lg:hidden">
+                <DesignSplitArrowCta
+                    accent={accentColor}
                     href="/contact"
-                    className="dsf-pill flex items-center justify-center bg-transparent"
-                    style={{ ...pillBase, width: pillW, height: wrapH, borderWidth: borderW, borderRadius: radius, padding: `${padY}px ${padX}px` }}
-                >
-                    <span
-                        className="dsf-pill-text leading-none whitespace-nowrap transition-colors duration-300"
-                        style={{ fontSize, color: "#ffffff" }}
-                    >
-                        Schedule a Call
-                    </span>
-                </Link>
-                <Link
-                    href="/contact"
-                    className="relative shrink-0 overflow-hidden rounded-full"
-                    style={{ ...circleBg, width: circle, height: circle }}
-                    aria-label="Schedule a Call"
-                >
-                    <div className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0 -translate-x-[36px]">
-                        <svg viewBox="0 0 34 34" fill="none" style={{ width: arrowBox, height: arrowBox }}>
-                            <path d={ARROW_PATH} fill="white" />
-                        </svg>
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-[36px]">
-                        <svg viewBox="0 0 34 34" fill="none" style={{ width: arrowBox, height: arrowBox }}>
-                            <path d={ARROW_PATH} fill="white" />
-                        </svg>
-                    </div>
-                </Link>
+                    ariaLabel="Schedule a Call"
+                    label="Schedule a Call"
+                    fontFamily={font}
+                    arrowPreset="mobile36"
+                    wrapperClassName="cursor-pointer"
+                    wrapperStyle={{ width: 224.83334350585938, height: 50.19047546386719 }}
+                    dims={{
+                        gapPx: 4.4,
+                        pillWidth: 168.76,
+                        pillHeight: 50.19047546386719,
+                        borderWidth: 0.88,
+                        radiusPx: 39.64,
+                        padX: 26.43,
+                        padY: 14.1,
+                        fontSizePx: 16,
+                        circlePx: 47.57143020629883,
+                        arrowSvgPx: 26,
+                    }}
+                />
             </div>
-
-            {/* Desktop */}
-            <div
-                className="dsf-btn-group hidden shrink-0 items-center group cursor-pointer lg:flex"
-                style={{ width: wrapWDesk, height: wrapHDesk, gap: gapDesk }}
-            >
-                <Link
+            <div className="pointer-events-auto hidden shrink-0 lg:block">
+                <DesignSplitArrowCta
+                    accent={accentColor}
                     href="/contact"
-                    className="dsf-pill flex items-center justify-center bg-transparent"
-                    style={{ ...pillBase, width: pillWDesk, height: wrapHDesk, borderWidth: borderWDesk, borderRadius: radiusDesk, padding: `${padYDesk}px ${padXDesk}px` }}
-                >
-                    <span
-                        className="dsf-pill-text leading-none whitespace-nowrap transition-colors duration-300"
-                        style={{ fontSize: fontSizeDesk, color: "#ffffff" }}
-                    >
-                        Schedule a Call
-                    </span>
-                </Link>
-                <Link
-                    href="/contact"
-                    className="relative shrink-0 overflow-hidden rounded-full"
-                    style={{ ...circleBg, width: circleDesk, height: circleDesk }}
-                    aria-label="Schedule a Call"
-                >
-                    <div className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0 -translate-x-[45.56px]">
-                        <svg viewBox="0 0 34 34" fill="none" style={{ width: arrowBoxDesk, height: arrowBoxDesk }}>
-                            <path d={ARROW_PATH} fill="white" />
-                        </svg>
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-[46px]">
-                        <svg viewBox="0 0 34 34" fill="none" style={{ width: arrowBoxDesk, height: arrowBoxDesk }}>
-                            <path d={ARROW_PATH} fill="white" />
-                        </svg>
-                    </div>
-                </Link>
+                    ariaLabel="Schedule a Call"
+                    label="Schedule a Call"
+                    fontFamily={font}
+                    arrowPreset="desktop"
+                    wrapperClassName="cursor-pointer"
+                    wrapperStyle={{ width: 265.2221984863281, height: 60.5555534362793 }}
+                    dims={{
+                        gapPx: 5.56,
+                        pillWidth: 199.666,
+                        pillHeight: 60.5555534362793,
+                        borderWidth: 1.11,
+                        radiusPx: 50,
+                        padX: 33.33,
+                        padY: 17.78,
+                        fontSizePx: 17.78,
+                        circlePx: 60,
+                        arrowSvgPx: 33.33,
+                    }}
+                />
             </div>
         </>
     );
@@ -219,14 +158,6 @@ export function DesignSchoolFooter({ font, serif }: { font: string; serif: strin
 
     return (
         <>
-            {/* Hover state for button pill — driven by CSS variable */}
-            <style>{`
-                #design-school-footer .dsf-btn-group:hover .dsf-pill {
-                    background-color: ${combo.accent};
-                    transition: background-color 300ms ease, border-color 500ms ease;
-                }
-            `}</style>
-
             <footer
                 id="design-school-footer"
                 className="relative w-full cursor-pointer select-none"
