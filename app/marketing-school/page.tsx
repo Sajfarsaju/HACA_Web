@@ -13,6 +13,7 @@ import { MarketingFaqSection } from "@/components/marketing/MarketingFaqSection"
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { MarketingTestimonialsAndFaqWrapper } from "@/components/marketing/MarketingTestimonialsAndFaqWrapper";
+import { MarketingPageColorLayer } from "@/components/marketing/MarketingPageColorLayer";
 
 export const metadata: Metadata = {
     title: "Marketing School | HACA",
@@ -21,7 +22,8 @@ export const metadata: Metadata = {
 
 export default function MarketingSchoolPage() {
     return (
-        <main className="w-full min-h-screen bg-white overflow-x-hidden">
+        <MarketingPageColorLayer>
+        <main className="w-full min-h-screen overflow-x-hidden">
             <MarketingNavbar />
             <MarketingHeroSection />
             <MarketingImpactSection />
@@ -40,5 +42,6 @@ export default function MarketingSchoolPage() {
             </MarketingTestimonialsAndFaqWrapper>
             <MarketingFooter />
         </main>
+        </MarketingPageColorLayer>
     );
 }

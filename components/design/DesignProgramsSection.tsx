@@ -7,6 +7,15 @@ import { DesignPickOneToExploreSection } from "./DesignPickOneToExploreSection";
 // Virtual units consumed per card transition
 const PROGRESS_PER_CARD = 900;
 
+// Per-card recede rotation — each card tilts in a unique direction
+const RECEDE_ROT = [
+    { x: 16,  z:  6   },   // card 0 — lean back + tilt right
+    { x: 22,  z: -9   },   // card 1 — steep lean + tilt left
+    { x: 13,  z:  11  },   // card 2 — shallow lean + strong right
+    { x: 20,  z: -5   },   // card 3 — steep lean + slight left
+    { x: 17,  z:  8   },   // card 4 — lean back + tilt right
+];
+
 const DUMMY_TOOLS = Array.from({ length: 10 }, (_, i) => ({ alt: `Tool ${i + 1}` }));
 
 const PROGRAMS: DesignProgramCardProps[] = [
@@ -180,8 +189,9 @@ const PROGRAMS: DesignProgramCardProps[] = [
 ];
 
 export function DesignProgramsSection() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const cardRefs     = useRef<(HTMLDivElement | null)[]>([]);
+    const containerRef   = useRef<HTMLDivElement>(null);
+    const cardRefs       = useRef<(HTMLDivElement | null)[]>([]);
+    const exploreCardRef = useRef<HTMLDivElement>(null);
     const [wrapperH, setWrapperH] = useState(0);
 
     // Animation progress 0 → (N-1)*PROGRESS_PER_CARD
@@ -196,18 +206,19 @@ export function DesignProgramsSection() {
     // before iOS commits to its own scroll physics.
     const armCapture  = useRef(false);
 
-    // Measure card 0 height before first paint; push cards 1-N off-screen.
-    // Desktop only — mobile shows cards in normal flow with no animation.
+    // Measure max card height before first paint; push cards 1-N off-screen.
     useLayoutEffect(() => {
-        if (window.innerWidth < 1024) return;
         const card0 = cardRefs.current[0];
         if (!card0) return;
-        const h = card0.offsetHeight;
+        const h = Math.max(...cardRefs.current.map(c => c?.offsetHeight ?? 0));
         if (h <= 0) return;
         setWrapperH(h);
         cardRefs.current.forEach((card, i) => {
             if (card && i > 0) card.style.transform = `translateY(${h}px)`;
         });
+        if (exploreCardRef.current) {
+            exploreCardRef.current.style.transform = `translateY(${h}px)`;
+        }
     }, []);
 
     // Re-measure on resize / orientation change
@@ -215,15 +226,7 @@ export function DesignProgramsSection() {
         const card0 = cardRefs.current[0];
         if (!card0) return;
         const onResize = () => {
-            if (window.innerWidth < 1024) {
-                // Switched to mobile — clear transforms and disable animation
-                setWrapperH(0);
-                cardRefs.current.forEach(card => {
-                    if (card) card.style.transform = "";
-                });
-                return;
-            }
-            const h = card0.offsetHeight;
+            const h = Math.max(...cardRefs.current.map(c => c?.offsetHeight ?? 0));
             if (h > 0) setWrapperH(h);
         };
         window.addEventListener("resize", onResize, { passive: true });
@@ -235,48 +238,97 @@ export function DesignProgramsSection() {
         const container = containerRef.current;
         if (!container || wrapperH === 0) return;
 
-        const max = (PROGRAMS.length - 1) * PROGRESS_PER_CARD;
+        // One extra virtual card for the DesignPickOneToExploreSection
+        const max = PROGRAMS.length * PROGRESS_PER_CARD;
+
+        const eio = (t: number) =>
+            t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+        // iOS scroll-lock: saved position for position:fixed body trick
+        let savedScrollY = 0;
+        // Prevents onScroll from immediately re-locking after a programmatic scrollTo in unlock()
+        let preventScrollLock = false;
 
         // Apply current progress to card transforms
         const render = () => {
             raf.current = null;
             const p = progress.current;
+
             cardRefs.current.forEach((card, i) => {
-                if (!card || i === 0) return;
-                const raw = Math.max(0, Math.min(1,
+                if (!card) return;
+
+                // Enter: card i slides up from below during [(i-1)*PPT, i*PPT]
+                // Card 0 is always fully entered (enterE = 1)
+                const enterRaw = i === 0 ? 1 : Math.max(0, Math.min(1,
                     (p - (i - 1) * PROGRESS_PER_CARD) / PROGRESS_PER_CARD
                 ));
-                const e = raw < 0.5
-                    ? 4 * raw * raw * raw
-                    : 1 - Math.pow(-2 * raw + 2, 3) / 2;
-                card.style.transform = `translateY(${wrapperH * (1 - e)}px)`;
+                const enterE = eio(enterRaw);
+
+                // Recede: card i fades+recedes in 3D during [i*PPT, (i+1)*PPT]
+                const recedeRaw = Math.max(0, Math.min(1,
+                    (p - i * PROGRESS_PER_CARD) / PROGRESS_PER_CARD
+                ));
+                const recedeE = eio(recedeRaw);
+
+                const ty   = wrapperH * (1 - enterE);
+                const tz   = recedeE * -300;
+                const rot  = RECEDE_ROT[i] ?? { x: 15, z: 6 };
+                const rotX = recedeE * rot.x;
+                const rotZ = recedeE * rot.z;
+                const opacity = 1 - recedeE;
+
+                card.style.transform = `perspective(1000px) translateY(${ty}px) translateZ(${tz}px) rotateX(${rotX}deg) rotateZ(${rotZ}deg)`;
+                card.style.opacity   = String(Math.max(0, opacity));
             });
+
+            // Explore card: only enter animation (it's the final card, nothing recedes it)
+            const exploreCard = exploreCardRef.current;
+            if (exploreCard) {
+                const raw = Math.max(0, Math.min(1,
+                    (p - (PROGRAMS.length - 1) * PROGRESS_PER_CARD) / PROGRESS_PER_CARD
+                ));
+                const e = eio(raw);
+                exploreCard.style.transform = `translateY(${wrapperH * (1 - e)}px)`;
+                exploreCard.style.opacity   = "1";
+            }
         };
         const queue = () => {
             if (raf.current !== null) return;
             raf.current = requestAnimationFrame(render);
         };
 
-        // Freeze page scroll at the position where section top === 0.
+        // Freeze page scroll.
+        // overflow:hidden preserves window.scrollY so unlock needs no scrollTo restoration.
+        // touch-action:none tells iOS not to claim the next gesture as a native scroll.
         const lock = () => {
             if (locked.current) return;
             locked.current = true;
             const top = container.getBoundingClientRect().top;
-            if (Math.abs(top) > 2) window.scrollTo(0, window.scrollY + top);
+            savedScrollY = window.scrollY + top;
+            // Snap section to viewport top (also stops any iOS momentum scroll in progress)
+            if (Math.abs(top) > 1) window.scrollTo(0, savedScrollY);
             document.documentElement.style.overflow = "hidden";
-            document.body.style.overflow             = "hidden";
+            document.body.style.overflow            = "hidden";
+            container.style.touchAction             = "none";
         };
         const unlock = () => {
             if (!locked.current) return;
             locked.current = false;
             document.documentElement.style.overflow = "";
-            document.body.style.overflow             = "";
+            document.body.style.overflow            = "";
+            container.style.touchAction             = "";
+            // overflow:hidden preserved window.scrollY — no scrollTo needed.
+            // Set the guard for 2 frames so onScroll doesn't immediately re-lock.
+            preventScrollLock = true;
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                preventScrollLock = false;
+            }));
         };
 
-        // True when section top is within the capture zone
+        // True when section top is within the capture zone (lenient for mobile momentum scroll)
         const inZone = () => {
             const top = container.getBoundingClientRect().top;
-            return top <= 5 && top >= -(wrapperH + 50);
+            return top <= 60 && top >= -(wrapperH + 50);
         };
 
         const advanceForward = (delta: number): boolean => {
@@ -304,21 +356,29 @@ export function DesignProgramsSection() {
         };
 
         // ── Scroll listener ────────────────────────────────────────────────────
-        // Dual purpose:
-        //  1. Arms armCapture when section is ≤50 px from viewport top so the
-        //     next touchstart/touchmove can call e.preventDefault() early enough
-        //     for iOS to respect it.
-        //  2. Resets animation when user scrolls back above the section.
+        // Handles two cases:
+        //  1. Mobile momentum scroll — after touchend the browser keeps scrolling
+        //     with no touchmove events. We intercept here and call lock() so the
+        //     position:fixed body trick stops the momentum immediately.
+        //  2. Arms armCapture before the next touch gesture begins.
         const onScroll = () => {
-            if (locked.current) return;
+            if (locked.current || preventScrollLock) return;
             const top = container.getBoundingClientRect().top;
 
-            // Pre-arm touch capture ~50 px before section reaches viewport top
-            armCapture.current = top <= 50 && top >= -(wrapperH + 50) &&
+            // Arm touch capture when section is near the viewport top
+            armCapture.current = top <= 60 && top >= -(wrapperH + 50) &&
                 (progress.current < max || progress.current > 0);
 
+            // ── Momentum intercept ──
+            // Section reached (or passed) the viewport top while no finger is down.
+            // Lock immediately so the momentum scroll cannot continue past the section.
+            if (armCapture.current && progress.current === 0 && top <= 2) {
+                lock();
+                return;
+            }
+
             // User scrolled back above section → reset so animation replays on re-entry
-            if (top > 50 && progress.current > 0) {
+            if (top > 60 && progress.current > 0) {
                 progress.current = 0;
                 armCapture.current = false;
                 queue();
@@ -339,7 +399,7 @@ export function DesignProgramsSection() {
             touchPrevY.current = e.touches[0].clientY;
             if (!armCapture.current) {
                 const top = container.getBoundingClientRect().top;
-                armCapture.current = top <= 50 && top >= -(wrapperH + 50) &&
+                armCapture.current = top <= 60 && top >= -(wrapperH + 50) &&
                     (progress.current < max || progress.current > 0);
             }
         };
@@ -361,7 +421,7 @@ export function DesignProgramsSection() {
             // Dynamically arm mid-gesture if section just reached the zone
             if (!armCapture.current) {
                 const top = container.getBoundingClientRect().top;
-                if (top <= 5 && top >= -(wrapperH + 50) && (
+                if (top <= 60 && top >= -(wrapperH + 50) && (
                     (deltaY > 0 && progress.current < max) ||
                     (deltaY < 0 && progress.current > 0)
                 )) {
@@ -369,14 +429,15 @@ export function DesignProgramsSection() {
                 }
             }
 
-            // armCapture is pre-armed: call e.preventDefault() NOW so iOS doesn't
-            // commit to native scroll, then drive animation if we're in zone
-            if (armCapture.current && deltaY > 0) {
+            // Only prevent native scroll when the animation can actually consume the gesture
+            if (armCapture.current && deltaY > 0 && progress.current < max) {
                 e.preventDefault();
                 if (advanceForward(deltaY * 2.5)) touchPrevY.current = currentY;
-            } else if (armCapture.current && deltaY < 0) {
+                else touchPrevY.current = currentY;
+            } else if (armCapture.current && deltaY < 0 && progress.current > 0) {
                 e.preventDefault();
                 if (advanceBackward(deltaY * 2.5)) touchPrevY.current = currentY;
+                else touchPrevY.current = currentY;
             } else {
                 touchPrevY.current = currentY;
             }
@@ -400,6 +461,8 @@ export function DesignProgramsSection() {
             window.removeEventListener("touchmove",  onTouchMove);
             window.removeEventListener("touchend",   onTouchEnd);
             unlock();
+            container.style.touchAction = "";
+            preventScrollLock = false;
             if (raf.current !== null) cancelAnimationFrame(raf.current);
         };
     }, [wrapperH]);
@@ -407,8 +470,10 @@ export function DesignProgramsSection() {
     return (
         <>
             <div ref={containerRef} style={{ overflowX: "hidden" }}>
-                {/* lg:overflow-hidden clips the off-screen cards on desktop */}
-                <div className="relative lg:overflow-hidden">
+                <div
+                    className="relative overflow-hidden"
+                    style={{ height: wrapperH > 0 ? wrapperH : undefined }}
+                >
                     {PROGRAMS.map((program, i) => (
                         <div
                             key={i}
@@ -416,7 +481,7 @@ export function DesignProgramsSection() {
                             className={
                                 i === 0
                                     ? "relative"
-                                    : "relative lg:absolute lg:top-0 lg:left-0 lg:right-0"
+                                    : "absolute top-0 left-0 right-0"
                             }
                             style={{
                                 zIndex:     i + 1,
@@ -426,9 +491,21 @@ export function DesignProgramsSection() {
                             <DesignProgramCard {...program} />
                         </div>
                     ))}
+                    {/* Explore section slides in as the final stacked card on all screen sizes */}
+                    <div
+                        ref={exploreCardRef}
+                        className="flex flex-col absolute top-0 left-0 right-0"
+                        style={{
+                            zIndex:     PROGRAMS.length + 1,
+                            willChange: "transform",
+                            height:     wrapperH > 0 ? wrapperH : undefined,
+                            overflow:   "hidden",
+                        }}
+                    >
+                        <DesignPickOneToExploreSection />
+                    </div>
                 </div>
             </div>
-            <DesignPickOneToExploreSection />
         </>
     );
 }

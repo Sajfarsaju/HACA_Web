@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image"
-import React, { useCallback, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
+import { motion } from "framer-motion"
 
 const ACCENT = "#0066FF"
 
@@ -51,7 +52,17 @@ function ArrowIcon({ dir }: { dir: "left" | "right" }) {
 
 export function MarketingTestimonialsSection() {
     const [active, setActive] = useState(0)
+    const [isDark, setIsDark] = useState(false)
     const total = TESTIMONIALS.length
+
+    useEffect(() => {
+        const handler = (e: Event) => {
+            const { isDark: d } = (e as CustomEvent<{ isDark: boolean }>).detail
+            setIsDark(d)
+        }
+        window.addEventListener("marketing-page-color", handler)
+        return () => window.removeEventListener("marketing-page-color", handler)
+    }, [])
 
     const t = TESTIMONIALS[active]
 
@@ -105,9 +116,10 @@ export function MarketingTestimonialsSection() {
                 <div className="relative flex w-full min-w-0 flex-1 flex-col items-center justify-center">
                     <div className="relative mx-auto w-full max-w-[min(100%,940px)] pt-[clamp(26px,3.2vw,36px)]">
                         {/* Quote mark — bg matches section so it "cuts" the card border */}
-                        <div
+                        <motion.div
                             className="pointer-events-none absolute left-[clamp(18px,2.6vw,30px)] top-[calc(clamp(26px,3.2vw,36px)-6px)] z-10 -translate-y-[80%] px-2"
-                            style={{ backgroundColor: "var(--tf-bg, #FFFFFF)", transition: `background-color ${COLOR_TRANSITION}` }}
+                            animate={{ backgroundColor: isDark ? "#000000" : "#ffffff" }}
+                            transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
                         >
                             <Image
                                 src="/images/testimonials/inverted-comma.svg"
@@ -118,7 +130,7 @@ export function MarketingTestimonialsSection() {
                                 aria-hidden
                                 priority
                             />
-                        </div>
+                        </motion.div>
 
                         {/* Card */}
                         <div

@@ -63,13 +63,13 @@ export default async function MarketingSuccessStoryPage() {
                     {/* Inner content wrapper for heading */}
                     <div className="flex flex-col items-center justify-center text-center gap-[14px] md:gap-[20px] w-full mx-auto md:h-auto md:max-w-none max-w-[375px]">
                         <h1 
-                            className="font-darker-grotesque font-semibold text-[36px] md:text-[56px] leading-[95%] text-black m-0 tracking-[0%]"
+                            className="font-darker-grotesque font-semibold text-[36px] md:text-[56px] lg:text-[68px] leading-[95%] text-black m-0 tracking-[0%]"
                             style={{ fontFamily: "Darker Grotesque, sans-serif", fontWeight: 600 }}
                         >
                             Success Story
                         </h1>
                         <p 
-                            className="font-darker-grotesque font-semibold text-[16px] md:text-[20px] leading-[95%] md:leading-[140%] text-center text-black m-0 max-w-[800px]"
+                            className="font-darker-grotesque font-semibold text-[16px] md:text-[20px] lg:text-[16px] leading-[95%] md:leading-[140%] text-center text-black m-0 max-w-[800px]"
                             style={{ fontFamily: "Darker Grotesque, sans-serif", fontWeight: 600 }}
                         >
                             Our graduates are building real marketing careers across different roles and companies.

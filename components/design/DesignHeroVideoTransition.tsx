@@ -80,6 +80,12 @@ export function DesignHeroVideoTransition({ src }: Props) {
     // useTransform closures rebuild with correct values before the first scroll.
     const [mPhotoPos, setMPhotoPos] = useState({ top: 548, left: 32.7, width: 104 });
 
+    // Character float + mouse parallax (desktop)
+    const charMouseX    = useMotionValue(0);
+    const charMouseY    = useMotionValue(0);
+    const charParallaxX = useSpring(useTransform(charMouseX, [-1, 1], [-12, 12]), { stiffness: 30, damping: 18 });
+    const charParallaxY = useSpring(useTransform(charMouseY, [-1, 1], [-8,   8]), { stiffness: 30, damping: 18 });
+
     // ── Measure containers + photo thumbnail position ────────────────────────
     useEffect(() => {
         const walk = (el: HTMLElement) => {
@@ -133,6 +139,16 @@ export function DesignHeroVideoTransition({ src }: Props) {
             scrollEls.forEach(e => e.removeEventListener("scroll", onScroll));
         };
     }, [scrollY]);
+
+    // Mouse tracking for character parallax (desktop only)
+    useEffect(() => {
+        const onMouseMove = (e: MouseEvent) => {
+            charMouseX.set((e.clientX / window.innerWidth)  * 2 - 1);
+            charMouseY.set((e.clientY / window.innerHeight) * 2 - 1);
+        };
+        window.addEventListener("mousemove", onMouseMove);
+        return () => window.removeEventListener("mousemove", onMouseMove);
+    }, [charMouseX, charMouseY]);
 
     // ease-in-out cubic: slow start, fast middle, slow end
     const easeInOut = (v: number) =>
@@ -229,12 +245,21 @@ export function DesignHeroVideoTransition({ src }: Props) {
                                     </p>
                                 </div>
 
-                                <div className="absolute top-[56px] left-[526px] w-[493px] h-[697.36px]">
-                                    <Image
-                                        src="/photos/schools/design/e295061aefa42f0e48724b7d1e97e9c0bccfc93f.webp"
-                                        alt="Design character" fill className="object-contain" priority
-                                    />
-                                </div>
+                                <motion.div
+                                    className="absolute top-[56px] left-[526px] w-[493px] h-[697.36px]"
+                                    style={{ x: charParallaxX, y: charParallaxY }}
+                                >
+                                    <motion.div
+                                        className="w-full h-full"
+                                        animate={{ y: [0, -18, 0] }}
+                                        transition={{ duration: 5, ease: "easeInOut", repeat: Infinity }}
+                                    >
+                                        <Image
+                                            src="/photos/schools/design/e295061aefa42f0e48724b7d1e97e9c0bccfc93f.webp"
+                                            alt="Design character" fill className="object-contain" priority
+                                        />
+                                    </motion.div>
+                                </motion.div>
 
                                 <div className="absolute top-[238px] left-[60px] w-[529px] h-[397.49px] flex flex-col gap-[10px]">
                                     <div className="w-[529px] h-[326.93px]">
@@ -395,9 +420,16 @@ export function DesignHeroVideoTransition({ src }: Props) {
                                                 </p>
                                             </div>
 
-                                            <div className="absolute top-[clamp(136px,33vw,182px)] left-[57%] -translate-x-1/2 w-[min(305px,80vw)] h-[min(432px,116vw)]">
-                                                <Image src="/photos/schools/design/e295061aefa42f0e48724b7d1e97e9c0bccfc93f.webp"
-                                                       alt="Design character" fill className="object-contain" priority />
+                                            <div className="absolute top-[clamp(136px,33vw,182px)] left-[57%] w-[min(305px,80vw)] h-[min(432px,116vw)]"
+                                                 style={{ transform: "translateX(-50%)" }}>
+                                                <motion.div
+                                                    className="w-full h-full"
+                                                    animate={{ y: [0, -12, 0] }}
+                                                    transition={{ duration: 4.5, ease: "easeInOut", repeat: Infinity }}
+                                                >
+                                                    <Image src="/photos/schools/design/e295061aefa42f0e48724b7d1e97e9c0bccfc93f.webp"
+                                                           alt="Design character" fill className="object-contain" priority />
+                                                </motion.div>
                                             </div>
 
                                             {/* Heading block — thumbnail is a visual spacer;

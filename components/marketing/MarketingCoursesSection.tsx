@@ -154,9 +154,7 @@ export function MarketingCoursesSection() {
                     max-lg:min-h-0 lg:min-h-[1070px]
                 "
             >
-                <header className="flex w-full min-w-0 flex-col gap-5 border-t border-[#3a3a3a] pb-8 pt-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10 lg:pb-12 lg:pt-8">
-                    <div className="h-0.5 w-14 shrink-0 bg-[#0066FF] lg:hidden" aria-hidden />
-
+                <header className="flex w-full min-w-0 flex-col gap-5 border-t border-[#3a3a3a] pb-8 pt-6 lg:flex-row lg:items-start lg:justify-between lg:gap-10 lg:border-t-0 lg:pb-12 lg:pt-8">
                     <div className="flex shrink-0 items-center gap-[clamp(10px,1.5vw,14px)] lg:pt-1">
                         <span
                             className="h-[10px] w-[10px] shrink-0 rounded-full lg:h-3 lg:w-3"
@@ -165,8 +163,7 @@ export function MarketingCoursesSection() {
                         />
                         <p
                             className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
-                            style={{ color: "var(--cm-text, #ffffff)" }}
-                        >
+                                                    >
                             Courses
                         </p>
                     </div>
@@ -178,8 +175,7 @@ export function MarketingCoursesSection() {
                             text-[clamp(1.5rem,5vw,3.125rem)] leading-[1.08]
                             lg:ml-auto lg:max-w-[min(100%,720px)] lg:leading-[1.08]
                         "
-                        style={{ color: "var(--cm-text, #ffffff)" }}
-                    >
+                                            >
                         <span className="lg:hidden">
                             We&apos;ve Career-Focused
                             <br />
@@ -201,7 +197,7 @@ export function MarketingCoursesSection() {
                                 (idx > 0 && COURSES[idx - 1]?.group !== "mastery")) ? (
                                 null
                             ) : null}
-                        <article className="course-row group relative border-b border-[#3a3a3a] last:border-b-0 transition-[border-color] duration-300 ease-out hover:border-transparent focus-within:border-transparent">
+                        <article className="course-row group relative border-b border-[#3a3a3a] transition-[border-color] duration-300 ease-out hover:border-transparent focus-within:border-transparent">
                             <div
                                 className="
                                     relative cursor-pointer rounded-[16px] px-0 py-6
@@ -215,10 +211,10 @@ export function MarketingCoursesSection() {
                                 <div
                                     className="
                                         grid w-full min-w-0 grid-cols-1 gap-6
-                                        lg:grid-cols-[minmax(0,42%)_minmax(0,1fr)] lg:items-center lg:gap-x-[clamp(32px,4.5vw,56px)]
+                                        lg:grid-cols-[minmax(0,42%)_minmax(0,1fr)] lg:items-stretch lg:gap-x-[clamp(32px,4.5vw,56px)]
                                     "
                                 >
-                                    <div className="flex min-w-0 flex-col items-start justify-center">
+                                    <div className="flex min-w-0 flex-col items-start justify-center lg:justify-start lg:self-start">
                                         <DurationPill mode={course.pill.mode} duration={course.pill.duration} />
                                         <h3
                                             className="
@@ -230,8 +226,7 @@ export function MarketingCoursesSection() {
                                                 lg:mt-[18px] lg:font-bold lg:text-[clamp(1.125rem,4.2vw,2.125rem)] lg:leading-[1.12]
                                                 group-hover:text-white group-focus-within:text-white
                                             "
-                                            style={{ color: "var(--cm-text, #ffffff)" }}
-                                        >
+                                                                                    >
                                             <span className="lg:hidden">{course.titleMobile}</span>
                                             <span className="hidden lg:inline">
                                                 {course.titleLines.map((line, i) => (
@@ -249,19 +244,19 @@ export function MarketingCoursesSection() {
                                     <div
                                         className="
                                             flex w-full min-w-0 max-w-[min(100%,681.225px)] flex-col items-stretch gap-4
-                                            lg:ml-auto lg:min-h-[66px] lg:max-w-[min(100%,681.225px)] lg:flex-row lg:items-center lg:gap-6
+                                            lg:ml-auto lg:h-full lg:min-h-[66px] lg:max-w-[min(100%,681.225px)] lg:justify-end lg:gap-6
+                                            lg:pr-[clamp(56px,8vw,88px)]
                                         "
                                     >
                                         <p
                                             className="
-                                                course-text m-0 w-full min-w-0 whitespace-pre-line text-left
+                                                course-text m-0 w-full min-w-0 whitespace-pre-line lg:whitespace-normal text-left
                                                 font-['Satoshi',sans-serif] text-[16px] font-medium leading-[1.5] tracking-normal
                                                 transition-colors duration-300 ease-out
-                                                lg:min-h-[72px] lg:w-[572px] lg:max-w-[572px] lg:shrink-0 lg:leading-[1.45]
+                                                lg:min-h-[72px] lg:max-w-[572px] lg:w-full lg:shrink lg:leading-[1.45]
                                                 group-hover:text-white group-focus-within:text-white
                                             "
-                                            style={{ color: "var(--cm-text, #ffffff)" }}
-                                        >
+                                                                                    >
                                             {course.descriptionLines.join("\n")}
                                         </p>
                                         <div className="flex w-full justify-start lg:hidden">
@@ -271,7 +266,7 @@ export function MarketingCoursesSection() {
                                 </div>
                             </div>
                             {/* Arrow — inside the card padding, right-aligned with the content edge */}
-                            <div className="absolute right-[clamp(14px,2vw,28px)] top-1/2 hidden -translate-y-1/2 lg:flex lg:items-center">
+                            <div className="absolute right-[clamp(14px,2vw,28px)] top-1/2 hidden -translate-y-1/2 lg:top-auto lg:bottom-[clamp(36px,4.2vw,52px)] lg:flex lg:translate-y-0 lg:items-center">
                                 <CourseRowArrows />
                             </div>
                         </article>

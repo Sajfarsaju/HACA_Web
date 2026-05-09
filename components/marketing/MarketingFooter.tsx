@@ -119,7 +119,7 @@ export function MarketingFooter() {
                         </div>
 
                         {/* Right: quick links + back-to-top (desktop placement like screenshot) */}
-                        <div className="mt-8 min-w-0 md:mt-0 md:pt-1">
+                        <div className="mt-8 min-w-0 md:mt-0 md:pt-1 md:flex md:flex-col">
                             {/* Quick links frame size on desktop: 169px wide, 40px gap to button */}
                             <div className="flex w-full min-w-0 flex-col items-start md:w-[169px]">
                                 <div className="flex flex-col items-start gap-[14px]">
@@ -139,11 +139,11 @@ export function MarketingFooter() {
                                         ))}
                                     </ul>
                                 </div>
+                            </div>
 
-                                {/* Desktop: arrow below quick links like screenshot */}
-                                <div className="hidden md:flex w-full justify-end pt-6">
-                                    <BackToTopBlue />
-                                </div>
+                            {/* Desktop: arrow below quick links, aligned to far right */}
+                            <div className="hidden md:flex w-full justify-end pt-6">
+                                <BackToTopBlue />
                             </div>
                         </div>
 

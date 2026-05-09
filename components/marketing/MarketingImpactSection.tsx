@@ -5,7 +5,7 @@ import { PressLogos } from "@/components/sections/PressLogos"
 import { MarketingStatsSection } from "@/components/marketing/MarketingStatsSection"
 import { MarketingApproachSection } from "@/components/marketing/MarketingApproachSection"
 import Image from "next/image"
-import { motion, useScroll, useMotionValueEvent } from "framer-motion"
+import { useScroll, useMotionValueEvent } from "framer-motion"
 
 export function MarketingImpactSection() {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -15,7 +15,8 @@ export function MarketingImpactSection() {
 
     const togglePlay = () => {
         if (videoRef.current) {
-            isPlaying ? videoRef.current.pause() : videoRef.current.play();
+            if (isPlaying) videoRef.current.pause();
+            else videoRef.current.play();
             setIsPlaying(!isPlaying);
         }
     };
@@ -27,21 +28,16 @@ export function MarketingImpactSection() {
     const [isDark, setIsDark] = useState(false);
     useMotionValueEvent(scrollYProgress, "change", (v) => setIsDark(v > 0.08));
 
-    const colorTransition = { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] as const };
 
     useEffect(() => {
-        const node = wrapperRef.current;
-        if (!node) return;
-        node.style.setProperty("--impact-text", isDark ? "#ffffff" : "#000000");
+        window.dispatchEvent(new CustomEvent("marketing-page-color", { detail: { isDark } }));
     }, [isDark]);
 
     return (
-        <motion.section
+        <section
             ref={wrapperRef}
             id="marketing-impact"
             className="w-full flex flex-col items-center opacity-100 overflow-hidden"
-            animate={{ backgroundColor: isDark ? "#000000" : "#FFFFFF" }}
-            transition={colorTransition}
             style={{
                 minHeight: "1666.82px",
                 paddingTop: "40px",
@@ -79,7 +75,7 @@ export function MarketingImpactSection() {
                     .info-button {
                         width: auto;
                         min-width: max-content;
-                        height: clamp(16px, 2vw, 22px);
+                        height: auto;
                         display: flex;
                         flex-direction: row;
                         flex-wrap: nowrap;
@@ -97,10 +93,10 @@ export function MarketingImpactSection() {
                     .info-text {
                         width: auto;
                         min-width: max-content;
-                        height: clamp(16px, 2vw, 22px);
+                        height: auto;
                         font-family: "Satoshi", sans-serif;
                         font-weight: 500;
-                        font-size: clamp(12px, 1.1vw, 16px);
+                        font-size: 16px;
                         line-height: 100%;
                         white-space: nowrap;
                         flex-shrink: 0;
@@ -163,7 +159,7 @@ export function MarketingImpactSection() {
                             padding-bottom: 40px;
                         }
                         .about-us-container {
-                            width: 343px;
+                            width: 100%;
                             max-width: 100%;
                             height: auto;
                             min-height: 198px;
@@ -175,8 +171,11 @@ export function MarketingImpactSection() {
                         .info-text {
                             white-space: nowrap;
                         }
+                        .info-text {
+                            font-size: 14px;
+                        }
                         .note-text {
-                            width: 343px;
+                            width: 100%;
                             height: auto;
                             min-height: 162px;
                             font-size: 20px;
@@ -184,8 +183,19 @@ export function MarketingImpactSection() {
                             line-height: 130%;
                         }
                         .video-container {
-                            max-width: 343px;
+                            width: 100%;
+                            max-width: none;
                             border-radius: 2.84px;
+                        }
+                        .video-section-wrapper {
+                            padding-left: 0px;
+                            padding-right: 0px;
+                            box-sizing: border-box;
+                        }
+                        .impact-stats-block {
+                            padding-left: 0px;
+                            padding-right: 0px;
+                            box-sizing: border-box;
                         }
                     }
                 `}</style>
@@ -201,12 +211,12 @@ export function MarketingImpactSection() {
                     <div className="about-us-container">
                         <div className="info-button">
                             <div className="blue-dot" />
-                            <span className="info-text" style={{ color: "var(--impact-text, #000000)", transition: "color 0.55s ease" }}>
+                            <span className="info-text">
                                 About Marketing School
                             </span>
                         </div>
-                        <div className="note-text" style={{ color: "var(--impact-text, #000000)", transition: "color 0.55s ease" }}>
-                            Here, we don't just explain marketing; we make you apply it. You'll run ads, write copy,
+                        <div className="note-text">
+                            Here, we don&apos;t just explain marketing; we make you apply it. You&apos;ll run ads, write copy,
                             build websites, optimise for SEO, launch campaigns, and fix mistakes, with someone guiding
                             you whenever you get stuck.
                         </div>
@@ -256,13 +266,7 @@ export function MarketingImpactSection() {
                             </button>
                         </div>
 
-                        <div className="mt-[clamp(16px,2.5vw,28px)] w-full min-w-0 shrink-0 px-0">
-                            <p
-                                className="m-0 pb-[clamp(10px,1.5vw,16px)] text-left [font-family:'Darker_Grotesque',sans-serif] text-[clamp(22px,3.2vw,32px)] font-semibold leading-[100%] tracking-[-0.02em]"
-                                style={{ color: "var(--impact-text, #000000)", transition: "color 0.55s ease" }}
-                            >
-                                Our Journey in Simple Numbers
-                            </p>
+                        <div className="impact-stats-block mt-[clamp(16px,2.5vw,28px)] w-full min-w-0 shrink-0 px-0">
                             <MarketingStatsSection />
                         </div>
 
@@ -271,6 +275,6 @@ export function MarketingImpactSection() {
                         </div>
                     </div>
                 </div>
-        </motion.section>
+        </section>
     )
 }

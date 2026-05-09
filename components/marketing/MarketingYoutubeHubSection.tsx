@@ -1,38 +1,24 @@
 import React from "react"
 import Image from "next/image"
+import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle"
 
 const ACCENT = "#0066FF"
-
-function ArrowRightIcon({ className }: { className?: string }) {
-    return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden className={className}>
-            <path
-                d="M5 12h14m0 0-6-6m6 6-6 6"
-                stroke="currentColor"
-                strokeWidth={2.25}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
-    )
-}
 
 function ViewMorePill() {
     return (
         <button
             type="button"
-            className="
-                group inline-flex h-[60px] w-[171px] items-center justify-between gap-[10px]
-                rounded-[30px] bg-[#E8F1FF]
-                pl-[20px] pr-2
-                font-['Satoshi',sans-serif] text-[14px] font-medium leading-none text-black
-                transition-colors duration-300 ease-out hover:bg-black/5
-            "
+            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline"
         >
-            <span className="shrink-0">View More</span>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0066FF] transition-colors group-hover:bg-[#015AFF]">
-                <ArrowRightIcon className="text-white" />
-            </span>
+            <div className="relative h-[60px] w-fit rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
+                <span
+                    className="flex h-full items-center whitespace-nowrap text-black"
+                    style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}
+                >
+                    View More
+                </span>
+            </div>
+            <MarketingCtaArrowCircle size="60" className="absolute right-0 top-0" />
         </button>
     )
 }
@@ -53,7 +39,7 @@ function YoutubeThumbnailCard({
     return (
         <div
             className={[
-                "relative mx-auto w-full min-w-0 max-w-[553px] overflow-hidden bg-transparent lg:mx-0 lg:h-full lg:max-w-none lg:flex-1",
+                "relative flex-none overflow-hidden bg-transparent w-[min(553px,85vw)] lg:w-[553px] lg:h-[306.1628112792969px]",
                 className,
             ]
                 .filter(Boolean)
@@ -116,20 +102,29 @@ export function MarketingYoutubeHubSection() {
                     </h2>
                 </header>
 
-                <div className="mx-auto flex w-full min-w-0 flex-col items-center gap-6 lg:h-[306.1628112792969px] lg:w-[1320px] lg:flex-row lg:items-stretch lg:justify-between lg:gap-[45.83px]">
+                <div
+                    className="
+                        flex w-full min-w-0 flex-row items-stretch gap-6
+                        overflow-x-auto overflow-y-hidden
+                        [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+                        lg:gap-[45.83px]
+                    "
+                    aria-label="YouTube thumbnails"
+                >
                     <YoutubeThumbnailCard
-                        className="hidden lg:block"
-                        src="/images/youtube-hub/rectangle-43.png"
+                        src="/photos/schools/marketing/3e0b6431c0a1ce2edb5d9f2b9cf1935a0298f97d.webp"
                         alt="YouTube video thumbnail 1"
                     />
                     <YoutubeThumbnailCard
-                        className="lg:flex-none lg:h-[306.1628112792969px] lg:w-[553px]"
-                        src="/images/youtube-hub/rectangle-44.png"
+                        src="/photos/schools/marketing/700659e2027945d5a13c08eb0820dca74b2bce51.webp"
                         alt="YouTube video thumbnail 2"
                         fit="contain"
                         priority
                     />
-                    <YoutubeThumbnailCard className="hidden lg:block" src="/images/youtube-hub/rectangle-58.png" alt="YouTube video thumbnail 3" />
+                    <YoutubeThumbnailCard
+                        src="/photos/schools/marketing/e8f4127c19d1ab67ffbd3ef91b18894f38b5261a.webp"
+                        alt="YouTube video thumbnail 3"
+                    />
                 </div>
 
                 <div className="flex w-full items-center justify-center pt-1 md:pt-3">
