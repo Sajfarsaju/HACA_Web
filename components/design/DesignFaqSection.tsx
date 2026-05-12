@@ -69,13 +69,13 @@ export function DesignFaqSection({ font, serif }: { font: string; serif: string 
     return (
         <section
             id="design-faq"
-            className="box-border w-full max-w-[1440px] bg-[#FCFCFC]"
+            className="box-border w-full max-w-[1440px] bg-[#FCFCFC] px-4 lg:px-[60px]"
             aria-labelledby={`${baseId}-heading`}
         >
             <div
                 className="
-                    flex w-full min-w-0 flex-col gap-[50px] px-5 pb-[30px] pt-[30px]
-                    lg:gap-[80px] lg:px-[60px] lg:pb-10 lg:pt-10
+                    flex w-full min-w-0 flex-col gap-[50px] px-0 pb-[30px] pt-[30px]
+                    lg:gap-[80px] lg:pb-10 lg:pt-10
                 "
             >
                 {/* First container: icon + heading + underline (max 447px layout box) */}
@@ -150,7 +150,7 @@ export function DesignFaqSection({ font, serif }: { font: string; serif: string 
 
                 {/* Second container: FAQ list — centered horizontally on desktop */}
                 <div className="flex w-full min-w-0 justify-center">
-                    <div className="flex w-full min-w-0 max-w-[335px] flex-col gap-[26px] lg:mx-auto lg:max-w-[984px] lg:gap-[65px]">
+                    <div className="flex w-full min-w-0 max-w-none flex-col gap-[26px] lg:mx-auto lg:max-w-[984px] lg:gap-[65px]">
                         {FAQ_ITEMS.map((item) => {
                             const open = openId === item.id;
                             return (

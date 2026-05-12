@@ -16,6 +16,8 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
     const [mobileShift, setMobileShift] = useState(0);
     const [desktopPad, setDesktopPad] = useState(60);
     const [mobilePad, setMobilePad] = useState(20);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(true);
 
     useEffect(() => {
         const el = desktopScrollerRef.current;
@@ -24,6 +26,8 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
             const pad = sectionRef.current ? parseFloat(getComputedStyle(sectionRef.current).paddingLeft) : 60;
             setDesktopPad(pad);
             setDesktopShift(Math.min(el.scrollLeft, pad));
+            setCanScrollLeft(el.scrollLeft > 2);
+            setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 2);
         };
         update();
         el.addEventListener("scroll", update, { passive: true });
@@ -42,6 +46,14 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
         el.addEventListener("scroll", update, { passive: true });
         return () => el.removeEventListener("scroll", update);
     }, []);
+
+    const scrollDesktopByCards = (dir: -1 | 1) => {
+        const el = desktopScrollerRef.current;
+        if (!el) return;
+        const cardW = 644;
+        const gap = 2;
+        el.scrollBy({ left: dir * (cardW + gap), behavior: "smooth" });
+    };
 
     return (
         <section
@@ -137,31 +149,84 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                             transition: "margin-left 0.2s ease-out, width 0.2s ease-out, margin-right 0.2s ease-out",
                         }}
                     >
-                        <div
-                            ref={desktopScrollerRef}
-                            className="storiesScroller flex overflow-x-auto overflow-y-hidden scroll-smooth"
-                            style={{
-                                width: "100%",
-                                gap: "2px",
-                                WebkitOverflowScrolling: "touch",
-                                scrollbarWidth: "none",
-                                msOverflowStyle: "none",
-                            }}
-                        >
-                            {Array.from({ length: 3 }, (_, i) => i).map((i) => (
-                                <div
-                                    key={i}
-                                    className="shrink-0"
-                                    style={{
-                                        width: "644px",
-                                        height: "392.5577697753906px",
-                                        borderStyle: "solid",
-                                        borderWidth: "1px",
-                                        borderColor: "rgba(0,0,0,0.18)",
-                                        background: cardGradient,
-                                    }}
-                                />
-                            ))}
+                        <div className="relative w-full">
+                            {/* Desktop-only scroll buttons (like mentors) */}
+                            <button
+                                type="button"
+                                aria-label="Scroll left"
+                                onClick={() => scrollDesktopByCards(-1)}
+                                disabled={!canScrollLeft}
+                                className={[
+                                    "absolute left-[14px] top-1/2 z-10 -translate-y-1/2",
+                                    "flex items-center justify-center",
+                                    "h-[clamp(64px,5.694vw,82px)] w-[clamp(64px,5.694vw,82px)]",
+                                    "transition-[transform,opacity] duration-200 ease-out",
+                                    "hover:scale-[1.03] active:scale-[0.98]",
+                                    "disabled:opacity-40 disabled:hover:scale-100",
+                                ].join(" ")}
+                            >
+                                <span className="relative h-full w-full" style={{ transform: "rotate(180deg)" }}>
+                                    <Image
+                                        src="/photos/schools/design/Frame 2131331135.svg"
+                                        alt=""
+                                        fill
+                                        className="object-contain"
+                                        priority={false}
+                                    />
+                                </span>
+                            </button>
+
+                            <button
+                                type="button"
+                                aria-label="Scroll right"
+                                onClick={() => scrollDesktopByCards(1)}
+                                disabled={!canScrollRight}
+                                className={[
+                                    "absolute right-[14px] top-1/2 z-10 -translate-y-1/2",
+                                    "flex items-center justify-center",
+                                    "h-[clamp(64px,5.694vw,82px)] w-[clamp(64px,5.694vw,82px)]",
+                                    "transition-[transform,opacity] duration-200 ease-out",
+                                    "hover:scale-[1.03] active:scale-[0.98]",
+                                    "disabled:opacity-40 disabled:hover:scale-100",
+                                ].join(" ")}
+                            >
+                                <span className="relative h-full w-full">
+                                    <Image
+                                        src="/photos/schools/design/Frame 2131331135.svg"
+                                        alt=""
+                                        fill
+                                        className="object-contain"
+                                        priority={false}
+                                    />
+                                </span>
+                            </button>
+
+                            <div
+                                ref={desktopScrollerRef}
+                                className="storiesScroller flex overflow-x-auto overflow-y-hidden scroll-smooth"
+                                style={{
+                                    width: "100%",
+                                    gap: "2px",
+                                    WebkitOverflowScrolling: "touch",
+                                    scrollbarWidth: "none",
+                                    msOverflowStyle: "none",
+                                }}
+                            >
+                                {Array.from({ length: 3 }, (_, i) => i).map((i) => (
+                                    <div
+                                        key={i}
+                                        className="shrink-0"
+                                        style={{
+                                            width: "644px",
+                                            height: "392.5577697753906px",
+                                            borderStyle: "solid",
+                                            borderWidth: "1px",
+                                            borderColor: "rgba(0,0,0,0.18)",
+                                            background: cardGradient,
+                                        }}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
 

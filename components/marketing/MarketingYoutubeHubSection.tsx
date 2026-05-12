@@ -4,13 +4,42 @@ import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArro
 
 const ACCENT = "#0066FF"
 
+/** Mobile (max-lg): matches marketing courses / placements compact CTA — 44px row, 16px Satoshi, 44×44 arrow. */
+function MobileHubViewMoreArrow() {
+    return (
+        <span
+            className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-[22px] bg-[#0066FF] p-[13.2px] lg:hidden"
+            aria-hidden
+        >
+            <svg width={17.6} height={17.6} viewBox="0 0 24 24" fill="none" className="block shrink-0 text-white">
+                <path
+                    d="M5 12h14m0 0-6-6m6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth={2.25}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+            </svg>
+        </span>
+    )
+}
+
 function ViewMorePill() {
     return (
         <button
             type="button"
-            className="group relative inline-flex h-[60px] w-fit shrink-0 items-center no-underline cursor-pointer"
+            className="
+                group relative inline-flex w-fit shrink-0 cursor-pointer items-center no-underline
+                max-lg:h-[44px] max-lg:gap-[7.33px] max-lg:rounded-full max-lg:bg-[#E8F1FF] max-lg:pl-[14px] max-lg:pr-0
+                lg:h-[60px]
+            "
         >
-            <div className="relative h-[60px] w-fit rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
+            <span className="whitespace-nowrap text-black lg:hidden font-['Satoshi',sans-serif] text-[16px] font-medium leading-[100%] tracking-normal">
+                View More
+            </span>
+            <MobileHubViewMoreArrow />
+
+            <div className="relative hidden h-[60px] w-fit rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff] lg:block">
                 <span
                     className="flex h-full items-center whitespace-nowrap text-black"
                     style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}
@@ -18,7 +47,7 @@ function ViewMorePill() {
                     View More
                 </span>
             </div>
-            <MarketingCtaArrowCircle size="60" className="absolute right-0 top-0" />
+            <MarketingCtaArrowCircle size="60" className="pointer-events-none absolute right-0 top-0 hidden lg:block" />
         </button>
     )
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntroAnimation";
 import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
 import Image from "next/image";
 
@@ -12,6 +13,7 @@ export default function DesignSchoolProjectsPage() {
 
     return (
         <div className="w-full bg-[#FCFCFC] min-h-screen">
+            <DesignSchoolIntroAnimation />
             <DesignSchoolNavbar />
 
             {/* Title block (same layout as Success Story) */}
@@ -31,35 +33,40 @@ export default function DesignSchoolProjectsPage() {
             {/* Projects cards section */}
             <section className="w-full h-auto lg:h-[2355.6084px] pt-[40px] pb-[40px] px-6 lg:px-[60px] flex flex-col gap-[60px]">
                 <div className="w-full max-w-[1440px] mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-[60px] justify-items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-[60px] lg:gap-[clamp(24px,3vw,60px)] justify-items-center">
                         {projects.map((p) => (
                             <article
                                 key={p.id}
-                                className="w-full lg:w-[648px] h-auto lg:h-[718.5361px] flex flex-col gap-[20px]"
+                                className="
+                                    w-full max-w-[648px]
+                                    lg:max-w-[min(100%,560px)] min-[1320px]:lg:max-w-[648px]
+                                    h-auto lg:h-auto
+                                    flex flex-col gap-[20px]
+                                "
                             >
                                 {/* Card top image */}
-                                <div className="w-full lg:w-[648px] h-[442px] relative overflow-hidden bg-[#EDEDED]">
+                                <div className="w-full h-[442px] lg:h-[clamp(340px,32vw,442px)] relative overflow-hidden bg-[#EDEDED]">
                                     <Image
                                         src="/photos/schools/design/projects/Rectangle 244.png"
                                         alt=""
                                         fill
                                         className="object-cover"
-                                        sizes="(max-width: 1024px) 100vw, 648px"
+                                        sizes="(max-width: 1024px) 100vw, (max-width: 1320px) 560px, 648px"
                                         priority={p.id <= 2}
                                     />
                                 </div>
 
                                 {/* Card content */}
-                                <div className="w-full lg:w-[648px] h-auto lg:h-[256.5361px] flex flex-col gap-[10px] text-black">
+                                <div className="w-full h-auto flex flex-col gap-[10px] text-black">
                                     <h2
-                                        className="w-full lg:w-[648px] h-auto lg:h-[56px] text-[40px] leading-[100%] m-0"
+                                        className="w-full h-auto text-[40px] lg:text-[clamp(32px,2.6vw,40px)] leading-[100%] m-0"
                                         style={{ fontFamily: '"VC Nudge Trial Normal", sans-serif', fontWeight: 500 }}
                                     >
                                         Be the vazhikaatti
                                     </h2>
 
                                     <p
-                                        className="w-full lg:w-[648px] h-auto lg:h-[114px] text-[16px] leading-[120%] m-0"
+                                        className="w-full h-auto text-[16px] leading-[120%] m-0"
                                         style={{ fontFamily: '"VC Nudge Trial Normal", sans-serif', fontWeight: 400 }}
                                     >
                                         A UI/ UX-focused project, built on the belief that good design is a real solution.
@@ -71,13 +78,13 @@ export default function DesignSchoolProjectsPage() {
                                     </p>
 
                                     <h3
-                                        className="w-full lg:w-[568.4485px] h-auto lg:h-[28px] text-[20px] leading-[100%] m-0"
+                                        className="w-full h-auto text-[20px] leading-[100%] m-0"
                                         style={{ fontFamily: '"VC Nudge Trial Normal", sans-serif', fontWeight: 500 }}
                                     >
                                         Outcomes
                                     </h3>
 
-                                    <div className="w-full lg:w-[568.4485px] h-auto lg:h-[30.5361px] flex flex-wrap gap-[6.77px]">
+                                    <div className="w-full h-auto flex flex-wrap gap-[6.77px]">
                                         <span
                                             className="inline-flex items-center justify-center w-[99.5361px] h-[30.5361px] rounded-[20.3px] px-[6.77px] text-white text-[12px] leading-[100%]"
                                             style={{ fontFamily: '"VC Nudge Trial Normal", sans-serif', fontWeight: 500, backgroundColor: "#FF5659" }}

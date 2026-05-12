@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
 
@@ -153,6 +154,17 @@ function ScheduleCallButton({ font, accentColor }: { font: string; accentColor: 
 export function DesignSchoolFooter({ font, serif }: { font: string; serif: string }) {
     const [comboIdx, setComboIdx] = useState(0);
     const combo = COMBOS[comboIdx];
+    const pathname = usePathname();
+
+    const isActive = (href: string) => {
+        if (!pathname) return false;
+        if (href === "/design-school") return pathname === "/design-school";
+        if (href === "/design-school/projects") return pathname.startsWith("/design-school/projects");
+        if (href === "/design-school/courses") return pathname.startsWith("/design-school/courses");
+        if (href === "/blog") return pathname.startsWith("/blog");
+        if (href === "/contact") return pathname.startsWith("/contact");
+        return pathname === href;
+    };
 
     const nextCombo = () => setComboIdx(i => (i + 1) % COMBOS.length);
 
@@ -369,7 +381,15 @@ export function DesignSchoolFooter({ font, serif }: { font: string; serif: strin
                                         <Link
                                             key={item.href}
                                             href={item.href}
-                                            className="whitespace-nowrap text-[13px] font-medium leading-[120%] text-[#F2F2F2]/95 transition-opacity hover:opacity-90 lg:text-base"
+                                            onClick={(e) => e.stopPropagation()}
+                                            className={[
+                                                "whitespace-nowrap text-[13px] font-medium leading-[120%] lg:text-base",
+                                                "inline-block origin-center transition-[transform,color,opacity] duration-200 ease-out",
+                                                // hover effect (desktop & mobile)
+                                                "hover:scale-[1.06] hover:text-black",
+                                                // base / active state
+                                                isActive(item.href) ? "text-black opacity-100" : "text-[#F2F2F2]/95 hover:opacity-100",
+                                            ].join(" ")}
                                             style={{ fontFamily: font }}
                                                                                    >
                                             {item.label}

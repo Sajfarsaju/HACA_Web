@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
+import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntroAnimation";
 
 export const metadata: Metadata = {
     title: "Design School Courses | HACA",
@@ -531,6 +532,7 @@ function CourseCard({
 export default function DesignSchoolCoursesPage() {
     return (
         <div className="w-full bg-[#FCFCFC] min-h-screen">
+            <DesignSchoolIntroAnimation />
             <DesignSchoolNavbar />
 
             <section className="w-full max-w-[375px] [@media(min-width:425px)_and_(max-width:767px)]:max-w-none md:max-w-[1440px] mx-auto h-auto md:h-auto pt-[60px] md:pt-[40px] px-[20px] [@media(min-width:425px)_and_(max-width:767px)]:px-[16px] md:px-8 min-[1300px]:px-[32px] min-[1440px]:px-[40px] md:pb-0 pb-0 flex flex-col gap-[10px] md:gap-[4px] items-center md:items-start lg:items-start [@media(min-width:425px)_and_(max-width:767px)]:items-start md:text-left lg:text-left [@media(min-width:425px)_and_(max-width:767px)]:text-left max-[340px]:text-left">

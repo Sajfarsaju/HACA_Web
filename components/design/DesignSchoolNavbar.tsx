@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 import { DESIGN_CTA_TRANSITION } from "./DesignSplitArrowCta";
 
@@ -24,6 +25,7 @@ const ACTIVE_LINK_COLORS: Record<(typeof NAV_LINKS)[number]["href"], string> = {
 
 export function DesignSchoolNavbar() {
     const pathname = usePathname();
+    const [hoverHref, setHoverHref] = useState<(typeof NAV_LINKS)[number]["href"] | null>(null);
 
     return (
         <nav className="max-w-[1440px] mx-auto w-full flex justify-between items-center lg:h-[120.56px] pt-[20px] pb-[20px] px-6 lg:px-[60px] lg:pb-[40px]">
@@ -43,18 +45,22 @@ export function DesignSchoolNavbar() {
                 {NAV_LINKS.map((link) => {
                     const isActive = pathname === link.href;
                     const activeColor = ACTIVE_LINK_COLORS[link.href];
+                    const isHovered = hoverHref === link.href;
                     return (
                         <Link
                             key={link.href}
                             href={link.href}
+                            onMouseEnter={() => setHoverHref(link.href)}
+                            onMouseLeave={() => setHoverHref(null)}
                             className={[
-                                "h-[22px] whitespace-nowrap text-[16px] leading-[100%] transition-colors",
-                                isActive ? "italic" : "text-[#000000] hover:text-[#FF5C00]",
+                                "h-[22px] whitespace-nowrap text-[16px] leading-[100%] transition-[color,transform] duration-200 ease-out",
+                                "hover:scale-[1.06]",
+                                isActive ? "italic" : "text-[#000000]",
                             ].join(" ")}
                             style={{
                                 fontFamily: '"VC Nudge Trial Normal", sans-serif',
                                 fontWeight: 500,
-                                ...(isActive ? { color: activeColor } : null),
+                                color: isActive ? activeColor : isHovered ? activeColor : "#000000",
                             }}
                         >
                             {link.label}
