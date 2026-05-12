@@ -7,6 +7,8 @@ import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArro
 import { useScroll, useMotionValueEvent } from "framer-motion";
 
 const WORLD_EDUCATION_LOGO = "/photos/schools/marketing/world%20summit%202.svg";
+/** Summit mark tuned for dark page background (see `marketing-page-color` → `isDark`). */
+const WORLD_EDUCATION_LOGO_DARK_BG = "/photos/schools/marketing/Frame%201984078223.svg";
 const HERO_PHOTO = "/photos/schools/marketing/rizwan%20marketing.webp";
 const PATTERN_LIGHT = "/photos/schools/marketing/Pattern 5.svg";
 const PATTERN_DARK = "/photos/schools/marketing/Pattern 6.svg";
@@ -101,7 +103,7 @@ export function MarketingHeroSection() {
                     {/* Summit logo row */}
                     <div className="flex items-center gap-[clamp(5.7px,0.6vw,8.72px)] w-[clamp(223px,28vw,341px)] md:w-[clamp(280px,38vw,341px)] lg:w-[min(341px,100%)] h-[clamp(58.166px,7vw,88.945px)] relative shrink-0 self-center lg:self-start lg:mb-4 xl:mb-2">
                         <Image
-                            src={WORLD_EDUCATION_LOGO}
+                            src={isDark ? WORLD_EDUCATION_LOGO_DARK_BG : WORLD_EDUCATION_LOGO}
                             alt="World Education Summit"
                             fill
                             className="object-contain object-center lg:object-left"
@@ -132,7 +134,13 @@ export function MarketingHeroSection() {
                             Scroll Down to Discover
                         </span>
                         <div className="w-[16px] h-[16px] shrink-0 flex items-center justify-center">
-                            <Image src="/photos/schools/marketing/solar_arrow-up-broken.svg" alt="" width={16} height={16} className="w-full h-full object-contain" />
+                            <Image
+                                src="/photos/schools/marketing/solar_arrow-up-broken.svg"
+                                alt=""
+                                width={16}
+                                height={16}
+                                className={`h-full w-full object-contain transition-[filter] duration-300 ease-out ${isDark ? "invert" : ""}`}
+                            />
                         </div>
                     </div>
                 </div>

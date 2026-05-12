@@ -112,20 +112,27 @@ function CourseRowArrows() {
 }
 
 function KnowMorePill() {
+    /** Mobile-only (parent is `lg:hidden`); specs from design — desktop course row uses `CourseRowArrows` instead. */
     return (
         <div
             className="
-                inline-flex w-max max-w-full shrink-0 items-center gap-2 rounded-full bg-[#E8F1FF]
-                py-[6px] pl-[14px] pr-[6px]
+                inline-flex h-[44px] w-[148.26666259765625px] max-w-full shrink-0 items-center gap-[7.33px] rounded-full bg-[#E8F1FF]
+                pl-[14px] pr-0
                 transition-[background-color,color] duration-300 ease-out
-                lg:group-hover:bg-white/15 lg:group-focus-within:bg-white/15
             "
         >
-            <span className="whitespace-nowrap font-['Satoshi',sans-serif] text-[14px] font-medium leading-none text-black transition-colors lg:group-hover:text-white lg:group-focus-within:text-white">
+            <span className="min-w-0 shrink-0 whitespace-nowrap font-['Satoshi',sans-serif] text-[16px] font-medium leading-[100%] tracking-normal text-black">
                 Know More
             </span>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0066FF] transition-colors lg:group-hover:bg-white lg:group-focus-within:bg-white">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden className="text-white transition-colors lg:group-hover:text-[#0066FF] lg:group-focus-within:text-[#0066FF]">
+            <span className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-[22px] bg-[#0066FF] p-[13.2px]">
+                <svg
+                    width={17.6}
+                    height={17.6}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden
+                    className="block shrink-0 text-white"
+                >
                     <path
                         d="M5 12h14m0 0-6-6m6 6-6 6"
                         stroke="currentColor"

@@ -16,6 +16,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
 
     return (
         <section
+            id="design-culture"
             className="w-full bg-[#FCFCFC] px-4 lg:px-[clamp(20px,4.17vw,60px)]"
             style={{
                 paddingTop: "clamp(30px, 4.17vw, 60px)",
@@ -232,7 +233,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                         </div>
 
                         {/* Paragraph + button */}
-                        <div className="absolute" style={{ left: pctX(859), top: pctY(737.09), width: pctX(461) }}>
+                        <div className="absolute" style={{ left: pctX(806.45), top: pctY(737.09), width: pctX(461) }}>
                             <div className="flex flex-col" style={{ gap: "19px" }}>
                                 <p
                                     className="m-0"
@@ -259,19 +260,21 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                         {/* Row 1 */}
                         <div className="w-full flex items-end" style={{ gap: "10px" }}>
                             <div
-                                className="shrink-0"
+                                className="culture-photo-card shrink-0"
                                 style={{
                                     flexBasis: `${(185.5399932861328 / 335) * 100}%`,
                                     aspectRatio: `${185.5399932861328} / ${114.29203796386719}`,
                                     background: photoGradient,
+                                    ["--culture-card-delay" as any]: "0ms",
                                 }}
                             />
                             <div
-                                className="shrink-0 relative"
+                                className="culture-photo-card shrink-0 relative"
                                 style={{
                                     flexBasis: `${(136.47531127929702 / 335) * 100}%`,
                                     aspectRatio: `${136.47531127929702} / ${139.81137084960946}`,
                                     background: photoGradient,
+                                    ["--culture-card-delay" as any]: "120ms",
                                 }}
                             >
                                 {/* Design #1 (mobile): Group (3) on photo #3 top-left */}
@@ -290,11 +293,12 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                         {/* Row 2 */}
                         <div className="w-full flex items-start" style={{ gap: "10px" }}>
                             <div
-                                className="shrink-0"
+                                className="culture-photo-card shrink-0"
                                 style={{
                                     flexBasis: `${(178.64999389648438 / 335) * 100}%`,
                                     aspectRatio: `${178.64999389648438} / ${177.580078125}`,
                                     background: photoGradient,
+                                    ["--culture-card-delay" as any]: "240ms",
                                 }}
                             />
                             <div
@@ -304,13 +308,36 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                     gap: "10px",
                                 }}
                             >
-                                <div style={{ width: "100%", aspectRatio: `${146.7036590576172} / ${83.7900390625}`, background: photoGradient }} />
-                                <div style={{ width: "100%", aspectRatio: `${146.7036590576172} / ${83.7900390625}`, background: photoGradient }} />
+                                <div
+                                    className="culture-photo-card"
+                                    style={{
+                                        width: "100%",
+                                        aspectRatio: `${146.7036590576172} / ${83.7900390625}`,
+                                        background: photoGradient,
+                                        ["--culture-card-delay" as any]: "360ms",
+                                    }}
+                                />
+                                <div
+                                    className="culture-photo-card"
+                                    style={{
+                                        width: "100%",
+                                        aspectRatio: `${146.7036590576172} / ${83.7900390625}`,
+                                        background: photoGradient,
+                                        ["--culture-card-delay" as any]: "480ms",
+                                    }}
+                                />
                             </div>
                         </div>
 
                         {/* Row 3 */}
-                        <div className="w-full relative" style={{ aspectRatio: `335 / 167.52113342285156`, background: photoGradient }}>
+                        <div
+                            className="culture-photo-card w-full relative"
+                            style={{
+                                aspectRatio: `335 / 167.52113342285156`,
+                                background: photoGradient,
+                                ["--culture-card-delay" as any]: "600ms",
+                            }}
+                        >
                             {/* Design #2 (mobile): Vector (10) on photo #7 bottom border */}
                             <Image
                                 src="/photos/schools/design/Vector (10).svg"
@@ -326,19 +353,21 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                         {/* Row 4 */}
                         <div className="w-full flex items-start" style={{ gap: "6.57px" }}>
                             <div
-                                className="shrink-0"
+                                className="culture-photo-card shrink-0"
                                 style={{
                                     flexBasis: `${(157.6665649414064 / 335) * 100}%`,
                                     aspectRatio: `${157.6665649414064} / ${166.53750610351582}`,
                                     background: photoGradient,
+                                    ["--culture-card-delay" as any]: "720ms",
                                 }}
                             />
                             <div
-                                className="shrink-0 relative"
+                                className="culture-photo-card shrink-0 relative"
                                 style={{
                                     flexBasis: `${(157.6665649414064 / 335) * 100}%`,
                                     aspectRatio: `${157.6665649414064} / ${166.53750610351582}`,
                                     background: photoGradient,
+                                    ["--culture-card-delay" as any]: "840ms",
                                 }}
                             >
                                 {/* Design #3 (mobile): Group (4) on photo #9 bottom-right */}
@@ -374,6 +403,30 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                     </div>
                 </div>
             </div>
+
+            <style>{`
+                /* “Load one by one” reveal */
+                #design-culture .culture-photo-card {
+                    opacity: 0;
+                    transform: translateY(10px) scale(0.985);
+                    animation: designCultureCardIn 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+                    animation-delay: var(--culture-card-delay, 0ms);
+                    will-change: transform, opacity;
+                }
+                @keyframes designCultureCardIn {
+                    to {
+                        opacity: 1;
+                        transform: translateY(0) scale(1);
+                    }
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    #design-culture .culture-photo-card {
+                        animation: none;
+                        opacity: 1;
+                        transform: none;
+                    }
+                }
+            `}</style>
         </section>
     );
 }

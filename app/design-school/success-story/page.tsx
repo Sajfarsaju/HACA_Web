@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import axios from "axios";
+import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntroAnimation";
 import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
 import {
     SchoolPlacementSection,
@@ -57,6 +58,7 @@ export default async function DesignSchoolSuccessStoryPage() {
 
     return (
         <div className="w-full bg-[#FCFCFC] min-h-screen">
+            <DesignSchoolIntroAnimation />
             <DesignSchoolNavbar />
 
             {/* Title block */}
