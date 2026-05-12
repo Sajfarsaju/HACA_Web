@@ -10,15 +10,15 @@ import { MarketingCultureAndYoutubeWrapper } from "@/components/marketing/Market
 import { MarketingPlacementsSection } from "@/components/marketing/MarketingPlacementsSection";
 import { MarketingTestimonialsSection } from "@/components/marketing/MarketingTestimonialsSection";
 import { MarketingFaqSection } from "@/components/marketing/MarketingFaqSection";
+import { MarketingFooter } from "@/components/marketing/MarketingFooter";
+import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { MarketingTestimonialsAndFaqWrapper } from "@/components/marketing/MarketingTestimonialsAndFaqWrapper";
-import { MarketingFooter } from "@/components/marketing/MarketingFooter"
-import { MarketingNavbar } from "@/components/marketing/MarketingNavbar"
-import { MarketingPageColorLayer } from "@/components/marketing/MarketingPageColorLayer"
+import { MarketingPageColorLayer } from "@/components/marketing/MarketingPageColorLayer";
 
 export const metadata: Metadata = {
     title: "Marketing School | HACA",
     description: "HACA Marketing School page.",
-}
+};
 
 export default function MarketingSchoolPage() {
     return (

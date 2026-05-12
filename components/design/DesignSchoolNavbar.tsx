@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import { isDesignSchoolSeoPath } from "@/lib/design-school-seo";
+
 import { DESIGN_CTA_TRANSITION } from "./DesignSplitArrowCta";
 
 const NAV_LINKS = [
@@ -25,6 +27,7 @@ const ACTIVE_LINK_COLORS: Record<(typeof NAV_LINKS)[number]["href"], string> = {
 
 export function DesignSchoolNavbar() {
     const pathname = usePathname();
+    const onDesignSchoolSeoLanding = isDesignSchoolSeoPath(pathname);
     const [hoverHref, setHoverHref] = useState<(typeof NAV_LINKS)[number]["href"] | null>(null);
 
     return (
@@ -43,7 +46,9 @@ export function DesignSchoolNavbar() {
             {/* Navlinks */}
             <div className="hidden lg:flex items-center gap-[30px] w-[490px] h-[54px] pt-[16px] pr-[20px] pb-[16px] pl-[20px] rounded-[10px]">
                 {NAV_LINKS.map((link) => {
-                    const isActive = pathname === link.href;
+                    const isActive =
+                        pathname === link.href ||
+                        (onDesignSchoolSeoLanding && link.href === "/design-school/courses");
                     const activeColor = ACTIVE_LINK_COLORS[link.href];
                     const isHovered = hoverHref === link.href;
                     return (
