@@ -12,12 +12,28 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
     const sectionRef = useRef<HTMLElement>(null);
     const desktopScrollerRef = useRef<HTMLDivElement | null>(null);
     const mobileScrollerRef = useRef<HTMLDivElement | null>(null);
+    const [inView, setInView] = useState(false);
     const [desktopShift, setDesktopShift] = useState(0);
     const [mobileShift, setMobileShift] = useState(0);
     const [desktopPad, setDesktopPad] = useState(60);
     const [mobilePad, setMobilePad] = useState(20);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
+
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(
+            ([entry]) => {
+                if (!entry.isIntersecting) return;
+                setInView(true);
+                obs.disconnect();
+            },
+            { threshold: 0.2 }
+        );
+        obs.observe(el);
+        return () => obs.disconnect();
+    }, []);
 
     useEffect(() => {
         const el = desktopScrollerRef.current;
@@ -77,63 +93,63 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                             lineHeight: "114.99999999999999%",
                         }}
                     >
-                    <span className="hidden lg:inline">
-                        Stories, Insights, and Life
-                        <br />
-                        Inside{" "}
-                    </span>
-                    <span className="lg:hidden">
-                        Stories, Insights,
-                        <br />
-                        and Life Inside <br />
-                    </span>
-                    <span
-                        className="relative inline-block pb-[6px] lg:pb-[12px]"
-                        style={{
-                            fontFamily: serif,
-                            fontWeight: 300,
-                            fontStyle: "italic",
-                            fontSize: "inherit",
-                            lineHeight: "114.99999999999999%",
-                        }}
-                    >
-                        Design School
-                        <span
-                            className="pointer-events-none absolute left-1/2 top-full -mt-[1px] -translate-x-1/2 lg:hidden"
-                            style={{ width: "185px", height: "8px" }}
-                            aria-hidden
-                        >
-                            <Image
-                                src="/photos/schools/design/Vector (11).svg"
-                                alt=""
-                                width={185}
-                                height={8}
-                                className="object-contain"
-                                priority={false}
-                            />
+                        <span className="hidden lg:inline">
+                            Stories, Insights, and Life
+                            <br />
+                            Inside{" "}
+                        </span>
+                        <span className="lg:hidden">
+                            Stories, Insights,
+                            <br />
+                            and Life Inside <br />
                         </span>
                         <span
-                            className="pointer-events-none absolute left-1/2 top-full mt-[3px] hidden -translate-x-1/2 lg:block"
-                            style={{ width: "279px", height: "15px" }}
-                            aria-hidden
+                            className="relative inline-block pb-[6px] lg:pb-[12px]"
+                            style={{
+                                fontFamily: serif,
+                                fontWeight: 300,
+                                fontStyle: "italic",
+                                fontSize: "inherit",
+                                lineHeight: "114.99999999999999%",
+                            }}
                         >
-                            <Image
-                                src="/photos/schools/design/Vector (11).svg"
-                                alt=""
-                                width={279}
-                                height={15}
-                                className="object-contain"
-                                priority={false}
-                            />
+                            Design School
+                            <span
+                                className="pointer-events-none absolute left-1/2 top-full -mt-[1px] -translate-x-1/2 lg:hidden"
+                                style={{ width: "185px", height: "8px" }}
+                                aria-hidden
+                            >
+                                <Image
+                                    src="/photos/schools/design/Vector (11).svg"
+                                    alt=""
+                                    width={185}
+                                    height={8}
+                                    className="object-contain"
+                                    priority={false}
+                                />
+                            </span>
+                            <span
+                                className="pointer-events-none absolute left-1/2 top-full mt-[3px] hidden -translate-x-1/2 lg:block"
+                                style={{ width: "279px", height: "15px" }}
+                                aria-hidden
+                            >
+                                <Image
+                                    src="/photos/schools/design/Vector (11).svg"
+                                    alt=""
+                                    width={279}
+                                    height={15}
+                                    className="object-contain"
+                                    priority={false}
+                                />
+                            </span>
                         </span>
-                    </span>
-                    <style jsx>{`
-                        @media (min-width: 1024px) {
-                            h2 {
-                                font-size: 50px !important;
+                        <style jsx>{`
+                            @media (min-width: 1024px) {
+                                h2 {
+                                    font-size: 50px !important;
+                                }
                             }
-                        }
-                    `}</style>
+                        `}</style>
                     </h2>
                 </div>
 
@@ -215,8 +231,12 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                                 {Array.from({ length: 3 }, (_, i) => i).map((i) => (
                                     <div
                                         key={i}
-                                        className="shrink-0"
+                                        className={[
+                                            "shrink-0 transition-all duration-700 ease-out",
+                                            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
+                                        ].join(" ")}
                                         style={{
+                                            transitionDelay: `${Math.min(i * 90, 240)}ms`,
                                             width: "644px",
                                             height: "392.5577697753906px",
                                             borderStyle: "solid",
@@ -253,8 +273,12 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                             {Array.from({ length: 3 }, (_, i) => i).map((i) => (
                                 <div
                                     key={i}
-                                    className="shrink-0"
+                                    className={[
+                                        "shrink-0 transition-all duration-700 ease-out",
+                                        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
+                                    ].join(" ")}
                                     style={{
+                                        transitionDelay: `${Math.min(i * 90, 240)}ms`,
                                         width: "332.6446228027344px",
                                         height: "202.76744079589844px",
                                         borderStyle: "solid",
@@ -311,4 +335,3 @@ function VisitPageButton({ font }: { font: string }) {
         />
     );
 }
-

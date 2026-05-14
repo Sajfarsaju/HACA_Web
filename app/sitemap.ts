@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         "/blog",
         "/legal/privacy",
         "/legal/terms",
+        "/marketing-course-in-calicut",
         ...DESIGN_SCHOOL_SEO_PATHS,
     ].map((route) => ({
         url: `${baseUrl}${route}`,

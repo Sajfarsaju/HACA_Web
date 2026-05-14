@@ -19,6 +19,9 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
         pathname.startsWith("/marketing-school/") ||
         pathname === "/schools/marketing" ||
         pathname.startsWith("/schools/marketing/");
+    const isMarketingSchoolSeo =
+        pathname === "/marketing-course-in-calicut" ||
+        pathname.startsWith("/marketing-course-in-calicut/");
     const isDesignSchool =
         pathname === "/design-school" ||
         pathname.startsWith("/design-school/") ||
@@ -30,7 +33,7 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
         pathname.startsWith("/finance-school/");
     const isHome = pathname === "/";
     const excludeLayout =
-        isTechSchool || isMarketingSchool || isDesignSchool || isFinanceSchool;
+        isTechSchool || isMarketingSchool || isMarketingSchoolSeo || isDesignSchool || isFinanceSchool;
 
     return (
         <>

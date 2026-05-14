@@ -390,7 +390,12 @@ export function DesignProgramsSection() {
             if (e.deltaY > 0) {
                 if (advanceForward(e.deltaY)) e.preventDefault();
             } else if (e.deltaY < 0) {
-                if (advanceBackward(e.deltaY)) e.preventDefault();
+                // If locked at the start of the animation, release so the page can scroll up
+                if (locked.current && progress.current <= 0) {
+                    unlock();
+                } else if (advanceBackward(e.deltaY)) {
+                    e.preventDefault();
+                }
             }
         };
 
@@ -411,6 +416,12 @@ export function DesignProgramsSection() {
 
             if (locked.current) {
                 // Page is locked — all touch movement drives the animation
+                if (deltaY < 0 && progress.current <= 0) {
+                    // At the start of the animation, scrolling up should release the lock
+                    unlock();
+                    touchPrevY.current = currentY;
+                    return;
+                }
                 e.preventDefault();
                 if (deltaY > 0) advanceForward(deltaY * 2.5);
                 else if (deltaY < 0) advanceBackward(deltaY * 2.5);
