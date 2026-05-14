@@ -32,6 +32,9 @@ export function ConditionalFooter() {
     if (pathname === "/schools/marketing" || pathname.startsWith("/schools/marketing/")) {
         return null;
     }
+    if (pathname === "/marketing-course-in-calicut" || pathname.startsWith("/marketing-course-in-calicut/")) {
+        return null;
+    }
 
     // Design School uses its own layout (no global HACA footer)
     if (pathname === "/design-school" || pathname.startsWith("/design-school/")) {

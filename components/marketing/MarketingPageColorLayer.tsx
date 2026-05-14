@@ -25,6 +25,7 @@ export function MarketingPageColorLayer({ children }: { children: React.ReactNod
     return (
         <motion.div
             ref={ref}
+            initial={false}
             animate={{
                 backgroundColor: isDark ? "#000000" : "#ffffff",
                 color: isDark ? "#ffffff" : "#000000",

@@ -65,25 +65,31 @@ export function DesignFigmaRecognizedSection() {
     const orderedBlockImages = useMemo(() => order.map((i) => BLOCK_IMAGES[i]), [order]);
 
     return (
-        <section className="w-full bg-[#FCFCFC] px-0" aria-labelledby="design-figma-recognized-heading">
+        <section
+            className="
+                w-full bg-[#FCFCFC] px-0
+                max-lg:relative max-lg:w-screen max-lg:max-w-none max-lg:ml-[calc(50%-50vw)] max-lg:mr-[calc(50%-50vw)] max-lg:overflow-x-clip
+            "
+            aria-labelledby="design-figma-recognized-heading"
+        >
             <div
                 className="
-                    mx-auto flex h-[635px] w-full max-w-[1440px] min-h-0 flex-col items-stretch gap-0
+                    mx-auto flex h-auto w-full max-w-[1440px] min-h-0 flex-col items-stretch gap-0
                     lg:h-[504.2643127441406px] lg:flex-row lg:gap-0
                 "
             >
                 {/* First container: 2×2 grid — gap-0, cover + clip so tiles meet flush */}
                 <div
                     className="
-                        mx-auto grid h-[375px] w-full max-w-[375px] shrink-0 grid-cols-2 grid-rows-2 gap-0
-                        lg:mx-0 lg:h-[504.2643127441406px] lg:w-[504.2643127441406px] lg:max-w-none
+                        mx-0 grid aspect-square w-full max-w-none shrink-0 grid-cols-2 grid-rows-2 gap-0
+                        lg:mx-0 lg:aspect-auto lg:h-[504.2643127441406px] lg:w-[504.2643127441406px] lg:max-w-none
                     "
                 >
                     {orderedBlockImages.map((src, idx) => (
                         <div
                             key={src}
                             className={[
-                                "relative h-[187.5px] w-[187.5px] overflow-hidden lg:h-[252.1321563720703px] lg:w-[252.1321563720703px]",
+                                "relative min-h-0 min-w-0 h-full w-full overflow-hidden lg:h-[252.1321563720703px] lg:w-[252.1321563720703px]",
                                 // Prevent 1px “seams” from sub-pixel rounding (e.g. 375/2 = 187.5)
                                 idx % 2 === 1 ? "-ml-px" : "",
                                 idx >= 2 ? "-mt-px" : "",
@@ -96,7 +102,7 @@ export function DesignFigmaRecognizedSection() {
                                 alt=""
                                 fill
                                 className={`object-cover object-center transition-opacity duration-300 ease-out ${isFading ? "opacity-0" : "opacity-100"}`}
-                                sizes="(min-width: 1024px) 252px, 188px"
+                                sizes="(min-width: 1024px) 252px, 50vw"
                             />
                         </div>
                     ))}
@@ -105,7 +111,7 @@ export function DesignFigmaRecognizedSection() {
                 {/* Second container */}
                 <div
                     className="
-                        mx-auto -mt-px flex h-[260px] w-full max-w-[375px] shrink-0 flex-col items-center justify-center gap-5 bg-black
+                        mx-0 -mt-px flex h-[260px] w-full max-w-none shrink-0 flex-col items-center justify-center gap-5 bg-black
                         px-5 py-5
                         lg:mx-0 lg:mt-0 lg:-ml-px lg:h-[503.8576965332031px] lg:flex-1 lg:min-w-0 lg:max-w-none lg:gap-[10px] lg:p-[10px] lg:items-center lg:justify-center
                     "

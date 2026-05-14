@@ -57,6 +57,7 @@ export function MarketingNavbar() {
 
     return (
         <motion.header
+            initial={false}
             className={`sticky top-0 z-50 w-full h-[52px] md:h-16 lg:h-[120px] px-4 md:px-8 lg:px-[60px] py-[10px] md:py-3 lg:py-[30px] flex items-center justify-between transition-transform duration-300 ease-out ${
                 isVisible ? "translate-y-0" : "-translate-y-full"
             }`}
