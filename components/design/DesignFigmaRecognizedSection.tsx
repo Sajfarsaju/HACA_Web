@@ -69,7 +69,7 @@ export function DesignFigmaRecognizedSection() {
             <div
                 className="
                     mx-auto flex h-[635px] w-full max-w-[1440px] min-h-0 flex-col items-stretch gap-0
-                    lg:h-[504.2643127441406px] lg:flex-row lg:gap-0
+                    lg:h-[504.2643127441406px] lg:flex-row lg:gap-0 lg:mx-0 lg:max-w-none
                 "
             >
                 {/* First container: 2×2 grid — gap-0, cover + clip so tiles meet flush */}

@@ -5,6 +5,9 @@ import { GraphicDesigningCalicutFlagshipProgramSection } from "@/components/desi
 import { GraphicDesigningCalicutBecomeSection } from "@/components/design/GraphicDesigningCalicutBecomeSection";
 import { GraphicDesigningCalicutToolsSection } from "@/components/design/GraphicDesigningCalicutToolsSection";
 import { GraphicDesigningCalicutExploreProgramsSection } from "@/components/design/GraphicDesigningCalicutExploreProgramsSection";
+import { GraphicDesigningCalicutWhatSetsApartSection } from "@/components/design/GraphicDesigningCalicutWhatSetsApartSection";
+import { GraphicDesigningCalicutFigmaRecognizedSection } from "@/components/design/GraphicDesigningCalicutFigmaRecognizedSection";
+import { GraphicDesigningCalicutWhoIsThisCourseForSection } from "@/components/design/GraphicDesigningCalicutWhoIsThisCourseForSection";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
 import { DesignSeoFaqList } from "@/components/design/DesignSeoFaqList";
 import { buildDesignSchoolSeoMetadata } from "@/lib/design-school-seo";
@@ -138,6 +141,9 @@ export default function GraphicDesigningCourseInCalicutPage() {
             <GraphicDesigningCalicutBecomeSection />
             <GraphicDesigningCalicutToolsSection />
             <GraphicDesigningCalicutExploreProgramsSection />
+            <GraphicDesigningCalicutWhatSetsApartSection />
+            <GraphicDesigningCalicutFigmaRecognizedSection />
+            <GraphicDesigningCalicutWhoIsThisCourseForSection />
 
             <section className="w-full bg-[#FCFCFC] flex justify-center" aria-label="Design culture and events">
                 <div
