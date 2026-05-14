@@ -17,6 +17,7 @@ type ProgramCard = {
     // wrapper decides anchor + crop box; inner uses object-fit
     imageWrapClassName: string;
     imageObjectClassName: string;
+    imageStyle?: React.CSSProperties;
     // layout control to match screenshot
     contentWrapClassName: string;
     titleMaxWidthClassName?: string;
@@ -36,8 +37,8 @@ const PROGRAMS: ProgramCard[] = [
         imageSrc: "/photos/schools/design/seo/60b47d2800c7e3eca0f8d38692662a973f3b73b0.png",
         imageAlt: "AI Integrated Graphic Design",
         imageWrapClassName:
-            "absolute bottom-0 left-0 w-[260px] sm:w-[320px] lg:w-[360px] h-[280px] sm:h-[340px] lg:h-[420px] pointer-events-none select-none",
-        imageObjectClassName: "object-cover object-bottom object-left scale-[1.06]",
+            "absolute bottom-0 left-0 w-[240px] sm:w-[280px] lg:w-[330px] h-[240px] sm:h-[300px] lg:h-[380px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-bottom object-left",
         contentWrapClassName: "ml-auto w-full max-w-[300px] lg:max-w-[320px] text-left",
         titleMaxWidthClassName: "max-w-[260px] lg:max-w-[280px]",
         descriptionMaxWidthClassName: "max-w-[280px]",
@@ -55,8 +56,8 @@ const PROGRAMS: ProgramCard[] = [
         imageAlt: "AI Integrated Video Editing Mastery",
         // Slight zoom like screenshot: use object-cover within a tighter box.
         imageWrapClassName:
-            "absolute bottom-0 left-0 w-[280px] sm:w-[360px] lg:w-[430px] h-[300px] sm:h-[380px] lg:h-[480px] pointer-events-none select-none",
-        imageObjectClassName: "object-cover object-bottom object-left scale-[1.08]",
+            "absolute bottom-0 left-0 w-[260px] sm:w-[320px] lg:w-[410px] h-[260px] sm:h-[330px] lg:h-[440px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-bottom object-left",
         contentWrapClassName: "ml-auto w-full max-w-[320px] lg:max-w-[340px] text-left",
         titleMaxWidthClassName: "max-w-[310px]",
         descriptionMaxWidthClassName: "max-w-[300px]",
@@ -73,8 +74,9 @@ const PROGRAMS: ProgramCard[] = [
         imageSrc: "/photos/schools/design/seo/efaa9dd8679f63c251e45143e7c74c5afcb821ae.png",
         imageAlt: "UI/UX Design + AI Program",
         imageWrapClassName:
-            "absolute bottom-0 right-0 w-[260px] sm:w-[330px] lg:w-[400px] h-[290px] sm:h-[360px] lg:h-[440px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-bottom object-right scale-[1.02]",
+            "absolute bottom-0 right-0 w-[260px] sm:w-[320px] lg:w-[380px] h-[260px] sm:h-[330px] lg:h-[410px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-bottom object-right",
+        imageStyle: { transform: "scaleX(-1)" },
         contentWrapClassName: "w-full max-w-[330px] text-left",
         titleMaxWidthClassName: "max-w-[300px]",
         descriptionMaxWidthClassName: "max-w-[310px]",
@@ -92,8 +94,8 @@ const PROGRAMS: ProgramCard[] = [
         imageAlt: "Branding and Identity Design",
         // Top-right like screenshot; keep it tucked in.
         imageWrapClassName:
-            "absolute top-0 right-0 w-[320px] sm:w-[420px] lg:w-[520px] h-[240px] sm:h-[300px] lg:h-[360px] pointer-events-none select-none",
-        imageObjectClassName: "object-cover object-top object-right scale-[1.04]",
+            "absolute top-0 right-0 w-[280px] sm:w-[360px] lg:w-[460px] h-[220px] sm:h-[270px] lg:h-[320px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-top object-right",
         contentWrapClassName: "mt-auto w-full max-w-[330px] text-left",
         titleMaxWidthClassName: "max-w-[320px]",
         descriptionMaxWidthClassName: "max-w-[320px]",
@@ -137,10 +139,15 @@ function ProgramCardView(p: ProgramCard) {
     return (
         <Link
             href={p.href}
-            className="group relative block w-full overflow-hidden rounded-[20px]"
+            className={[
+                "group relative block w-full overflow-hidden",
+                "rounded-[19.17px]",
+                "mx-auto max-w-[640px]",
+                "lg:h-[603.8338623046875px] lg:w-[640px]",
+            ].join(" ")}
             style={{ backgroundColor: p.bg }}
         >
-            <div className="relative z-[2] flex h-full min-h-[360px] w-full flex-col gap-4 p-5 sm:p-6 lg:min-h-[520px]">
+            <div className="relative z-[2] flex h-full min-h-[360px] w-full flex-col gap-4 p-5 sm:p-6 lg:p-[30px]">
                 <ExploreBadge mode={p.badge.mode} duration={p.badge.duration} />
 
                 <div className={["flex w-full flex-col gap-3", p.contentWrapClassName].join(" ")}>
@@ -188,6 +195,7 @@ function ProgramCardView(p: ProgramCard) {
                     src={p.imageSrc}
                     alt={p.imageAlt}
                     className={["h-full w-full", p.imageObjectClassName].join(" ")}
+                    style={p.imageStyle}
                     loading="lazy"
                     decoding="async"
                 />
@@ -236,7 +244,7 @@ export function GraphicDesigningCalicutExploreProgramsSection() {
                     </div>
 
                     <div className="w-full">
-                        <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8">
+                        <div className="grid w-full grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8">
                             {PROGRAMS.map((p) => (
                                 <ProgramCardView key={p.id} {...p} />
                             ))}

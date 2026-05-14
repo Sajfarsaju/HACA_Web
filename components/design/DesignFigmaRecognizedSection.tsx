@@ -2,11 +2,15 @@ import Image from "next/image";
 
 export function DesignFigmaRecognizedSection() {
     return (
-        <section
-            className="w-full bg-[#FCFCFC] px-0"
-        >
-            <div className="w-full flex flex-col lg:flex-row gap-0 items-stretch lg:items-stretch lg:justify-start">
-                {/* Left artwork */}
+        <section className="w-full bg-[#FCFCFC] px-0" aria-labelledby="design-figma-recognized-heading">
+            <div
+                className="
+                    mx-auto flex h-[635px] w-full max-w-[1440px] min-h-0 flex-col items-stretch gap-0
+                    lg:h-[504.2643127441406px] lg:flex-row lg:gap-0
+                    lg:mx-0 lg:max-w-none
+                "
+            >
+                {/* First container: 2×2 grid — gap-0, cover + clip so tiles meet flush */}
                 <div
                     className="relative shrink-0 w-full aspect-square lg:w-[504.2643px] lg:h-[504.2643px]"
                     style={{
