@@ -6,7 +6,7 @@ const TITLE_ID = "marketing-seo-smarter-learn-title";
 
 type FeatureItem = {
     titleLines: readonly [string, string];
-    descriptionLines: readonly [string, string, string];
+    description: string;
     iconSrc: string;
 };
 
@@ -14,74 +14,42 @@ type FeatureItem = {
 const FEATURES: FeatureItem[] = [
     {
         titleLines: ["Full Career", "Support"],
-        descriptionLines: [
-            "From resume polishing to mock interviews",
-            "and job placements, we're with you in",
-            "every step.",
-        ],
+        description: "From resume polishing to mock interviews and job placements, we're with you in every step.",
         iconSrc: "/photos/schools/marketing/features/Globe.svg",
     },
     {
         titleLines: ["Adaptable EMI", "Options"],
-        descriptionLines: [
-            "Alongside career guidance, we also offer",
-            "flexible EMI plans to make learning",
-            "more accessible.",
-        ],
+        description: "Alongside career guidance, we also offer flexible EMI plans to make learning more accessible.",
         iconSrc: "/photos/schools/marketing/features/tdesign_money.svg",
     },
     {
         titleLines: ["Hands-On", "Projects"],
-        descriptionLines: [
-            "You'll work on real campaigns and gain",
-            "internship experience with live projects",
-            "that prepare you for actual industry roles.",
-        ],
+        description: "You'll work on real campaigns and gain internship experience with live projects that prepare you for actual industry roles.",
         iconSrc: "/photos/schools/marketing/features/Student.svg",
     },
     {
         titleLines: ["Industry Expert", "Mentors"],
-        descriptionLines: [
-            "Learn from marketers with real industry",
-            "experience, not just trainers reading",
-            "slides.",
-        ],
+        description: "Learn from marketers with real industry experience, not just trainers reading slides.",
         iconSrc: "/photos/schools/marketing/features/Handshake.svg",
     },
     {
         titleLines: ["One-on-One", "Mentorship"],
-        descriptionLines: [
-            "Get personalised feedback and",
-            "support tailored to your",
-            "growth.",
-        ],
+        description: "Get personalised feedback and support tailored to your growth.",
         iconSrc: "/photos/schools/marketing/features/Browsers.svg",
     },
     {
         titleLines: ["Industry Insights", "& Guest Talks"],
-        descriptionLines: [
-            "Stay ahead with the latest trends",
-            "and insider knowledge from top",
-            "pros.",
-        ],
+        description: "Stay ahead with the latest trends and insider knowledge from top pros.",
         iconSrc: "/photos/schools/marketing/features/Lightbulb.svg",
     },
     {
         titleLines: ["Learn by", "Doing"],
-        descriptionLines: [
-            "Work on real campaigns, run ads, and",
-            "create SEO friendly websites with",
-            "practical exercises.",
-        ],
+        description: "Work on real campaigns, run ads, and create SEO friendly websites with practical exercises.",
         iconSrc: "/photos/schools/marketing/features/Laptop.svg",
     },
     {
         titleLines: ["Build Your", "Portfolio"],
-        descriptionLines: [
-            "Stand out to recruiters with real",
-            "projects you complete during the",
-            "course.",
-        ],
+        description: "Stand out to recruiters with real projects you complete during the course.",
         iconSrc: "/photos/schools/marketing/features/Users.svg",
     },
 ];
@@ -170,11 +138,7 @@ export function MarketingSeoSmarterLearnSection() {
                                                 lg:w-auto lg:text-base lg:leading-[120%]
                                             "
                                         >
-                                            {item.descriptionLines[0]}
-                                            <br aria-hidden />
-                                            {item.descriptionLines[1]}
-                                            <br aria-hidden />
-                                            {item.descriptionLines[2]}
+                                            {item.description}
                                         </p>
                                     </li>
                                 ))}

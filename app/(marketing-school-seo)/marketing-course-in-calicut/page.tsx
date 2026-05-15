@@ -8,6 +8,14 @@ import { MarketingSeoWhatYouLearnSection } from "@/components/marketing/Marketin
 import { MarketingSeoCoursesSection } from "@/components/marketing/MarketingSeoCoursesSection";
 import { MarketingSeoToolsHiredSection } from "@/components/marketing/MarketingSeoToolsHiredSection";
 import { MarketingSeoSmarterLearnSection } from "@/components/marketing/MarketingSeoSmarterLearnSection";
+import { MarketingSeoLearningIsntEnoughSection } from "@/components/marketing/MarketingSeoLearningIsntEnoughSection";
+import { MarketingSeoExclusiveBenefitsSection } from "@/components/marketing/MarketingSeoExclusiveBenefitsSection";
+import { MarketingSeoTestimonialsSection } from "@/components/marketing/MarketingSeoTestimonialsSection";
+import { MarketingSeoMentorsSection } from "@/components/marketing/MarketingSeoMentorsSection";
+import { MarketingSeoGuestExpertsSection } from "@/components/marketing/MarketingSeoGuestExpertsSection";
+import { MarketingSeoCareerWinsSection } from "@/components/marketing/MarketingSeoCareerWinsSection";
+import { MarketingSeoBlogInsightsSection } from "@/components/marketing/MarketingSeoBlogInsightsSection";
+import { MarketingSeoMentorsBroughtHomeSection } from "@/components/marketing/MarketingSeoMentorsBroughtHomeSection";
 
 export const metadata: Metadata = {
     title: "Marketing Course in Calicut | HACA Marketing School",
@@ -26,6 +34,14 @@ export default function MarketingCourseInCalicutSeoPage() {
             <MarketingSeoCoursesSection />
             <MarketingSeoToolsHiredSection />
             <MarketingSeoSmarterLearnSection />
+            <MarketingSeoLearningIsntEnoughSection />
+            <MarketingSeoExclusiveBenefitsSection />
+            <MarketingSeoTestimonialsSection />
+            <MarketingSeoMentorsSection />
+            <MarketingSeoGuestExpertsSection />
+            <MarketingSeoCareerWinsSection />
+            <MarketingSeoBlogInsightsSection />
+            <MarketingSeoMentorsBroughtHomeSection />
         </div>
     );
 }

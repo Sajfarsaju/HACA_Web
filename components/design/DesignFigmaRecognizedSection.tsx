@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const BLOCK_IMAGES = [
     "/photos/schools/design/Blocks.svg",
@@ -23,46 +23,58 @@ const CORNER_SQUARES = {
     br: "#0ACF83",
 } as const;
 
+// Two-layer (A/B) state per tile — enables flash-free crossfade
+type TileState = {
+    layers: [string, string];
+    active: 0 | 1;
+};
+
+function shuffleDifferent(srcs: string[]): string[] {
+    const next = [...srcs];
+    for (let i = next.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [next[i], next[j]] = [next[j], next[i]];
+    }
+    return next.every((v, i) => v === srcs[i])
+        ? [srcs[1], srcs[2], srcs[3], srcs[0]]
+        : next;
+}
+
+// Stagger delay (ms) per tile index for a premium cascading feel
+const TILE_DELAY = [0, 120, 60, 180] as const;
+
 export function DesignFigmaRecognizedSection() {
     const prefersReducedMotion = usePrefersReducedMotion();
-    const [order, setOrder] = useState(() => [0, 1, 2, 3]);
-    const [isFading, setIsFading] = useState(false);
+
+    const [tiles, setTiles] = useState<TileState[]>(() =>
+        BLOCK_IMAGES.map((src) => ({
+            layers: [src, src] as [string, string],
+            active: 0 as 0 | 1,
+        }))
+    );
 
     useEffect(() => {
         if (prefersReducedMotion) return;
 
-        const FADE_MS = 260;
-        const INTERVAL_MS = 5000;
+        const INTERVAL_MS = 4500;
 
-        const pickNewOrder = (prev: number[]) => {
-            const next = [...prev];
-            for (let i = next.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [next[i], next[j]] = [next[j], next[i]];
-            }
-            // ensure it changes
-            return next.every((v, i) => v === prev[i]) ? [prev[1], prev[2], prev[3], prev[0]] : next;
+        const doShuffle = () => {
+            setTiles((prev) => {
+                const currentSrcs = prev.map((t) => t.layers[t.active]);
+                const newSrcs = shuffleDifferent(currentSrcs);
+                return prev.map((tile, i) => {
+                    if (newSrcs[i] === tile.layers[tile.active]) return tile;
+                    const next = (1 - tile.active) as 0 | 1;
+                    const layers = [...tile.layers] as [string, string];
+                    layers[next] = newSrcs[i];
+                    return { layers, active: next };
+                });
+            });
         };
 
-        let timeout1: ReturnType<typeof setTimeout> | null = null;
-        let timeout2: ReturnType<typeof setTimeout> | null = null;
-
-        const id = setInterval(() => {
-            setIsFading(true);
-            timeout1 = setTimeout(() => {
-                setOrder((prev) => pickNewOrder(prev));
-                timeout2 = setTimeout(() => setIsFading(false), 30);
-            }, FADE_MS);
-        }, INTERVAL_MS);
-
-        return () => {
-            clearInterval(id);
-            if (timeout1) clearTimeout(timeout1);
-            if (timeout2) clearTimeout(timeout2);
-        };
+        const id = setInterval(doShuffle, INTERVAL_MS);
+        return () => clearInterval(id);
     }, [prefersReducedMotion]);
-
-    const orderedBlockImages = useMemo(() => order.map((i) => BLOCK_IMAGES[i]), [order]);
 
     return (
         <section
@@ -85,25 +97,32 @@ export function DesignFigmaRecognizedSection() {
                         lg:mx-0 lg:aspect-auto lg:h-[504.2643127441406px] lg:w-[504.2643127441406px] lg:max-w-none
                     "
                 >
-                    {orderedBlockImages.map((src, idx) => (
+                    {tiles.map((tile, idx) => (
                         <div
-                            key={src}
+                            key={idx}
                             className={[
                                 "relative min-h-0 min-w-0 h-full w-full overflow-hidden lg:h-[252.1321563720703px] lg:w-[252.1321563720703px]",
-                                // Prevent 1px “seams” from sub-pixel rounding (e.g. 375/2 = 187.5)
                                 idx % 2 === 1 ? "-ml-px" : "",
                                 idx >= 2 ? "-mt-px" : "",
                             ]
                                 .filter(Boolean)
                                 .join(" ")}
                         >
-                            <Image
-                                src={src}
-                                alt=""
-                                fill
-                                className={`object-cover object-center transition-opacity duration-300 ease-out ${isFading ? "opacity-0" : "opacity-100"}`}
-                                sizes="(min-width: 1024px) 252px, 50vw"
-                            />
+                            {([0, 1] as const).map((layerIdx) => (
+                                <Image
+                                    key={layerIdx}
+                                    src={tile.layers[layerIdx]}
+                                    alt=""
+                                    fill
+                                    className="object-cover object-center"
+                                    style={{
+                                        opacity: tile.active === layerIdx ? 1 : 0,
+                                        transition: "opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)",
+                                        transitionDelay: `${TILE_DELAY[idx]}ms`,
+                                    }}
+                                    sizes="(min-width: 1024px) 252px, 50vw"
+                                />
+                            ))}
                         </div>
                     ))}
                 </div>

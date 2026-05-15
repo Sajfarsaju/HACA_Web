@@ -15,6 +15,7 @@ const TOOL_LOGOS = [
     { file: "medium logo.svg" as const, label: "Medium" },
     { file: "linkedin logo.svg" as const, label: "LinkedIn" },
     { file: "Shopify logo.svg" as const, label: "Shopify" },
+    { file: "Group (9).svg" as const, label: "Monster" },
 ] as const;
 
 function toolSrc(filename: string) {
@@ -69,7 +70,7 @@ export function MarketingSeoToolsHiredSection() {
 
                 <p className="sr-only">
                     Marketing course training covers industry tools including Google Ads, Google Analytics, Meta, Google Tag Manager, SEMrush,
-                    ChatGPT, Claude, WordPress, Medium, LinkedIn, and Shopify.
+                    ChatGPT, Claude, WordPress, Medium, LinkedIn, Shopify, and Monster.
                 </p>
 
                 <div
