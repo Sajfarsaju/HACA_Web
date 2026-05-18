@@ -6,6 +6,9 @@ import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArro
 
 const HEADING_ID = "marketing-seo-exclusive-benefits-heading";
 
+const SCHOLARSHIP_CARD_IMAGE = "Group 41771.webp";
+const BRAND_WAR_CARD_IMAGE = "Frame 79.webp";
+
 function marketingAsset(filename: string) {
     return `/photos/schools/marketing/${encodeURIComponent(filename)}`;
 }
@@ -125,13 +128,16 @@ type BenefitCardShellProps = {
     className?: string;
     /** Desktop grid placement (Tailwind grid utilities) */
     gridClass: string;
+    /** Image bleeds to card sides and sits flush on the bottom edge */
+    hasBottomImage?: boolean;
 };
 
-function BenefitCardShell({ children, className = "", gridClass }: BenefitCardShellProps) {
+function BenefitCardShell({ children, className = "", gridClass, hasBottomImage = false }: BenefitCardShellProps) {
     return (
         <div
             className={[
-                "flex min-h-0 w-full flex-col rounded-[16px] bg-[#151718] p-[30px] shadow-[0px_4px_4px_0px_#00000040]",
+                "flex min-h-0 w-full flex-col rounded-[16px] bg-[#151718] shadow-[0px_4px_4px_0px_#00000040]",
+                hasBottomImage ? "overflow-hidden p-[30px] pb-0" : "p-[30px]",
                 "gap-5 lg:min-h-0",
                 gridClass,
                 className,
@@ -172,8 +178,13 @@ function CardBody({ children }: { children: ReactNode }) {
 
 function CardImage({ src, alt }: { src: string; alt: string }) {
     return (
-        <div className="relative mt-auto aspect-[16/10] w-full shrink-0 overflow-hidden rounded-[12px] lg:aspect-[5/3]">
-            <Image src={src} alt={alt} fill className="object-cover object-center" sizes="(max-width: 1024px) 90vw, 400px" />
+        <div
+            className="
+                relative mt-auto -mx-[30px] w-[calc(100%+60px)] shrink-0 overflow-hidden
+                aspect-[16/10] lg:aspect-[5/3]
+            "
+        >
+            <Image src={src} alt={alt} fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 420px" />
         </div>
     );
 }
@@ -225,6 +236,7 @@ export function MarketingSeoExclusiveBenefitsSection() {
                 <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-4 lg:grid lg:min-h-[740px] lg:grid-cols-3 lg:gap-4">
                     {/* 1 — Learner Scholarship Fund (tall, image) */}
                     <BenefitCardShell
+                        hasBottomImage
                         gridClass="lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:min-h-[488px] lg:gap-5"
                         className="min-h-0 gap-5 lg:gap-5"
                     >
@@ -233,8 +245,12 @@ export function MarketingSeoExclusiveBenefitsSection() {
                             A dedicated fund to support serious learners—because cost should never block ambition when you
                             show up and do the work.
                         </CardBody>
-                        <LearnMoreLink href="/contact" ariaLabel="Learn more about the Learner Scholarship Fund" />
-                        <CardImage src={marketingAsset("Group 1.webp")} alt="Learner Scholarship Fund promotional visual" />
+                        <LearnMoreLink
+                            href="/contact"
+                            ariaLabel="Learn more about the Learner Scholarship Fund"
+                            className="mt-0"
+                        />
+                        <CardImage src={marketingAsset(SCHOLARSHIP_CARD_IMAGE)} alt="Learner Scholarship Fund promotional visual" />
                     </BenefitCardShell>
 
                     {/* 2 — 100% Scholarship */}
@@ -266,6 +282,7 @@ export function MarketingSeoExclusiveBenefitsSection() {
 
                     {/* 5 — Brand War (tall, image) */}
                     <BenefitCardShell
+                        hasBottomImage
                         gridClass="lg:col-start-3 lg:row-start-2 lg:row-span-2 lg:min-h-[488px] lg:gap-5"
                         className="gap-5 lg:gap-5"
                     >
@@ -274,8 +291,8 @@ export function MarketingSeoExclusiveBenefitsSection() {
                             A high-energy brand challenge where teams build campaigns, defend ideas, and learn how agencies
                             really pitch.
                         </CardBody>
-                        <LearnMoreLink href="/contact" ariaLabel="Learn more about Brand War" />
-                        <CardImage src={marketingAsset("Group 2.webp")} alt="Brand War team challenge" />
+                        <LearnMoreLink href="/contact" ariaLabel="Learn more about Brand War" className="mt-0" />
+                        <CardImage src={marketingAsset(BRAND_WAR_CARD_IMAGE)} alt="Brand War team challenge" />
                     </BenefitCardShell>
 
                     {/* 6 — HACA X Community (wide) */}

@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { isDesignSchoolSeoPath } from "@/lib/design-school-seo";
+import { isMarketingSchoolSeoPath } from "@/lib/marketing-school-seo";
 import { Navbar } from "./Navbar";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { BottomReserveCta } from "./BottomReserveCta";
@@ -19,9 +20,7 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
         pathname.startsWith("/marketing-school/") ||
         pathname === "/schools/marketing" ||
         pathname.startsWith("/schools/marketing/");
-    const isMarketingSchoolSeo =
-        pathname === "/marketing-course-in-calicut" ||
-        pathname.startsWith("/marketing-course-in-calicut/");
+    const isMarketingSchoolSeo = isMarketingSchoolSeoPath(pathname);
     const isDesignSchool =
         pathname === "/design-school" ||
         pathname.startsWith("/design-school/") ||
