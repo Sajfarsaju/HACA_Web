@@ -7,6 +7,9 @@ export const MARKETING_SCHOOL_SEO_SITE_URL =
 /** Canonical path for the Calicut digital marketing SEO landing page. */
 export const DIGITAL_MARKETING_CALICUT_SEO_PATH = "/digital-marketing-course-in-calicut" as const;
 
+/** Canonical path for the Kerala digital marketing SEO landing page. */
+export const DIGITAL_MARKETING_KERALA_SEO_PATH = "/digital-marketing-course-in-kerala" as const;
+
 /** @deprecated Use {@link DIGITAL_MARKETING_CALICUT_SEO_PATH} — kept for redirects. */
 export const LEGACY_MARKETING_CALICUT_SEO_PATH = "/marketing-course-in-calicut" as const;
 
@@ -88,8 +91,156 @@ export function isMarketingSchoolSeoPath(pathname: string): boolean {
         pathname === DIGITAL_MARKETING_CALICUT_SEO_PATH ||
         pathname.startsWith(`${DIGITAL_MARKETING_CALICUT_SEO_PATH}/`) ||
         pathname === LEGACY_MARKETING_CALICUT_SEO_PATH ||
-        pathname.startsWith(`${LEGACY_MARKETING_CALICUT_SEO_PATH}/`)
+        pathname.startsWith(`${LEGACY_MARKETING_CALICUT_SEO_PATH}/`) ||
+        pathname === DIGITAL_MARKETING_KERALA_SEO_PATH ||
+        pathname.startsWith(`${DIGITAL_MARKETING_KERALA_SEO_PATH}/`)
     );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Kerala SEO page
+// ─────────────────────────────────────────────────────────────
+
+export type MarketingKeralaFaqItem = {
+    id: string;
+    question: string;
+    answer: string;
+};
+
+export const MARKETING_KERALA_FAQS: MarketingKeralaFaqItem[] = [
+    {
+        id: "kerala-faq-1",
+        question: "Who can join the Digital Marketing Course in Kerala?",
+        answer:
+            "Students, fresh graduates, working professionals, freelancers, and business owners from across Kerala are welcome. No prior marketing background is needed — we build from fundamentals to advanced, job-ready skills.",
+    },
+    {
+        id: "kerala-faq-2",
+        question: "Can I choose between online and offline learning?",
+        answer:
+            "Yes. Join our 6-month offline AI-integrated program at our Calicut (Kozhikode) centre, or our 5-month online batch from anywhere in Kerala. Both formats include live sessions, mentor support, and hands-on projects.",
+    },
+    {
+        id: "kerala-faq-3",
+        question: "What is the course duration, and what skills will I gain?",
+        answer:
+            "Programs range from 2-month mastery courses to 5–6 month AI-integrated tracks. You will learn SEO, Google Ads, Meta Ads, content marketing, copywriting, social media, e-commerce, AI tools, analytics, and real campaign execution with portfolio-ready work.",
+    },
+    {
+        id: "kerala-faq-4",
+        question: "What makes this the best digital marketing institute in Kerala?",
+        answer:
+            "HACA is backed by a working marketing agency, so training mirrors real client work. You learn from practitioners with genuine industry experience, work on live-style projects, and receive career support — not just a certificate.",
+    },
+    {
+        id: "kerala-faq-5",
+        question: "Can I get a job after completing a digital marketing course?",
+        answer:
+            "Yes. Our career team provides resume guidance, mock interviews, and placement assistance through our industry network. Alumni across Kerala have secured roles at agencies, brands, and as independent freelancers.",
+    },
+    {
+        id: "kerala-faq-6",
+        question: "How do I enrol?",
+        answer:
+            "Fill in the enquiry form on our website or call us directly. Our team will help you choose the right batch and format — online or offline — based on your goals and schedule.",
+    },
+];
+
+const KERALA_PAGE_TITLE = "Digital Marketing Course in Kerala | AI-Integrated Training | HACA";
+const KERALA_PAGE_DESCRIPTION =
+    "Join HACA's digital marketing course in Kerala — 350+ hours of AI-integrated training, online and offline batches, real brand projects, expert mentors, and placement support. Learn from anywhere in Kerala.";
+
+export function buildDigitalMarketingKeralaSeoMetadata(): Metadata {
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_KERALA_SEO_PATH}`;
+
+    return {
+        title: KERALA_PAGE_TITLE,
+        description: KERALA_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: KERALA_PAGE_TITLE,
+            description: KERALA_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_IN",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: KERALA_PAGE_TITLE,
+            description: KERALA_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "digital marketing course in Kerala",
+            "digital marketing institute Kerala",
+            "online digital marketing course Kerala",
+            "best digital marketing course Kerala",
+            "digital marketing training Kerala",
+            "SEO course Kerala",
+            "Google Ads course Kerala",
+            "digital marketing course Kochi",
+            "digital marketing course Thiruvananthapuram",
+            "HACA marketing school Kerala",
+        ],
+    };
+}
+
+export function digitalMarketingKeralaJsonLd() {
+    const url = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_KERALA_SEO_PATH}`;
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${url}#webpage`,
+                url,
+                name: KERALA_PAGE_TITLE,
+                description: KERALA_PAGE_DESCRIPTION,
+                isPartOf: {
+                    "@type": "WebSite",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+            },
+            {
+                "@type": "Course",
+                "@id": `${url}#course`,
+                name: "Digital Marketing Course in Kerala",
+                description: KERALA_PAGE_DESCRIPTION,
+                provider: {
+                    "@type": "EducationalOrganization",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+                url,
+                educationalLevel: "Beginner to Advanced",
+                courseMode: ["Onsite", "Online"],
+                inLanguage: "en",
+                areaServed: {
+                    "@type": "State",
+                    name: "Kerala",
+                    containedInPlace: {
+                        "@type": "Country",
+                        name: "India",
+                    },
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${url}#faq`,
+                mainEntity: MARKETING_KERALA_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.question,
+                    acceptedAnswer: {
+                        "@type": "Answer",
+                        text: item.answer,
+                    },
+                })),
+            },
+        ],
+    };
 }
 
 export function buildDigitalMarketingCalicutSeoMetadata(): Metadata {

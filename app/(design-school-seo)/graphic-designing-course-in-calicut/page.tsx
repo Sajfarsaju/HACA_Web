@@ -1,10 +1,10 @@
-import { GraphicDesigningCalicutHeroSection } from "@/components/design/GraphicDesigningCalicutHeroSection";
-import { GraphicDesigningCalicutStatsSection } from "@/components/design/GraphicDesigningCalicutStatsSection";
-import { GraphicDesigningCalicutWhatWeHaveSection } from "@/components/design/GraphicDesigningCalicutWhatWeHaveSection";
-import { GraphicDesigningCalicutFlagshipProgramSection } from "@/components/design/GraphicDesigningCalicutFlagshipProgramSection";
-import { GraphicDesigningCalicutBecomeSection } from "@/components/design/GraphicDesigningCalicutBecomeSection";
-import { GraphicDesigningCalicutToolsSection } from "@/components/design/GraphicDesigningCalicutToolsSection";
-import { GraphicDesigningCalicutExploreProgramsSection } from "@/components/design/GraphicDesigningCalicutExploreProgramsSection";
+import { GraphicDesigningCalicutHeroSection } from "./_sections/GraphicDesigningCalicutHeroSection";
+import { GraphicDesigningCalicutStatsSection } from "./_sections/GraphicDesigningCalicutStatsSection";
+import { GraphicDesigningCalicutWhatWeHaveSection } from "./_sections/GraphicDesigningCalicutWhatWeHaveSection";
+import { GraphicDesigningCalicutFlagshipProgramSection } from "./_sections/GraphicDesigningCalicutFlagshipProgramSection";
+import { GraphicDesigningCalicutBecomeSection } from "./_sections/GraphicDesigningCalicutBecomeSection";
+import { GraphicDesigningCalicutToolsSection } from "./_sections/GraphicDesigningCalicutToolsSection";
+import { GraphicDesigningCalicutExploreProgramsSection } from "./_sections/GraphicDesigningCalicutExploreProgramsSection";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
 import { DesignSeoFaqList } from "@/components/design/DesignSeoFaqList";
 import { buildDesignSchoolSeoMetadata } from "@/lib/design-school-seo";

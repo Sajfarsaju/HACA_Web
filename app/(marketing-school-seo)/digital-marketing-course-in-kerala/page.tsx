@@ -1,18 +1,18 @@
 import {
-    buildDigitalMarketingCalicutSeoMetadata,
-    digitalMarketingCalicutSeoJsonLd,
+    buildDigitalMarketingKeralaSeoMetadata,
+    digitalMarketingKeralaJsonLd,
 } from "@/lib/marketing-school-seo";
-import { MarketingSeoHeroCalicut } from "./_sections/MarketingSeoHeroCalicut";
-import { MarketingSeoAgencyCalicutIntroSection } from "./_sections/MarketingSeoAgencyCalicutIntroSection";
-import { MarketingSeoSuccessStoriesIntroSection } from "./_sections/MarketingSeoSuccessStoriesIntroSection";
+import { MarketingSeoHeroKerala } from "./_sections/MarketingSeoHeroKerala";
 import { MarketingSeoTrustedPressStatsSection } from "./_sections/MarketingSeoTrustedPressStatsSection";
+import { MarketingSeoAgencyKeralaIntroSection } from "./_sections/MarketingSeoAgencyKeralaIntroSection";
+import { MarketingSeoSuccessStoriesIntroSection } from "./_sections/MarketingSeoSuccessStoriesIntroSection";
 import { MarketingSeoWhatYouLearnSection } from "./_sections/MarketingSeoWhatYouLearnSection";
 import { MarketingSeoCoursesSection } from "./_sections/MarketingSeoCoursesSection";
 import { MarketingSeoToolsHiredSection } from "./_sections/MarketingSeoToolsHiredSection";
+import { MarketingSeoPrepareIndustrySection } from "./_sections/MarketingSeoPrepareIndustrySection";
 import { MarketingSeoSmarterLearnSection } from "./_sections/MarketingSeoSmarterLearnSection";
 import { MarketingSeoLearningIsntEnoughSection } from "./_sections/MarketingSeoLearningIsntEnoughSection";
 import { MarketingSeoExclusiveBenefitsSection } from "./_sections/MarketingSeoExclusiveBenefitsSection";
-import { MarketingSeoTestimonialsSection } from "./_sections/MarketingSeoTestimonialsSection";
 import { MarketingSeoMentorsSection } from "./_sections/MarketingSeoMentorsSection";
 import { MarketingSeoGuestExpertsSection } from "./_sections/MarketingSeoGuestExpertsSection";
 import { MarketingSeoCareerWinsSection } from "./_sections/MarketingSeoCareerWinsSection";
@@ -20,13 +20,13 @@ import { MarketingSeoBlogInsightsSection } from "./_sections/MarketingSeoBlogIns
 import { MarketingSeoMentorsBroughtHomeSection } from "./_sections/MarketingSeoMentorsBroughtHomeSection";
 import { MarketingSeoJobReadyCareersSection } from "./_sections/MarketingSeoJobReadyCareersSection";
 import { MarketingSeoHacaCultureSection } from "./_sections/MarketingSeoHacaCultureSection";
-import { MarketingSeoCalicutFaqSection } from "./_sections/MarketingSeoCalicutFaqSection";
-import { MarketingSeoCalicutCtaSection } from "./_sections/MarketingSeoCalicutCtaSection";
+import { MarketingSeoKeralaFaqSection } from "./_sections/MarketingSeoKeralaFaqSection";
+import { MarketingSeoKeralaCtaSection } from "./_sections/MarketingSeoKeralaCtaSection";
 
-export const metadata = buildDigitalMarketingCalicutSeoMetadata();
+export const metadata = buildDigitalMarketingKeralaSeoMetadata();
 
-export default function DigitalMarketingCourseInCalicutPage() {
-    const jsonLd = digitalMarketingCalicutSeoJsonLd();
+export default function DigitalMarketingCourseInKeralaPage() {
+    const jsonLd = digitalMarketingKeralaJsonLd();
 
     return (
         <>
@@ -35,17 +35,17 @@ export default function DigitalMarketingCourseInCalicutPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <div className="w-full">
-                <MarketingSeoHeroCalicut />
+                <MarketingSeoHeroKerala />
                 <MarketingSeoTrustedPressStatsSection />
-                <MarketingSeoAgencyCalicutIntroSection />
+                <MarketingSeoAgencyKeralaIntroSection />
                 <MarketingSeoSuccessStoriesIntroSection />
                 <MarketingSeoWhatYouLearnSection />
                 <MarketingSeoCoursesSection />
                 <MarketingSeoToolsHiredSection />
+                <MarketingSeoPrepareIndustrySection />
                 <MarketingSeoSmarterLearnSection />
                 <MarketingSeoLearningIsntEnoughSection />
                 <MarketingSeoExclusiveBenefitsSection />
-                <MarketingSeoTestimonialsSection />
                 <MarketingSeoMentorsSection />
                 <MarketingSeoGuestExpertsSection />
                 <MarketingSeoCareerWinsSection />
@@ -53,8 +53,8 @@ export default function DigitalMarketingCourseInCalicutPage() {
                 <MarketingSeoMentorsBroughtHomeSection />
                 <MarketingSeoJobReadyCareersSection />
                 <MarketingSeoHacaCultureSection />
-                <MarketingSeoCalicutFaqSection />
-                <MarketingSeoCalicutCtaSection />
+                <MarketingSeoKeralaFaqSection />
+                <MarketingSeoKeralaCtaSection />
             </div>
         </>
     );

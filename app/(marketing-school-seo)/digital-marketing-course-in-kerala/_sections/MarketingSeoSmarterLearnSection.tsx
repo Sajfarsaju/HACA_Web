@@ -1,0 +1,135 @@
+const TITLE_ID = "marketing-kerala-smarter-learn-title";
+
+type FeatureItem = {
+    titleLines: readonly [string, string];
+    description: string;
+    iconSrc: string;
+};
+
+const FEATURES: FeatureItem[] = [
+    {
+        titleLines: ["Full Career", "Support"],
+        description: "From resume polishing to mock interviews and job placements, we're with you in every step.",
+        iconSrc: "/photos/schools/marketing/features/Globe.svg",
+    },
+    {
+        titleLines: ["Adaptable EMI", "Options"],
+        description: "Alongside career guidance, we also offer flexible EMI plans to make learning more accessible.",
+        iconSrc: "/photos/schools/marketing/features/tdesign_money.svg",
+    },
+    {
+        titleLines: ["Hands-On", "Projects"],
+        description: "You won\u0027t just listen, you\u0027ll launch real campaigns that deliver real results.",
+        iconSrc: "/photos/schools/marketing/features/Student.svg",
+    },
+    {
+        titleLines: ["Industry Expert", "Mentors"],
+        description: "Learn from marketers with real industry experience, not just trainers reading slides.",
+        iconSrc: "/photos/schools/marketing/features/Handshake.svg",
+    },
+    {
+        titleLines: ["One-on-One", "Mentorship"],
+        description: "Get personalised feedback and support tailored to your growth.",
+        iconSrc: "/photos/schools/marketing/features/Browsers.svg",
+    },
+    {
+        titleLines: ["Industry Insights", "& Guest Talks"],
+        description: "Stay ahead with the latest trends and insider knowledge from top pros.",
+        iconSrc: "/photos/schools/marketing/features/Lightbulb.svg",
+    },
+    {
+        titleLines: ["Learn by", "Doing"],
+        description: "Work on real campaigns, run ads, and create SEO friendly websites with practical exercises.",
+        iconSrc: "/photos/schools/marketing/features/Laptop.svg",
+    },
+    {
+        titleLines: ["Build Your", "Portfolio"],
+        description: "Stand out to recruiters with real projects you complete during the course.",
+        iconSrc: "/photos/schools/marketing/features/Users.svg",
+    },
+];
+
+function FeatureIcon({ item }: { item: FeatureItem }) {
+    return (
+        <span className="inline-flex h-[26px] w-[26px] shrink-0 items-start justify-start p-0 sm:h-[30px] sm:w-[30px]">
+            <img
+                src={item.iconSrc}
+                alt=""
+                width={30}
+                height={30}
+                className="block h-[26px] w-[26px] object-contain object-left-top sm:h-[30px] sm:w-[30px]"
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+            />
+        </span>
+    );
+}
+
+export function MarketingSeoSmarterLearnSection() {
+    return (
+        <section
+            className="box-border w-full min-w-0 max-w-full overflow-x-hidden bg-white text-black"
+            role="region"
+            aria-labelledby={TITLE_ID}
+        >
+            <div className="w-full pt-[clamp(12px,2vw,24px)] pb-[clamp(16px,2.5vw,36px)]">
+                <div className="box-border mx-auto w-full min-w-0 max-w-[1440px] px-5 lg:px-[60px]">
+                    <div className="mx-auto w-full min-w-0 max-w-[1320px]">
+                        <header className="mx-auto flex w-full max-w-[335px] flex-col gap-4 text-center lg:max-w-[934px] lg:gap-5">
+                            <h2
+                                id={TITLE_ID}
+                                className="m-0 mx-auto w-full max-w-[335px] text-center font-semibold text-[36px] leading-[95%] tracking-[-0.01em] text-black [font-family:'Darker_Grotesque',sans-serif] [text-rendering:geometricPrecision] lg:max-w-[934px] lg:text-[55px] lg:leading-[110%]"
+                                style={{ fontWeight: 600 }}
+                            >
+                                <span className="flex flex-col lg:hidden">
+                                    <span className="block">What Makes Us the Best Academy for</span>
+                                    <span className="block">Digital Marketing Course in Kerala?</span>
+                                </span>
+                                <span className="hidden lg:inline">
+                                    What Makes Us the Best Academy for Digital Marketing Course in Kerala?
+                                </span>
+                            </h2>
+                            <p
+                                className="m-0 text-[16px] font-medium leading-[140%] tracking-[-0.05em] text-black/70 lg:text-[18px] lg:leading-[150%]"
+                                style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
+                            >
+                                Real-world projects, hands-on learning, and mentor support, all you need to excel in digital
+                                marketing.
+                            </p>
+                        </header>
+
+                        <div className="mt-[clamp(28px,4.5vw,48px)] w-full min-w-0">
+                            <ul
+                                className="m-0 grid w-full list-none grid-cols-1 items-start justify-items-stretch gap-x-6 gap-y-10 p-0 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-14 lg:grid-cols-4 lg:justify-items-start lg:gap-x-10 lg:gap-y-[clamp(48px,8vw,142px)]"
+                            >
+                                {FEATURES.map((item) => (
+                                    <li
+                                        key={item.titleLines.join(" ")}
+                                        className="flex w-full min-w-0 max-w-none flex-col items-start text-left sm:max-w-none lg:w-fit lg:max-w-none"
+                                    >
+                                        <div className="mb-3 shrink-0 max-sm:mb-2.5 lg:mb-5">
+                                            <FeatureIcon item={item} />
+                                        </div>
+                                        <h3
+                                            className="mb-2 w-full min-w-0 text-left font-bold tracking-normal text-black [font-family:'Darker_Grotesque',sans-serif] max-sm:mb-2 max-sm:text-[1.125rem] max-sm:leading-[1.05] sm:text-xl sm:leading-[100%] lg:mb-2.5 lg:w-auto lg:text-2xl"
+                                        >
+                                            {item.titleLines[0]}
+                                            <br aria-hidden />
+                                            {item.titleLines[1]}
+                                        </h3>
+                                        <p
+                                            className="m-0 w-full min-w-0 max-w-none text-left font-medium tracking-normal text-black/75 font-['Satoshi',sans-serif] max-sm:text-[0.8125rem] max-sm:leading-[130%] sm:text-[0.9375rem] sm:leading-[125%] lg:w-auto lg:text-base lg:leading-[120%]"
+                                        >
+                                            {item.description}
+                                        </p>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}

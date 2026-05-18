@@ -1,0 +1,190 @@
+import Image from "next/image";
+import Link from "next/link";
+
+import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
+
+const HEADING_ID = "marketing-kerala-courses-heading";
+const SUB_HEADING_ID = "marketing-kerala-courses-subheading";
+
+const CALENDAR_SVG = "/photos/schools/marketing/CalendarDots.svg";
+const CLOCK_SVG = "/photos/schools/marketing/Clock.svg";
+
+type CourseDatum = {
+    pill: string;
+    title: string;
+    description: string;
+    schedule?: { days: string; time: string } | null;
+    comingSoon?: boolean;
+    hideCta?: boolean;
+};
+
+const COURSES: readonly CourseDatum[] = [
+    {
+        pill: "Offline | 6 Months",
+        title: "6-Month Offline Advanced AI - Integrated Digital Marketing Course with Internship",
+        description:
+            "This in-person program is designed for immersive learning, combining classroom sessions with hands-on live projects. Over 6 months, you'll go through 5 months of advanced training followed by a 1-month specialisation internship, giving you real-world experience.",
+        schedule: { days: "Monday to Friday", time: "10:30 AM to 4 PM" },
+    },
+    {
+        pill: "Online | 5 Months",
+        title: "5-Month Online AI - Integrated Digital Marketing Course",
+        description:
+            "Our online program offers live interactive sessions that are flexible and ideal for working professionals. The course covers key areas like SEO, paid ads, social media, email marketing, and analytics, ensuring a complete learning experience.",
+        schedule: { days: "Monday to Friday", time: "8 PM to 10 PM" },
+    },
+    {
+        pill: "Online | 2 Months",
+        title: "2-Month Online Performance Marketing Mastery Course",
+        description:
+            "Specialise in running high-ROI ad campaigns across Google, Facebook, Instagram and more. Perfect for those who want to master paid ads in less time.",
+        schedule: null,
+    },
+    {
+        pill: "Coming Soon",
+        title: "2-Month Online Content Creation & Social Media Mastery Course",
+        description:
+            "Learn how to grow, engage, and monetise audiences on platforms like Instagram, LinkedIn, YouTube, and Facebook with proven strategies and content planning.",
+        schedule: null,
+        comingSoon: true,
+        hideCta: true,
+    },
+];
+
+const INTRO_BLOCK = {
+    heading: "Learning Modes Designed for You",
+    body: "Not everyone learns the same way, and that's why we give you options.",
+} as const;
+
+const BETWEEN_BLOCK = {
+    heading: "Our Specialised Mastery Courses",
+    body: "Want to go deeper? Take your pick from our advanced mastery series.",
+} as const;
+
+function ScheduleRow({ iconSrc, label }: { iconSrc: string; label: string }) {
+    return (
+        <div className="flex h-6 w-full max-w-[255px] items-center gap-[10px] lg:max-w-[560px]">
+            <div className="relative h-6 w-6 shrink-0" aria-hidden>
+                <Image src={iconSrc} alt="" fill className="object-contain" sizes="24px" />
+            </div>
+            <p
+                className="m-0 min-w-0 text-[16px] font-normal leading-[150%] tracking-[-0.05em] text-black"
+                style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 400 }}
+            >
+                {label}
+            </p>
+        </div>
+    );
+}
+
+function CourseCard({ course }: { course: CourseDatum }) {
+    const { pill, title, description, schedule, comingSoon, hideCta } = course;
+
+    return (
+        <article
+            className="flex w-full flex-col gap-5 rounded-[16px] bg-[#E8F1FF] p-10 text-black lg:max-w-[640px]"
+            aria-label={title}
+        >
+            <div className="flex w-full max-w-[255px] min-h-[442px] flex-col gap-[30px] lg:max-w-[560px] lg:min-h-[344px]">
+                <span
+                    className={`inline-flex h-[34px] w-fit max-w-full shrink-0 items-center gap-[10px] rounded-[20px] px-[10px] py-[6px] text-[16px] font-bold leading-none ${
+                        comingSoon ? "bg-[#0066FF] text-white" : "bg-white text-black"
+                    }`}
+                    style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 700 }}
+                >
+                    {pill}
+                </span>
+
+                <div className="flex w-full min-h-[290px] flex-col gap-5 lg:min-h-[192px]">
+                    <h3
+                        className="m-0 font-semibold text-[36px] leading-[90%] tracking-[-0.01em] text-black [text-rendering:geometricPrecision] lg:text-[40px]"
+                        style={{ fontFamily: "Darker Grotesque, sans-serif", fontWeight: 600 }}
+                    >
+                        {title}
+                    </h3>
+                    <p
+                        className="m-0 text-[16px] font-normal leading-[120%] tracking-[-0.05em] text-black"
+                        style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 400 }}
+                    >
+                        {description}
+                    </p>
+                </div>
+
+                {schedule ? (
+                    <div className="flex w-full min-h-[58px] max-w-[255px] flex-col gap-[10px] lg:max-w-[560px] lg:min-h-[58px]">
+                        <ScheduleRow iconSrc={CALENDAR_SVG} label={schedule.days} />
+                        <ScheduleRow iconSrc={CLOCK_SVG} label={schedule.time} />
+                    </div>
+                ) : null}
+            </div>
+
+            {!hideCta ? (
+                <Link
+                    href="/contact"
+                    className="group relative flex h-[60px] w-[194px] shrink-0 cursor-pointer items-center no-underline"
+                    aria-label={`Enquire now about: ${title}`}
+                >
+                    <div className="absolute left-0 top-0 flex h-[60px] w-[189px] items-center rounded-[30px] bg-white pl-[20px] shadow-sm transition-colors duration-300 group-hover:bg-[#F5F5F5]">
+                        <span
+                            className="whitespace-nowrap text-black"
+                            style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}
+                        >
+                            Enquire Now
+                        </span>
+                    </div>
+                    <MarketingCtaArrowCircle className="absolute right-0 top-0" size="60" background="#0066FF" />
+                </Link>
+            ) : null}
+        </article>
+    );
+}
+
+export function MarketingSeoCoursesSection() {
+    return (
+        <section className="w-full bg-white text-black" aria-labelledby={HEADING_ID}>
+            <div className="mx-auto box-border flex w-full max-w-[1440px] flex-col gap-[30px] px-[clamp(16px,4.16vw,60px)] py-[30px] md:px-[clamp(24px,5vw,48px)] lg:gap-[60px] lg:p-[60px]">
+                <div className="flex w-full flex-col gap-3 lg:mx-0 lg:max-w-[1320px] lg:flex-row lg:items-start lg:justify-between lg:gap-[60px]">
+                    <div className="flex w-full flex-col gap-3 lg:max-w-[750px]">
+                        <h2
+                            id={HEADING_ID}
+                            className="m-0 font-semibold text-[36px] leading-[95%] tracking-[0] text-black [text-rendering:geometricPrecision] lg:text-[clamp(40px,3.7vw,55px)] lg:leading-[150%] lg:tracking-[-0.05em]"
+                            style={{ fontFamily: "Darker Grotesque, sans-serif" }}
+                        >
+                            {INTRO_BLOCK.heading}
+                        </h2>
+                        <p
+                            className="m-0 text-[16px] font-medium leading-[150%] tracking-[-0.05em] text-black/70 lg:max-w-[750px] lg:text-[16px] lg:leading-[125%] lg:tracking-[0]"
+                            style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
+                        >
+                            {INTRO_BLOCK.body}
+                        </p>
+                    </div>
+                </div>
+
+                <div className="flex w-full flex-col gap-5 lg:mx-0 lg:max-w-[1320px] lg:grid lg:grid-cols-2 lg:gap-10">
+                    <CourseCard course={COURSES[0]} />
+                    <CourseCard course={COURSES[1]} />
+
+                    <div className="flex w-full flex-col gap-3 lg:col-span-2" aria-labelledby={SUB_HEADING_ID}>
+                        <h3
+                            id={SUB_HEADING_ID}
+                            className="m-0 font-semibold text-[36px] leading-[95%] tracking-[0] text-black [text-rendering:geometricPrecision] lg:text-[clamp(40px,3.7vw,55px)] lg:leading-[150%] lg:tracking-[-0.05em]"
+                            style={{ fontFamily: "Darker Grotesque, sans-serif" }}
+                        >
+                            {BETWEEN_BLOCK.heading}
+                        </h3>
+                        <p
+                            className="m-0 max-w-[750px] text-[16px] font-medium leading-[150%] tracking-[-0.05em] text-black/70 lg:text-[16px] lg:leading-[125%] lg:tracking-[0]"
+                            style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
+                        >
+                            {BETWEEN_BLOCK.body}
+                        </p>
+                    </div>
+
+                    <CourseCard course={COURSES[2]} />
+                    <CourseCard course={COURSES[3]} />
+                </div>
+            </div>
+        </section>
+    );
+}
