@@ -99,7 +99,7 @@ export function MarketingSeoHeroCalicut() {
                         >
                             <span className="inline">Experience the Best Digital</span>{" "}
                             <br className="hidden lg:block" aria-hidden />
-                            <span className="inline">Marketing Course in Calicut</span>
+                            <span className="inline">Digital Marketing Course in Calicut</span>
                         </h1>
 
                         <div className="flex flex-wrap items-center gap-3 md:gap-4">

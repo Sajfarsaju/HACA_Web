@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { isDesignSchoolSeoPath } from "@/lib/design-school-seo";
+import { isMarketingSchoolSeoPath } from "@/lib/marketing-school-seo";
 import { Footer } from "./Footer";
 
 export function ConditionalFooter() {
@@ -32,7 +33,7 @@ export function ConditionalFooter() {
     if (pathname === "/schools/marketing" || pathname.startsWith("/schools/marketing/")) {
         return null;
     }
-    if (pathname === "/marketing-course-in-calicut" || pathname.startsWith("/marketing-course-in-calicut/")) {
+    if (isMarketingSchoolSeoPath(pathname)) {
         return null;
     }
 

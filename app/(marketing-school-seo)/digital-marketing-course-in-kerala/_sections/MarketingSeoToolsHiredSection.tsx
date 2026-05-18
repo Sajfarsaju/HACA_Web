@@ -1,8 +1,7 @@
 import Image from "next/image";
 
-const HEADING_ID = "marketing-calicut-tools-hired-heading";
+const HEADING_ID = "marketing-kerala-tools-hired-heading";
 
-/** Files live under `public/photos/schools/marketing/` (spaces encoded in URLs). */
 const TOOL_LOGOS = [
     { file: "Google logo.svg" as const, label: "Google Ads" },
     { file: "Google logo (1).svg" as const, label: "Google Analytics" },
@@ -15,6 +14,7 @@ const TOOL_LOGOS = [
     { file: "medium logo.svg" as const, label: "Medium" },
     { file: "linkedin logo.svg" as const, label: "LinkedIn" },
     { file: "Shopify logo.svg" as const, label: "Shopify" },
+    { file: "Group (9).svg" as const, label: "Monster" },
 ] as const;
 
 function toolSrc(filename: string) {
@@ -25,24 +25,24 @@ export function MarketingSeoToolsHiredSection() {
     return (
         <section className="w-full bg-white text-black" aria-labelledby={HEADING_ID}>
             <style>{`
-                @keyframes marketing-seo-tools-marquee-ltr {
+                @keyframes marketing-kerala-tools-marquee-ltr {
                     0% { transform: translateX(-50%); }
                     100% { transform: translateX(0); }
                 }
-                .marketing-seo-tools-marquee-track {
+                .marketing-kerala-tools-marquee-track {
                     display: flex;
                     width: max-content;
                     flex-direction: row;
                     align-items: center;
                     gap: 54px;
-                    animation: marketing-seo-tools-marquee-ltr 40s linear infinite;
+                    animation: marketing-kerala-tools-marquee-ltr 40s linear infinite;
                     will-change: transform;
                 }
-                .marketing-seo-tools-marquee-track:hover {
+                .marketing-kerala-tools-marquee-track:hover {
                     animation-play-state: paused;
                 }
                 @media (prefers-reduced-motion: reduce) {
-                    .marketing-seo-tools-marquee-track {
+                    .marketing-kerala-tools-marquee-track {
                         animation: none;
                         transform: none;
                     }
@@ -56,7 +56,10 @@ export function MarketingSeoToolsHiredSection() {
                         className="mx-auto m-0 max-w-[335px] font-semibold text-[36px] leading-[95%] tracking-[-0.01em] text-black [text-rendering:geometricPrecision] lg:max-w-[630px] lg:text-[55px] lg:leading-[110%]"
                         style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                     >
-                        Master the Tools That Actually Get You Hired
+                        <span className="flex flex-col lg:block">
+                            <span className="block">Master the Tools That</span>
+                            <span className="block">Actually Get You Hired</span>
+                        </span>
                     </h2>
                     <p
                         className="mx-auto m-0 max-w-[335px] text-[16px] font-medium leading-[120%] tracking-[-0.05em] text-[#000000B2] lg:max-w-[604px]"
@@ -68,15 +71,15 @@ export function MarketingSeoToolsHiredSection() {
                 </div>
 
                 <p className="sr-only">
-                    Marketing course training covers industry tools including Google Ads, Google Analytics, Meta, Google Tag Manager, SEMrush,
-                    ChatGPT, Claude, WordPress, Medium, LinkedIn, and Shopify.
+                    Digital marketing course in Kerala covers industry tools including Google Ads, Google Analytics, Meta, Google Tag
+                    Manager, SEMrush, ChatGPT, Claude, WordPress, Medium, LinkedIn, Shopify, and Monster.
                 </p>
 
                 <div
                     className="min-h-[100px] w-full overflow-hidden max-lg:relative max-lg:left-1/2 max-lg:w-screen max-lg:max-w-[100vw] max-lg:-translate-x-1/2 lg:static lg:left-auto lg:max-w-none lg:translate-x-0"
                     aria-hidden="true"
                 >
-                    <div className="marketing-seo-tools-marquee-track">
+                    <div className="marketing-kerala-tools-marquee-track">
                         <div className="flex shrink-0 flex-row items-center gap-[54px]">
                             {TOOL_LOGOS.map((tool) => (
                                 <div
