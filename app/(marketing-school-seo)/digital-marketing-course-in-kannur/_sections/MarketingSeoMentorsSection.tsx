@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-const HEADING_ID = "marketing-seo-calicut-mentors-heading";
+const HEADING_ID = "marketing-seo-kannur-mentors-heading";
 
-/** Light panel behind portraits (matches Calicut mentors mock). */
+/** Light panel behind portraits. */
 const CARD_BG = "#E8F0FE";
 
 type Mentor = {
@@ -40,16 +40,12 @@ const MENTORS: Mentor[] = [
 ];
 
 const INTRO_COPY =
-    "Your mentors aren't just teachers, they're digital marketers who've built brands and delivered results for companies like Kairali TMT, Walkaroo, TCS, Care n Cure Pharmacy, Volkswagen and more.";
+    "Your mentors are industry professionals who have built brands, managed campaigns, and delivered measurable results for companies like Kairali TMT, Walkaroo, TCS, Care n Cure Pharmacy, Volkswagen, and more.";
 
-/**
- * Calicut SEO — mentors grid (data and assets from {@link MarketingMentorsSection}),
- * white theme and semantic markup for SEO.
- */
 export function MarketingSeoMentorsSection() {
     return (
         <section
-            id="marketing-seo-calicut-mentors"
+            id="marketing-seo-kannur-mentors"
             className="w-full bg-white text-black"
             role="region"
             aria-labelledby={HEADING_ID}
@@ -72,8 +68,8 @@ export function MarketingSeoMentorsSection() {
                             lg:max-w-[min(100%,560px)] lg:text-[55px] lg:leading-[1.08]
                         "
                     >
-                        <span className="block">Learn From the Best,</span>
-                        <span className="block">Become the Best</span>
+                        <span className="block">Meet Your Mentors</span>
+                       
                     </h2>
                     <p
                         className="
@@ -85,11 +81,11 @@ export function MarketingSeoMentorsSection() {
                     >
                         <span className="lg:hidden">{INTRO_COPY}</span>
                         <span className="hidden text-left lg:inline">
-                            Your mentors aren&apos;t just teachers, they&apos;re digital marketers who&apos;ve built brands and
+                            Your mentors are industry professionals who have built brands,
                             <br />
-                            delivered results for companies like Kairali TMT, Walkaroo, TCS, Care n Cure Pharmacy,
+                            managed campaigns, and delivered measurable results for companies like
                             <br />
-                            Volkswagen and more.
+                            Kairali TMT, Walkaroo, TCS, Care n Cure Pharmacy, Volkswagen, and more.
                         </span>
                     </p>
                 </header>

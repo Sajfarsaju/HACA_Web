@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/dell/.claude/projects/c--Users-dell-Desktop-haca-projects-HACA-WEB-FOLDER-HACA-Web/memory/**)"
+    ]
+  }
+}

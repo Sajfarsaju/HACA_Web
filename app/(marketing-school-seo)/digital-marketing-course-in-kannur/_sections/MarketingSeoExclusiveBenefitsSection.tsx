@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
 
-const HEADING_ID = "marketing-seo-exclusive-benefits-heading";
+const HEADING_ID = "marketing-seo-kannur-exclusive-benefits-heading";
 
 const SCHOLARSHIP_CARD_IMAGE = "Group 41771.webp";
 const BRAND_WAR_CARD_IMAGE = "Frame 79.webp";
@@ -45,7 +45,7 @@ function JoinLeadCta() {
                 max-lg:gap-[7.33px] max-lg:rounded-full max-lg:bg-[#E8F1FF] max-lg:pl-[14px] max-lg:pr-0
                 lg:h-[60px]
             "
-            aria-label="Join now — marketing course in Calicut"
+            aria-label="Join now — marketing course in Kannur"
         >
             <span className="whitespace-nowrap text-black lg:hidden" style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "16px", lineHeight: "100%" }}>
                 Join Now
@@ -109,13 +109,13 @@ function LeadDecisionPanel() {
                         lg:text-[clamp(2.25rem,4vw,3.5rem)] lg:leading-[1.08]
                     "
                 >
-                    Why Follow the Crowd When You Can Lead?
+                    Why Follow Trends When You Can Build Them?
                 </p>
                 <p
                     className="m-0 max-w-[min(560px,100%)] text-[16px] font-normal leading-[150%] tracking-[-0.05em] text-white/95"
                     style={{ fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" }}
                 >
-                    Theory is cool, but real marketing magic happens when you&apos;re in the driver&apos;s seat.
+                    Marketing becomes meaningful when you create, experiment, and execute.
                 </p>
                 <JoinLeadCta />
             </div>
@@ -126,9 +126,7 @@ function LeadDecisionPanel() {
 type BenefitCardShellProps = {
     children: ReactNode;
     className?: string;
-    /** Desktop grid placement (Tailwind grid utilities) */
     gridClass: string;
-    /** Image bleeds to card sides and sits flush on the bottom edge */
     hasBottomImage?: boolean;
 };
 
@@ -189,9 +187,6 @@ function CardImage({ src, alt }: { src: string; alt: string }) {
     );
 }
 
-/**
- * Calicut SEO — exclusive benefits masonry + placement-style blue CTA.
- */
 export function MarketingSeoExclusiveBenefitsSection() {
     return (
         <section className="box-border w-full min-w-0 bg-black text-white" role="region" aria-labelledby={HEADING_ID}>
@@ -203,7 +198,6 @@ export function MarketingSeoExclusiveBenefitsSection() {
                     lg:gap-[60px] lg:p-[60px]
                 "
             >
-                {/* Intro — desktop: space-between row; mobile: stack gap 10 */}
                 <header
                     className="
                         mx-auto flex w-full max-w-[1320px] flex-col gap-[10px]
@@ -219,14 +213,12 @@ export function MarketingSeoExclusiveBenefitsSection() {
                             lg:text-[55px]
                         "
                     >
-                        Exclusive Benefits You Can&apos;t Miss
+                        More Than Just A Course
                     </h2>
-                   
+                    
                 </header>
 
-                {/* Masonry — mobile: single column stack; lg+: 3×3 grid with spans */}
                 <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-4 lg:grid lg:min-h-[740px] lg:grid-cols-3 lg:gap-4">
-                    {/* 1 — Learner Scholarship Fund (tall, image) */}
                     <BenefitCardShell
                         hasBottomImage
                         gridClass="lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:min-h-[488px] lg:gap-5"
@@ -234,8 +226,7 @@ export function MarketingSeoExclusiveBenefitsSection() {
                     >
                         <CardTitle>Learner Scholarship Fund — ₹1 Crore</CardTitle>
                         <CardBody>
-                            A dedicated fund to support serious learners—because cost should never block ambition when you
-                            show up and do the work.
+                            Get a chance to earn scholarships, making your learning journey easier and more affordable.
                         </CardBody>
                         <LearnMoreLink
                             href="/contact"
@@ -245,34 +236,27 @@ export function MarketingSeoExclusiveBenefitsSection() {
                         <CardImage src={marketingAsset(SCHOLARSHIP_CARD_IMAGE)} alt="Learner Scholarship Fund promotional visual" />
                     </BenefitCardShell>
 
-                    {/* 2 — 100% Scholarship */}
                     <BenefitCardShell gridClass="lg:col-start-2 lg:row-start-1 lg:min-h-[236px]" className="gap-2 lg:gap-2">
                         <CardTitle>100% Scholarship</CardTitle>
                         <CardBody>
-                            Deserving students can access full support based on merit and consistency—so talent leads, not
-                            tuition slips.
+                            We believe talent deserves a chance – full scholarships to support deserving students. (Scholarship for Physically Disabled &amp; Backward Class Students)
                         </CardBody>
                     </BenefitCardShell>
 
-                    {/* 3 — E-Cell (top right) */}
                     <BenefitCardShell gridClass="lg:col-start-3 lg:row-start-1 lg:min-h-[236px]" className="gap-2 lg:gap-2">
                         <CardTitle>E-Cell: Launch Your Entrepreneurial Dream</CardTitle>
                         <CardBody>
-                            Our Entrepreneurship Cell helps you turn ideas into execution—pitch practice, founder talks, and
-                            real startup energy.
+                            Got a startup idea? Our Entrepreneurship Cell gives you the tools and guidance to make it real.
                         </CardBody>
                     </BenefitCardShell>
 
-                    {/* 4 — TGIF */}
                     <BenefitCardShell gridClass="lg:col-start-2 lg:row-start-2 lg:min-h-[236px]" className="gap-2 lg:gap-2">
                         <CardTitle>TGIF: Learning Meets Fun</CardTitle>
                         <CardBody>
-                            Friday sessions that mix workshops, networking, and creative challenges—because community
-                            accelerates growth.
+                            Join exciting events, games, and networking sessions that recharge and inspire.
                         </CardBody>
                     </BenefitCardShell>
 
-                    {/* 5 — Brand War (tall, image) */}
                     <BenefitCardShell
                         hasBottomImage
                         gridClass="lg:col-start-3 lg:row-start-2 lg:row-span-2 lg:min-h-[488px] lg:gap-5"
@@ -280,14 +264,12 @@ export function MarketingSeoExclusiveBenefitsSection() {
                     >
                         <CardTitle>Brand War: Compete, Create, Conquer</CardTitle>
                         <CardBody>
-                            A high-energy brand challenge where teams build campaigns, defend ideas, and learn how agencies
-                            really pitch.
+                            Put your skills to the test by building standout brand campaigns and win big.
                         </CardBody>
                         <LearnMoreLink href="/contact" ariaLabel="Learn more about Brand War" className="mt-0" />
                         <CardImage src={marketingAsset(BRAND_WAR_CARD_IMAGE)} alt="Brand War team challenge" />
                     </BenefitCardShell>
 
-                    {/* 6 — HACA X Community (wide) */}
                     <BenefitCardShell
                         gridClass="lg:col-span-2 lg:col-start-1 lg:row-start-3 lg:min-h-[200px]"
                         className="gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
@@ -295,8 +277,7 @@ export function MarketingSeoExclusiveBenefitsSection() {
                         <div className="flex min-w-0 flex-1 flex-col gap-2 lg:gap-2">
                             <CardTitle>HACA X Community</CardTitle>
                             <CardBody>
-                                Stay connected with mentors, alumni, and peers—office-hour style support that continues long
-                                after class ends.
+                                Stay connected with mentors, alumni, and industry leaders long after your course ends.
                             </CardBody>
                         </div>
                         <LearnMoreLink href="/contact" ariaLabel="Learn more about HACA X Community" className="lg:mt-0" />

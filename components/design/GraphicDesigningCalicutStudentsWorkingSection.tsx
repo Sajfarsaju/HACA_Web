@@ -83,10 +83,9 @@ export function GraphicDesigningCalicutStudentsWorkingSection() {
     return (
         <section
             ref={sectionRef}
-            className="box-border flex w-full min-w-0 flex-col bg-white lg:min-h-[808.624267578125px]"
+            className="box-border flex w-full min-w-0 flex-col bg-white pt-5 lg:min-h-[808.624267578125px] lg:pt-0"
             aria-labelledby={HEADING_ID}
             style={{
-                paddingTop: 60,
                 paddingBottom: 60,
                 paddingLeft: "clamp(20px, 4.17vw, 60px)",
                 paddingRight: "clamp(20px, 0.7vw, 20px)",
@@ -106,19 +105,36 @@ export function GraphicDesigningCalicutStudentsWorkingSection() {
                 `}</style>
 
                 <header className="mx-auto flex w-full max-w-[min(100%,1040px)] flex-col items-center text-center">
-                    <h2
-                        id={HEADING_ID}
-                        className="m-0 text-[#000000]"
-                        style={{
-                            fontFamily: FONT,
-                            fontWeight: 700,
-                            fontSize: "clamp(26px, 4.2vw, 50px)",
-                            lineHeight: "115%",
-                            letterSpacing: "-0.02em",
-                        }}
-                    >
-                        <span className="block">Where Our Students Are</span>
-                        <span className="block">Working</span>
+                    <h2 id={HEADING_ID} className="m-0 text-[#000000]">
+                        <span
+                            className="lg:hidden"
+                            style={{
+                                fontFamily: FONT,
+                                fontWeight: 500,
+                                fontStyle: "normal",
+                                fontSize: "35px",
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                            }}
+                        >
+                            <span className="block">Where Our Students Are</span>
+                            <span className="block">Working</span>
+                        </span>
+                        <span
+                            className="hidden lg:inline"
+                            style={{
+                                fontFamily: FONT,
+                                fontWeight: 500,
+                                fontStyle: "normal",
+                                fontSize: "45px",
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                                textAlign: "center",
+                            }}
+                        >
+                            <span className="block">Where Our Students Are</span>
+                            <span className="block">Working</span>
+                        </span>
                     </h2>
                     <p
                         className="m-0 mt-[14px] max-w-[min(100%,920px)]"

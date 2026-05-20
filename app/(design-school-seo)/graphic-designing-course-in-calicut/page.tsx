@@ -11,6 +11,8 @@ import { GraphicDesigningCalicutWhoIsThisCourseForSection } from "@/components/d
 import { GraphicDesigningCalicutMentorsSection } from "@/components/design/GraphicDesigningCalicutMentorsSection";
 import { GraphicDesigningCalicutBrandsSection } from "@/components/design/GraphicDesigningCalicutBrandsSection";
 import { GraphicDesigningCalicutStudentsWorkingSection } from "@/components/design/GraphicDesigningCalicutStudentsWorkingSection";
+import { GraphicDesigningCalicutStudentsWorkSection } from "@/components/design/GraphicDesigningCalicutStudentsWorkSection";
+import { GraphicDesigningCalicutTestimonialsSection } from "@/components/design/GraphicDesigningCalicutTestimonialsSection";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
 import { DesignSeoFaqList } from "@/components/design/DesignSeoFaqList";
 import { buildDesignSchoolSeoMetadata } from "@/lib/design-school-seo";
@@ -150,6 +152,8 @@ export default function GraphicDesigningCourseInCalicutPage() {
             <GraphicDesigningCalicutMentorsSection />
             <GraphicDesigningCalicutBrandsSection />
             <GraphicDesigningCalicutStudentsWorkingSection />
+            <GraphicDesigningCalicutStudentsWorkSection />
+            <GraphicDesigningCalicutTestimonialsSection />
 
             <section className="w-full bg-[#FCFCFC] flex justify-center" aria-label="Design culture and events">
                 <div
@@ -174,7 +178,7 @@ export default function GraphicDesigningCourseInCalicutPage() {
                                 fontFamily: DESIGN_HEADING_FONT,
                                 fontWeight: 500,
                                 fontStyle: "normal",
-                                fontSize: 35,
+                                fontSize: "35px",
                                 lineHeight: "110%",
                                 letterSpacing: "-0.02em",
                                 color: "#000000",
@@ -280,18 +284,33 @@ export default function GraphicDesigningCourseInCalicutPage() {
                 >
                     <div className="w-full flex justify-center md:justify-start">
                         <div className="w-full max-w-[500px] md:max-w-none lg:w-[clamp(320px,34vw,500px)] lg:min-h-[108px] flex items-center justify-center md:justify-start">
-                            <h2
-                                className="m-0 w-full max-w-[335px] md:max-w-none text-left text-black"
-                                style={{
-                                    fontFamily: DESIGN_HEADING_FONT,
-                                    fontWeight: 500,
-                                    fontStyle: "normal",
-                                    fontSize: 45,
-                                    lineHeight: "120%",
-                                    letterSpacing: 0,
-                                }}
-                            >
-                                Here’s What Most People Ask
+                            <h2 className="m-0 w-full max-w-[335px] text-left text-black md:max-w-none">
+                                <span
+                                    className="lg:hidden"
+                                    style={{
+                                        fontFamily: DESIGN_HEADING_FONT,
+                                        fontWeight: 500,
+                                        fontStyle: "normal",
+                                        fontSize: "35px",
+                                        lineHeight: "110%",
+                                        letterSpacing: "-0.02em",
+                                    }}
+                                >
+                                    Here’s What Most People Ask
+                                </span>
+                                <span
+                                    className="hidden lg:inline"
+                                    style={{
+                                        fontFamily: DESIGN_HEADING_FONT,
+                                        fontWeight: 500,
+                                        fontStyle: "normal",
+                                        fontSize: "45px",
+                                        lineHeight: "110%",
+                                        letterSpacing: "-0.02em",
+                                    }}
+                                >
+                                    Here’s What Most People Ask
+                                </span>
                             </h2>
                         </div>
                     </div>

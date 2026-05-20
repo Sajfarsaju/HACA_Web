@@ -8,7 +8,7 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
 
 const WORLD_EDUCATION_LOGO = "/photos/schools/marketing/world%20summit%202.svg";
-const HERO_PHOTO = "/photos/schools/marketing/rizwan%20marketing.webp";
+const HERO_PHOTO = "/photos/schools/marketing/rizwan%20marketing%202.webp";
 const PATTERN_LIGHT = "/photos/schools/marketing/Pattern 5.svg";
 const PATTERN_DARK = "/photos/schools/marketing/Pattern 6.svg";
 
@@ -69,20 +69,6 @@ export function MarketingSeoHeroCalicut() {
             aria-label="Marketing course in Calicut hero"
         >
             <div className="relative mx-auto flex min-h-0 min-w-0 w-full max-w-[1440px] flex-1 flex-col gap-[10px] md:gap-[clamp(16px,3vw,28px)] lg:flex-row lg:items-stretch lg:gap-[clamp(8px,1.2vw,20px)] xl:gap-6">
-                {/* Decorative grid patterns (desktop) — same assets as marketing home */}
-                <div
-                    className="pointer-events-none absolute left-[31%] top-[10%] z-0 hidden opacity-100 lg:block"
-                    style={{ width: "299.0725402832031px", height: "293px" }}
-                >
-                    <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" fill className="object-contain" />
-                </div>
-                <div
-                    className="pointer-events-none absolute bottom-[28%] right-[15%] z-0 hidden opacity-100 lg:block"
-                    style={{ width: "299.0725402832031px", height: "293px" }}
-                >
-                    <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" fill className="object-contain" />
-                </div>
-
                 {/* Left column */}
                 <div className="relative z-[1] mx-0 flex min-h-0 w-full max-w-none flex-col justify-between pt-[clamp(18px,3vw,48px)] md:mx-auto md:max-w-[min(560px,92vw)] lg:mx-0 lg:w-[min(560px,40%)] lg:max-w-none lg:min-w-0 lg:shrink-[1] lg:pb-[clamp(32px,4vw,56px)] lg:pt-0 xl:w-[560px]">
                     <div className="flex min-h-0 w-full flex-col gap-4 md:gap-6 lg:gap-6 xl:gap-6">
@@ -111,15 +97,27 @@ export function MarketingSeoHeroCalicut() {
                             className="m-0 w-full max-w-[343px] min-h-[105px] text-[14px] leading-[21px] tracking-[0] text-[rgba(0,0,0,0.75)] lg:mt-[clamp(80px,8vw,120px)] lg:max-w-[605px] lg:min-h-[112px] lg:text-[18px] lg:leading-[28px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                            Our AI-integrated Digital Marketing Course in Calicut helps you build real, job-ready skills from day one. Learn AEO,
-                            GEO, AI automation, Web Development, SEO, Google Ads, e-Commerce and Meta Ads while working on real brand projects with
-                            expert mentors.
+                          HACA’s AI-integrated Digital Marketing Course helps students and professionals from Thiruvananthapuram build practical skills in AEO, GEO, AI automation, Web Development, SEO, Google Ads, e-Commerce, and Meta Ads. Learn through live online classes with optional offline training at our Kozhikode campus, designed for opportunities in Trivandrum’s growing IT sector, Technopark companies, government projects, and tourism industry.
                         </p>
                     </div>
                 </div>
 
                 {/* Right column: summit above photo on mobile; on lg stretch row + push photo to bottom (in-flow so Image fill has real height) */}
                 <div className="relative z-[1] mx-auto flex w-full min-w-0 shrink flex-col justify-start gap-4 md:gap-5 lg:mx-0 lg:h-full lg:min-h-0 lg:max-w-[min(680px,100%)] lg:flex-1 lg:flex-col lg:justify-end lg:gap-0 lg:self-stretch lg:-translate-x-[clamp(16px,2.2vw,44px)] xl:-translate-x-[clamp(20px,2.5vw,52px)]">
+                    {/* Decorative grid patterns — positioned relative to photo column */}
+                    <div
+                        className="pointer-events-none absolute -left-[25%] top-[8%] z-0 hidden opacity-100 lg:block"
+                        style={{ width: "299.0725402832031px", height: "293px" }}
+                    >
+                        <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" fill className="object-contain" />
+                    </div>
+                    <div
+                        className="pointer-events-none absolute bottom-[40%] right-[5%] z-0 hidden opacity-100 lg:block"
+                        style={{ width: "299.0725402832031px", height: "293px" }}
+                    >
+                        <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" fill className="object-contain" />
+                    </div>
+
                     {/* Mobile / tablet: SVG first (above photo). Desktop: out of flow overlay. */}
                     <div className="pointer-events-none relative h-[48px] w-full max-w-[min(280px,92vw)] shrink-0 self-end md:h-[52px] md:max-w-[min(300px,88vw)] lg:absolute lg:z-[2] lg:h-[clamp(44px,6.5vw,74px)] lg:w-[clamp(180px,26vw,300px)] lg:max-w-none lg:max-xl:right-[clamp(44px,6vw,92px)] lg:max-xl:top-[clamp(10px,1.8vw,22px)] xl:right-[clamp(22px,2.8vw,48px)] xl:top-[clamp(14px,2vw,28px)] 2xl:right-6">
                         <Image

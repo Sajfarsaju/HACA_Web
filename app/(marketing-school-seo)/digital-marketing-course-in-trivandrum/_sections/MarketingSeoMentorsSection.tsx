@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-const HEADING_ID = "marketing-seo-calicut-mentors-heading";
+const HEADING_ID = "marketing-seo-trivandrum-mentors-heading";
 
-/** Light panel behind portraits (matches Calicut mentors mock). */
+/** Light panel behind portraits. */
 const CARD_BG = "#E8F0FE";
 
 type Mentor = {
@@ -42,14 +42,10 @@ const MENTORS: Mentor[] = [
 const INTRO_COPY =
     "Your mentors aren't just teachers, they're digital marketers who've built brands and delivered results for companies like Kairali TMT, Walkaroo, TCS, Care n Cure Pharmacy, Volkswagen and more.";
 
-/**
- * Calicut SEO — mentors grid (data and assets from {@link MarketingMentorsSection}),
- * white theme and semantic markup for SEO.
- */
 export function MarketingSeoMentorsSection() {
     return (
         <section
-            id="marketing-seo-calicut-mentors"
+            id="marketing-seo-trivandrum-mentors"
             className="w-full bg-white text-black"
             role="region"
             aria-labelledby={HEADING_ID}

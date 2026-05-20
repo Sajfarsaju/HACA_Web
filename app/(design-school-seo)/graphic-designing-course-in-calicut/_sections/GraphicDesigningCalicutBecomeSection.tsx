@@ -25,20 +25,38 @@ export function GraphicDesigningCalicutBecomeSection() {
         <section className="w-full bg-white">
             <div className="mx-auto box-border w-full max-w-[1440px] px-4 py-10 sm:px-6 sm:py-12 md:py-14 lg:px-[60px] lg:py-[60px]">
                 <div className="flex w-full flex-col items-center gap-3 sm:gap-4 lg:gap-[60px]">
-                    <h2
-                        className="m-0 w-full max-w-[1052px] text-center text-black text-balance"
-                        style={{
-                            fontFamily: vc,
-                            fontWeight: 500,
-                            fontStyle: "normal",
-                            fontSize: "clamp(28px, 3.4vw, 45px)",
-                            lineHeight: "110%",
-                            letterSpacing: "-0.02em",
-                        }}
-                    >
-                        What You Can Become
-                        <br />
-                        After This Course
+                    <h2 className="m-0 w-full max-w-[1052px] text-center text-balance text-black">
+                        <span
+                            className="lg:hidden"
+                            style={{
+                                fontFamily: vc,
+                                fontWeight: 500,
+                                fontStyle: "normal",
+                                fontSize: "35px",
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                            }}
+                        >
+                            What You Can Become
+                            <br />
+                            After This Course
+                        </span>
+                        <span
+                            className="hidden lg:inline"
+                            style={{
+                                fontFamily: vc,
+                                fontWeight: 500,
+                                fontStyle: "normal",
+                                fontSize: "45px",
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                                textAlign: "center",
+                            }}
+                        >
+                            What You Can Become
+                            <br />
+                            After This Course
+                        </span>
                     </h2>
 
                     {/* Mobile: single column */}

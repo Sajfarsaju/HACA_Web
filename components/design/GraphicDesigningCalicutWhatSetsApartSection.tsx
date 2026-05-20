@@ -98,18 +98,35 @@ export function GraphicDesigningCalicutWhatSetsApartSection() {
             >
                 <div className="flex w-full flex-col gap-[40px] lg:gap-[50px]">
                     <div className="flex w-full max-w-[900px] flex-col gap-3">
-                        <h2
-                            className="m-0 text-black"
-                            style={{
-                                fontFamily: vc,
-                                fontWeight: 500,
-                                lineHeight: "115%",
-                                fontSize: "clamp(30px, 3.3vw, 50px)",
-                                letterSpacing: "0%",
-                            }}
-                        >
-                            <span className="block sm:whitespace-nowrap">What Sets Our Graphic Designing Course</span>
-                            <span className="block">Apart in Calicut</span>
+                        <h2 className="m-0 text-black">
+                            <span
+                                className="lg:hidden"
+                                style={{
+                                    fontFamily: vc,
+                                    fontWeight: 500,
+                                    fontStyle: "normal",
+                                    fontSize: "35px",
+                                    lineHeight: "110%",
+                                    letterSpacing: "-0.02em",
+                                }}
+                            >
+                                <span className="block sm:whitespace-nowrap">What Sets Our Graphic Designing Course</span>
+                                <span className="block">Apart in Calicut</span>
+                            </span>
+                            <span
+                                className="hidden lg:block"
+                                style={{
+                                    fontFamily: vc,
+                                    fontWeight: 500,
+                                    fontStyle: "normal",
+                                    fontSize: "45px",
+                                    lineHeight: "110%",
+                                    letterSpacing: "-0.02em",
+                                }}
+                            >
+                                <span className="block whitespace-nowrap">What Sets Our Graphic Designing Course</span>
+                                <span className="block">Apart in Calicut</span>
+                            </span>
                         </h2>
 
                         <p

@@ -88,7 +88,7 @@ function AudienceCardView({
         <article
             className={[
                 "relative box-border flex w-full max-w-full flex-col items-start overflow-hidden rounded-2xl bg-black text-left text-white",
-                "justify-start p-6 lg:max-w-none lg:rounded-[20px] lg:p-5 lg:h-[174px] lg:w-[400px] lg:shrink-0 lg:justify-end lg:px-6 lg:pb-5 lg:pt-6 lg:pr-12",
+                "justify-start p-6 lg:max-w-none lg:rounded-[20px] lg:p-5 lg:h-[174px] lg:min-h-[174px] lg:w-full lg:min-w-0 lg:justify-end lg:px-5 lg:pb-5 lg:pt-6 lg:pr-10 xl:px-6 xl:pr-12",
                 desktopClassName,
             ].join(" ")}
             style={{
@@ -105,15 +105,17 @@ function AudienceCardView({
             />
             <div className="relative z-[1] flex w-full flex-col items-start gap-[10px] text-left">
                 <h3
-                    className="m-0 w-full whitespace-pre-line text-[20px] font-medium leading-[1.1] tracking-[-0.02em] text-white lg:text-[30px] lg:leading-[1.05]"
+                    className="m-0 w-full whitespace-pre-line text-[20px] font-medium leading-[1.1] tracking-[-0.02em] text-white lg:text-[clamp(1.375rem,2.4vw,1.875rem)] lg:leading-[1.05]"
                     style={{ fontFamily: vc, fontWeight: 500 }}
                 >
                     {title}
                 </h3>
                 <p
                     className={[
-                        "m-0 w-full text-[15px] font-normal leading-[130%] text-white/75 lg:text-[17px] lg:leading-[130%]",
-                        collapseDescriptionBreaks ? "whitespace-normal" : "whitespace-pre-line",
+                        "m-0 w-full text-[15px] font-normal leading-[130%] text-white/75 lg:text-[clamp(0.8125rem,1.35vw,1.0625rem)] lg:leading-[130%]",
+                        collapseDescriptionBreaks
+                            ? "whitespace-normal"
+                            : "whitespace-pre-line lg:whitespace-normal",
                     ].join(" ")}
                     style={{ fontFamily: vc, fontWeight: 400 }}
                 >
@@ -136,7 +138,8 @@ export function GraphicDesigningCalicutWhoIsThisCourseForSection() {
                             style={{
                                 fontFamily: vc,
                                 fontWeight: 500,
-                                fontSize: 35,
+                                fontStyle: "normal",
+                                fontSize: "35px",
                                 lineHeight: "110%",
                                 letterSpacing: "-0.02em",
                             }}
@@ -177,27 +180,28 @@ export function GraphicDesigningCalicutWhoIsThisCourseForSection() {
                 </div>
             </div>
 
-            {/* Desktop: full frame 1440×703, padding 60; inner content 1320 wide; column gap 60 (400×3+60×2=1320); row gap 30 so 3×174px rows fit in 583px inner height like reference */}
-            <div className="mx-auto hidden h-[703px] w-full max-w-[1440px] box-border p-[60px] lg:block">
+            {/* Desktop: fluid 3-col grid + clamp gaps so cards never touch on small desktop (lg); ~1440px matches Figma at xl */}
+            <div className="mx-auto hidden w-full max-w-[1440px] box-border lg:block lg:min-h-0 lg:px-6 lg:py-10 xl:min-h-[703px] xl:px-[60px] xl:py-[60px]">
                 <div
-                    className="box-border grid h-full w-full justify-center"
-                    style={{
-                        gridTemplateColumns: "400px 400px 400px",
-                        columnGap: 60,
-                        rowGap: 30,
-                    }}
+                    className="
+                        box-border grid w-full max-w-full min-w-0
+                        grid-cols-[repeat(3,minmax(0,1fr))]
+                        gap-x-[clamp(16px,4.2vw,60px)] gap-y-[clamp(14px,2.4vw,30px)]
+                        justify-items-stretch
+                    "
                 >
-                    <div className="col-span-2 row-start-1 flex h-full min-h-0 w-full items-end justify-start self-stretch">
+                    <div className="col-span-2 row-start-1 flex min-h-0 w-full min-w-0 items-end justify-start self-stretch pb-1 lg:pb-0">
                         <div
-                            className="flex w-[531px] max-w-full shrink-0 flex-col justify-start"
+                            className="flex w-full max-w-[531px] shrink-0 flex-col justify-start"
                             style={{ gap: 16 }}
                         >
                             <h2
                                 className="m-0 w-full text-left text-black"
                                 style={{
                                     fontFamily: vc,
-                                    fontWeight: 550,
-                                    fontSize: 45,
+                                    fontWeight: 500,
+                                    fontStyle: "normal",
+                                    fontSize: "45px",
                                     lineHeight: "110%",
                                     letterSpacing: "-0.02em",
                                 }}
@@ -205,13 +209,11 @@ export function GraphicDesigningCalicutWhoIsThisCourseForSection() {
                                 Who Is This Course For ?
                             </h2>
                             <p
-                                className="m-0 w-full min-h-[24px] text-left text-black/60"
+                                className="m-0 w-full min-h-[24px] text-left text-black/60 text-[clamp(0.9375rem,1.35vw,1.25rem)] leading-[120%]"
                                 style={{
                                     fontFamily: vc,
                                     fontWeight: 400,
                                     fontStyle: "normal",
-                                    fontSize: 20,
-                                    lineHeight: "120%",
                                     letterSpacing: 0,
                                 }}
                             >

@@ -90,18 +90,33 @@ export function GraphicDesigningCalicutMentorsSection() {
         >
             <div className="mx-auto w-full max-w-[1440px]">
                 <div className="flex flex-col gap-[24px] lg:gap-[40px]">
-                    <h2
-                        id={HEADING_ID}
-                        className="m-0 max-w-[min(100%,920px)] text-left text-[#000000]"
-                        style={{
-                            fontFamily: FONT,
-                            fontWeight: 500,
-                            fontSize: "clamp(28px, 5vw, 50px)",
-                            lineHeight: "115%",
-                            letterSpacing: "-0.02em",
-                        }}
-                    >
-                        Mentors You&apos;ll Learn From
+                    <h2 id={HEADING_ID} className="m-0 max-w-[min(100%,920px)] text-left text-[#000000]">
+                        <span
+                            className="lg:hidden"
+                            style={{
+                                fontFamily: FONT,
+                                fontWeight: 500,
+                                fontStyle: "normal",
+                                fontSize: "35px",
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                            }}
+                        >
+                            Mentors You&apos;ll Learn From
+                        </span>
+                        <span
+                            className="hidden lg:inline"
+                            style={{
+                                fontFamily: FONT,
+                                fontWeight: 500,
+                                fontStyle: "normal",
+                                fontSize: "45px",
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                            }}
+                        >
+                            Mentors You&apos;ll Learn From
+                        </span>
                     </h2>
 
                     <div className="w-full">

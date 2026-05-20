@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
 
-const HEADING_ID = "marketing-seo-exclusive-benefits-heading";
+const HEADING_ID = "marketing-seo-trivandrum-exclusive-benefits-heading";
 
 const SCHOLARSHIP_CARD_IMAGE = "Group 41771.webp";
 const BRAND_WAR_CARD_IMAGE = "Frame 79.webp";
@@ -45,7 +45,7 @@ function JoinLeadCta() {
                 max-lg:gap-[7.33px] max-lg:rounded-full max-lg:bg-[#E8F1FF] max-lg:pl-[14px] max-lg:pr-0
                 lg:h-[60px]
             "
-            aria-label="Join now — marketing course in Calicut"
+            aria-label="Join now — marketing course in Trivandrum"
         >
             <span className="whitespace-nowrap text-black lg:hidden" style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "16px", lineHeight: "100%" }}>
                 Join Now
@@ -126,9 +126,7 @@ function LeadDecisionPanel() {
 type BenefitCardShellProps = {
     children: ReactNode;
     className?: string;
-    /** Desktop grid placement (Tailwind grid utilities) */
     gridClass: string;
-    /** Image bleeds to card sides and sits flush on the bottom edge */
     hasBottomImage?: boolean;
 };
 
@@ -189,9 +187,6 @@ function CardImage({ src, alt }: { src: string; alt: string }) {
     );
 }
 
-/**
- * Calicut SEO — exclusive benefits masonry + placement-style blue CTA.
- */
 export function MarketingSeoExclusiveBenefitsSection() {
     return (
         <section className="box-border w-full min-w-0 bg-black text-white" role="region" aria-labelledby={HEADING_ID}>
@@ -203,7 +198,6 @@ export function MarketingSeoExclusiveBenefitsSection() {
                     lg:gap-[60px] lg:p-[60px]
                 "
             >
-                {/* Intro — desktop: space-between row; mobile: stack gap 10 */}
                 <header
                     className="
                         mx-auto flex w-full max-w-[1320px] flex-col gap-[10px]
@@ -221,12 +215,9 @@ export function MarketingSeoExclusiveBenefitsSection() {
                     >
                         Exclusive Benefits You Can&apos;t Miss
                     </h2>
-                   
                 </header>
 
-                {/* Masonry — mobile: single column stack; lg+: 3×3 grid with spans */}
                 <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-4 lg:grid lg:min-h-[740px] lg:grid-cols-3 lg:gap-4">
-                    {/* 1 — Learner Scholarship Fund (tall, image) */}
                     <BenefitCardShell
                         hasBottomImage
                         gridClass="lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:min-h-[488px] lg:gap-5"
@@ -245,7 +236,6 @@ export function MarketingSeoExclusiveBenefitsSection() {
                         <CardImage src={marketingAsset(SCHOLARSHIP_CARD_IMAGE)} alt="Learner Scholarship Fund promotional visual" />
                     </BenefitCardShell>
 
-                    {/* 2 — 100% Scholarship */}
                     <BenefitCardShell gridClass="lg:col-start-2 lg:row-start-1 lg:min-h-[236px]" className="gap-2 lg:gap-2">
                         <CardTitle>100% Scholarship</CardTitle>
                         <CardBody>
@@ -254,7 +244,6 @@ export function MarketingSeoExclusiveBenefitsSection() {
                         </CardBody>
                     </BenefitCardShell>
 
-                    {/* 3 — E-Cell (top right) */}
                     <BenefitCardShell gridClass="lg:col-start-3 lg:row-start-1 lg:min-h-[236px]" className="gap-2 lg:gap-2">
                         <CardTitle>E-Cell: Launch Your Entrepreneurial Dream</CardTitle>
                         <CardBody>
@@ -263,7 +252,6 @@ export function MarketingSeoExclusiveBenefitsSection() {
                         </CardBody>
                     </BenefitCardShell>
 
-                    {/* 4 — TGIF */}
                     <BenefitCardShell gridClass="lg:col-start-2 lg:row-start-2 lg:min-h-[236px]" className="gap-2 lg:gap-2">
                         <CardTitle>TGIF: Learning Meets Fun</CardTitle>
                         <CardBody>
@@ -272,7 +260,6 @@ export function MarketingSeoExclusiveBenefitsSection() {
                         </CardBody>
                     </BenefitCardShell>
 
-                    {/* 5 — Brand War (tall, image) */}
                     <BenefitCardShell
                         hasBottomImage
                         gridClass="lg:col-start-3 lg:row-start-2 lg:row-span-2 lg:min-h-[488px] lg:gap-5"
@@ -287,7 +274,6 @@ export function MarketingSeoExclusiveBenefitsSection() {
                         <CardImage src={marketingAsset(BRAND_WAR_CARD_IMAGE)} alt="Brand War team challenge" />
                     </BenefitCardShell>
 
-                    {/* 6 — HACA X Community (wide) */}
                     <BenefitCardShell
                         gridClass="lg:col-span-2 lg:col-start-1 lg:row-start-3 lg:min-h-[200px]"
                         className="gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-10"

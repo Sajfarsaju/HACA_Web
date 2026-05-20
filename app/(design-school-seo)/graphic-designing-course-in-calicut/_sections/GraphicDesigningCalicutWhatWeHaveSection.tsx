@@ -66,18 +66,18 @@ export function GraphicDesigningCalicutWhatWeHaveSection() {
             >
                 <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-[30px]">
                     <div className="flex w-full flex-col items-center gap-3 text-center">
-                        <h2
-                            className="m-0 w-full text-black"
-                            style={{
-                                fontFamily: vc,
-                                fontWeight: 500,
-                                fontStyle: "normal",
-                                fontSize: "clamp(34px, 4.2vw, 56px)",
-                                lineHeight: "110%",
-                                letterSpacing: "-0.02em",
-                            }}
-                        >
-                            <span className="lg:hidden">
+                        <h2 className="m-0 w-full text-center text-black">
+                            <span
+                                className="lg:hidden"
+                                style={{
+                                    fontFamily: vc,
+                                    fontWeight: 500,
+                                    fontStyle: "normal",
+                                    fontSize: "clamp(34px, 4.2vw, 56px)",
+                                    lineHeight: "110%",
+                                    letterSpacing: "-0.02em",
+                                }}
+                            >
                                 Learn the Right Way
                                 <br />
                                 with Our Creative
@@ -88,7 +88,18 @@ export function GraphicDesigningCalicutWhatWeHaveSection() {
                                 <br />
                                 Course
                             </span>
-                            <span className="hidden lg:inline">
+                            <span
+                                className="hidden lg:inline"
+                                style={{
+                                    fontFamily: vc,
+                                    fontWeight: 500,
+                                    fontStyle: "normal",
+                                    fontSize: "45px",
+                                    lineHeight: "110%",
+                                    letterSpacing: "-0.02em",
+                                    textAlign: "center",
+                                }}
+                            >
                                 Learn the Right Way with Our Creative
                                 <br />
                                 Design and Communication Course

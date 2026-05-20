@@ -2,18 +2,17 @@ import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
 
-const HEADING_ID = "marketing-seo-calicut-cta-heading";
+const HEADING_ID = "marketing-seo-trivandrum-cta-heading";
 
 const BODY_COPY =
     "The skills you build here can open your first job, your first client, or even your own brand. Don't let hesitation hold you back.";
 
-/** Matches navbar Contact Us pill + arrow (`MarketingNavbar` desktop link). */
 function ReserveSpotCta() {
     return (
         <Link
             href="/contact"
             className="group relative inline-flex h-[60px] w-fit shrink-0 cursor-pointer items-center no-underline"
-            aria-label="Reserve your spot now — marketing course in Calicut"
+            aria-label="Reserve your spot now — marketing course in Trivandrum"
         >
             <div className="relative flex h-[60px] w-fit items-center rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
                 <span
@@ -28,13 +27,10 @@ function ReserveSpotCta() {
     );
 }
 
-/**
- * Calicut SEO — closing CTA (“Ready to See How Far You Can Go?”).
- */
-export function MarketingSeoCalicutCtaSection() {
+export function MarketingSeoTrivandrumCtaSection() {
     return (
         <section
-            id="marketing-seo-calicut-cta"
+            id="marketing-seo-trivandrum-cta"
             className="w-full bg-black text-white opacity-100"
             role="region"
             aria-labelledby={HEADING_ID}

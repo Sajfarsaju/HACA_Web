@@ -41,6 +41,7 @@ export function DesignStudentProjectsSection() {
         let savedY = 0;
         let cardTarget = 0;
         let cardCurrent = 0;
+        let velocity = 0;
 
         const maxCard = () =>
             rightInnerRef.current && rightClipRef.current
@@ -119,11 +120,11 @@ export function DesignStudentProjectsSection() {
             cardTarget = Math.max(0, Math.min(max, cardTarget + dy));
         };
 
-        // Reset card position when section scrolls fully out of view (user scrolled back up past it)
+        // Reset card position + velocity when section scrolls fully below the viewport
         const onScroll = () => {
             if (!sectionRef.current) return;
             const r = sectionRef.current.getBoundingClientRect();
-            if (r.top > window.innerHeight) cardTarget = 0;
+            if (r.top > window.innerHeight) { cardTarget = 0; velocity = 0; }
         };
 
         window.addEventListener("wheel", onWheel, { passive: false });
@@ -131,11 +132,24 @@ export function DesignStudentProjectsSection() {
         window.addEventListener("touchmove", onTouchMove, { passive: false });
         window.addEventListener("scroll", onScroll, { passive: true });
 
-        // rAF loop — lerp cardCurrent toward cardTarget
+        // rAF loop — spring physics for premium smooth feel.
+        // velocity carries momentum between frames; friction decelerates it naturally.
         let rafId = 0;
         const tick = () => {
-            cardCurrent += (cardTarget - cardCurrent) * 0.1;
-            if (Math.abs(cardTarget - cardCurrent) < 0.25) cardCurrent = cardTarget;
+            const diff = cardTarget - cardCurrent;
+            velocity = velocity * 0.80 + diff * 0.14; // damping × carry + spring pull
+            cardCurrent += velocity;
+
+            // Settle exactly on target when close enough
+            if (Math.abs(diff) < 0.05 && Math.abs(velocity) < 0.05) {
+                cardCurrent = cardTarget;
+                velocity = 0;
+            }
+
+            // Hard-clamp so spring overshoot never leaks outside bounds
+            const max = maxCard();
+            cardCurrent = Math.max(0, Math.min(max, cardCurrent));
+
             if (rightInnerRef.current) {
                 rightInnerRef.current.style.transform = `translateY(${-cardCurrent}px)`;
             }

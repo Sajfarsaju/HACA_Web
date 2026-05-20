@@ -88,44 +88,74 @@ export function GraphicDesigningCalicutFlagshipProgramSection() {
             <div className="mx-auto box-border w-full max-w-[1440px] px-4 py-8 sm:px-6 md:px-8 lg:px-[60px] lg:py-[40px]">
                 <div className="flex w-full flex-col gap-6 sm:gap-8 lg:gap-10">
                     {/* Centered on all breakpoints; stacks to 3 lines on small screens like the design */}
-                    <h2
-                        className="m-0 w-full px-1 text-center text-balance text-black sm:px-0"
-                        style={{
-                            fontFamily: vc,
-                            fontWeight: 700,
-                            fontStyle: "normal",
-                            fontSize: "clamp(26px, 3.25vw, 44px)",
-                            lineHeight: "110%",
-                            letterSpacing: "-0.02em",
-                        }}
-                    >
-                        <span className="lg:hidden">
+                    <h2 className="m-0 w-full px-1 text-center text-balance text-black sm:px-0">
+                        <span
+                            className="lg:hidden"
+                            style={{
+                                fontFamily: vc,
+                                fontWeight: 700,
+                                fontStyle: "normal",
+                                fontSize: "clamp(26px, 3.25vw, 44px)",
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                            }}
+                        >
                             What We Teach in
                             <br />
                             Our Flagship
                             <br />
                             Program
                         </span>
-                        <span className="hidden lg:inline">What We Teach in Our Flagship Program</span>
+                        <span
+                            className="hidden lg:inline"
+                            style={{
+                                fontFamily: vc,
+                                fontWeight: 500,
+                                fontStyle: "normal",
+                                fontSize: "45px",
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                                textAlign: "center",
+                            }}
+                        >
+                            What We Teach in Our Flagship Program
+                        </span>
                     </h2>
 
                     {/* CDC + cards: left-aligned together; inset matches card strip at every breakpoint */}
                     <div className="flex w-screen max-w-none flex-col gap-4 sm:gap-5 ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] box-border pl-[clamp(16px,4.16vw,60px)] pr-[clamp(16px,4.16vw,60px)]">
                         <div className="flex w-full min-w-0 flex-col items-start gap-2.5 sm:gap-3">
-                            <h3
-                                className="m-0 w-full max-w-[22rem] text-left text-black sm:max-w-[min(100%,28rem)] md:max-w-none"
-                                style={{
-                                    fontFamily: vc,
-                                    fontWeight: 600,
-                                    fontStyle: "normal",
-                                    fontSize: "clamp(20px, 2.5vw, 32px)",
-                                    lineHeight: "112%",
-                                    letterSpacing: "-0.01em",
-                                }}
-                            >
-                                Creative Design &amp;
-                                <br />
-                                Communication Course (CDC)
+                            <h3 className="m-0 w-full max-w-[22rem] text-left text-black sm:max-w-[min(100%,28rem)] md:max-w-none">
+                                <span
+                                    className="lg:hidden"
+                                    style={{
+                                        fontFamily: vc,
+                                        fontWeight: 500,
+                                        fontStyle: "normal",
+                                        fontSize: "20px",
+                                        lineHeight: "110%",
+                                        letterSpacing: "-0.02em",
+                                    }}
+                                >
+                                    Creative Design &amp;
+                                    <br />
+                                    Communication Course (CDC)
+                                </span>
+                                <span
+                                    className="hidden lg:inline"
+                                    style={{
+                                        fontFamily: vc,
+                                        fontWeight: 500,
+                                        fontStyle: "normal",
+                                        fontSize: "36px",
+                                        lineHeight: "110%",
+                                        letterSpacing: "-0.02em",
+                                    }}
+                                >
+                                    Creative Design &amp;
+                                    <br />
+                                    Communication Course (CDC)
+                                </span>
                             </h3>
 
                             <div

@@ -59,11 +59,9 @@ export function GraphicDesigningCalicutBrandsSection() {
     return (
         <section
             ref={sectionRef}
-            className="box-border w-full min-w-0 min-h-[506px] bg-white"
+            className="box-border w-full min-w-0 min-h-0 bg-white pb-6 pt-[clamp(30px,4.17vw,60px)] lg:min-h-[506px] lg:pb-[60px]"
             aria-labelledby={HEADING_ID}
             style={{
-                paddingTop: "clamp(30px, 4.17vw, 60px)",
-                paddingBottom: "clamp(30px, 4.17vw, 60px)",
                 paddingLeft: "clamp(20px, 4.17vw, 60px)",
                 paddingRight: "clamp(20px, 0.7vw, 20px)",
             }}
@@ -81,20 +79,35 @@ export function GraphicDesigningCalicutBrandsSection() {
             `}</style>
 
             <div className="mx-auto w-full min-w-0 max-w-[1440px]">
-                <div className="flex flex-col gap-[60px]">
+                <div className="flex flex-col gap-8 lg:gap-[60px]">
                     <div>
-                        <h2
-                            id={HEADING_ID}
-                            className="m-0 text-left text-[#000000]"
-                            style={{
-                                fontFamily: FONT,
-                                fontWeight: 500,
-                                fontSize: "clamp(28px, 4vw, 50px)",
-                                lineHeight: "115%",
-                                letterSpacing: "-0.02em",
-                            }}
-                        >
-                            The Brands They&apos;ve Worked With
+                        <h2 id={HEADING_ID} className="m-0 text-left text-[#000000]">
+                            <span
+                                className="lg:hidden"
+                                style={{
+                                    fontFamily: FONT,
+                                    fontWeight: 500,
+                                    fontStyle: "normal",
+                                    fontSize: "35px",
+                                    lineHeight: "110%",
+                                    letterSpacing: "-0.02em",
+                                }}
+                            >
+                                The Brands They&apos;ve Worked With
+                            </span>
+                            <span
+                                className="hidden lg:inline"
+                                style={{
+                                    fontFamily: FONT,
+                                    fontWeight: 500,
+                                    fontStyle: "normal",
+                                    fontSize: "45px",
+                                    lineHeight: "110%",
+                                    letterSpacing: "-0.02em",
+                                }}
+                            >
+                                The Brands They&apos;ve Worked With
+                            </span>
                         </h2>
 
                         <p className="sr-only m-0 mt-[16px]">
