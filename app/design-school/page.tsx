@@ -18,7 +18,7 @@ import { DesignFaqSection } from "@/components/design/DesignFaqSection";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
 
 /** Match testimonials / hero typography on design school pages */
-const DESIGN_HEADING_FONT = '"VC Nudge Trial Normal", sans-serif';
+const DESIGN_HEADING_FONT = '"VC Nudge Trial Normal", sans-serif'
 const DESIGN_SERIF_FONT = '"IvyPresto Display", serif';
 
 const school = schoolData.design;
