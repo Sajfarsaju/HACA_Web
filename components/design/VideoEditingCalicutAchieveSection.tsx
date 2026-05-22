@@ -10,6 +10,7 @@ const dmSans = DM_Sans({
 const THEME = "#655CC5";
 const MUTED = "#00000099";
 const DOT = "#00000033";
+const SWITZER = '"Switzer", sans-serif';
 
 const ACHIEVEMENTS = [
     "A polished video editing portfolio",
@@ -38,17 +39,31 @@ function SeparatorDot() {
     );
 }
 
-function AchievementPill({ label }: { label: string }) {
+function AchievementTag({ label }: { label: string }) {
     return (
         <span
-            className={`inline-flex max-w-full items-center justify-center rounded-[999px] px-5 py-3 text-center text-white lg:h-12 lg:px-6 lg:py-0 ${dmSans.className}`}
+            className="inline-flex min-h-[48px] shrink-0 items-center justify-center rounded-[16px] px-6 text-center text-[16px] leading-[125%] tracking-normal text-white"
             style={{
                 backgroundColor: THEME,
+                fontFamily: SWITZER,
                 fontWeight: 500,
                 fontStyle: "normal",
-                fontSize: "clamp(14px, 3.6vw, 16px)",
-                lineHeight: "125%",
-                letterSpacing: 0,
+            }}
+        >
+            {label}
+        </span>
+    );
+}
+
+function MobileAchievementTag({ label }: { label: string }) {
+    return (
+        <span
+            className="inline-flex h-[48px] w-max shrink-0 items-center justify-center whitespace-nowrap rounded-[14px] px-5 text-center text-[13px] leading-none tracking-normal text-white sm:px-[22px] sm:text-[14px]"
+            style={{
+                backgroundColor: THEME,
+                fontFamily: SWITZER,
+                fontWeight: 500,
+                fontStyle: "normal",
             }}
         >
             {label}
@@ -62,7 +77,7 @@ function PillRow({ items }: { items: readonly string[] }) {
             {items.map((label, index) => (
                 <Fragment key={label}>
                     {index > 0 ? <SeparatorDot /> : null}
-                    <AchievementPill label={label} />
+                    <AchievementTag label={label} />
                 </Fragment>
             ))}
         </div>
@@ -109,12 +124,14 @@ export function VideoEditingCalicutAchieveSection() {
                         ))}
                     </div>
 
-                    {/* Mobile / tablet: centered wrap, no dots */}
-                    <div className="flex w-full max-w-[343px] flex-wrap items-center justify-center gap-x-4 gap-y-4 sm:max-w-[520px] lg:hidden">
+                    {/* Mobile: one tag per row, single line of text inside each tag */}
+                    <ul className="m-0 flex w-full max-w-[343px] list-none flex-col items-center gap-[18px] p-0 lg:hidden">
                         {ACHIEVEMENTS.map((label) => (
-                            <AchievementPill key={label} label={label} />
+                            <li key={label} className="flex w-full justify-center">
+                                <MobileAchievementTag label={label} />
+                            </li>
                         ))}
-                    </div>
+                    </ul>
                 </div>
             </div>
         </section>

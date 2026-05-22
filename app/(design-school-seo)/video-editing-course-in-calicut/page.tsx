@@ -3,6 +3,7 @@ import { VideoEditingCalicutStatsSection } from "@/components/design/VideoEditin
 import { VideoEditingCalicutWhatYouLearnSection } from "@/components/design/VideoEditingCalicutWhatYouLearnSection";
 import { VideoEditingCalicutToolsSection } from "@/components/design/VideoEditingCalicutToolsSection";
 import { VideoEditingCalicutAchieveSection } from "@/components/design/VideoEditingCalicutAchieveSection";
+import { VideoEditingCalicutExploreProgramsSection } from "@/components/design/VideoEditingCalicutExploreProgramsSection";
 import { buildDesignSchoolSeoMetadata, designSchoolSeoJsonLd } from "@/lib/design-school-seo";
 
 export const metadata = buildDesignSchoolSeoMetadata("video-editing-course-in-calicut");
@@ -21,6 +22,7 @@ export default function VideoEditingCourseInCalicutPage() {
             <VideoEditingCalicutWhatYouLearnSection />
             <VideoEditingCalicutToolsSection />
             <VideoEditingCalicutAchieveSection />
+            <VideoEditingCalicutExploreProgramsSection />
         </>
     );
 }
