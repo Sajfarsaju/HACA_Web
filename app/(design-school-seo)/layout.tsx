@@ -1,14 +1,9 @@
-import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
+import { DesignSchoolSeoShell } from "@/components/design/DesignSchoolSeoShell";
 
 export default function DesignSchoolSeoGroupLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    return (
-        <div className="w-full bg-[#FCFCFC] min-h-screen">
-            <DesignSchoolNavbar />
-            {children}
-        </div>
-    );
+    return <DesignSchoolSeoShell>{children}</DesignSchoolSeoShell>;
 }

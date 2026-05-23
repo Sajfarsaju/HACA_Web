@@ -1,0 +1,1 @@
+export { GraphicDesigningCalicutExploreProgramsSection as VideoEditingCalicutExploreProgramsSection } from "@/components/design/GraphicDesigningCalicutExploreProgramsSection";

@@ -23,14 +23,34 @@ type ProgramCard = {
     href: string;
 };
 
+const IMG_1309 = `/photos/schools/design/seo/${encodeURIComponent("IMG_1309 (1) 1.png")}`;
+
 const PROGRAMS: ProgramCard[] = [
+    {
+        id: "creative-design",
+        bg: "#FF5C00",
+        badge: { mode: "Online", duration: "6 Months" },
+        title: "Creative Design and\nCommunication",
+        description:
+            "This offline flagship CDC course supports you in learning graphic design, video editing, UI/UX, and more, while also offering opportunities to work on real projects through a one-month internship opportunity.",
+        button: { bg: "#8F56FF", fg: "#FFFFFF" },
+        imageSrc: IMG_1309,
+        imageAlt: "Creative Design and Communication",
+        imageWrapClassName:
+            "absolute bottom-0 left-0 w-[240px] sm:w-[280px] lg:w-[330px] h-[240px] sm:h-[300px] lg:h-[380px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-bottom object-left",
+        contentWrapClassName: "ml-auto w-full max-w-[300px] lg:max-w-[320px] text-left",
+        titleMaxWidthClassName: "max-w-[260px] lg:max-w-[280px]",
+        descriptionMaxWidthClassName: "max-w-[280px]",
+        href: "/design-school/courses/creative-design",
+    },
     {
         id: "ai-graphic",
         bg: "#8F56FF",
         badge: { mode: "Online", duration: "3 Months" },
         title: "AI Integrated\nGraphic Design",
         description:
-            "Build a strong foundation in visual design that supports any creative role. This module focuses on clarity, structure, and making intentional design decisions.",
+            "Discover the fundamentals of contemporary graphic design in this online course, perfect for beginners and those looking to switch careers, all from the comfort of your home.",
         button: { bg: "#FF5C00", fg: "#FFFFFF" },
         imageSrc: "/photos/schools/design/seo/60b47d2800c7e3eca0f8d38692662a973f3b73b0.png",
         imageAlt: "AI Integrated Graphic Design",
@@ -66,7 +86,7 @@ const PROGRAMS: ProgramCard[] = [
         badge: { mode: "Online", duration: "3 Months" },
         title: "UI/UX Design +\nAI Program",
         description:
-            "Learn to design digital experiences that are simple, functional, and user-friendly. This module covers design thinking, wireframing, and prototyping for apps and websites.",
+            "Learn how to create intuitive digital experiences by exploring design thinking, wireframing, and prototyping, perfect for aspiring app and web designers.",
         button: { bg: "#2592FF", fg: "#FFFFFF" },
         imageSrc: "/photos/schools/design/seo/efaa9dd8679f63c251e45143e7c74c5afcb821ae.png",
         imageAlt: "UI/UX Design + AI Program",
@@ -85,7 +105,7 @@ const PROGRAMS: ProgramCard[] = [
         badge: { mode: "Online", duration: "4 Weeks" },
         title: "Branding and\nIdentity Design",
         description:
-            "Understand how brands are built from the ground up. Learn logo design, visual identity, and storytelling for designers who want to specialise in branding.",
+            "Quickly master brand storytelling, logo creation, and visual identity development in this focused online bootcamp, ideal for designers aiming to specialise in branding.",
         button: { bg: "#8F56FF", fg: "#FFFFFF" },
         imageSrc: "/photos/schools/design/seo/4bb434c3142cc5e13672d6cf063a4a96bdff02c0.png",
         imageAlt: "Branding and Identity Design",
