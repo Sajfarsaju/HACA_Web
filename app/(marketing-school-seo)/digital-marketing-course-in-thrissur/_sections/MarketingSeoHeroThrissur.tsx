@@ -32,7 +32,7 @@ function HeroPillCta({ href, label }: { href: string; label: string }) {
     );
 }
 
-export function MarketingSeoHeroWayanad() {
+export function MarketingSeoHeroThrissur() {
     const [isDark, setIsDark] = useState(false);
     const ref = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
@@ -66,7 +66,7 @@ export function MarketingSeoHeroWayanad() {
         <section
             ref={ref}
             className="box-border mx-auto flex min-h-0 w-full max-w-[1440px] flex-col overflow-hidden px-[clamp(16px,4.16vw,60px)] pb-0 pt-5 md:px-[clamp(24px,5vw,48px)] md:pt-0 lg:h-[765px] lg:min-h-[765px] lg:max-h-[765px] lg:px-[60px] lg:pb-0 lg:pt-[80px]"
-            aria-label="Digital marketing course in Wayanad hero"
+            aria-label="Digital marketing course in Thrissur hero"
         >
             <div className="relative mx-auto flex min-h-0 min-w-0 w-full max-w-[1440px] flex-1 flex-col gap-[10px] md:gap-[clamp(16px,3vw,28px)] lg:flex-row lg:items-stretch lg:gap-[clamp(8px,1.2vw,20px)] xl:gap-6">
 
@@ -77,16 +77,16 @@ export function MarketingSeoHeroWayanad() {
                             className="relative z-[20] m-0 w-fit max-w-none text-[14px] leading-[28px] tracking-[0] lg:whitespace-nowrap lg:text-[24px] lg:leading-[28px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, color: "rgba(0,0,0,0.7)" }}
                         >
-                            Ready to Look Into the Future?
+                            Ready to Build Skills That Can Change Your Career Path?
                         </p>
 
                         <h1
                             className="m-0 max-w-full font-semibold text-[clamp(34px,9.6vw,44px)] leading-[95%] tracking-[-1px] [text-rendering:geometricPrecision] md:text-[clamp(44px,5.6vw,58px)] md:tracking-[-1.2px] lg:max-w-none lg:overflow-visible lg:text-[clamp(32px,2.55vw,46px)] lg:leading-[1.04] lg:tracking-[-1.2px] xl:text-[clamp(56px,3.6vw,72px)] xl:leading-[1.02] xl:tracking-[-1.92px]"
                             style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                         >
-                            <span className="inline lg:whitespace-nowrap">Grow Practical Skills with HACA&apos;s</span>{" "}
+                            <span className="inline lg:whitespace-nowrap">Learn Future Ready Skills with HACA&apos;s</span>{" "}
                             <br className="hidden lg:block" aria-hidden />
-                            <span className="inline">Digital Marketing Course in Wayanad</span>
+                            <span className="inline">Digital Marketing Course in Thrissur</span>
                         </h1>
 
                         <div className="flex flex-wrap items-center gap-3 md:gap-4">
@@ -98,7 +98,7 @@ export function MarketingSeoHeroWayanad() {
                             className="m-0 w-full max-w-[343px] min-h-[105px] text-[14px] leading-[21px] tracking-[0] text-[rgba(0,0,0,0.75)] lg:mt-[clamp(80px,8vw,120px)] lg:max-w-[605px] lg:min-h-[112px] lg:text-[18px] lg:leading-[28px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                            HACA&apos;s AI integrated Digital Marketing Course is built for students, graduates, freelancers, entrepreneurs and career switchers who want practical learning and industry exposure. Learn in-demand skills like SEO, AEO, GEO, AI automation, Meta Ads, Google Ads, Web Development and Ecommerce Marketing through live classes, hands-on projects and mentor-led guidance.
+                            At HACA, we bring practical, industry-focused digital marketing training to Thrissur&apos;s retail, healthcare, and cultural event sectors. Learn SEO, Google Ads, Meta Ads, AI automation, content marketing, ecommerce marketing, and Web Development skills that prepare you for career opportunities in Thrissur, Guruvayur, Irinjalakuda, Chalakudy, Kodungallur, and across the Thrissur district.
                         </p>
                     </div>
                 </div>
@@ -132,7 +132,7 @@ export function MarketingSeoHeroWayanad() {
                     <div className="relative z-[1] box-border aspect-[613/638] w-full max-h-[390px] overflow-hidden pr-0 md:max-h-[min(520px,52vw)] md:rounded-t-[16px] lg:max-h-[min(560px,60vh)] lg:w-full lg:max-w-none lg:shrink-0 lg:rounded-t-[18px] lg:rounded-b-none lg:pr-[clamp(56px,9vw,112px)] lg:max-xl:pr-[clamp(72px,12vw,132px)] xl:max-h-[580px] xl:rounded-t-[20px] xl:rounded-b-none xl:pr-[clamp(48px,7vw,96px)]">
                         <Image
                             src={HERO_PHOTO}
-                            alt="Digital marketing course in Wayanad"
+                            alt="Digital marketing course in Thrissur"
                             fill
                             className="object-contain object-top max-lg:object-bottom lg:object-contain lg:object-[46%_54%]"
                             sizes="(max-width: 1023px) 100vw, (max-width: 1279px) 45vw, 680px"

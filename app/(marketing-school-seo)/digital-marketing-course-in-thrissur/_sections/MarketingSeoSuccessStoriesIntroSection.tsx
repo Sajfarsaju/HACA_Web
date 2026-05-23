@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const HEADING_ID = "marketing-kochi-success-stories-heading";
+const HEADING_ID = "marketing-thrissur-success-stories-heading";
 
 const ACCENT_GRADIENTS = [
     "linear-gradient(145deg, #D9F967 0%, #9fcc4a 55%, #7fb032 100%)",
@@ -55,19 +55,19 @@ export function MarketingSeoSuccessStoriesIntroSection() {
     return (
         <section className="w-full bg-black text-white" aria-labelledby={HEADING_ID}>
             <style>{`
-                @keyframes ss-kochi-marquee-right {
+                @keyframes ss-thrissur-marquee-right {
                     0% { transform: translateX(-50%); }
                     100% { transform: translateX(0); }
                 }
-                @keyframes ss-kochi-marquee-left {
+                @keyframes ss-thrissur-marquee-left {
                     0% { transform: translateX(0); }
                     100% { transform: translateX(-50%); }
                 }
-                .ss-kochi-marquee-row1-track { animation: ss-kochi-marquee-right 48s linear infinite; will-change: transform; }
-                .ss-kochi-marquee-row2-track { animation: ss-kochi-marquee-left 52s linear infinite; will-change: transform; }
-                .ss-kochi-marquee-row1-track:hover, .ss-kochi-marquee-row2-track:hover { animation-play-state: paused; }
+                .ss-thrissur-marquee-row1-track { animation: ss-thrissur-marquee-right 48s linear infinite; will-change: transform; }
+                .ss-thrissur-marquee-row2-track { animation: ss-thrissur-marquee-left 52s linear infinite; will-change: transform; }
+                .ss-thrissur-marquee-row1-track:hover, .ss-thrissur-marquee-row2-track:hover { animation-play-state: paused; }
                 @media (prefers-reduced-motion: reduce) {
-                    .ss-kochi-marquee-row1-track, .ss-kochi-marquee-row2-track { animation: none; transform: none; }
+                    .ss-thrissur-marquee-row1-track, .ss-thrissur-marquee-row2-track { animation: none; transform: none; }
                 }
             `}</style>
             <div className="mx-auto box-border flex w-full max-w-[1440px] flex-col gap-[30px] px-5 py-[10px] lg:px-[60px] lg:pb-[60px] lg:pt-[30px]">
@@ -79,19 +79,19 @@ export function MarketingSeoSuccessStoriesIntroSection() {
                             style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                         >
                             <span className="flex flex-col text-[36px] leading-[95%] lg:hidden">
-                                <span className="block">Aspiring Digital Marketers from</span>
-                                <span className="block">Kerala&apos;s Tech Hub Choose HACA</span>
+                                <span className="block">Students from Thrissur Are</span>
+                                <span className="block">Building Careers with HACA</span>
                             </span>
                             <span className="hidden flex-col text-[clamp(28px,3.8vw,55px)] leading-[110%] lg:flex">
-                                <span className="block whitespace-nowrap">Aspiring Digital Marketers from</span>
-                                <span className="block whitespace-nowrap">Kerala&apos;s Tech Hub Choose HACA</span>
+                                <span className="block whitespace-nowrap">Students from Thrissur Are</span>
+                                <span className="block whitespace-nowrap">Building Careers with HACA</span>
                             </span>
                         </h2>
                         <p
                             className="m-0 w-full max-w-[335px] min-h-[96px] text-center text-[16px] font-medium leading-[150%] tracking-[-0.05em] text-[#FFFFFFB2] lg:max-w-[458px] lg:min-h-0 lg:shrink-0 lg:text-left lg:text-[18px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                            Students from across the district have joined HACA through both online and offline batches, with many building careers in SEO, content marketing, social media marketing, paid advertising, ecommerce, and performance marketing through practical training and placement support.
+                            Students from Thrissur, Guruvayur, Kunnamkulam, Chavakkad, and nearby areas have joined HACA through both online and offline batches, building careers in SEO, content marketing, social media marketing, paid advertising, ecommerce, and performance marketing through practical training and placement support.
                         </p>
                     </div>
                 </div>
@@ -99,14 +99,14 @@ export function MarketingSeoSuccessStoriesIntroSection() {
                 <div className="relative w-full overflow-x-hidden lg:min-h-[599px]">
                     <div className="flex w-full flex-col gap-[30px]" aria-hidden="true">
                         <div className="w-full min-w-0 overflow-hidden">
-                            <div className="ss-kochi-marquee-row1-track flex w-max flex-row gap-[19.95px] lg:gap-[30px]">
+                            <div className="ss-thrissur-marquee-row1-track flex w-max flex-row gap-[19.95px] lg:gap-[30px]">
                                 {ROW1_LOOP.map((name, i) => (
                                     <PlacementCard key={`r1-${i}-${name}`} name={name} accentIndex={i % ROW1_NAMES.length} />
                                 ))}
                             </div>
                         </div>
                         <div className="w-full min-w-0 overflow-hidden">
-                            <div className="ss-kochi-marquee-row2-track flex w-max flex-row gap-[19.95px] lg:gap-[30px]">
+                            <div className="ss-thrissur-marquee-row2-track flex w-max flex-row gap-[19.95px] lg:gap-[30px]">
                                 {ROW2_LOOP.map((name, i) => (
                                     <PlacementCard key={`r2-${i}-${name}`} name={name} accentIndex={(i + 1) % ROW2_NAMES.length} />
                                 ))}

@@ -65,28 +65,28 @@ export function MarketingSeoHeroKochi() {
     return (
         <section
             ref={ref}
-            className="box-border mx-auto flex min-h-0 w-full max-w-[1440px] flex-col overflow-hidden px-[clamp(16px,4.16vw,60px)] pb-0 pt-5 md:px-[clamp(24px,5vw,48px)] md:pt-0 lg:h-[765px] lg:min-h-[765px] lg:max-h-[765px] lg:px-[60px] lg:pb-0 lg:pt-[80px]"
+            className="box-border mx-auto flex min-h-0 w-full max-w-[1440px] flex-col overflow-hidden px-[clamp(16px,4.16vw,60px)] pb-0 pt-5 md:px-[clamp(24px,5vw,48px)] md:pt-0 lg:h-[765px] lg:min-h-[765px] lg:max-h-[765px] lg:overflow-visible lg:px-[60px] lg:pb-0 lg:pt-[80px]"
             aria-label="Digital marketing course in Kochi hero"
         >
-            <div className="relative mx-auto flex min-h-0 min-w-0 w-full max-w-[1440px] flex-1 flex-col gap-[10px] md:gap-[clamp(16px,3vw,28px)] lg:flex-row lg:items-stretch lg:gap-[clamp(8px,1.2vw,20px)] xl:gap-6">
+            <div className="relative mx-auto flex min-h-0 min-w-0 w-full max-w-[1440px] flex-1 flex-col gap-[10px] overflow-visible md:gap-[clamp(16px,3vw,28px)] lg:flex-row lg:items-stretch lg:gap-[clamp(8px,1.2vw,20px)] xl:gap-6">
 
                 {/* Left column */}
-                <div className="relative z-[2] mx-0 flex min-h-0 w-full max-w-none flex-col justify-between pt-[clamp(18px,3vw,48px)] md:mx-auto md:max-w-[min(560px,92vw)] lg:mx-0 lg:w-[min(560px,40%)] lg:max-w-none lg:min-w-0 lg:shrink-[1] lg:pb-[clamp(32px,4vw,56px)] lg:pt-0 xl:w-[560px]">
-                    <div className="flex min-h-0 w-full flex-col gap-4 md:gap-6 lg:gap-6 xl:gap-6">
+                <div className="relative z-[2] mx-0 flex min-h-0 w-full max-w-none flex-col justify-between overflow-visible pt-[clamp(18px,3vw,48px)] md:mx-auto md:max-w-[min(560px,92vw)] lg:mx-0 lg:w-[min(560px,40%)] lg:max-w-none lg:min-w-0 lg:shrink-[1] lg:pb-[clamp(32px,4vw,56px)] lg:pt-0 xl:w-[560px]">
+                    <div className="flex min-h-0 w-full flex-col gap-4 overflow-visible md:gap-6 lg:gap-6 xl:gap-6">
                         <p
-                            className="m-0 text-[14px] leading-[28px] tracking-[0] lg:text-[24px] lg:leading-[28px]"
+                            className="relative z-[20] m-0 w-fit max-w-none text-[14px] leading-[28px] tracking-[0] lg:whitespace-nowrap lg:text-[24px] lg:leading-[28px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, color: "rgba(0,0,0,0.7)" }}
                         >
-                            Looking for the best digital marketing course in Kochi?
+                            Looking for a Career Skill That Can Open More Doors
                         </p>
 
                         <h1
                             className="m-0 max-w-full font-semibold text-[clamp(34px,9.6vw,44px)] leading-[95%] tracking-[-1px] [text-rendering:geometricPrecision] md:text-[clamp(44px,5.6vw,58px)] md:tracking-[-1.2px] lg:max-w-none lg:overflow-visible lg:text-[clamp(32px,2.55vw,46px)] lg:leading-[1.04] lg:tracking-[-1.2px] xl:text-[clamp(56px,3.6vw,72px)] xl:leading-[1.02] xl:tracking-[-1.92px]"
                             style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                         >
-                            <span className="inline lg:whitespace-nowrap">Build Skills &amp; Grow Your Career</span>{" "}
+                            <span className="inline lg:whitespace-nowrap">Build Your Future with HACA&apos;s</span>{" "}
                             <br className="hidden lg:block" aria-hidden />
-                            <span className="inline">with the Digital Marketing Course in Kochi</span>
+                            <span className="inline">Digital Marketing Course in Kochi</span>
                         </h1>
 
                         <div className="flex flex-wrap items-center gap-3 md:gap-4">
@@ -98,7 +98,7 @@ export function MarketingSeoHeroKochi() {
                             className="m-0 w-full max-w-[343px] min-h-[105px] text-[14px] leading-[21px] tracking-[0] text-[rgba(0,0,0,0.75)] lg:mt-[clamp(80px,8vw,120px)] lg:max-w-[605px] lg:min-h-[112px] lg:text-[18px] lg:leading-[28px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                            HACA&apos;s AI-integrated Digital Marketing Course in Kochi gives you complete online access to industry-focused training built for students, professionals, and entrepreneurs across Kochi, Ernakulam, Kakkanad, Edappally, Thrippunithura, and nearby areas. Go beyond certificates and learn AEO, GEO, AI automation, SEO, Google Ads, Web Development, eCommerce, and Meta Ads through practical projects, real industry exposure, and career-focused mentorship.
+                            Enroll in HACA&apos;s AI-integrated Digital Marketing Course designed for students, professionals, freelancers, business owners, housewives, and career switchers. Learn SEO, Google Ads, Meta Ads, AI automation, content marketing, ecommerce marketing, and Web Development skills that prepare you for opportunities across Infopark, SCEZ, SmartCity, Kakkanad startups, digital agencies, and growing businesses in Ernakulam District.
                         </p>
                     </div>
                 </div>

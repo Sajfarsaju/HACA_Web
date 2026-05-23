@@ -1,6 +1,10 @@
 import { TechSeoDataAnalyticsKeralaDifferentSection } from "./_sections/TechSeoDataAnalyticsKeralaDifferentSection";
 import { TechSeoDataAnalyticsKeralaHeroSection } from "./_sections/TechSeoDataAnalyticsKeralaHeroSection";
 import { TechSeoDataAnalyticsKeralaSuccessStoriesSection } from "./_sections/TechSeoDataAnalyticsKeralaSuccessStoriesSection";
+import { TechSeoDataAnalyticsKeralaCareerOutcomesSection } from "./_sections/TechSeoDataAnalyticsKeralaCareerOutcomesSection";
+import { TechSeoDataAnalyticsKeralaEnrollCtaSection } from "./_sections/TechSeoDataAnalyticsKeralaEnrollCtaSection";
+import { TechSeoDataAnalyticsKeralaFaqSection } from "./_sections/TechSeoDataAnalyticsKeralaFaqSection";
+import { TechSeoDataAnalyticsKeralaLearnersSection } from "./_sections/TechSeoDataAnalyticsKeralaLearnersSection";
 import { TechSeoDataAnalyticsKeralaCtaSection } from "./_sections/TechSeoDataAnalyticsKeralaCtaSection";
 import { TechSeoDataAnalyticsKeralaMentorsSection } from "./_sections/TechSeoDataAnalyticsKeralaMentorsSection";
 import { TechSeoDataAnalyticsKeralaWhyChooseSection } from "./_sections/TechSeoDataAnalyticsKeralaWhyChooseSection";
@@ -31,6 +35,10 @@ export default function DataAnalyticsCourseInKeralaPage() {
                 <TechSeoDataAnalyticsKeralaToolsSection />
                 <TechSeoDataAnalyticsKeralaMentorsSection />
                 <TechSeoDataAnalyticsKeralaWhyChooseSection />
+                <TechSeoDataAnalyticsKeralaCareerOutcomesSection />
+                <TechSeoDataAnalyticsKeralaLearnersSection />
+                <TechSeoDataAnalyticsKeralaFaqSection />
+                <TechSeoDataAnalyticsKeralaEnrollCtaSection />
             </div>
         </>
     );

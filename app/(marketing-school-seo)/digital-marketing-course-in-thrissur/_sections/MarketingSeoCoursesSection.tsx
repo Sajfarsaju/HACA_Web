@@ -3,8 +3,8 @@ import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
 
-const HEADING_ID = "marketing-kochi-courses-heading";
-const SUB_HEADING_ID = "marketing-kochi-courses-subheading";
+const HEADING_ID = "marketing-thrissur-courses-heading";
+const SUB_HEADING_ID = "marketing-thrissur-courses-subheading";
 
 const CALENDAR_SVG = "/photos/schools/marketing/CalendarDots.svg";
 const CLOCK_SVG = "/photos/schools/marketing/Clock.svg";
@@ -22,48 +22,51 @@ type CourseDatum = {
 const COURSES: readonly CourseDatum[] = [
     {
         pill: "Online | 5 Months",
-        title: "5 Months Online Digital Marketing Course",
-        description: "Learn from home with live sessions and mentor guidance.",
+        title: "5 Months Online AI Integrated Digital Marketing Course in Thrissur",
+        description: "Learn from anywhere through live online classes and mentor guidance.",
         features: [
-            "Real-time classes",
-            "Live projects and assignments",
-            "Dedicated mentor support",
+            "Live interactive sessions",
+            "Industry projects and assignments",
             "Recorded session access",
-            "Industry tools and platforms",
+            "Mentor support",
+            "Practical implementation tasks",
         ],
         schedule: { days: "Monday to Friday", time: "8 PM to 10 PM" },
     },
     {
         pill: "Offline | 6 Months",
-        title: "5+1 Months Offline Digital Marketing Course at HACA Kozhikode Campus",
-        description: "Join our Calicut campus experience with mentor interaction and practical exposure.",
+        title: "5+1 Months Offline Digital Marketing Course at Calicut Campus",
+        description: "Get classroom learning combined with project-based exposure and practical activities.",
         features: [
             "5 Months Core Learning + 1 Month Specialisation",
-            "AI-powered learning approach",
-            "Project-driven assignments",
-            "Peer collaboration",
-            "Career preparation support",
+            "AI-powered curriculum",
+            "Hands-on projects",
+            "Group learning activities",
+            "Career support guidance",
         ],
         schedule: { days: "Monday to Friday", time: "10:30 AM to 4 PM" },
     },
     {
         pill: "Online | 2 Months",
-        title: "2-Month Online Performance Marketing Mastery Course",
-        description: "Specialise in running high-ROI ad campaigns on Google, Facebook, Instagram, and more. Perfect for anyone who wants to master paid ads faster.",
+        title: "2 Month Online Performance Marketing Mastery Course",
+        description: "Learn how to create and optimize high ROI campaigns across Google, Instagram and Facebook.",
         schedule: null,
     },
     {
         pill: "Coming Soon",
-        title: "2-Month Online Content Creation & Social Media Mastery Course",
-        description: "Learn how to grow, engage, and monetise audiences on platforms like Instagram, LinkedIn, YouTube, and Facebook with proven strategies and content planning.",
+        title: "2 Month Online Content Creation & Social Media Mastery Course",
+        description: "Learn audience growth, content planning and platform strategies across LinkedIn, Instagram, YouTube and Facebook.",
         schedule: null,
         comingSoon: true,
         hideCta: true,
     },
 ];
 
-const INTRO_BLOCK = { heading: "Flexible Learning Options Designed Around Your Schedule" } as const;
-const BETWEEN_BLOCK = { heading: "Marketing School Mastery Series", body: "Specialised programs designed for learners who want focused skill development." } as const;
+const INTRO_BLOCK = { heading: "Flexible Learning Designed Around Your Routine" } as const;
+const BETWEEN_BLOCK = {
+    heading: "Focused Learning Through Our Mastery Programs",
+    body: "Specialised programs for learners who want to develop focused expertise in a specific area.",
+} as const;
 
 function ScheduleRow({ iconSrc, label }: { iconSrc: string; label: string }) {
     return (
@@ -131,7 +134,11 @@ export function MarketingSeoCoursesSection() {
         <section className="w-full bg-white text-black" aria-labelledby={HEADING_ID}>
             <div className="mx-auto box-border flex w-full max-w-[1440px] flex-col gap-[30px] px-[clamp(16px,4.16vw,60px)] py-[30px] md:px-[clamp(24px,5vw,48px)] lg:gap-[60px] lg:p-[60px]">
                 <div className="flex w-full flex-col gap-3 lg:mx-0 lg:max-w-[1320px]">
-                    <h2 id={HEADING_ID} className="m-0 font-semibold text-[36px] leading-[95%] tracking-[0] text-black [text-rendering:geometricPrecision] lg:whitespace-nowrap lg:text-[clamp(40px,3.7vw,55px)] lg:leading-[150%] lg:tracking-[-0.05em]" style={{ fontFamily: "Darker Grotesque, sans-serif" }}>
+                    <h2
+                        id={HEADING_ID}
+                        className="m-0 font-semibold text-[36px] leading-[95%] tracking-[0] text-black [text-rendering:geometricPrecision] lg:whitespace-nowrap lg:text-[clamp(40px,3.7vw,55px)] lg:leading-[150%] lg:tracking-[-0.05em]"
+                        style={{ fontFamily: "Darker Grotesque, sans-serif" }}
+                    >
                         {INTRO_BLOCK.heading}
                     </h2>
                 </div>

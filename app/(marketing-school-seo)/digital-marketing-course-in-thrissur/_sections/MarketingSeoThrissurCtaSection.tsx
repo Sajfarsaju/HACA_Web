@@ -2,17 +2,17 @@ import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
 
-const HEADING_ID = "marketing-seo-kochi-cta-heading";
+const HEADING_ID = "marketing-seo-thrissur-cta-heading";
 
 const BODY_COPY =
-    "The right skills today can lead to jobs, freelance opportunities, and bigger possibilities tomorrow.";
+    "The skills you learn today can help you work with brands, build your career or create opportunities of your own.";
 
 function ReserveSpotCta() {
     return (
         <Link
             href="/contact"
             className="group relative inline-flex h-[60px] w-fit shrink-0 cursor-pointer items-center no-underline"
-            aria-label="Book your seat today — digital marketing course in Kochi"
+            aria-label="Book your seat today — digital marketing course in Thrissur"
         >
             <div className="relative flex h-[60px] w-fit items-center rounded-[30px] bg-[#E6EFFF] pl-[20px] pr-[76px] transition-colors duration-300 group-hover:bg-[#d6e4ff]">
                 <span className="whitespace-nowrap text-black" style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}>
@@ -24,9 +24,9 @@ function ReserveSpotCta() {
     );
 }
 
-export function MarketingSeoKochiCtaSection() {
+export function MarketingSeoThrissurCtaSection() {
     return (
-        <section id="marketing-seo-kochi-cta" className="w-full bg-black text-white opacity-100" role="region" aria-labelledby={HEADING_ID}>
+        <section id="marketing-seo-thrissur-cta" className="w-full bg-black text-white opacity-100" role="region" aria-labelledby={HEADING_ID}>
             <div className="mx-auto box-border flex w-full min-w-0 max-w-[1440px] flex-col items-center justify-center min-h-[292px] gap-[60px] px-5 py-5 lg:min-h-[458px] lg:px-20 lg:py-10">
                 <div className="flex w-full max-w-[335px] flex-col items-center gap-5 text-center lg:max-w-[1322px] lg:min-h-[378px] lg:justify-center">
                     <div className="flex w-full max-w-[335px] flex-col items-center gap-5 text-center lg:w-full lg:max-w-none">
@@ -34,8 +34,8 @@ export function MarketingSeoKochiCtaSection() {
                             id={HEADING_ID}
                             className="m-0 w-full max-w-[268px] text-center font-semibold tracking-[-0.01em] text-white [font-family:'Darker_Grotesque',sans-serif] text-[36px] leading-[1.1] [text-rendering:geometricPrecision] lg:mx-auto lg:w-fit lg:max-w-none lg:text-[68px]"
                         >
-                            <span className="block lg:whitespace-nowrap">Your Digital Marketing Career</span>
-                            <span className="block lg:whitespace-nowrap">Could Start with One Decision</span>
+                            <span className="block lg:whitespace-nowrap">Start Building The Skills</span>
+                            <span className="block lg:whitespace-nowrap">That Open New Opportunities</span>
                         </h2>
                         <p className="m-0 w-full font-normal leading-[1.5] tracking-normal text-[#FFFFFFE5] [font-family:'Satoshi',sans-serif] text-[16px] lg:max-w-[500px]">
                             {BODY_COPY}

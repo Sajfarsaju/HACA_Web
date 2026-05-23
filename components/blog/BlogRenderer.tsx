@@ -3,14 +3,84 @@
 import * as React from "react"
 import type { BlogBlock } from "@/lib/blog-blocks"
 
+function BlogTableBlock({ headers, rows }: { headers: string[]; rows: string[][] }) {
+    return (
+        /* gradient border wrapper */
+        <div className="w-full rounded-[20px] md:rounded-[22px] p-[1.5px] bg-gradient-to-br from-[#4C75FF] via-[#2540C0] to-[#1a1f5e]">
+            <div className="w-full overflow-x-auto rounded-[18.5px] md:rounded-[20.5px]">
+                <table className="w-full min-w-full border-collapse">
+
+                    {/* ── Header ── */}
+                    {headers.length > 0 && (
+                        <thead>
+                            <tr>
+                                {headers.map((h, i) => (
+                                    <th
+                                        key={i}
+                                        className={[
+                                            "px-5 py-[14px] md:px-7 md:py-[18px] text-left",
+                                            "font-rethink font-bold text-[11px] md:text-[12px]",
+                                            "uppercase tracking-[0.09em] text-[#8BA3FF] whitespace-nowrap",
+                                            "bg-gradient-to-r from-[#0f1760] to-[#0b1145]",
+                                            i < headers.length - 1
+                                                ? "border-r border-[#1e2d8a]"
+                                                : "",
+                                        ].join(" ")}
+                                    >
+                                        {h}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                    )}
+
+                    {/* ── Body ── */}
+                    <tbody>
+                        {rows.map((row, ri) => (
+                            <tr
+                                key={ri}
+                                style={{
+                                    backgroundColor: ri % 2 === 0 ? "#000319" : "#010422",
+                                }}
+                                className="border-t border-[#1e2d8a]/50 transition-colors duration-200 hover:bg-[#091240]"
+                            >
+                                {row.map((cell, ci) => (
+                                    <td
+                                        key={ci}
+                                        className={[
+                                            "px-5 py-3 md:px-7 md:py-[14px]",
+                                            "font-rethink text-[13px] md:text-[15px] leading-[160%]",
+                                            ci === 0
+                                                ? "font-semibold text-white"
+                                                : "font-normal text-[#9EAACB]",
+                                            ci < row.length - 1
+                                                ? "border-r border-[#1e2d8a]/50"
+                                                : "",
+                                        ].join(" ")}
+                                    >
+                                        {ci === 0 ? (
+                                            <span className="flex items-center gap-[10px]">
+                                                <span className="shrink-0 w-[6px] h-[6px] rounded-full bg-[#4C75FF] opacity-80" />
+                                                {cell}
+                                            </span>
+                                        ) : cell}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    )
+}
+
 export function BlogRenderer({ blocks }: { blocks: BlogBlock[] }) {
     return (
         <div className="w-full flex flex-col gap-[16px] md:gap-[20px] lg:gap-[30px]">
             {blocks.map((block) => {
                 switch (block.type) {
                     case "heading": {
-                        // Blog title is already rendered as the page H1.
-                        // Keep content headings aligned with existing static blog styles.
                         const Tag = "h2" as const
                         const cls = block.level === 1
                             ? "font-rethink font-bold text-[20px] md:text-[40px] leading-[110%] text-white m-0"
@@ -55,9 +125,7 @@ export function BlogRenderer({ blocks }: { blocks: BlogBlock[] }) {
                                 className="m-0 pl-5 md:pl-6 list-decimal flex flex-col gap-[6px] md:gap-[10px] font-rethink font-medium text-[#A7ADBE] text-[16px] md:text-[20px] leading-[27px] md:leading-[34px]"
                             >
                                 {block.items.filter(Boolean).map((it, i) => (
-                                    <li key={i} className="m-0">
-                                        {it}
-                                    </li>
+                                    <li key={i} className="m-0">{it}</li>
                                 ))}
                             </ol>
                         ) : (
@@ -66,9 +134,7 @@ export function BlogRenderer({ blocks }: { blocks: BlogBlock[] }) {
                                 className="m-0 pl-5 md:pl-6 list-disc flex flex-col gap-[6px] md:gap-[10px] font-rethink font-medium text-[#A7ADBE] text-[16px] md:text-[20px] leading-[27px] md:leading-[34px]"
                             >
                                 {block.items.filter(Boolean).map((it, i) => (
-                                    <li key={i} className="m-0">
-                                        {it}
-                                    </li>
+                                    <li key={i} className="m-0">{it}</li>
                                 ))}
                             </ul>
                         )
@@ -88,6 +154,14 @@ export function BlogRenderer({ blocks }: { blocks: BlogBlock[] }) {
                                 </p>
                             </div>
                         )
+                    case "table":
+                        return (
+                            <BlogTableBlock
+                                key={block.id}
+                                headers={block.headers}
+                                rows={block.rows}
+                            />
+                        )
                     default:
                         return null
                 }
@@ -95,4 +169,3 @@ export function BlogRenderer({ blocks }: { blocks: BlogBlock[] }) {
         </div>
     )
 }
-

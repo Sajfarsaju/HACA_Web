@@ -31,6 +31,12 @@ export type BlogBlock =
           title?: string
           text: string
       }
+    | {
+          id: string
+          type: "table"
+          headers: string[]
+          rows: string[][]
+      }
 
 export function isBlogBlocks(value: unknown): value is BlogBlock[] {
     if (!Array.isArray(value)) return false

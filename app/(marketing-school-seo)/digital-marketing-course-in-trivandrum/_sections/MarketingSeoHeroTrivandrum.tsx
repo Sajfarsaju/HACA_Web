@@ -73,7 +73,7 @@ export function MarketingSeoHeroTrivandrum() {
                 <div className="relative z-[2] mx-0 flex min-h-0 w-full max-w-none flex-col justify-between pt-[clamp(18px,3vw,48px)] md:mx-auto md:max-w-[min(560px,92vw)] lg:mx-0 lg:w-[min(680px,46%)] lg:max-w-none lg:min-w-0 lg:overflow-visible lg:shrink-0 lg:pb-[clamp(32px,4vw,56px)] lg:pt-0 xl:w-[680px]">
                     <div className="flex min-h-0 w-full flex-col gap-4 overflow-hidden md:gap-6 lg:overflow-visible lg:gap-6 xl:gap-6">
                         <p
-                            className="m-0 text-[14px] leading-[28px] tracking-[0] lg:text-[24px] lg:leading-[28px]"
+                            className="relative z-[20] m-0 w-fit max-w-none text-[14px] leading-[28px] tracking-[0] lg:whitespace-nowrap lg:text-[24px] lg:leading-[28px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, color: "rgba(0,0,0,0.7)" }}
                         >
                             How Far Could You Go With the Right Skills?
