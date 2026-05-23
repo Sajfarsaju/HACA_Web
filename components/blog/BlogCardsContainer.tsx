@@ -74,7 +74,7 @@ function BlogCard({
             aria-label={`Read blog: ${blog.title}`}
         >
             {/* Cover image */}
-            <div className="relative w-full aspect-[387/287.72] overflow-hidden shrink-0 rounded-[clamp(12px,1.2vw,20px)]">
+            <div className="relative w-full aspect-[871/514] overflow-hidden shrink-0 rounded-[clamp(12px,1.2vw,20px)]">
                 <Image
                     src={blog.bannerUrl || "/photos/main/blog cover.png"}
                     alt={blog.title}

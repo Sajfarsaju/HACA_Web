@@ -165,6 +165,7 @@ export default function AdminPage() {
   const [blogCropSrc, setBlogCropSrc] = useState<string | null>(null);
   // Author photo crop state
   const [blogAuthorPhotoFile, setBlogAuthorPhotoFile] = useState<File | null>(null);
+  const [blogAuthorPhotoUrl, setBlogAuthorPhotoUrl] = useState<string>("");
   const [authorPhotoCropOpen, setAuthorPhotoCropOpen] = useState(false);
   const [authorPhotoCropSrc, setAuthorPhotoCropSrc] = useState<string | null>(null);
   // Blog FAQ + edit mode
@@ -455,6 +456,7 @@ export default function AdminPage() {
     setBlogFaqs([]);
     setBlogBannerFile(null);
     setBlogAuthorPhotoFile(null);
+    setBlogAuthorPhotoUrl("");
     setEditingBlogId(null);
   }
 
@@ -478,6 +480,7 @@ export default function AdminPage() {
       setBlogCategory(b.category || "Marketing");
       setBlogContent(b.content || "");
       setBlogFaqs(Array.isArray(b.faqs) ? b.faqs : []);
+      setBlogAuthorPhotoUrl(b.authorPhotoUrl || "");
     } catch {
       // Fall back to data already in the list
       setBlogTitle(blog.title || "");
@@ -488,6 +491,7 @@ export default function AdminPage() {
       setBlogCategory(blog.category || "Marketing");
       setBlogContent(blog.content || "");
       setBlogFaqs(Array.isArray(blog.faqs) ? blog.faqs : []);
+      setBlogAuthorPhotoUrl(blog.authorPhotoUrl || "");
     }
     setBlogBannerFile(null);
     setBlogAuthorPhotoFile(null);
@@ -524,7 +528,11 @@ export default function AdminPage() {
       form.append("content", blogContent);
       if (blogFaqs.length > 0) form.append("faqs", JSON.stringify(blogFaqs));
       if (blogBannerFile) form.append("banner", blogBannerFile);
-      if (blogAuthorPhotoFile) form.append("authorPhoto", blogAuthorPhotoFile);
+      if (blogAuthorPhotoFile) {
+        form.append("authorPhoto", blogAuthorPhotoFile);
+      } else if (blogAuthorPhotoUrl) {
+        form.append("authorPhotoUrl", blogAuthorPhotoUrl);
+      }
 
       if (editingBlogId) {
         const headers = { Authorization: `Bearer ${token}` };
@@ -1412,7 +1420,46 @@ export default function AdminPage() {
                     />
                   </div>
 
-                  {/* Row 2: Author + Role */}
+                  {/* Row 2: Existing author picker */}
+                  {(() => {
+                    const seen = new Set<string>();
+                    const uniqueAuthors = blogs.filter((b) => {
+                      if (!b.authorName?.trim() || seen.has(b.authorName.trim())) return false;
+                      seen.add(b.authorName.trim());
+                      return true;
+                    });
+                    if (uniqueAuthors.length === 0) return null;
+                    return (
+                      <div className="space-y-2">
+                        <label className="text-xs font-medium text-[#A7ADBE]">
+                          Select existing author <span className="font-normal text-[#8890a0]">(auto-fills fields below)</span>
+                        </label>
+                        <select
+                          className="w-full cursor-pointer appearance-none rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371717a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 1rem center", backgroundSize: "1rem" }}
+                          value=""
+                          onChange={(e) => {
+                            const picked = uniqueAuthors.find((b) => b.authorName.trim() === e.target.value);
+                            if (!picked) return;
+                            setBlogAuthorName(picked.authorName.trim());
+                            setBlogAuthorRole(picked.authorRole?.trim() ?? "");
+                            setBlogAuthorBio(picked.authorBio?.trim() ?? "");
+                            setBlogAuthorPhotoUrl(picked.authorPhotoUrl?.trim() ?? "");
+                            setBlogAuthorPhotoFile(null);
+                          }}
+                        >
+                          <option value="" className="bg-[#1a1f2e] text-[#8890a0]">— pick an author —</option>
+                          {uniqueAuthors.map((b) => (
+                            <option key={b._id} value={b.authorName.trim()} className="bg-[#1a1f2e] text-white">
+                              {b.authorName.trim()}{b.authorRole ? ` · ${b.authorRole}` : ""}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    );
+                  })()}
+
+                  {/* Row 3: Author name + Role */}
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div className="space-y-2">
                       <label htmlFor="blog-author" className="text-xs font-medium text-[#A7ADBE]">
@@ -1460,6 +1507,11 @@ export default function AdminPage() {
                         </label>
                         {blogAuthorPhotoFile ? (
                           <p className="text-center text-xs font-medium text-emerald-400/90">Ready: {blogAuthorPhotoFile.name}</p>
+                        ) : blogAuthorPhotoUrl ? (
+                          <div className="flex flex-col items-center gap-2">
+                            <img src={blogAuthorPhotoUrl} alt="Author" className="w-12 h-12 rounded-xl object-cover ring-1 ring-white/20" />
+                            <p className="text-center text-xs font-medium text-emerald-400/90">Using existing photo</p>
+                          </div>
                         ) : (
                           <p className="text-center text-xs text-[#8890a0]">No photo selected</p>
                         )}

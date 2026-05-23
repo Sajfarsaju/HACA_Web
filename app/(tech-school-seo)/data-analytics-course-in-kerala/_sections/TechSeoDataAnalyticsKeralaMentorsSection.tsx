@@ -28,7 +28,9 @@ export function TechSeoDataAnalyticsKeralaMentorsSection() {
 
                 <TechMentorsCarousel
                     className="w-full"
-                    navigationClassName="relative z-10 mt-2 flex gap-[10px] sm:mt-3"
+                    showBackgroundEffects={false}
+                    showNavigation={false}
+                    autoAdvanceMs={4000}
                 />
 
                 <TechSeoSectionBottomRule inset />

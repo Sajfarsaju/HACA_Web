@@ -62,8 +62,16 @@ function getCardSizes(width: number) {
     return { centerW: 396, centerH: 495, sideW: 346, sideH: 431, gap: 32, showSide: true };
 }
 
-function getOffset(index: number, active: number) {
-    return index - active;
+function getOffset(index: number, active: number, loop: boolean) {
+    if (!loop) {
+        return index - active;
+    }
+
+    const total = MENTORS.length;
+    let diff = index - active;
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    return diff;
 }
 
 function MentorInfoBox({
@@ -121,6 +129,9 @@ function MentorInfoBox({
 export type TechMentorsCarouselProps = {
     className?: string;
     showBackgroundEffects?: boolean;
+    showNavigation?: boolean;
+    /** When set, advances slides on an interval (loops). */
+    autoAdvanceMs?: number;
     navigationClassName?: string;
 };
 
@@ -128,6 +139,8 @@ export type TechMentorsCarouselProps = {
 export function TechMentorsCarousel({
     className = "",
     showBackgroundEffects = true,
+    showNavigation = true,
+    autoAdvanceMs,
     navigationClassName = "flex gap-[10px] -mt-[50px] sm:mt-[12px]",
 }: TechMentorsCarouselProps) {
     const [activeIndex, setActiveIndex] = useState(INITIAL_MENTOR_INDEX);
@@ -145,10 +158,23 @@ export function TechMentorsCarousel({
     }, [handleResize]);
 
     const total = MENTORS.length;
-    const canPrev = activeIndex > 0;
-    const canNext = activeIndex < total - 1;
-    const prev = () => setActiveIndex((i) => Math.max(0, i - 1));
-    const next = () => setActiveIndex((i) => Math.min(total - 1, i + 1));
+    const loop = autoAdvanceMs != null && autoAdvanceMs > 0;
+    const canPrev = loop || activeIndex > 0;
+    const canNext = loop || activeIndex < total - 1;
+    const prev = () =>
+        setActiveIndex((i) => (loop ? (i - 1 + total) % total : Math.max(0, i - 1)));
+    const next = () =>
+        setActiveIndex((i) => (loop ? (i + 1) % total : Math.min(total - 1, i + 1)));
+
+    useEffect(() => {
+        if (!autoAdvanceMs || autoAdvanceMs <= 0) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        const timer = setInterval(() => {
+            setActiveIndex((i) => (i + 1) % total);
+        }, autoAdvanceMs);
+        return () => clearInterval(timer);
+    }, [autoAdvanceMs, total]);
 
     const { centerW, centerH, sideW, sideH, gap, showSide } = getCardSizes(windowWidth);
     const isMobileView = windowWidth < 768;
@@ -156,6 +182,7 @@ export function TechMentorsCarousel({
     return (
         <div className={`relative w-full overflow-visible ${className}`}>
             <style>{`
+                ${showBackgroundEffects ? `
                 .tech-mentors-mobile-glow {
                     background: radial-gradient(
                         ellipse 55% 55% at 50% 58%,
@@ -213,6 +240,7 @@ export function TechMentorsCarousel({
                         -webkit-mask-composite: source-in;
                     }
                 }
+                ` : ""}
                 .mentor-info-box {
                     transform: translateY(0%);
                     opacity: 1;
@@ -261,7 +289,7 @@ export function TechMentorsCarousel({
                     style={{ height: `${centerH + 40}px` }}
                 >
                     {MENTORS.map((mentor, i) => {
-                        const offset = getOffset(i, activeIndex);
+                        const offset = getOffset(i, activeIndex, loop);
                         const isCenter = offset === 0;
                         const isVisible = showSide ? Math.abs(offset) <= 1 : isCenter;
                         const cardW = isCenter ? centerW : sideW;
@@ -279,15 +307,17 @@ export function TechMentorsCarousel({
 
                         const isLeft = offset === -1;
                         const isRight = offset === 1;
+                        const sideInteractive = showNavigation && !loop;
 
                         return (
                             <div
                                 key={i}
                                 onClick={() => {
+                                    if (!sideInteractive) return;
                                     if (isLeft && canPrev) prev();
                                     if (isRight && canNext) next();
                                 }}
-                                className={`absolute overflow-hidden rounded-[24px] ${isCenter ? "z-[2] cursor-default" : "z-[1] cursor-pointer"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+                                className={`absolute overflow-hidden rounded-[24px] ${isCenter ? "z-[2] cursor-default" : sideInteractive ? "z-[1] cursor-pointer" : "z-[1] cursor-default"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
                                 style={{
                                     width: `${cardW}px`,
                                     height: `${cardH}px`,
@@ -349,44 +379,46 @@ export function TechMentorsCarousel({
                     })}
                 </div>
 
-                <div className={navigationClassName}>
-                    <button
-                        type="button"
-                        aria-label="Previous mentor"
-                        onClick={() => {
-                            if (!canPrev) return;
-                            prev();
-                        }}
-                        disabled={!canPrev}
-                        aria-disabled={!canPrev}
-                        className="relative h-[46.67px] w-[46.67px] rotate-[-180deg] cursor-pointer border-none bg-transparent p-0 opacity-70 transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30"
-                    >
-                        <Image
-                            src="/photos/Tech/Active Arowmark.svg"
-                            fill
-                            alt=""
-                            className="object-contain"
-                        />
-                    </button>
-                    <button
-                        type="button"
-                        aria-label="Next mentor"
-                        onClick={() => {
-                            if (!canNext) return;
-                            next();
-                        }}
-                        disabled={!canNext}
-                        aria-disabled={!canNext}
-                        className="relative h-[46.67px] w-[46.67px] cursor-pointer border-none bg-transparent p-0 opacity-100 transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30"
-                    >
-                        <Image
-                            src="/photos/Tech/Active Arowmark.svg"
-                            fill
-                            alt=""
-                            className="object-contain"
-                        />
-                    </button>
-                </div>
+                {showNavigation ? (
+                    <div className={navigationClassName}>
+                        <button
+                            type="button"
+                            aria-label="Previous mentor"
+                            onClick={() => {
+                                if (!canPrev) return;
+                                prev();
+                            }}
+                            disabled={!canPrev}
+                            aria-disabled={!canPrev}
+                            className="relative h-[46.67px] w-[46.67px] rotate-[-180deg] cursor-pointer border-none bg-transparent p-0 opacity-70 transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30"
+                        >
+                            <Image
+                                src="/photos/Tech/Active Arowmark.svg"
+                                fill
+                                alt=""
+                                className="object-contain"
+                            />
+                        </button>
+                        <button
+                            type="button"
+                            aria-label="Next mentor"
+                            onClick={() => {
+                                if (!canNext) return;
+                                next();
+                            }}
+                            disabled={!canNext}
+                            aria-disabled={!canNext}
+                            className="relative h-[46.67px] w-[46.67px] cursor-pointer border-none bg-transparent p-0 opacity-100 transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30"
+                        >
+                            <Image
+                                src="/photos/Tech/Active Arowmark.svg"
+                                fill
+                                alt=""
+                                className="object-contain"
+                            />
+                        </button>
+                    </div>
+                ) : null}
             </div>
         </div>
     );

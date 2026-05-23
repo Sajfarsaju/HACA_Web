@@ -80,10 +80,10 @@ const PRESS_LOGOS = [
 const MARQUEE_TRACK = [...PRESS_LOGOS, ...PRESS_LOGOS];
 
 const STATS = [
-    { id: "students", value: "5000", suffix: "+", lines: ["Students", "Trained"] as const },
-    { id: "hours", value: "350", suffix: "+", lines: ["Hours of Hands-On", "Learning"] as const },
-    { id: "mentors", value: "150", suffix: "+", lines: ["Expert Mentors", "& Trainers"] as const },
-    { id: "partners", value: "200", suffix: "+", lines: ["Hiring Partners", "Across India"] as const },
+    { id: "students", value: "5000", suffix: "+", lines: ["Trusted", "Students"] as const },
+    { id: "hours", value: "500", suffix: "+", lines: ["Hours of", "Learning"] as const },
+    { id: "mentors", value: "150", suffix: "+", lines: ["Top", "Mentors"] as const },
+    { id: "partners", value: "250", suffix: "+", lines: ["Hiring", "Companies"] as const },
 ] as const;
 
 const HEADING_ID = "marketing-kerala-trusted-heading";
@@ -146,7 +146,6 @@ export function MarketingSeoTrustedPressStatsSection() {
 
             <div className="mx-auto box-border flex w-full max-w-[1440px] flex-col items-center px-[clamp(16px,4.16vw,60px)] py-[clamp(40px,6vw,80px)] md:px-[clamp(24px,5vw,48px)]">
                 <p
-                    id={HEADING_ID}
                     className="m-0 mb-[clamp(14px,2vw,24px)] text-center text-[14px] font-medium leading-none text-[#b0b0b0] md:text-[15px] lg:text-[16px]"
                     style={{ fontFamily: "Satoshi, sans-serif" }}
                 >
@@ -177,6 +176,14 @@ export function MarketingSeoTrustedPressStatsSection() {
                         ))}
                     </div>
                 </div>
+
+                <h2
+                    id={HEADING_ID}
+                    className="m-0 mb-[clamp(32px,5vw,56px)] max-w-[min(920px,100%)] text-center font-semibold text-[clamp(28px,6vw,52px)] leading-[1.05] tracking-[-0.02em] text-white [text-rendering:geometricPrecision] md:text-[clamp(36px,4.2vw,48px)] lg:text-[clamp(40px,3.2vw,56px)]"
+                    style={{ fontFamily: "Darker Grotesque, sans-serif" }}
+                >
+                    Trusted by Thousands of Learners Across Kerala, Built by HACA Marketers
+                </h2>
 
                 <ul
                     role="list"

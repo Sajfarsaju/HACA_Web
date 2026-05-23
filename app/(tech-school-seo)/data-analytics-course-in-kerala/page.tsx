@@ -3,6 +3,7 @@ import { TechSeoDataAnalyticsKeralaHeroSection } from "./_sections/TechSeoDataAn
 import { TechSeoDataAnalyticsKeralaSuccessStoriesSection } from "./_sections/TechSeoDataAnalyticsKeralaSuccessStoriesSection";
 import { TechSeoDataAnalyticsKeralaCtaSection } from "./_sections/TechSeoDataAnalyticsKeralaCtaSection";
 import { TechSeoDataAnalyticsKeralaMentorsSection } from "./_sections/TechSeoDataAnalyticsKeralaMentorsSection";
+import { TechSeoDataAnalyticsKeralaWhyChooseSection } from "./_sections/TechSeoDataAnalyticsKeralaWhyChooseSection";
 import { TechSeoDataAnalyticsKeralaToolsSection } from "./_sections/TechSeoDataAnalyticsKeralaToolsSection";
 import { TechSeoDataAnalyticsKeralaWhatYouLearnSection } from "./_sections/TechSeoDataAnalyticsKeralaWhatYouLearnSection";
 import {
@@ -29,6 +30,7 @@ export default function DataAnalyticsCourseInKeralaPage() {
                 <TechSeoDataAnalyticsKeralaCtaSection />
                 <TechSeoDataAnalyticsKeralaToolsSection />
                 <TechSeoDataAnalyticsKeralaMentorsSection />
+                <TechSeoDataAnalyticsKeralaWhyChooseSection />
             </div>
         </>
     );

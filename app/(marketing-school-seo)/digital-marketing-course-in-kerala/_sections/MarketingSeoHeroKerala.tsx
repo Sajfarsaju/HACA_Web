@@ -83,8 +83,8 @@ export function MarketingSeoHeroKerala() {
                             className="m-0 max-w-full font-semibold text-[clamp(34px,9.6vw,44px)] leading-[95%] tracking-[-1px] [text-rendering:geometricPrecision] md:text-[clamp(44px,5.6vw,58px)] md:tracking-[-1.2px] lg:text-[clamp(32px,2.55vw,46px)] lg:leading-[1.04] lg:tracking-[-1.2px] xl:text-[clamp(56px,3.6vw,72px)] xl:leading-[1.02] xl:tracking-[-1.92px]"
                             style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                         >
-                            <span className="inline lg:block lg:whitespace-nowrap">Our Advanced AI Integrated</span>{" "}
-                            <span className="inline lg:block lg:whitespace-nowrap">Digital Marketing Course in Kerala</span>{" "}
+                            <span className="inline lg:block lg:whitespace-nowrap">HACA&apos;s Advanced Digital</span>{" "}
+                            <span className="inline lg:block lg:whitespace-nowrap">Marketing Course in Kerala</span>{" "}
                             <span className="inline lg:block lg:whitespace-nowrap">Shows You the Way</span>
                         </h1>
 
@@ -97,10 +97,10 @@ export function MarketingSeoHeroKerala() {
                             className="m-0 w-full max-w-[343px] min-h-[105px] text-[14px] leading-[21px] tracking-[0] text-[rgba(0,0,0,0.75)] lg:mt-[clamp(80px,8vw,120px)] lg:max-w-[605px] lg:min-h-[112px] lg:text-[18px] lg:leading-[28px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                            Here, we believe learning should be practical, exciting, and future-focused. Our AI-integrated Digital
-                            Marketing Course in Kerala covers advanced topics like AEO, GEO, and AI automation, along with platforms
-                            like Google Ads, SEO, and Meta Ads Manager. Through hands-on projects, you don&apos;t just study, you apply,
-                            create, and scale real, AI-driven campaigns.
+                            At HACA, we believe learning should be practical, industry-focused, and built for the future. Our
+                            AI-integrated Digital Marketing Course in Kerala goes beyond theory, covering AEO, GEO, AI automation,
+                            Google Ads, SEO, Meta Ads Manager, and web development fundamentals. Through hands-on projects, you
+                            don&apos;t just study, you apply, create, and scale real AI-driven campaigns.
                         </p>
                     </div>
                 </div>

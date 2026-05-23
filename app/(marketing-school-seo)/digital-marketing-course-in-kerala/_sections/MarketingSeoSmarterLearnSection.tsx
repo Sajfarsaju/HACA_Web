@@ -83,11 +83,11 @@ export function MarketingSeoSmarterLearnSection() {
                                 style={{ fontWeight: 600 }}
                             >
                                 <span className="flex flex-col lg:hidden">
-                                    <span className="block">What Makes Us the Best Academy for</span>
-                                    <span className="block">Digital Marketing Course in Kerala?</span>
+                                    <span className="block">What Makes HACA One of the Best</span>
+                                    <span className="block">Digital Marketing Academies in Kerala?</span>
                                 </span>
                                 <span className="hidden lg:inline">
-                                    What Makes Us the Best Academy for Digital Marketing Course in Kerala?
+                                    What Makes HACA One of the Best Digital Marketing Academies in Kerala?
                                 </span>
                             </h2>
                             <p

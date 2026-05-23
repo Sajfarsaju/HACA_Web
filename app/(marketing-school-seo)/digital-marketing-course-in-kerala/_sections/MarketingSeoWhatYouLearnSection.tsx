@@ -2,8 +2,8 @@ const HEADING_ID = "marketing-kerala-what-you-learn-heading";
 
 const MODULES = [
     {
-        title: "SEO (Search Engine Optimisation)",
-        body: "Understand how websites rank on Google. Learn keyword research, on-page SEO, technical SEO, and real strategies that bring organic traffic.",
+        title: "Advanced SEO",
+        body: "Master technical SEO, keyword research, on-page optimisation, link building, and AI-powered search strategies that drive real organic growth.",
     },
     {
         title: "Google Ads & Performance Marketing",
@@ -59,6 +59,12 @@ export function MarketingSeoWhatYouLearnSection() {
                             <span className="block">Marketing Course in Kerala</span>
                         </span>
                     </h2>
+                    <p
+                        className="m-0 mt-2 max-w-[345px] text-[16px] leading-[140%] tracking-[0] text-[#FFFFFFB2] lg:max-w-[600px] lg:text-[18px] lg:leading-[150%]"
+                        style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 400 }}
+                    >
+                        500+ hours of practical, AI-integrated training across the most in-demand digital marketing skills — from SEO and paid ads to AI automation and web development.
+                    </p>
                 </div>
 
                 <div className="flex w-full flex-col gap-10 lg:mx-0 lg:max-w-[1320px] lg:grid lg:grid-cols-3 lg:gap-[60px]">
