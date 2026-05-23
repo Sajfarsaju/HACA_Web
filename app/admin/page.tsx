@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { PlacementCropModal } from "@/components/admin/PlacementCropModal";
-import { BlogBlockBuilder } from "@/components/admin/BlogBlockBuilder";
-import type { BlogBlock } from "@/lib/blog-blocks";
+import { BlogEditor } from "@/components/admin/BlogEditor";
 import {
   PLACEMENT_SCHOOL_OPTIONS,
   type PlacementSchoolName,
@@ -48,14 +47,17 @@ type CourseDoc = {
 
 type BlogDoc = {
   _id: string;
+  slug?: string;
   title: string;
   authorName: string;
   authorRole: string;
+  authorBio?: string;
+  authorPhotoUrl?: string;
   readTime: string;
   category: string;
   bannerUrl?: string;
   content?: string;
-  blocks?: BlogBlock[];
+  faqs?: { question: string; answer: string }[];
   createdAt: string;
 };
 
@@ -79,55 +81,6 @@ const COURSE_SCHOOL_OPTIONS = [
 type CourseSchoolName = (typeof COURSE_SCHOOL_OPTIONS)[number];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function escapeHtml(s: string) {
-  return s
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-/**
- * Backward-compat: older backend requires a `content` HTML string.
- * We generate a minimal HTML version from `blocks` so publish works even
- * if the server hasn't been updated yet.
- */
-function blocksToLegacyHtml(blocks: BlogBlock[]) {
-  return blocks
-    .map((b) => {
-      if (b.type === "heading") {
-        const tag = b.level === 1 ? "h1" : "h2";
-        return `<${tag}>${escapeHtml(b.text || "")}</${tag}>`;
-      }
-      if (b.type === "paragraph") {
-        return `<p>${escapeHtml(b.text || "")}</p>`;
-      }
-      if (b.type === "callout") {
-        const title = b.title?.trim() ? `<strong>${escapeHtml(b.title)}</strong><br/>` : "";
-        return `<blockquote>${title}${escapeHtml(b.text || "")}</blockquote>`;
-      }
-      if (b.type === "list") {
-        const tag = b.ordered ? "ol" : "ul";
-        const items = (b.items || [])
-          .filter((it) => it && it.trim())
-          .map((it) => `<li>${escapeHtml(it)}</li>`)
-          .join("");
-        return `<${tag}>${items}</${tag}>`;
-      }
-      if (b.type === "image") {
-        const alt = escapeHtml(b.alt || "");
-        const url = escapeHtml(b.url || "");
-        const caption = b.caption?.trim()
-          ? `<figcaption>${escapeHtml(b.caption)}</figcaption>`
-          : "";
-        return `<figure><img src="${url}" alt="${alt}" />${caption}</figure>`;
-      }
-      return "";
-    })
-    .join("\n");
-}
 
 function sortGroupsBySchoolOrder(groups: PlacementGroup[]): PlacementGroup[] {
   const order = [...PLACEMENT_SCHOOL_OPTIONS];
@@ -206,14 +159,30 @@ export default function AdminPage() {
   const [blogAuthorBio, setBlogAuthorBio] = useState("");
   const [blogReadTime, setBlogReadTime] = useState("");
   const [blogCategory, setBlogCategory] = useState("Marketing");
-  const [blogBlocks, setBlogBlocks] = useState<BlogBlock[]>([]);
+  const [blogContent, setBlogContent] = useState("");
   const [blogBannerFile, setBlogBannerFile] = useState<File | null>(null);
   const [blogCropOpen, setBlogCropOpen] = useState(false);
   const [blogCropSrc, setBlogCropSrc] = useState<string | null>(null);
   // Author photo crop state
   const [blogAuthorPhotoFile, setBlogAuthorPhotoFile] = useState<File | null>(null);
+  const [blogAuthorPhotoUrl, setBlogAuthorPhotoUrl] = useState<string>("");
   const [authorPhotoCropOpen, setAuthorPhotoCropOpen] = useState(false);
   const [authorPhotoCropSrc, setAuthorPhotoCropSrc] = useState<string | null>(null);
+  // Blog FAQ + edit mode
+  const [blogFaqs, setBlogFaqs] = useState<{ question: string; answer: string }[]>([]);
+  const [editingBlogId, setEditingBlogId] = useState<string | null>(null);
+  const blogFormRef = useRef<HTMLElement>(null);
+
+  // ─── Toast ──────────────────────────────────────────────────────────────────
+
+  const [toast, setToast] = useState<{ msg: string; type: "error" | "success" } | null>(null);
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function showToast(msg: string, type: "error" | "success" = "error") {
+    if (toastTimer.current) clearTimeout(toastTimer.current);
+    setToast({ msg, type });
+    toastTimer.current = setTimeout(() => setToast(null), 4500);
+  }
 
   // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -223,6 +192,16 @@ export default function AdminPage() {
       return data?.error || error.message || fallback;
     }
     return error instanceof Error ? error.message : String(error);
+  }
+
+  function handleAuthError(error: unknown): boolean {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      window.localStorage.removeItem("admin_token");
+      setToken(null);
+      showToast("Session expired. Please log in again.");
+      return true;
+    }
+    return false;
   }
 
   // ─── Auth effects ───────────────────────────────────────────────────────────
@@ -466,17 +445,74 @@ export default function AdminPage() {
     setBlogAuthorPhotoFile(file);
   }
 
+  function resetBlogForm() {
+    setBlogTitle("");
+    setBlogAuthorName("");
+    setBlogAuthorRole("");
+    setBlogAuthorBio("");
+    setBlogReadTime("");
+    setBlogCategory("Marketing");
+    setBlogContent("");
+    setBlogFaqs([]);
+    setBlogBannerFile(null);
+    setBlogAuthorPhotoFile(null);
+    setBlogAuthorPhotoUrl("");
+    setEditingBlogId(null);
+  }
+
+  function handleCancelEdit() {
+    resetBlogForm();
+    blogFormRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  async function handleEditBlog(blog: BlogDoc) {
+    // Fetch full blog data (content + faqs may be missing from list response)
+    try {
+      const slug = blog.slug || blog._id;
+      const res = await axios.get(`${backendUrl}/api/admin/public-blogs/${slug}`);
+      const data = res.data;
+      const b: BlogDoc = data.blog ?? data.item ?? (data._id ? data : blog);
+      setBlogTitle(b.title || "");
+      setBlogAuthorName(b.authorName || "");
+      setBlogAuthorRole(b.authorRole || "");
+      setBlogAuthorBio(b.authorBio || "");
+      setBlogReadTime(b.readTime || "");
+      setBlogCategory(b.category || "Marketing");
+      setBlogContent(b.content || "");
+      setBlogFaqs(Array.isArray(b.faqs) ? b.faqs : []);
+      setBlogAuthorPhotoUrl(b.authorPhotoUrl || "");
+    } catch {
+      // Fall back to data already in the list
+      setBlogTitle(blog.title || "");
+      setBlogAuthorName(blog.authorName || "");
+      setBlogAuthorRole(blog.authorRole || "");
+      setBlogAuthorBio(blog.authorBio || "");
+      setBlogReadTime(blog.readTime || "");
+      setBlogCategory(blog.category || "Marketing");
+      setBlogContent(blog.content || "");
+      setBlogFaqs(Array.isArray(blog.faqs) ? blog.faqs : []);
+      setBlogAuthorPhotoUrl(blog.authorPhotoUrl || "");
+    }
+    setBlogBannerFile(null);
+    setBlogAuthorPhotoFile(null);
+    setEditingBlogId(blog._id);
+    blogFormRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   async function handleBlogSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!token) return;
-    const hasAnyBlocks = blogBlocks.some((b) => {
-      if (b.type === "heading" || b.type === "paragraph" || b.type === "callout") return Boolean(b.text?.trim());
-      if (b.type === "image") return Boolean(b.url?.trim());
-      if (b.type === "list") return b.items.some((it) => it.trim());
-      return false;
-    });
-    if (!blogTitle.trim() || !blogAuthorName.trim() || !hasAnyBlocks) {
-      setError("Please fill in Title, Author Name, and add at least one content block.");
+    const hasContent = blogContent.trim() !== "" && blogContent !== "<p></p>";
+    if (!blogTitle.trim()) {
+      showToast("Please fill in the blog title.");
+      return;
+    }
+    if (!blogAuthorName.trim()) {
+      showToast("Please fill in the author name.");
+      return;
+    }
+    if (!hasContent) {
+      showToast("Please write some article content before publishing.");
       return;
     }
     setError(null);
@@ -489,26 +525,43 @@ export default function AdminPage() {
       form.append("authorBio", blogAuthorBio.trim());
       form.append("readTime", blogReadTime.trim());
       form.append("category", blogCategory);
-      form.append("blocks", JSON.stringify(blogBlocks));
-      form.append("content", blocksToLegacyHtml(blogBlocks));
+      form.append("content", blogContent);
+      if (blogFaqs.length > 0) form.append("faqs", JSON.stringify(blogFaqs));
       if (blogBannerFile) form.append("banner", blogBannerFile);
-      if (blogAuthorPhotoFile) form.append("authorPhoto", blogAuthorPhotoFile);
-      await axios.post(`${backendUrl}/api/admin/blogs`, form, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      // Reset form
-      setBlogTitle("");
-      setBlogAuthorName("");
-      setBlogAuthorRole("");
-      setBlogAuthorBio("");
-      setBlogReadTime("");
-      setBlogCategory("Marketing");
-      setBlogBlocks([]);
-      setBlogBannerFile(null);
-      setBlogAuthorPhotoFile(null);
+      if (blogAuthorPhotoFile) {
+        form.append("authorPhoto", blogAuthorPhotoFile);
+      } else if (blogAuthorPhotoUrl) {
+        form.append("authorPhotoUrl", blogAuthorPhotoUrl);
+      }
+
+      if (editingBlogId) {
+        const headers = { Authorization: `Bearer ${token}` };
+        const url = `${backendUrl}/api/admin/blogs/${editingBlogId}`;
+        // Try PATCH first, fall back to PUT (different backends prefer different verbs)
+        try {
+          await axios.patch(url, form, { headers });
+        } catch (patchErr) {
+          if (axios.isAxiosError(patchErr) && (patchErr.response?.status === 404 || patchErr.response?.status === 405)) {
+            await axios.put(url, form, { headers });
+          } else {
+            throw patchErr;
+          }
+        }
+        showToast("Blog updated successfully!", "success");
+      } else {
+        await axios.post(`${backendUrl}/api/admin/blogs`, form, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        showToast("Blog published successfully!", "success");
+      }
+      resetBlogForm();
       await refreshBlogs(token);
     } catch (e: unknown) {
-      setError(getApiErrorMessage(e, "Blog publish failed"));
+      if (!handleAuthError(e)) {
+        const msg = getApiErrorMessage(e, editingBlogId ? "Update failed" : "Blog publish failed");
+        const is404 = axios.isAxiosError(e) && e.response?.status === 404;
+        showToast(is404 && editingBlogId ? "Update failed: your backend needs a PATCH /api/admin/blogs/:id route." : msg);
+      }
     } finally {
       setLoading(false);
     }
@@ -524,7 +577,7 @@ export default function AdminPage() {
       });
       await refreshBlogs(token);
     } catch (e: unknown) {
-      setError(getApiErrorMessage(e, "Delete failed"));
+      if (!handleAuthError(e)) showToast(getApiErrorMessage(e, "Delete failed"));
     } finally {
       setLoading(false);
     }
@@ -538,13 +591,18 @@ export default function AdminPage() {
     if (!token) throw new Error("Not authenticated");
     const form = new FormData();
     form.append("photo", file);
-    const { data } = await axios.post(
-      `${backendUrl}/api/admin/upload`,
-      form,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    if (!data.url) throw new Error("Upload succeeded but no URL returned");
-    return data.url as string;
+    try {
+      const { data } = await axios.post(
+        `${backendUrl}/api/admin/upload`,
+        form,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (!data.url) throw new Error("Upload succeeded but no URL returned");
+      return data.url as string;
+    } catch (e: unknown) {
+      handleAuthError(e);
+      throw e;
+    }
   }
 
   function addModule() {
@@ -693,6 +751,30 @@ export default function AdminPage() {
           aspect={1}
         />
       ) : null}
+
+      {/* ── Toast notification ── */}
+      {toast && (
+        <div
+          role="alert"
+          className={`fixed bottom-6 right-6 z-[9999] flex items-start gap-3 rounded-2xl border px-5 py-4 text-sm font-medium shadow-2xl backdrop-blur-xl transition-all duration-300 max-w-[360px] ${
+            toast.type === "success"
+              ? "border-emerald-400/35 bg-emerald-500/15 text-emerald-100"
+              : "border-red-400/35 bg-red-500/12 text-red-100"
+          }`}
+        >
+          <span className="mt-px text-base leading-none">
+            {toast.type === "success" ? "✓" : "⚠"}
+          </span>
+          <span className="leading-snug">{toast.msg}</span>
+          <button
+            type="button"
+            onClick={() => setToast(null)}
+            className="ml-auto shrink-0 opacity-60 hover:opacity-100 transition-opacity text-xs leading-none"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       <div className="mb-8 sm:mb-10">
         <h1 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold tracking-tight text-white sm:text-3xl">
@@ -1298,15 +1380,28 @@ export default function AdminPage() {
           {/* ── Blogs Tab ── */}
           {activeTab === "blogs" && (
             <div className="space-y-10">
-              {/* New blog form */}
-              <section className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
-                <div className="mb-6 border-b border-white/12 pb-6">
-                  <h2 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
-                    New blog
-                  </h2>
-                  <p className="mt-1 text-sm text-[#9aa3b8]">
-                    Fill in the details and write the article. It will publish to the public blog page immediately.
-                  </p>
+              {/* New / Edit blog form */}
+              <section ref={blogFormRef} className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
+                <div className="mb-6 border-b border-white/12 pb-6 flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
+                      {editingBlogId ? "Edit blog" : "New blog"}
+                    </h2>
+                    <p className="mt-1 text-sm text-[#9aa3b8]">
+                      {editingBlogId
+                        ? "Update the article details and click Save changes."
+                        : "Fill in the details and write the article. It will publish to the public blog page immediately."}
+                    </p>
+                  </div>
+                  {editingBlogId && (
+                    <button
+                      type="button"
+                      onClick={handleCancelEdit}
+                      className="shrink-0 rounded-lg border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-[#A7ADBE] transition hover:bg-white/10 hover:text-white"
+                    >
+                      ✕ Cancel edit
+                    </button>
+                  )}
                 </div>
 
                 <form onSubmit={handleBlogSubmit} className="space-y-6">
@@ -1325,7 +1420,46 @@ export default function AdminPage() {
                     />
                   </div>
 
-                  {/* Row 2: Author + Role */}
+                  {/* Row 2: Existing author picker */}
+                  {(() => {
+                    const seen = new Set<string>();
+                    const uniqueAuthors = blogs.filter((b) => {
+                      if (!b.authorName?.trim() || seen.has(b.authorName.trim())) return false;
+                      seen.add(b.authorName.trim());
+                      return true;
+                    });
+                    if (uniqueAuthors.length === 0) return null;
+                    return (
+                      <div className="space-y-2">
+                        <label className="text-xs font-medium text-[#A7ADBE]">
+                          Select existing author <span className="font-normal text-[#8890a0]">(auto-fills fields below)</span>
+                        </label>
+                        <select
+                          className="w-full cursor-pointer appearance-none rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371717a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 1rem center", backgroundSize: "1rem" }}
+                          value=""
+                          onChange={(e) => {
+                            const picked = uniqueAuthors.find((b) => b.authorName.trim() === e.target.value);
+                            if (!picked) return;
+                            setBlogAuthorName(picked.authorName.trim());
+                            setBlogAuthorRole(picked.authorRole?.trim() ?? "");
+                            setBlogAuthorBio(picked.authorBio?.trim() ?? "");
+                            setBlogAuthorPhotoUrl(picked.authorPhotoUrl?.trim() ?? "");
+                            setBlogAuthorPhotoFile(null);
+                          }}
+                        >
+                          <option value="" className="bg-[#1a1f2e] text-[#8890a0]">— pick an author —</option>
+                          {uniqueAuthors.map((b) => (
+                            <option key={b._id} value={b.authorName.trim()} className="bg-[#1a1f2e] text-white">
+                              {b.authorName.trim()}{b.authorRole ? ` · ${b.authorRole}` : ""}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    );
+                  })()}
+
+                  {/* Row 3: Author name + Role */}
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div className="space-y-2">
                       <label htmlFor="blog-author" className="text-xs font-medium text-[#A7ADBE]">
@@ -1373,6 +1507,11 @@ export default function AdminPage() {
                         </label>
                         {blogAuthorPhotoFile ? (
                           <p className="text-center text-xs font-medium text-emerald-400/90">Ready: {blogAuthorPhotoFile.name}</p>
+                        ) : blogAuthorPhotoUrl ? (
+                          <div className="flex flex-col items-center gap-2">
+                            <img src={blogAuthorPhotoUrl} alt="Author" className="w-12 h-12 rounded-xl object-cover ring-1 ring-white/20" />
+                            <p className="text-center text-xs font-medium text-emerald-400/90">Using existing photo</p>
+                          </div>
                         ) : (
                           <p className="text-center text-xs text-[#8890a0]">No photo selected</p>
                         )}
@@ -1456,21 +1595,90 @@ export default function AdminPage() {
                     <label className="text-xs font-medium text-[#A7ADBE]">
                       Article content <span className="text-red-400">*</span>
                     </label>
-                    <BlogBlockBuilder
-                      value={blogBlocks}
-                      onChange={setBlogBlocks}
+                    <BlogEditor
+                      value={blogContent}
+                      onChange={setBlogContent}
                       onImageUpload={handleBlogImageUpload}
                     />
                   </div>
 
+                  {/* FAQ builder */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-medium text-[#A7ADBE]">
+                        FAQ section <span className="font-normal text-[#8890a0]">(optional)</span>
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => setBlogFaqs((prev) => [...prev, { question: "", answer: "" }])}
+                        className="rounded-lg border border-[#4C75FF]/40 bg-[#4C75FF]/10 px-3 py-1.5 text-xs font-medium text-[#7fa0ff] transition hover:bg-[#4C75FF]/20"
+                      >
+                        + Add FAQ
+                      </button>
+                    </div>
+                    {blogFaqs.length === 0 && (
+                      <p className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-4 text-center text-xs text-[#8890a0]">
+                        No FAQs yet. Click &quot;+ Add FAQ&quot; to add a question &amp; answer pair.
+                      </p>
+                    )}
+                    {blogFaqs.map((faq, idx) => (
+                      <div key={idx} className="rounded-xl border border-white/15 bg-white/[0.05] p-4 space-y-3">
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="text-xs font-semibold text-[#A7ADBE]">FAQ {idx + 1}</span>
+                          <button
+                            type="button"
+                            onClick={() => setBlogFaqs((prev) => prev.filter((_, i) => i !== idx))}
+                            className="text-xs text-red-400/80 hover:text-red-400 transition"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                        <input
+                          className="w-full rounded-lg border border-white/15 bg-white/10 px-3 py-2.5 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-1 focus:ring-[#4C75FF]/20"
+                          placeholder="Question"
+                          value={faq.question}
+                          onChange={(e) =>
+                            setBlogFaqs((prev) =>
+                              prev.map((f, i) => i === idx ? { ...f, question: e.target.value } : f)
+                            )
+                          }
+                        />
+                        <textarea
+                          rows={3}
+                          className="w-full resize-none rounded-lg border border-white/15 bg-white/10 px-3 py-2.5 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-1 focus:ring-[#4C75FF]/20"
+                          placeholder="Answer"
+                          value={faq.answer}
+                          onChange={(e) =>
+                            setBlogFaqs((prev) =>
+                              prev.map((f, i) => i === idx ? { ...f, answer: e.target.value } : f)
+                            )
+                          }
+                        />
+                      </div>
+                    ))}
+                  </div>
+
                   {/* Submit */}
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full rounded-xl bg-gradient-to-r from-[#4C75FF] to-[#3558e6] py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:brightness-110 disabled:opacity-40"
-                  >
-                    {loading ? "Publishing…" : "Publish blog"}
-                  </button>
+                  <div className="flex gap-3">
+                    {editingBlogId && (
+                      <button
+                        type="button"
+                        onClick={handleCancelEdit}
+                        className="flex-1 rounded-xl border border-white/20 bg-white/[0.06] py-3 text-sm font-semibold text-[#A7ADBE] transition hover:bg-white/10 hover:text-white"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="flex-1 rounded-xl bg-gradient-to-r from-[#4C75FF] to-[#3558e6] py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:brightness-110 disabled:opacity-40"
+                    >
+                      {loading
+                        ? editingBlogId ? "Saving…" : "Publishing…"
+                        : editingBlogId ? "Save changes" : "Publish blog"}
+                    </button>
+                  </div>
                 </form>
               </section>
 
@@ -1507,20 +1715,35 @@ export default function AdminPage() {
                                   {blog.readTime}
                                 </span>
                               )}
+                              {editingBlogId === blog._id && (
+                                <span className="rounded-full border border-amber-400/30 bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-medium text-amber-300">
+                                  Editing
+                                </span>
+                              )}
                             </div>
                             <p className="truncate text-sm font-semibold text-white">{blog.title}</p>
                             <p className="text-xs text-[#9aa3b8]">
                               {blog.authorName}{blog.authorRole ? ` · ${blog.authorRole}` : ""}
                             </p>
                           </div>
-                          <button
-                            type="button"
-                            className="shrink-0 self-start rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18"
-                            onClick={() => handleDeleteBlog(blog._id)}
-                            disabled={loading}
-                          >
-                            Delete
-                          </button>
+                          <div className="flex shrink-0 items-center gap-2">
+                            <button
+                              type="button"
+                              className="rounded-lg border border-[#4C75FF]/35 bg-[#4C75FF]/10 px-3 py-1.5 text-xs font-medium text-[#7fa0ff] transition hover:bg-[#4C75FF]/20 disabled:opacity-40"
+                              onClick={() => handleEditBlog(blog)}
+                              disabled={loading}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              type="button"
+                              className="rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18 disabled:opacity-40"
+                              onClick={() => handleDeleteBlog(blog._id)}
+                              disabled={loading}
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </div>
                       </article>
                     ))}

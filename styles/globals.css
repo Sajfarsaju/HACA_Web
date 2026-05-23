@@ -6,6 +6,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,16 +120,23 @@
   color: #A7ADBE;
   margin: 0;
 }
-.blog-content h1, .blog-content h2 {
+.blog-content h1 {
   font-weight: 700;
-  font-size: 20px;
+  font-size: 30px;
+  line-height: 110%;
+  color: white;
+  margin: 0;
+}
+.blog-content h2 {
+  font-weight: 700;
+  font-size: 24px;
   line-height: 110%;
   color: white;
   margin: 0;
 }
 .blog-content h3 {
-  font-weight: 700;
-  font-size: 18px;
+  font-weight: 600;
+  font-size: 20px;
   line-height: 110%;
   color: white;
   margin: 0;
@@ -171,6 +179,13 @@
   color: #4C75FF;
   text-decoration: underline;
 }
+.blog-content blockquote {
+  border-left: 3px solid #4C75FF;
+  padding-left: 16px;
+  margin: 0;
+  font-style: italic;
+  color: #A7ADBE;
+}
 .blog-content img {
   width: 100%;
   height: auto;
@@ -186,11 +201,14 @@
     font-size: 20px;
     line-height: 34px;
   }
-  .blog-content h1, .blog-content h2 {
-    font-size: 40px;
+  .blog-content h1 {
+    font-size: 48px;
+  }
+  .blog-content h2 {
+    font-size: 36px;
   }
   .blog-content h3 {
-    font-size: 32px;
+    font-size: 28px;
   }
   .blog-content ul, .blog-content ol {
     padding-left: 24px;

@@ -97,7 +97,7 @@ export function MarketingSeoHeroCalicut() {
                             className="m-0 w-full max-w-[343px] min-h-[105px] text-[14px] leading-[21px] tracking-[0] text-[rgba(0,0,0,0.75)] lg:mt-[clamp(80px,8vw,120px)] lg:max-w-[605px] lg:min-h-[112px] lg:text-[18px] lg:leading-[28px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                          HACA’s AI-integrated Digital Marketing Course helps students and professionals from Thiruvananthapuram build practical skills in AEO, GEO, AI automation, Web Development, SEO, Google Ads, e-Commerce, and Meta Ads. Learn through live online classes with optional offline training at our Kozhikode campus, designed for opportunities in Trivandrum’s growing IT sector, Technopark companies, government projects, and tourism industry.
+                          HACA’s AI-integrated Digital Marketing Course in Calicut helps you build real, job-ready skills from day one. Learn AEO, GEO, AI automation, Web Development, SEO, Google Ads, e-Commerce and Meta Ads while working on real brand projects with expert mentors.
                         </p>
                     </div>
                 </div>

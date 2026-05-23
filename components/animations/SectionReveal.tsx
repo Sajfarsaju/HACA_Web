@@ -48,8 +48,8 @@ export function SectionReveal({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{
                 once: true,
-                amount: 0.18,
-                margin: "-10% 0px -8% 0px",
+                amount: 0.05,
+                margin: "0px 0px -8% 0px",
             }}
             transition={{
                 duration,

@@ -267,28 +267,20 @@ function FeatureCard({
     );
 }
 
-// ── Main Section ─────────────────────────────────────────────────────────
-export function TechWhyChoose() {
-    const isTabletOrSmaller = useIsTabletOrSmaller();
-    const reduceMotion = useReducedMotion();
-
+function WhyChooseMobileBackground() {
     return (
-        <section className="relative z-10 w-full flex flex-col items-center min-h-[940px] pt-[clamp(24px,4.5vw,72px)] max-md:pt-[40px] pb-[80px] px-[clamp(16px,4vw,60px)] gap-[60px]">
-
-            {/* ── Mobile background: purple pill + orange blobs ── */}
-            <div className="md:hidden absolute pointer-events-none z-0"
+        <div
+            className="pointer-events-none absolute inset-x-0 top-0 z-0 overflow-hidden md:hidden"
+            style={{
+                bottom: "-280px",
+                maskImage:
+                    "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 2%, black 5%, black 88%, rgba(0,0,0,0.4) 95%, transparent 100%)",
+                WebkitMaskImage:
+                    "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 2%, black 5%, black 88%, rgba(0,0,0,0.4) 95%, transparent 100%)",
+            }}
+        >
+            <div
                 style={{
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: "-280px", /* extend past section bottom into next section */
-                    maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 2%, black 5%, black 88%, rgba(0,0,0,0.4) 95%, transparent 100%)",
-                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 2%, black 5%, black 88%, rgba(0,0,0,0.4) 95%, transparent 100%)",
-                    overflow: "hidden",
-                }}
-            >
-                {/* Purple narrow pill */}
-                <div style={{
                     position: "absolute",
                     left: 17,
                     top: 0,
@@ -299,85 +291,111 @@ export function TechWhyChoose() {
                     background: "rgba(132,0,255,0.8)",
                     filter: "blur(88.73px)",
                     opacity: 1,
-                }} />
-                {/* Orange blob — upper card area */}
-                <div style={{ position: "absolute", top: 300, left: "50%" }}>
-                    <GradientBlobOrb
-                        width={260} height={340} rotation={-159.39}
-                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
-                        blurPx={111.23} opacity={1} maxDrift={45} repelRadius={200}
-                        whiteOverlay={0.2}
-                    />
-                </div>
-                {/* Orange blob — lower card area */}
-                <div style={{ position: "absolute", top: 1600, left: "50%" }}>
-                    <GradientBlobOrb
-                        width={260} height={340} rotation={-175.61}
-                        gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
-                        blurPx={111.23} opacity={1} maxDrift={45} repelRadius={200}
-                        whiteOverlay={0.2}
-                    />
-                </div>
+                }}
+            />
+            <div style={{ position: "absolute", top: 300, left: "50%" }}>
+                <GradientBlobOrb
+                    width={260}
+                    height={340}
+                    rotation={-159.39}
+                    gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                    blurPx={111.23}
+                    opacity={1}
+                    maxDrift={45}
+                    repelRadius={200}
+                    whiteOverlay={0.2}
+                />
             </div>
+            <div style={{ position: "absolute", top: 1600, left: "50%" }}>
+                <GradientBlobOrb
+                    width={260}
+                    height={340}
+                    rotation={-175.61}
+                    gradient="linear-gradient(130.61deg, #FF5600 37.66%, #694AFF 80.7%)"
+                    blurPx={111.23}
+                    opacity={1}
+                    maxDrift={45}
+                    repelRadius={200}
+                    whiteOverlay={0.2}
+                />
+            </div>
+        </div>
+    );
+}
 
-            {/* ── Header ── */}
-            <div className="w-full max-w-[1319px] flex flex-col items-center gap-6 text-center z-[1] relative">
+/** Cards + carousel only (reused on tech school and SEO landing pages). */
+export function TechWhyChooseCarousel({ className = "" }: { className?: string }) {
+    const isTabletOrSmaller = useIsTabletOrSmaller();
+    const reduceMotion = useReducedMotion();
+
+    if (isTabletOrSmaller) {
+        return (
+            <div
+                className={`relative z-[1] flex w-full max-w-[420px] flex-col items-center gap-6 md:max-w-[400px] ${className}`}
+            >
+                {CARDS.map((card, idx) => (
+                    <motion.div
+                        key={idx}
+                        custom={idx}
+                        variants={reduceMotion ? undefined : cardVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.15 }}
+                        className="w-full"
+                    >
+                        <FeatureCard card={card} isCenter className="w-full max-w-full" />
+                    </motion.div>
+                ))}
+            </div>
+        );
+    }
+
+    return (
+        <motion.div
+            className={`relative z-10 w-full max-w-[1320px] overflow-visible px-[clamp(8px,2.5vw,28px)] ${className}`}
+            variants={reduceMotion ? undefined : carouselVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+        >
+            <TrackCarousel />
+        </motion.div>
+    );
+}
+
+// ── Main Section ─────────────────────────────────────────────────────────
+export function TechWhyChoose() {
+    const reduceMotion = useReducedMotion();
+
+    return (
+        <section className="relative z-10 flex min-h-[940px] w-full flex-col items-center gap-[60px] px-[clamp(16px,4vw,60px)] pb-[80px] pt-[clamp(24px,4.5vw,72px)] max-md:pt-10">
+            <WhyChooseMobileBackground />
+
+            <div className="relative z-[1] flex w-full max-w-[1319px] flex-col items-center gap-6 text-center">
                 <motion.h2
-                    className="font-outfit font-normal text-[clamp(32px,6vw,60px)] leading-[1.1] tracking-[-0.02em] text-center capitalize max-w-[938px] m-0 text-white"
+                    className="m-0 max-w-[938px] font-outfit text-[clamp(32px,6vw,60px)] font-normal capitalize leading-[1.1] tracking-[-0.02em] text-white"
                     variants={reduceMotion ? undefined : headerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.5 }}
                 >
-                    Why Choose Smarter Learning with<br className="hidden md:block" /> Us?
+                    Why Choose Smarter Learning with
+                    <br className="hidden md:block" /> Us?
                 </motion.h2>
                 <motion.p
-                    className="font-outfit font-normal text-[clamp(16px,2vw,24px)] leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7] text-center max-w-[1128px] m-0"
+                    className="m-0 max-w-[1128px] font-outfit text-[clamp(16px,2vw,24px)] font-normal leading-[33.6px] tracking-[-0.2px] text-[#A7A7A7]"
                     variants={reduceMotion ? undefined : descVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.5 }}
                 >
-                    Tech School by Haris&amp;Co Academy is a beginner-friendly, industry-aligned tech learning program
-                    designed to help students and professionals build strong foundations in software, design, and digital skills.
+                    Tech School by Haris&amp;Co Academy is a beginner-friendly, industry-aligned tech
+                    learning program designed to help students and professionals build strong foundations
+                    in software, design, and digital skills.
                 </motion.p>
             </div>
 
-            {/* ── Cards: tablet & smaller = single column; desktop = 3-card carousel ── */}
-            {isTabletOrSmaller ? (
-                /* Tablet and smaller: all cards in a single column, one per row */
-                <div className="w-full max-w-[420px] md:max-w-[400px] flex flex-col items-center gap-6 relative z-[1]">
-                    {CARDS.map((card, idx) => (
-                        <motion.div
-                            key={idx}
-                            custom={idx}
-                            variants={reduceMotion ? undefined : cardVariants}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.15 }}
-                            className="w-full"
-                        >
-                            <FeatureCard
-                                card={card}
-                                isCenter={true}
-                                className="w-full max-w-full"
-                            />
-                        </motion.div>
-                    ))}
-                </div>
-            ) : (
-                /* Desktop (lg+): 3-card stagger carousel — horizontal padding avoids clipping on narrow desktop */
-                <motion.div
-                    className="relative z-10 w-full max-w-[1320px] overflow-visible px-[clamp(8px,2.5vw,28px)]"
-                    variants={reduceMotion ? undefined : carouselVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                >
-                    <TrackCarousel />
-                </motion.div>
-            )}
-
+            <TechWhyChooseCarousel className="w-full" />
         </section>
     );
 }

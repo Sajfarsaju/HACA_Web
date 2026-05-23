@@ -31,7 +31,10 @@ export function BlogAuthorBio({ author, authorRole, authorPhotoUrl, bio = DEFAUL
                             {initial}
                         </span>
                     )}
-                </div>   <p
+                </div>
+                {/* Name + role stacked */}
+                <div className="flex flex-col gap-[6px]">
+                    <p
                         className="m-0"
                         style={{
                             fontFamily: "var(--font-manrope), var(--font-rethink-sans), sans-serif",
@@ -49,16 +52,17 @@ export function BlogAuthorBio({ author, authorRole, authorPhotoUrl, bio = DEFAUL
                             className="m-0"
                             style={{
                                 fontFamily: "var(--font-manrope), var(--font-rethink-sans), sans-serif",
-                                fontWeight: 600,
-                                fontSize: "20px",
+                                fontWeight: 500,
+                                fontSize: "15px",
                                 lineHeight: "100%",
-                                letterSpacing: "-0.02em",
-                                color: "#FFFFFF",
+                                letterSpacing: "-0.01em",
+                                color: "#A7ADBE",
                             }}
                         >
                             {authorRole}
                         </p>
                     )}
+                </div>
                 </div>
             </div>
 

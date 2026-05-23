@@ -6,8 +6,9 @@ import { InThisArticle } from "@/components/blog/InThisArticle"
 import { BlogAuthorBio } from "@/components/blog/BlogAuthorBio"
 import { BlogShareButtons } from "@/components/blog/BlogShareButtons"
 import { SectionReveal } from "@/components/animations/SectionReveal"
-import { BLOG_POSTS, getBlogBySlug, BlogPost } from "@/lib/blog-data"
+import { BLOG_POSTS, getBlogBySlug, BlogPost, FaqItem } from "@/lib/blog-data"
 import { BlogRenderer } from "@/components/blog/BlogRenderer"
+import { BlogFAQSection } from "@/components/blog/BlogFAQSection"
 
 const BLOG_COVER_IMAGE = "/photos/main/blog cover.png"
 
@@ -15,44 +16,95 @@ type Props = { params: Promise<{ slug: string }> }
 
 export const dynamicParams = true;
 
+function injectHeadingIds(html: string): string {
+    let counter = 0
+    return html.replace(/<h([123])([^>]*)>/gi, (_, level, attrs: string) => {
+        counter++
+        if (/\bid\s*=/.test(attrs)) return `<h${level}${attrs}>`
+        return `<h${level} id="toc-heading-${counter}"${attrs}>`
+    })
+}
+
+function extractTocFromHtml(html: string) {
+    if (!html) return []
+    const matches = [...html.matchAll(/<h([123])[^>]*>([\s\S]*?)<\/h[123]>/gi)]
+    return matches.map((m, i) => ({
+        number: String(i + 1),
+        label: m[2].replace(/<[^>]+>/g, "").trim(),
+        anchorId: `toc-heading-${i + 1}`,
+    })).filter((item) => item.label)
+}
+
+function parseFaqs(raw: unknown): FaqItem[] | undefined {
+    if (Array.isArray(raw) && raw.length > 0) return raw as FaqItem[]
+    if (typeof raw === "string" && raw.trim().startsWith("[")) {
+        try {
+            const parsed = JSON.parse(raw)
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed as FaqItem[]
+        } catch { /* ignore */ }
+    }
+    return undefined
+}
+
 async function getDynamicBlog(slug: string): Promise<BlogPost | null> {
     try {
         const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000"
         const res = await fetch(`${backendUrl}/api/admin/public-blogs/${slug}`, { next: { revalidate: 0 } })
         if (!res.ok) return null
         const data = await res.json()
-        if (!data.blog) return null
-        const blocks = Array.isArray(data.blog.blocks) ? data.blog.blocks : undefined
-        // Auto-build TOC from heading blocks
-        let tocCounter = 0
-        const toc = blocks
-            ? blocks
-                .filter((b: { type: string }) => b.type === "heading")
-                .map((b: { id: string; text: string }) => ({
-                    number: String(++tocCounter),
-                    label: b.text,
-                    anchorId: `heading-${b.id}`,
+
+        // Handle multiple response shapes: { blog }, { item }, or the object itself
+        const b = data.blog ?? data.item ?? (data._id ? data : null)
+        if (!b) return null
+
+        const blocks = Array.isArray(b.blocks) && b.blocks.length > 0 ? b.blocks : undefined
+
+        // Build TOC from blocks (old format) or extract from HTML content (TipTap format)
+        let toc: { number: string; label: string; anchorId: string }[] | undefined
+        if (blocks) {
+            let counter = 0
+            const fromBlocks = blocks
+                .filter((bl: { type: string }) => bl.type === "heading")
+                .map((bl: { id: string; text: string }) => ({
+                    number: String(++counter),
+                    label: bl.text,
+                    anchorId: `heading-${bl.id}`,
                 }))
-            : undefined
+            if (fromBlocks.length > 0) toc = fromBlocks
+        } else if (b.content) {
+            const fromHtml = extractTocFromHtml(b.content)
+            if (fromHtml.length > 0) toc = fromHtml
+        }
+
+        let date = ""
+        try {
+            date = b.createdAt
+                ? new Date(b.createdAt).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+                : new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+        } catch {
+            date = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+        }
 
         return {
-            id: data.blog._id,
-            slug: data.blog.slug || data.blog._id,
-            category: data.blog.category,
-            categorySlug: data.blog.category?.toLowerCase() || "marketing",
-            date: new Date(data.blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
-            title: data.blog.title,
-            author: data.blog.authorName,
-            authorRole: data.blog.authorRole,
-            authorPhotoUrl: data.blog.authorPhotoUrl || undefined,
-            authorBio: data.blog.authorBio || undefined,
-            readTime: data.blog.readTime || "5 Mins",
-            bannerUrl: data.blog.bannerUrl,
-            content: data.blog.content,
+            id: b._id,
+            slug: b.slug || b._id,
+            category: b.category || "General",
+            categorySlug: (b.category || "general").toLowerCase(),
+            date,
+            title: b.title || "Untitled",
+            author: b.authorName || b.author || "",
+            authorRole: b.authorRole || undefined,
+            authorPhotoUrl: b.authorPhotoUrl || b.authorPhoto || undefined,
+            authorBio: b.authorBio || undefined,
+            readTime: b.readTime || "5 Mins",
+            bannerUrl: b.bannerUrl || b.coverUrl || b.imageUrl || b.coverImage || undefined,
+            content: b.content || "",
             blocks,
-            toc: toc && toc.length > 0 ? toc : undefined,
+            toc,
+            faqs: parseFaqs(b.faqs),
         }
-    } catch {
+    } catch (err) {
+        console.error("[getDynamicBlog] fetch error:", err)
         return null
     }
 }
@@ -151,16 +203,16 @@ export default async function BlogDetailPage({ params }: Props) {
                             {/* Third container - main blog content (desktop) */}
                             <div className="hidden lg:flex flex-col gap-[30px] w-full max-w-[878px] mx-auto lg:mx-0">
                                 {dynamicPost ? (
-                                    <SectionReveal sectionIndex={2}>
+                                    <div>
                                         {dynamicPost.blocks && dynamicPost.blocks.length > 0 ? (
                                             <BlogRenderer blocks={dynamicPost.blocks} />
                                         ) : (
                                             <div
                                                 className="blog-content w-full"
-                                                dangerouslySetInnerHTML={{ __html: dynamicPost.content || "" }}
+                                                dangerouslySetInnerHTML={{ __html: injectHeadingIds(dynamicPost.content || "") }}
                                             />
                                         )}
-                                    </SectionReveal>
+                                    </div>
                                 ) : (
                                     <>
                                 <SectionReveal sectionIndex={2}>
@@ -288,16 +340,16 @@ export default async function BlogDetailPage({ params }: Props) {
                         {/* Article content - mobile/tablet version of third container */}
                         <div className="flex lg:hidden flex-col gap-4 w-full px-0">
                             {dynamicPost ? (
-                                <SectionReveal sectionIndex={2} className="w-full">
+                                <div className="w-full">
                                     {dynamicPost.blocks && dynamicPost.blocks.length > 0 ? (
                                         <BlogRenderer blocks={dynamicPost.blocks} />
                                     ) : (
                                         <div
                                             className="blog-content w-full"
-                                            dangerouslySetInnerHTML={{ __html: dynamicPost.content || "" }}
+                                            dangerouslySetInnerHTML={{ __html: injectHeadingIds(dynamicPost.content || "") }}
                                         />
                                     )}
-                                </SectionReveal>
+                                </div>
                             ) : (
                                 <>
                                 {/* Top container */}
@@ -402,6 +454,15 @@ export default async function BlogDetailPage({ params }: Props) {
                         </div>
                     </div>
                 </div>
+
+                {/* FAQ section — below the article, only when blog has FAQ data */}
+                {post.faqs && post.faqs.length > 0 && (
+                    <SectionReveal>
+                        <div className="w-full max-w-[878px] mx-auto lg:mx-0 pb-4">
+                            <BlogFAQSection faqs={post.faqs} />
+                        </div>
+                    </SectionReveal>
+                )}
             </div>
 
         </div>

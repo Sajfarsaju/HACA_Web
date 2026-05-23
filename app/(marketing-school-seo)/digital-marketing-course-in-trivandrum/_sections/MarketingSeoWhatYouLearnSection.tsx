@@ -3,7 +3,7 @@ const HEADING_ID = "marketing-trivandrum-what-you-learn-heading";
 const MODULES = [
     {
         title: "Advanced SEO",
-        body: "Learn to rank websites using keywords, on-page, technical SEO, and AI-driven search (AEO & GEO).",
+        body: "Learn to rank websites using keywords, on-page, off-page, technical SEO, and AI-driven search (AEO & GEO).",
     },
     {
         title: "Google Ads & Performance Marketing",
@@ -26,7 +26,7 @@ const MODULES = [
         body: "Plan campaigns, collaborate with influencers, and track results.",
     },
     {
-        title: "Website Development",
+        title: "Website Design & Development",
         body: "Create conversion-focused websites and landing pages.",
     },
     {
@@ -57,8 +57,7 @@ export function MarketingSeoWhatYouLearnSection() {
                         className="m-0 max-w-[345px] text-[16px] font-medium leading-[150%] tracking-[-0.05em] text-[#FFFFFFB2] lg:max-w-[523px] lg:text-[18px]"
                         style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                     >
-                        This digital marketing course in Trivandrum is designed to give you real and usable skills. Every module focuses on helping you
-                        understand, apply, and confidently execute what you learn in real-world scenarios.
+                        This digital marketing course for learners from Trivandrum is designed to help you build practical, job-ready skills. Every module focuses on helping you understand, apply, and confidently execute digital marketing strategies in real-world scenarios.
                     </p>
                 </div>
 

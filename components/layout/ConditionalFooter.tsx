@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { isDesignSchoolSeoPath } from "@/lib/design-school-seo";
 import { isMarketingSchoolSeoPath } from "@/lib/marketing-school-seo";
+import { isTechSchoolSeoPath } from "@/lib/tech-school-seo";
 import { Footer } from "./Footer";
 
 export function ConditionalFooter() {
@@ -34,6 +35,10 @@ export function ConditionalFooter() {
         return null;
     }
     if (isMarketingSchoolSeoPath(pathname)) {
+        return null;
+    }
+
+    if (isTechSchoolSeoPath(pathname)) {
         return null;
     }
 

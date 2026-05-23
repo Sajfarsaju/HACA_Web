@@ -124,7 +124,7 @@ function BlogInsightCard({ post }: { post: PlaceholderPost }) {
             className="
                 box-border flex h-[444.339px] w-full min-w-0 flex-col bg-[#E6EFFF] opacity-100
                 gap-[17.31px] rounded-[17.31px] p-[17.31px]
-                lg:h-[512.72px] lg:w-[387px] lg:shrink-0 lg:gap-5 lg:rounded-[20px] lg:p-5
+                lg:h-[512.72px] lg:w-full lg:gap-5 lg:rounded-[20px] lg:p-5
             "
         >
             <div
@@ -146,7 +146,7 @@ function BlogInsightCard({ post }: { post: PlaceholderPost }) {
             <div
                 className="
                     flex min-h-0 w-full shrink-0 flex-col gap-[19.91px] pb-[17.31px]
-                    h-[153.7286834716797px] lg:h-[177px] lg:w-[347px] lg:gap-[23px] lg:pb-5
+                    h-[153.7286834716797px] lg:h-[177px] lg:w-full lg:gap-[23px] lg:pb-5
                 "
             >
                 <div
@@ -157,7 +157,7 @@ function BlogInsightCard({ post }: { post: PlaceholderPost }) {
                     <div
                         className="
                             flex h-[27.656330108642578px] w-full shrink-0 items-center gap-[8.66px]
-                            lg:h-8 lg:max-w-[347px] lg:gap-[10px]
+                            lg:h-8 lg:max-w-full lg:gap-[10px]
                         "
                     >
                         <span
@@ -234,7 +234,7 @@ export function MarketingSeoBlogInsightsSection() {
                 <div
                     className="
                         mx-auto flex w-full max-w-[335px] flex-col items-center gap-[10px]
-                        lg:max-w-[1320px]
+                        lg:mx-0 lg:w-full lg:max-w-none
                     "
                 >
                     <h2
@@ -263,7 +263,7 @@ export function MarketingSeoBlogInsightsSection() {
                 <ul
                     className="
                         m-0 flex w-full min-w-0 list-none flex-col gap-[17.31px] p-0
-                        lg:mx-auto lg:max-w-[1320px] lg:flex-row lg:justify-between lg:gap-[30px]
+                        lg:grid lg:w-full lg:grid-cols-3 lg:gap-[30px]
                     "
                     aria-label="Featured marketing blog posts"
                 >
@@ -271,7 +271,7 @@ export function MarketingSeoBlogInsightsSection() {
                         <li
                             key={post.id}
                             className={[
-                                "w-full min-w-0 lg:w-auto lg:shrink-0",
+                                "w-full min-w-0 lg:min-w-0",
                                 index > 0 ? "hidden lg:block" : "",
                             ]
                                 .filter(Boolean)

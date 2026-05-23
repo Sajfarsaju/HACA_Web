@@ -65,13 +65,13 @@ export function MarketingSeoHeroTrivandrum() {
     return (
         <section
             ref={ref}
-            className="box-border mx-auto flex min-h-0 w-full max-w-[1440px] flex-col overflow-hidden px-[clamp(16px,4.16vw,60px)] pb-0 pt-5 md:px-[clamp(24px,5vw,48px)] md:pt-0 lg:h-[765px] lg:min-h-[765px] lg:max-h-[765px] lg:px-[60px] lg:pb-0 lg:pt-[80px]"
+            className="box-border mx-auto flex min-h-0 w-full max-w-[1440px] flex-col overflow-hidden px-[clamp(16px,4.16vw,60px)] pb-0 pt-5 md:px-[clamp(24px,5vw,48px)] md:pt-0 lg:h-[765px] lg:min-h-[765px] lg:max-h-[765px] lg:overflow-visible lg:px-[60px] lg:pb-0 lg:pt-[80px]"
             aria-label="Marketing course in Trivandrum hero"
         >
-            <div className="relative mx-auto flex min-h-0 min-w-0 w-full max-w-[1440px] flex-1 flex-col gap-[10px] md:gap-[clamp(16px,3vw,28px)] lg:flex-row lg:items-stretch lg:gap-[clamp(8px,1.2vw,20px)] xl:gap-6">
+            <div className="relative mx-auto flex min-h-0 min-w-0 w-full max-w-[1440px] flex-1 flex-col gap-[10px] overflow-hidden md:gap-[clamp(16px,3vw,28px)] lg:flex-row lg:items-stretch lg:gap-[clamp(8px,1.2vw,20px)] lg:overflow-visible xl:gap-6">
                 {/* Left column */}
-                <div className="relative z-[1] mx-0 flex min-h-0 w-full max-w-none flex-col justify-between pt-[clamp(18px,3vw,48px)] md:mx-auto md:max-w-[min(560px,92vw)] lg:mx-0 lg:w-[min(560px,40%)] lg:max-w-none lg:min-w-0 lg:shrink-[1] lg:pb-[clamp(32px,4vw,56px)] lg:pt-0 xl:w-[560px]">
-                    <div className="flex min-h-0 w-full flex-col gap-4 md:gap-6 lg:gap-6 xl:gap-6">
+                <div className="relative z-[2] mx-0 flex min-h-0 w-full max-w-none flex-col justify-between pt-[clamp(18px,3vw,48px)] md:mx-auto md:max-w-[min(560px,92vw)] lg:mx-0 lg:w-[min(680px,46%)] lg:max-w-none lg:min-w-0 lg:overflow-visible lg:shrink-0 lg:pb-[clamp(32px,4vw,56px)] lg:pt-0 xl:w-[680px]">
+                    <div className="flex min-h-0 w-full flex-col gap-4 overflow-hidden md:gap-6 lg:overflow-visible lg:gap-6 xl:gap-6">
                         <p
                             className="m-0 text-[14px] leading-[28px] tracking-[0] lg:text-[24px] lg:leading-[28px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, color: "rgba(0,0,0,0.7)" }}
@@ -80,12 +80,12 @@ export function MarketingSeoHeroTrivandrum() {
                         </p>
 
                         <h1
-                            className="m-0 max-w-full font-semibold text-[clamp(34px,9.6vw,44px)] leading-[95%] tracking-[-1px] [text-rendering:geometricPrecision] md:text-[clamp(44px,5.6vw,58px)] md:tracking-[-1.2px] lg:text-[clamp(32px,2.55vw,46px)] lg:leading-[1.04] lg:tracking-[-1.2px] xl:text-[clamp(56px,3.6vw,72px)] xl:leading-[1.02] xl:tracking-[-1.92px]"
+                            className="m-0 max-w-full font-semibold text-[clamp(34px,9.6vw,44px)] leading-[95%] tracking-[-1px] [text-rendering:geometricPrecision] md:text-[clamp(44px,5.6vw,58px)] md:tracking-[-1.2px] lg:max-w-none lg:overflow-visible lg:text-[clamp(32px,2.55vw,46px)] lg:leading-[1.04] lg:tracking-[-1.2px] xl:text-[clamp(56px,3.6vw,72px)] xl:leading-[1.02] xl:tracking-[-1.92px]"
                             style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                         >
-                            <span className="inline">Experience the Best Digital</span>{" "}
-                            <br className="hidden lg:block" aria-hidden />
-                            <span className="inline">Digital Marketing Course in Trivandrum</span>
+                            <span className="inline lg:block lg:whitespace-nowrap">Build Future-Ready Digital Skills</span>{" "}
+                            <span className="inline lg:block lg:whitespace-nowrap">with HACA&apos;s Digital Marketing</span>{" "}
+                            <span className="inline lg:block lg:whitespace-nowrap">Course in Trivandrum</span>
                         </h1>
 
                         <div className="flex flex-wrap items-center gap-3 md:gap-4">
@@ -97,7 +97,7 @@ export function MarketingSeoHeroTrivandrum() {
                             className="m-0 w-full max-w-[343px] min-h-[105px] text-[14px] leading-[21px] tracking-[0] text-[rgba(0,0,0,0.75)] lg:mt-[clamp(80px,8vw,120px)] lg:max-w-[605px] lg:min-h-[112px] lg:text-[18px] lg:leading-[28px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                            HACA&apos;s AI-integrated Digital Marketing Course in Trivandrum gives you complete online access to practical training in SEO, Google Ads, Meta Ads, e-Commerce, AI Tools, and Web Development. Learn through live online classes with optional offline training at our Kozhikode campus, designed for students and professionals across Thiruvananthapuram, Technopark companies, government digital projects, and the tourism industry.
+                            HACA&apos;s AI-integrated Digital Marketing Course helps everyone from Trivandrum build practical skills in AEO, GEO, AI automation, Web Development, SEO, Google Ads, e-Commerce, and Meta Ads. Learn through live online classes with optional offline training at our Kozhikode campus, designed for opportunities in Trivandrum&apos;s growing IT sector, Technopark companies, government projects, and tourism industry.
                         </p>
                     </div>
                 </div>
@@ -121,7 +121,7 @@ export function MarketingSeoHeroTrivandrum() {
                     <div className="pointer-events-none relative h-[48px] w-full max-w-[min(280px,92vw)] shrink-0 self-end md:h-[52px] md:max-w-[min(300px,88vw)] lg:absolute lg:z-[2] lg:h-[clamp(44px,6.5vw,74px)] lg:w-[clamp(180px,26vw,300px)] lg:max-w-none lg:max-xl:right-[clamp(44px,6vw,92px)] lg:max-xl:top-[clamp(10px,1.8vw,22px)] xl:right-[clamp(22px,2.8vw,48px)] xl:top-[clamp(14px,2vw,28px)] 2xl:right-6">
                         <Image
                             src={WORLD_EDUCATION_LOGO}
-                            alt="World Education Summit 2024"
+                            alt="Awarded Best Institute for Upskilling – World Education Summit 2024"
                             fill
                             className="object-contain object-right"
                             sizes="(max-width: 1023px) 260px, 300px"
