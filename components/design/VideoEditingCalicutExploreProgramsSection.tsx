@@ -1,1 +1,1 @@
-export { GraphicDesigningCalicutExploreProgramsSection as VideoEditingCalicutExploreProgramsSection } from "@/components/design/GraphicDesigningCalicutExploreProgramsSection";
+export { GraphicDesigningCalicutExploreProgramsSection as VideoEditingCalicutExploreProgramsSection } from "@/app/(design-school-seo)/graphic-designing-course-in-calicut/_sections/GraphicDesigningCalicutExploreProgramsSection";
