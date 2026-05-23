@@ -22,7 +22,7 @@ const FEATURES: FeatureItem[] = [
         iconSrc: "/photos/schools/marketing/features/tdesign_money.svg",
     },
     {
-        titleLines: ["Hands-On", "Projects"],
+        titleLines: ["Live Projects", "& Internship"],
         description: "You'll work on real campaigns and gain internship experience with live projects that prepare you for actual industry roles.",
         iconSrc: "/photos/schools/marketing/features/Student.svg",
     },
@@ -91,7 +91,7 @@ export function MarketingSeoSmarterLearnSection() {
                             className="m-0 text-[16px] font-medium leading-[140%] tracking-normal text-black/70 lg:text-[18px] lg:leading-[150%]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                            Practical learning, real projects, and mentor guidance, everything you need to master digital marketing.
+                            HACA&apos;s Learn-by-Doing approach helps students gain practical digital marketing experience from day one.
                         </p>
                     </header>
 

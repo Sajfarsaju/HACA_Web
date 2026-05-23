@@ -54,7 +54,7 @@ const COURSES: readonly CourseDatum[] = [
 
 const INTRO_BLOCK = {
     heading: "Choose How You Learn: Online or Offline Courses",
-    body: "Ever wondered which learning style suits you best? At HACA, you don't have to guess. Our basic to advanced AI-integrated digital marketing course in Trivandrum comes in both online and offline formats, so you can pick what truly works for you.",
+    body: "At HACA, you can choose the learning format that fits you best. Join live online sessions from Trivandrum or experience offline training at our Kozhikode campus through our basic to advanced AI-integrated digital marketing course.",
 } as const;
 
 const BETWEEN_BLOCK = {

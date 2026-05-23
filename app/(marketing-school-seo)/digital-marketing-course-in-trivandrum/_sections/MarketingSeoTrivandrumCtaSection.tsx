@@ -5,7 +5,7 @@ import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArro
 const HEADING_ID = "marketing-seo-trivandrum-cta-heading";
 
 const BODY_COPY =
-    "The skills you build here can open your first job, your first client, or even your own brand. Don't let hesitation hold you back.";
+    "Build skills for career opportunities in Trivandrum's growing digital ecosystem, including startups, agencies, Technopark companies, ecommerce brands, and modern businesses looking for digital talent.";
 
 function ReserveSpotCta() {
     return (
@@ -48,25 +48,25 @@ export function MarketingSeoTrivandrumCtaSection() {
                         lg:max-w-[1322px] lg:min-h-[378px] lg:justify-center
                     "
                 >
-                    <div className="flex w-full max-w-[335px] flex-col items-center gap-5 lg:max-w-[500px]">
+                    <div className="flex w-full max-w-[335px] flex-col items-center gap-5 lg:max-w-[720px]">
                         <h2
                             id={HEADING_ID}
                             className="
                                 m-0 w-full max-w-[268px] font-semibold tracking-[-0.01em] text-white
                                 [font-family:'Darker_Grotesque',sans-serif]
                                 text-[36px] leading-[1.1] [text-rendering:geometricPrecision]
-                                lg:max-w-[500px] lg:text-[68px]
+                                lg:max-w-[720px] lg:text-[68px]
                             "
                         >
-                            <span className="block">Ready to See How</span>
-                            <span className="block">Far You Can Go?</span>
+                            <span className="block">Ready to See How Far</span>
+                            <span className="block">You Can Go?</span>
                         </h2>
 
                         <p
                             className="
                                 m-0 w-full font-normal leading-[1.5] tracking-normal text-[#FFFFFFE5]
                                 [font-family:'Satoshi',sans-serif] text-[16px]
-                                lg:max-w-[500px]
+                                lg:max-w-[720px] lg:text-[18px]
                             "
                         >
                             {BODY_COPY}

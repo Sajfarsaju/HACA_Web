@@ -47,6 +47,7 @@ export default function RootLayout({
             fill
             className="object-cover object-top"
             priority
+            unoptimized
           />
         </div>
 

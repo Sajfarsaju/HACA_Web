@@ -1,6 +1,11 @@
 import type { TocItem } from "@/lib/blog-types"
 import type { BlogBlock } from "@/lib/blog-blocks"
 
+export type FaqItem = {
+    question: string
+    answer: string
+}
+
 export type BlogPost = {
     id: number | string
     slug: string
@@ -17,6 +22,7 @@ export type BlogPost = {
     bannerUrl?: string
     content?: string
     blocks?: BlogBlock[]
+    faqs?: FaqItem[]
 }
 
 const DEFAULT_TOC = [

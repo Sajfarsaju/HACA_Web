@@ -34,13 +34,13 @@ export function MarketingSeoAgencyTrivandrumIntroSection() {
                         style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                     >
                         <span className="flex flex-col text-center text-[36px] leading-[95%] lg:hidden">
-                            <span className="block">Agency-Based Digital</span>
-                            <span className="block">Marketing Institute in</span>
+                            <span className="block">Start with a Trusted Digital</span>
+                            <span className="block">Marketing Course in</span>
                             <span className="block">Trivandrum</span>
                         </span>
                         <span className="hidden flex-col text-left text-[55px] leading-[110%] lg:flex">
-                            <span className="block">Agency-Based Digital</span>
-                            <span className="block">Marketing Institute in Trivandrum</span>
+                            <span className="block">Start with a Trusted Digital Marketing Course in Trivandrum</span>
+                           
                         </span>
                     </h2>
 
@@ -48,8 +48,7 @@ export function MarketingSeoAgencyTrivandrumIntroSection() {
                         className="m-0 w-full max-w-[335px] min-h-[72px] text-center text-[16px] font-medium leading-[150%] tracking-[-0.05em] text-[#FFFFFFB2] lg:max-w-[538px] lg:min-h-[54px] lg:text-left lg:text-[18px]"
                         style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                     >
-                        During the internship, our Digital Marketing Course in Trivandrum offers you the chance to
-                        collaborate with leading brands such as:
+                        Learners from Trivandrum can build practical digital marketing skills through live online sessions and real-world projects, while offline students at our Kozhikode campus also get opportunities to work with leading brands during the internship program, such as:
                     </p>
                 </div>
 

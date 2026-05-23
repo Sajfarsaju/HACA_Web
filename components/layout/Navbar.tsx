@@ -74,6 +74,7 @@ export function Navbar() {
                         height={31}
                         className="object-contain w-[106px] h-[31px] max-[1024px]:w-[90px] max-md:w-[80px] max-md:h-[23px]"
                         priority
+                        unoptimized
                     />
                 </Link>
 

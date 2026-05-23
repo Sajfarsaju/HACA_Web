@@ -16,6 +16,12 @@ export const DIGITAL_MARKETING_KANNUR_SEO_PATH = "/digital-marketing-course-in-k
 /** Canonical path for the Trivandrum digital marketing SEO landing page. */
 export const DIGITAL_MARKETING_TRIVANDRUM_SEO_PATH = "/digital-marketing-course-in-trivandrum" as const;
 
+/** Canonical path for the Kollam digital marketing SEO landing page. */
+export const DIGITAL_MARKETING_KOLLAM_SEO_PATH = "/digital-marketing-course-in-kollam" as const;
+
+/** Canonical path for the Malappuram digital marketing SEO landing page. */
+export const DIGITAL_MARKETING_MALAPPURAM_SEO_PATH = "/digital-marketing-course-in-malappuram" as const;
+
 /** @deprecated Use {@link DIGITAL_MARKETING_CALICUT_SEO_PATH} — kept for redirects. */
 export const LEGACY_MARKETING_CALICUT_SEO_PATH = "/marketing-course-in-calicut" as const;
 
@@ -103,7 +109,11 @@ export function isMarketingSchoolSeoPath(pathname: string): boolean {
         pathname === DIGITAL_MARKETING_KANNUR_SEO_PATH ||
         pathname.startsWith(`${DIGITAL_MARKETING_KANNUR_SEO_PATH}/`) ||
         pathname === DIGITAL_MARKETING_TRIVANDRUM_SEO_PATH ||
-        pathname.startsWith(`${DIGITAL_MARKETING_TRIVANDRUM_SEO_PATH}/`)
+        pathname.startsWith(`${DIGITAL_MARKETING_TRIVANDRUM_SEO_PATH}/`) ||
+        pathname === DIGITAL_MARKETING_KOLLAM_SEO_PATH ||
+        pathname.startsWith(`${DIGITAL_MARKETING_KOLLAM_SEO_PATH}/`) ||
+        pathname === DIGITAL_MARKETING_MALAPPURAM_SEO_PATH ||
+        pathname.startsWith(`${DIGITAL_MARKETING_MALAPPURAM_SEO_PATH}/`)
     );
 }
 
@@ -415,39 +425,39 @@ export type MarketingTrivandrumFaqItem = {
 export const MARKETING_TRIVANDRUM_FAQS: MarketingTrivandrumFaqItem[] = [
     {
         id: "trivandrum-faq-1",
-        question: "Who can join the Digital Marketing Course in Trivandrum?",
+        question: "Who can join this Digital Marketing Course in Trivandrum?",
         answer:
-            "Anyone who has completed 12th grade or equivalent can join. Whether you're a student, working professional, freelancer, entrepreneur, or career switcher, this course is designed to build practical digital marketing skills from scratch.",
+            "Anyone who has completed 12th grade or equivalent can join. Whether you're a student, professional, freelancer, entrepreneur, or career switcher from Thiruvananthapuram, this course is designed to help you build practical digital marketing skills from scratch.",
     },
     {
         id: "trivandrum-faq-2",
         question: "Can I choose between online and offline learning?",
         answer:
-            "Yes. HACA's Digital Marketing Course is available both online and offline, so you can pick the mode that fits your schedule and learning style.",
+            "Yes. Learners from Thiruvananthapuram can attend live online sessions or choose offline training at HACA's Kozhikode campus based on their convenience and learning preference.",
     },
     {
         id: "trivandrum-faq-3",
         question: "How long is HACA's digital marketing course, and what will I learn?",
         answer:
-            "The offline digital marketing course runs for 6 months, including 1-month of hands-on internship experience, covering SEO, social media, email marketing, paid ads, analytics, and more. The online course is scheduled for 5 months and follows the same advanced curriculum with live, interactive sessions.",
+            "The offline course runs for 6 months, including internship opportunities at our Kozhikode campus. The online program runs for 5 months with live interactive sessions covering SEO, social media marketing, Google Ads, AI tools, e-Commerce, analytics, content marketing, and more.",
     },
     {
         id: "trivandrum-faq-4",
-        question: "What makes HACA the best digital marketing institute in Trivandrum?",
+        question: "What makes HACA a trusted choice for digital marketing learners from Trivandrum?",
         answer:
-            "HACA follows a 90% practical and 10% theory-based learning approach, helping students gain real industry exposure through mentorship, live projects, internships, and placement support.",
+            "HACA follows a 90% practical and 10% theory-based learning approach, helping students gain real industry exposure through mentorship, live projects, internships, and placement support. This helps learners gain industry-ready skills relevant to Trivandrum's growing digital, startup, and Technopark ecosystem.",
     },
     {
         id: "trivandrum-faq-5",
-        question: "Will I get real-world experience during the course?",
+        question: "Will I get real-world experience during the offline course?",
         answer:
-            "Yes. You'll work on live projects, run campaigns for real brands, and apply your skills during an internship as part of the course.",
+            "Absolutely. You'll work on live projects, run campaigns for real brands, and apply your skills during an internship as part of the course.",
     },
     {
         id: "trivandrum-faq-6",
         question: "Do you provide placement assistance?",
         answer:
-            "Yes. HACA offers 100% placement assistance with resume support, mock interviews, portfolio preparation, and career guidance to help students become industry-ready.",
+            "Yes. HACA provides placement assistance for both online and offline students, including resume support, mock interviews, portfolio preparation, and career guidance to help learners prepare for digital marketing opportunities.",
     },
     {
         id: "trivandrum-faq-7",
@@ -463,15 +473,27 @@ export const MARKETING_TRIVANDRUM_FAQS: MarketingTrivandrumFaqItem[] = [
     },
     {
         id: "trivandrum-faq-9",
-        question: "Can I work while doing the course?",
+        question: "Is this course suitable for working professionals in Trivandrum?",
         answer:
-            "Yes. Our online batch is designed for working professionals, with evening sessions and flexible learning options.",
+            "Yes. Our online batch is designed for working professionals, with evening sessions and flexible learning options. Offline students can manage their schedule with our structured 6-month program.",
     },
     {
         id: "trivandrum-faq-10",
         question: "How do I enrol?",
         answer:
-            "You can reach out via our website or contact us directly to check course availability and book your slot.",
+            "You can reach out via our website or contact us directly to check course availability. Book your slot by clicking the Join Now button on this page.",
+    },
+    {
+        id: "trivandrum-faq-11",
+        question: "Does HACA have hiring partners in Trivandrum?",
+        answer:
+            "Yes. HACA has digital marketing hiring partners and industry connections across Kerala, including opportunities connected to agencies, startups, ecommerce businesses, and companies in Trivandrum's growing digital ecosystem.",
+    },
+    {
+        id: "trivandrum-faq-12",
+        question: "What is the salary of an entry-level digital marketer in Trivandrum?",
+        answer:
+            "Entry-level digital marketers in Thiruvananthapuram typically earn around ₹15,000 to ₹30,000+ per month depending on skills, specialization, internships, certifications, and the company. Roles in Technopark companies, agencies, startups, and ecommerce brands may offer higher growth opportunities.",
     },
 ];
 
@@ -557,6 +579,328 @@ export function digitalMarketingTrivandrumJsonLd() {
                 "@type": "FAQPage",
                 "@id": `${url}#faq`,
                 mainEntity: MARKETING_TRIVANDRUM_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.question,
+                    acceptedAnswer: {
+                        "@type": "Answer",
+                        text: item.answer,
+                    },
+                })),
+            },
+        ],
+    };
+}
+
+// ─────────────────────────────────────────────────────────────
+// Kollam SEO page
+// ─────────────────────────────────────────────────────────────
+
+export type MarketingKollamFaqItem = {
+    id: string;
+    question: string;
+    answer: string;
+};
+
+export const MARKETING_KOLLAM_FAQS: MarketingKollamFaqItem[] = [
+    {
+        id: "kollam-faq-1",
+        question: "Which is the best Digital Marketing Course in Kollam for beginners?",
+        answer:
+            "The best Digital Marketing Course in Kollam for beginners is the one that focuses on practical learning rather than only classroom theory. Look for a course that includes live projects, mentor guidance, industry-relevant tools, updated topics like AI in marketing, and career support. HACA follows this practical approach through AI-integrated learning, project-based training, and mentor support designed to help learners gain real-world exposure.",
+    },
+    {
+        id: "kollam-faq-2",
+        question: "What is the salary of an entry-level digital marketer in Kollam?",
+        answer:
+            "Freshers typically earn around ₹15,000 to ₹30,000+, depending on skills, practical experience and specialisation.",
+    },
+    {
+        id: "kollam-faq-3",
+        question: "Who can join the Digital Marketing Course in Kollam?",
+        answer:
+            "Students, graduates, entrepreneurs, freelancers and professionals can join.",
+    },
+    {
+        id: "kollam-faq-4",
+        question: "Do you provide placement support?",
+        answer:
+            "Yes, we do provide placement support. Resume guidance, portfolio support and interview preparation are included.",
+    },
+    {
+        id: "kollam-faq-5",
+        question: "Can non-technical students learn digital marketing?",
+        answer:
+            "Yes, a non-technical student can learn digital marketing as no technical background is needed.",
+    },
+    {
+        id: "kollam-faq-6",
+        question: "Can I start freelancing after completing this course?",
+        answer:
+            "Yes, you can start freelancing after completing this course. Projects and portfolio activities can help support freelance opportunities.",
+    },
+];
+
+const KOLLAM_PAGE_TITLE = "Digital Marketing Course in Kollam | AI-Integrated Training | HACA";
+const KOLLAM_PAGE_DESCRIPTION =
+    "Join HACA's digital marketing course in Kollam — AI-integrated training, online and offline batches, real brand projects, expert mentors, and placement support. Build job-ready digital marketing skills from Kollam.";
+
+export function buildDigitalMarketingKollamSeoMetadata(): Metadata {
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_KOLLAM_SEO_PATH}`;
+
+    return {
+        title: KOLLAM_PAGE_TITLE,
+        description: KOLLAM_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: KOLLAM_PAGE_TITLE,
+            description: KOLLAM_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_IN",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: KOLLAM_PAGE_TITLE,
+            description: KOLLAM_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "digital marketing course in Kollam",
+            "digital marketing institute Kollam",
+            "online digital marketing course Kollam",
+            "best digital marketing course Kollam",
+            "digital marketing training Kollam",
+            "SEO course Kollam",
+            "Google Ads course Kollam",
+            "HACA marketing school Kollam",
+            "digital marketing course Kerala",
+        ],
+    };
+}
+
+export function digitalMarketingKollamJsonLd() {
+    const url = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_KOLLAM_SEO_PATH}`;
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${url}#webpage`,
+                url,
+                name: KOLLAM_PAGE_TITLE,
+                description: KOLLAM_PAGE_DESCRIPTION,
+                isPartOf: {
+                    "@type": "WebSite",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+            },
+            {
+                "@type": "Course",
+                "@id": `${url}#course`,
+                name: "Digital Marketing Course in Kollam",
+                description: KOLLAM_PAGE_DESCRIPTION,
+                provider: {
+                    "@type": "EducationalOrganization",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+                url,
+                educationalLevel: "Beginner to Advanced",
+                courseMode: ["Onsite", "Online"],
+                inLanguage: "en",
+                areaServed: {
+                    "@type": "City",
+                    name: "Kollam",
+                    containedInPlace: {
+                        "@type": "State",
+                        name: "Kerala",
+                        containedInPlace: {
+                            "@type": "Country",
+                            name: "India",
+                        },
+                    },
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${url}#faq`,
+                mainEntity: MARKETING_KOLLAM_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.question,
+                    acceptedAnswer: {
+                        "@type": "Answer",
+                        text: item.answer,
+                    },
+                })),
+            },
+        ],
+    };
+}
+
+// ─────────────────────────────────────────────────────────────
+// Malappuram SEO page
+// ─────────────────────────────────────────────────────────────
+
+export type MarketingMalappuramFaqItem = {
+    id: string;
+    question: string;
+    answer: string;
+};
+
+export const MARKETING_MALAPPURAM_FAQS: MarketingMalappuramFaqItem[] = [
+    {
+        id: "malappuram-faq-1",
+        question: "Who can join the Digital Marketing Course in Malappuram?",
+        answer:
+            "Anyone who has completed 12th grade or equivalent can join. Students, fresh graduates, working professionals, freelancers, entrepreneurs, and career switchers from Malappuram are all welcome. No prior marketing background is required.",
+    },
+    {
+        id: "malappuram-faq-2",
+        question: "Can I choose between online and offline learning?",
+        answer:
+            "Yes. Learners from Malappuram can attend live online sessions from home or choose offline training at HACA's Kozhikode campus based on their preference and schedule.",
+    },
+    {
+        id: "malappuram-faq-3",
+        question: "How long is HACA's digital marketing course, and what will I learn?",
+        answer:
+            "The offline course runs for 6 months including internship at our Kozhikode campus. The online program runs for 5 months with live interactive sessions covering SEO, social media marketing, Google Ads, AI tools, e-Commerce, analytics, content marketing, and more.",
+    },
+    {
+        id: "malappuram-faq-4",
+        question: "What makes HACA a trusted choice for digital marketing learners from Malappuram?",
+        answer:
+            "HACA follows a 90% practical and 10% theory-based learning approach, helping students gain real industry exposure through mentorship, live projects, internships, and placement support. This prepares learners for opportunities in Malappuram's growing business and digital ecosystem.",
+    },
+    {
+        id: "malappuram-faq-5",
+        question: "Will I get real-world experience during the course?",
+        answer:
+            "Absolutely. You'll work on live projects, run campaigns for real brands, and apply your skills during an internship as part of the offline course program.",
+    },
+    {
+        id: "malappuram-faq-6",
+        question: "Do you provide placement assistance?",
+        answer:
+            "Yes. HACA provides placement assistance for both online and offline students, including resume support, mock interviews, portfolio preparation, and career guidance to help learners find digital marketing opportunities.",
+    },
+    {
+        id: "malappuram-faq-7",
+        question: "Is this course suitable for beginners or experienced marketers?",
+        answer:
+            "Both. Beginners get a strong foundation in digital marketing, while experienced marketers can upgrade their skills, learn advanced strategies, and explore specialisation options.",
+    },
+    {
+        id: "malappuram-faq-8",
+        question: "Is this course suitable for working professionals in Malappuram?",
+        answer:
+            "Yes. Our online batch is designed for working professionals with evening sessions and flexible learning options. Offline students can manage their schedule with our structured 6-month program.",
+    },
+    {
+        id: "malappuram-faq-9",
+        question: "What is the salary of an entry-level digital marketer in Malappuram?",
+        answer:
+            "Entry-level digital marketers in Malappuram typically earn around ₹15,000 to ₹30,000+ per month depending on skills, specialization, internships, certifications, and the company. Roles at agencies, startups, retail brands, and ecommerce businesses offer strong career growth potential.",
+    },
+    {
+        id: "malappuram-faq-10",
+        question: "How do I enrol?",
+        answer:
+            "You can reach out via our website or contact us directly to check course availability. Book your slot by clicking the Join Now button on this page.",
+    },
+];
+
+const MALAPPURAM_PAGE_TITLE = "Digital Marketing Course in Malappuram | AI-Integrated Training | HACA";
+const MALAPPURAM_PAGE_DESCRIPTION =
+    "Join HACA's digital marketing course in Malappuram — AI-integrated training, online and offline batches, real brand projects, expert mentors, and placement support. Build job-ready digital marketing skills from Malappuram.";
+
+export function buildDigitalMarketingMalappuramSeoMetadata(): Metadata {
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_MALAPPURAM_SEO_PATH}`;
+
+    return {
+        title: MALAPPURAM_PAGE_TITLE,
+        description: MALAPPURAM_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: MALAPPURAM_PAGE_TITLE,
+            description: MALAPPURAM_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_IN",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: MALAPPURAM_PAGE_TITLE,
+            description: MALAPPURAM_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "digital marketing course in Malappuram",
+            "digital marketing institute Malappuram",
+            "online digital marketing course Malappuram",
+            "best digital marketing course Malappuram",
+            "digital marketing training Malappuram",
+            "SEO course Malappuram",
+            "Google Ads course Malappuram",
+            "HACA marketing school Malappuram",
+            "digital marketing course Kerala",
+        ],
+    };
+}
+
+export function digitalMarketingMalappuramJsonLd() {
+    const url = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_MALAPPURAM_SEO_PATH}`;
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${url}#webpage`,
+                url,
+                name: MALAPPURAM_PAGE_TITLE,
+                description: MALAPPURAM_PAGE_DESCRIPTION,
+                isPartOf: {
+                    "@type": "WebSite",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+            },
+            {
+                "@type": "Course",
+                "@id": `${url}#course`,
+                name: "Digital Marketing Course in Malappuram",
+                description: MALAPPURAM_PAGE_DESCRIPTION,
+                provider: {
+                    "@type": "EducationalOrganization",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+                url,
+                educationalLevel: "Beginner to Advanced",
+                courseMode: ["Onsite", "Online"],
+                inLanguage: "en",
+                areaServed: {
+                    "@type": "City",
+                    name: "Malappuram",
+                    containedInPlace: {
+                        "@type": "State",
+                        name: "Kerala",
+                        containedInPlace: {
+                            "@type": "Country",
+                            name: "India",
+                        },
+                    },
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${url}#faq`,
+                mainEntity: MARKETING_MALAPPURAM_FAQS.map((item) => ({
                     "@type": "Question",
                     name: item.question,
                     acceptedAnswer: {

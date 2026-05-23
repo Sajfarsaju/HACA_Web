@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const HEADING_ID = "marketing-seo-trivandrum-job-ready-careers-heading";
 
-const SUBTITLE = "Careers After Our Digital Marketing Course in Trivandrum";
+const SUBTITLE = "Career Opportunities After Learning Digital Marketing in Trivandrum";
 
 function marketingIconSrc(filename: string) {
     return `/photos/schools/marketing/${encodeURIComponent(filename)}`;

@@ -113,13 +113,12 @@ export function MarketingSeoSuccessStoriesIntroSection() {
                             style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                         >
                             <span className="flex flex-col text-[36px] leading-[95%] lg:hidden">
-                                <span className="block">Our Success Stories</span>
-                                <span className="block">Speak Louder Than</span>
-                                <span className="block">Any Ad</span>
+                                <span className="block">Students from Trivandrum</span>
+                                <span className="block">Placed Through HACA</span>
                             </span>
                             <span className="hidden flex-col text-[clamp(28px,3.8vw,55px)] leading-[110%] lg:flex">
-                                <span className="block whitespace-nowrap">Our Success Stories Speak</span>
-                                <span className="block whitespace-nowrap">Louder Than Any Ad</span>
+                                <span className="block whitespace-nowrap">Students from Trivandrum</span>
+                                <span className="block whitespace-nowrap">Placed Through HACA</span>
                             </span>
                         </h2>
 
@@ -127,8 +126,7 @@ export function MarketingSeoSuccessStoriesIntroSection() {
                             className="m-0 w-full max-w-[335px] min-h-[96px] text-center text-[16px] font-medium leading-[150%] tracking-[-0.05em] text-[#FFFFFFB2] lg:max-w-[458px] lg:min-h-0 lg:shrink-0 lg:text-left lg:text-[18px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                            Meet the talented HACA students who turned their training into dream jobs. With our placement
-                            support, resume building, and mock interviews, they&apos;re now making waves in the industry
+                            Meet HACA learners who turned their training into digital careers. With placement support, resume building, mock interviews, and practical projects, many are now growing in marketing, freelancing, and opportunities connected to Trivandrum&apos;s ecosystem
                         </p>
                     </div>
                 </div>

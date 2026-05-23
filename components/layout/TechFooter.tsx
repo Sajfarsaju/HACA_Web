@@ -1,10 +1,20 @@
 import Image from "next/image";
 
-export function TechFooter() {
+import { TECH_SEO_PAGE_BG } from "@/lib/tech-school-seo";
+
+type TechFooterProps = {
+    /** SEO landings use {@link TECH_SEO_PAGE_BG}; default matches main tech-school pages. */
+    variant?: "default" | "seo";
+};
+
+export function TechFooter({ variant = "default" }: TechFooterProps) {
+    const shellBg = variant === "seo" ? TECH_SEO_PAGE_BG : "#111111";
+
     return (
         <footer
             id="tech-school-footer"
-            className="flex flex-col items-center w-full relative overflow-hidden px-6 pt-2 pb-24 md:px-[40px] md:py-[40px] lg:pb-[100px] bg-[#111111] min-h-[700px]"
+            className="flex min-h-[700px] w-full flex-col items-center relative overflow-hidden px-6 pt-2 pb-24 md:px-[40px] md:py-[40px] lg:pb-[100px]"
+            style={{ backgroundColor: shellBg }}
         >
             {/* Top Section */}
             <div

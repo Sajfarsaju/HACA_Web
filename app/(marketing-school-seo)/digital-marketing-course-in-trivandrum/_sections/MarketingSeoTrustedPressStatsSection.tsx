@@ -82,7 +82,7 @@ const MARQUEE_TRACK = [...PRESS_LOGOS, ...PRESS_LOGOS];
 
 const STATS = [
     { id: "students", value: "5000", suffix: "+", lines: ["Trusted", "Students"] as const },
-    { id: "hours", value: "450", suffix: "+", lines: ["Hours of", "Learning"] as const },
+    { id: "hours", value: "500", suffix: "+", lines: ["Hours of", "Learning"] as const },
     { id: "mentors", value: "150", suffix: "+", lines: ["Top", "Mentors"] as const },
     { id: "companies", value: "250", suffix: "+", lines: ["Hiring", "Companies"] as const },
 ] as const;
@@ -188,7 +188,7 @@ export function MarketingSeoTrustedPressStatsSection() {
                     className="m-0 mb-[clamp(32px,5vw,56px)] max-w-[min(920px,100%)] text-center font-semibold text-[clamp(28px,6vw,52px)] leading-[1.05] tracking-[-0.02em] text-white [text-rendering:geometricPrecision] md:text-[clamp(36px,4.2vw,48px)] lg:text-[clamp(40px,3.2vw,56px)]"
                     style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                 >
-                    Trusted by Thousands, Built by Marketers
+                    Trusted by Thousands of Learners Across Kerala, Built by HACA Marketers
                 </h2>
 
                 {/* Desktop: one row — static values (no count-up) */}

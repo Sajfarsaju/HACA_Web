@@ -109,13 +109,13 @@ function LeadDecisionPanel() {
                         lg:text-[clamp(2.25rem,4vw,3.5rem)] lg:leading-[1.08]
                     "
                 >
-                    Why Follow the Crowd When You Can Lead?
+                    Lead the Digital Marketing Space in Trivandrum
                 </p>
                 <p
                     className="m-0 max-w-[min(560px,100%)] text-[16px] font-normal leading-[150%] tracking-[-0.05em] text-white/95"
                     style={{ fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" }}
                 >
-                    Theory is cool, but real marketing magic happens when you&apos;re in the driver&apos;s seat.
+                    Real digital marketing skills are built through practical experience, real projects, and hands-on execution — not just theory.
                 </p>
                 <JoinLeadCta />
             </div>
