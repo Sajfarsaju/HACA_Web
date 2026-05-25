@@ -37,6 +37,9 @@ export const DIGITAL_MARKETING_MALAPPURAM_SEO_PATH = "/digital-marketing-course-
 /** Canonical path for the Thrissur digital marketing SEO landing page. */
 export const DIGITAL_MARKETING_THRISSUR_SEO_PATH = "/digital-marketing-course-in-thrissur" as const;
 
+/** Canonical path for the Ernakulam digital marketing SEO landing page. */
+export const DIGITAL_MARKETING_ERNAKULAM_SEO_PATH = "/digital-marketing-course-in-ernakulam" as const;
+
 /** @deprecated Use {@link DIGITAL_MARKETING_CALICUT_SEO_PATH} — kept for redirects. */
 export const LEGACY_MARKETING_CALICUT_SEO_PATH = "/marketing-course-in-calicut" as const;
 
@@ -138,7 +141,9 @@ export function isMarketingSchoolSeoPath(pathname: string): boolean {
         pathname === DIGITAL_MARKETING_KOCHI_SEO_PATH ||
         pathname.startsWith(`${DIGITAL_MARKETING_KOCHI_SEO_PATH}/`) ||
         pathname === DIGITAL_MARKETING_THRISSUR_SEO_PATH ||
-        pathname.startsWith(`${DIGITAL_MARKETING_THRISSUR_SEO_PATH}/`)
+        pathname.startsWith(`${DIGITAL_MARKETING_THRISSUR_SEO_PATH}/`) ||
+        pathname === DIGITAL_MARKETING_ERNAKULAM_SEO_PATH ||
+        pathname.startsWith(`${DIGITAL_MARKETING_ERNAKULAM_SEO_PATH}/`)
     );
 }
 
@@ -1765,6 +1770,153 @@ export function digitalMarketingThrissurJsonLd() {
                 "@type": "FAQPage",
                 "@id": `${url}#faq`,
                 mainEntity: MARKETING_THRISSUR_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.question,
+                    acceptedAnswer: {
+                        "@type": "Answer",
+                        text: item.answer,
+                    },
+                })),
+            },
+        ],
+    };
+}
+
+// ─────────────────────────────────────────────────────────────
+// Ernakulam SEO page
+// ─────────────────────────────────────────────────────────────
+
+export type MarketingErnakulamFaqItem = {
+    id: string;
+    question: string;
+    answer: string;
+};
+
+export const MARKETING_ERNAKULAM_FAQS: MarketingErnakulamFaqItem[] = [
+    {
+        id: "ernakulam-faq-1",
+        question: "Which is the best Digital Marketing Course in Ernakulam?",
+        answer:
+            "HACA's Digital Marketing Course is one of the most practical options for learners in Ernakulam. The curriculum covers SEO, Google Ads, Meta Ads, AI-integrated tools, content marketing, and ecommerce — with live projects, mentor guidance, and placement support from day one.",
+    },
+    {
+        id: "ernakulam-faq-2",
+        question: "Is this Digital Marketing Course suitable for working professionals in Ernakulam?",
+        answer:
+            "Yes. Working professionals from Ernakulam, Kochi, Kakkanad, and surrounding areas can join our online batch with flexible evening timings. You can continue your current job while building practical digital marketing skills at your own pace.",
+    },
+    {
+        id: "ernakulam-faq-3",
+        question: "Who can join HACA's Digital Marketing Course from Ernakulam?",
+        answer:
+            "This course is open to students, graduates, working professionals, freelancers, entrepreneurs, and career switchers from Ernakulam, Kochi, Aluva, Thrippunithura, Perumbavoor, and nearby areas. No prior technical background is required.",
+    },
+    {
+        id: "ernakulam-faq-4",
+        question: "Does HACA provide placement support for learners from Ernakulam?",
+        answer:
+            "Yes. HACA provides full placement support including resume preparation, portfolio development, mock interviews, and hiring assistance. Our hiring partner network spans digital agencies, startups, ecommerce companies, and businesses across the Ernakulam and Kochi region.",
+    },
+    {
+        id: "ernakulam-faq-5",
+        question: "What is the salary of an entry-level digital marketer in Ernakulam?",
+        answer:
+            "Entry-level digital marketers in Ernakulam typically earn between Rs.18,000 and Rs.35,000 or more per month depending on their skills, specialisation, and certifications. With experience, earnings can grow significantly in performance marketing, SEO, and social media roles.",
+    },
+];
+
+const ERNAKULAM_PAGE_TITLE = "Digital Marketing Course in Ernakulam | AI-Integrated Training | HACA";
+const ERNAKULAM_PAGE_DESCRIPTION =
+    "Join HACA's AI-integrated Digital Marketing Course in Ernakulam — 500+ hours of training, live projects, SEO, Google Ads, Meta Ads, AI tools, online and offline batches, expert mentors, and placement support. Build job-ready digital marketing skills from Ernakulam.";
+
+export function buildDigitalMarketingErnakulamSeoMetadata(): Metadata {
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_ERNAKULAM_SEO_PATH}`;
+
+    return {
+        title: ERNAKULAM_PAGE_TITLE,
+        description: ERNAKULAM_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: ERNAKULAM_PAGE_TITLE,
+            description: ERNAKULAM_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_IN",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: ERNAKULAM_PAGE_TITLE,
+            description: ERNAKULAM_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "digital marketing course in Ernakulam",
+            "digital marketing institute Ernakulam",
+            "best digital marketing course Ernakulam",
+            "online digital marketing course Ernakulam",
+            "digital marketing training Ernakulam",
+            "digital marketing course Kochi Ernakulam",
+            "SEO course Ernakulam",
+            "Google Ads course Ernakulam",
+            "HACA marketing school Ernakulam",
+            "digital marketing course after 12th Ernakulam",
+            "digital marketing course Kakkanad",
+            "digital marketing course Aluva",
+        ],
+    };
+}
+
+export function digitalMarketingErnakulamJsonLd() {
+    const url = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_ERNAKULAM_SEO_PATH}`;
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${url}#webpage`,
+                url,
+                name: ERNAKULAM_PAGE_TITLE,
+                description: ERNAKULAM_PAGE_DESCRIPTION,
+                isPartOf: {
+                    "@type": "WebSite",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+            },
+            {
+                "@type": "Course",
+                "@id": `${url}#course`,
+                name: "Digital Marketing Course in Ernakulam",
+                description: ERNAKULAM_PAGE_DESCRIPTION,
+                provider: {
+                    "@type": "EducationalOrganization",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+                url,
+                educationalLevel: "Beginner to Advanced",
+                courseMode: ["Onsite", "Online"],
+                inLanguage: "en",
+                areaServed: {
+                    "@type": "AdministrativeArea",
+                    name: "Ernakulam",
+                    alternateName: ["Kochi", "Cochin"],
+                    containedInPlace: {
+                        "@type": "State",
+                        name: "Kerala",
+                        containedInPlace: {
+                            "@type": "Country",
+                            name: "India",
+                        },
+                    },
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${url}#faq`,
+                mainEntity: MARKETING_ERNAKULAM_FAQS.map((item) => ({
                     "@type": "Question",
                     name: item.question,
                     acceptedAnswer: {
