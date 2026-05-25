@@ -34,6 +34,12 @@ export const DIGITAL_MARKETING_KOCHI_SEO_PATH = "/digital-marketing-course-in-ko
 /** Canonical path for the Malappuram digital marketing SEO landing page. */
 export const DIGITAL_MARKETING_MALAPPURAM_SEO_PATH = "/digital-marketing-course-in-malappuram" as const;
 
+/** Canonical path for the Thrissur digital marketing SEO landing page. */
+export const DIGITAL_MARKETING_THRISSUR_SEO_PATH = "/digital-marketing-course-in-thrissur" as const;
+
+/** Canonical path for the Ernakulam digital marketing SEO landing page. */
+export const DIGITAL_MARKETING_ERNAKULAM_SEO_PATH = "/digital-marketing-course-in-ernakulam" as const;
+
 /** @deprecated Use {@link DIGITAL_MARKETING_CALICUT_SEO_PATH} — kept for redirects. */
 export const LEGACY_MARKETING_CALICUT_SEO_PATH = "/marketing-course-in-calicut" as const;
 
@@ -133,7 +139,11 @@ export function isMarketingSchoolSeoPath(pathname: string): boolean {
         pathname === DIGITAL_MARKETING_WAYANAD_SEO_PATH ||
         pathname.startsWith(`${DIGITAL_MARKETING_WAYANAD_SEO_PATH}/`) ||
         pathname === DIGITAL_MARKETING_KOCHI_SEO_PATH ||
-        pathname.startsWith(`${DIGITAL_MARKETING_KOCHI_SEO_PATH}/`)
+        pathname.startsWith(`${DIGITAL_MARKETING_KOCHI_SEO_PATH}/`) ||
+        pathname === DIGITAL_MARKETING_THRISSUR_SEO_PATH ||
+        pathname.startsWith(`${DIGITAL_MARKETING_THRISSUR_SEO_PATH}/`) ||
+        pathname === DIGITAL_MARKETING_ERNAKULAM_SEO_PATH ||
+        pathname.startsWith(`${DIGITAL_MARKETING_ERNAKULAM_SEO_PATH}/`)
     );
 }
 
@@ -1490,43 +1500,37 @@ export const MARKETING_KOCHI_FAQS: MarketingKochiFaqItem[] = [
         id: "kochi-faq-1",
         question: "Which is the best Digital Marketing Course in Kochi for beginners?",
         answer:
-            "HACA's Digital Marketing Course in Kochi is built for beginners and working professionals alike. With a 90% practical and 10% theory approach, AI-integrated tools, live projects, and mentorship from industry experts, it is widely considered one of the best digital marketing courses available to Kochi learners — both online and offline.",
+            "HACA's Digital Marketing Course in Kochi is designed for beginners with a practical learning approach, live projects, AI-integrated tools, mentor guidance, and placement support. It gives learners the real skills needed to start a career in digital marketing.",
     },
     {
         id: "kochi-faq-2",
-        question: "Can I join the Digital Marketing Course from Kochi online?",
+        question: "Is this Digital Marketing Course suitable for working professionals?",
         answer:
-            "Yes. Learners from Kochi, Ernakulam, Kakkanad, Edappally, and nearby areas can join our live online batch and get the same mentor access, real projects, and placement support as campus students — without relocating. Offline training is available at our Kozhikode campus.",
+            "Yes. Working professionals from Kochi and Ernakulam can join our online batch with flexible evening timings. You can continue your job while building new digital marketing skills at your own pace.",
     },
     {
         id: "kochi-faq-3",
-        question: "What will I learn in HACA's Digital Marketing Course in Kochi?",
+        question: "Does HACA provide placement support for learners?",
         answer:
-            "You will learn SEO, Google Ads, Meta Ads, content marketing, email marketing, e-commerce and Shopify marketing, website development, AI tools and automation, influencer marketing, and analytics — all through hands-on projects and live interactive sessions covering 500+ hours of training.",
+            "Yes. HACA provides placement support that includes resume building, portfolio preparation, mock interviews, and hiring assistance. We work to connect learners with job opportunities that match their skills and goals.",
     },
     {
         id: "kochi-faq-4",
-        question: "Does HACA provide placement support for students from Kochi?",
+        question: "Does HACA have hiring partners in the region?",
         answer:
-            "Yes. HACA provides 100% placement assistance including resume building, mock interviews, portfolio preparation, and career guidance. Many of our Kochi students have secured digital marketing roles in agencies, startups, and corporate brands across Kerala and India.",
+            "Yes. HACA is connected with digital agencies, startups, ecommerce brands, and digital companies across Kochi, Kakkanad, Infopark, and the broader Ernakulam district. These connections help our learners find placements in the local market.",
     },
     {
         id: "kochi-faq-5",
-        question: "What is the salary of a digital marketer in Kochi?",
+        question: "Can I join offline training if I am from Kochi or Ernakulam?",
         answer:
-            "Entry-level digital marketers in Kochi typically earn Rs.18,000 to Rs.35,000+ per month, with scope for growth into performance marketing, SEO, and management roles. Kochi's thriving IT corridor, fintech, and e-commerce ecosystem creates strong demand for skilled digital marketers.",
+            "Yes. Many students from Kochi and Ernakulam have joined our offline batch at the Kozhikode campus. The campus experience provides direct mentor interaction, peer learning, and full practical exposure.",
     },
     {
         id: "kochi-faq-6",
-        question: "Is there a certificate after completing the Digital Marketing Course in Kochi?",
+        question: "What is the salary of an entry-level digital marketer in Kochi?",
         answer:
-            "Yes. You receive an industry-recognised certificate from HACA Marketing School on completing the course. We also guide you to earn certifications from Google, Meta, and HubSpot to strengthen your professional profile.",
-    },
-    {
-        id: "kochi-faq-7",
-        question: "How do I enrol in the Digital Marketing Course from Kochi?",
-        answer:
-            "Click the Join Now or Enquire Now button on this page, or visit our contact page. Our admissions team will walk you through batch schedules, course options, and any queries you have before you begin.",
+            "Entry-level digital marketers in Kochi typically earn between Rs.18,000 and Rs.35,000 or more per month depending on their skills, area of specialisation, and certifications. With experience, earnings can grow significantly in performance marketing and SEO roles.",
     },
 ];
 
@@ -1622,6 +1626,297 @@ export function digitalMarketingKochiJsonLd() {
                 "@type": "FAQPage",
                 "@id": `${url}#faq`,
                 mainEntity: MARKETING_KOCHI_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.question,
+                    acceptedAnswer: {
+                        "@type": "Answer",
+                        text: item.answer,
+                    },
+                })),
+            },
+        ],
+    };
+}
+
+// ─────────────────────────────────────────────────────────────
+// Thrissur SEO page
+// ─────────────────────────────────────────────────────────────
+
+export type MarketingThrissurFaqItem = {
+    id: string;
+    question: string;
+    answer: string;
+};
+
+export const MARKETING_THRISSUR_FAQS: MarketingThrissurFaqItem[] = [
+    {
+        id: "thrissur-faq-1",
+        question: "Does HACA provide placement support?",
+        answer:
+            "Yes. HACA provides career support including resume preparation, portfolio guidance, mock interviews, and hiring assistance for learners.",
+    },
+    {
+        id: "thrissur-faq-2",
+        question: "Why do learners consider HACA among the best digital marketing institutes in Thrissur?",
+        answer:
+            "Learners often look for practical learning, mentor guidance, industry exposure, and placement support when choosing a digital marketing course. HACA focuses on real project experience, AI-integrated curriculum, and career preparation — which is why many learners from Thrissur, Guruvayur, Irinjalakuda, and Chalakudy choose HACA for their digital marketing training.",
+    },
+    {
+        id: "thrissur-faq-3",
+        question: "Who can join this Digital Marketing Course in Thrissur?",
+        answer:
+            "This course is suitable for students, graduates, freelancers, entrepreneurs, working professionals, and career switchers from Thrissur and nearby areas including Guruvayur, Kunnamkulam, Chalakudy, and Irinjalakuda. No prior technical background is required.",
+    },
+    {
+        id: "thrissur-faq-4",
+        question: "Can I join this course after completing 12th grade?",
+        answer:
+            "Yes. Students who have completed plus two can join the Digital Marketing Course at HACA. The curriculum is structured to take learners from the basics to advanced, job-ready skills through practical training and mentor support.",
+    },
+    {
+        id: "thrissur-faq-5",
+        question: "Will I receive certifications after completing the course?",
+        answer:
+            "Yes. Learners can earn certifications from industry-recognized platforms as part of the curriculum. HACA also supports learners in preparing portfolios and skill documentation to strengthen their career profile.",
+    },
+];
+
+const THRISSUR_PAGE_TITLE = "Digital Marketing Course in Thrissur | AI-Integrated Training | HACA";
+const THRISSUR_PAGE_DESCRIPTION =
+    "Join HACA's AI-integrated Digital Marketing Course in Thrissur — online and offline batches, live projects, expert mentors, SEO, Google Ads, Meta Ads, AI tools, and placement support. Build job-ready digital marketing skills from Thrissur.";
+
+export function buildDigitalMarketingThrissurSeoMetadata(): Metadata {
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_THRISSUR_SEO_PATH}`;
+
+    return {
+        title: THRISSUR_PAGE_TITLE,
+        description: THRISSUR_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: THRISSUR_PAGE_TITLE,
+            description: THRISSUR_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_IN",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: THRISSUR_PAGE_TITLE,
+            description: THRISSUR_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "digital marketing course in Thrissur",
+            "digital marketing institute Thrissur",
+            "online digital marketing course Thrissur",
+            "best digital marketing course Thrissur",
+            "digital marketing training Thrissur",
+            "SEO course Thrissur",
+            "Google Ads course Thrissur",
+            "HACA marketing school Thrissur",
+            "digital marketing course Kerala",
+            "digital marketing course after 12th Thrissur",
+        ],
+    };
+}
+
+export function digitalMarketingThrissurJsonLd() {
+    const url = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_THRISSUR_SEO_PATH}`;
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${url}#webpage`,
+                url,
+                name: THRISSUR_PAGE_TITLE,
+                description: THRISSUR_PAGE_DESCRIPTION,
+                isPartOf: {
+                    "@type": "WebSite",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+            },
+            {
+                "@type": "Course",
+                "@id": `${url}#course`,
+                name: "Digital Marketing Course in Thrissur",
+                description: THRISSUR_PAGE_DESCRIPTION,
+                provider: {
+                    "@type": "EducationalOrganization",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+                url,
+                educationalLevel: "Beginner to Advanced",
+                courseMode: ["Onsite", "Online"],
+                inLanguage: "en",
+                areaServed: {
+                    "@type": "City",
+                    name: "Thrissur",
+                    containedInPlace: {
+                        "@type": "State",
+                        name: "Kerala",
+                        containedInPlace: {
+                            "@type": "Country",
+                            name: "India",
+                        },
+                    },
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${url}#faq`,
+                mainEntity: MARKETING_THRISSUR_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.question,
+                    acceptedAnswer: {
+                        "@type": "Answer",
+                        text: item.answer,
+                    },
+                })),
+            },
+        ],
+    };
+}
+
+// ─────────────────────────────────────────────────────────────
+// Ernakulam SEO page
+// ─────────────────────────────────────────────────────────────
+
+export type MarketingErnakulamFaqItem = {
+    id: string;
+    question: string;
+    answer: string;
+};
+
+export const MARKETING_ERNAKULAM_FAQS: MarketingErnakulamFaqItem[] = [
+    {
+        id: "ernakulam-faq-1",
+        question: "Which is the best Digital Marketing Course in Ernakulam?",
+        answer:
+            "HACA's Digital Marketing Course is one of the most practical options for learners in Ernakulam. The curriculum covers SEO, Google Ads, Meta Ads, AI-integrated tools, content marketing, and ecommerce — with live projects, mentor guidance, and placement support from day one.",
+    },
+    {
+        id: "ernakulam-faq-2",
+        question: "Is this Digital Marketing Course suitable for working professionals in Ernakulam?",
+        answer:
+            "Yes. Working professionals from Ernakulam, Kochi, Kakkanad, and surrounding areas can join our online batch with flexible evening timings. You can continue your current job while building practical digital marketing skills at your own pace.",
+    },
+    {
+        id: "ernakulam-faq-3",
+        question: "Who can join HACA's Digital Marketing Course from Ernakulam?",
+        answer:
+            "This course is open to students, graduates, working professionals, freelancers, entrepreneurs, and career switchers from Ernakulam, Kochi, Aluva, Thrippunithura, Perumbavoor, and nearby areas. No prior technical background is required.",
+    },
+    {
+        id: "ernakulam-faq-4",
+        question: "Does HACA provide placement support for learners from Ernakulam?",
+        answer:
+            "Yes. HACA provides full placement support including resume preparation, portfolio development, mock interviews, and hiring assistance. Our hiring partner network spans digital agencies, startups, ecommerce companies, and businesses across the Ernakulam and Kochi region.",
+    },
+    {
+        id: "ernakulam-faq-5",
+        question: "What is the salary of an entry-level digital marketer in Ernakulam?",
+        answer:
+            "Entry-level digital marketers in Ernakulam typically earn between Rs.18,000 and Rs.35,000 or more per month depending on their skills, specialisation, and certifications. With experience, earnings can grow significantly in performance marketing, SEO, and social media roles.",
+    },
+];
+
+const ERNAKULAM_PAGE_TITLE = "Digital Marketing Course in Ernakulam | AI-Integrated Training | HACA";
+const ERNAKULAM_PAGE_DESCRIPTION =
+    "Join HACA's AI-integrated Digital Marketing Course in Ernakulam — 500+ hours of training, live projects, SEO, Google Ads, Meta Ads, AI tools, online and offline batches, expert mentors, and placement support. Build job-ready digital marketing skills from Ernakulam.";
+
+export function buildDigitalMarketingErnakulamSeoMetadata(): Metadata {
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_ERNAKULAM_SEO_PATH}`;
+
+    return {
+        title: ERNAKULAM_PAGE_TITLE,
+        description: ERNAKULAM_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: ERNAKULAM_PAGE_TITLE,
+            description: ERNAKULAM_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_IN",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: ERNAKULAM_PAGE_TITLE,
+            description: ERNAKULAM_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "digital marketing course in Ernakulam",
+            "digital marketing institute Ernakulam",
+            "best digital marketing course Ernakulam",
+            "online digital marketing course Ernakulam",
+            "digital marketing training Ernakulam",
+            "digital marketing course Kochi Ernakulam",
+            "SEO course Ernakulam",
+            "Google Ads course Ernakulam",
+            "HACA marketing school Ernakulam",
+            "digital marketing course after 12th Ernakulam",
+            "digital marketing course Kakkanad",
+            "digital marketing course Aluva",
+        ],
+    };
+}
+
+export function digitalMarketingErnakulamJsonLd() {
+    const url = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_ERNAKULAM_SEO_PATH}`;
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${url}#webpage`,
+                url,
+                name: ERNAKULAM_PAGE_TITLE,
+                description: ERNAKULAM_PAGE_DESCRIPTION,
+                isPartOf: {
+                    "@type": "WebSite",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+            },
+            {
+                "@type": "Course",
+                "@id": `${url}#course`,
+                name: "Digital Marketing Course in Ernakulam",
+                description: ERNAKULAM_PAGE_DESCRIPTION,
+                provider: {
+                    "@type": "EducationalOrganization",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+                url,
+                educationalLevel: "Beginner to Advanced",
+                courseMode: ["Onsite", "Online"],
+                inLanguage: "en",
+                areaServed: {
+                    "@type": "AdministrativeArea",
+                    name: "Ernakulam",
+                    alternateName: ["Kochi", "Cochin"],
+                    containedInPlace: {
+                        "@type": "State",
+                        name: "Kerala",
+                        containedInPlace: {
+                            "@type": "Country",
+                            name: "India",
+                        },
+                    },
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${url}#faq`,
+                mainEntity: MARKETING_ERNAKULAM_FAQS.map((item) => ({
                     "@type": "Question",
                     name: item.question,
                     acceptedAnswer: {

@@ -79,21 +79,19 @@ export function MarketingSeoSuccessStoriesIntroSection() {
                             style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                         >
                             <span className="flex flex-col text-[36px] leading-[95%] lg:hidden">
-                                <span className="block">Meet Learners Who Got</span>
-                                <span className="block">Placed from Kochi</span>
+                                <span className="block">Aspiring Digital Marketers from</span>
+                                <span className="block">Kerala&apos;s Tech Hub Choose HACA</span>
                             </span>
                             <span className="hidden flex-col text-[clamp(28px,3.8vw,55px)] leading-[110%] lg:flex">
-                                <span className="block whitespace-nowrap">Meet Learners Who Got</span>
-                                <span className="block whitespace-nowrap">Placed from Kochi</span>
+                                <span className="block whitespace-nowrap">Aspiring Digital Marketers from</span>
+                                <span className="block whitespace-nowrap">Kerala&apos;s Tech Hub Choose HACA</span>
                             </span>
                         </h2>
                         <p
                             className="m-0 w-full max-w-[335px] min-h-[96px] text-center text-[16px] font-medium leading-[150%] tracking-[-0.05em] text-[#FFFFFFB2] lg:max-w-[458px] lg:min-h-0 lg:shrink-0 lg:text-left lg:text-[18px]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                            Students from Kochi, Ernakulam, and nearby areas have joined our online batches and secured
-                            exciting career opportunities across social media, SEO, performance marketing, content creation,
-                            and digital marketing roles through our placement support and industry-focused training.
+                            Students from across the district have joined HACA through both online and offline batches, with many building careers in SEO, content marketing, social media marketing, paid advertising, ecommerce, and performance marketing through practical training and placement support.
                         </p>
                     </div>
                 </div>

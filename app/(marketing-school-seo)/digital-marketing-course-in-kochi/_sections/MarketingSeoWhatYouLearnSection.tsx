@@ -1,15 +1,15 @@
 const HEADING_ID = "marketing-kochi-what-you-learn-heading";
 
 const MODULES = [
-    { title: "Advanced SEO", body: "Learn to rank websites using keywords, on-page, off-page, technical SEO, and AI-driven search (AEO & GEO)." },
-    { title: "Google Ads & Performance Marketing", body: "Create and optimise ad campaigns that generate real leads and sales." },
-    { title: "Meta Ads & Social Media Marketing", body: "Run high-performing campaigns on Instagram and Facebook with the right targeting." },
-    { title: "Content Marketing & Copywriting", body: "Write content that attracts attention and drives action." },
-    { title: "E-commerce & Shopify Marketing", body: "Build and grow online stores, from setup to scaling sales." },
-    { title: "Influencer Marketing", body: "Plan campaigns, collaborate with influencers, and track results." },
-    { title: "Website Design & Development", body: "Create conversion-focused websites and landing pages." },
-    { title: "AI Tools & Automation", body: "Use AI tools to automate tasks and improve efficiency." },
-    { title: "Analytics & Data Tracking", body: "Track performance using tools like Google Analytics and make smarter decisions." },
+    { title: "Search Engine Optimization + AI Search", body: "Understand on page SEO, off page SEO, technical SEO, keyword research, AEO and GEO strategies." },
+    { title: "Google Ads and Performance Marketing", body: "Create campaigns designed to generate traffic, leads and measurable results." },
+    { title: "Meta Ads and Social Media Marketing", body: "Learn audience targeting and campaign optimization across Instagram and Facebook." },
+    { title: "Content Marketing and Copywriting", body: "Learn how content attracts attention and encourages action." },
+    { title: "Ecommerce and Shopify Marketing", body: "Understand how online stores grow using campaigns and digital strategies." },
+    { title: "Influencer Marketing", body: "Learn campaign planning, creator collaborations and performance tracking." },
+    { title: "Website Design and Development", body: "Create websites and landing pages that support business goals." },
+    { title: "AI Tools and Automation", body: "Use modern AI tools that help improve speed and productivity." },
+    { title: "Analytics and Performance Tracking", body: "Understand reports and campaign performance using analytics tools." },
 ] as const;
 
 export function MarketingSeoWhatYouLearnSection() {
@@ -22,15 +22,14 @@ export function MarketingSeoWhatYouLearnSection() {
                         className="m-0 max-w-[345px] font-semibold text-white [text-rendering:geometricPrecision] lg:max-w-[767px] lg:shrink-0"
                         style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                     >
-                        <span className="block text-[36px] leading-[95%] tracking-[0] lg:hidden">Skills You&apos;ll Learn in HACA&apos;s Digital Marketing Course in Kochi</span>
-                        <span className="hidden text-[55px] leading-[110%] tracking-[-0.01em] lg:block">Skills You&apos;ll Learn in HACA&apos;s Digital Marketing Course in Kochi</span>
+                        <span className="block text-[36px] leading-[95%] tracking-[0] lg:hidden">Skills You&apos;ll Learn in HACA&apos;s AI-Integrated Digital Marketing Course</span>
+                        <span className="hidden text-[55px] leading-[110%] tracking-[-0.01em] lg:block">Skills You&apos;ll Learn in HACA&apos;s AI-Integrated Digital Marketing Course</span>
                     </h2>
                     <p
                         className="m-0 max-w-[345px] text-[16px] font-medium leading-[150%] tracking-[-0.05em] text-[#FFFFFFB2] lg:max-w-[523px] lg:text-[18px]"
                         style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                     >
-                        This advanced Digital Marketing Course in Kochi builds practical skills through live projects and 500+ hours of training —
-                        ideal for students, working professionals, and entrepreneurs looking to break into or grow within the digital economy.
+                        Our advanced AI-integrated Digital Marketing Course helps students, professionals, freelancers, entrepreneurs, and career switchers build practical digital marketing skills through live projects, assignments, and hands-on activities designed for real industry opportunities.
                     </p>
                 </div>
 

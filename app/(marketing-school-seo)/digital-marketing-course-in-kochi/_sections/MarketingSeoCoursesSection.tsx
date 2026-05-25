@@ -22,8 +22,8 @@ type CourseDatum = {
 const COURSES: readonly CourseDatum[] = [
     {
         pill: "Online | 5 Months",
-        title: "5 Months Online Digital Marketing Course in Kochi",
-        description: "Attend live interactive sessions from home while gaining the same practical exposure and mentor access.",
+        title: "5 Months Online Digital Marketing Course",
+        description: "Learn from home with live sessions and mentor guidance.",
         features: [
             "Real-time classes",
             "Live projects and assignments",
@@ -35,10 +35,10 @@ const COURSES: readonly CourseDatum[] = [
     },
     {
         pill: "Offline | 6 Months",
-        title: "5+1 Months Offline Digital Marketing Course at Calicut Campus",
-        description: "Prefer learning in a classroom environment? Our Calicut campus offers in-person practical training with mentor guidance and collaborative learning.",
+        title: "5+1 Months Offline Digital Marketing Course at HACA Kozhikode Campus",
+        description: "Join our Calicut campus experience with mentor interaction and practical exposure.",
         features: [
-            "3 Months Core Learning + 1 Month Specialisation",
+            "5 Months Core Learning + 1 Month Specialisation",
             "AI-powered learning approach",
             "Project-driven assignments",
             "Peer collaboration",
@@ -62,8 +62,8 @@ const COURSES: readonly CourseDatum[] = [
     },
 ];
 
-const INTRO_BLOCK = { heading: "Flexible Learning Options Designed Around You" } as const;
-const BETWEEN_BLOCK = { heading: "Marketing School Mastery Series", body: "Short-term specialisation programs for learners who want focused expertise." } as const;
+const INTRO_BLOCK = { heading: "Flexible Learning Options Designed Around Your Schedule" } as const;
+const BETWEEN_BLOCK = { heading: "Marketing School Mastery Series", body: "Specialised programs designed for learners who want focused skill development." } as const;
 
 function ScheduleRow({ iconSrc, label }: { iconSrc: string; label: string }) {
     return (

@@ -172,6 +172,8 @@ export default function AdminPage() {
   const [blogFaqs, setBlogFaqs] = useState<{ question: string; answer: string }[]>([]);
   const [editingBlogId, setEditingBlogId] = useState<string | null>(null);
   const blogFormRef = useRef<HTMLElement>(null);
+  // Author picker
+  const [selectedAuthorId, setSelectedAuthorId] = useState<string>("");
 
   // ─── Toast ──────────────────────────────────────────────────────────────────
 
@@ -458,6 +460,7 @@ export default function AdminPage() {
     setBlogAuthorPhotoFile(null);
     setBlogAuthorPhotoUrl("");
     setEditingBlogId(null);
+    setSelectedAuthorId("");
   }
 
   function handleCancelEdit() {
@@ -1420,7 +1423,7 @@ export default function AdminPage() {
                     />
                   </div>
 
-                  {/* Row 2: Existing author picker */}
+                  {/* Row 2: Author picker from existing blogs */}
                   {(() => {
                     const seen = new Set<string>();
                     const uniqueAuthors = blogs.filter((b) => {
@@ -1428,33 +1431,84 @@ export default function AdminPage() {
                       seen.add(b.authorName.trim());
                       return true;
                     });
-                    if (uniqueAuthors.length === 0) return null;
+                    const pickedAuthor = uniqueAuthors.find((b) => b._id === selectedAuthorId) ?? null;
                     return (
                       <div className="space-y-2">
                         <label className="text-xs font-medium text-[#A7ADBE]">
-                          Select existing author <span className="font-normal text-[#8890a0]">(auto-fills fields below)</span>
+                          Select existing author{" "}
+                          <span className="font-normal text-[#8890a0]">(auto-fills fields below)</span>
                         </label>
                         <select
-                          className="w-full cursor-pointer appearance-none rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
-                          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371717a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 1rem center", backgroundSize: "1rem" }}
-                          value=""
+                          className="w-full cursor-pointer appearance-none rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20 disabled:opacity-40 disabled:cursor-not-allowed"
+                          style={{
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371717a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "right 1rem center",
+                            backgroundSize: "1rem",
+                          }}
+                          value={selectedAuthorId}
+                          disabled={uniqueAuthors.length === 0}
                           onChange={(e) => {
-                            const picked = uniqueAuthors.find((b) => b.authorName.trim() === e.target.value);
-                            if (!picked) return;
-                            setBlogAuthorName(picked.authorName.trim());
-                            setBlogAuthorRole(picked.authorRole?.trim() ?? "");
-                            setBlogAuthorBio(picked.authorBio?.trim() ?? "");
-                            setBlogAuthorPhotoUrl(picked.authorPhotoUrl?.trim() ?? "");
+                            const id = e.target.value;
+                            setSelectedAuthorId(id);
+                            const author = uniqueAuthors.find((b) => b._id === id);
+                            if (!author) return;
+                            setBlogAuthorName(author.authorName.trim());
+                            setBlogAuthorRole(author.authorRole?.trim() ?? "");
+                            setBlogAuthorBio(author.authorBio?.trim() ?? "");
+                            setBlogAuthorPhotoUrl(author.authorPhotoUrl?.trim() ?? "");
                             setBlogAuthorPhotoFile(null);
                           }}
                         >
-                          <option value="" className="bg-[#1a1f2e] text-[#8890a0]">— pick an author —</option>
+                          <option value="" className="bg-[#1a1f2e] text-[#8890a0]">
+                            {uniqueAuthors.length === 0 ? "— no authors saved yet —" : "— pick an author —"}
+                          </option>
                           {uniqueAuthors.map((b) => (
-                            <option key={b._id} value={b.authorName.trim()} className="bg-[#1a1f2e] text-white">
+                            <option key={b._id} value={b._id} className="bg-[#1a1f2e] text-white">
                               {b.authorName.trim()}{b.authorRole ? ` · ${b.authorRole}` : ""}
                             </option>
                           ))}
                         </select>
+
+                        {/* Preview card shown after picking an author */}
+                        {pickedAuthor && (
+                          <div className="flex items-center gap-3 rounded-xl border border-[#4C75FF]/25 bg-[#4C75FF]/[0.07] px-4 py-3">
+                            {pickedAuthor.authorPhotoUrl ? (
+                              <img
+                                src={pickedAuthor.authorPhotoUrl}
+                                alt={pickedAuthor.authorName}
+                                className="w-11 h-11 rounded-full object-cover ring-1 ring-white/20 shrink-0"
+                              />
+                            ) : (
+                              <div className="w-11 h-11 rounded-full bg-white/10 ring-1 ring-white/20 shrink-0 flex items-center justify-center text-base font-semibold text-[#9aa3b8]">
+                                {pickedAuthor.authorName.trim()[0]?.toUpperCase()}
+                              </div>
+                            )}
+                            <div className="min-w-0 flex-1">
+                              <p className="text-sm font-medium text-white truncate">{pickedAuthor.authorName}</p>
+                              {pickedAuthor.authorRole && (
+                                <p className="text-xs text-[#9aa3b8] truncate">{pickedAuthor.authorRole}</p>
+                              )}
+                              {pickedAuthor.authorBio && (
+                                <p className="mt-0.5 text-[11px] text-[#8890a0] line-clamp-1">{pickedAuthor.authorBio}</p>
+                              )}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedAuthorId("");
+                                setBlogAuthorName("");
+                                setBlogAuthorRole("");
+                                setBlogAuthorBio("");
+                                setBlogAuthorPhotoUrl("");
+                                setBlogAuthorPhotoFile(null);
+                              }}
+                              className="shrink-0 rounded-lg border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[11px] font-medium text-[#9aa3b8] transition hover:bg-white/10 hover:text-white"
+                            >
+                              Clear
+                            </button>
+                          </div>
+                        )}
                       </div>
                     );
                   })()}
