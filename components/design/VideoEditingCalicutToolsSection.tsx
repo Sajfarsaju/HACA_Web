@@ -13,45 +13,89 @@ const LOGO_W = 80.51939392089844;
 const LOGO_H = 78.50642395019531;
 const LOGO_GAP = 20;
 
-/** Display order: desktop 6+5 rows; mobile 4+4+3 (matches mockups) */
-const TOOLS = [
-    { file: "premiere.svg", name: "Adobe Premiere Pro" },
-    { file: "ChatGPT_logo_Square logo.svg", name: "DaVinci Resolve" },
-    { file: "skill-icons_audition.svg", name: "Adobe Audition" },
-    { file: "ChatGPT_logo_Square logo (1).svg", name: "Google" },
-    { file: "ChatGPT_logo_Square logo.svg", name: "ChatGPT" },
-    { file: "Group 41610.svg", name: "Framer" },
-    { file: "Group 2.svg", name: "Spline" },
-    { file: "Group 7.svg", name: "Pictory" },
-    { file: "Group 3.svg", name: "CapCut" },
-    { file: "Group 4.svg", name: "Runway" },
-    { file: "Group 6.svg", name: "ElevenLabs" },
-] as const;
-
-const ROW_ONE = TOOLS.slice(0, 6);
-const ROW_TWO = TOOLS.slice(6);
-const MOBILE_ROW_ONE = TOOLS.slice(0, 4);
-const MOBILE_ROW_TWO = TOOLS.slice(4, 8);
-const MOBILE_ROW_THREE = TOOLS.slice(8, 11);
-
 const ROW_ONE_W = 584.5012817382812;
 const ROW_TWO_W = 482.59698486328125;
 
+/** Mobile tools grid — Figma frame */
+const MOBILE_FRAME_W = 330;
+const MOBILE_FRAME_H = 249.0718994140625;
+const MOBILE_ROW_GAP = 20;
+/** Slightly tighter than row gap so 4 icons fit 330px width */
+const MOBILE_ICON_GAP = 14;
+/** ~72px at 330px frame width with 14px icon gaps */
+const MOBILE_LOGO_H = (MOBILE_FRAME_H - 2 * MOBILE_ROW_GAP) / 3;
+type ToolAsset = { file: string; name: string };
+
+const TOOL_ASSETS = {
+    premiere: { file: "premiere.svg", name: "Adobe Premiere Pro" },
+    davinci: { file: "ChatGPT_logo_Square logo.svg", name: "DaVinci Resolve" },
+    audition: { file: "skill-icons_audition.svg", name: "Adobe Audition" },
+    google: { file: "ChatGPT_logo_Square logo (1).svg", name: "Google" },
+    chatgpt: { file: "Group 5.svg", name: "ChatGPT" },
+    figma: { file: "Group 41610.svg", name: "Figma" },
+    capcut: { file: "Group 2.svg", name: "CapCut" },
+    inshot: { file: "Group 7.svg", name: "InShot" },
+    midjourney: { file: "Group 3.svg", name: "Midjourney" },
+    runway: { file: "Group 4.svg", name: "Runway" },
+    elevenlabs: { file: "Group 6.svg", name: "ElevenLabs" },
+} as const satisfies Record<string, ToolAsset>;
+
+type ToolKey = keyof typeof TOOL_ASSETS;
+
+/** Desktop — 6 + 5 (second mockup) */
+const DESKTOP_ROW_ONE_KEYS: ToolKey[] = [
+    "premiere",
+    "davinci",
+    "audition",
+    "google",
+    "chatgpt",
+    "figma",
+];
+const DESKTOP_ROW_TWO_KEYS: ToolKey[] = [
+    "capcut",
+    "inshot",
+    "midjourney",
+    "runway",
+    "elevenlabs",
+];
+
+/** Mobile — 4 + 4 + 3 (first mockup) */
+const MOBILE_ROW_ONE_KEYS = DESKTOP_ROW_ONE_KEYS.slice(0, 4);
+const MOBILE_ROW_TWO_KEYS: ToolKey[] = [
+    "capcut",
+    "inshot",
+    "midjourney",
+    "runway",
+];
+const MOBILE_ROW_THREE_KEYS: ToolKey[] = ["chatgpt", "figma", "elevenlabs"];
+
 function toolSrc(file: string) {
     return `${TOOLS_BASE}/${encodeURIComponent(file)}`;
+}
+
+function resolveTools(keys: readonly ToolKey[]): ToolAsset[] {
+    return keys.map((key) => TOOL_ASSETS[key]);
 }
 
 function ToolLogo({
     file,
     name,
     size = "desktop",
+    width,
+    height,
 }: {
     file: string;
     name: string;
     size?: "desktop" | "mobile";
+    width?: number;
+    height?: number;
 }) {
-    const w = size === "desktop" ? LOGO_W : "clamp(56px, 20vw, 80.51939392089844px)";
-    const h = size === "desktop" ? LOGO_H : "clamp(54px, 19.5vw, 78.50642395019531px)";
+    const w =
+        width ??
+        (size === "desktop"
+            ? LOGO_W
+            : `calc((min(100%, ${MOBILE_FRAME_W}px) - ${3 * MOBILE_ICON_GAP}px) / 4)`);
+    const h = height ?? (size === "desktop" ? LOGO_H : MOBILE_LOGO_H);
 
     return (
         <div className="relative shrink-0" style={{ width: w, height: h }}>
@@ -60,7 +104,7 @@ function ToolLogo({
                 alt={name}
                 fill
                 className="object-contain"
-                sizes="81px"
+sizes={size === "desktop" ? "81px" : "72px"}
             />
         </div>
     );
@@ -71,23 +115,44 @@ function LogoRow({
     width,
     className,
     logoSize = "desktop",
+    gap = LOGO_GAP,
+    iconWidth,
+    iconHeight,
 }: {
-    tools: ReadonlyArray<{ file: string; name: string }>;
-    width: number;
+    tools: ReadonlyArray<ToolAsset>;
+    width?: number;
     className?: string;
     logoSize?: "desktop" | "mobile";
+    gap?: number;
+    iconWidth?: number;
+    iconHeight?: number;
 }) {
     return (
         <div
-            className={["flex items-center justify-center gap-[20px]", className].filter(Boolean).join(" ")}
-            style={{ width, minHeight: LOGO_W }}
+            className={[
+                "flex flex-nowrap items-center justify-center",
+                className,
+            ]
+                .filter(Boolean)
+                .join(" ")}
+            style={{
+                width: width ?? "100%",
+                maxWidth: width ?? "100%",
+                gap,
+                minHeight:
+                    logoSize === "desktop"
+                        ? LOGO_H
+                        : iconHeight ?? MOBILE_LOGO_H,
+            }}
         >
-            {tools.map((tool, index) => (
+            {tools.map((tool) => (
                 <ToolLogo
-                    key={`${tool.file}-${tool.name}-${index}`}
+                    key={tool.file}
                     file={tool.file}
                     name={tool.name}
                     size={logoSize}
+                    width={iconWidth}
+                    height={iconHeight}
                 />
             ))}
         </div>
@@ -95,6 +160,12 @@ function LogoRow({
 }
 
 export function VideoEditingCalicutToolsSection() {
+    const desktopRowOne = resolveTools(DESKTOP_ROW_ONE_KEYS);
+    const desktopRowTwo = resolveTools(DESKTOP_ROW_TWO_KEYS);
+    const mobileRowOne = resolveTools(MOBILE_ROW_ONE_KEYS);
+    const mobileRowTwo = resolveTools(MOBILE_ROW_TWO_KEYS);
+    const mobileRowThree = resolveTools(MOBILE_ROW_THREE_KEYS);
+
     return (
         <section className="w-full bg-white" aria-labelledby="video-calicut-tools-heading">
             <div
@@ -104,7 +175,6 @@ export function VideoEditingCalicutToolsSection() {
                     "lg:min-h-[422.89569091796875] lg:gap-[40px] lg:px-[60px] lg:py-[60px]",
                 ].join(" ")}
             >
-                {/* Heading — 965×54 */}
                 <div className="flex w-full max-w-[965px] min-h-[54px] items-center justify-center">
                     <h2
                         id="video-calicut-tools-heading"
@@ -115,50 +185,48 @@ export function VideoEditingCalicutToolsSection() {
                     </h2>
                 </div>
 
-                {/* Desktop — logos block 584.5×208.9; row 2 centered (482.6px) */}
+                {/* Desktop — 6 + 5 centered rows */}
                 <div
-                    className="hidden flex-col items-center gap-[20px] lg:flex"
+                    className="hidden w-full flex-col items-center gap-[20px] lg:flex"
                     style={{
-                        width: 584.5012817382812,
+                        width: ROW_ONE_W,
+                        maxWidth: "100%",
                         minHeight: 208.8957061767578,
                     }}
                 >
-                    <LogoRow tools={ROW_ONE} width={ROW_ONE_W} />
-                    <LogoRow tools={ROW_TWO} width={ROW_TWO_W} />
+                    <LogoRow tools={desktopRowOne} width={ROW_ONE_W} />
+                    <LogoRow tools={desktopRowTwo} width={ROW_TWO_W} />
                 </div>
 
-                {/* Mobile — 4 + 4 + 3 rows (2nd mockup) */}
-                <div className="flex w-full max-w-[min(100%,360px)] flex-col items-center gap-5 lg:hidden">
-                    <div className="grid w-full grid-cols-4 place-items-center gap-x-5 gap-y-5">
-                        {MOBILE_ROW_ONE.map((tool, index) => (
-                            <ToolLogo
-                                key={`m1-${tool.name}-${index}`}
-                                file={tool.file}
-                                name={tool.name}
-                                size="mobile"
-                            />
-                        ))}
-                    </div>
-                    <div className="grid w-full grid-cols-4 place-items-center gap-x-5 gap-y-5">
-                        {MOBILE_ROW_TWO.map((tool, index) => (
-                            <ToolLogo
-                                key={`m2-${tool.name}-${index}`}
-                                file={tool.file}
-                                name={tool.name}
-                                size="mobile"
-                            />
-                        ))}
-                    </div>
-                    <div className="grid w-full grid-cols-3 place-items-center justify-items-center gap-x-5 gap-y-5">
-                        {MOBILE_ROW_THREE.map((tool, index) => (
-                            <ToolLogo
-                                key={`m3-${tool.name}-${index}`}
-                                file={tool.file}
-                                name={tool.name}
-                                size="mobile"
-                            />
-                        ))}
-                    </div>
+                {/* Mobile — 330×249 frame, 4 + 4 + 3 rows, 20px row gap */}
+                <div
+                    className="mx-auto box-border flex w-full max-w-[330px] flex-col items-center lg:hidden"
+                    style={{
+                        minHeight: MOBILE_FRAME_H,
+                        gap: MOBILE_ROW_GAP,
+                    }}
+                >
+                    <LogoRow
+                        tools={mobileRowOne}
+                        logoSize="mobile"
+                        className="w-full"
+                        gap={MOBILE_ICON_GAP}
+                        iconHeight={MOBILE_LOGO_H}
+                    />
+                    <LogoRow
+                        tools={mobileRowTwo}
+                        logoSize="mobile"
+                        className="w-full"
+                        gap={MOBILE_ICON_GAP}
+                        iconHeight={MOBILE_LOGO_H}
+                    />
+                    <LogoRow
+                        tools={mobileRowThree}
+                        logoSize="mobile"
+                        className="w-full"
+                        gap={MOBILE_ICON_GAP}
+                        iconHeight={MOBILE_LOGO_H}
+                    />
                 </div>
             </div>
         </section>

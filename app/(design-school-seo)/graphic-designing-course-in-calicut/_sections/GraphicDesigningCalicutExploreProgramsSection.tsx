@@ -23,27 +23,7 @@ type ProgramCard = {
     href: string;
 };
 
-const IMG_1309 = `/photos/schools/design/seo/${encodeURIComponent("IMG_1309 (1) 1.png")}`;
-
 const PROGRAMS: ProgramCard[] = [
-    {
-        id: "creative-design",
-        bg: "#FF5C00",
-        badge: { mode: "Online", duration: "6 Months" },
-        title: "Creative Design and\nCommunication",
-        description:
-            "This offline flagship CDC course supports you in learning graphic design, video editing, UI/UX, and more, while also offering opportunities to work on real projects through a one-month internship opportunity.",
-        button: { bg: "#8F56FF", fg: "#FFFFFF" },
-        imageSrc: IMG_1309,
-        imageAlt: "Creative Design and Communication",
-        imageWrapClassName:
-            "absolute bottom-0 left-0 w-[240px] sm:w-[280px] lg:w-[330px] h-[240px] sm:h-[300px] lg:h-[380px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-bottom object-left",
-        contentWrapClassName: "ml-auto w-full max-w-[300px] lg:max-w-[320px] text-left",
-        titleMaxWidthClassName: "max-w-[260px] lg:max-w-[280px]",
-        descriptionMaxWidthClassName: "max-w-[280px]",
-        href: "/design-school/courses/creative-design",
-    },
     {
         id: "ai-graphic",
         bg: "#8F56FF",

@@ -139,15 +139,21 @@ export function VideoEditingCalicutWhatYouLearnSection() {
                 <header className="mx-auto flex w-full max-w-[1320px] flex-col items-center gap-4 text-center lg:gap-5">
                     <h2
                         id="video-calicut-what-you-learn"
-                        className={`m-0 w-full max-w-[343px] text-[26px] leading-[110%] tracking-[-0.02em] text-[#000000] sm:max-w-[400px] sm:text-[30px] lg:max-w-[655px] lg:text-[45px] ${dmSans.className}`}
-                        style={{ fontWeight: 500, fontStyle: "normal" }}
+                        className={`m-0 w-full max-w-[min(100%,720px)] text-center text-[#000000] ${dmSans.className}`}
+                        style={{
+                            fontWeight: 500,
+                            fontStyle: "normal",
+                            fontSize: "clamp(28px, 8.5vw, 35px)",
+                            lineHeight: "110%",
+                            letterSpacing: "-0.02em",
+                        }}
                     >
-                        <span className="hidden lg:inline">
-                            What You&apos;ll Learn in this Video
-                            <br />
-                            Editing Course in Calicut
-                        </span>
                         <span className="lg:hidden">
+                            <span className="block">What You&apos;ll Learn in</span>
+                            <span className="block">this Video Editing</span>
+                            <span className="block">Course in Calicut</span>
+                        </span>
+                        <span className="hidden lg:inline">
                             What You&apos;ll Learn in this Video
                             <br />
                             Editing Course in Calicut
