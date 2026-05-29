@@ -15,9 +15,11 @@ type ProgramCard = {
     imageAlt?: string;
     hideImage?: boolean;
     imageWrapClassName: string;
+    imageWrapStyle?: React.CSSProperties;
     imageObjectClassName: string;
     imageStyle?: React.CSSProperties;
     contentWrapClassName: string;
+    cardBodyClassName?: string;
     titleMaxWidthClassName?: string;
     descriptionMaxWidthClassName?: string;
     href: string;
@@ -25,7 +27,7 @@ type ProgramCard = {
 
 const IMG_1309 = `/photos/schools/design/seo/${encodeURIComponent("IMG_1309 (1) 1.png")}`;
 
-/** Same image positions/sizes as GraphicDesigningCalicutExploreProgramsSection — video card omitted. */
+/** Four program cards; creative-design uses Figma image placement (IMG_1309 on the right). */
 const PROGRAMS: ProgramCard[] = [
     {
         id: "creative-design",
@@ -36,10 +38,15 @@ const PROGRAMS: ProgramCard[] = [
             "This offline flagship CDC course supports you in learning graphic design, video editing, UI/UX, and more, while also offering opportunities to work on real projects through a one-month internship opportunity.",
         imageSrc: IMG_1309,
         imageAlt: "Creative Design and Communication",
-        imageWrapClassName:
-            "absolute bottom-0 left-0 w-[240px] sm:w-[280px] lg:w-[330px] h-[240px] sm:h-[300px] lg:h-[380px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-bottom object-left",
-        contentWrapClassName: "ml-auto w-full max-w-[300px] lg:max-w-[320px] text-left",
+        imageWrapClassName: [
+            "pointer-events-none absolute z-[1] select-none opacity-100",
+            "top-[clamp(96px,30.2%,182.68px)] left-[clamp(16px,34.53%,221px)]",
+            "h-auto w-[min(400px,62.5%)] aspect-[400/405.39]",
+            "lg:top-[182.68px] lg:left-[221px] lg:h-[405.3878173828125px] lg:w-[400px] lg:aspect-auto",
+        ].join(" "),
+        imageObjectClassName: "h-full w-full object-contain object-bottom",
+        contentWrapClassName: "w-full max-w-[min(280px,52%)] text-left",
+        cardBodyClassName: "flex min-h-0 flex-1 flex-col justify-between gap-4",
         titleMaxWidthClassName: "max-w-[260px] lg:max-w-[280px]",
         descriptionMaxWidthClassName: "max-w-[280px]",
         href: "/design-school/courses/creative-design",
@@ -214,33 +221,40 @@ function ProgramCardView(p: ProgramCard) {
             <div className="relative z-[2] flex h-full min-h-[316px] w-full flex-col gap-4 p-[20px] lg:p-[20px] xl:p-[30px]">
                 <ExploreBadge mode={p.badge.mode} duration={p.badge.duration} accent={p.bg} />
 
-                <div className={["flex w-full flex-col gap-3", p.contentWrapClassName].join(" ")}>
-                    <h3
-                        className={["m-0 text-white", p.titleMaxWidthClassName ?? ""].join(" ").trim()}
-                        style={{
-                            fontFamily: vc,
-                            fontWeight: 600,
-                            fontStyle: "normal",
-                            fontSize: "clamp(22px, 2.4vw, 34px)",
-                            lineHeight: "110%",
-                            letterSpacing: "-0.02em",
-                            whiteSpace: "pre-line",
-                        }}
-                    >
-                        {titleLines.join("\n")}
-                    </h3>
+                <div
+                    className={[
+                        "flex w-full flex-col",
+                        p.cardBodyClassName ?? "gap-3",
+                    ].join(" ")}
+                >
+                    <div className={["flex w-full flex-col gap-3", p.contentWrapClassName].join(" ")}>
+                        <h3
+                            className={["m-0 text-white", p.titleMaxWidthClassName ?? ""].join(" ").trim()}
+                            style={{
+                                fontFamily: vc,
+                                fontWeight: 600,
+                                fontStyle: "normal",
+                                fontSize: "clamp(22px, 2.4vw, 34px)",
+                                lineHeight: "110%",
+                                letterSpacing: "-0.02em",
+                                whiteSpace: "pre-line",
+                            }}
+                        >
+                            {titleLines.join("\n")}
+                        </h3>
 
-                    <p
-                        className={["m-0 text-white/85", p.descriptionMaxWidthClassName ?? ""].join(" ").trim()}
-                        style={{
-                            fontFamily: vc,
-                            fontWeight: 400,
-                            fontSize: 13,
-                            lineHeight: "120%",
-                        }}
-                    >
-                        {p.description}
-                    </p>
+                        <p
+                            className={["m-0 text-white/85", p.descriptionMaxWidthClassName ?? ""].join(" ").trim()}
+                            style={{
+                                fontFamily: vc,
+                                fontWeight: 400,
+                                fontSize: 13,
+                                lineHeight: "120%",
+                            }}
+                        >
+                            {p.description}
+                        </p>
+                    </div>
 
                     <div className="pt-2" style={{ width: "max-content" }}>
                         <KnowMoreButton />
@@ -255,7 +269,11 @@ function ProgramCardView(p: ProgramCard) {
             />
 
             {!p.hideImage && p.imageSrc ? (
-                <div className={[p.imageWrapClassName, "z-[1] overflow-hidden"].join(" ")} aria-hidden>
+                <div
+                    className={p.imageWrapClassName}
+                    style={p.imageWrapStyle}
+                    aria-hidden
+                >
                     <img
                         src={p.imageSrc}
                         alt={p.imageAlt ?? ""}
