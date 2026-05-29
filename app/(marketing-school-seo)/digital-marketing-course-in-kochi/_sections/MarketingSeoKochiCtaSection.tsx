@@ -5,7 +5,7 @@ import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArro
 const HEADING_ID = "marketing-seo-kochi-cta-heading";
 
 const BODY_COPY =
-    "The skills you learn today can lead to exciting career opportunities, freelance projects, or even help you build something of your own. Start now and give your future a stronger direction.";
+    "The right skills today can lead to jobs, freelance opportunities, and bigger possibilities tomorrow.";
 
 function ReserveSpotCta() {
     return (
@@ -34,8 +34,8 @@ export function MarketingSeoKochiCtaSection() {
                             id={HEADING_ID}
                             className="m-0 w-full max-w-[268px] text-center font-semibold tracking-[-0.01em] text-white [font-family:'Darker_Grotesque',sans-serif] text-[36px] leading-[1.1] [text-rendering:geometricPrecision] lg:mx-auto lg:w-fit lg:max-w-none lg:text-[68px]"
                         >
-                            <span className="block lg:whitespace-nowrap">Your Next Big Opportunity</span>
-                            <span className="block lg:whitespace-nowrap">Could Start Here</span>
+                            <span className="block lg:whitespace-nowrap">Your Digital Marketing Career</span>
+                            <span className="block lg:whitespace-nowrap">Could Start with One Decision</span>
                         </h2>
                         <p className="m-0 w-full font-normal leading-[1.5] tracking-normal text-[#FFFFFFE5] [font-family:'Satoshi',sans-serif] text-[16px] lg:max-w-[500px]">
                             {BODY_COPY}

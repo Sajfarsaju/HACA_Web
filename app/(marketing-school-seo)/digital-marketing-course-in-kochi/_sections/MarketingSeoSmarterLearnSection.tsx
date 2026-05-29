@@ -12,43 +12,43 @@ type FeatureItem = {
 
 const FEATURES: FeatureItem[] = [
     {
-        titleLines: ["Live Projects", "& Internship"],
-        description: "You'll work on real campaigns and gain internship experience with live projects that prepare you for actual industry roles.",
+        titleLines: ["Live Projects", "and Activities"],
+        description: "Gain practical experience through projects and industry activities.",
         iconSrc: "/photos/schools/marketing/features/Student.svg",
     },
     {
-        titleLines: ["Industry Expert", "Mentors"],
-        description: "Learn from marketers with real industry experience, not just trainers reading slides.",
+        titleLines: ["Industry", "Mentors"],
+        description: "Learn directly from professionals with hands-on experience.",
         iconSrc: "/photos/schools/marketing/features/Handshake.svg",
     },
     {
         titleLines: ["Full Career", "Support"],
-        description: "HACA's placement support team helps students prepare for interviews, resumes, portfolios, and real hiring processes.",
+        description: "Get help with resumes, interviews, portfolio preparation and placement guidance.",
         iconSrc: "/photos/schools/marketing/features/Globe.svg",
     },
     {
-        titleLines: ["Learn by", "Doing"],
-        description: "Work on real campaigns, run ads, and create SEO friendly websites with practical exercises.",
+        titleLines: ["Learn Through", "Execution"],
+        description: "Create campaigns, optimise websites and build strategies.",
         iconSrc: "/photos/schools/marketing/features/Laptop.svg",
     },
     {
-        titleLines: ["One-on-One", "Mentorship"],
-        description: "Get personalised feedback and support tailored to your growth.",
+        titleLines: ["One-to-One", "Mentor Support"],
+        description: "Get personalised guidance and feedback.",
         iconSrc: "/photos/schools/marketing/features/Browsers.svg",
     },
     {
-        titleLines: ["Industry Insights", "& Guest Talks"],
-        description: "Stay ahead with the latest trends and insider knowledge from top pros.",
+        titleLines: ["Guest Sessions", "and Industry Talks"],
+        description: "Stay updated with current industry insights.",
         iconSrc: "/photos/schools/marketing/features/Lightbulb.svg",
     },
     {
-        titleLines: ["Build Your", "Portfolio"],
-        description: "Stand out to recruiters with real projects you complete during the course.",
+        titleLines: ["Portfolio", "Development"],
+        description: "Build projects that help showcase your abilities.",
         iconSrc: "/photos/schools/marketing/features/Users.svg",
     },
     {
-        titleLines: ["Adaptable EMI", "Options"],
-        description: "Alongside career guidance, we also offer flexible EMI plans to make learning more accessible.",
+        titleLines: ["Flexible EMI", "Options"],
+        description: "Learning becomes more accessible with payment flexibility.",
         iconSrc: "/photos/schools/marketing/features/tdesign_money.svg",
     },
 ];
@@ -85,13 +85,13 @@ export function MarketingSeoSmarterLearnSection() {
                             id={TITLE_ID}
                             className="m-0 font-semibold tracking-normal [font-family:'Darker_Grotesque',sans-serif] text-[36px] leading-[95%] text-black [text-rendering:geometricPrecision] lg:text-[clamp(34px,3.4vw,50px)] lg:leading-[115%]"
                         >
-                            Learn Smarter Through Real Experiences
+                            Why Learners Prefer HACA
                         </h2>
                         <p
                             className="m-0 text-[16px] font-medium leading-[140%] tracking-normal text-black/70 lg:text-[18px] lg:leading-[150%]"
                             style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500 }}
                         >
-                            HACA&apos;s hands-on, learn-by-doing method enables students to build practical digital marketing experience from day one.
+                            HACA follows a learning approach where students practice from day one.
                         </p>
                     </header>
 

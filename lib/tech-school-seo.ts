@@ -16,64 +16,34 @@ export type DataAnalyticsKeralaFaqItem = {
 
 export const DATA_ANALYTICS_KERALA_FAQS: DataAnalyticsKeralaFaqItem[] = [
     {
-        id: "da-kerala-faq-1",
-        question: "Who can join HACA's Data Analytics Course in Kerala?",
+        id: "da-kerala-faq-best-beginners",
+        question: "Which is the best Data Analytics Course in Kerala for beginners?",
         answer:
-            "Anyone with curiosity for data can join — students, fresh graduates, working professionals, career switchers, and business owners. No prior programming or statistics background is required. The course is designed to take you from fundamentals to job-ready skills.",
+            "HACA Tech School offers a beginner-friendly Data Analytics Course in Kerala with AI-integrated learning, real projects, small cohort training, and placement support.",
     },
     {
-        id: "da-kerala-faq-2",
-        question: "What tools and technologies will I learn in this course?",
+        id: "da-kerala-faq-no-coding",
+        question: "Can I learn Data Analytics without coding experience?",
         answer:
-            "You will learn Python, SQL, Excel, Power BI, Tableau, and AI-driven analytics tools. The curriculum covers data cleaning, exploratory data analysis, data visualisation, statistical analysis, and real-world business analytics projects.",
+            "Yes, you can learn data analytics without coding experience. At HACA Tech School, we teach Python and all core concepts from scratch.",
     },
     {
-        id: "da-kerala-faq-3",
-        question: "How long is the Data Analytics Course in Kerala?",
+        id: "da-kerala-faq-career",
+        question: "Is Data Analytics a good career option in Kerala?",
         answer:
-            "The course runs for 5 months with live interactive sessions. Both online and offline formats are available. Online batches are accessible from anywhere in Kerala. Offline training is available at HACA's Kozhikode campus. Both cover the same curriculum with hands-on projects, mentorship, and placement support.",
+            "Yes, Data Analytics is one of the fastest-growing career paths, with opportunities across IT, healthcare, finance, e-commerce, marketing, and startups.",
     },
     {
-        id: "da-kerala-faq-4",
-        question: "Do I need programming knowledge to join the data analytics course?",
+        id: "da-kerala-faq-who-can-join",
+        question: "Who can join this Data Analytics Course?",
         answer:
-            "No prior programming knowledge is required. The course begins with Python and SQL from scratch, making it accessible for complete beginners. Students who already have a programming background will find the pace comfortable and can focus on applying skills directly to real datasets.",
+            "Students, fresh graduates, working professionals, freelancers, entrepreneurs, and career switchers can join this data analytics course.",
     },
     {
-        id: "da-kerala-faq-5",
-        question: "What is the salary for a data analyst in Kerala?",
+        id: "da-kerala-faq-cohort",
+        question: "What is cohort-based learning?",
         answer:
-            "Entry-level data analysts in Kerala typically earn between ₹20,000 and ₹45,000 per month depending on skills, tools expertise, and the employer. Analysts with strong Python, SQL, and Power BI skills at tech companies, startups, or MNCs can earn significantly more. Freelance and remote data analytics roles are also growing rapidly.",
-    },
-    {
-        id: "da-kerala-faq-6",
-        question: "Is the Data Analytics Course available online from anywhere in Kerala?",
-        answer:
-            "Yes. HACA's online Data Analytics Course is available to learners from across Kerala — including Kochi, Thiruvananthapuram, Thrissur, Kozhikode, Kannur, Kollam, Palakkad, and all other districts. Live sessions are conducted in the evening to suit working professionals and students.",
-    },
-    {
-        id: "da-kerala-faq-7",
-        question: "What career roles can I pursue after completing the course?",
-        answer:
-            "After completing the Data Analytics Course, you can pursue roles such as Data Analyst, Business Intelligence Analyst, SQL Analyst, Power BI Developer, Python Data Analyst, Marketing Analyst, Operations Analyst, and Reporting Analyst. The course also prepares you for freelance data projects and remote roles.",
-    },
-    {
-        id: "da-kerala-faq-8",
-        question: "Will I get placement support after the data analytics course?",
-        answer:
-            "Yes. HACA provides placement assistance including resume building, portfolio guidance, mock interviews, and access to our hiring network. Both online and offline students receive career support to help them find data analytics opportunities.",
-    },
-    {
-        id: "da-kerala-faq-9",
-        question: "What is the difference between data analytics and data science?",
-        answer:
-            "Data analytics focuses on examining existing datasets to draw conclusions, identify trends, and support business decisions using tools like SQL, Excel, Python, and Power BI. Data science is broader and involves building predictive models and machine learning systems. HACA's Data Analytics Course builds the foundational skills that are relevant to both fields.",
-    },
-    {
-        id: "da-kerala-faq-10",
-        question: "How do I enrol in HACA's Data Analytics Course in Kerala?",
-        answer:
-            "You can enrol by clicking the Join Now or Book Your Seat button on this page. Alternatively, call us or fill out the enquiry form and our team will guide you through batch options, schedule, and fee details.",
+            "Cohort based learning means learning in small batches with direct mentor interaction, collaboration, and personalized attention.",
     },
 ];
 
