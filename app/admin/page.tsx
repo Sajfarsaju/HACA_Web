@@ -608,6 +608,27 @@ export default function AdminPage() {
     }
   }
 
+  async function handleBlogVideoUpload(file: File): Promise<string> {
+    if (!token) throw new Error("Not authenticated");
+    const form = new FormData();
+    form.append("video", file);
+    try {
+      const { data } = await axios.post(
+        `${backendUrl}/api/admin/upload-video`,
+        form,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          timeout: 5 * 60 * 1000, // 5 min — large video files need extra time
+        }
+      );
+      if (!data.url) throw new Error("Upload succeeded but no URL returned");
+      return data.url as string;
+    } catch (e: unknown) {
+      handleAuthError(e);
+      throw e;
+    }
+  }
+
   function addModule() {
     if (courseModules.length >= 10) return;
     setCourseModules((prev) => [...prev, { ...EMPTY_MODULE }]);
@@ -1653,6 +1674,7 @@ export default function AdminPage() {
                       value={blogContent}
                       onChange={setBlogContent}
                       onImageUpload={handleBlogImageUpload}
+                      onVideoUpload={handleBlogVideoUpload}
                     />
                   </div>
 

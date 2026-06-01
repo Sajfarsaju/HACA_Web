@@ -37,6 +37,12 @@ export type BlogBlock =
           headers: string[]
           rows: string[][]
       }
+    | {
+          id: string
+          type: "video"
+          url: string
+          caption?: string
+      }
 
 export function isBlogBlocks(value: unknown): value is BlogBlock[] {
     if (!Array.isArray(value)) return false

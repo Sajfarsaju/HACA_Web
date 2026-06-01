@@ -151,10 +151,159 @@ export function dataAnalyticsKeralaJsonLd() {
     };
 }
 
+// ─── Python Course in Calicut ─────────────────────────────────────────────────
+
+export const PYTHON_CALICUT_SEO_PATH = "/python-course-in-calicut" as const;
+
+export type PythonCalicutFaqItem = {
+    id: string;
+    question: string;
+    answer: string;
+};
+
+export const PYTHON_CALICUT_FAQS: PythonCalicutFaqItem[] = [
+    {
+        id: "py-calicut-faq-beginner",
+        question: "Is this Python course suitable for beginners?",
+        answer:
+            "Yes, our Python program in Calicut is designed for beginners, students, fresh graduates, career switchers, and working professionals. You don't need coding experience to get started.",
+    },
+    {
+        id: "py-calicut-faq-certificate",
+        question: "Will I get a certificate after completing the course?",
+        answer:
+            "Yes, you'll receive a course completion certificate after successfully finishing the program and project requirements.",
+    },
+    {
+        id: "py-calicut-faq-ai",
+        question: "Is AI included in this training?",
+        answer:
+            "Yes, you'll learn NumPy, Pandas, Prompt Engineering, AI agents, LangChain, LangGraph and build AI-integrated applications.",
+    },
+    {
+        id: "py-calicut-faq-projects",
+        question: "What projects will I build?",
+        answer:
+            "You'll build AI-powered web applications, smart dashboards, authentication systems, AI-enabled chat applications, full-stack Django + React projects, REST API powered platforms, end-to-end Gen AI applications, and industry-ready capstone projects deployed online.",
+    },
+    {
+        id: "py-calicut-faq-why-haca",
+        question: "Why choose HACA Tech School for Python training in Calicut?",
+        answer:
+            "HACA Tech School combines Python, Django, React, and Generative AI with project-based learning, career guidance, industry exposure, and placement support to help learners become job ready.",
+    },
+];
+
+const PYTHON_CALICUT_PAGE_TITLE =
+    "Python Course in Calicut | Django, React & Gen AI Training | HACA";
+
+const PYTHON_CALICUT_PAGE_DESCRIPTION =
+    "Join HACA's Python Course in Calicut — hands-on training in Advanced Python, Django, React, REST APIs, LangChain, and Generative AI. Offline and online batches, expert mentors, real projects, and placement support. Become a job-ready AI full-stack developer in 5 months.";
+
+export function buildPythonCalicutSeoMetadata() {
+    const canonical = `${TECH_SCHOOL_SEO_SITE_URL}${PYTHON_CALICUT_SEO_PATH}`;
+
+    return {
+        title: PYTHON_CALICUT_PAGE_TITLE,
+        description: PYTHON_CALICUT_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: PYTHON_CALICUT_PAGE_TITLE,
+            description: PYTHON_CALICUT_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_IN",
+            type: "website" as const,
+        },
+        twitter: {
+            card: "summary_large_image" as const,
+            title: PYTHON_CALICUT_PAGE_TITLE,
+            description: PYTHON_CALICUT_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "python course in calicut",
+            "python training in calicut",
+            "python course calicut",
+            "best python course in calicut",
+            "python django course calicut",
+            "python full stack course calicut",
+            "python django react course",
+            "generative ai python course calicut",
+            "langchain course calicut",
+            "ai python training calicut",
+            "python course in kozhikode",
+            "python course in kerala",
+            "full stack python course calicut",
+            "HACA python course calicut",
+            "online python course calicut",
+        ],
+    };
+}
+
+export function pythonCalicutJsonLd() {
+    const url = `${TECH_SCHOOL_SEO_SITE_URL}${PYTHON_CALICUT_SEO_PATH}`;
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${url}#webpage`,
+                url,
+                name: PYTHON_CALICUT_PAGE_TITLE,
+                description: PYTHON_CALICUT_PAGE_DESCRIPTION,
+                isPartOf: {
+                    "@type": "WebSite",
+                    name: "Haris & Co Academy",
+                    url: TECH_SCHOOL_SEO_SITE_URL,
+                },
+            },
+            {
+                "@type": "Course",
+                "@id": `${url}#course`,
+                name: "Python Course in Calicut",
+                description: PYTHON_CALICUT_PAGE_DESCRIPTION,
+                provider: {
+                    "@type": "EducationalOrganization",
+                    name: "Haris & Co Academy",
+                    url: TECH_SCHOOL_SEO_SITE_URL,
+                },
+                url,
+                educationalLevel: "Beginner to Advanced",
+                courseMode: ["Onsite", "Online"],
+                inLanguage: "en",
+                areaServed: {
+                    "@type": "City",
+                    name: "Calicut",
+                    containedInPlace: {
+                        "@type": "State",
+                        name: "Kerala",
+                    },
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${url}#faq`,
+                mainEntity: PYTHON_CALICUT_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.question,
+                    acceptedAnswer: {
+                        "@type": "Answer",
+                        text: item.answer,
+                    },
+                })),
+            },
+        ],
+    };
+}
+
 /** True for Tech School SEO landing routes (route group does not add a URL prefix). */
 export function isTechSchoolSeoPath(pathname: string): boolean {
     return (
         pathname === DATA_ANALYTICS_KERALA_SEO_PATH ||
-        pathname.startsWith(`${DATA_ANALYTICS_KERALA_SEO_PATH}/`)
+        pathname.startsWith(`${DATA_ANALYTICS_KERALA_SEO_PATH}/`) ||
+        pathname === PYTHON_CALICUT_SEO_PATH ||
+        pathname.startsWith(`${PYTHON_CALICUT_SEO_PATH}/`)
     );
 }

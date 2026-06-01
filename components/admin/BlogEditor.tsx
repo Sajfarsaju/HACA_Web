@@ -4,12 +4,68 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
+import { Node, mergeAttributes } from "@tiptap/core";
 import { Table } from "@tiptap/extension-table";
 import { TableRow } from "@tiptap/extension-table-row";
 import { TableHeader } from "@tiptap/extension-table-header";
 import { TableCell } from "@tiptap/extension-table-cell";
 import { PlacementCropModal } from "@/components/admin/PlacementCropModal";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+// ── Custom VideoEmbed TipTap node ─────────────────────────────────────────────
+// Renders as <video> for uploaded files or <iframe> for YouTube/Vimeo embeds.
+
+function getYouTubeEmbedUrl(url: string): string | null {
+  const m = url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  return m ? `https://www.youtube.com/embed/${m[1]}` : null;
+}
+
+function getVimeoEmbedUrl(url: string): string | null {
+  const m = url.match(/vimeo\.com\/(\d+)/);
+  return m ? `https://player.vimeo.com/video/${m[1]}` : null;
+}
+
+const VideoEmbed = Node.create({
+  name: "videoEmbed",
+  group: "block",
+  atom: true,
+  draggable: true,
+
+  addAttributes() {
+    return {
+      src:   { default: null },
+      embed: { default: false },
+    };
+  },
+
+  parseHTML() {
+    return [
+      { tag: "video[data-tiptap-video]", getAttrs: (el) => ({ src: (el as HTMLElement).getAttribute("src"), embed: false }) },
+      { tag: "iframe[data-tiptap-video]", getAttrs: (el) => ({ src: (el as HTMLElement).getAttribute("src"), embed: true }) },
+    ];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    if (HTMLAttributes.embed) {
+      return ["iframe", mergeAttributes({
+        "data-tiptap-video": "",
+        src: HTMLAttributes.src,
+        allowfullscreen: "true",
+        allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+        frameborder: "0",
+        class: "w-full rounded-lg my-4 block",
+        style: "aspect-ratio:16/9;display:block;",
+      })];
+    }
+    return ["video", mergeAttributes({
+      "data-tiptap-video": "",
+      src: HTMLAttributes.src,
+      controls: "true",
+      preload: "metadata",
+      class: "w-full h-auto rounded-lg my-4 block bg-black",
+    })];
+  },
+});
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -22,6 +78,12 @@ export interface BlogEditorProps {
    * If omitted, image insertion is disabled.
    */
   onImageUpload?: (file: File) => Promise<string>;
+  /**
+   * Called when the user uploads a video file via the toolbar.
+   * Should upload the file and resolve with the public URL.
+   * If omitted, only URL-based video embeds are available.
+   */
+  onVideoUpload?: (file: File) => Promise<string>;
 }
 
 // ── Toolbar button ────────────────────────────────────────────────────────────
@@ -58,9 +120,11 @@ function ToolbarBtn({
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export function BlogEditor({ value, onChange, onImageUpload }: BlogEditorProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const uploadingRef  = useRef(false);
+export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload }: BlogEditorProps) {
+  const fileInputRef      = useRef<HTMLInputElement>(null);
+  const videoFileInputRef = useRef<HTMLInputElement>(null);
+  const uploadingRef      = useRef(false);
+  const [videoUploading, setVideoUploading] = useState(false);
 
   // Crop modal state — used for toolbar image button and single-file pastes
   const [cropOpen, setCropOpen] = useState(false);
@@ -88,6 +152,7 @@ export function BlogEditor({ value, onChange, onImageUpload }: BlogEditorProps) 
       TableRow,
       TableHeader,
       TableCell,
+      VideoEmbed,
     ],
     content: value || "",
     editorProps: {
@@ -170,6 +235,51 @@ export function BlogEditor({ value, onChange, onImageUpload }: BlogEditorProps) 
     [editor, onImageUpload]
   );
 
+  // ── Video — insert by URL (YouTube/Vimeo) ────────────────────────────────────
+  const insertVideoUrl = useCallback(() => {
+    if (!editor) return;
+    const raw = window.prompt("Paste a YouTube or Vimeo URL:");
+    if (!raw) return;
+    const url = raw.trim();
+    const embedUrl = getYouTubeEmbedUrl(url) ?? getVimeoEmbedUrl(url);
+    if (!embedUrl) {
+      window.alert("Unrecognised URL. Please enter a YouTube or Vimeo link.");
+      return;
+    }
+    editor.chain().focus().insertContent({
+      type: "videoEmbed",
+      attrs: { src: embedUrl, embed: true },
+    }).run();
+  }, [editor]);
+
+  // ── Video — upload file ────────────────────────────────────────────────────
+  const triggerVideoPick = useCallback(() => {
+    videoFileInputRef.current?.click();
+  }, []);
+
+  const handleVideoFileChange = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      e.target.value = "";
+      if (!file || !onVideoUpload || !editor) return;
+      setVideoUploading(true);
+      try {
+        const url = await onVideoUpload(file);
+        if (url) {
+          editor.chain().focus().insertContent({
+            type: "videoEmbed",
+            attrs: { src: url, embed: false },
+          }).run();
+        }
+      } catch (err) {
+        console.error("Video upload failed:", err);
+      } finally {
+        setVideoUploading(false);
+      }
+    },
+    [editor, onVideoUpload]
+  );
+
   // ── Paste handler ─────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!editor || !onImageUpload) return;
@@ -247,7 +357,7 @@ export function BlogEditor({ value, onChange, onImageUpload }: BlogEditorProps) 
       )}
 
       <div className="overflow-hidden rounded-xl border border-white/20 bg-white/[0.07] backdrop-blur-sm">
-        {/* Hidden file input */}
+        {/* Hidden file inputs */}
         {onImageUpload && (
           <input
             ref={fileInputRef}
@@ -255,6 +365,15 @@ export function BlogEditor({ value, onChange, onImageUpload }: BlogEditorProps) 
             accept="image/*"
             className="hidden"
             onChange={handleFileChange}
+          />
+        )}
+        {onVideoUpload && (
+          <input
+            ref={videoFileInputRef}
+            type="file"
+            accept="video/*"
+            className="hidden"
+            onChange={handleVideoFileChange}
           />
         )}
 
@@ -337,6 +456,21 @@ export function BlogEditor({ value, onChange, onImageUpload }: BlogEditorProps) 
                 🖼 Image
               </ToolbarBtn>
             </>
+          )}
+
+          {/* Video */}
+          <span className="mx-1 h-4 w-px bg-white/15" />
+          <ToolbarBtn title="Insert YouTube or Vimeo embed" onClick={insertVideoUrl}>
+            📹 Embed
+          </ToolbarBtn>
+          {onVideoUpload && (
+            <ToolbarBtn
+              title="Upload video file (mp4, mov, webm)"
+              onClick={triggerVideoPick}
+              disabled={videoUploading}
+            >
+              {videoUploading ? "Uploading…" : "⬆ Video"}
+            </ToolbarBtn>
           )}
 
           {/* Table — insert button always visible; editing controls appear when inside a table */}
