@@ -42,8 +42,16 @@ const MENTORS = [
 type MentorEntry = (typeof MENTORS)[number];
 
 const HEADING_ID = "graphic-design-calicut-mentors-heading";
+const MENTOR_DIVIDER = "#655CC5";
 
-export function GraphicDesigningCalicutMentorsSection() {
+type GraphicDesigningCalicutMentorsSectionProps = {
+    /** Video Calicut page — no purple rule under section on mobile */
+    hideMobileBottomBorder?: boolean;
+};
+
+export function GraphicDesigningCalicutMentorsSection({
+    hideMobileBottomBorder = false,
+}: GraphicDesigningCalicutMentorsSectionProps = {}) {
     const sectionRef = useRef<HTMLElement>(null);
     const desktopScrollerRef = useRef<HTMLUListElement | null>(null);
     const mobileScrollerRef = useRef<HTMLUListElement | null>(null);
@@ -79,13 +87,21 @@ export function GraphicDesigningCalicutMentorsSection() {
     return (
         <section
             ref={sectionRef}
-            className="w-full bg-[#FCFCFC]"
+            className={[
+                "w-full bg-[#FCFCFC]",
+                hideMobileBottomBorder
+                    ? "max-lg:border-b-0 lg:border-b lg:border-solid lg:border-[#655CC5]"
+                    : "",
+            ].join(" ")}
             aria-labelledby={HEADING_ID}
             style={{
-                paddingTop: "clamp(30px, 4.17vw, 60px)",
+                paddingTop: "clamp(24px, 2.78vw, 40px)",
                 paddingBottom: "clamp(30px, 4.17vw, 60px)",
                 paddingLeft: "clamp(20px, 4.17vw, 60px)",
                 paddingRight: "clamp(20px, 0.7vw, 20px)",
+                ...(hideMobileBottomBorder
+                    ? {}
+                    : { borderBottom: `1px solid ${MENTOR_DIVIDER}` }),
             }}
         >
             <div className="mx-auto w-full max-w-[1440px]">
@@ -199,7 +215,7 @@ export function GraphicDesigningCalicutMentorsSection() {
                         >
                             <ul
                                 ref={mobileScrollerRef}
-                                className="gd-calicut-mentors-scroller-mobile m-0 flex list-none flex-row gap-[0.87px] overflow-x-auto overflow-y-hidden p-0"
+                                className="gd-calicut-mentors-scroller-mobile m-0 flex list-none flex-row gap-[1px] overflow-x-auto overflow-y-hidden p-0"
                                 style={{
                                     width: "100%",
                                     WebkitOverflowScrolling: "touch",
