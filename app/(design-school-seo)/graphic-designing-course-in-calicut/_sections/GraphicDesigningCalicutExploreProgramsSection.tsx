@@ -23,7 +23,7 @@ type ProgramCard = {
     href: string;
 };
 
-const IMG_1309 = `/photos/schools/design/seo/${encodeURIComponent("IMG_1309 (1) 1.png")}`;
+const IMG_1309 = `/photos/schools/design/seo/${encodeURIComponent("IMG_1309 (1) 1.webp")}`;
 
 const PROGRAMS: ProgramCard[] = [
     {
@@ -52,7 +52,7 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Discover the fundamentals of contemporary graphic design in this online course, perfect for beginners and those looking to switch careers, all from the comfort of your home.",
         button: { bg: "#FF5C00", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/60b47d2800c7e3eca0f8d38692662a973f3b73b0.png",
+        imageSrc: "/photos/schools/design/explore/ai-graphic.webp",
         imageAlt: "AI Integrated Graphic Design",
         imageWrapClassName:
             "absolute bottom-0 left-0 lg:-bottom-[80px] lg:-left-[50px] xl:-bottom-[150px] xl:-left-[80px] w-[300px] sm:w-[360px] lg:w-[300px] xl:w-[440px] h-[300px] sm:h-[380px] lg:h-[340px] xl:h-[500px] pointer-events-none select-none",
@@ -70,7 +70,7 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Editing is more than cutting clips. Learn how visuals, sound, and timing come together to tell a story and keep viewers engaged.",
         button: { bg: "#29C76B", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/72a77144b3092dffcf6470686297c0e74e448b83.png",
+        imageSrc: "/photos/schools/design/explore/video-edit.webp",
         imageAlt: "AI Integrated Video Editing Mastery",
         imageWrapClassName:
             "absolute -bottom-[60px] -left-[60px] sm:-bottom-[80px] sm:-left-[80px] lg:-bottom-[80px] lg:-left-[80px] xl:-bottom-[100px] xl:-left-[100px] w-[320px] sm:w-[400px] lg:w-[360px] xl:w-[530px] h-[320px] sm:h-[420px] lg:h-[380px] xl:h-[560px] pointer-events-none select-none",
@@ -88,7 +88,7 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Learn how to create intuitive digital experiences by exploring design thinking, wireframing, and prototyping, perfect for aspiring app and web designers.",
         button: { bg: "#2592FF", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/efaa9dd8679f63c251e45143e7c74c5afcb821ae.png",
+        imageSrc: "/photos/schools/design/explore/uiux.webp",
         imageAlt: "UI/UX Design + AI Program",
         imageWrapClassName:
             "absolute -bottom-[130px] -right-[160px] sm:-bottom-[150px] sm:-right-[200px] lg:-bottom-[180px] lg:-right-[200px] xl:-bottom-[220px] xl:-right-[240px] w-[350px] sm:w-[520px] lg:w-[440px] xl:w-[620px] h-[350px] sm:h-[540px] lg:h-[470px] xl:h-[660px] pointer-events-none select-none",
@@ -107,7 +107,7 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Quickly master brand storytelling, logo creation, and visual identity development in this focused online bootcamp, ideal for designers aiming to specialise in branding.",
         button: { bg: "#8F56FF", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/4bb434c3142cc5e13672d6cf063a4a96bdff02c0.png",
+        imageSrc: "/photos/schools/design/explore/branding.webp",
         imageAlt: "Branding and Identity Design",
         imageWrapClassName:
             "absolute top-0 -right-[60px] sm:-right-[80px] lg:-right-[80px] xl:-right-[100px] w-[340px] sm:w-[440px] lg:w-[390px] xl:w-[580px] h-[280px] sm:h-[360px] lg:h-[280px] xl:h-[430px] pointer-events-none select-none",

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Image from "next/image"
 
@@ -53,7 +53,7 @@ const LOGOS = [
     },
     {
         key: "press_new_2",
-        src: "/photos/main/press new 2.png",
+        src: "/photos/main/press new 2.webp",
         alt: "Press Logo 2",
         wrapperClass: "flex items-center justify-center w-[clamp(140px,15vw,220px)] h-auto max-md:w-[115px] shrink-0",
         width: 220,
@@ -121,7 +121,7 @@ export function AboutRecognitionSection() {
                 </h3>
                 <div className="flex items-center justify-center w-full max-w-[400px] max-md:max-w-[335px]">
                     <Image
-                        src="/photos/main/World-Education-Summit 1 new.png"
+                        src="/photos/main/World-Education-Summit 1 new.webp"
                         alt="World Education Summit Award"
                         width={200}
                         height={52}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useRef, useEffect } from "react"
 import { PressLogos } from "@/components/sections/PressLogos"
@@ -228,7 +228,7 @@ export function MarketingImpactSection() {
                             {/* Background photo */}
                             <div className="absolute inset-0 z-0">
                                 <Image
-                                    src="/photos/main/Rectangle 2.png"
+                                    src="/photos/main/Rectangle 2.webp"
                                     alt=""
                                     fill
                                     className="object-cover object-center"

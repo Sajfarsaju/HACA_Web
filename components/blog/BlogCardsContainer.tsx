@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Image from "next/image"
 import Link from "next/link"
@@ -76,7 +76,7 @@ function BlogCard({
             {/* Cover image */}
             <div className="relative w-full aspect-[871/514] overflow-hidden shrink-0 rounded-[clamp(12px,1.2vw,20px)]">
                 <Image
-                    src={blog.bannerUrl || "/photos/main/blog cover.png"}
+                    src={blog.bannerUrl || "/photos/main/blog cover.webp"}
                     alt={blog.title}
                     fill
                     className="object-cover"

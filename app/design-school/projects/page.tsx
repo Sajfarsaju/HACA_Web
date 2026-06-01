@@ -47,7 +47,7 @@ export default function DesignSchoolProjectsPage() {
                                 {/* Card top image */}
                                 <div className="w-full h-[442px] lg:h-[clamp(340px,32vw,442px)] relative overflow-hidden bg-[#EDEDED]">
                                     <Image
-                                        src="/photos/schools/design/projects/Rectangle 244.png"
+                                        src="/photos/schools/design/projects/Rectangle 244.webp"
                                         alt=""
                                         fill
                                         className="object-cover"

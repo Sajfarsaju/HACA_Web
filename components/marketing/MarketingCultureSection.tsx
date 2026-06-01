@@ -154,7 +154,7 @@ export function MarketingCultureSection() {
                                     }}
                                 >
                                 <CultureAbsTile
-                                    src="/photos/schools/marketing/culture/rectangle-34.png"
+                                    src="/photos/schools/marketing/culture/rectangle-34.webp"
                                     alt="Culture moment"
                                     left={0}
                                     top={3.74}
@@ -164,7 +164,7 @@ export function MarketingCultureSection() {
                                     priority
                                 />
                                 <CultureAbsTile
-                                    src="/photos/schools/marketing/culture/rectangle-36.png"
+                                    src="/photos/schools/marketing/culture/rectangle-36.webp"
                                     alt="Culture moment"
                                     left={174.05}
                                     top={0}
@@ -173,7 +173,7 @@ export function MarketingCultureSection() {
                                     radius={5.35}
                                 />
                                 <CultureAbsTile
-                                    src="/photos/schools/marketing/culture/rectangle-35.png"
+                                    src="/photos/schools/marketing/culture/rectangle-35.webp"
                                     alt="Culture moment"
                                     left={174.05}
                                     top={126.71}
@@ -182,7 +182,7 @@ export function MarketingCultureSection() {
                                     radius={5.35}
                                 />
                                 <CultureAbsTile
-                                    src="/photos/schools/marketing/culture/rectangle-38.png"
+                                    src="/photos/schools/marketing/culture/rectangle-38.webp"
                                     alt="Culture moment"
                                     left={0.42}
                                     top={253.42}
@@ -191,7 +191,7 @@ export function MarketingCultureSection() {
                                     radius={5.35}
                                 />
                                 <CultureAbsTile
-                                    src="/photos/schools/marketing/culture/rectangle-37.png"
+                                    src="/photos/schools/marketing/culture/rectangle-37.webp"
                                     alt="Culture moment"
                                     left={114.57}
                                     top={253.99}
@@ -209,15 +209,15 @@ export function MarketingCultureSection() {
                         <div className="w-full max-w-[768px] min-w-0">
                             <div className="mx-auto w-[1320px] md:[zoom:0.58]">
                                 <div className="relative w-[1320px]" style={{ height: 693 }}>
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-34.png" alt="Culture moment" left={0} top={0} width={313.4869} height={455} priority />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-36.png" alt="Culture moment" left={333.41} top={0} width={423.5743} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-39.png" alt="Culture moment" left={776.9} top={0} width={207.5933} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-41.png" alt="Culture moment" left={1004.42} top={0} width={315.5838} height={335} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-35.png" alt="Culture moment" left={333.41} top={238} width={315.5838} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-40.png" alt="Culture moment" left={668.91} top={238} width={315.5838} height={455} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-38.png" alt="Culture moment" left={0} top={475} width={199.2057} height={218} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-37.png" alt="Culture moment" left={222.27} top={475} width={426.7196} height={218} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-42.png" alt="Culture moment" left={1004.42} top={358} width={315.5838} height={335} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-34.webp" alt="Culture moment" left={0} top={0} width={313.4869} height={455} priority />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-36.webp" alt="Culture moment" left={333.41} top={0} width={423.5743} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-39.webp" alt="Culture moment" left={776.9} top={0} width={207.5933} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-41.webp" alt="Culture moment" left={1004.42} top={0} width={315.5838} height={335} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-35.webp" alt="Culture moment" left={333.41} top={238} width={315.5838} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-40.webp" alt="Culture moment" left={668.91} top={238} width={315.5838} height={455} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-38.webp" alt="Culture moment" left={0} top={475} width={199.2057} height={218} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-37.webp" alt="Culture moment" left={222.27} top={475} width={426.7196} height={218} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-42.webp" alt="Culture moment" left={1004.42} top={358} width={315.5838} height={335} />
                                 </div>
                             </div>
                         </div>
@@ -234,15 +234,15 @@ export function MarketingCultureSection() {
                                 }}
                             >
                                 <div className="relative h-[693px] w-[1320px]">
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-34.png" alt="Culture moment" left={0} top={0} width={313.4869} height={455} priority />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-36.png" alt="Culture moment" left={333.41} top={0} width={423.5743} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-39.png" alt="Culture moment" left={776.9} top={0} width={207.5933} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-41.png" alt="Culture moment" left={1004.42} top={0} width={315.5838} height={335} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-35.png" alt="Culture moment" left={333.41} top={238} width={315.5838} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-40.png" alt="Culture moment" left={668.91} top={238} width={315.5838} height={455} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-38.png" alt="Culture moment" left={0} top={475} width={199.2057} height={218} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-37.png" alt="Culture moment" left={222.27} top={475} width={426.7196} height={218} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-42.png" alt="Culture moment" left={1004.42} top={358} width={315.5838} height={335} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-34.webp" alt="Culture moment" left={0} top={0} width={313.4869} height={455} priority />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-36.webp" alt="Culture moment" left={333.41} top={0} width={423.5743} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-39.webp" alt="Culture moment" left={776.9} top={0} width={207.5933} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-41.webp" alt="Culture moment" left={1004.42} top={0} width={315.5838} height={335} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-35.webp" alt="Culture moment" left={333.41} top={238} width={315.5838} height={217} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-40.webp" alt="Culture moment" left={668.91} top={238} width={315.5838} height={455} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-38.webp" alt="Culture moment" left={0} top={475} width={199.2057} height={218} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-37.webp" alt="Culture moment" left={222.27} top={475} width={426.7196} height={218} />
+                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-42.webp" alt="Culture moment" left={1004.42} top={358} width={315.5838} height={335} />
                                 </div>
                             </div>
                         </div>

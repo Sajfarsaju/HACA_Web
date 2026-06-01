@@ -427,7 +427,7 @@ export default function TechHero() {
                         transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <Image
-                            src="/photos/Tech/freepik__a-closeup-profile-shot-shows-a-dark-metallic-bust-__44477 (1) 1.png"
+                            src="/photos/Tech/freepik__a-closeup-profile-shot-shows-a-dark-metallic-bust-__44477 (1) 1.webp"
                             alt="Tech Bust"
                             fill
                             style={{ objectFit: "contain" }}
@@ -708,7 +708,7 @@ export default function TechHero() {
                             transition={{ duration: 0.8, delay: 0.3 }}
                         >
                             <Image
-                                src="/photos/Tech/freepik__a-closeup-profile-shot-shows-a-dark-metallic-bust-__44477 (1) 1.png"
+                                src="/photos/Tech/freepik__a-closeup-profile-shot-shows-a-dark-metallic-bust-__44477 (1) 1.webp"
                                 alt="Tech Bust"
                                 fill
                                 style={{ objectFit: "contain" }}

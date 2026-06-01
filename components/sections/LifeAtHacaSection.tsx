@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Image from "next/image"
 import { motion, useReducedMotion } from "framer-motion"
@@ -60,21 +60,21 @@ export function LifeAtHacaSection() {
                     {/* Photo 1: 449×302 desktop / 196×174 mobile */}
                     <motion.div
                         {...photoTileReveal(0, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC05453%201.png')] shrink-0 w-[calc(449/1320*100%)] aspect-[449/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(196.42/324.15))] max-md:aspect-[196.42/173.95]"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC05453%201.webp')] shrink-0 w-[calc(449/1320*100%)] aspect-[449/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(196.42/324.15))] max-md:aspect-[196.42/173.95]"
                         aria-hidden="true"
                     />
 
                     {/* Photo 2: 341×302 desktop / 128×174 mobile */}
                     <motion.div
                         {...photoTileReveal(1, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC09981.JPG')] shrink-0 w-[calc(341/1320*100%)] aspect-[341/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(127.73/324.15))] max-md:aspect-[127.73/174.37]"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC09981.webp')] shrink-0 w-[calc(341/1320*100%)] aspect-[341/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(127.73/324.15))] max-md:aspect-[127.73/174.37]"
                         aria-hidden="true"
                     />
 
                     {/* Photo 3: 490×302 desktop only */}
                     <motion.div
                         {...photoTileReveal(2, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/Rectangle%2012.png')] shrink-0 w-[calc(490/1320*100%)] aspect-[490/302] max-md:hidden"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/Rectangle%2012.webp')] shrink-0 w-[calc(490/1320*100%)] aspect-[490/302] max-md:hidden"
                         aria-hidden="true"
                     />
                 </div>
@@ -84,28 +84,28 @@ export function LifeAtHacaSection() {
                     {/* Photo 1: 214×305 desktop / 123×176 mobile */}
                     <motion.div
                         {...photoTileReveal(3, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC03240%201.png')] shrink-0 w-[calc(214/1320*100%)] aspect-[214/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(123.26/324.86))] max-md:aspect-[123.26/175.68]"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC03240%201.webp')] shrink-0 w-[calc(214/1320*100%)] aspect-[214/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(123.26/324.86))] max-md:aspect-[123.26/175.68]"
                         aria-hidden="true"
                     />
 
                     {/* Photo 2: 350×305 desktop / 202×176 mobile */}
                     <motion.div
                         {...photoTileReveal(4, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC04963%201.png')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(201.60/324.86))] max-md:aspect-[201.60/175.68]"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC04963%201.webp')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(201.60/324.86))] max-md:aspect-[201.60/175.68]"
                         aria-hidden="true"
                     />
 
                     {/* Photo 3: 350×305 desktop only */}
                     <motion.div
                         {...photoTileReveal(5, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC08138%201.png')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC08138%201.webp')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden"
                         aria-hidden="true"
                     />
 
                     {/* Photo 4: 350×305 desktop only */}
                     <motion.div
                         {...photoTileReveal(6, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/kattan.jpeg')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/kattan.webp')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden"
                         aria-hidden="true"
                     />
                 </div>

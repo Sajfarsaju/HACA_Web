@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import React from "react";
@@ -54,7 +54,7 @@ const PRESS_LOGOS = [
     },
     {
         key: "press_new_2",
-        src: "/photos/main/press new 2.png",
+        src: "/photos/main/press new 2.webp",
         alt: "Featured press partner",
         wrapperClass: "flex h-[clamp(32px,4.5vw,48px)] shrink-0 items-center justify-center w-[clamp(120px,14vw,200px)] max-md:w-[min(115px,30vw)]",
         width: 220, height: 55,

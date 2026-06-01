@@ -24,21 +24,21 @@ type CultureTile = {
 };
 
 const CULTURE_ROW_1: CultureTile[] = [
-    { id: "c-r1-1", width: 300, alt: "HACA community moment", imageSrc: `${CULTURE_BASE}/rectangle-34.png` },
-    { id: "c-r1-2", width: 300, alt: "HACA students celebrating", imageSrc: `${CULTURE_BASE}/rectangle-36.png` },
-    { id: "c-r1-3", width: 240, alt: "HACA classroom culture", imageSrc: `${CULTURE_BASE}/rectangle-39.png` },
-    { id: "c-r1-4", width: 315, alt: "HACA graduation moment", imageSrc: `${CULTURE_BASE}/rectangle-41.png` },
-    { id: "c-r1-5", width: 271, alt: "HACA creative session", imageSrc: `${CULTURE_BASE}/rectangle-35.png` },
-    { id: "c-r1-6", width: 381, alt: "HACA group learning", imageSrc: `${CULTURE_BASE}/rectangle-40.png` },
+    { id: "c-r1-1", width: 300, alt: "HACA community moment", imageSrc: `${CULTURE_BASE}/rectangle-34.webp` },
+    { id: "c-r1-2", width: 300, alt: "HACA students celebrating", imageSrc: `${CULTURE_BASE}/rectangle-36.webp` },
+    { id: "c-r1-3", width: 240, alt: "HACA classroom culture", imageSrc: `${CULTURE_BASE}/rectangle-39.webp` },
+    { id: "c-r1-4", width: 315, alt: "HACA graduation moment", imageSrc: `${CULTURE_BASE}/rectangle-41.webp` },
+    { id: "c-r1-5", width: 271, alt: "HACA creative session", imageSrc: `${CULTURE_BASE}/rectangle-35.webp` },
+    { id: "c-r1-6", width: 381, alt: "HACA group learning", imageSrc: `${CULTURE_BASE}/rectangle-40.webp` },
 ];
 
 const CULTURE_ROW_2: CultureTile[] = [
-    { id: "c-r2-1", width: 365, alt: "HACA student community", imageSrc: `${CULTURE_BASE}/rectangle-38.png` },
-    { id: "c-r2-2", width: 240, alt: "HACA workshop moment", imageSrc: `${CULTURE_BASE}/rectangle-37.png` },
-    { id: "c-r2-3", width: 300, alt: "HACA campus life", imageSrc: `${CULTURE_BASE}/rectangle-42.png` },
-    { id: "c-r2-4", width: 240, alt: "HACA team collaboration", imageSrc: `${CULTURE_BASE}/rectangle-34.png` },
-    { id: "c-r2-5", width: 430, alt: "HACA community gathering", imageSrc: `${CULTURE_BASE}/rectangle-36.png` },
-    { id: "c-r2-6", width: 300, alt: "HACA learning environment", imageSrc: `${CULTURE_BASE}/rectangle-39.png` },
+    { id: "c-r2-1", width: 365, alt: "HACA student community", imageSrc: `${CULTURE_BASE}/rectangle-38.webp` },
+    { id: "c-r2-2", width: 240, alt: "HACA workshop moment", imageSrc: `${CULTURE_BASE}/rectangle-37.webp` },
+    { id: "c-r2-3", width: 300, alt: "HACA campus life", imageSrc: `${CULTURE_BASE}/rectangle-42.webp` },
+    { id: "c-r2-4", width: 240, alt: "HACA team collaboration", imageSrc: `${CULTURE_BASE}/rectangle-34.webp` },
+    { id: "c-r2-5", width: 430, alt: "HACA community gathering", imageSrc: `${CULTURE_BASE}/rectangle-36.webp` },
+    { id: "c-r2-6", width: 300, alt: "HACA learning environment", imageSrc: `${CULTURE_BASE}/rectangle-39.webp` },
 ];
 
 function CulturePhotoTile({ tile, gradientIndex }: { tile: CultureTile; gradientIndex: number }) {

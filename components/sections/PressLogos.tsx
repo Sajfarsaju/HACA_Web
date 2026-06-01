@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import Image from "next/image"
@@ -54,7 +54,7 @@ const LOGOS = [
     },
     {
         key: "press_new_2",
-        src: "/photos/main/press new 2.png",
+        src: "/photos/main/press new 2.webp",
         alt: "Press Logo 2",
         wrapperClass: "flex items-center justify-center w-[clamp(140px,15vw,220px)] h-auto max-md:w-[115px] shrink-0",
         width: 220,

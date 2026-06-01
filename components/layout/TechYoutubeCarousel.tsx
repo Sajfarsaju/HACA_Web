@@ -4,37 +4,37 @@ import Image from "next/image";
 import { useCallback, useEffect, useId, useState } from "react";
 
 const DEFAULT_THUMBNAILS = [
-    { src: "/photos/schools/tech/Yutub1.png", alt: "YouTube Thumbnail 1" },
-    { src: "/photos/schools/tech/YutubDataThumbnail.png", alt: "YouTube Data Thumbnail" },
-    { src: "/photos/schools/tech/Yutub3.png", alt: "YouTube Thumbnail 3" },
-    { src: "/photos/schools/tech/Yutub1.png", alt: "YouTube Thumbnail 4" },
-    { src: "/photos/schools/tech/YutubDataThumbnail.png", alt: "YouTube Data Thumbnail 5" },
-    { src: "/photos/schools/tech/Yutub3.png", alt: "YouTube Thumbnail 6" },
+    { src: "/photos/schools/tech/Yutub1.webp", alt: "YouTube Thumbnail 1" },
+    { src: "/photos/schools/tech/YutubDataThumbnail.webp", alt: "YouTube Data Thumbnail" },
+    { src: "/photos/schools/tech/Yutub3.webp", alt: "YouTube Thumbnail 3" },
+    { src: "/photos/schools/tech/Yutub1.webp", alt: "YouTube Thumbnail 4" },
+    { src: "/photos/schools/tech/YutubDataThumbnail.webp", alt: "YouTube Data Thumbnail 5" },
+    { src: "/photos/schools/tech/Yutub3.webp", alt: "YouTube Thumbnail 6" },
 ] as const;
 
 const SEO_THUMBNAILS = [
     {
-        src: "/photos/schools/tech/YutubDataThumbnail.png",
+        src: "/photos/schools/tech/YutubDataThumbnail.webp",
         alt: "HACA data analytics course learner testimonial video",
     },
     {
-        src: "/photos/schools/tech/Yutub1.png",
+        src: "/photos/schools/tech/Yutub1.webp",
         alt: "Student review of the data analytics program at HACA Tech School",
     },
     {
-        src: "/photos/schools/tech/Yutub3.png",
+        src: "/photos/schools/tech/Yutub3.webp",
         alt: "Graduate discussing analytics projects and career outcomes",
     },
     {
-        src: "/photos/schools/tech/YutubDataThumbnail.png",
+        src: "/photos/schools/tech/YutubDataThumbnail.webp",
         alt: "Data analytics training experience shared by a HACA learner",
     },
     {
-        src: "/photos/schools/tech/Yutub1.png",
+        src: "/photos/schools/tech/Yutub1.webp",
         alt: "Kerala student talking about hands-on data analytics learning",
     },
     {
-        src: "/photos/schools/tech/Yutub3.png",
+        src: "/photos/schools/tech/Yutub3.webp",
         alt: "Learner video on Python, SQL, and dashboard skills from HACA",
     },
 ] as const;

@@ -1,18 +1,18 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import Image from "next/image"
 
 // ── Card data — real event images ───────────────────────────────────────────
 const CARDS: { src?: string; alt: string; bg: string }[] = [
-    { src: "/photos/main/events/DSC05453 1.png", alt: "Event photo 1", bg: "#1E2A5E" },
-    { src: "/photos/main/events/DSC09981.JPG", alt: "Event photo 2", bg: "#2D3E7F" },
+    { src: "/photos/main/events/DSC05453 1.webp", alt: "Event photo 1", bg: "#1E2A5E" },
+    { src: "/photos/main/events/DSC09981.webp", alt: "Event photo 2", bg: "#2D3E7F" },
     { src: "/photos/main/events/DD7455A9-4DB5-4195-A12F-41757CA2DD94.webp", alt: "Event photo 3", bg: "#3A50B0" },
-    { src: "/photos/main/events/Rectangle 14.png", alt: "Event photo 4", bg: "#4A62D1" },
-    { src: "/photos/main/events/DSC04963 1.png", alt: "Event photo 5", bg: "#1E2A5E" },
-    { src: "/photos/main/events/DSC08138 1.png", alt: "Event photo 6", bg: "#2D3E7F" },
-    { src: "/photos/main/events/Rectangle 10.png", alt: "Event photo 7", bg: "#2D3E7F" },
-    { src: "/photos/main/events/Rectangle 12.png", alt: "Event photo 8", bg: "#3A50B0" },
+    { src: "/photos/main/events/Rectangle 14.webp", alt: "Event photo 4", bg: "#4A62D1" },
+    { src: "/photos/main/events/DSC04963 1.webp", alt: "Event photo 5", bg: "#1E2A5E" },
+    { src: "/photos/main/events/DSC08138 1.webp", alt: "Event photo 6", bg: "#2D3E7F" },
+    { src: "/photos/main/events/Rectangle 10.webp", alt: "Event photo 7", bg: "#2D3E7F" },
+    { src: "/photos/main/events/Rectangle 12.webp", alt: "Event photo 8", bg: "#3A50B0" },
 ]
 
 /** Pattern: two landscape (456×307) + one portrait (180×307); same height 307 at max scale */

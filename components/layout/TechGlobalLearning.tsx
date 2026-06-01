@@ -135,7 +135,7 @@ export function TechGlobalLearning() {
                     {/* Desktop Version */}
                     <div className="hidden md:block w-full h-full">
                         <Image
-                            src="/photos/schools/tech/World Map.png"
+                            src="/photos/schools/tech/World Map.webp"
                             alt="Global Learning World Map"
                             width={1000}
                             height={654}

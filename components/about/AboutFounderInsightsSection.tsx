@@ -1,12 +1,12 @@
-"use client"
+﻿"use client"
 
 import Image from "next/image"
 
 export function AboutFounderInsightsSection() {
     const cards = [
-        "/photos/main/thumbnail 1.png",
-        "/photos/main/thumbnail 2.png",
-        "/photos/main/thumbnail 3.png",
+        "/photos/main/thumbnail 1.webp",
+        "/photos/main/thumbnail 2.webp",
+        "/photos/main/thumbnail 3.webp",
     ]
     const track = Array(6).fill(cards).flat()
 

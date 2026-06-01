@@ -11,7 +11,7 @@ const dmSans = DM_Sans({
 const THEME = "#655CC5";
 const VC_FONT = '"VC Nudge Trial Normal", sans-serif';
 
-const HERO_IMAGE_SRC = `/photos/schools/design/seo/${encodeURIComponent("IMG_1318 (1) 1.png")}`;
+const HERO_IMAGE_SRC = `/photos/schools/design/seo/${encodeURIComponent("IMG_1318 (1) 1.webp")}`;
 
 const ARROW_OUTWARD_PATH =
     "M0.933333 8.66667L0 7.73333L6.4 1.33333H0.666667V0H8.66667V8H7.33333V2.26667L0.933333 8.66667Z";

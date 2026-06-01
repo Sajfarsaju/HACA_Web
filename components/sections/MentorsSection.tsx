@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Image from "next/image"
 import { motion, useReducedMotion } from "framer-motion"
@@ -6,25 +6,25 @@ import { motion, useReducedMotion } from "framer-motion"
 const mentors = [
     {
         id: 1,
-        photo: "/photos/main/mentor 1.png",
+        photo: "/photos/main/mentor 1.webp",
         name: "Abu Nabhan",
         position: "CEO Design School",
     },
     {
         id: 2,
-        photo: "/photos/main/mentor 2.png",
+        photo: "/photos/main/mentor 2.webp",
         name: "Safwan",
         position: "Branding Mentor",
     },
     {
         id: 3,
-        photo: "/photos/main/mentor 3.png",
+        photo: "/photos/main/mentor 3.webp",
         name: "Pressly",
         position: "Graphic Design Mentor",
     },
     {
         id: 4,
-        photo: "/photos/main/mentor 4.png",
+        photo: "/photos/main/mentor 4.webp",
         name: "Nanditha",
         position: "Motion Graphics Mentor",
     },

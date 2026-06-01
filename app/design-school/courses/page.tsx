@@ -574,8 +574,8 @@ export default function DesignSchoolCoursesPage() {
                         badgePipeColor="#FF5C00"
                         bulletColor="#FF5C00"
                         buttonBg="#8F56FF"
-                        imageSrc="/photos/schools/design/courses/CourseOne.png"
-                        imageSrcMobile="/photos/schools/design/courses/CourseOneMobile.png"
+                        imageSrc="/photos/schools/design/courses/CourseOne.webp"
+                        imageSrcMobile="/photos/schools/design/courses/CourseOneMobile.webp"
                         mobileImageBox={{ left: 18.19, top: 76.53, width: 250.982421875, height: 251.0989990234375 }}
                         desktopImageBox1440={{ left: 34, top: 143, width: 469, height: 469.21783447265625 }}
                         badgeLeft="Offline"
@@ -599,8 +599,8 @@ export default function DesignSchoolCoursesPage() {
                         badgePipeColor="#8F56FF"
                         bulletColor="#8F56FF"
                         buttonBg="#FF5659"
-                        imageSrc="/photos/schools/design/courses/CourseTwo.png"
-                        imageSrcMobile="/photos/schools/design/courses/CourseTwoMobile.png"
+                        imageSrc="/photos/schools/design/courses/CourseTwo.webp"
+                        imageSrcMobile="/photos/schools/design/courses/CourseTwoMobile.webp"
                         mobileImageBox={{ left: 20.34, top: 81.6, width: 161.6134033203125, height: 238.8249053955078 }}
                         desktopImageBox1440={{ left: 38, top: 152.49, width: 301.9999694824219, height: 446.28173828125 }}
                         titleBoxLg={{ left: 290, top: 34, width: 301, height: 96 }}
@@ -625,8 +625,8 @@ export default function DesignSchoolCoursesPage() {
                         badgePipeColor="#FF5659"
                         bulletColor="#FF5659"
                         buttonBg="#29BA66"
-                        imageSrc="/photos/schools/design/courses/CourseThree.png"
-                        imageSrcMobile="/photos/schools/design/courses/CourseThreeMobile.png"
+                        imageSrc="/photos/schools/design/courses/CourseThree.webp"
+                        imageSrcMobile="/photos/schools/design/courses/CourseThreeMobile.webp"
                         mobileImageBox={{ left: 18.2, top: 109.17, width: 231.13656616210938, height: 217.26837158203125 }}
                         desktopImageBox1440={{ left: 34, top: 204, width: 431.9148864746094, height: 406 }}
                         titleBoxLg={{ left: 290, top: 34, width: 301, height: 144 }}
@@ -653,8 +653,8 @@ export default function DesignSchoolCoursesPage() {
                         badgePipeColor="#29C76B"
                         bulletColor="#29C76B"
                         buttonBg="#2592FF"
-                        imageSrc="/photos/schools/design/courses/CourseFour.png"
-                        imageSrcMobile="/photos/schools/design/courses/CourseFourMobile.png"
+                        imageSrc="/photos/schools/design/courses/CourseFour.webp"
+                        imageSrcMobile="/photos/schools/design/courses/CourseFourMobile.webp"
                         mobileImageBox={{ left: 18.2, top: 120.94, width: 214.05751037597656, height: 201.21405029296875 }}
                         desktopImageBox1440={{ left: 34, top: 226, width: 400, height: 376 }}
                         titleBoxLg={{ left: 322, top: 34, width: 263, height: 96 }}
@@ -679,8 +679,8 @@ export default function DesignSchoolCoursesPage() {
                         badgePipeColor="#2592FF"
                         bulletColor="#2592FF"
                         buttonBg="#FF5C00"
-                        imageSrc="/photos/schools/design/courses/CourseFive.png"
-                        imageSrcMobile="/photos/schools/design/courses/CourseFiveMobile.png"
+                        imageSrc="/photos/schools/design/courses/CourseFive.webp"
+                        imageSrcMobile="/photos/schools/design/courses/CourseFiveMobile.webp"
                         mobileImageBox={{ left: 18.2, top: 120.94, width: 240.814697265625, height: 198.65296936035156 }}
                         imageObjectPosition="left 92%"
                         desktopImageBox1440={{ left: 34, top: 226, width: 450, height: 371.2142028808594 }}

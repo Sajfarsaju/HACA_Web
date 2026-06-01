@@ -1,4 +1,4 @@
-import Image from "next/image"
+﻿import Image from "next/image"
 import Link from "next/link"
 import { BLOG_POSTS } from "@/lib/blog-data"
 
@@ -43,7 +43,7 @@ export function BlogsSection() {
                         {/* Cover image — 387×287.72 desktop, proportional mobile */}
                         <div className="relative w-full aspect-[387/287.72] rounded-[20px] overflow-hidden shrink-0 max-md:rounded-[16.46px] max-md:aspect-[318.54/236.82]">
                             <Image
-                                src="/photos/main/blog cover.png"
+                                src="/photos/main/blog cover.webp"
                                 alt=""
                                 fill
                                 className="object-cover"

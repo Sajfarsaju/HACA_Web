@@ -22,26 +22,26 @@ const GUEST_EXPERTS: GuestExpert[] = [
         id: "prasad-karthik",
         name: "Prasad Karthik",
         role: "SEO Strategist",
-        file: "Prasad Karthik.png",
+        file: "Prasad Karthik.webp",
     },
     {
         id: "mohammed-alfan",
         name: "Mohammed Alfan",
         role: "Founder - Rows&Columns",
-        file: "Mohammed Alfan.png",
+        file: "Mohammed Alfan.webp",
     },
     {
         id: "minhaj",
         name: "Minhaj",
         role: "Creative Strategy Mentor",
-        file: "Minhaj.png",
+        file: "Minhaj.webp",
         guestWatermark: true,
     },
     {
         id: "mohammed-alfan-founder",
         name: "Mohammed Alfan",
         role: "Founder of Rows&Columns",
-        file: "Mohammed.png",
+        file: "Mohammed.webp",
     },
 ];
 

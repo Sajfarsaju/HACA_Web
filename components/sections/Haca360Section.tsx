@@ -1,4 +1,4 @@
-import Image from 'next/image'
+﻿import Image from 'next/image'
 
 export function Haca360Section() {
     return (
@@ -49,10 +49,10 @@ export function Haca360Section() {
                         The src can be passed as a prop or pulled from a CMS.
                     */}
                     <div className="w-full h-full relative">
-                        {/* Background image: Rectangle 2.png */}
+                        {/* Background image: Rectangle 2.webp */}
                         <div className="absolute inset-0 z-0" aria-hidden="true">
                             <Image
-                                src="/photos/main/Rectangle 2.png"
+                                src="/photos/main/Rectangle 2.webp"
                                 alt=""
                                 fill
                                 className="object-cover object-center"

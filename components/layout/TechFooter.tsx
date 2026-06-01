@@ -25,7 +25,7 @@ export function TechFooter({ variant = "default" }: TechFooterProps) {
                     {/* Logo Section (Mobile only) */}
                     <div className="mb-8 md:hidden">
                         <Image
-                            src="/photos/schools/tech/tech-logo-PW%201%20copy.png"
+                            src="/photos/schools/tech/tech-logo-PW%201%20copy.webp"
                             alt="Tech School Logo"
                             width={260}
                             height={46}
@@ -90,7 +90,7 @@ export function TechFooter({ variant = "default" }: TechFooterProps) {
                 {/* Right: Logo (Desktop only) */}
                 <div className="hidden md:block mt-6 md:mt-0 flex-shrink-0">
                     <Image
-                        src="/photos/schools/tech/tech-logo-PW%201%20copy.png"
+                        src="/photos/schools/tech/tech-logo-PW%201%20copy.webp"
                         alt="Tech School Logo"
                         width={260}
                         height={46}

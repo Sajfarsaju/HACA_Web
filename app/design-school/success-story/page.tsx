@@ -17,7 +17,7 @@ type PlacementGroup = {
     items: PlacementItem[];
 };
 
-const FALLBACK_CARD_IMAGE_SRC = "/photos/schools/design/placements/Rectangle 42.png";
+const FALLBACK_CARD_IMAGE_SRC = "/photos/schools/design/placements/Rectangle 42.webp";
 
 async function fetchDesignPlacements(): Promise<PlacementItem[]> {
     const base =

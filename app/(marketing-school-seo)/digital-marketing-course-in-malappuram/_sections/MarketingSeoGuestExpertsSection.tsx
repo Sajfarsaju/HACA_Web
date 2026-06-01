@@ -18,10 +18,10 @@ type GuestExpert = {
 };
 
 const GUEST_EXPERTS: GuestExpert[] = [
-    { id: "prasad-karthik", name: "Prasad Karthik", role: "SEO Strategist", file: "Prasad Karthik.png" },
-    { id: "mohammed-alfan", name: "Mohammed Alfan", role: "Founder - Rows&Columns", file: "Mohammed Alfan.png" },
-    { id: "minhaj", name: "Minhaj", role: "Creative Strategy Mentor", file: "Minhaj.png", guestWatermark: true },
-    { id: "mohammed", name: "Mohammed", role: "Founder of Rows&Columns", file: "Mohammed.png" },
+    { id: "prasad-karthik", name: "Prasad Karthik", role: "SEO Strategist", file: "Prasad Karthik.webp" },
+    { id: "mohammed-alfan", name: "Mohammed Alfan", role: "Founder - Rows&Columns", file: "Mohammed Alfan.webp" },
+    { id: "minhaj", name: "Minhaj", role: "Creative Strategy Mentor", file: "Minhaj.webp", guestWatermark: true },
+    { id: "mohammed", name: "Mohammed", role: "Founder of Rows&Columns", file: "Mohammed.webp" },
 ];
 
 const TAGLINE = "Real insights, industry experience, and practical knowledge from professionals who have done it.";

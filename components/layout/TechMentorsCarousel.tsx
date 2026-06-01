@@ -5,32 +5,32 @@ import { useCallback, useEffect, useState } from "react";
 
 const MENTORS = [
     {
-        imgSrc: "/photos/schools/tech/Testimonial Card1.png",
+        imgSrc: "/photos/schools/tech/Testimonial Card1.webp",
         name: "Muhammad Sajfar",
         role: "MERN Stack Mentor & Developer",
     },
     {
-        imgSrc: "/photos/schools/tech/Testimonial Card2.png",
+        imgSrc: "/photos/schools/tech/Testimonial Card2.webp",
         name: "Mohammed Nazil K",
         role: "Tech Researcher & Mentor",
     },
     {
-        imgSrc: "/photos/schools/tech/Testimonial Card3.png",
+        imgSrc: "/photos/schools/tech/Testimonial Card3.webp",
         name: "Radhika E K",
         role: "Python Mentor",
     },
     {
-        imgSrc: "/photos/schools/tech/Testimonial Card1.png",
+        imgSrc: "/photos/schools/tech/Testimonial Card1.webp",
         name: "Muhammad Sajfar",
         role: "MERN Stack Mentor & Developer",
     },
     {
-        imgSrc: "/photos/schools/tech/Testimonial Card2.png",
+        imgSrc: "/photos/schools/tech/Testimonial Card2.webp",
         name: "Mohammed Nazil K",
         role: "Tech Researcher & Mentor",
     },
     {
-        imgSrc: "/photos/schools/tech/Testimonial Card3.png",
+        imgSrc: "/photos/schools/tech/Testimonial Card3.webp",
         name: "Radhika E K",
         role: "Python Mentor",
     },

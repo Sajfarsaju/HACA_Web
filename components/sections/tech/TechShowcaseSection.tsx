@@ -6,7 +6,7 @@ import Image from "next/image";
      Outer wrapper  1308 × 894   gap 60px, left 66px
        Heading      1308 × 62
        Card         1308 × 711   border-radius 20px, glassmorphism border
-         • Background image  Rectangle 1.png
+        • Background image  Rectangle 1.webp
          • Ellipse 157       decorative (background)
          • Ellipse 157 (1)   decorative (background)
          • Play icon slot    141 × 117
@@ -63,7 +63,7 @@ export function TechShowcaseSection() {
 
                 {/* Main background image */}
                 <Image
-                    src="/photos/Tech/Rectangle 1.png"
+                    src="/photos/Tech/Rectangle 1.webp"
                     alt="Tech School Showcase"
                     fill
                     className="object-cover object-center z-[2] rounded-[20px]"

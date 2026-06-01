@@ -10,7 +10,7 @@ import { BLOG_POSTS, getBlogBySlug, BlogPost, FaqItem } from "@/lib/blog-data"
 import { BlogRenderer } from "@/components/blog/BlogRenderer"
 import { BlogFAQSection } from "@/components/blog/BlogFAQSection"
 
-const BLOG_COVER_IMAGE = "/photos/main/blog cover.png"
+const BLOG_COVER_IMAGE = "/photos/main/blog cover.webp"
 
 type Props = { params: Promise<{ slug: string }> }
 

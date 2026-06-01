@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Image from "next/image"
 import Link from "next/link"
@@ -126,7 +126,7 @@ export function Hero() {
                         transition={{ duration: 0.8, delay: 0.7 }}
                     >
                         <Image
-                            src="/photos/main/World-Education-Summit 1 new.png"
+                            src="/photos/main/World-Education-Summit 1 new.webp"
                             alt="World Education Summit"
                             width={341}
                             height={63}
