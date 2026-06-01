@@ -137,7 +137,7 @@ export default async function BlogDetailPage({ params }: Props) {
     const coverImageSrc = post.bannerUrl || BLOG_COVER_IMAGE
 
     return (
-        <div className="w-full min-h-screen bg-transparent overflow-x-hidden flex flex-col gap-2.5 md:gap-2.5 pt-2.5 md:pt-10 lg:pt-0">
+        <div className="font-rethink w-full min-h-screen bg-transparent overflow-x-hidden flex flex-col gap-2.5 md:gap-2.5 pt-2.5 md:pt-10 lg:pt-0">
             {/* Inner container */}
             <div className="flex-grow w-full max-w-[1320px] mx-auto flex flex-col gap-5 sm:gap-6 md:gap-8 lg:gap-10 pt-6 sm:pt-12 md:pt-20 lg:pt-[120px] pb-6 sm:pb-8 md:pb-10 lg:pb-10 px-[clamp(16px,5vw,24px)] sm:px-5 md:px-8 lg:px-[60px]">
                 {/* First container: upper section + photo */}
@@ -217,10 +217,10 @@ export default async function BlogDetailPage({ params }: Props) {
                                     <>
                                 <SectionReveal sectionIndex={2}>
                                 <div className="flex flex-col gap-[20px]">
-                                    <p className="font-rethink font-medium text-[20px] leading-[34px] text-[#A7ADBE] m-0">
+                                    <p className="font-rethink font-normal text-[20px] leading-[34px] text-[#A7ADBE] m-0">
                                         Let’s be honest. We’ve all been there. You’ve set up your Google Ads campaign, your ads are finally live, but you’re tense every time you check the dashboard. The clicks are costing a fortune, and your ads are stuck on page two, getting ignored. You start to wonder if this is even worth it.
                                     </p>
-                                    <p className="font-rethink font-medium text-[20px] leading-[34px] text-[#A7ADBE] m-0">
+                                    <p className="font-rethink font-normal text-[20px] leading-[34px] text-[#A7ADBE] m-0">
                                         Before you give up, it is time to learn about this powerful tool. A single metric that Google uses to decide whether to reward you with cheaper clicks and better ad positions.
                                         <br />
                                         It’s called Quality Score.
@@ -239,7 +239,7 @@ export default async function BlogDetailPage({ params }: Props) {
                                         So, What is Quality Score in Google Ads?
                                     </h2>
 
-                                    <div className="flex flex-col gap-[10px] text-[#A7ADBE] font-rethink font-medium text-[20px] leading-[34px]">
+                                    <div className="flex flex-col gap-[10px] text-[#A7ADBE] font-rethink font-normal text-[20px] leading-[34px]">
                                         <p className="m-0">
                                             Think of Quality Score as a credit score for your ads. Google gives each of your keywords a score from 1 to 10. A high score tells Google, “Hey, this ad is high-quality, relevant, and genuinely helpful to users!” A low score, well, it does the opposite.
                                         </p>
@@ -276,7 +276,7 @@ export default async function BlogDetailPage({ params }: Props) {
                                                 />
                                             </div>
                                         </div>
-                                        <p className="font-rethink font-medium text-[20px] leading-[34px] text-[#A7ADBE] m-0">
+                                        <p className="font-rethink font-normal text-[20px] leading-[34px] text-[#A7ADBE] m-0">
                                             Source
                                         </p>
                                     </div>
@@ -289,7 +289,7 @@ export default async function BlogDetailPage({ params }: Props) {
                                     <h2 className="font-rethink font-bold text-[40px] leading-[110%] text-white m-0">
                                         Why Should You Care About Quality Score?
                                     </h2>
-                                    <p className="font-rethink font-medium text-[20px] leading-[34px] text-[#A7ADBE] m-0">
+                                    <p className="font-rethink font-normal text-[20px] leading-[34px] text-[#A7ADBE] m-0">
                                         Ignoring your Quality Score is like trying to drive with the handbrake on. A low score actively works against you, while a high score provides two big advantages:
                                         <br />
                                         <br />
@@ -355,10 +355,10 @@ export default async function BlogDetailPage({ params }: Props) {
                                 {/* Top container */}
                             <SectionReveal sectionIndex={2} className="w-full">
                             <div className="flex flex-col gap-[10px] w-full">
-                                <p className="font-rethink font-medium text-[16px] leading-[27px] text-[#A7ADBE] m-0">
+                                <p className="font-rethink font-normal text-[16px] leading-[27px] text-[#A7ADBE] m-0">
                                     Let’s be honest. We’ve all been there. You’ve set up your Google Ads campaign, your ads are finally live, but you’re tense every time you check the dashboard. The clicks are costing a fortune, and your ads are stuck on page two, getting ignored. You start to wonder if this is even worth it.
                                 </p>
-                                <p className="font-rethink font-medium text-[16px] leading-[27px] text-[#A7ADBE] m-0">
+                                <p className="font-rethink font-normal text-[16px] leading-[27px] text-[#A7ADBE] m-0">
                                     Before you give up, it is time to learn about this powerful tool. A single metric that Google uses to decide whether to reward you with cheaper clicks and better ad positions.
                                     <br />
                                     It’s called Quality Score.
@@ -376,7 +376,7 @@ export default async function BlogDetailPage({ params }: Props) {
                                 <h2 className="font-rethink font-bold text-[20px] leading-[110%] text-white m-0 max-w-[249px]">
                                     So, What is Quality Score in Google Ads?
                                 </h2>
-                                <div className="flex flex-col gap-[8px] text-[#A7ADBE] font-rethink font-medium text-[16px] leading-[27px]">
+                                <div className="flex flex-col gap-[8px] text-[#A7ADBE] font-rethink font-normal text-[16px] leading-[27px]">
                                     <p className="m-0">
                                         Think of Quality Score as a credit score for your ads. Google gives each of your keywords a score from 1 to 10. A high score tells Google, “Hey, this ad is high-quality, relevant, and genuinely helpful to users!” A low score, well, it does the opposite. It’s Google’s way of ensuring that people who use their search engine have a good experience. They want to show great ads that lead to great websites. Your Quality Score is their internal report card on how well you’re doing that.
                                     </p>
@@ -412,7 +412,7 @@ export default async function BlogDetailPage({ params }: Props) {
                                             />
                                         </div>
                                     </div>
-                                    <p className="font-rethink font-medium text-[18px] leading-[34px] text-[#A7ADBE] m-0">
+                                    <p className="font-rethink font-normal text-[18px] leading-[34px] text-[#A7ADBE] m-0">
                                         Source
                                     </p>
                                 </div>
@@ -425,7 +425,7 @@ export default async function BlogDetailPage({ params }: Props) {
                                 <h2 className="font-rethink font-bold text-[20px] leading-[110%] text-white m-0">
                                     Why Should You Care About Quality Score?
                                 </h2>
-                                <p className="font-rethink font-medium text-[16px] leading-[27px] text-[#A7ADBE] m-0">
+                                <p className="font-rethink font-normal text-[16px] leading-[27px] text-[#A7ADBE] m-0">
                                     Ignoring your Quality Score is like trying to drive with the handbrake on. A low score actively works against you, while a high score provides two big advantages:
                                     <br />
                                     <br />

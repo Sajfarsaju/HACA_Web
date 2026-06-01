@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 export const MARKETING_SCHOOL_SEO_SITE_URL =
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://harisandcoacademy.com";
 
+/** Canonical path for the UAE/Dubai HACA school landing page. */
+export const HACA_AE_SEO_PATH = "/ae" as const;
+
 /** Canonical path for the Calicut digital marketing SEO landing page. */
 export const DIGITAL_MARKETING_CALICUT_SEO_PATH = "/digital-marketing-course-in-calicut" as const;
 
@@ -143,7 +146,9 @@ export function isMarketingSchoolSeoPath(pathname: string): boolean {
         pathname === DIGITAL_MARKETING_THRISSUR_SEO_PATH ||
         pathname.startsWith(`${DIGITAL_MARKETING_THRISSUR_SEO_PATH}/`) ||
         pathname === DIGITAL_MARKETING_ERNAKULAM_SEO_PATH ||
-        pathname.startsWith(`${DIGITAL_MARKETING_ERNAKULAM_SEO_PATH}/`)
+        pathname.startsWith(`${DIGITAL_MARKETING_ERNAKULAM_SEO_PATH}/`) ||
+        pathname === HACA_AE_SEO_PATH ||
+        pathname.startsWith(`${HACA_AE_SEO_PATH}/`)
     );
 }
 
@@ -1925,6 +1930,141 @@ export function digitalMarketingErnakulamJsonLd() {
                     },
                 })),
             },
+        ],
+    };
+}
+
+// ─── HACA UAE / Dubai (ae) ────────────────────────────────────────────────────
+
+const HACA_AE_PAGE_TITLE = "HACA School UAE | Digital Marketing & Tech Courses in Dubai | HACA";
+
+const HACA_AE_PAGE_DESCRIPTION =
+    "Discover HACA's UAE school — industry-ready courses in Digital Marketing, Data Analytics, Python, and more. Practical, mentor-led learning for students and professionals across Dubai and the UAE.";
+
+export function buildHacaAeSeoMetadata(): import("next").Metadata {
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${HACA_AE_SEO_PATH}`;
+
+    return {
+        title: HACA_AE_PAGE_TITLE,
+        description: HACA_AE_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: HACA_AE_PAGE_TITLE,
+            description: HACA_AE_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_AE",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: HACA_AE_PAGE_TITLE,
+            description: HACA_AE_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "HACA UAE",
+            "HACA Dubai",
+            "digital marketing course Dubai",
+            "digital marketing course UAE",
+            "marketing course Dubai",
+            "data analytics course Dubai",
+            "python course Dubai",
+            "tech course Dubai",
+            "online marketing course UAE",
+            "HACA school Dubai",
+        ],
+    };
+}
+
+// ─── Digital Marketing Course in Dubai SEO page ──────────────────────────────
+
+export const DIGITAL_MARKETING_DUBAI_SEO_PATH = "/ae/digital-marketing-course-in-dubai" as const;
+
+const DUBAI_DM_PAGE_TITLE = "Digital Marketing Course in Dubai | AI-Integrated | HACA UAE";
+
+const DUBAI_DM_PAGE_DESCRIPTION =
+    "Join HACA's AI-integrated Digital Marketing Course in Dubai. Learn SEO, AEO, GEO, Meta Ads, Google Ads, content strategy and performance marketing with industry practitioners. Practical, project-based learning with placement support.";
+
+export function buildHacaDubaiDigitalMarketingMetadata(): import("next").Metadata {
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_DUBAI_SEO_PATH}`;
+
+    return {
+        title: DUBAI_DM_PAGE_TITLE,
+        description: DUBAI_DM_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: DUBAI_DM_PAGE_TITLE,
+            description: DUBAI_DM_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_AE",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: DUBAI_DM_PAGE_TITLE,
+            description: DUBAI_DM_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "digital marketing course in Dubai",
+            "digital marketing course Dubai",
+            "best digital marketing course in Dubai",
+            "digital marketing training Dubai",
+            "AI digital marketing course Dubai",
+            "online digital marketing course Dubai",
+            "digital marketing institute Dubai",
+            "digital marketing certification Dubai",
+            "HACA Dubai",
+            "digital marketing UAE",
+            "digital marketing course UAE",
+        ],
+    };
+}
+
+// ─── Digital Marketing Course in Sharjah SEO page ────────────────────────────
+
+export const DIGITAL_MARKETING_SHARJAH_SEO_PATH = "/ae/digital-marketing-course-in-sharjah" as const;
+
+const SHARJAH_DM_PAGE_TITLE = "Digital Marketing Course in Sharjah | AI-Integrated | HACA UAE";
+
+const SHARJAH_DM_PAGE_DESCRIPTION =
+    "Join HACA's AI-integrated Digital Marketing Course in Sharjah. Learn SEO, AEO, GEO, Meta Ads, Google Ads, content strategy and performance marketing with industry practitioners. Practical, project-based learning with placement support.";
+
+export function buildHacaSharjahDigitalMarketingMetadata(): import("next").Metadata {
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_SHARJAH_SEO_PATH}`;
+
+    return {
+        title: SHARJAH_DM_PAGE_TITLE,
+        description: SHARJAH_DM_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: SHARJAH_DM_PAGE_TITLE,
+            description: SHARJAH_DM_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_AE",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: SHARJAH_DM_PAGE_TITLE,
+            description: SHARJAH_DM_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "digital marketing course in Sharjah",
+            "digital marketing course Sharjah",
+            "best digital marketing course in Sharjah",
+            "digital marketing training Sharjah",
+            "AI digital marketing course Sharjah",
+            "online digital marketing course Sharjah",
+            "digital marketing institute Sharjah",
+            "digital marketing certification Sharjah",
+            "HACA Sharjah",
+            "digital marketing UAE",
+            "digital marketing course UAE",
         ],
     };
 }

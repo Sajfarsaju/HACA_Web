@@ -96,7 +96,7 @@ export function BlogRenderer({ blocks }: { blocks: BlogBlock[] }) {
                         return (
                             <p
                                 key={block.id}
-                                className="font-rethink font-medium text-[16px] md:text-[20px] leading-[27px] md:leading-[34px] text-[#A7ADBE] m-0"
+                                className="font-rethink font-normal text-[16px] md:text-[20px] leading-[27px] md:leading-[34px] text-[#A7ADBE] m-0"
                             >
                                 {block.text}
                             </p>
@@ -162,6 +162,45 @@ export function BlogRenderer({ blocks }: { blocks: BlogBlock[] }) {
                                 rows={block.rows}
                             />
                         )
+                    case "video": {
+                        const isYouTube = block.url.includes("youtube.com") || block.url.includes("youtu.be")
+                        const isVimeo   = block.url.includes("vimeo.com")
+                        let embedUrl = block.url
+                        if (isYouTube) {
+                            const ytId = block.url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/)?.[1]
+                            if (ytId) embedUrl = `https://www.youtube.com/embed/${ytId}`
+                        } else if (isVimeo) {
+                            const vimeoId = block.url.match(/vimeo\.com\/(\d+)/)?.[1]
+                            if (vimeoId) embedUrl = `https://player.vimeo.com/video/${vimeoId}`
+                        }
+                        return (
+                            <figure key={block.id} className="w-full flex flex-col gap-2 md:gap-3 m-0">
+                                {isYouTube || isVimeo ? (
+                                    <div className="relative w-full overflow-hidden rounded-[10.63px] sm:rounded-[14px] md:rounded-[18px] lg:rounded-[20px] bg-black" style={{ paddingTop: "56.25%" }}>
+                                        <iframe
+                                            src={embedUrl}
+                                            className="absolute inset-0 w-full h-full"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                            title={block.caption || "Video"}
+                                        />
+                                    </div>
+                                ) : (
+                                    <video
+                                        src={block.url}
+                                        controls
+                                        className="w-full h-auto rounded-[10.63px] sm:rounded-[14px] md:rounded-[18px] lg:rounded-[20px] bg-black"
+                                        preload="metadata"
+                                    />
+                                )}
+                                {block.caption ? (
+                                    <figcaption className="font-rethink font-medium text-[14px] md:text-[16px] text-[#A7ADBE] leading-[25.5px]">
+                                        {block.caption}
+                                    </figcaption>
+                                ) : null}
+                            </figure>
+                        )
+                    }
                     default:
                         return null
                 }

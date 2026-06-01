@@ -163,8 +163,7 @@ export default function GraphicDesigningCourseInCalicutPage() {
                         px-[20px] pt-[30px] pb-[30px]
                         gap-[30px]
                         h-[885.9034423828125px]
-                        lg:px-[40px] lg:pt-[60px] lg:pb-[60px]
-                        xl:px-[60px]
+                        lg:px-[60px] lg:pt-[60px] lg:pb-[60px]
                         lg:gap-[60px]
                         lg:h-[920px]
                     "
@@ -233,38 +232,38 @@ export default function GraphicDesigningCourseInCalicutPage() {
                     {/* Cards */}
                     <div className="w-full flex justify-center">
                         {/* Mobile grid (4 rows × 2) */}
-                        <div className="w-[345px] h-[634.9034423828125px] flex flex-col gap-[10px] lg:hidden">
+                        <div className="w-full flex flex-col gap-[10px] lg:hidden">
                             <div className="flex gap-[10px]">
-                                <div className="h-[151.22586059570312px] w-[205.052001953125px] rounded-[10.25px] bg-gradient-to-br from-[#FDE7F3] to-[#E0F2FE]" />
-                                <div className="h-[151.22586059570312px] w-[134.30906677246094px] rounded-[10.25px] bg-gradient-to-br from-[#EDE9FE] to-[#DCFCE7]" />
+                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-br from-[#FDE7F3] to-[#E0F2FE]" style={{ flexGrow: 205 }} />
+                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-br from-[#EDE9FE] to-[#DCFCE7]" style={{ flexGrow: 134 }} />
                             </div>
                             <div className="flex gap-[10px]">
-                                <div className="h-[151.22586059570312px] w-[165.57949829101562px] rounded-[10.25px] bg-gradient-to-br from-[#FEF9C3] to-[#DBEAFE]" />
-                                <div className="h-[151.22586059570312px] w-[173.7815704345703px] rounded-[10.25px] bg-gradient-to-br from-[#FFE4E6] to-[#E0E7FF]" />
+                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-br from-[#FEF9C3] to-[#DBEAFE]" style={{ flexGrow: 166 }} />
+                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-br from-[#FFE4E6] to-[#E0E7FF]" style={{ flexGrow: 174 }} />
                             </div>
                             <div className="flex gap-[10px]">
-                                <div className="h-[151.22586059570312px] w-[134.30906677246094px] rounded-[10.25px] bg-gradient-to-tl from-[#ECFCCB] to-[#E0F2FE] rotate-180" />
-                                <div className="h-[151.22586059570312px] w-[205.052001953125px] rounded-[10.25px] bg-gradient-to-tl from-[#FCE7F3] to-[#FFEDD5] rotate-180" />
+                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-tl from-[#ECFCCB] to-[#E0F2FE]" style={{ flexGrow: 134 }} />
+                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-tl from-[#FCE7F3] to-[#FFEDD5]" style={{ flexGrow: 205 }} />
                             </div>
                             <div className="flex gap-[10px]">
-                                <div className="h-[151.22586059570312px] w-[173.7815704345703px] rounded-[10.25px] bg-gradient-to-tl from-[#E0E7FF] to-[#DCFCE7] rotate-180" />
-                                <div className="h-[151.22586059570312px] w-[165.57949829101562px] rounded-[10.25px] bg-gradient-to-tl from-[#DBEAFE] to-[#FEF9C3] rotate-180" />
+                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-tl from-[#E0E7FF] to-[#DCFCE7]" style={{ flexGrow: 174 }} />
+                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-tl from-[#DBEAFE] to-[#FEF9C3]" style={{ flexGrow: 166 }} />
                             </div>
                         </div>
 
                         {/* Desktop grid (2 rows × 4) */}
-                        <div className="hidden w-full lg:flex lg:flex-col lg:gap-[11px] lg:px-0 lg:h-[600px]">
-                            <div className="flex w-full justify-center gap-[11px]">
-                                <div className="h-[295px] w-[400px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#FDE7F3] to-[#E0F2FE]" />
-                                <div className="h-[295px] w-[262px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#EDE9FE] to-[#DCFCE7]" />
-                                <div className="h-[295px] w-[336px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#FEF9C3] to-[#DBEAFE]" />
-                                <div className="h-[295px] w-[269px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#FFE4E6] to-[#E0E7FF]" />
+                        <div className="hidden w-full lg:flex lg:flex-col lg:gap-[11px] lg:h-[600px]">
+                            <div className="flex w-full gap-[11px]">
+                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#FDE7F3] to-[#E0F2FE]" style={{ flexGrow: 400 }} />
+                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#EDE9FE] to-[#DCFCE7]" style={{ flexGrow: 262 }} />
+                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#FEF9C3] to-[#DBEAFE]" style={{ flexGrow: 336 }} />
+                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#FFE4E6] to-[#E0E7FF]" style={{ flexGrow: 269 }} />
                             </div>
-                            <div className="flex w-full justify-center gap-[11px]">
-                                <div className="h-[295px] w-[323px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#ECFCCB] to-[#E0F2FE]" />
-                                <div className="h-[295px] w-[262px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#FCE7F3] to-[#FFEDD5]" />
-                                <div className="h-[295px] w-[302px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#E0E7FF] to-[#DCFCE7]" />
-                                <div className="h-[295px] w-[380px] shrink-0 rounded-[20px] bg-gradient-to-br from-[#DBEAFE] to-[#FEF9C3]" />
+                            <div className="flex w-full gap-[11px]">
+                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#ECFCCB] to-[#E0F2FE]" style={{ flexGrow: 323 }} />
+                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#FCE7F3] to-[#FFEDD5]" style={{ flexGrow: 262 }} />
+                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#E0E7FF] to-[#DCFCE7]" style={{ flexGrow: 302 }} />
+                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#DBEAFE] to-[#FEF9C3]" style={{ flexGrow: 380 }} />
                             </div>
                         </div>
                     </div>

@@ -44,12 +44,15 @@ export function BlogBlockBuilder({
     value,
     onChange,
     onImageUpload,
+    onVideoUpload,
 }: {
     value: BlogBlock[]
     onChange: (next: BlogBlock[]) => void
     onImageUpload: (file: File) => Promise<string>
+    onVideoUpload?: (file: File) => Promise<string>
 }) {
     const [uploadingId, setUploadingId] = React.useState<string | null>(null)
+    const [videoUploadingId, setVideoUploadingId] = React.useState<string | null>(null)
     // Crop modal state for image blocks
     const [cropSrc, setCropSrc] = React.useState<string | null>(null)
     const [cropTargetIdx, setCropTargetIdx] = React.useState<number | null>(null)
@@ -68,6 +71,22 @@ export function BlogBlockBuilder({
     }
     const addCallout = () => {
         onChange([...value, { id: uid(), type: "callout", title: "", text: "" }])
+    }
+    const addVideo = () => {
+        onChange([...value, { id: uid(), type: "video", url: "", caption: "" }])
+    }
+
+    const handlePickVideo = async (idx: number, file: File) => {
+        if (!onVideoUpload) return
+        const block = value[idx]
+        if (!block || block.type !== "video") return
+        setVideoUploadingId(block.id)
+        try {
+            const url = await onVideoUpload(file)
+            update(idx, { url })
+        } finally {
+            setVideoUploadingId((prev) => (prev === block.id ? null : prev))
+        }
     }
 
     const move = (from: number, to: number) => {
@@ -135,6 +154,7 @@ export function BlogBlockBuilder({
                 <Button onClick={() => addList(false)}>Add Bullet List</Button>
                 <Button onClick={() => addList(true)}>Add Numbered List</Button>
                 <Button onClick={addCallout}>Add Callout</Button>
+                <Button onClick={addVideo}>Add Video</Button>
             </div>
 
             {value.length === 0 ? (
@@ -321,6 +341,54 @@ export function BlogBlockBuilder({
                                         onChange={(e) => update(idx, { caption: e.target.value })}
                                     />
                                 </div>
+                            </div>
+                        ) : null}
+
+                        {block.type === "video" ? (
+                            <div className="space-y-2">
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <label className="text-xs font-medium text-[#A7ADBE]">
+                                        Upload video <span className="font-normal text-[#8890a0]">(mp4, mov, webm — max 200 MB)</span>
+                                    </label>
+                                    {onVideoUpload ? (
+                                        <label className={`cursor-pointer rounded-lg border border-white/20 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-[#d1d5e0] transition hover:bg-white/10 ${videoUploadingId === block.id ? "opacity-50 pointer-events-none" : ""}`}>
+                                            Choose video file
+                                            <input
+                                                type="file"
+                                                accept="video/*"
+                                                className="hidden"
+                                                onChange={(e) => {
+                                                    const f = e.target.files?.[0]
+                                                    e.target.value = ""
+                                                    if (f) handlePickVideo(idx, f)
+                                                }}
+                                                disabled={videoUploadingId === block.id}
+                                            />
+                                        </label>
+                                    ) : null}
+                                    {videoUploadingId === block.id ? (
+                                        <span className="text-xs text-[#9aa3b8]">Uploading… this may take a moment</span>
+                                    ) : null}
+                                </div>
+                                <input
+                                    className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                                    placeholder="Video URL — auto-filled after upload, or paste a YouTube / Vimeo URL…"
+                                    value={block.url}
+                                    onChange={(e) => update(idx, { url: e.target.value })}
+                                />
+                                {block.url ? (
+                                    <p className="text-[11px] text-[#9aa3b8]">
+                                        {block.url.includes("youtube") || block.url.includes("youtu.be") || block.url.includes("vimeo")
+                                            ? "YouTube / Vimeo embed detected — will render as iframe"
+                                            : "Uploaded video — will render as native player"}
+                                    </p>
+                                ) : null}
+                                <input
+                                    className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                                    placeholder="Caption (optional)…"
+                                    value={block.caption ?? ""}
+                                    onChange={(e) => update(idx, { caption: e.target.value })}
+                                />
                             </div>
                         ) : null}
                     </div>
