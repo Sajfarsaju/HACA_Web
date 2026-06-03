@@ -67,6 +67,7 @@ type MentorDoc = {
   designation: string;
   photoUrl: string;
   cloudinaryPublicId: string;
+  schoolName: string;
   linkedinUrl?: string | null;
   order: number;
   createdAt: string;
