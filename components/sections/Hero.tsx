@@ -67,7 +67,7 @@ export function Hero() {
                                 transition={{ duration: 0.6, delay: 0.3 }}
                             >
                                 <p className="font-rethink font-medium text-[18px] leading-[27px] tracking-normal text-center text-[#A7ADBE] m-0 md:line-clamp-2 lg:line-clamp-none lg:whitespace-nowrap max-md:text-[14px] max-md:leading-[15px]">
-                                    At HACA, every course is built to make you career-ready in Digital Marketing, Design, Tech, or Finance.
+                                    At HACA, every course is built to make you career-ready in Digital Marketing, Design or Tech.
                                 </p>
                             </motion.div>
                         </div>

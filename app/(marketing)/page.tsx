@@ -10,7 +10,7 @@ async function fetchPlacementGroups(): Promise<PlacementGroup[]> {
     "http://127.0.0.1:5000";
   try {
     const res = await fetch(`${base}/api/placements/grouped?limit=200`, {
-      next: { revalidate: 60 },
+      cache: "no-store",
     });
     if (!res.ok) return [];
     const data = await res.json();
