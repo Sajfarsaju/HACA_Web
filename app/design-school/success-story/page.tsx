@@ -1,45 +1,24 @@
 import type { Metadata } from "next";
-import axios from "axios";
 import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntroAnimation";
 import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
 import {
     SchoolPlacementSection,
     type PlacementItem,
 } from "@/components/success-story/SchoolPlacementSection";
+import {
+    DESIGN_PLACEMENT_FALLBACK_IMAGE,
+    fetchDesignSchoolPlacements,
+} from "@/lib/design-placements";
 
 export const metadata: Metadata = {
     title: "Design School Success Story | HACA",
     description: "Design School success stories.",
 };
 
-type PlacementGroup = {
-    schoolName: string;
-    items: PlacementItem[];
-};
-
-const FALLBACK_CARD_IMAGE_SRC = "/photos/schools/design/placements/Rectangle 42.png";
-
-async function fetchDesignPlacements(): Promise<PlacementItem[]> {
-    const base =
-        process.env.NEXT_PUBLIC_BACKEND_URL ??
-        process.env.BACKEND_URL ??
-        "http://127.0.0.1:5000";
-
-    try {
-        const { data } = await axios.get<{ groups?: PlacementGroup[] }>(
-            `${base}/api/placements/grouped?limit=200`,
-            { headers: { "Cache-Control": "no-store" } }
-        );
-        const groups = Array.isArray(data.groups) ? data.groups : [];
-        const designGroup = groups.find((g) => g.schoolName === "Design School");
-        return designGroup?.items ?? [];
-    } catch {
-        return [];
-    }
-}
+const FALLBACK_CARD_IMAGE_SRC = DESIGN_PLACEMENT_FALLBACK_IMAGE;
 
 export default async function DesignSchoolSuccessStoryPage() {
-    const designItems = await fetchDesignPlacements();
+    const designItems = await fetchDesignSchoolPlacements();
 
     // Ensure at least 16 cards for the initial grid; keep ALL items if more than 16.
     const items: PlacementItem[] =

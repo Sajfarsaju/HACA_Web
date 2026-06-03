@@ -1,14 +1,17 @@
 import Image from "next/image"
 import Link from "next/link"
-import { BLOG_POSTS } from "@/lib/blog-data"
+import type { BlogPost } from "@/lib/blog-data"
 
-/** First three posts — matches previous home preview count */
-const homeBlogs = BLOG_POSTS.slice(0, 3)
+const FALLBACK_COVER = "/photos/main/blog cover.png"
 
 const blogCardLinkClass =
     "w-[calc(407/1320*100%)] flex flex-col gap-[20px] bg-transparent border border-[#25317d] rounded-[20px] p-[10px] box-border overflow-hidden max-[1200px]:w-[calc(50%-13px)] max-[1200px]:max-w-[407px] [&:nth-child(3)]:max-[1200px]:hidden max-md:w-full max-md:p-[8.23px] max-md:gap-[16.46px] max-md:rounded-[16.46px] max-md:border-[0.82px] [&:nth-child(n+3)]:max-md:hidden transition-transform duration-200 ease-out hover:scale-[1.03] active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4C75FF]/80"
 
-export function BlogsSection() {
+type BlogsSectionProps = {
+    blogs: BlogPost[];
+};
+
+export function BlogsSection({ blogs }: BlogsSectionProps) {
     return (
         <section className="w-full section-4k mx-auto bg-[#000210] p-[20px_60px] flex flex-col items-center gap-[20px] box-border max-[1100px]:px-[clamp(24px,4vw,50px)] max-md:p-[20px_clamp(16px,5vw,24px)]" aria-label="The Learning Space">
 
@@ -33,21 +36,22 @@ export function BlogsSection() {
 
             {/* ─── Cards grid — whole card links to post; hover grows slightly ─── */}
             <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none flex flex-row justify-between gap-0 max-[1200px]:justify-center max-[1200px]:gap-[26px] max-md:flex-col max-md:gap-[20px] max-md:max-w-[335px] max-md:self-center">
-                {homeBlogs.map((blog) => (
+                {blogs.map((blog) => (
                     <Link
                         key={blog.id}
                         href={`/blog/${blog.slug}`}
                         className={blogCardLinkClass}
                         aria-label={`Read blog: ${blog.title}`}
                     >
-                        {/* Cover image — 387×287.72 desktop, proportional mobile */}
-                        <div className="relative w-full aspect-[387/287.72] rounded-[20px] overflow-hidden shrink-0 max-md:rounded-[16.46px] max-md:aspect-[318.54/236.82]">
+                        {/* Cover image — same 871×514 ratio as /blog listing */}
+                        <div className="relative w-full aspect-[871/514] overflow-hidden shrink-0 rounded-[clamp(12px,1.2vw,20px)] max-md:rounded-[16.46px]">
                             <Image
-                                src="/photos/main/blog cover.png"
-                                alt=""
+                                src={blog.bannerUrl || FALLBACK_COVER}
+                                alt={blog.title}
                                 fill
                                 className="object-cover"
                                 sizes="(max-width: 767px) 100vw, 33vw"
+                                unoptimized={Boolean(blog.bannerUrl?.startsWith("http"))}
                             />
                         </div>
 

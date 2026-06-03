@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
+import { ENQUIRE_URL } from "@/lib/enquire";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 
 const WORLD_EDUCATION_LOGO = "/photos/schools/marketing/world%20summit%202.svg";
@@ -79,7 +80,7 @@ export function MarketingHeroSection() {
                         </h1>
 
                         <Link
-                            href="/contact"
+                            href={ENQUIRE_URL}
                             className="relative flex cursor-pointer items-center shrink-0 group no-underline transition-all duration-300 w-[158.26px] h-[44px] md:w-[194px] md:h-[60px]"
                             aria-label="Enquire now"
                         >

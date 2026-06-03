@@ -3,40 +3,22 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
-const MENTORS = [
-    {
-        imgSrc: "/photos/schools/tech/Testimonial Card1.png",
-        name: "Muhammad Sajfar",
-        role: "MERN Stack Mentor & Developer",
-    },
-    {
-        imgSrc: "/photos/schools/tech/Testimonial Card2.png",
-        name: "Mohammed Nazil K",
-        role: "Tech Researcher & Mentor",
-    },
-    {
-        imgSrc: "/photos/schools/tech/Testimonial Card3.png",
-        name: "Radhika E K",
-        role: "Python Mentor",
-    },
-    {
-        imgSrc: "/photos/schools/tech/Testimonial Card1.png",
-        name: "Muhammad Sajfar",
-        role: "MERN Stack Mentor & Developer",
-    },
-    {
-        imgSrc: "/photos/schools/tech/Testimonial Card2.png",
-        name: "Mohammed Nazil K",
-        role: "Tech Researcher & Mentor",
-    },
-    {
-        imgSrc: "/photos/schools/tech/Testimonial Card3.png",
-        name: "Radhika E K",
-        role: "Python Mentor",
-    },
-] as const;
+type TechMentor = {
+    imgSrc: string;
+    name: string;
+    role: string;
+};
 
-const INITIAL_MENTOR_INDEX = Math.min(1, MENTORS.length - 1);
+const FALLBACK_MENTORS: TechMentor[] = [
+    { imgSrc: "/photos/schools/tech/Testimonial Card1.png", name: "Muhammad Sajfar", role: "MERN Stack Mentor & Developer" },
+    { imgSrc: "/photos/schools/tech/Testimonial Card2.png", name: "Mohammed Nazil K", role: "Tech Researcher & Mentor" },
+    { imgSrc: "/photos/schools/tech/Testimonial Card3.png", name: "Radhika E K", role: "Python Mentor" },
+    { imgSrc: "/photos/schools/tech/Testimonial Card1.png", name: "Muhammad Sajfar", role: "MERN Stack Mentor & Developer" },
+    { imgSrc: "/photos/schools/tech/Testimonial Card2.png", name: "Mohammed Nazil K", role: "Tech Researcher & Mentor" },
+    { imgSrc: "/photos/schools/tech/Testimonial Card3.png", name: "Radhika E K", role: "Python Mentor" },
+];
+
+const INITIAL_MENTOR_INDEX = Math.min(1, FALLBACK_MENTORS.length - 1);
 
 function getCardSizes(width: number) {
     if (width < 360) {
@@ -62,12 +44,11 @@ function getCardSizes(width: number) {
     return { centerW: 396, centerH: 495, sideW: 346, sideH: 431, gap: 32, showSide: true };
 }
 
-function getOffset(index: number, active: number, loop: boolean) {
+function getOffset(index: number, active: number, loop: boolean, total: number) {
     if (!loop) {
         return index - active;
     }
 
-    const total = MENTORS.length;
     let diff = index - active;
     if (diff > total / 2) diff -= total;
     if (diff < -total / 2) diff += total;
@@ -147,6 +128,25 @@ export function TechMentorsCarousel({
     const [windowWidth, setWindowWidth] = useState(() =>
         typeof window !== "undefined" ? window.innerWidth : 1280,
     );
+    const [MENTORS, setMENTORS] = useState<TechMentor[]>([]);
+
+    useEffect(() => {
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/mentors?school=Tech%20School`;
+        fetch(url)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data) => {
+                const list: TechMentor[] = Array.isArray(data?.mentors)
+                    ? data.mentors.map((m: { photoUrl: string; name: string; designation: string }) => ({
+                          imgSrc: m.photoUrl,
+                          name: m.name,
+                          role: m.designation,
+                      }))
+                    : [];
+                setMENTORS(list);
+                if (list.length > 0) setActiveIndex(Math.min(1, list.length - 1));
+            })
+            .catch(() => {});
+    }, []);
 
     const handleResize = useCallback(() => {
         setWindowWidth(window.innerWidth);
@@ -168,6 +168,7 @@ export function TechMentorsCarousel({
 
     useEffect(() => {
         if (!autoAdvanceMs || autoAdvanceMs <= 0) return;
+        if (total === 0) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
         const timer = setInterval(() => {
@@ -175,6 +176,8 @@ export function TechMentorsCarousel({
         }, autoAdvanceMs);
         return () => clearInterval(timer);
     }, [autoAdvanceMs, total]);
+
+    if (total === 0) return null;
 
     const { centerW, centerH, sideW, sideH, gap, showSide } = getCardSizes(windowWidth);
     const isMobileView = windowWidth < 768;
@@ -289,7 +292,7 @@ export function TechMentorsCarousel({
                     style={{ height: `${centerH + 40}px` }}
                 >
                     {MENTORS.map((mentor, i) => {
-                        const offset = getOffset(i, activeIndex, loop);
+                        const offset = getOffset(i, activeIndex, loop, total);
                         const isCenter = offset === 0;
                         const isVisible = showSide ? Math.abs(offset) <= 1 : isCenter;
                         const cardW = isCenter ? centerW : sideW;

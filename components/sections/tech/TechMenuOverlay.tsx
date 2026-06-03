@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import type { RefObject } from "react";
+import { ENQUIRE_URL } from "@/lib/enquire";
 
 export type TechNavLink = { href: string; label: string };
 
@@ -122,7 +123,7 @@ export function TechMenuOverlay({
                                 animate="visible"
                             >
                                 <Link
-                                    href="/contact"
+                                    href={ENQUIRE_URL}
                                     onClick={onClose}
                                     className="group relative mt-5 flex w-[130px] h-[44px] shrink-0 rounded-[8px] px-[10px] py-[10px] bg-white text-[#1a1a1a] font-outfit font-semibold text-[14px] leading-none no-underline overflow-hidden ml-4"
                                 >

@@ -22,10 +22,12 @@ export function AboutBeliefSection() {
             <div className="flex flex-col md:flex-row items-center justify-center gap-[clamp(20px,3vw,44px)]">
                 {/* Explore Our Courses - primary CTA */}
                 <Link
-                    href="/schools"
-                    className="inline-flex w-full max-w-[209px] max-md:max-w-[174.45px]"
+                    href="/courses"
+                    className="inline-flex w-full max-w-[209px] max-md:max-w-[174.45px] no-underline"
+                    aria-label="Explore our courses"
                 >
                     <motion.button
+                        type="button"
                         className="group relative w-full md:h-[55px] max-md:min-h-[46px] rounded-[100px] max-md:rounded-[83.64px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[clamp(16.73px,1.5vw,20px)] cursor-pointer overflow-hidden"
                         whileHover={{ scale: 1.04 }}
                         whileTap={{ scale: 0.97 }}
@@ -47,10 +49,12 @@ export function AboutBeliefSection() {
 
                 {/* Talk to Our Team - secondary */}
                 <Link
-                    href="#"
-                    className="inline-flex w-full max-w-[178px] max-md:max-w-[149.45px]"
+                    href="https://harisandcoacademy.com/enquire/"
+                    className="inline-flex w-full max-w-[178px] max-md:max-w-[149.45px] no-underline"
+                    aria-label="Talk to our team"
                 >
                     <motion.button
+                        type="button"
                         className="group relative w-full md:h-[55px] max-md:min-h-[46px] rounded-[100px] max-md:rounded-[83.64px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[clamp(16.73px,1.5vw,20px)] cursor-pointer overflow-hidden"
                         whileHover={{ scale: 1.04 }}
                         whileTap={{ scale: 0.97 }}

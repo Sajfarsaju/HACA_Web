@@ -233,6 +233,7 @@ export function DesignProgramCard({
 
                         <Link
                             href={href}
+                            scroll={false}
                             className="w-fit inline-flex items-center gap-[8px]
                                        rounded-[30px] px-[18px] py-[14px]"
                             style={{ backgroundColor: btnBg }}
@@ -346,6 +347,7 @@ export function DesignProgramCard({
 
             {/* ── Explore Now button ── */}
             <Link href={href}
+                  scroll={false}
                   className="absolute bottom-[15px] left-1/2 -translate-x-1/2
                              md:hidden lg:inline-flex
                              lg:bottom-auto lg:left-auto lg:translate-x-0 lg:top-[37px] lg:right-[4.17%]

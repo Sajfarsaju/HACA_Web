@@ -6,9 +6,15 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
+import { ENQUIRE_URL } from "@/lib/enquire";
 
 const LOGO_SRC = "/photos/main/haca%20design%20school.svg";
 const FOOTER_ILLUSTRATION_SRC = "/photos/schools/design/677899dc62a1d1abef869da860d62739ce98ca75.webp";
+
+const DESIGN_INSTAGRAM_URL =
+    "https://www.instagram.com/haca.designschool?igsh=MWZzN2ZvdnRwdm00bQ==";
+const DESIGN_YOUTUBE_URL =
+    "https://youtube.com/@designschoolhaca?si=J3L4sQtEDimos0D5";
 
 /** Footer heading decorations — sizes only (“Hey designers!”) */
 const FOOTER_HEADING_DECO = {
@@ -100,7 +106,7 @@ function ScheduleCallButton({ font, accentColor }: { font: string; accentColor: 
             <div className="pointer-events-auto shrink-0 lg:hidden">
                 <DesignSplitArrowCta
                     accent={accentColor}
-                    href="/contact"
+                    href={ENQUIRE_URL}
                     ariaLabel="Schedule a Call"
                     label="Schedule a Call"
                     fontFamily={font}
@@ -124,7 +130,7 @@ function ScheduleCallButton({ font, accentColor }: { font: string; accentColor: 
             <div className="pointer-events-auto hidden shrink-0 lg:block">
                 <DesignSplitArrowCta
                     accent={accentColor}
-                    href="/contact"
+                    href={ENQUIRE_URL}
                     ariaLabel="Schedule a Call"
                     label="Schedule a Call"
                     fontFamily={font}
@@ -416,19 +422,30 @@ export function DesignSchoolFooter({ font, serif }: { font: string; serif: strin
                                     {/* Desktop legal row */}
                                     <div className="hidden lg:inline-flex flex-col items-start">
                                         <div className="flex items-center gap-4">
-                                            <Link href="https://instagram.com" className="text-[#F2F2F2] opacity-95 hover:opacity-100" aria-label="Instagram" onClick={e => e.stopPropagation()}>
+                                            <Link
+                                                href={DESIGN_INSTAGRAM_URL}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-[#F2F2F2] opacity-95 hover:opacity-100"
+                                                aria-label="HACA Design School on Instagram"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
                                                 <Image src="/photos/main/instagram.svg" alt="" width={22} height={22} className="brightness-0 invert" />
                                             </Link>
-                                            <Link href="https://linkedin.com" className="text-[#F2F2F2] opacity-95 hover:opacity-100" aria-label="LinkedIn" onClick={e => e.stopPropagation()}>
-                                                <Image src="/photos/main/linkedin%20icon.svg" alt="" width={22} height={22} className="brightness-0 invert" />
-                                            </Link>
-                                            <Link href="https://youtube.com" className="text-[#F2F2F2] opacity-95 hover:opacity-100" aria-label="YouTube" onClick={e => e.stopPropagation()}>
+                                            <Link
+                                                href={DESIGN_YOUTUBE_URL}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-[#F2F2F2] opacity-95 hover:opacity-100"
+                                                aria-label="HACA Design School on YouTube"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
                                                 <Image src="/photos/main/mdi_youtube.svg" alt="" width={24} height={24} className="brightness-0 invert" />
                                             </Link>
                                         </div>
                                         <div className="mt-4 flex w-full items-center gap-10 text-[13px] font-light leading-[140%] text-[#F2F2F2]/85" style={{ fontFamily: font }}>
-                                            <Link href="/legal/privacy" className="underline-offset-2 hover:underline" onClick={e => e.stopPropagation()}>Privacy Policy</Link>
-                                            <Link href="/legal/terms" className="underline-offset-2 hover:underline" onClick={e => e.stopPropagation()}>Terms and Conditions</Link>
+                                            <Link href="/privacy-policy" className="underline-offset-2 hover:underline" onClick={e => e.stopPropagation()}>Privacy Policy</Link>
+                                            <Link href="/terms-conditions" className="underline-offset-2 hover:underline" onClick={e => e.stopPropagation()}>Terms and Conditions</Link>
                                             <span className="whitespace-nowrap">© {new Date().getFullYear()} HACA Design School</span>
                                         </div>
                                     </div>
@@ -436,20 +453,31 @@ export function DesignSchoolFooter({ font, serif }: { font: string; serif: strin
                                     {/* Mobile legal */}
                                     <div className="flex flex-col items-center gap-5 lg:hidden">
                                         <div className="flex items-center justify-center gap-4">
-                                            <Link href="https://instagram.com" className="text-[#F2F2F2] opacity-95 hover:opacity-100" aria-label="Instagram" onClick={e => e.stopPropagation()}>
+                                            <Link
+                                                href={DESIGN_INSTAGRAM_URL}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-[#F2F2F2] opacity-95 hover:opacity-100"
+                                                aria-label="HACA Design School on Instagram"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
                                                 <Image src="/photos/main/instagram.svg" alt="" width={22} height={22} className="brightness-0 invert" />
                                             </Link>
-                                            <Link href="https://linkedin.com" className="text-[#F2F2F2] opacity-95 hover:opacity-100" aria-label="LinkedIn" onClick={e => e.stopPropagation()}>
-                                                <Image src="/photos/main/linkedin%20icon.svg" alt="" width={22} height={22} className="brightness-0 invert" />
-                                            </Link>
-                                            <Link href="https://youtube.com" className="text-[#F2F2F2] opacity-95 hover:opacity-100" aria-label="YouTube" onClick={e => e.stopPropagation()}>
+                                            <Link
+                                                href={DESIGN_YOUTUBE_URL}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-[#F2F2F2] opacity-95 hover:opacity-100"
+                                                aria-label="HACA Design School on YouTube"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
                                                 <Image src="/photos/main/mdi_youtube.svg" alt="" width={24} height={24} className="brightness-0 invert" />
                                             </Link>
                                         </div>
                                         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-center text-[12px] font-light leading-[140%] text-[#F2F2F2]/85" style={{ fontFamily: font }}>
                                             <span className="w-full whitespace-nowrap">© {new Date().getFullYear()} HACA Design School</span>
-                                            <Link href="/legal/privacy" className="underline-offset-2 hover:underline" onClick={e => e.stopPropagation()}>Privacy Policy</Link>
-                                            <Link href="/legal/terms" className="underline-offset-2 hover:underline" onClick={e => e.stopPropagation()}>Terms &amp; Conditions</Link>
+                                            <Link href="/privacy-policy" className="underline-offset-2 hover:underline" onClick={e => e.stopPropagation()}>Privacy Policy</Link>
+                                            <Link href="/terms-conditions" className="underline-offset-2 hover:underline" onClick={e => e.stopPropagation()}>Terms &amp; Conditions</Link>
                                         </div>
                                     </div>
                                 </div>

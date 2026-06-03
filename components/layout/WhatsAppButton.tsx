@@ -2,11 +2,12 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { WHATSAPP_CHAT_URL } from "@/lib/whatsapp"
 
 export function WhatsAppButton() {
     return (
         <Link
-            href="https://wa.me/your-number"
+            href={WHATSAPP_CHAT_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-[25px] right-[25px] md:bottom-[40px] md:right-[40px] lg:bottom-[140px] z-[100] flex items-center justify-center transition-transform duration-300 ease-in-out select-none hover:scale-110"

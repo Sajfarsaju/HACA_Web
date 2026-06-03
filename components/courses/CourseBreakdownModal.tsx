@@ -1,7 +1,10 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
+import Link from "next/link"
 import { useCallback, useEffect, useState } from "react"
+
+const ENQUIRE_URL = "https://harisandcoacademy.com/enquire/"
 import type { Course, CourseModule } from "@/lib/courseCatalog"
 import { formatCourseBadgeLine, getModulesForCourse } from "@/lib/courseCatalog"
 import { CourseToolsMarquee } from "@/components/courses/CourseToolsMarquee"
@@ -147,19 +150,13 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
     )
 }
 
-function CourseBottomSeatSection({
-    amount,
-    originalAmount,
-}: {
-    amount?: string
-    originalAmount?: string
-}) {
-    const displayAmount = amount || "₹80,000"
-    const displayOriginal = originalAmount || "₹85,000"
+function CourseBottomSeatSection(_props: { amount?: string; originalAmount?: string }) {
+    // const displayAmount = _props.amount || "₹80,000"
+    // const displayOriginal = _props.originalAmount || "₹85,000"
     return (
         <div className="mx-auto flex w-full max-w-[1163px] flex-col gap-[26.44px] px-[clamp(16px,4vw,29.96px)] pt-[30px] pb-[50px]">
             <div className="mx-auto flex w-full max-w-[1103px] flex-col items-center gap-5">
-                <div className="flex w-full max-w-[244px] flex-col items-center gap-[5px] rounded-[12px] px-[10px]">
+                {/* <div className="flex w-full max-w-[244px] flex-col items-center gap-[5px] rounded-[12px] px-[10px]">
                     <div className="inline-flex min-h-[37.1px] items-center justify-center rounded-[20px] sm:rounded-[88.12px] border border-white/10 bg-[#FFFFFF1A] px-[14.1px] py-[7.05px] shadow-[0px_0.88px_0.88px_0px_#0003124D,0px_7.05px_9.61px_0px_#0003121F] backdrop-blur-[5.29px]">
                         <span className="font-rethink text-center text-[20px] font-semibold leading-[22.47px] text-[#A7ADBE]">
                             Now at
@@ -180,26 +177,32 @@ function CourseBottomSeatSection({
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="flex w-full max-w-[235px] flex-col items-center gap-[8px] sm:gap-[10px]">
-                    <p className="m-0 text-center font-rethink text-[16px] sm:text-[20px] font-semibold leading-[1.2] text-[#A7ADBE]">
+                    {/* <p className="m-0 text-center font-rethink text-[16px] sm:text-[20px] font-semibold leading-[1.2] text-[#A7ADBE]">
                         Pre book your seat @ 499
-                    </p>
-                    <motion.button
-                        type="button"
-                        className="group relative flex h-[55px] w-[170px] cursor-pointer items-center justify-center overflow-hidden rounded-[100px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-5"
-                        whileHover={{ scale: 1.04 }}
-                        whileTap={{ scale: 0.97 }}
-                        transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                    </p> */}
+                    <Link
+                        href={ENQUIRE_URL}
+                        className="flex items-center justify-center no-underline"
+                        aria-label="Claim your Seat"
                     >
-                        <span className="flex h-full w-full items-center justify-center whitespace-nowrap font-rethink text-[18px] font-medium leading-[27px] text-white transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
-                            Claim your Seat
-                        </span>
-                        <span className="pointer-events-none absolute inset-0 flex translate-y-full items-center justify-center whitespace-nowrap font-rethink text-[18px] font-medium leading-[27px] text-white transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
-                            Claim your Seat
-                        </span>
-                    </motion.button>
+                        <motion.button
+                            type="button"
+                            className="group relative flex h-[55px] w-[170px] cursor-pointer items-center justify-center overflow-hidden rounded-[100px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-5"
+                            whileHover={{ scale: 1.04 }}
+                            whileTap={{ scale: 0.97 }}
+                            transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                        >
+                            <span className="flex h-full w-full items-center justify-center whitespace-nowrap font-rethink text-[18px] font-medium leading-[27px] text-white transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                                Claim your Seat
+                            </span>
+                            <span className="pointer-events-none absolute inset-0 flex translate-y-full items-center justify-center whitespace-nowrap font-rethink text-[18px] font-medium leading-[27px] text-white transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                                Claim your Seat
+                            </span>
+                        </motion.button>
+                    </Link>
                 </div>
             </div>
         </div>

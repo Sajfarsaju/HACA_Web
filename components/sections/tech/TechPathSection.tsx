@@ -5,9 +5,11 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { GradientBlobOrb } from "@/components/tech/GradientBlobOrb";
+import { techCourseHref, TECH_COURSES_PAGE } from "@/lib/tech-courses";
 
 const COURSES = [
     {
+        slug: "advanced-data-analytics-with-ai",
         title: "Advanced Data Analytics with AI",
         duration: "5 Months + 1 Month Project",
         location: "Offline/Online",
@@ -16,6 +18,7 @@ const COURSES = [
         titleWidth: "325px"
     },
     {
+        slug: "advanced-python-django-with-gen-ai",
         title: "Advanced Python Django with GenAI",
         duration: "5 Months + 1 Month Project",
         location: "Offline",
@@ -24,6 +27,7 @@ const COURSES = [
         titleWidth: "325px"
     },
     {
+        slug: "data-science-with-gen-ai",
         title: "Data Science with Gen AI",
         duration: "5 months + 1 month project",
         location: "Offline/Online",
@@ -32,6 +36,7 @@ const COURSES = [
         titleWidth: "255px"
     },
     {
+        slug: "n8n-for-ai-agents-automations",
         title: "n8n for AI agents & Automation",
         duration: "6 Weeks",
         location: "Online",
@@ -40,6 +45,7 @@ const COURSES = [
         titleWidth: "325px"
     },
     {
+        slug: "applied-ai-for-beginners",
         title: "Applied AI for Beginners",
         duration: "4 Weeks",
         location: "Online",
@@ -48,6 +54,7 @@ const COURSES = [
         titleWidth: "325px"
     },
     {
+        slug: "dashboard-mastery-power-bi-excel",
         title: "Dashboard Mastery in Power BI + Excel Course",
         duration: "6 Weeks",
         location: "Online",
@@ -386,14 +393,14 @@ export function TechPathSection() {
                     <div className="grid grid-cols-2 gap-[60px] max-lg:gap-[40px] max-md:grid-cols-1 max-md:gap-[24px] max-md:max-w-[500px] max-md:mx-auto max-sm:max-w-full">
                         {COURSES.map((course, idx) => (
                             <motion.div
-                                key={idx}
+                                key={course.slug}
                                 custom={idx}
                                 variants={reduceMotion ? undefined : cardVariants}
                                 initial={reduceMotion ? { opacity: 1 } : "hidden"}
                                 whileInView={reduceMotion ? { opacity: 1 } : "visible"}
                                 viewport={{ once: true, amount: 0.12, margin: "0px 0px 25% 0px" }}
                                 style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
-                                className="tech-path-card-border relative w-full min-h-[394px] rounded-[22px] flex flex-col cursor-pointer transition-[transform,filter,box-shadow] duration-300 ease-out hover:-translate-y-2 hover:brightness-110 hover:shadow-[0_0_36px_rgba(132,0,255,0.25)] group max-lg:min-h-[360px] max-md:min-h-[313px] max-md:border-transparent max-md:bg-transparent max-md:backdrop-blur-[12px]"
+                                className="tech-path-card-border relative w-full min-h-[394px] rounded-[22px] flex flex-col max-lg:min-h-[360px] max-md:min-h-[313px] max-md:border-transparent max-md:bg-transparent max-md:backdrop-blur-[12px]"
                             >
                                 {/* Clip layer: bg sits inside border; on ≤1024px clip-path insets so SVG stroke never touches edge */}
                                 <div className="tech-path-card-inner absolute inset-0 overflow-hidden rounded-[22px] z-0">
@@ -401,7 +408,7 @@ export function TechPathSection() {
                                         src={course.bgImage}
                                         alt=""
                                         fill
-                                        className="object-cover pointer-events-none opacity-80 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+                                        className="object-cover pointer-events-none opacity-80"
                                     />
                                 </div>
 
@@ -432,8 +439,10 @@ export function TechPathSection() {
                                         <p className="font-outfit font-light text-[16px] leading-[1.3] text-white max-w-[85%] m-0 max-lg:text-[15px] max-md:text-[14px] max-md:leading-[1.35] max-md:max-w-full">{course.description}</p>
                                         <div className="flex justify-start max-md:justify-end max-md:mt-0">
                                             <Link
-                                                href="/contact"
+                                                href={techCourseHref(course.slug)}
+                                                scroll={false}
                                                 className="group relative flex h-[44px] w-[123px] items-center justify-center overflow-hidden rounded-[10px] bg-white px-[20px] text-black shadow-[0px_2px_5px_0px_#00000040] transition-transform duration-200 ease-out hover:scale-105 max-md:h-[40px] max-md:w-[119px] max-md:rounded-[8px] max-md:px-[18px]"
+                                                aria-label={`Know more about ${course.title}`}
                                             >
                                                 <span className="flex h-full w-full items-center justify-center whitespace-nowrap font-outfit text-[16px] font-semibold leading-[16px] text-black transition-transform duration-300 ease-out group-hover:-translate-y-full">
                                                     Know More
@@ -460,7 +469,7 @@ export function TechPathSection() {
                     </p>
                     <div className="mt-[10px] max-md:mt-0">
                         <Link
-                            href="/contact"
+                            href={TECH_COURSES_PAGE}
                             className="group relative w-[186px] h-[44px] rounded-[8px] flex items-center justify-center overflow-hidden bg-white text-[#111111] transition-transform duration-200 ease-out hover:scale-105 max-md:w-[186px] max-md:h-[44px]"
                         >
                             <span className="flex w-full h-full items-center justify-center font-outfit font-semibold text-[20px] leading-[100%] text-[#111111] transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:text-[16px] max-md:leading-[16px]">

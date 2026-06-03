@@ -1,60 +1,16 @@
 import { BlogPageContent } from "@/components/blog/BlogPageContent"
-import { BLOG_POSTS, BlogPost } from "@/lib/blog-data"
+import { BLOG_POSTS } from "@/lib/blog-data"
+import { fetchPublicBlogs } from "@/lib/blog-api"
 
 export const metadata = {
     title: "Blogs | HACA",
     description: "Insights and tutorials on engineering, design, and marketing from the HACA team.",
 }
 
-async function getDynamicBlogs(): Promise<BlogPost[]> {
-    try {
-        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000"
-        const res = await fetch(`${backendUrl}/api/admin/public-blogs`, { next: { revalidate: 0 } })
-        if (!res.ok) return []
-        const data: { items?: unknown[] } = await res.json()
-
-        return (data.items || []).flatMap((blog): BlogPost[] => {
-            if (!blog || typeof blog !== "object") return []
-            const b = blog as Record<string, unknown>
-            const idRaw = b._id
-            const id = typeof idRaw === "string" || typeof idRaw === "number" ? String(idRaw) : null
-            if (!id) return []
-
-            const title = typeof b.title === "string" ? b.title : ""
-            const authorName = typeof b.authorName === "string" ? b.authorName : ""
-            if (!title || !authorName) return []
-
-            const category = typeof b.category === "string" ? b.category : "Marketing"
-            const createdAt =
-                typeof b.createdAt === "string" || typeof b.createdAt === "number" ? new Date(b.createdAt) : new Date()
-
-            return [
-                {
-                    id,
-                    slug: typeof b.slug === "string" && b.slug ? b.slug : id,
-                    category,
-                    categorySlug: category.toLowerCase() || "marketing",
-                    date: createdAt.toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "2-digit",
-                        year: "numeric",
-                    }),
-                    title,
-                    author: authorName,
-                    authorRole: typeof b.authorRole === "string" ? b.authorRole : undefined,
-                    readTime: typeof b.readTime === "string" && b.readTime ? b.readTime : "5 Mins",
-                    bannerUrl: typeof b.bannerUrl === "string" ? b.bannerUrl : undefined,
-                },
-            ]
-        })
-    } catch {
-        return []
-    }
-}
-
 export default async function BlogPage() {
-    const dynamicBlogs = await getDynamicBlogs()
-    const allBlogs = [...dynamicBlogs, ...BLOG_POSTS]
+    const dynamicBlogs = await fetchPublicBlogs()
+    const dynamicSlugs = new Set(dynamicBlogs.map((b) => b.slug))
+    const allBlogs = [...dynamicBlogs, ...BLOG_POSTS.filter((b) => !dynamicSlugs.has(b.slug))]
 
     return (
         <main className="w-full min-h-screen bg-transparent text-white">

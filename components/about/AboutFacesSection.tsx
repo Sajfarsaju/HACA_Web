@@ -15,6 +15,17 @@ const leaderPhotoFrameClass =
 
 const leaderPhotoImageClass = "object-cover object-top rounded-[16px]"
 
+const HARIS_LINKEDIN_URL = "https://www.linkedin.com/in/haris-aboobacker"
+const HARIS_INSTAGRAM_URL =
+    "https://www.instagram.com/haris_aboobacker?igsh=MXRmcHZscWIxNngxaA=="
+
+const RIZWAN_LINKEDIN_URL = "https://www.linkedin.com/in/rizmango"
+const RIZWAN_INSTAGRAM_URL = "https://www.instagram.com/rizmango?igsh=N2lwbWg1MjJkdjY1"
+
+const NABHAN_LINKEDIN_URL = "https://www.linkedin.com/in/abu-nabhan-232897191"
+const NABHAN_INSTAGRAM_URL =
+    "https://www.instagram.com/abu__nabhan_?igsh=MW41aThwank4cnl0eg=="
+
 export function AboutFacesSection() {
     return (
         <section className="w-full section-4k mx-auto bg-[#000210] py-[30px] flex flex-col items-center gap-[clamp(30px,4vw,50px)] px-[clamp(20px,4vw,60px)] max-md:px-[20px]">
@@ -71,7 +82,7 @@ export function AboutFacesSection() {
                         {/* Social buttons */}
                         <div className="flex items-center gap-[clamp(10px,1.2vw,12px)] mt-[4px] lg:mt-0 lg:pb-[2px]">
                             {/* LinkedIn button */}
-                            <Link href="#" className={leaderSocialLinkClass}>
+                            <Link href={HARIS_LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className={leaderSocialLinkClass}>
                                 <Image
                                     src="/photos/main/linkedin icon.svg"
                                     alt="LinkedIn icon"
@@ -85,7 +96,7 @@ export function AboutFacesSection() {
                             <div className="w-px h-[clamp(18px,2vw,21.6px)] border-l border-white" />
 
                             {/* Instagram button */}
-                            <Link href="#" className={leaderSocialLinkClass}>
+                            <Link href={HARIS_INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className={leaderSocialLinkClass}>
                                 <Image
                                     src="/photos/main/insta icon.svg"
                                     alt="Instagram icon"
@@ -139,7 +150,7 @@ export function AboutFacesSection() {
 
                         {/* Social buttons — same pattern as Haris */}
                         <div className="flex items-center gap-[clamp(10px,1.2vw,12px)] mt-[4px] lg:mt-0 lg:pb-[2px]">
-                            <Link href="#" className={leaderSocialLinkClass}>
+                            <Link href={RIZWAN_LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className={leaderSocialLinkClass}>
                                 <Image
                                     src="/photos/main/linkedin icon.svg"
                                     alt="LinkedIn icon"
@@ -152,7 +163,7 @@ export function AboutFacesSection() {
 
                             <div className="w-px h-[clamp(18px,2vw,21.6px)] border-l border-white" />
 
-                            <Link href="#" className={leaderSocialLinkClass}>
+                            <Link href={RIZWAN_INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className={leaderSocialLinkClass}>
                                 <Image
                                     src="/photos/main/insta icon.svg"
                                     alt="Instagram icon"
@@ -206,7 +217,7 @@ export function AboutFacesSection() {
                         </div>
 
                         <div className="flex items-center gap-[clamp(10px,1.2vw,12px)] mt-[4px] lg:mt-0 lg:pb-[2px]">
-                            <Link href="#" className={leaderSocialLinkClass}>
+                            <Link href={NABHAN_LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className={leaderSocialLinkClass}>
                                 <Image
                                     src="/photos/main/linkedin icon.svg"
                                     alt="LinkedIn icon"
@@ -219,7 +230,7 @@ export function AboutFacesSection() {
 
                             <div className="w-px h-[clamp(18px,2vw,21.6px)] border-l border-white" />
 
-                            <Link href="#" className={leaderSocialLinkClass}>
+                            <Link href={NABHAN_INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className={leaderSocialLinkClass}>
                                 <Image
                                     src="/photos/main/insta icon.svg"
                                     alt="Instagram icon"

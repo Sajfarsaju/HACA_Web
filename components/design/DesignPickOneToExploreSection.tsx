@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { designCourseHref, DESIGN_COURSE_SLUGS } from "@/lib/design-courses";
 
 const ARROW_PATH =
     "M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z";
@@ -11,11 +12,11 @@ type ExploreButton = {
 };
 
 const BUTTONS: ExploreButton[] = [
-    { label: "Creative Design & Communication", borderColor: "#FF5C00", href: "/design-school/courses/creative-design", mobileWidth: 340 },
-    { label: "AI Integrated Graphic Design", borderColor: "#8F56FF", href: "/design-school/courses/ai-graphic-design", mobileWidth: 297 },
-    { label: "Branding & Identity Design Mastery", borderColor: "#FF5659", href: "/design-school/courses/program-3", mobileWidth: 348 },
-    { label: "UI/UX Design + AI Program", borderColor: "#29C76B", href: "/design-school/courses/program-4", mobileWidth: 281 },
-    { label: "AI Integrated Video Editing Mastery", borderColor: "#2592FF", href: "/design-school/courses/program-5", mobileWidth: 350 },
+    { label: "Creative Design & Communication", borderColor: "#FF5C00", href: designCourseHref(DESIGN_COURSE_SLUGS.creativeDesign), mobileWidth: 340 },
+    { label: "AI Integrated Graphic Design", borderColor: "#8F56FF", href: designCourseHref(DESIGN_COURSE_SLUGS.aiGraphicDesign), mobileWidth: 297 },
+    { label: "Branding & Identity Design Mastery", borderColor: "#FF5659", href: designCourseHref(DESIGN_COURSE_SLUGS.brandingIdentity), mobileWidth: 348 },
+    { label: "UI/UX Design + AI Program", borderColor: "#29C76B", href: designCourseHref(DESIGN_COURSE_SLUGS.uiUxAi), mobileWidth: 281 },
+    { label: "AI Integrated Video Editing Mastery", borderColor: "#2592FF", href: designCourseHref(DESIGN_COURSE_SLUGS.aiVideoEditing), mobileWidth: 350 },
 ];
 
 export function DesignPickOneToExploreSection() {
@@ -74,6 +75,7 @@ function ExplorePill({ label, borderColor, href, mobileWidth }: ExploreButton) {
     return (
         <Link
             href={href}
+            scroll={false}
             className="group relative inline-flex items-center justify-between
                        w-[var(--mobileW)] max-w-full lg:w-auto
                        rounded-[30px] border-[2px]

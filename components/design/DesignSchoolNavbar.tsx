@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { isDesignSchoolSeoPath } from "@/lib/design-school-seo";
+import { ENQUIRE_URL } from "@/lib/enquire";
 
 import { DESIGN_CTA_TRANSITION } from "./DesignSplitArrowCta";
 
@@ -75,15 +76,19 @@ export function DesignSchoolNavbar() {
             </div>
 
             {/* Right Side */}
-            <div className="hidden lg:flex flex-row items-center cursor-pointer group w-[230.2222px] h-[60.5556px] gap-[5.56px]">
-                <button
+            <Link
+                href={ENQUIRE_URL}
+                className="hidden lg:flex flex-row items-center cursor-pointer group w-[230.2222px] h-[60.5556px] gap-[5.56px] no-underline"
+                aria-label="Contact us"
+            >
+                <span
                     className={`flex items-center justify-center w-[164.67px] h-[60.5556px] border-[1.11px] border-[#FF5C00] rounded-[50px] px-[33.33px] py-[17.78px] bg-transparent transition-colors ${DESIGN_CTA_TRANSITION} group-hover:bg-[#FF5C00]`}
                     style={{ fontFamily: '"VC Nudge Trial Normal", sans-serif' }}
                 >
                     <span className={`text-[17.78px] text-[#000000] leading-none whitespace-nowrap transition-colors ${DESIGN_CTA_TRANSITION} group-hover:text-white`} style={{ fontWeight: 550 }}>
                         Contact Us
                     </span>
-                </button>
+                </span>
                 <div className={`relative box-border size-[60px] shrink-0 cursor-pointer overflow-hidden rounded-full border-[1.11px] border-transparent bg-[#FF5C00] text-white transition-colors ${DESIGN_CTA_TRANSITION} group-hover:border-[#FF5C00] group-hover:bg-white group-hover:text-[#FF5C00]`}>
                     <div className={`absolute left-[13.89px] top-[13.89px] size-[33.33px] -translate-x-[45.56px] transform-gpu transition-transform ${DESIGN_CTA_TRANSITION} group-hover:translate-x-0`}>
                         <svg width="33" height="33" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -102,7 +107,7 @@ export function DesignSchoolNavbar() {
                         </svg>
                     </div>
                 </div>
-            </div>
+            </Link>
 
             {/* Mobile Hamburger */}
             <button

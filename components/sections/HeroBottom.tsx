@@ -1,7 +1,10 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { motion } from "framer-motion"
+
+const ENQUIRE_URL = "https://harisandcoacademy.com/enquire"
 
 export function HeroBottom() {
   return (
@@ -59,20 +62,26 @@ export function HeroBottom() {
           </p>
 
           {/* ─── Enquire Button ─── */}
-          <motion.button
-            className="group relative w-[272px] h-[55px] rounded-[100px] border-none cursor-pointer flex items-center justify-center bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-md:w-[220px] max-md:h-[46px] max-md:px-[18px] max-md:rounded-[82px] overflow-hidden"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+          <Link
+            href={ENQUIRE_URL}
+            className="flex items-center justify-center no-underline"
             aria-label="Book a Free Counselling Call"
           >
-            <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
-              Book a Free Counselling Call
-            </span>
-            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
-              Book a Free Counselling Call
-            </span>
-          </motion.button>
+            <motion.button
+              className="group relative w-[272px] h-[55px] rounded-[100px] border-none cursor-pointer flex items-center justify-center bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-md:w-[220px] max-md:h-[46px] max-md:px-[18px] max-md:rounded-[82px] overflow-hidden"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+              type="button"
+            >
+              <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                Book a Free Counselling Call
+              </span>
+              <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                Book a Free Counselling Call
+              </span>
+            </motion.button>
+          </Link>
         </motion.div>
 
       </div>

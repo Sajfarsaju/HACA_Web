@@ -9,8 +9,8 @@ import { Footer } from "./Footer";
 export function ConditionalFooter() {
     const pathname = usePathname();
 
-    // Hide global footer on success-story page
-    if (pathname === "/success-story") {
+    // Hide global footer on pages that render their own Footer
+    if (pathname === "/success-story" || pathname === "/mentors") {
         return null;
     }
 

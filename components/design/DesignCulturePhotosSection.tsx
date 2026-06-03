@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
+import { ENQUIRE_URL } from "@/lib/enquire";
 
 export function DesignCulturePhotosSection({ font, serif }: { font: string; serif: string }) {
     // Placeholder-only (user will add real photos later)
@@ -461,7 +462,7 @@ function DesignCultureJoinNowButton({ font, isMobile }: { font: string; isMobile
 
     return (
         <DesignSplitArrowCta
-            asButton
+            href={ENQUIRE_URL}
             ariaLabel="Join Now"
             label="Join Now"
             fontFamily={font}

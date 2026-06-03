@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
 import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntroAnimation";
+import { DesignCoursesHashScroll } from "@/components/design/DesignCoursesHashScroll";
+import { designCourseElementId, DESIGN_COURSE_SLUGS } from "@/lib/design-courses";
+import { ENQUIRE_URL } from "@/lib/enquire";
 
 export const metadata: Metadata = {
     title: "Design School Courses | HACA",
@@ -207,6 +210,7 @@ function BulletList({ items, bulletColor }: { items: string[]; bulletColor: stri
 }
 
 type CourseCardProps = {
+    slug: string;
     cardBg: string;
     leftBg: string;
     badgePipeColor: string;
@@ -227,6 +231,7 @@ type CourseCardProps = {
 };
 
 function CourseCard({
+    slug,
     cardBg,
     leftBg,
     badgePipeColor,
@@ -247,7 +252,8 @@ function CourseCard({
 }: CourseCardProps) {
     return (
         <article
-            className="w-full max-w-[1320px] min-h-0 min-w-0 rounded-[20px] flex flex-col gap-[30px] p-[20px] shadow-sm border border-black/5 overflow-hidden box-border max-[360px]:p-[16px] max-[360px]:gap-[24px] min-[1300px]:flex-row min-[1300px]:items-stretch min-[1300px]:gap-[25px] min-[1300px]:pt-[20px] min-[1300px]:pr-[16px] min-[1300px]:pb-[20px] min-[1300px]:pl-[16px] min-[1300px]:min-h-[698px] min-[1440px]:h-[698px] min-[1440px]:overflow-visible"
+            id={designCourseElementId(slug)}
+            className="w-full max-w-[1320px] min-h-0 min-w-0 rounded-[20px] flex flex-col gap-[30px] p-[20px] shadow-sm border border-black/5 overflow-hidden box-border max-[360px]:p-[16px] max-[360px]:gap-[24px] min-[1300px]:flex-row min-[1300px]:items-stretch min-[1300px]:gap-[25px] min-[1300px]:pt-[20px] min-[1300px]:pr-[16px] min-[1300px]:pb-[20px] min-[1300px]:pl-[16px] min-[1300px]:min-h-[698px] min-[1440px]:h-[698px] min-[1440px]:overflow-visible scroll-mt-[120px] min-[1300px]:scroll-mt-[100px]"
             style={{ backgroundColor: cardBg }}
         >
             <div
@@ -492,7 +498,7 @@ function CourseCard({
                 </div>
 
                 <Link
-                    href="/contact"
+                    href={ENQUIRE_URL}
                     className="inline-flex items-center justify-center text-white no-underline self-center mt-0 w-[151.4525px] h-[50px] rounded-[26.82px] px-[14px] gap-[6px] md:w-[170px] md:h-[56px] md:rounded-[30px] md:px-[20px] md:gap-[8px] min-[1300px]:self-start"
                     style={{
                         ...vcNudge,
@@ -532,6 +538,7 @@ function CourseCard({
 export default function DesignSchoolCoursesPage() {
     return (
         <div className="w-full bg-[#FCFCFC] min-h-screen">
+            <DesignCoursesHashScroll />
             <DesignSchoolIntroAnimation />
             <DesignSchoolNavbar />
 
@@ -569,6 +576,7 @@ export default function DesignSchoolCoursesPage() {
                 <div className="w-full max-w-[1280px] mx-auto flex flex-col gap-[20px]">
                     {/* Row 1 — original Creative Design */}
                     <CourseCard
+                        slug={DESIGN_COURSE_SLUGS.creativeDesign}
                         cardBg="#FEF6F1"
                         leftBg="#FF5C00"
                         badgePipeColor="#FF5C00"
@@ -594,6 +602,7 @@ export default function DesignSchoolCoursesPage() {
 
                     {/* Row 2 — AI Integrated Graphic Design */}
                     <CourseCard
+                        slug={DESIGN_COURSE_SLUGS.aiGraphicDesign}
                         cardBg="#F6F2FF"
                         leftBg="#8F56FF"
                         badgePipeColor="#8F56FF"
@@ -620,6 +629,7 @@ export default function DesignSchoolCoursesPage() {
 
                     {/* Row 3 — Branding & Identity (screenshot) */}
                     <CourseCard
+                        slug={DESIGN_COURSE_SLUGS.brandingIdentity}
                         cardBg="#FFF7F7"
                         leftBg="#FF5659"
                         badgePipeColor="#FF5659"
@@ -648,6 +658,7 @@ export default function DesignSchoolCoursesPage() {
 
                     {/* Row 4 — UI/UX + AI */}
                     <CourseCard
+                        slug={DESIGN_COURSE_SLUGS.uiUxAi}
                         cardBg="#F4FFF9"
                         leftBg="#29C76B"
                         badgePipeColor="#29C76B"
@@ -674,6 +685,7 @@ export default function DesignSchoolCoursesPage() {
 
                     {/* Row 5 — Video editing */}
                     <CourseCard
+                        slug={DESIGN_COURSE_SLUGS.aiVideoEditing}
                         cardBg="#F4F9FF"
                         leftBg="#2592FF"
                         badgePipeColor="#2592FF"

@@ -26,8 +26,8 @@ const numberTypography = {
 
 /** Order + values match trust bar; all values use a `+` suffix. */
 const STATS = [
-    { value: 200, suffix: "+", label: "Designers placed" },
-    { value: 600, suffix: "+", label: "Students Trained" },
+    { value: 1000, suffix: "+", label: "Designers placed" },
+    { value: 550, suffix: "+", label: "Hours of Learning" },
     { value: 15, suffix: "+", label: "Industry Mentors" },
     { value: 200, suffix: "+", label: "Recruiting partners" },
 ] as const;

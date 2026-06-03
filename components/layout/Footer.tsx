@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { WHATSAPP_CHAT_URL } from "@/lib/whatsapp"
 import { BackToTopButton } from "./BackToTopButton"
 
 const quickLinks = [
@@ -7,7 +8,6 @@ const quickLinks = [
     { label: "About Us", href: "/about" },
     { label: "Success Story", href: "/success-story" },
     { label: "Blog", href: "/blog" },
-    { label: "Student Portfolio", href: "/student-portfolio" },
 ]
 
 const schools = [
@@ -69,9 +69,7 @@ export function Footer() {
                                         <li key={item.label}>
                                             <Link
                                                 href={item.href}
-                                                className={`font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[100%] tracking-[0] text-[#A7ADBE] hover:text-white transition-colors ${
-                                                    item.label === "Student Portfolio" ? "lg:whitespace-nowrap" : ""
-                                                }`}
+                                                className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[100%] tracking-[0] text-[#A7ADBE] hover:text-white transition-colors"
                                             >
                                                 {item.label}
                                             </Link>
@@ -197,7 +195,7 @@ export function Footer() {
                                 WhatsApp us at
                             </h4>
                             <Link
-                                href="https://wa.me/917736779775"
+                                href={WHATSAPP_CHAT_URL}
                                 className="font-rethink font-medium text-[clamp(14px,1.1vw,16px)] leading-[140%] tracking-[0] text-[#A7ADBE] hover:text-white transition-colors"
                             >
                                 {contactWhatsApp}

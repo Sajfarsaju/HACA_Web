@@ -1,11 +1,11 @@
 import { Metadata } from "next";
-import axios from "axios";
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import {
     SchoolPlacementSection,
     type PlacementItem,
 } from "@/components/success-story/SchoolPlacementSection";
+import { fetchMarketingSchoolPlacements } from "@/lib/marketing-placements";
 
 export const metadata: Metadata = {
     title: "Success Stories | Marketing School | HACA",
@@ -13,34 +13,8 @@ export const metadata: Metadata = {
         "Our graduates are building real marketing careers across different roles and companies.",
 };
 
-type PlacementGroup = {
-    schoolName: string;
-    items: PlacementItem[];
-};
-
-async function fetchMarketingPlacements(): Promise<PlacementItem[]> {
-    const base =
-        process.env.NEXT_PUBLIC_BACKEND_URL ??
-        process.env.BACKEND_URL ??
-        "http://127.0.0.1:5000";
-
-    try {
-        const { data } = await axios.get<{ groups?: PlacementGroup[] }>(
-            `${base}/api/placements/grouped?limit=200`,
-            {
-                headers: { "Cache-Control": "no-store" },
-            }
-        );
-        const groups = Array.isArray(data.groups) ? data.groups : [];
-        const marketingGroup = groups.find((g) => g.schoolName === "Marketing School");
-        return marketingGroup?.items ?? [];
-    } catch {
-        return [];
-    }
-}
-
 export default async function MarketingSuccessStoryPage() {
-    const marketingItems = await fetchMarketingPlacements();
+    const marketingItems = await fetchMarketingSchoolPlacements();
 
     // Ensure at least 16 cards for the initial grid; keep ALL items if more than 16.
     const items: PlacementItem[] =

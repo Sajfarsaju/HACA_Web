@@ -61,6 +61,17 @@ type BlogDoc = {
   createdAt: string;
 };
 
+type MentorDoc = {
+  _id: string;
+  name: string;
+  designation: string;
+  photoUrl: string;
+  cloudinaryPublicId: string;
+  linkedinUrl?: string | null;
+  order: number;
+  createdAt: string;
+};
+
 const BLOG_CATEGORY_OPTIONS = [
   "Marketing",
   "Tech",
@@ -79,6 +90,20 @@ const COURSE_SCHOOL_OPTIONS = [
 ] as const;
 
 type CourseSchoolName = (typeof COURSE_SCHOOL_OPTIONS)[number];
+
+const MENTOR_SCHOOL_OPTIONS = [
+  "HACA",
+  "Marketing School",
+  "Design School",
+  "Tech School",
+  "Finance School",
+] as const;
+
+type MentorSchoolName = (typeof MENTOR_SCHOOL_OPTIONS)[number];
+
+const MENTOR_SCHOOL_LABEL: Record<string, string> = {
+  "HACA": "Top Mentors in HACA",
+};
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -118,8 +143,8 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // ── Active admin tab: "placements" | "courses" | "blogs"
-  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs">(
+  // ── Active admin tab
+  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "mentors">(
     "placements"
   );
 
@@ -174,6 +199,17 @@ export default function AdminPage() {
   const blogFormRef = useRef<HTMLElement>(null);
   // Author picker
   const [selectedAuthorId, setSelectedAuthorId] = useState<string>("");
+
+  // ── Mentors state
+  const [mentors, setMentors] = useState<MentorDoc[]>([]);
+  const [mentorSchoolName, setMentorSchoolName] = useState<MentorSchoolName>("HACA");
+  const [mentorName, setMentorName] = useState("");
+  const [mentorDesignation, setMentorDesignation] = useState("");
+  const [mentorLinkedinUrl, setMentorLinkedinUrl] = useState("");
+  const [mentorPhotoFile, setMentorPhotoFile] = useState<File | null>(null);
+  const [mentorPhotoCropOpen, setMentorPhotoCropOpen] = useState(false);
+  const [mentorPhotoCropSrc, setMentorPhotoCropSrc] = useState<string | null>(null);
+  const [mentorFilterSchool, setMentorFilterSchool] = useState<MentorSchoolName | "All">("All");
 
   // ─── Toast ──────────────────────────────────────────────────────────────────
 
@@ -243,11 +279,12 @@ export default function AdminPage() {
     })();
   }, [backendUrl, token]);
 
-  // Load courses + blogs when token changes
+  // Load courses, blogs + mentors when token changes
   useEffect(() => {
     if (!token) return;
     refreshCourses(token);
     refreshBlogs(token);
+    refreshMentors(token);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -735,6 +772,108 @@ export default function AdminPage() {
     }
   }
 
+  // ─── Mentors actions ─────────────────────────────────────────────────────────
+
+  async function refreshMentors(currentToken: string) {
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/admin/mentors`, {
+        headers: { Authorization: `Bearer ${currentToken}` },
+      });
+      setMentors(data.items || []);
+    } catch {
+      // don't interrupt UX
+    }
+  }
+
+  function handleMentorPhotoPick(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f || !f.type.startsWith("image/")) {
+      setError("Please choose an image file.");
+      return;
+    }
+    setMentorPhotoCropSrc((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return URL.createObjectURL(f);
+    });
+    setMentorPhotoCropOpen(true);
+  }
+
+  function handleMentorPhotoCropClose() {
+    setMentorPhotoCropOpen(false);
+    setMentorPhotoCropSrc((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
+  }
+
+  function handleMentorPhotoCropped(file: File) {
+    setMentorPhotoCropSrc((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
+    setMentorPhotoCropOpen(false);
+    setMentorPhotoFile(file);
+  }
+
+  async function handleAddMentor(e: React.FormEvent) {
+    e.preventDefault();
+    if (!token) return;
+    if (!mentorPhotoFile) {
+      setError("Please select and crop a photo first.");
+      return;
+    }
+    if (!mentorName.trim()) {
+      setError("Name is required.");
+      return;
+    }
+    if (!mentorDesignation.trim()) {
+      setError("Designation is required.");
+      return;
+    }
+    setError(null);
+    setLoading(true);
+    try {
+      const form = new FormData();
+      form.append("photo", mentorPhotoFile);
+      form.append("name", mentorName.trim());
+      form.append("designation", mentorDesignation.trim());
+      form.append("schoolName", mentorSchoolName);
+      if (mentorLinkedinUrl.trim()) form.append("linkedinUrl", mentorLinkedinUrl.trim());
+      await axios.post(`${backendUrl}/api/admin/mentors`, form, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setMentorName("");
+      setMentorDesignation("");
+      setMentorLinkedinUrl("");
+      setMentorPhotoFile(null);
+      setMentorSchoolName("HACA");
+      await refreshMentors(token);
+      showToast("Mentor added successfully!", "success");
+    } catch (e: unknown) {
+      setError(getApiErrorMessage(e, "Upload failed"));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleDeleteMentor(id: string) {
+    if (!token) return;
+    setError(null);
+    setLoading(true);
+    try {
+      await axios.delete(`${backendUrl}/api/admin/mentors/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      await refreshMentors(token);
+      showToast("Mentor deleted.", "success");
+    } catch (e: unknown) {
+      setError(getApiErrorMessage(e, "Delete failed"));
+    } finally {
+      setLoading(false);
+    }
+  }
+
   // ─── Derived ─────────────────────────────────────────────────────────────────
 
   const schoolsWithCards = groups.filter((g) => g.items.length > 0).length;
@@ -772,6 +911,17 @@ export default function AdminPage() {
           open={authorPhotoCropOpen}
           onClose={handleAuthorPhotoCropClose}
           onCropped={handleAuthorPhotoCropped}
+          aspect={1}
+        />
+      ) : null}
+      {/* Mentor photo crop modal — 1:1 square */}
+      {mentorPhotoCropSrc ? (
+        <PlacementCropModal
+          key={mentorPhotoCropSrc}
+          imageSrc={mentorPhotoCropSrc}
+          open={mentorPhotoCropOpen}
+          onClose={handleMentorPhotoCropClose}
+          onCropped={handleMentorPhotoCropped}
           aspect={1}
         />
       ) : null}
@@ -875,7 +1025,7 @@ export default function AdminPage() {
         <div className="space-y-10">
           {/* Stats + logout row */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-5 sm:gap-4">
               <div className="rounded-2xl border border-white/12 bg-white/[0.07] px-5 py-4 backdrop-blur-md">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9aa3b8]">
                   Total cards
@@ -902,6 +1052,14 @@ export default function AdminPage() {
               </div>
               <div className="rounded-2xl border border-white/12 bg-white/[0.07] px-5 py-4 backdrop-blur-md">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9aa3b8]">
+                  Mentors
+                </p>
+                <p className="mt-1 font-[family-name:var(--font-manrope)] text-2xl font-semibold tabular-nums text-white">
+                  {mentors.length}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-white/12 bg-white/[0.07] px-5 py-4 backdrop-blur-md">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9aa3b8]">
                   Status
                 </p>
                 <p className="mt-1 text-sm font-medium text-emerald-300/95">
@@ -919,6 +1077,9 @@ export default function AdminPage() {
                 setGroupsMeta(null);
                 setCourses([]);
                 setBlogs([]);
+                setMentors([]);
+                setMentorSchoolName("HACA");
+                setMentorFilterSchool("All");
               }}
             >
               Log out
@@ -962,6 +1123,18 @@ export default function AdminPage() {
               }`}
             >
               Blogs
+            </button>
+            <button
+              type="button"
+              id="tab-mentors"
+              onClick={() => setActiveTab("mentors")}
+              className={`rounded-xl px-5 py-2.5 text-sm font-medium transition ${
+                activeTab === "mentors"
+                  ? "bg-white/15 text-white shadow-sm"
+                  : "text-[#9aa3b8] hover:text-white"
+              }`}
+            >
+              Mentors
             </button>
           </div>
 
@@ -1820,6 +1993,197 @@ export default function AdminPage() {
                               Delete
                             </button>
                           </div>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                )}
+              </section>
+            </div>
+          )}
+
+          {/* ── Mentors Tab ── */}
+          {activeTab === "mentors" && (
+            <div className="space-y-10">
+              {/* Add mentor form */}
+              <section className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
+                <div className="mb-6 border-b border-white/12 pb-6">
+                  <h2 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
+                    Add mentor
+                  </h2>
+                  <p className="mt-1 text-sm text-[#9aa3b8]">
+                    Upload a photo (will be cropped to 1:1), fill in the details, then submit.
+                  </p>
+                </div>
+
+                <form onSubmit={handleAddMentor} className="space-y-5">
+                  {/* Photo picker */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-medium text-[#A7ADBE]">
+                      Photo <span className="text-red-400">*</span>
+                    </label>
+                    <div className="flex items-center gap-4">
+                      <label className="cursor-pointer rounded-xl border border-dashed border-white/25 bg-white/[0.05] px-5 py-3 text-sm text-[#9aa3b8] transition hover:border-white/40 hover:text-white">
+                        {mentorPhotoFile ? "✓ Photo selected — click to change" : "Click to choose photo"}
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleMentorPhotoPick}
+                        />
+                      </label>
+                      {mentorPhotoFile && (
+                        <button
+                          type="button"
+                          onClick={() => setMentorPhotoFile(null)}
+                          className="text-xs text-red-400 hover:text-red-300 transition"
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Name */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-[#A7ADBE]">
+                      Name <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/55 focus:ring-2 focus:ring-[#4C75FF]/25"
+                      placeholder="e.g. Abu Nabhan"
+                      value={mentorName}
+                      onChange={(e) => setMentorName(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  {/* Designation */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-[#A7ADBE]">
+                      Designation <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/55 focus:ring-2 focus:ring-[#4C75FF]/25"
+                      placeholder="e.g. CEO Design School"
+                      value={mentorDesignation}
+                      onChange={(e) => setMentorDesignation(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  {/* School */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-[#A7ADBE]">
+                      School <span className="text-red-400">*</span>
+                    </label>
+                    <select
+                      className="w-full rounded-xl border border-white/20 bg-[#1a1f2e] px-4 py-3 text-sm text-white outline-none transition focus:border-[#4C75FF]/55 focus:ring-2 focus:ring-[#4C75FF]/25"
+                      value={mentorSchoolName}
+                      onChange={(e) => setMentorSchoolName(e.target.value as MentorSchoolName)}
+                    >
+                      {MENTOR_SCHOOL_OPTIONS.map((s) => (
+                        <option key={s} value={s}>{MENTOR_SCHOOL_LABEL[s] ?? s}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* LinkedIn URL */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-[#A7ADBE]">
+                      LinkedIn URL <span className="text-[#6b7280]">(optional)</span>
+                    </label>
+                    <input
+                      type="url"
+                      className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/55 focus:ring-2 focus:ring-[#4C75FF]/25"
+                      placeholder="https://www.linkedin.com/in/username"
+                      value={mentorLinkedinUrl}
+                      onChange={(e) => setMentorLinkedinUrl(e.target.value)}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="rounded-xl bg-gradient-to-r from-[#4C75FF] to-[#3558e6] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:brightness-110 disabled:opacity-50"
+                  >
+                    {loading ? "Uploading…" : "Add Mentor"}
+                  </button>
+                </form>
+              </section>
+
+              {/* Mentors list */}
+              <section className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
+                <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <h2 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
+                    All mentors ({mentors.filter(m => mentorFilterSchool === "All" || m.schoolName === mentorFilterSchool).length})
+                  </h2>
+                  <select
+                    className="w-full rounded-xl border border-white/20 bg-[#1a1f2e] px-3 py-2 text-sm text-white outline-none transition focus:border-[#4C75FF]/55 sm:w-auto"
+                    value={mentorFilterSchool}
+                    onChange={(e) => setMentorFilterSchool(e.target.value as MentorSchoolName | "All")}
+                  >
+                    <option value="All">All Schools</option>
+                    {MENTOR_SCHOOL_OPTIONS.map((s) => (
+                      <option key={s} value={s}>{MENTOR_SCHOOL_LABEL[s] ?? s}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {mentors.filter(m => mentorFilterSchool === "All" || m.schoolName === mentorFilterSchool).length === 0 ? (
+                  <p className="text-sm text-[#9aa3b8]">No mentors added yet.</p>
+                ) : (
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {mentors
+                      .filter(m => mentorFilterSchool === "All" || m.schoolName === mentorFilterSchool)
+                      .map((mentor) => (
+                      <article
+                        key={mentor._id}
+                        className="flex flex-col overflow-hidden rounded-2xl border border-white/12 bg-white/[0.06] backdrop-blur-sm transition hover:border-white/20"
+                      >
+                        {/* Photo */}
+                        <div className="aspect-square w-full overflow-hidden bg-white/[0.04]">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={mentor.photoUrl}
+                            alt={mentor.name}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+
+                        {/* Info */}
+                        <div className="flex flex-col gap-1 px-4 py-3">
+                          <span className="w-fit rounded-full border border-white/10 bg-white/[0.06] px-2 py-0.5 text-[10px] font-medium text-[#9aa3b8]">
+                            {mentor.schoolName}
+                          </span>
+                          <p className="text-[11px] font-medium text-[#9aa3b8]">{mentor.designation}</p>
+                          <p className="text-sm font-semibold text-white">{mentor.name}</p>
+                          {mentor.linkedinUrl ? (
+                            <a
+                              href={mentor.linkedinUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="truncate text-[11px] text-[#4C75FF] hover:underline"
+                            >
+                              {mentor.linkedinUrl}
+                            </a>
+                          ) : (
+                            <p className="text-[11px] text-[#6b7280]">No LinkedIn</p>
+                          )}
+                        </div>
+
+                        {/* Delete */}
+                        <div className="border-t border-white/10 px-4 pb-4 pt-3">
+                          <button
+                            type="button"
+                            disabled={loading}
+                            onClick={() => handleDeleteMentor(mentor._id)}
+                            className="rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18 disabled:opacity-40"
+                          >
+                            Delete
+                          </button>
                         </div>
                       </article>
                     ))}

@@ -1,6 +1,9 @@
 "use client"
 
+import Link from "next/link"
 import { motion } from "framer-motion"
+
+const ENQUIRE_URL = "https://harisandcoacademy.com/enquire"
 
 export function EnquireSection() {
     return (
@@ -29,20 +32,22 @@ export function EnquireSection() {
                     </p>
 
                     {/* ─── Enquire Button ─── */}
-                    <motion.button
-                        className="group relative w-[143px] h-[55px] max-md:w-[116px] max-md:h-[46px] rounded-[100px] max-md:rounded-[82px] border-none cursor-pointer flex items-center justify-center bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-md:px-[18px] overflow-hidden"
-                        whileHover={{ scale: 1.04 }}
-                        whileTap={{ scale: 0.97 }}
-                        transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
-                        aria-label="Enquire Now"
-                    >
-                        <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
-                            Enquire Now
-                        </span>
-                        <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
-                            Enquire Now
-                        </span>
-                    </motion.button>
+                    <Link href={ENQUIRE_URL} className="flex items-center justify-center no-underline" aria-label="Enquire Now">
+                        <motion.button
+                            className="group relative w-[143px] h-[55px] max-md:w-[116px] max-md:h-[46px] rounded-[100px] max-md:rounded-[82px] border-none cursor-pointer flex items-center justify-center bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-md:px-[18px] overflow-hidden"
+                            whileHover={{ scale: 1.04 }}
+                            whileTap={{ scale: 0.97 }}
+                            transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                            type="button"
+                        >
+                            <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                                Enquire Now
+                            </span>
+                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                                Enquire Now
+                            </span>
+                        </motion.button>
+                    </Link>
                 </motion.div>
 
             </div>

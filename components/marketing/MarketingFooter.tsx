@@ -3,32 +3,53 @@
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
+import { ENQUIRE_URL } from "@/lib/enquire"
 
 const ACCENT = "#0066FF"
 
+const MARKETING_INSTAGRAM_URL =
+    "https://www.instagram.com/haca.marketingschool?igsh=ODcxamM3bWE0cnk="
+const MARKETING_YOUTUBE_URL =
+    "https://youtube.com/@haca.marketingschool?si=rp44lFk6SO5QRLeC"
+
 const QUICK_LINKS = [
-    { label: "Home", href: "/" },
-    { label: "Success Story", href: "/success-story" },
+    { label: "Home", href: "/marketing-school" },
+    { label: "Success Story", href: "/marketing-school/success-story" },
     { label: "Blog", href: "/blog" },
-    { label: "Courses", href: "/marketing-school#marketing-courses" },
-    { label: "Contact Us", href: "/#contact" },
+    { label: "Courses", href: "/marketing-school/courses" },
+    { label: "Contact Us", href: ENQUIRE_URL },
 ]
 
 function SocialIcon({
     href,
     label,
     children,
+    external = false,
 }: {
     href: string
     label: string
     children: React.ReactNode
+    external?: boolean
 }) {
+    const className =
+        "inline-flex h-10 w-10 items-center justify-center text-white transition-opacity hover:opacity-90"
+
+    if (external) {
+        return (
+            <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className={className}
+            >
+                {children}
+            </a>
+        )
+    }
+
     return (
-        <Link
-            href={href}
-            aria-label={label}
-            className="inline-flex h-10 w-10 items-center justify-center text-white transition-opacity hover:opacity-90"
-        >
+        <Link href={href} aria-label={label} className={className}>
             {children}
         </Link>
     )
@@ -159,32 +180,22 @@ export function MarketingFooter() {
                     {/* Bottom row */}
                     <div className="flex w-full min-w-0 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-4">
-                            <SocialIcon href="#" label="Facebook">
-                                <svg width="34" height="34" viewBox="0 0 30 30" fill="none" aria-hidden>
-                                    <circle cx="15" cy="15" r="12.5" stroke="currentColor" strokeWidth="2" />
-                                    <path
-                                        d="M16.7 23v-7h2.3l.4-2.5h-2.7v-1.6c0-.7.2-1.2 1.2-1.2h1.6V8.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v1.4H11v2.5h2.3v7h3.4Z"
-                                        fill="currentColor"
-                                    />
-                                </svg>
-                            </SocialIcon>
-                            <SocialIcon href="#" label="LinkedIn">
-                                <svg width="34" height="34" viewBox="0 0 30 30" fill="none" aria-hidden>
-                                    <rect x="3.5" y="3.5" width="23" height="23" stroke="currentColor" strokeWidth="2" />
-                                    <path
-                                        d="M10.8 13.2V22H8.4v-8.8h2.4ZM9.6 12.1c-.8 0-1.3-.6-1.3-1.3 0-.7.5-1.3 1.3-1.3.8 0 1.3.6 1.3 1.3 0 .7-.5 1.3-1.3 1.3ZM22 22h-2.4v-4.7c0-1.1 0-2.5-1.5-2.5-1.5 0-1.7 1.2-1.7 2.4V22H14v-8.8h2.3v1.2h.1c.3-.6 1.2-1.3 2.5-1.3 2.7 0 3.2 1.8 3.2 4.1V22Z"
-                                        fill="currentColor"
-                                    />
-                                </svg>
-                            </SocialIcon>
-                            <SocialIcon href="#" label="Instagram">
+                            <SocialIcon
+                                href={MARKETING_INSTAGRAM_URL}
+                                label="HACA Marketing School on Instagram"
+                                external
+                            >
                                 <svg width="34" height="34" viewBox="0 0 30 30" fill="none" aria-hidden>
                                     <rect x="4.5" y="4.5" width="21" height="21" rx="6" stroke="currentColor" strokeWidth="2" />
                                     <circle cx="15" cy="15" r="5" stroke="currentColor" strokeWidth="2" />
                                     <circle cx="21" cy="9" r="1.2" fill="currentColor" />
                                 </svg>
                             </SocialIcon>
-                            <SocialIcon href="#" label="YouTube">
+                            <SocialIcon
+                                href={MARKETING_YOUTUBE_URL}
+                                label="HACA Marketing School on YouTube"
+                                external
+                            >
                                 <svg width="38" height="30" viewBox="0 0 34 26" fill="none" aria-hidden>
                                     <rect x="1.5" y="1.5" width="31" height="23" rx="6" stroke="currentColor" strokeWidth="2" />
                                     <path d="M15 9.5v7l6-3.5-6-3.5Z" fill="currentColor" />

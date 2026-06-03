@@ -2,19 +2,28 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { PlacementCardMedia } from "@/components/success-story/PlacementCardMedia";
+import type { DesignPlacementItem } from "@/lib/design-placements";
 
-const PLACEHOLDERS = Array.from({ length: 5 }, (_, i) => i);
+const CARD_STYLE = {
+    width: "clamp(199.1592254638672px, 23.183vw, 333.83917236328125px)",
+    height: "clamp(227.5354766845703px, 26.487vw, 381.4046325683594px)",
+    borderRadius: "14px",
+} as const;
 
-export function DesignPlacementsTeaserSection() {
+type DesignPlacementsTeaserSectionProps = {
+    items: DesignPlacementItem[];
+};
+
+export function DesignPlacementsTeaserSection({ items }: DesignPlacementsTeaserSectionProps) {
     const font = '"VC Nudge Trial Normal", sans-serif';
     const serif = '"IvyPresto Display", serif';
 
-    const sectionRef  = useRef<HTMLElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
     const scrollerRef = useRef<HTMLDivElement>(null);
-    const [shift,    setShift]    = useState(0);
+    const [shift, setShift] = useState(0);
     const [rightPad, setRightPad] = useState(20);
 
-    // Measure section paddings — updates on resize
     useEffect(() => {
         const measure = () => {
             if (!sectionRef.current) return;
@@ -26,7 +35,6 @@ export function DesignPlacementsTeaserSection() {
         return () => window.removeEventListener("resize", measure);
     }, []);
 
-    // Shift container left as user scrolls right — consumes left padding so no dead space
     useEffect(() => {
         const el = scrollerRef.current;
         if (!el) return;
@@ -41,10 +49,9 @@ export function DesignPlacementsTeaserSection() {
         return () => el.removeEventListener("scroll", update);
     }, []);
 
-    // Initial position: fully scrolled right, then peek left so user knows to scroll left
     useEffect(() => {
         const el = scrollerRef.current;
-        if (!el) return;
+        if (!el || items.length === 0) return;
         let t1: ReturnType<typeof setTimeout>;
         let t2: ReturnType<typeof setTimeout>;
         let t3: ReturnType<typeof setTimeout>;
@@ -57,8 +64,12 @@ export function DesignPlacementsTeaserSection() {
                 }, 750);
             }, 200);
         }, 500);
-        return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
-    }, []);
+        return () => {
+            clearTimeout(t1);
+            clearTimeout(t2);
+            clearTimeout(t3);
+        };
+    }, [items.length]);
 
     return (
         <section
@@ -72,7 +83,6 @@ export function DesignPlacementsTeaserSection() {
             }}
         >
             <div className="w-full max-w-[1440px] mx-auto flex flex-col gap-[30px] lg:gap-[60px]">
-                {/* Heading */}
                 <div className="w-full lg:flex lg:justify-end">
                     <h2
                         className="hidden lg:block m-0 text-[#000000] text-left"
@@ -132,7 +142,6 @@ export function DesignPlacementsTeaserSection() {
                     </h2>
                 </div>
 
-                {/* Cards (placeholder gradients) */}
                 <div
                     style={{
                         marginLeft: `-${shift}px`,
@@ -151,19 +160,18 @@ export function DesignPlacementsTeaserSection() {
                             paddingRight: `${rightPad}px`,
                         }}
                     >
-                        {PLACEHOLDERS.map((i) => (
+                        {items.map((card) => (
                             <div
-                                key={i}
-                                className="shrink-0"
-                                style={{
-                                    width: "clamp(199.1592254638672px, 23.183vw, 333.83917236328125px)",
-                                    height: "clamp(227.5354766845703px, 26.487vw, 381.4046325683594px)",
-                                    borderRadius: "14px",
-                                    background:
-                                        "linear-gradient(135deg, rgba(255,92,0,0.25) 0%, rgba(105,74,255,0.25) 50%, rgba(41,199,107,0.25) 100%)",
-                                    border: "1px solid rgba(0,0,0,0.08)",
-                                }}
-                            />
+                                key={card._id}
+                                className="relative shrink-0 overflow-hidden bg-[#D9D9D9] border border-black/5"
+                                style={CARD_STYLE}
+                            >
+                                <PlacementCardMedia
+                                    imageUrl={card.imageUrl}
+                                    alt={card.title ?? "Design school placement student"}
+                                    className="absolute inset-0 w-full h-full"
+                                />
+                            </div>
                         ))}
                     </div>
 
@@ -179,4 +187,3 @@ export function DesignPlacementsTeaserSection() {
         </section>
     );
 }
-

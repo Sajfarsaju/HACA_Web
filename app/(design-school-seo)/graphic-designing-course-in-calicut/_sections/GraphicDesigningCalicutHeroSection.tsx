@@ -26,20 +26,23 @@ const INTRO_BOLD_PHRASE: CSSProperties = {
 
 const INTRO_COPY_DESKTOP = (
     <>
-        Learn Graphic Design, Video Editing, Motion
+        At Design School by HACA, you&apos;ll learn Graphic
         <br />
-        Graphics, UI/UX Design, Branding, all under
+        Design, Video Editing, Motion Graphics, UI/UX
         <br />
-        <strong style={INTRO_BOLD_PHRASE}>Kerala&apos;s No.1 Design School.</strong>
-        {" "}Here, we provide
+        Design, and Branding in one creative learning
+        <br />
+        environment built for real-world careers. Here, at
+        <br />
+        <strong style={INTRO_BOLD_PHRASE}>Kerala&apos;s No.1 Design School,</strong> we provide
         <br />
         the tools, mentorship, and skills to help you
         <br />
-        unlock your full creative potential. Take the
+        unlock your full creative potential. Start your
         <br />
-        first step with our graphic designing course in
+        creative journey with our graphic designing course
         <br />
-        Calicut, and let&apos;s build something amazing
+        in Calicut, and let&apos;s build something amazing
         <br />
         together.
     </>
@@ -47,9 +50,9 @@ const INTRO_COPY_DESKTOP = (
 
 const INTRO_COPY_MOBILE = (
     <>
-        Learn Graphic Design, Video Editing, Motion Graphics, UI/UX Design, Branding, all under{" "}
-        <strong style={INTRO_BOLD_PHRASE}>Kerala&apos;s No.1 Design School.</strong> Here, we provide the tools, mentorship,
-        and skills to help you unlock your full creative potential. Take the first step with our graphic designing
+        At Design School by HACA, you&apos;ll learn Graphic Design, Video Editing, Motion Graphics, UI/UX Design, and Branding in one creative learning environment built for real-world careers. Here, at{" "}
+        <strong style={INTRO_BOLD_PHRASE}>Kerala&apos;s No.1 Design School,</strong> we provide the tools, mentorship,
+        and skills to help you unlock your full creative potential. Start your creative journey with our graphic designing
         course in Calicut, and let&apos;s build something amazing together.
     </>
 );
@@ -179,11 +182,11 @@ export function GraphicDesigningCalicutHeroSection() {
                                 letterSpacing: "-0.02em",
                             }}
                         >
-                            Choose a Graphic Designing Course
+                            Choose HACA&apos;s Graphic Designing
                             <br />
-                            in Calicut that
+                            Course in Calicut That
                             <br />
-                            Covers it All
+                            Covers It All
                         </h1>
 
                         <div className="mt-5 flex w-full max-w-[min(320px,100%)] flex-col items-start gap-4">
@@ -227,7 +230,7 @@ export function GraphicDesigningCalicutHeroSection() {
                             ].join(" ")}
                             style={{ fontFamily: vc, fontWeight: 600 }}
                         >
-                            Choose a Graphic Designing Course in Calicut that Covers it All
+                            Choose HACA&apos;s Graphic Designing Course in Calicut That Covers It All
                         </h1>
 
                         <div className="mt-2 flex w-full flex-wrap items-center justify-start gap-5">

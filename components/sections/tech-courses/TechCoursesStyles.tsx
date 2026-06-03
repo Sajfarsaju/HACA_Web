@@ -206,6 +206,15 @@ const TECH_COURSES_CSS = `
 }
 
 /* ── CARD: same gradient border as TechProjectsSection (orange→purple) ── */
+.course-card--anchored {
+    scroll-margin-top: 100px;
+}
+@media (min-width: 1025px) {
+    .course-card--anchored {
+        scroll-margin-top: 48px;
+    }
+}
+
 .course-card {
     width: 95%;
     max-width: 1302px;

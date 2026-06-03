@@ -5,5 +5,6 @@ export { TechCoursesHeaderSection } from "./TechCoursesHeaderSection";
 export { TechCourseCard } from "./TechCourseCard";
 export { TechCoursesListSection } from "./TechCoursesListSection";
 export { TechCoursesStyles } from "./TechCoursesStyles";
+export { TechCoursesHashScroll } from "./TechCoursesHashScroll";
 export { COURSES_DATA } from "./coursesData";
 export type { Course } from "./types";
