@@ -11,42 +11,14 @@ type MentorCard = {
     filterColor: string;
 };
 
-const MENTORS: MentorCard[] = [
-    {
-        id: "nanditha",
-        name: "Nanditha",
-        designation: "Motion Graphics Mentor",
-        photoSrc: "/photos/schools/design/nanditha.webp",
-        filterColor: "#FF5C00",
-    },
-    {
-        id: "ashif",
-        name: "Ashif",
-        designation: "Motion Graphics Mentor",
-        photoSrc: "/photos/schools/design/ashif.webp",
-        filterColor: "#29C76B",
-    },
-    {
-        id: "nabhan",
-        name: "Nabhan",
-        designation: "Motion Graphics Mentor",
-        photoSrc: "/photos/schools/design/nabhan.webp",
-        filterColor: "#8F56FF",
-    },
-    {
-        id: "pressly",
-        name: "Pressly",
-        designation: "Motion Graphics Mentor",
-        photoSrc: "/photos/schools/design/pressly.webp",
-        filterColor: "#2592FF",
-    },
-    {
-        id: "faheem",
-        name: "Faheem",
-        designation: "Motion Graphics Mentor",
-        photoSrc: "/photos/schools/design/faheem.webp",
-        filterColor: "#FF5659",
-    },
+const FILTER_COLORS = ["#FF5C00", "#29C76B", "#8F56FF", "#2592FF", "#FF5659"];
+
+const FALLBACK_MENTORS: MentorCard[] = [
+    { id: "nanditha", name: "Nanditha", designation: "Motion Graphics Mentor", photoSrc: "/photos/schools/design/nanditha.webp", filterColor: "#FF5C00" },
+    { id: "ashif", name: "Ashif", designation: "Motion Graphics Mentor", photoSrc: "/photos/schools/design/ashif.webp", filterColor: "#29C76B" },
+    { id: "nabhan", name: "Nabhan", designation: "Motion Graphics Mentor", photoSrc: "/photos/schools/design/nabhan.webp", filterColor: "#8F56FF" },
+    { id: "pressly", name: "Pressly", designation: "Motion Graphics Mentor", photoSrc: "/photos/schools/design/pressly.webp", filterColor: "#2592FF" },
+    { id: "faheem", name: "Faheem", designation: "Motion Graphics Mentor", photoSrc: "/photos/schools/design/faheem.webp", filterColor: "#FF5659" },
 ];
 
 /** Desktop mentor cards layout — matches `lg:w-[403.5px]` + `gap-[2px]` in `DesignMentorsSection`. */
@@ -73,6 +45,27 @@ export function DesignMentorsSection() {
     const [desktopAtStart, setDesktopAtStart] = useState(true);
     const [desktopShift, setDesktopShift]     = useState(0);
     const [mobileShift, setMobileShift]       = useState(0);
+    const [MENTORS, setMENTORS]               = useState<MentorCard[]>([]);
+
+    useEffect(() => {
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/mentors?school=Design%20School`;
+        fetch(url)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data) => {
+                setMENTORS(
+                    Array.isArray(data?.mentors)
+                        ? data.mentors.map((m: { _id: string; name: string; designation: string; photoUrl: string }, i: number) => ({
+                              id: m._id,
+                              name: m.name,
+                              designation: m.designation,
+                              photoSrc: m.photoUrl,
+                              filterColor: FILTER_COLORS[i % FILTER_COLORS.length],
+                          }))
+                        : []
+                );
+            })
+            .catch(() => {});
+    }, []);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const desktopStep = useMemo(() => Infinity, []);
@@ -105,6 +98,8 @@ export function DesignMentorsSection() {
         el.addEventListener("scroll", update, { passive: true });
         return () => el.removeEventListener("scroll", update);
     }, []);
+
+    if (MENTORS.length === 0) return null;
 
     return (
         <section

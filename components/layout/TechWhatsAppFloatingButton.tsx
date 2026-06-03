@@ -3,6 +3,7 @@
  import Image from "next/image";
  import Link from "next/link";
  import { useEffect, useRef, useState } from "react";
+ import { WHATSAPP_CHAT_URL } from "@/lib/whatsapp";
  
  const INTRO_SECTION_ID = "tech-intro-section";
  
@@ -47,7 +48,7 @@
  
      return (
          <Link
-             href="https://wa.me/917736779775"
+             href={WHATSAPP_CHAT_URL}
              target="_blank"
              rel="noopener noreferrer"
              aria-label="Contact us on WhatsApp"

@@ -298,12 +298,161 @@ export function pythonCalicutJsonLd() {
     };
 }
 
+// ─── Coding Courses in Kerala ─────────────────────────────────────────────────
+
+export const CODING_KERALA_SEO_PATH = "/coding-courses-in-kerala" as const;
+
+export type CodingKeralaFaqItem = {
+    id: string;
+    question: string;
+    answer: string;
+};
+
+export const CODING_KERALA_FAQS: CodingKeralaFaqItem[] = [
+    {
+        id: "ck-faq-what-is-mern-ai",
+        question: "What is a MERN Stack course with AI integration?",
+        answer:
+            "A MERN Stack course with AI integration teaches full-stack web development using MongoDB, Express, React, and Node.js, along with artificial intelligence tools like LLM APIs, chatbots, and automation features. It helps you build modern web applications that are smarter and more interactive.",
+    },
+    {
+        id: "ck-faq-best-fullstack",
+        question: "Which is the best full-stack developer course in Kerala for beginners?",
+        answer:
+            "A good Full Stack Developer course in Kerala should offer hands-on projects, mentorship, and real-world training. HACA Tech School's MERN + AI program is designed for beginners with step-by-step learning from frontend basics to advanced AI-powered applications.",
+    },
+    {
+        id: "ck-faq-no-experience",
+        question: "Can I become a full-stack developer without coding experience?",
+        answer:
+            "Yes. You can start as a complete beginner. The course begins with HTML, CSS, and JavaScript fundamentals before moving into React, backend development, databases, and AI integration.",
+    },
+    {
+        id: "ck-faq-fullstack-vs-mern",
+        question: "What is the difference between a Full Stack Developer and an MERN Stack Developer?",
+        answer:
+            "A full-stack developer works on both frontend and backend technologies. A MERN Stack Developer specifically uses MongoDB, Express, React, and Node.js. In modern development, both roles often overlap.",
+    },
+    {
+        id: "ck-faq-mern-demand",
+        question: "Is MERN Stack still in demand in India?",
+        answer:
+            "Yes. MERN Stack remains one of the most in-demand full stack technologies because companies prefer JavaScript-based scalable applications. Adding AI skills makes developers even more valuable in the job market.",
+    },
+];
+
+const CODING_KERALA_PAGE_TITLE =
+    "Coding Courses in Kerala | Python, Web Dev & AI Training | HACA Tech School";
+
+const CODING_KERALA_PAGE_DESCRIPTION =
+    "Explore HACA Tech School's coding courses in Kerala — hands-on training in Python, Django, React, Full Stack Development, and Generative AI. Offline and online batches, expert mentors, live projects, and placement support. Build job-ready coding skills in Kerala.";
+
+export function buildCodingKeralaSeoMetadata(): Metadata {
+    const canonical = `${TECH_SCHOOL_SEO_SITE_URL}${CODING_KERALA_SEO_PATH}`;
+
+    return {
+        title: CODING_KERALA_PAGE_TITLE,
+        description: CODING_KERALA_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: CODING_KERALA_PAGE_TITLE,
+            description: CODING_KERALA_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_IN",
+            type: "website" as const,
+        },
+        twitter: {
+            card: "summary_large_image" as const,
+            title: CODING_KERALA_PAGE_TITLE,
+            description: CODING_KERALA_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "coding courses in Kerala",
+            "coding course in Kerala",
+            "best coding course in Kerala",
+            "coding classes in Kerala",
+            "coding institute in Kerala",
+            "programming course in Kerala",
+            "software development course Kerala",
+            "python course in Kerala",
+            "web development course Kerala",
+            "full stack course Kerala",
+            "AI coding course Kerala",
+            "coding course Calicut",
+            "coding course Kochi",
+            "coding course Kozhikode",
+            "HACA Tech School Kerala",
+        ],
+    };
+}
+
+export function codingKeralaJsonLd() {
+    const url = `${TECH_SCHOOL_SEO_SITE_URL}${CODING_KERALA_SEO_PATH}`;
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${url}#webpage`,
+                url,
+                name: CODING_KERALA_PAGE_TITLE,
+                description: CODING_KERALA_PAGE_DESCRIPTION,
+                isPartOf: {
+                    "@type": "WebSite",
+                    name: "Haris & Co Academy",
+                    url: TECH_SCHOOL_SEO_SITE_URL,
+                },
+            },
+            {
+                "@type": "Course",
+                "@id": `${url}#course`,
+                name: "Coding Courses in Kerala",
+                description: CODING_KERALA_PAGE_DESCRIPTION,
+                provider: {
+                    "@type": "EducationalOrganization",
+                    name: "Haris & Co Academy",
+                    url: TECH_SCHOOL_SEO_SITE_URL,
+                },
+                url,
+                educationalLevel: "Beginner to Advanced",
+                courseMode: ["Onsite", "Online"],
+                inLanguage: "en",
+                areaServed: {
+                    "@type": "State",
+                    name: "Kerala",
+                    containedInPlace: {
+                        "@type": "Country",
+                        name: "India",
+                    },
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${url}#faq`,
+                mainEntity: CODING_KERALA_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.question,
+                    acceptedAnswer: {
+                        "@type": "Answer",
+                        text: item.answer,
+                    },
+                })),
+            },
+        ],
+    };
+}
+
 /** True for Tech School SEO landing routes (route group does not add a URL prefix). */
 export function isTechSchoolSeoPath(pathname: string): boolean {
     return (
         pathname === DATA_ANALYTICS_KERALA_SEO_PATH ||
         pathname.startsWith(`${DATA_ANALYTICS_KERALA_SEO_PATH}/`) ||
         pathname === PYTHON_CALICUT_SEO_PATH ||
-        pathname.startsWith(`${PYTHON_CALICUT_SEO_PATH}/`)
+        pathname.startsWith(`${PYTHON_CALICUT_SEO_PATH}/`) ||
+        pathname === CODING_KERALA_SEO_PATH ||
+        pathname.startsWith(`${CODING_KERALA_SEO_PATH}/`)
     );
 }

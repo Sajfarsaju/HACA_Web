@@ -2,6 +2,9 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ENQUIRE_URL } from "@/lib/enquire";
+import { techCourseElementId } from "@/lib/tech-courses";
 import type { Course } from "./types";
 
 interface TechCourseCardProps {
@@ -11,7 +14,7 @@ interface TechCourseCardProps {
 
 export function TechCourseCard({ course, showLabel = false }: TechCourseCardProps) {
     return (
-        <div className="course-card">
+        <div id={techCourseElementId(course.slug)} className="course-card course-card--anchored">
             <div className="course-top-row">
                 <div className="course-title-col">
                     {showLabel && (
@@ -64,14 +67,18 @@ export function TechCourseCard({ course, showLabel = false }: TechCourseCardProp
                         </div>
                     </div>
                 </div>
-                <div className="course-btn-wrap">
+                <Link
+                    href={ENQUIRE_URL}
+                    className="course-btn-wrap block no-underline"
+                    aria-label="Enquire now"
+                >
                     <Image
                         src="/photos/Tech/Link - Regular (1).svg"
                         alt="Enquire Now"
                         fill
                         style={{ objectFit: "contain" }}
                     />
-                </div>
+                </Link>
             </div>
         </div>
     );

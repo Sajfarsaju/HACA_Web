@@ -5,6 +5,12 @@ import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { TechMenuOverlay } from "@/components/sections/tech/TechMenuOverlay";
+import { ENQUIRE_URL } from "@/lib/enquire";
+
+const TECH_INSTAGRAM_URL =
+    "https://www.instagram.com/haca.techschool?igsh=ZGd5dnJrNnV0OWhs";
+const TECH_YOUTUBE_URL =
+    "https://youtube.com/@hacatechschool?si=5Y_pVPbk-xLORtpI";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    The design canvas is 1440 × 1044 px (Figma spec).
@@ -336,7 +342,7 @@ export default function TechHero() {
                         <div className="flex items-center shrink-0">
                             {/* Let's Connect button — same animation as hero Get Started */}
                             <Link
-                                href="/contact"
+                                href={ENQUIRE_URL}
                                 className="group relative hidden md:flex w-[118px] h-[44px] rounded-[8px] px-[10px] py-[10px] bg-white text-[#1a1a1a] font-outfit font-semibold text-[14px] leading-none no-underline overflow-hidden"
                             >
                                 <span className="absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] transition-transform duration-300 ease-out group-hover:-translate-y-full">
@@ -404,7 +410,7 @@ export default function TechHero() {
                                     }}
                                 >
                                     <Link
-                                        href="/contact"
+                                        href={ENQUIRE_URL}
                                         className="group relative flex w-full h-full overflow-hidden px-5 py-[15px]"
                                     >
                                         <span className="absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[20px] leading-[100%] text-center text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
@@ -443,37 +449,38 @@ export default function TechHero() {
                         transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
                     >
                         {/* Instagram */}
-                        <div className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px]">
+                        <a
+                            href={TECH_INSTAGRAM_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="HACA Tech School on Instagram"
+                            className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px] hover:opacity-100 transition-opacity"
+                        >
                             <Image
                                 src="/photos/Tech/Social Icons.svg"
-                                alt="Instagram"
+                                alt=""
                                 width={18}
                                 height={18}
                                 style={{ objectFit: "contain" }}
                             />
-                        </div>
-
-                        {/* Facebook */}
-                        <div className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px]">
-                            <Image
-                                src="/photos/Tech/uil_facebook.svg"
-                                alt="Facebook"
-                                width={18}
-                                height={18}
-                                style={{ objectFit: "contain" }}
-                            />
-                        </div>
+                        </a>
 
                         {/* YouTube */}
-                        <div className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px]">
+                        <a
+                            href={TECH_YOUTUBE_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="HACA Tech School on YouTube"
+                            className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px] hover:opacity-100 transition-opacity"
+                        >
                             <Image
                                 src="/photos/Tech/mdi_youtube.svg"
-                                alt="YouTube"
+                                alt=""
                                 width={18}
                                 height={18}
                                 style={{ objectFit: "contain" }}
                             />
-                        </div>
+                        </a>
                     </motion.div>
 
                     {/* ── COHORT / SKILLS INFO BLOCK ── */}
@@ -686,7 +693,7 @@ export default function TechHero() {
                                     }}
                                 >
                                     <Link
-                                        href="/contact"
+                                        href={ENQUIRE_URL}
                                         className="group relative flex h-full w-full items-center justify-center overflow-hidden px-[18px] py-[12px] box-border"
                                     >
                                         <span className="absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[14px] leading-[100%] text-center text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">

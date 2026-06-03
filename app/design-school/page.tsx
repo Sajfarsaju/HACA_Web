@@ -12,6 +12,10 @@ import { DesignFigmaRecognizedSection } from "@/components/design/DesignFigmaRec
 import { DesignEnterCreativeZoneSection } from "@/components/design/DesignEnterCreativeZoneSection";
 import { DesignMentorsSection } from "@/components/design/DesignMentorsSection";
 import { DesignPlacementsTeaserSection } from "@/components/design/DesignPlacementsTeaserSection";
+import {
+    designPlacementFallbackItems,
+    fetchDesignSchoolPlacements,
+} from "@/lib/design-placements";
 import { DesignStudentProjectsSection } from "@/components/design/DesignStudentProjectsSection";
 import { DesignTestimonialsSection } from "@/components/design/DesignTestimonialsSection";
 import { DesignFaqSection } from "@/components/design/DesignFaqSection";
@@ -28,7 +32,11 @@ export const metadata: Metadata = {
     description: school.description,
 };
 
-export default function DesignSchoolPage() {
+export default async function DesignSchoolPage() {
+    const designPlacements = await fetchDesignSchoolPlacements();
+    const placementTeaserItems =
+        designPlacements.length > 0 ? designPlacements : designPlacementFallbackItems(5);
+
     return (
         <div className="w-full bg-[#FCFCFC] min-h-screen">
             <DesignSchoolIntroAnimation />
@@ -64,7 +72,7 @@ export default function DesignSchoolPage() {
             <DesignMentorsSection />
 
             {/* Placements teaser */}
-            <DesignPlacementsTeaserSection />
+            <DesignPlacementsTeaserSection items={placementTeaserItems} />
 
             {/* Student projects */}
             <DesignStudentProjectsSection />

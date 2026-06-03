@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 const ACCENT = "#0066FF"
 const CARD_BG = "#E8F1FF"
@@ -12,7 +12,7 @@ type Mentor = {
     imageSrc: string
 }
 
-const MENTORS: Mentor[] = [
+const FALLBACK_MENTORS: Mentor[] = [
     { name: "Hima", role: "Google Ads Mentor", imageSrc: "/photos/schools/marketing/mentors/hima.svg" },
     { name: "Arshad", role: "Business Development Mentor", imageSrc: "/photos/schools/marketing/mentors/arshad.svg" },
     { name: "Jawadha", role: "Social Media Marketing Mentor", imageSrc: "/photos/schools/marketing/mentors/jawadha.svg" },
@@ -57,7 +57,8 @@ const IDLE_RESUME_MS = 1600
 /** ~72s feel for a wide track; scales with content width */
 const AUTO_SCROLL_PX_PER_SEC = 14
 
-function MarketingMentorsMobileMarquee() {
+function MarketingMentorsMobileMarquee({ mentors }: { mentors: Mentor[] }) {
+    const MENTORS = mentors
     const scrollerRef = useRef<HTMLDivElement>(null)
     const pausedByUserRef = useRef(false)
     const rafRef = useRef<number>(0)
@@ -199,6 +200,28 @@ function MarketingMentorsMobileMarquee() {
 }
 
 export function MarketingMentorsSection() {
+    const [MENTORS, setMENTORS] = useState<Mentor[]>([])
+
+    useEffect(() => {
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/mentors?school=Marketing%20School`
+        fetch(url)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data) => {
+                setMENTORS(
+                    Array.isArray(data?.mentors)
+                        ? data.mentors.map((m: { name: string; designation: string; photoUrl: string }) => ({
+                              name: m.name,
+                              role: m.designation,
+                              imageSrc: m.photoUrl,
+                          }))
+                        : []
+                )
+            })
+            .catch(() => {})
+    }, [])
+
+    if (MENTORS.length === 0) return null;
+
     return (
         <section
             id="marketing-mentors"
@@ -242,7 +265,7 @@ export function MarketingMentorsSection() {
                 </header>
 
                 {/* Mobile: auto-scroll + manual swipe; pauses while user scrolls, resumes after idle */}
-                <MarketingMentorsMobileMarquee />
+                <MarketingMentorsMobileMarquee mentors={MENTORS} />
 
                 {/* sm+: grid (unchanged) */}
                 <ul

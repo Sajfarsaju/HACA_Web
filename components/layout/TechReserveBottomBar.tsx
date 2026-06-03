@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+
+const HIDE_ON_PATHS = ["/tech-school/tech-courses"] as const;
 
 const INTRO_SECTION_ID = "tech-intro-section";
 const FOOTER_ID = "tech-school-footer";
@@ -18,10 +21,15 @@ function isFooterReached(footer: HTMLElement | null): boolean {
 }
 
 export function TechReserveBottomBar() {
+    const pathname = usePathname();
+    const hidden = HIDE_ON_PATHS.some(
+        (path) => pathname === path || pathname?.startsWith(`${path}/`)
+    );
     const [visible, setVisible] = useState(false);
     const rafRef = useRef<number | null>(null);
 
     useEffect(() => {
+        if (hidden) return;
         const update = () => {
             const intro = document.getElementById(INTRO_SECTION_ID);
             const footer = document.getElementById(FOOTER_ID);
@@ -57,7 +65,9 @@ export function TechReserveBottomBar() {
             window.removeEventListener("resize", onScrollOrResize);
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
         };
-    }, []);
+    }, [hidden]);
+
+    if (hidden) return null;
 
     return (
         <div

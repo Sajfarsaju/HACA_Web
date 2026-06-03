@@ -4,6 +4,7 @@ import Image from "next/image"
 import { motion, type TargetAndTransition } from "framer-motion"
 
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta"
+import { ENQUIRE_URL } from "@/lib/enquire"
 
 // ── Timing matches DesignWhyCreativitySection exactly ─────────────────────────
 const ANIM_DUR  = 0.7
@@ -309,7 +310,7 @@ function ZoneButton({ font, isMobile }: { font: string; isMobile?: boolean }) {
     return (
         <div className="flex w-full items-center justify-center">
             <DesignSplitArrowCta
-                href="/design-school/courses"
+                href={ENQUIRE_URL}
                 label="Enter the Zone"
                 ariaLabel="Enter the Zone"
                 fontFamily={font}

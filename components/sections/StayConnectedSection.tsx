@@ -94,12 +94,46 @@ function SocialCard({ logoSrc, logoAlt, logoW, logoH, instagramHref = "#", youtu
 
 /** Social cards data — logos vary per card */
 const cards: SocialCardProps[] = [
-    { logoSrc: "/photos/common/haca logo.svg", logoAlt: "HACA", logoW: 113, logoH: 33 },
-    { logoSrc: "/photos/common/haca uae.svg", logoAlt: "HACA UAE", logoW: 113, logoH: 33 },
-    { logoSrc: "/photos/main/haca degital marketing.svg", logoAlt: "Digital Marketing", logoW: 113, logoH: 33 },
-    { logoSrc: "/photos/main/haca design school.svg", logoAlt: "Design School", logoW: 113, logoH: 33 },
-    { logoSrc: "/photos/main/haca tech school.svg", logoAlt: "Tech School", logoW: 113, logoH: 33 },
-    { logoSrc: "/photos/main/haca FINANCE SCHOOL.svg", logoAlt: "Finance School", logoW: 113, logoH: 33 },
+    {
+        logoSrc: "/photos/common/haca logo.svg",
+        logoAlt: "HACA",
+        logoW: 113,
+        logoH: 33,
+        instagramHref: "https://www.instagram.com/haca.co?igsh=MW53aGQ5ZTIwY2U2bg==",
+        youtubeHref: "https://youtube.com/@hacakerala?si=5p8Scd2aqf6nIV-L",
+    },
+    {
+        logoSrc: "/photos/common/haca uae.svg",
+        logoAlt: "HACA UAE",
+        logoW: 113,
+        logoH: 33,
+        instagramHref: "https://www.instagram.com/haca.uae?igsh=NmVjc3Nua2pwZTRj",
+        youtubeHref: "https://youtube.com/@haca_uae?si=jf4n2AKgNdHzahwm",
+    },
+    {
+        logoSrc: "/photos/main/haca degital marketing.svg",
+        logoAlt: "Digital Marketing",
+        logoW: 113,
+        logoH: 33,
+        instagramHref: "https://www.instagram.com/haca.marketingschool?igsh=ODcxamM3bWE0cnk=",
+        youtubeHref: "https://youtube.com/@haca.marketingschool?si=rp44lFk6SO5QRLeC",
+    },
+    {
+        logoSrc: "/photos/main/haca design school.svg",
+        logoAlt: "Design School",
+        logoW: 113,
+        logoH: 33,
+        instagramHref: "https://www.instagram.com/haca.designschool?igsh=MWZzN2ZvdnRwdm00bQ==",
+        youtubeHref: "https://youtube.com/@designschoolhaca?si=J3L4sQtEDimos0D5",
+    },
+    {
+        logoSrc: "/photos/main/haca tech school.svg",
+        logoAlt: "Tech School",
+        logoW: 113,
+        logoH: 33,
+        instagramHref: "https://www.instagram.com/haca.techschool?igsh=ZGd5dnJrNnV0OWhs",
+        youtubeHref: "https://youtube.com/@hacatechschool?si=5Y_pVPbk-xLORtpI",
+    },
 ]
 
 export function StayConnectedSection() {
@@ -143,9 +177,9 @@ export function StayConnectedSection() {
                         <SocialCard key={i} {...c} />
                     ))}
                 </div>
-                {/* Row 2: cards 3–5 */}
-                <div className="w-full flex flex-row justify-between gap-0 max-md:flex-col max-md:gap-[20px]">
-                    {cards.slice(3, 6).map((c, i) => (
+                {/* Row 2: cards 3–4 */}
+                <div className="w-full flex flex-row justify-center gap-[15px] max-md:flex-col max-md:gap-[20px]">
+                    {cards.slice(3, 5).map((c, i) => (
                         <SocialCard key={i + 3} {...c} />
                     ))}
                 </div>

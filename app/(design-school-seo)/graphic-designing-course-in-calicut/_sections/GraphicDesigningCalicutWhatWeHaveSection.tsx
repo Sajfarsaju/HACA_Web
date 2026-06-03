@@ -7,7 +7,7 @@ const vc = '"VC Nudge Trial Normal", sans-serif' as const;
 const PILLS = [
     { label: "All major design skills in one course", bg: "#FF5C00" },
     { label: "Offline, hands-on learning", bg: "#8F56FF" },
-    { label: "Agency based mentors", bg: "#FF5659" },
+    { label: "Agency mentors", bg: "#FF5659" },
     { label: "Placement support + internship", bg: "#29C76B" },
     { label: "Portfolio that actually gets you hired", bg: "#2592FF" },
     { label: "Agency-style learning environment", bg: "#F4B400" },
@@ -78,11 +78,11 @@ export function GraphicDesigningCalicutWhatWeHaveSection() {
                                     letterSpacing: "-0.02em",
                                 }}
                             >
-                                Learn the Right Way
+                                Learn the HACA Way
                                 <br />
                                 with Our Creative
                                 <br />
-                                Design and
+                                Design &amp;
                                 <br />
                                 Communication
                                 <br />
@@ -100,9 +100,9 @@ export function GraphicDesigningCalicutWhatWeHaveSection() {
                                     textAlign: "center",
                                 }}
                             >
-                                Learn the Right Way with Our Creative
+                                Learn the HACA Way with Our Creative
                                 <br />
-                                Design and Communication Course
+                                Design &amp; Communication Course
                             </span>
                         </h2>
                         <p
@@ -116,7 +116,7 @@ export function GraphicDesigningCalicutWhatWeHaveSection() {
                                 letterSpacing: "0",
                             }}
                         >
-                            What We Have for You
+                            What You&apos;ll Get in the Course
                         </p>
                     </div>
 

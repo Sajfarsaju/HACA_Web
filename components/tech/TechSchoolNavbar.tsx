@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { TechMenuOverlay } from "@/components/sections/tech/TechMenuOverlay";
+import { ENQUIRE_URL } from "@/lib/enquire";
 import { isTechSchoolSeoPath, TECH_SEO_PAGE_BG } from "@/lib/tech-school-seo";
 
 const TECH_NAV_LINKS = [
@@ -67,7 +68,7 @@ export function TechSchoolNavbar() {
                     </nav>
 
                     <Link
-                        href="/contact"
+                        href={ENQUIRE_URL}
                         className="group relative hidden h-[44px] w-[118px] shrink-0 overflow-hidden rounded-[8px] bg-white px-[10px] py-[10px] font-outfit text-[14px] font-semibold leading-none text-[#1a1a1a] no-underline md:flex md:items-center md:justify-center"
                     >
                         <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-out group-hover:-translate-y-full">

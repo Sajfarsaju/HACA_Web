@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { ENQUIRE_URL } from "@/lib/enquire";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -58,7 +59,7 @@ export function TechNavbar() {
             {/* Let's Connect — same as tech home (size, style, slide animation) */}
             <div className="flex items-center shrink-0">
                 <Link
-                    href="/contact"
+                    href={ENQUIRE_URL}
                     className="group relative flex w-[118px] h-[44px] rounded-[8px] px-[10px] py-[10px] bg-white text-[#1a1a1a] font-outfit font-semibold text-[14px] leading-none no-underline overflow-hidden"
                 >
                     <span className="absolute inset-0 flex h-[44px] w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] transition-transform duration-300 ease-out group-hover:-translate-y-full">

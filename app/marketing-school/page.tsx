@@ -8,6 +8,10 @@ import { MarketingCultureSection } from "@/components/marketing/MarketingCulture
 import { MarketingYoutubeHubSection } from "@/components/marketing/MarketingYoutubeHubSection";
 import { MarketingCultureAndYoutubeWrapper } from "@/components/marketing/MarketingCultureAndYoutubeWrapper";
 import { MarketingPlacementsSection } from "@/components/marketing/MarketingPlacementsSection";
+import {
+    fetchMarketingSchoolPlacements,
+    marketingPlacementFallbackItems,
+} from "@/lib/marketing-placements";
 import { MarketingTestimonialsSection } from "@/components/marketing/MarketingTestimonialsSection";
 import { MarketingFaqSection } from "@/components/marketing/MarketingFaqSection";
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
@@ -20,7 +24,13 @@ export const metadata: Metadata = {
     description: "HACA Marketing School page.",
 };
 
-export default function MarketingSchoolPage() {
+export default async function MarketingSchoolPage() {
+    const marketingPlacements = await fetchMarketingSchoolPlacements();
+    const placementItems =
+        marketingPlacements.length > 0
+            ? marketingPlacements
+            : marketingPlacementFallbackItems(12);
+
     return (
         <MarketingPageColorLayer>
         <main className="w-full min-h-screen overflow-x-hidden">
@@ -31,7 +41,7 @@ export default function MarketingSchoolPage() {
                 <MarketingCoursesSection />
                 <MarketingMentorsSection />
             </MarketingCoursesAndMentorsWrapper>
-            <MarketingPlacementsSection />
+            <MarketingPlacementsSection items={placementItems} />
             <MarketingCultureAndYoutubeWrapper>
                 <MarketingCultureSection />
                 <MarketingYoutubeHubSection />

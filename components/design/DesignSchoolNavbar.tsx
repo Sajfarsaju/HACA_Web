@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 import { isDesignSchoolSeoPath } from "@/lib/design-school-seo";
+import { ENQUIRE_URL } from "@/lib/enquire";
 
 const NAV_LINKS = [
     { label: "Home", href: "/design-school" },

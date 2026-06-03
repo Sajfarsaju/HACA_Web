@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
 
+const DESIGN_YOUTUBE_URL = "https://youtube.com/@designschoolhaca";
+
 export function DesignStoriesInsightsSection({ font, serif }: { font: string; serif: string }) {
     const cardGradient =
         "linear-gradient(135deg, rgba(143,86,255,0.18) 0%, rgba(37,146,255,0.10) 45%, rgba(255,92,0,0.12) 100%)";
@@ -313,7 +315,7 @@ function VisitPageButton({ font }: { font: string }) {
     const wrapW = "220.2265625px";
     return (
         <DesignSplitArrowCta
-            href="/design-school/blog"
+            href={DESIGN_YOUTUBE_URL}
             accent="#8F56FF"
             ariaLabel="Visit Page"
             label="Visit Page"

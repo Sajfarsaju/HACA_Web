@@ -3,6 +3,7 @@ import Image from "next/image"
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle"
 
 const ACCENT = "#0066FF"
+const MARKETING_YOUTUBE_URL = "https://youtube.com/@haca.marketingschool"
 
 /** Mobile (max-lg): matches marketing courses / placements compact CTA — 44px row, 16px Satoshi, 44×44 arrow. */
 function MobileHubViewMoreArrow() {
@@ -26,13 +27,16 @@ function MobileHubViewMoreArrow() {
 
 function ViewMorePill() {
     return (
-        <button
-            type="button"
+        <a
+            href={MARKETING_YOUTUBE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="
                 group relative inline-flex w-fit shrink-0 cursor-pointer items-center no-underline
                 max-lg:h-[44px] max-lg:gap-[7.33px] max-lg:rounded-full max-lg:bg-[#E8F1FF] max-lg:pl-[14px] max-lg:pr-0
                 lg:h-[60px]
             "
+            aria-label="View more on HACA Marketing School YouTube"
         >
             <span className="whitespace-nowrap text-black lg:hidden font-['Satoshi',sans-serif] text-[16px] font-medium leading-[100%] tracking-normal">
                 View More
@@ -48,7 +52,7 @@ function ViewMorePill() {
                 </span>
             </div>
             <MarketingCtaArrowCircle size="60" className="pointer-events-none absolute right-0 top-0 hidden lg:block" />
-        </button>
+        </a>
     )
 }
 

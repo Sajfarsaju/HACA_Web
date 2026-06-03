@@ -1,6 +1,21 @@
 import Image from "next/image";
+import Link from "next/link";
 
+import { ENQUIRE_URL } from "@/lib/enquire";
 import { TECH_SEO_PAGE_BG } from "@/lib/tech-school-seo";
+
+const TECH_INSTAGRAM_URL =
+    "https://www.instagram.com/haca.techschool?igsh=ZGd5dnJrNnV0OWhs";
+const TECH_YOUTUBE_URL =
+    "https://youtube.com/@hacatechschool?si=5Y_pVPbk-xLORtpI";
+
+const TECH_FOOTER_NAV_LINKS = [
+    { label: "Home", href: "/tech-school" },
+    { label: "Projects", href: "/tech-school/tech-projects" },
+    { label: "Blog", href: "/blog" },
+    { label: "Courses", href: "/tech-school/tech-courses" },
+    { label: "Contact US", href: ENQUIRE_URL },
+] as const;
 
 type TechFooterProps = {
     /** SEO landings use {@link TECH_SEO_PAGE_BG}; default matches main tech-school pages. */
@@ -49,13 +64,14 @@ export function TechFooter({ variant = "default" }: TechFooterProps) {
                     <div
                         className="flex items-center justify-start w-full gap-[8px] lg:gap-[10px] max-w-[478px] h-auto mt-[24px] opacity-100"
                     >
-                        <input
+                        {/* <input
                             type="text"
                             placeholder="Enter your email"
                             className="w-[197px] h-[40px] lg:w-[342px] lg:h-[44px] rounded-[12px] border-[0.5px] border-[#A7A7A7] px-[20px] py-[5px] bg-transparent text-[#FFFFFF] font-outfit text-[14px] outline-none opacity-100"
-                        />
-                        <button
-                            className="w-[110px] h-[40px] lg:w-[126px] lg:h-[44px] rounded-[12px] border border-transparent px-[20px] py-[15px] cursor-pointer opacity-100 flex items-center justify-center gap-[10px] bg-origin-border bg-clip-padding"
+                        /> */}
+                        <Link
+                            href={ENQUIRE_URL}
+                            className="w-[110px] h-[40px] lg:w-[126px] lg:h-[44px] rounded-[12px] border border-transparent px-[20px] py-[15px] cursor-pointer opacity-100 flex items-center justify-center gap-[10px] bg-origin-border bg-clip-padding no-underline"
                             style={{
                                 backgroundImage: `
                                     radial-gradient(71.34% 136.68% at 50% 14.3%, #927DF7 0%, #694AFF 100%),
@@ -64,24 +80,27 @@ export function TechFooter({ variant = "default" }: TechFooterProps) {
                                 backgroundClip: "padding-box, border-box",
                                 backgroundOrigin: "padding-box, border-box",
                             }}
+                            aria-label="Guide me — enquire"
                         >
                             <span className="font-outfit font-semibold text-[14px] leading-none text-center text-[#FFFFFF] whitespace-nowrap">
                                 Guide Me
                             </span>
-                        </button>
+                        </Link>
                     </div>
 
                     {/* Navigation Links (Desktop only) */}
                     <div
                         className="hidden lg:flex w-full max-w-[400px] h-auto justify-between items-center ml-[30px] mt-[clamp(40px,6vw,80px)] opacity-100 flex-wrap gap-[10px]"
                     >
-                        {["Home", "Projects", "Blog", "Courses", "Contact US"].map((link) => (
+                        {TECH_FOOTER_NAV_LINKS.map(({ label, href }) => (
                             <a
-                                key={link}
-                                href="#"
-                                className={`font-outfit font-bold text-[clamp(12px,1.1vw,15px)] leading-none tracking-normal no-underline h-[15px] flex items-center opacity-100 transition-colors hover:text-white ${link === "Home" ? "text-[#FFFFFF]" : "text-[#646464]"}`}
+                                key={label}
+                                href={href}
+                                className={`font-outfit font-bold text-[clamp(12px,1.1vw,15px)] leading-none tracking-normal no-underline h-[15px] flex items-center opacity-100 transition-colors hover:text-white ${
+                                    label === "Home" ? "text-[#FFFFFF]" : "text-[#646464]"
+                                }`}
                             >
-                                {link}
+                                {label}
                             </a>
                         ))}
                     </div>
@@ -214,13 +233,15 @@ export function TechFooter({ variant = "default" }: TechFooterProps) {
                     <div
                         className="flex lg:hidden w-full max-w-[400px] h-auto justify-between items-center mt-[clamp(10px,1.5vw,16px)] opacity-100 flex-wrap gap-[10px]"
                     >
-                        {["Home", "Projects", "Blog", "Courses", "Contact US"].map((link) => (
+                        {TECH_FOOTER_NAV_LINKS.map(({ label, href }) => (
                             <a
-                                key={link}
-                                href="#"
-                                className={`font-outfit font-bold text-[clamp(12px,1.1vw,15px)] leading-none tracking-normal no-underline h-[15px] flex items-center opacity-100 transition-colors hover:text-white ${link === "Home" ? "text-[#FFFFFF]" : "text-[#646464]"}`}
+                                key={label}
+                                href={href}
+                                className={`font-outfit font-bold text-[clamp(12px,1.1vw,15px)] leading-none tracking-normal no-underline h-[15px] flex items-center opacity-100 transition-colors hover:text-white ${
+                                    label === "Home" ? "text-[#FFFFFF]" : "text-[#646464]"
+                                }`}
                             >
-                                {link}
+                                {label}
                             </a>
                         ))}
                     </div>
@@ -234,12 +255,32 @@ export function TechFooter({ variant = "default" }: TechFooterProps) {
                     <div
                         className="flex items-center h-[clamp(30px,4vw,59px)] gap-[clamp(12px,1.5vw,24px)]"
                     >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/photos/schools/tech/InstaIcon_footer.svg" alt="Instagram" className="h-[100%] w-auto" />
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/photos/schools/tech/FBIcon_footer.svg" alt="Facebook" className="h-[100%] w-auto" />
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/photos/schools/tech/YutubIcon_footer.svg" alt="Youtube" className="h-[100%] w-auto" />
+                        <a
+                            href={TECH_INSTAGRAM_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Tech School Instagram"
+                        >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src="/photos/schools/tech/InstaIcon_footer.svg"
+                                alt="Instagram"
+                                className="h-[100%] w-auto"
+                            />
+                        </a>
+                        <a
+                            href={TECH_YOUTUBE_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Tech School YouTube"
+                        >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src="/photos/schools/tech/YutubIcon_footer.svg"
+                                alt="Youtube"
+                                className="h-[100%] w-auto"
+                            />
+                        </a>
                     </div>
 
                     {/* Subtitle */}

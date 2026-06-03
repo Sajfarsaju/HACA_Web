@@ -1,6 +1,8 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
+import { ENQUIRE_URL } from "@/lib/enquire";
 
 export const metadata: Metadata = {
     title: "Courses | Marketing School | HACA",
@@ -134,7 +136,7 @@ export default function MarketingCoursesPage() {
 
                             {/* Enquire Now Button Container */}
                             <div className="flex-1 flex justify-start md:justify-end items-end w-full h-auto mt-[20px] md:mt-0 transition-all">
-                                <button className="flex items-center w-[189px] h-[60px] justify-between pl-[20px] bg-[#FFFFFF] rounded-[30px] group hover:opacity-90 transition-opacity shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
+                                <Link href={ENQUIRE_URL} className="flex items-center w-[189px] h-[60px] justify-between pl-[20px] bg-[#FFFFFF] rounded-[30px] group hover:opacity-90 transition-opacity shadow-[0px_4px_10px_rgba(0,0,0,0.05)] no-underline" aria-label="Enquire now">
                                     <span 
                                         className="text-[#000000] text-[18px] leading-[100%] m-0 tracking-[0%]" 
                                         style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 500 }}
@@ -146,7 +148,7 @@ export default function MarketingCoursesPage() {
                                             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                         </svg>
                                     </div>
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </section>
@@ -237,7 +239,7 @@ export default function MarketingCoursesPage() {
                             </div>
 
                             <div className="flex-1 flex justify-start md:justify-end items-end w-full h-auto mt-[20px] md:mt-0 transition-all">
-                                <button className="flex items-center w-[189px] h-[60px] justify-between pl-[20px] bg-[#FFFFFF] rounded-[30px] group hover:opacity-90 transition-opacity shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
+                                <Link href={ENQUIRE_URL} className="flex items-center w-[189px] h-[60px] justify-between pl-[20px] bg-[#FFFFFF] rounded-[30px] group hover:opacity-90 transition-opacity shadow-[0px_4px_10px_rgba(0,0,0,0.05)] no-underline" aria-label="Enquire now">
                                     <span 
                                         className="text-[#000000] text-[18px] leading-[100%] m-0 tracking-[0%]" 
                                         style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 500 }}
@@ -249,7 +251,7 @@ export default function MarketingCoursesPage() {
                                             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                         </svg>
                                     </div>
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </section>
@@ -335,7 +337,7 @@ export default function MarketingCoursesPage() {
                             </div>
 
                             <div className="flex-1 flex justify-start md:justify-end items-end w-full h-auto mt-[20px] md:mt-0 transition-all">
-                                <button className="flex items-center w-[189px] h-[60px] justify-between pl-[20px] bg-[#FFFFFF] rounded-[30px] group hover:opacity-90 transition-opacity shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
+                                <Link href={ENQUIRE_URL} className="flex items-center w-[189px] h-[60px] justify-between pl-[20px] bg-[#FFFFFF] rounded-[30px] group hover:opacity-90 transition-opacity shadow-[0px_4px_10px_rgba(0,0,0,0.05)] no-underline" aria-label="Enquire now">
                                     <span 
                                         className="text-[#000000] text-[18px] leading-[100%] m-0 tracking-[0%]" 
                                         style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 500 }}
@@ -347,7 +349,7 @@ export default function MarketingCoursesPage() {
                                             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                         </svg>
                                     </div>
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </section>
@@ -424,7 +426,7 @@ export default function MarketingCoursesPage() {
                             </div>
 
                             <div className="flex-1 flex justify-start md:justify-end items-end w-full h-auto mt-[20px] md:mt-0 transition-all">
-                                <button className="flex items-center w-[189px] h-[60px] justify-between pl-[20px] bg-[#FFFFFF] rounded-[30px] group hover:opacity-90 transition-opacity shadow-[0px_4px_10px_rgba(0,0,0,0.05)]">
+                                <Link href={ENQUIRE_URL} className="flex items-center w-[189px] h-[60px] justify-between pl-[20px] bg-[#FFFFFF] rounded-[30px] group hover:opacity-90 transition-opacity shadow-[0px_4px_10px_rgba(0,0,0,0.05)] no-underline" aria-label="Enquire now">
                                     <span 
                                         className="text-[#000000] text-[18px] leading-[100%] m-0 tracking-[0%]" 
                                         style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 500 }}
@@ -436,7 +438,7 @@ export default function MarketingCoursesPage() {
                                             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                         </svg>
                                     </div>
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </section>

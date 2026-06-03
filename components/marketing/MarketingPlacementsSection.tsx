@@ -1,20 +1,16 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react"
+import Link from "next/link"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle"
+import { PlacementCardMedia } from "@/components/success-story/PlacementCardMedia"
+import { ENQUIRE_URL } from "@/lib/enquire"
+import type { MarketingPlacementItem } from "@/lib/marketing-placements"
 
 const ACCENT = "#0066FF"
 
-type PlacementCard = {
-    id: string
-}
-
-const PLACEMENTS: PlacementCard[] = Array.from({ length: 12 }).map((_, i) => ({
-    id: `placement-${i + 1}`,
-}))
-
-function PlacementDummyCard() {
+function PlacementCard({ item }: { item: MarketingPlacementItem }) {
     return (
         <div
             className="
@@ -24,6 +20,11 @@ function PlacementDummyCard() {
                 lg:h-[279.7px] lg:w-[243.35px]
             "
         >
+            <PlacementCardMedia
+                imageUrl={item.imageUrl}
+                alt={item.title ?? "Marketing school placement student"}
+                className="absolute inset-0 h-full w-full"
+            />
         </div>
     )
 }
@@ -58,13 +59,14 @@ function MobilePlacementCtaArrow({ variant }: { variant: "join" | "view" }) {
 
 function JoinNowPill() {
     return (
-        <button
-            type="button"
+        <Link
+            href={ENQUIRE_URL}
             className="
                 group relative inline-flex w-fit shrink-0 cursor-pointer items-center no-underline
                 max-lg:h-[44px] max-lg:gap-[7.33px] max-lg:rounded-full max-lg:bg-[#E8F1FF] max-lg:pl-[14px] max-lg:pr-0
                 lg:h-[60px]
             "
+            aria-label="Join now — enquire"
         >
             <span className="whitespace-nowrap text-black lg:hidden font-['Satoshi',sans-serif] text-[16px] font-medium leading-[100%] tracking-normal">
                 Join Now
@@ -84,19 +86,20 @@ function JoinNowPill() {
                 background="#000000"
                 className="pointer-events-none absolute right-0 top-0 hidden lg:block"
             />
-        </button>
+        </Link>
     )
 }
 
 function ViewMorePill() {
     return (
-        <button
-            type="button"
+        <Link
+            href="/marketing-school/success-story"
             className="
                 group relative inline-flex w-fit shrink-0 cursor-pointer items-center no-underline
                 max-lg:h-[44px] max-lg:gap-[7.33px] max-lg:rounded-full max-lg:bg-[#E8F1FF] max-lg:pl-[14px] max-lg:pr-0
                 lg:h-[60px]
             "
+            aria-label="View more placement success stories"
         >
             <span className="whitespace-nowrap text-black lg:hidden font-['Satoshi',sans-serif] text-[16px] font-medium leading-[100%] tracking-normal">
                 View More
@@ -112,7 +115,7 @@ function ViewMorePill() {
                 </span>
             </div>
             <MarketingCtaArrowCircle size="60" className="pointer-events-none absolute right-0 top-0 hidden lg:block" />
-        </button>
+        </Link>
     )
 }
 
@@ -163,7 +166,7 @@ function PlacementsDecisionCard() {
     )
 }
 
-export function MarketingPlacementsSection() {
+export function MarketingPlacementsSection({ items }: { items: MarketingPlacementItem[] }) {
     const sectionRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -230,8 +233,8 @@ export function MarketingPlacementsSection() {
 
                 {/* Mobile: fixed 2×2 grid */}
                 <div className="grid w-full min-w-0 grid-cols-2 gap-4 md:hidden">
-                    {PLACEMENTS.slice(0, 4).map((card) => (
-                        <PlacementDummyCard key={card.id} />
+                    {items.slice(0, 4).map((card) => (
+                        <PlacementCard key={card._id} item={card} />
                     ))}
                 </div>
 
@@ -245,13 +248,13 @@ export function MarketingPlacementsSection() {
                 >
                     <div className="flex w-max flex-col gap-y-5 py-2 sm:gap-y-7 lg:gap-y-8">
                         <div className="flex w-max flex-row-reverse gap-x-4 sm:gap-x-6 lg:gap-x-8">
-                            {PLACEMENTS.slice(0, Math.ceil(PLACEMENTS.length / 2)).map((card) => (
-                                <PlacementDummyCard key={card.id} />
+                            {items.slice(0, Math.ceil(items.length / 2)).map((card) => (
+                                <PlacementCard key={card._id} item={card} />
                             ))}
                         </div>
                         <div className="flex w-max flex-row gap-x-4 sm:gap-x-6 lg:gap-x-8">
-                            {PLACEMENTS.slice(Math.ceil(PLACEMENTS.length / 2)).map((card) => (
-                                <PlacementDummyCard key={card.id} />
+                            {items.slice(Math.ceil(items.length / 2)).map((card) => (
+                                <PlacementCard key={card._id} item={card} />
                             ))}
                         </div>
                     </div>

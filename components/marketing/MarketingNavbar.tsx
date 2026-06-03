@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
+import { ENQUIRE_URL } from "@/lib/enquire";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
@@ -95,7 +96,7 @@ export function MarketingNavbar() {
             </nav>
 
             <Link
-                href="/contact"
+                href={ENQUIRE_URL}
                 className="hidden lg:flex relative cursor-pointer items-center w-[180px] h-[60px] shrink-0 group no-underline"
                 aria-label="Contact us"
             >
@@ -148,7 +149,7 @@ export function MarketingNavbar() {
                             </button>
 
                             <Link
-                                href="/contact"
+                                href={ENQUIRE_URL}
                                 onClick={() => setIsMobileMenuOpen(false)}
                                 className="relative flex cursor-pointer items-center w-[158.26px] h-[44px] shrink-0 group no-underline"
                                 aria-label="Enquire now"

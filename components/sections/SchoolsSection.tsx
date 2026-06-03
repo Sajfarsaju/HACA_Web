@@ -31,12 +31,6 @@ const schools = [
         alt: "Tech School",
         exploreHref: "/tech-school",
     },
-    {
-        id: 4,
-        logo: "/photos/main/FINANCE SCHOOL.svg",
-        alt: "Finance School",
-        exploreHref: "/finance-school",
-    },
 ] as const
 
 function SchoolCard({
@@ -78,7 +72,7 @@ function SchoolCard({
     return (
         <motion.div
             ref={cardRef}
-            className="flex-1 min-w-0 max-w-[317px] h-[444px] max-[1100px]:flex-auto max-[1100px]:max-w-full max-[1100px]:w-full max-[1100px]:h-[clamp(280px,38vw,380px)] max-md:h-[clamp(140px,41.6vw,160px)]"
+            className="flex-1 min-w-0 max-w-[420px] h-[444px] max-[1100px]:flex-auto max-[1100px]:max-w-full max-[1100px]:w-full max-[1100px]:h-[clamp(280px,38vw,380px)] max-md:h-[clamp(140px,41.6vw,160px)]"
             style={{ perspective: 1000 }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}

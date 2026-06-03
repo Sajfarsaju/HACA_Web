@@ -2,6 +2,7 @@ import type { Course } from "./types";
 
 export const COURSES_DATA: Course[] = [
     {
+        slug: "advanced-data-analytics-with-ai",
         title: "Advanced Data Analytics with AI",
         titleLine1: "Advanced Data",
         titleLine2: "Analytics with AI",
@@ -30,6 +31,7 @@ export const COURSES_DATA: Course[] = [
         ]
     },
     {
+        slug: "advanced-python-django-with-gen-ai",
         title: "Advanced Python Django with Gen AI",
         titleLine1: "Advanced Python",
         titleLine2: "Django with Gen AI",
@@ -57,6 +59,7 @@ export const COURSES_DATA: Course[] = [
         ]
     },
     {
+        slug: "data-science-with-gen-ai",
         title: "Data Science with Gen AI",
         titleLine1: "Data Science with",
         titleLine2: "Gen AI",
@@ -83,6 +86,7 @@ export const COURSES_DATA: Course[] = [
         ]
     },
     {
+        slug: "n8n-for-ai-agents-automations",
         title: "n8n for AI Agents & Automations",
         titleLine1: "n8n for AI Agents &",
         titleLine2: "Automations",
@@ -107,6 +111,7 @@ export const COURSES_DATA: Course[] = [
         ]
     },
     {
+        slug: "dashboard-mastery-power-bi-excel",
         title: "Dashboard Mastery in Power BI + Excel Course",
         titleLine1: "Dashboard Mastery in",
         titleLine2: "Power BI + Excel Course",
@@ -132,6 +137,7 @@ export const COURSES_DATA: Course[] = [
         ]
     },
     {
+        slug: "applied-ai-for-beginners",
         title: "Applied AI for Beginners",
         titleLine1: "Applied AI for",
         titleLine2: "Beginners",

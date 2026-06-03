@@ -5,41 +5,20 @@ import { useEffect, useRef, useState } from "react";
 
 const FONT = '"VC Nudge Trial Normal", sans-serif' as const;
 
-/** Same image assets as `DesignMentorsSection`; roles match Calicut SEO page copy. */
-const MENTORS = [
-    {
-        id: "nanditha",
-        name: "Nanditha",
-        role: "Motion Graphics Mentor",
-        photoSrc: "/photos/schools/design/nanditha.webp",
-    },
-    {
-        id: "ashif",
-        name: "Ashif",
-        role: "Graphic Design Mentor",
-        photoSrc: "/photos/schools/design/ashif.webp",
-    },
-    {
-        id: "nabhan",
-        name: "Nabhan",
-        role: "Founder Design School",
-        photoSrc: "/photos/schools/design/nabhan.webp",
-    },
-    {
-        id: "pressly",
-        name: "Pressly",
-        role: "Branding Mentor",
-        photoSrc: "/photos/schools/design/pressly.webp",
-    },
-    {
-        id: "faheem",
-        name: "Faheem",
-        role: "Motion Graphics Mentor",
-        photoSrc: "/photos/schools/design/faheem.webp",
-    },
-] as const;
+type MentorEntry = {
+    id: string;
+    name: string;
+    role: string;
+    photoSrc: string;
+};
 
-type MentorEntry = (typeof MENTORS)[number];
+const FALLBACK_MENTORS: MentorEntry[] = [
+    { id: "nanditha", name: "Nanditha", role: "Motion Graphics Mentor", photoSrc: "/photos/schools/design/nanditha.webp" },
+    { id: "ashif", name: "Ashif", role: "Graphic Design Mentor", photoSrc: "/photos/schools/design/ashif.webp" },
+    { id: "nabhan", name: "Nabhan", role: "Founder Design School", photoSrc: "/photos/schools/design/nabhan.webp" },
+    { id: "pressly", name: "Pressly", role: "Branding Mentor", photoSrc: "/photos/schools/design/pressly.webp" },
+    { id: "faheem", name: "Faheem", role: "Motion Graphics Mentor", photoSrc: "/photos/schools/design/faheem.webp" },
+];
 
 const HEADING_ID = "graphic-design-calicut-mentors-heading";
 const MENTOR_DIVIDER = "#655CC5";
@@ -58,6 +37,26 @@ export function GraphicDesigningCalicutMentorsSection({
     const [desktopAtStart, setDesktopAtStart] = useState(true);
     const [desktopShift, setDesktopShift] = useState(0);
     const [mobileShift, setMobileShift] = useState(0);
+    const [MENTORS, setMENTORS] = useState<MentorEntry[]>([]);
+
+    useEffect(() => {
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/mentors?school=Design%20School`;
+        fetch(url)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data) => {
+                setMENTORS(
+                    Array.isArray(data?.mentors)
+                        ? data.mentors.map((m: { _id: string; name: string; designation: string; photoUrl: string }) => ({
+                              id: m._id,
+                              name: m.name,
+                              role: m.designation,
+                              photoSrc: m.photoUrl,
+                          }))
+                        : []
+                );
+            })
+            .catch(() => {});
+    }, []);
 
     useEffect(() => {
         const el = desktopScrollerRef.current;
@@ -83,6 +82,8 @@ export function GraphicDesigningCalicutMentorsSection({
         el.addEventListener("scroll", update, { passive: true });
         return () => el.removeEventListener("scroll", update);
     }, []);
+
+    if (MENTORS.length === 0) return null;
 
     return (
         <section

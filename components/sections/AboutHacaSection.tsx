@@ -1,4 +1,7 @@
+"use client"
+
 import Image from 'next/image'
+import Link from "next/link"
 import { motion } from "framer-motion"
 
 export function AboutHacaSection() {
@@ -36,19 +39,26 @@ export function AboutHacaSection() {
                             From that tiny room to a 10,000 sq. ft campus in Calicut and a new campus
                             in Dubai, HACA continues to shape real careers through real experiences.
                         </p>
-                        <motion.button
-                            className="group relative w-[212px] h-[55px] rounded-[100px] border-none flex items-center justify-center cursor-pointer bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-md:w-[170px] max-md:h-[46px] max-md:px-[18px] max-md:rounded-[82px] overflow-hidden"
-                            whileHover={{ scale: 1.04 }}
-                            whileTap={{ scale: 0.97 }}
-                            transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                        <Link
+                            href="/about"
+                            className="flex items-center justify-center no-underline max-md:mx-auto"
+                            aria-label="Know more about us"
                         >
-                            <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
-                                Know More About Us
-                            </span>
-                            <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
-                                Know More About Us
-                            </span>
-                        </motion.button>
+                            <motion.button
+                                type="button"
+                                className="group relative w-[212px] h-[55px] rounded-[100px] border-none flex items-center justify-center cursor-pointer bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] px-[24px] max-md:w-[170px] max-md:h-[46px] max-md:px-[18px] max-md:rounded-[82px] overflow-hidden"
+                                whileHover={{ scale: 1.04 }}
+                                whileTap={{ scale: 0.97 }}
+                                transition={{ type: "spring", mass: 1, stiffness: 220.5, damping: 17.14 }}
+                            >
+                                <span className="flex w-full h-full items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                                    Know More About Us
+                                </span>
+                                <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-rethink font-medium text-[18px] leading-[27px] text-white whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 max-md:font-normal max-md:text-[14px] max-md:leading-[22.19px]">
+                                    Know More About Us
+                                </span>
+                            </motion.button>
+                        </Link>
                     </div>
                 </div>
             </div>

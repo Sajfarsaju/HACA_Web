@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import Threads from "@/components/ui/Threads";
+import { ENQUIRE_URL } from "@/lib/enquire";
 
 export function TechPreneur() {
     return (
@@ -27,7 +28,7 @@ export function TechPreneur() {
                         }}
                     >
                         <Link
-                            href="/contact"
+                            href={ENQUIRE_URL}
                             className="group relative flex w-full h-full items-center justify-center overflow-hidden px-[20px] py-[15px] max-md:px-[18px] max-md:py-[12px]"
                         >
                             <span className="pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-medium text-[20px] leading-[100%] text-center text-white whitespace-nowrap transition-transform duration-300 ease-out will-change-transform transform-gpu group-hover:-translate-y-full max-md:text-[16px] max-md:font-semibold max-md:leading-[100%]">

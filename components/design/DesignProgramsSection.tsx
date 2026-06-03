@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { DesignProgramCard, type DesignProgramCardProps } from "./DesignProgramCard";
 import { DesignPickOneToExploreSection } from "./DesignPickOneToExploreSection";
+import { designCourseHref, DESIGN_COURSE_SLUGS } from "@/lib/design-courses";
 
 // Virtual units consumed per card transition
 const PROGRESS_PER_CARD = 900;
@@ -36,7 +37,7 @@ const PROGRAMS: DesignProgramCardProps[] = [
             desktop: { top: 100, left: 729, width: 491, height: 628 },
             mobile: { top: 360, width: 390, height: 390 },
         },
-        href: "/design-school/courses/creative-design",
+        href: designCourseHref(DESIGN_COURSE_SLUGS.creativeDesign),
         underline: {
             src: "/photos/schools/design/program 1 vector 1.svg",
             desktop: { width: 259.64, height: 25.46, rotation: -0.08 },
@@ -69,7 +70,7 @@ const PROGRAMS: DesignProgramCardProps[] = [
             desktop: { top: 55, left: 674, width: 650, height: 724 },
             mobile: { top: 335, width: 440, height: 490 },
         },
-        href: "/design-school/courses/ai-graphic-design",
+        href: designCourseHref(DESIGN_COURSE_SLUGS.aiGraphicDesign),
         underline: {
             src: "/photos/schools/design/program 2 vector 1.svg",
             desktop: { width: 205, height: 20, rotation: 0 },
@@ -103,7 +104,7 @@ const PROGRAMS: DesignProgramCardProps[] = [
             desktop: { top: -110, left: 620, width: 760, height: 840 },
             mobile: { top: 360, width: 390, height: 390 },
         },
-        href: "/design-school/courses/program-3",
+        href: designCourseHref(DESIGN_COURSE_SLUGS.brandingIdentity),
         underline: {
             src: "/photos/schools/design/program 3 vector 1.svg",
             desktop: { width: 229.0, height: 17.0, rotation: -1.93 },
@@ -137,7 +138,7 @@ const PROGRAMS: DesignProgramCardProps[] = [
             desktop: { top: 53.19, left: 754, width: 407, height: 668 },
             mobile: { top: 330, left: 63, width: 250, height: 410.32 },
         },
-        href: "/design-school/courses/program-4",
+        href: designCourseHref(DESIGN_COURSE_SLUGS.uiUxAi),
         underline: {
             src: "/photos/schools/design/program 4 vector 1.svg",
             desktop: { width: 246.0, height: 19.3793, rotation: 1.85 },
@@ -169,7 +170,7 @@ const PROGRAMS: DesignProgramCardProps[] = [
             desktop: { top: 78.63, left: 788, width: 420, height: 599.8787841796875 },
             mobile: { top: 384, left: 38, width: 300, height: 428.4848327636719 },
         },
-        href: "/design-school/courses/program-5",
+        href: designCourseHref(DESIGN_COURSE_SLUGS.aiVideoEditing),
         underline: {
             src: "/photos/schools/design/program 5 vector 1.svg",
             desktop: { width: 248.32049643390252, height: 21.790195537783195, rotation: -2.85 },

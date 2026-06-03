@@ -5,6 +5,7 @@ import { useTransform, motion, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
 import { DesignEventCard } from "./DesignEventCard";
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
+import { ENQUIRE_URL } from "@/lib/enquire";
 
 const CIRCLE =
     "M90.625 50C90.625 60.7744 86.3449 71.1075 78.7262 78.7262C71.1075 86.3449 60.7744 90.625 50 90.625C39.2256 90.625 28.8925 86.3449 21.2738 78.7262C13.6551 71.1075 9.375 60.7744 9.375 50C9.375 39.2256 13.6551 28.8925 21.2738 21.2738C28.8925 13.6551 39.2256 9.375 50 9.375C60.7744 9.375 71.1075 13.6551 78.7262 21.2738C86.3449 28.8925 90.625 39.2256 90.625 50Z";
@@ -284,7 +285,7 @@ export function DesignHeroVideoTransition({ src }: Props) {
 
                                     <div className="pointer-events-auto w-[246.22px]">
                                         <DesignSplitArrowCta
-                                            href="/design-school/courses"
+                                            href={ENQUIRE_URL}
                                             accent="#8F56FF"
                                             label="Join the Club"
                                             ariaLabel="Join the Club"
@@ -452,7 +453,7 @@ export function DesignHeroVideoTransition({ src }: Props) {
 
                                                 <div className="pointer-events-auto -mt-[4px] w-[min(258px,86vw)]">
                                                     <DesignSplitArrowCta
-                                                        href="/design-school/courses"
+                                                        href={ENQUIRE_URL}
                                                         accent="#8F56FF"
                                                         label="Join the Club"
                                                         ariaLabel="Join the Club"

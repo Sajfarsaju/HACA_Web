@@ -9,6 +9,7 @@ import {
     TechCoursesHeaderSection,
     TechCoursesListSection,
     TechCoursesStyles,
+    TechCoursesHashScroll,
 } from "@/components/sections/tech-courses";
 import { DESIGN_W, MOBILE_DESIGN_W } from "@/components/sections/tech-courses/constants";
 import { TechDotsBackground } from "@/components/tech/TechDotsBackground";
@@ -60,6 +61,7 @@ export default function CoursesPage() {
             <div className="absolute top-0 left-0 w-full h-full z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
                 <TechDotsBackground />
             </div>
+            <TechCoursesHashScroll />
             <TechCoursesGlobalBg />
             <TechCoursesHero scale={scales.desktop} />
             <TechCoursesMobileHero scale={scales.mobile} />

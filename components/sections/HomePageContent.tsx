@@ -1,6 +1,7 @@
 "use client";
 
 import { BlogsSection } from "@/components/sections/BlogsSection";
+import type { BlogPost } from "@/lib/blog-data";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { EnquireSection } from "@/components/sections/EnquireSection";
 import { Hero } from "@/components/sections/Hero";
@@ -14,7 +15,11 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { WhyHacaSection } from "@/components/sections/WhyHacaSection";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 
-export function HomePageContent() {
+type HomePageContentProps = {
+    homeBlogs: BlogPost[];
+};
+
+export function HomePageContent({ homeBlogs }: HomePageContentProps) {
     return (
         <>
             {/* Above-the-fold: own staggered animations inside Hero */}
@@ -44,7 +49,7 @@ export function HomePageContent() {
                 <TestimonialsSection />
             </SectionReveal>
             <SectionReveal sectionIndex={8} delay={0.06} duration={0.55} y={28}>
-                <BlogsSection />
+                <BlogsSection blogs={homeBlogs} />
             </SectionReveal>
             <SectionReveal sectionIndex={9} delay={0.06} duration={0.55} y={28}>
                 <FAQSection />

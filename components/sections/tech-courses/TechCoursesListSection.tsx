@@ -23,7 +23,7 @@ export function TechCoursesListSection({ desktopScale }: TechCoursesListSectionP
 
             <div className="courses-list">
                 {COURSES_DATA.map((course, idx) => (
-                    <TechCourseCard key={idx} course={course} showLabel={idx < 3} />
+                    <TechCourseCard key={course.slug} course={course} showLabel={idx < 3} />
                 ))}
             </div>
         </div>

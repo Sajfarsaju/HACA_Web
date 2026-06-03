@@ -461,7 +461,7 @@ export default function GraphicDesigningCourseInCalicutPage() {
                                 color: "#000000B2",
                             }}
                         >
-                            Join the most exciting graphic designing course in Calicut and let your creativity do the talking.
+                            Join Design School by HACA and Build a Creative Career That Stands Out
                         </p>
 
                         <JoinNowButton />

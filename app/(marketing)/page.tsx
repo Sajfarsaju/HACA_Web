@@ -1,4 +1,5 @@
 import { HomePageContent } from "@/components/sections/HomePageContent";
+import { getLatestBlogsForHome } from "@/lib/blog-api";
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function HomePage() {
-  return <HomePageContent />
+export default async function HomePage() {
+  const homeBlogs = await getLatestBlogsForHome(3);
+  return <HomePageContent homeBlogs={homeBlogs} />;
 }

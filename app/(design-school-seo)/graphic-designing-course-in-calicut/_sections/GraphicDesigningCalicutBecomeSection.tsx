@@ -5,16 +5,16 @@ import React from "react";
 const vc = '"VC Nudge Trial Normal", sans-serif' as const;
 
 const ROLES = [
-    "Junior Art Director",
     "Graphic Designer",
-    "Video Editor",
-    "Social Media Designer",
     "Visual Designer",
-    "UI UX Designer",
-    "Illustration Artist",
     "Creative Designer",
-    "Motion Graphic Artist",
     "Brand Designer",
+    "Social Media Designer",
+    "Junior Art Director",
+    "UI UX Designer",
+    "Video Editor",
+    "Motion Graphic Artist",
+    "Illustration Artist",
 ] as const;
 
 export function GraphicDesigningCalicutBecomeSection() {
