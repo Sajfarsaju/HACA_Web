@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type TechMentor = {
     imgSrc: string;
@@ -129,6 +129,7 @@ export function TechMentorsCarousel({
         typeof window !== "undefined" ? window.innerWidth : 1280,
     );
     const [MENTORS, setMENTORS] = useState<TechMentor[]>([]);
+    const touchStartX = useRef<number | null>(null);
 
     useEffect(() => {
         const url = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/mentors?school=Tech%20School`;
@@ -257,7 +258,7 @@ export function TechMentorsCarousel({
 
             {showBackgroundEffects ? (
                 <>
-                    <div className="pointer-events-none absolute inset-0 z-0 overflow-x-visible overflow-y-hidden md:hidden">
+                    <div className="pointer-events-none absolute inset-0 z-0 overflow-visible md:hidden">
                         <div className="tech-mentors-mobile-glow absolute inset-0" aria-hidden />
                         <div className="tech-mentors-mobile-bg pointer-events-none absolute left-1/2 top-[30px] h-[520px] w-[140vw] max-w-none -translate-x-1/2">
                             <Image
@@ -290,6 +291,14 @@ export function TechMentorsCarousel({
                 <div
                     className="relative flex w-full items-center justify-center overflow-visible"
                     style={{ height: `${centerH + 40}px` }}
+                    onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+                    onTouchEnd={(e) => {
+                        if (touchStartX.current === null) return;
+                        const delta = e.changedTouches[0].clientX - touchStartX.current;
+                        touchStartX.current = null;
+                        if (delta < -50 && canNext) next();
+                        else if (delta > 50 && canPrev) prev();
+                    }}
                 >
                     {MENTORS.map((mentor, i) => {
                         const offset = getOffset(i, activeIndex, loop, total);
@@ -380,48 +389,34 @@ export function TechMentorsCarousel({
                             </div>
                         );
                     })}
+
                 </div>
 
-                {showNavigation ? (
+                {/* Desktop: nav below card area — unchanged */}
+                {showNavigation && !isMobileView && (
                     <div className={navigationClassName}>
                         <button
                             type="button"
                             aria-label="Previous mentor"
-                            onClick={() => {
-                                if (!canPrev) return;
-                                prev();
-                            }}
+                            onClick={() => { if (!canPrev) return; prev(); }}
                             disabled={!canPrev}
                             aria-disabled={!canPrev}
                             className="relative h-[46.67px] w-[46.67px] rotate-[-180deg] cursor-pointer border-none bg-transparent p-0 opacity-70 transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30"
                         >
-                            <Image
-                                src="/photos/Tech/Active Arowmark.svg"
-                                fill
-                                alt=""
-                                className="object-contain"
-                            />
+                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
                         </button>
                         <button
                             type="button"
                             aria-label="Next mentor"
-                            onClick={() => {
-                                if (!canNext) return;
-                                next();
-                            }}
+                            onClick={() => { if (!canNext) return; next(); }}
                             disabled={!canNext}
                             aria-disabled={!canNext}
                             className="relative h-[46.67px] w-[46.67px] cursor-pointer border-none bg-transparent p-0 opacity-100 transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30"
                         >
-                            <Image
-                                src="/photos/Tech/Active Arowmark.svg"
-                                fill
-                                alt=""
-                                className="object-contain"
-                            />
+                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
                         </button>
                     </div>
-                ) : null}
+                )}
             </div>
         </div>
     );
