@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { techCourseImageAlt } from "@/lib/image-alt-text";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import type { Variants } from "framer-motion";
@@ -406,7 +407,7 @@ export function TechPathSection() {
                                 <div className="tech-path-card-inner absolute inset-0 overflow-hidden rounded-[22px] z-0">
                                     <Image
                                         src={course.bgImage}
-                                        alt=""
+                                        alt={techCourseImageAlt(course.title)}
                                         fill
                                         className="object-cover pointer-events-none opacity-80"
                                     />

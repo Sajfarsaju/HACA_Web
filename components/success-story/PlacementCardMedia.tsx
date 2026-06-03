@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { PLACEMENT_FALLBACK_GRADIENT } from "@/lib/placementGradient";
 
@@ -28,12 +29,15 @@ export function PlacementCardMedia({ imageUrl, alt, className = "" }: Props) {
     const src = imageUrl!.trim();
 
     return (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-            src={src}
-            alt={alt}
-            className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 ${className}`}
-            onError={() => setFailed(true)}
-        />
+        <div className={`relative overflow-hidden ${className}`}>
+            <Image
+                src={src}
+                alt={alt}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                sizes="(max-width: 768px) 100vw, 320px"
+                onError={() => setFailed(true)}
+            />
+        </div>
     );
 }

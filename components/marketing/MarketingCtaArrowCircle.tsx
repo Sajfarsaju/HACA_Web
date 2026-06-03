@@ -36,7 +36,7 @@ export function MarketingCtaArrowCircle({
                 >
                     <Image
                         src={ARROW_SRC}
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={30}
                         height={30}
                         className="h-full w-full object-contain"
@@ -52,7 +52,7 @@ export function MarketingCtaArrowCircle({
                 >
                     <Image
                         src={ARROW_SRC}
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={30}
                         height={30}
                         className="h-full w-full object-contain"

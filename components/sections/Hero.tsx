@@ -37,7 +37,7 @@ export function Hero() {
                                 <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
                                     <Image
                                         src="/photos/main/blue arrow.svg"
-                                        alt=""
+                                        alt="" aria-hidden="true"
                                         width={38}
                                         height={26}
                                         className="w-full h-full object-contain"
@@ -130,6 +130,7 @@ export function Hero() {
                             alt="World Education Summit"
                             width={341}
                             height={63}
+                            priority
                             className="w-[341px] h-[63px] object-contain max-md:w-[213.8px] max-md:h-[39.5px]"
                         />
 

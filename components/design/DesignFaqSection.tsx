@@ -81,7 +81,7 @@ export function DesignFaqSection({ font, serif }: { font: string; serif: string 
                 {/* First container: icon + heading + underline (max 447px layout box) */}
                 <div className="mx-auto flex w-full max-w-[min(100%,447px)] flex-col items-center gap-4 lg:gap-5">
                     <div className="relative aspect-[22/46.781] w-[22px] shrink-0 lg:aspect-[38.512/84.004] lg:w-[38.512px] lg:-rotate-[0.86deg]">
-                        <Image src={Q_MARK_SRC} alt="" fill className="object-contain object-center" sizes="40px" unoptimized />
+                        <Image src={Q_MARK_SRC} alt="" aria-hidden="true" fill className="object-contain object-center" sizes="40px" unoptimized />
                     </div>
 
                     <h2

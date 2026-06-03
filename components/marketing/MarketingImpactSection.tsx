@@ -5,6 +5,7 @@ import { PressLogos } from "@/components/sections/PressLogos"
 import { MarketingStatsSection } from "@/components/marketing/MarketingStatsSection"
 import { MarketingApproachSection } from "@/components/marketing/MarketingApproachSection"
 import Image from "next/image"
+import { ALT } from "@/lib/image-alt-text";
 import { useScroll, useMotionValueEvent } from "framer-motion"
 
 export function MarketingImpactSection() {
@@ -229,7 +230,7 @@ export function MarketingImpactSection() {
                             <div className="absolute inset-0 z-0">
                                 <Image
                                     src="/photos/main/Rectangle 2.webp"
-                                    alt=""
+                                    alt={ALT.marketingImpactVideo}
                                     fill
                                     className="object-cover object-center"
                                     priority
@@ -258,7 +259,7 @@ export function MarketingImpactSection() {
                                 <div className="relative w-full h-full">
                                     <Image
                                         src="/photos/schools/marketing/play-pause-btn.svg"
-                                        alt=""
+                                        alt="" aria-hidden="true"
                                         fill
                                         className="object-contain"
                                     />

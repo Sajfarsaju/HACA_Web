@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ALT } from "@/lib/image-alt-text";
 import { useEffect, useState } from "react";
 
 const BLOCK_IMAGES = [
@@ -112,7 +113,7 @@ export function DesignFigmaRecognizedSection() {
                                 <Image
                                     key={layerIdx}
                                     src={tile.layers[layerIdx]}
-                                    alt=""
+                                    alt={ALT.figmaShowcase}
                                     fill
                                     className="object-cover object-center"
                                     style={{
@@ -197,7 +198,7 @@ export function DesignFigmaRecognizedSection() {
                                             transformOrigin: "center",
                                         }}
                                     >
-                                        <Image src={POINTER_ICON} alt="" fill className="object-contain" />
+                                        <Image src={POINTER_ICON} alt="" aria-hidden="true" fill className="object-contain" />
                                     </span>
                                     <span
                                         className="relative hidden lg:block"
@@ -205,7 +206,7 @@ export function DesignFigmaRecognizedSection() {
                                     >
                                         <Image
                                             src={POINTER_ICON}
-                                            alt=""
+                                            alt="" aria-hidden="true"
                                             fill
                                             className="
                                                 object-contain transition-transform duration-300 ease-out

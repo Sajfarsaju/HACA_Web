@@ -59,7 +59,7 @@ function SocialCard({ logoSrc, logoAlt, logoW, logoH, instagramHref = "#", youtu
                 >
                     <Image
                         src="/photos/main/instagram.svg"
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={20}
                         height={20}
                         className="w-[20px] h-[20px] object-contain block max-md:w-[16px] max-md:h-[16px]"
@@ -78,7 +78,7 @@ function SocialCard({ logoSrc, logoAlt, logoW, logoH, instagramHref = "#", youtu
                 >
                     <Image
                         src="/photos/main/mdi_youtube.svg"
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={20}
                         height={20}
                         className="w-[20px] h-[20px] object-contain block max-md:w-[16px] max-md:h-[16px]"
@@ -155,7 +155,7 @@ export function StayConnectedSection() {
                     <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
                         <Image
                             src="/photos/main/blue arrow.svg"
-                            alt=""
+                            alt="" aria-hidden="true"
                             width={38}
                             height={26}
                             className="w-full h-full object-contain"

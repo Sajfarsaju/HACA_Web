@@ -403,7 +403,12 @@ export function TechMentorsCarousel({
                             aria-disabled={!canPrev}
                             className="relative h-[46.67px] w-[46.67px] rotate-[-180deg] cursor-pointer border-none bg-transparent p-0 opacity-70 transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30"
                         >
-                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
+                            <Image
+                                src="/photos/Tech/Active Arowmark.svg"
+                                fill
+                                alt="" aria-hidden="true"
+                                className="object-contain"
+                            />
                         </button>
                         <button
                             type="button"
@@ -413,7 +418,12 @@ export function TechMentorsCarousel({
                             aria-disabled={!canNext}
                             className="relative h-[46.67px] w-[46.67px] cursor-pointer border-none bg-transparent p-0 opacity-100 transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30"
                         >
-                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
+                            <Image
+                                src="/photos/Tech/Active Arowmark.svg"
+                                fill
+                                alt="" aria-hidden="true"
+                                className="object-contain"
+                            />
                         </button>
                     </div>
                 )}

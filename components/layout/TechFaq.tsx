@@ -74,7 +74,7 @@ export function TechFaq() {
         >
             {/* Center Gradient Glow — Desktop/Tablet */}
             <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220%] max-w-[1400px] aspect-[1/1] min-w-[900px] opacity-80 z-0 pointer-events-none">
-                <Image src="/photos/schools/tech/Group 54.svg" alt="" fill className="object-contain object-center" />
+                <Image src="/photos/schools/tech/Group 54.svg" alt="" aria-hidden="true" fill className="object-contain object-center" />
             </div>
 
             {/* Mobile Background */}
@@ -85,7 +85,7 @@ export function TechFaq() {
                     WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
                 }}
             >
-                <Image src="/photos/Tech/Group 23 (2).svg" alt="" fill className="object-cover object-top" />
+                <Image src="/photos/Tech/Group 23 (2).svg" alt="" aria-hidden="true" fill className="object-cover object-top" />
             </div>
 
             {/* Cinematic Flare — Desktop/Tablet */}

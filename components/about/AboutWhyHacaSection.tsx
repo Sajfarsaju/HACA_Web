@@ -82,7 +82,7 @@ function AboutWhyCard({
             <div className="relative h-[clamp(50px,5vw,70px)] w-[clamp(50px,5vw,70px)] shrink-0 max-md:h-[67.08px] max-md:w-[67.08px]">
                 <Image
                     src={logoSrc}
-                    alt=""
+                    alt="" aria-hidden="true"
                     fill
                     className="object-contain object-left"
                     sizes="(max-width: 768px) 67px, 70px"

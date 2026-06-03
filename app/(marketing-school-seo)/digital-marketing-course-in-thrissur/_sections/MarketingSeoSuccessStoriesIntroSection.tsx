@@ -23,7 +23,7 @@ function PlacementCard({ name, accentIndex }: { name: string; accentIndex: numbe
         >
             <div className="flex shrink-0 items-center justify-center px-1.5 pt-1.5 lg:px-2 lg:pt-2">
                 <div className="relative h-[10px] w-[72px] opacity-90 lg:h-[14px] lg:w-[100px]">
-                    <Image src="/photos/schools/marketing/marketing%20school%20logo.svg" alt="" fill className="object-contain object-center" sizes="100px" />
+                    <Image src="/photos/schools/marketing/marketing%20school%20logo.svg" alt="" aria-hidden="true" fill className="object-contain object-center" sizes="100px" />
                 </div>
             </div>
             <div className="flex min-h-0 flex-1 gap-1 px-1.5 pb-1 pt-0.5 lg:gap-1.5 lg:px-2 lg:pb-1.5 lg:pt-1">

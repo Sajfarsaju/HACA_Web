@@ -72,7 +72,7 @@ function ScheduleRow({ iconSrc, label }: { iconSrc: string; label: string }) {
     return (
         <div className="flex h-6 w-full max-w-[255px] items-center gap-[10px] lg:max-w-[560px]">
             <div className="relative h-6 w-6 shrink-0" aria-hidden>
-                <Image src={iconSrc} alt="" fill className="object-contain" sizes="24px" />
+                <Image src={iconSrc} alt="" aria-hidden="true" fill className="object-contain" sizes="24px" />
             </div>
             <p className="m-0 min-w-0 text-[16px] font-normal leading-[150%] tracking-[-0.05em] text-black" style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 400 }}>
                 {label}

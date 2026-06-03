@@ -1,5 +1,7 @@
 "use client"
 
+import { MarketingFeatureIcon } from "@/components/marketing/MarketingFeatureIcon";
+
 type FeatureItem = {
     /** Exactly two lines — must match Figma line breaks */
     titleLines: readonly [string, string]
@@ -84,20 +86,7 @@ const FEATURES: FeatureItem[] = [
 ]
 
 function FeatureIcon({ item }: { item: FeatureItem }) {
-    return (
-        <span className="inline-flex h-[26px] w-[26px] shrink-0 items-start justify-start p-0 sm:h-[30px] sm:w-[30px]">
-            <img
-                src={item.iconSrc}
-                alt=""
-                width={30}
-                height={30}
-                className="block h-[26px] w-[26px] object-contain object-left-top sm:h-[30px] sm:w-[30px]"
-                loading="lazy"
-                decoding="async"
-                draggable={false}
-            />
-        </span>
-    )
+    return <MarketingFeatureIcon src={item.iconSrc} />;
 }
 
 export function MarketingFeaturesGrid() {

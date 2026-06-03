@@ -310,7 +310,7 @@ export function TechYoutubeCarousel({
                     <div className="absolute -left-[80px] top-1/2 h-[400px] w-[250px] -translate-y-1/2 opacity-100 mix-blend-screen md:left-0 md:h-[600px] md:w-[400px] lg:h-[700px] lg:w-[500px]">
                         <Image
                             src="/photos/schools/tech/Group 50.svg"
-                            alt=""
+                            alt="" aria-hidden="true"
                             fill
                             className="object-fill brightness-100 saturate-[1.2]"
                         />
@@ -318,7 +318,7 @@ export function TechYoutubeCarousel({
                     <div className="absolute -right-[80px] top-1/2 h-[400px] w-[250px] -translate-y-1/2 opacity-100 mix-blend-screen md:right-0 md:h-[600px] md:w-[400px] lg:h-[700px] lg:w-[500px]">
                         <Image
                             src="/photos/schools/tech/Group 49.svg"
-                            alt=""
+                            alt="" aria-hidden="true"
                             fill
                             className="object-fill brightness-100 saturate-[1.2]"
                         />

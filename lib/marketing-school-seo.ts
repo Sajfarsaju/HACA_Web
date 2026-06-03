@@ -115,9 +115,9 @@ export const MARKETING_CALICUT_FAQS: MarketingCalicutFaqItem[] = [
     },
 ];
 
-const PAGE_TITLE = "Best Digital Marketing Course in Calicut | 500+ Hours | HACA";
+const PAGE_TITLE = "Digital Marketing Course in Calicut | 350+ Hours of Training";
 const PAGE_DESCRIPTION =
-    "Join HACA's AI-integrated Digital Marketing Course in Calicut — 500+ hours of training, real brand projects, SEO, Google Ads, Meta Ads, AI tools, online and offline batches, expert mentors, and 100% placement support. Awarded Best Institute for Upskilling – World Education Summit 2024.";
+    "Join the best digital marketing course in Calicut. Learn SEO, ads, and social media with 350+ hours of training and placement support.";
 
 export function isMarketingSchoolSeoPath(pathname: string): boolean {
     return (
@@ -195,9 +195,9 @@ export const MARKETING_KERALA_FAQS: MarketingKeralaFaqItem[] = [
     },
 ];
 
-const KERALA_PAGE_TITLE = "Best Digital Marketing Course in Kerala | 500+ Hours | HACA";
+const KERALA_PAGE_TITLE = "Digital Marketing Course in Kerala | Best Institute for Careers";
 const KERALA_PAGE_DESCRIPTION =
-    "Join HACA's AI-integrated Digital Marketing Course in Kerala — 500+ hours of training, real brand projects, SEO, Google Ads, Meta Ads, AI tools, AEO, GEO, online and offline batches, expert mentors, and 100% placement support. Awarded Best Institute for Upskilling – World Education Summit 2024.";
+    "Build your career with the best digital marketing course in Kerala. Practical SEO, PPC, and social media training with expert mentors and jobs.";
 
 export function buildDigitalMarketingKeralaSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_KERALA_SEO_PATH}`;
@@ -344,9 +344,9 @@ export const MARKETING_KANNUR_FAQS: MarketingKannurFaqItem[] = [
     },
 ];
 
-const KANNUR_PAGE_TITLE = "Digital Marketing Course in Kannur | AI-Integrated Training | HACA";
+const KANNUR_PAGE_TITLE = "Digital Marketing Course in Kannur | Learn SEO & Ads";
 const KANNUR_PAGE_DESCRIPTION =
-    "Join HACA's digital marketing course in Kannur — AI-integrated training, online and offline batches, real brand projects, expert mentors, and placement support. Build job-ready skills from Kannur.";
+    "Start your career with our digital marketing course in Kannur. Hands-on training in SEO, Google Ads, and social media.";
 
 export function buildDigitalMarketingKannurSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_KANNUR_SEO_PATH}`;
@@ -529,9 +529,9 @@ export const MARKETING_TRIVANDRUM_FAQS: MarketingTrivandrumFaqItem[] = [
     },
 ];
 
-const TRIVANDRUM_PAGE_TITLE = "Digital Marketing Course in Trivandrum | AI-Integrated Training | HACA";
+const TRIVANDRUM_PAGE_TITLE = "Digital Marketing Course in Trivandrum | Skill Training";
 const TRIVANDRUM_PAGE_DESCRIPTION =
-    "Join HACA's digital marketing course in Trivandrum — AI-integrated training, online and offline batches, real brand projects, expert mentors, and placement support. Build job-ready skills.";
+    "Enrol in our digital marketing course in Trivandrum. Practical SEO, PPC, and social media classes for career growth.";
 
 export function buildDigitalMarketingTrivandrumSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_TRIVANDRUM_SEO_PATH}`;
@@ -672,9 +672,9 @@ export const MARKETING_KOLLAM_FAQS: MarketingKollamFaqItem[] = [
     },
 ];
 
-const KOLLAM_PAGE_TITLE = "Digital Marketing Course in Kollam | AI-Integrated Training | HACA";
+const KOLLAM_PAGE_TITLE = "Digital Marketing Course in Kollam | Learn SEO & Ads";
 const KOLLAM_PAGE_DESCRIPTION =
-    "Join HACA's digital marketing course in Kollam — AI-integrated training, online and offline batches, real brand projects, expert mentors, and placement support. Build job-ready digital marketing skills from Kollam.";
+    "Take our digital marketing course in Kollam. Hands-on training in SEO, Google Ads, and social media with certification.";
 
 export function buildDigitalMarketingKollamSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_KOLLAM_SEO_PATH}`;
@@ -821,9 +821,9 @@ export const MARKETING_PALAKKAD_FAQS: MarketingPalakkadFaqItem[] = [
     },
 ];
 
-const PALAKKAD_PAGE_TITLE = "Best Digital Marketing Course in Palakkad | 500+ Hours | HACA";
+const PALAKKAD_PAGE_TITLE = "Digital Marketing Course in Palakkad | Get Certified";
 const PALAKKAD_PAGE_DESCRIPTION =
-    "Join HACA's AI-integrated Digital Marketing Course in Palakkad — 500+ hours of training, real brand projects, SEO, Google Ads, Meta Ads, AEO, GEO, AI tools, online and offline batches, expert mentors, and 100% placement support. Awarded Best Institute for Upskilling – World Education Summit 2024.";
+    "Learn SEO, PPC, and online branding with our digital marketing course in Palakkad. Expert-led certification training.";
 
 export function buildDigitalMarketingPalakkadSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_PALAKKAD_SEO_PATH}`;
@@ -969,9 +969,9 @@ export const MARKETING_KASARAGOD_FAQS: MarketingKasaragodFaqItem[] = [
     },
 ];
 
-const KASARAGOD_PAGE_TITLE = "Best Digital Marketing Course in Kasaragod | 500+ Hours | HACA";
+const KASARAGOD_PAGE_TITLE = "Digital Marketing Course in Kasaragod | Job-Oriented Training";
 const KASARAGOD_PAGE_DESCRIPTION =
-    "Join HACA's AI-integrated Digital Marketing Course in Kasaragod — 500+ hours of training, real brand projects, SEO, Google Ads, Meta Ads, AEO, GEO, AI tools, online and offline batches, expert mentors, and 100% placement support. Awarded Best Institute for Upskilling – World Education Summit 2024.";
+    "Join our digital marketing course in Kasaragod. Practical SEO, PPC, and social media lessons to boost your career.";
 
 export function buildDigitalMarketingKasaragodSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_KASARAGOD_SEO_PATH}`;
@@ -1145,9 +1145,9 @@ export const MARKETING_MALAPPURAM_FAQS: MarketingMalappuramFaqItem[] = [
     },
 ];
 
-const MALAPPURAM_PAGE_TITLE = "Digital Marketing Course in Malappuram | AI-Integrated Training | HACA";
+const MALAPPURAM_PAGE_TITLE = "Digital Marketing Course in Malappuram | Online & Offline";
 const MALAPPURAM_PAGE_DESCRIPTION =
-    "Join HACA's digital marketing course in Malappuram — AI-integrated training, online and offline batches, real brand projects, expert mentors, and placement support. Build job-ready digital marketing skills from Malappuram.";
+    "Learn SEO, ads, and social media with our digital marketing course in Malappuram. Build skills for career growth.";
 
 export function buildDigitalMarketingMalappuramSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_MALAPPURAM_SEO_PATH}`;
@@ -1387,9 +1387,9 @@ export const MARKETING_WAYANAD_FAQS: MarketingWayanadFaqItem[] = [
     },
 ];
 
-const WAYANAD_PAGE_TITLE = "Best Digital Marketing Course in Wayanad | 500+ Hours | HACA";
+const WAYANAD_PAGE_TITLE = "Digital Marketing Course in Wayanad | HACA";
 const WAYANAD_PAGE_DESCRIPTION =
-    "Join HACA's AI-integrated Digital Marketing Course in Wayanad — 500+ hours of training, real brand projects, SEO, Google Ads, Meta Ads, AEO, GEO, AI tools, online and offline batches, expert mentors, and 100% placement support. Awarded Best Institute for Upskilling – World Education Summit 2024.";
+    "Enroll in HACA's digital marketing course in Wayanad. Learn SEO, social media, Google Ads, and more with expert mentors, hands-on training, and career support.";
 
 export function buildDigitalMarketingWayanadSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_WAYANAD_SEO_PATH}`;
@@ -1539,9 +1539,9 @@ export const MARKETING_KOCHI_FAQS: MarketingKochiFaqItem[] = [
     },
 ];
 
-const KOCHI_PAGE_TITLE = "Best Digital Marketing Course in Kochi | 500+ Hours | HACA";
+const KOCHI_PAGE_TITLE = "Digital Marketing Course in Kochi | Advanced Training";
 const KOCHI_PAGE_DESCRIPTION =
-    "Join HACA's AI-integrated Digital Marketing Course in Kochi — 500+ hours of training, real brand projects, SEO, Google Ads, Meta Ads, AEO, GEO, AI tools, online and offline batches, expert mentors, and 100% placement support. Awarded Best Institute for Upskilling – World Education Summit 2024.";
+    "Join our digital marketing course in Kochi. Learn SEO, Google Ads, and social media strategies with certification.";
 
 export function buildDigitalMarketingKochiSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_KOCHI_SEO_PATH}`;
@@ -1686,9 +1686,9 @@ export const MARKETING_THRISSUR_FAQS: MarketingThrissurFaqItem[] = [
     },
 ];
 
-const THRISSUR_PAGE_TITLE = "Digital Marketing Course in Thrissur | AI-Integrated Training | HACA";
+const THRISSUR_PAGE_TITLE = "Digital Marketing Course in Thrissur | Expert Training";
 const THRISSUR_PAGE_DESCRIPTION =
-    "Join HACA's AI-integrated Digital Marketing Course in Thrissur — online and offline batches, live projects, expert mentors, SEO, Google Ads, Meta Ads, AI tools, and placement support. Build job-ready digital marketing skills from Thrissur.";
+    "Build digital skills with our digital marketing course in Thrissur. Get hands-on SEO, ads, and social media training for career success.";
 
 export function buildDigitalMarketingThrissurSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_THRISSUR_SEO_PATH}`;
@@ -1830,9 +1830,9 @@ export const MARKETING_ERNAKULAM_FAQS: MarketingErnakulamFaqItem[] = [
     },
 ];
 
-const ERNAKULAM_PAGE_TITLE = "Digital Marketing Course in Ernakulam | AI-Integrated Training | HACA";
+const ERNAKULAM_PAGE_TITLE = "Digital Marketing Course in Ernakulam | Career Skills";
 const ERNAKULAM_PAGE_DESCRIPTION =
-    "Join HACA's AI-integrated Digital Marketing Course in Ernakulam — 500+ hours of training, live projects, SEO, Google Ads, Meta Ads, AI tools, online and offline batches, expert mentors, and placement support. Build job-ready digital marketing skills from Ernakulam.";
+    "Enrol in our digital marketing course in Ernakulam. Learn SEO, content, and ads with real-time projects. 350+ hours of training.";
 
 export function buildDigitalMarketingErnakulamSeoMetadata(): Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_ERNAKULAM_SEO_PATH}`;
@@ -1981,10 +1981,10 @@ export function buildHacaAeSeoMetadata(): import("next").Metadata {
 
 export const DIGITAL_MARKETING_DUBAI_SEO_PATH = "/ae/digital-marketing-course-in-dubai" as const;
 
-const DUBAI_DM_PAGE_TITLE = "Digital Marketing Course in Dubai | AI-Integrated | HACA UAE";
+const DUBAI_DM_PAGE_TITLE = "Best Digital Marketing Course in Dubai | HACA UAE";
 
 const DUBAI_DM_PAGE_DESCRIPTION =
-    "Join HACA's AI-integrated Digital Marketing Course in Dubai. Learn SEO, AEO, GEO, Meta Ads, Google Ads, content strategy and performance marketing with industry practitioners. Practical, project-based learning with placement support.";
+    "Advance your career with a Digital Marketing Course in Dubai. Learn SEO, social media, and other strategies through practical training from industry experts.";
 
 export function buildHacaDubaiDigitalMarketingMetadata(): import("next").Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_DUBAI_SEO_PATH}`;
@@ -2027,10 +2027,10 @@ export function buildHacaDubaiDigitalMarketingMetadata(): import("next").Metadat
 
 export const DIGITAL_MARKETING_SHARJAH_SEO_PATH = "/ae/digital-marketing-course-in-sharjah" as const;
 
-const SHARJAH_DM_PAGE_TITLE = "Digital Marketing Course in Sharjah | AI-Integrated | HACA UAE";
+const SHARJAH_DM_PAGE_TITLE = "Best Digital Marketing Course in Sharjah | HACA UAE";
 
 const SHARJAH_DM_PAGE_DESCRIPTION =
-    "Join HACA's AI-integrated Digital Marketing Course in Sharjah. Learn SEO, AEO, GEO, Meta Ads, Google Ads, content strategy and performance marketing with industry practitioners. Practical, project-based learning with placement support.";
+    "Kickstart your career with our 90% Practical Digital Marketing Course in Sharjah, led by industry experts who have collaborated with top brands.";
 
 export function buildHacaSharjahDigitalMarketingMetadata(): import("next").Metadata {
     const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_SHARJAH_SEO_PATH}`;
@@ -2067,4 +2067,94 @@ export function buildHacaSharjahDigitalMarketingMetadata(): import("next").Metad
             "digital marketing course UAE",
         ],
     };
+}
+
+// ─── Additional marketing SEO landing pages ────────────────────────────────
+
+function buildMarketingLandingSeoMetadata(
+    path: string,
+    title: string,
+    description: string
+): Metadata {
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${path}`;
+
+    return {
+        title,
+        description,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title,
+            description,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_IN",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+        },
+    };
+}
+
+export const DIGITAL_MARKETING_KOTTAYAM_SEO_PATH =
+    "/digital-marketing-course-in-kottayam" as const;
+
+const KOTTAYAM_PAGE_TITLE = "Digital Marketing Course in Kottayam | Online Marketing";
+const KOTTAYAM_PAGE_DESCRIPTION =
+    "Learn SEO, analytics, and social media with our digital marketing course in Kottayam. Start your career in digital.";
+
+export function buildDigitalMarketingKottayamSeoMetadata(): Metadata {
+    return buildMarketingLandingSeoMetadata(
+        DIGITAL_MARKETING_KOTTAYAM_SEO_PATH,
+        KOTTAYAM_PAGE_TITLE,
+        KOTTAYAM_PAGE_DESCRIPTION
+    );
+}
+
+export const DIGITAL_MARKETING_ALAPPUZHA_SEO_PATH =
+    "/digital-marketing-course-in-alappuzha" as const;
+
+const ALAPPUZHA_PAGE_TITLE = "Best Digital Marketing Course in Alappuzha | Online Training";
+const ALAPPUZHA_PAGE_DESCRIPTION =
+    "Join HACA's online digital marketing course in Alappuzha and gain practical skills, expert mentorship, and career-ready certification. Start your digital journey.";
+
+export function buildDigitalMarketingAlappuzhaSeoMetadata(): Metadata {
+    return buildMarketingLandingSeoMetadata(
+        DIGITAL_MARKETING_ALAPPUZHA_SEO_PATH,
+        ALAPPUZHA_PAGE_TITLE,
+        ALAPPUZHA_PAGE_DESCRIPTION
+    );
+}
+
+export const DIGITAL_MARKETING_MALAYALAM_SEO_PATH =
+    "/digital-marketing-course-in-malayalam" as const;
+
+const MALAYALAM_PAGE_TITLE = "Best Digital Marketing Course in Malayalam with Certification";
+const MALAYALAM_PAGE_DESCRIPTION =
+    "Join Haris and Co Academy which offers the best digital marketing course in Malayalam with certification and master digital marketing skills with expert-led training.";
+
+export function buildDigitalMarketingMalayalamSeoMetadata(): Metadata {
+    return buildMarketingLandingSeoMetadata(
+        DIGITAL_MARKETING_MALAYALAM_SEO_PATH,
+        MALAYALAM_PAGE_TITLE,
+        MALAYALAM_PAGE_DESCRIPTION
+    );
+}
+
+export const ONLINE_DIGITAL_MARKETING_INDIA_SEO_PATH =
+    "/online-digital-marketing-course-in-india" as const;
+
+const ONLINE_INDIA_PAGE_TITLE = "Best Online Digital Marketing Course in India | HACA";
+const ONLINE_INDIA_PAGE_DESCRIPTION =
+    "Join HACA's online digital marketing course in India. Learn SEO, social media, and more with expert mentors. Start your career now!";
+
+export function buildOnlineDigitalMarketingIndiaSeoMetadata(): Metadata {
+    return buildMarketingLandingSeoMetadata(
+        ONLINE_DIGITAL_MARKETING_INDIA_SEO_PATH,
+        ONLINE_INDIA_PAGE_TITLE,
+        ONLINE_INDIA_PAGE_DESCRIPTION
+    );
 }

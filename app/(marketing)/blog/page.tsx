@@ -1,26 +1,14 @@
 import { BlogPageContent } from "@/components/blog/BlogPageContent"
 import { BLOG_POSTS } from "@/lib/blog-data"
 import { fetchPublicBlogs } from "@/lib/blog-api"
+import { buildSitePageMetadata } from "@/lib/site-page-metadata"
 
-export const metadata = {
+export const metadata = buildSitePageMetadata({
   title: "Blog - Haris & Co Academy",
   description:
     "Fuel your creative and professional fire with insights on digital marketing, tech, design, and careers.",
-  openGraph: {
-    title: "Blog - Haris & Co Academy",
-    description:
-      "Fuel your creative and professional fire with insights on digital marketing, tech, design, and careers.",
-    url: "https://harisandcoacademy.com/blog",
-    siteName: "Haris & Co Academy",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Blog - Haris & Co Academy",
-    description:
-      "Fuel your creative and professional fire with insights on digital marketing, tech, design, and careers.",
-  },
-}
+  canonical: "https://harisandcoacademy.com/blog",
+})
 
 export default async function BlogPage() {
     const dynamicBlogs = await fetchPublicBlogs()

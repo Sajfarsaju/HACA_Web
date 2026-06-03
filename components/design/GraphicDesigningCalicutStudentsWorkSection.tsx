@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ALT } from "@/lib/image-alt-text";
 import { useCallback, useRef, type CSSProperties } from "react";
 
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
@@ -57,7 +58,7 @@ function StudentProjectCard({ imageSrc }: { imageSrc: string }) {
             >
                 <Image
                     src={imageSrc}
-                    alt=""
+                    alt={ALT.studentPortfolio}
                     fill
                     className="relative z-[1] object-cover"
                     sizes="(max-width: 1023px) 279px, 460px"

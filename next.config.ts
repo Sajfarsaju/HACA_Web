@@ -22,26 +22,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/digital-marketing-course-in-kottayam",
-        destination: "/digital-marketing-course-in-kerala",
-        permanent: true,
-      },
-      {
-        source: "/digital-marketing-course-in-kottayam/:path*",
-        destination: "/digital-marketing-course-in-kerala/:path*",
-        permanent: true,
-      },
-      {
-        source: "/digital-marketing-course-in-alappuzha",
-        destination: "/digital-marketing-course-in-kerala",
-        permanent: true,
-      },
-      {
-        source: "/digital-marketing-course-in-alappuzha/:path*",
-        destination: "/digital-marketing-course-in-kerala/:path*",
-        permanent: true,
-      },
-      {
         source: "/creative-design-and-communication",
         destination: "/graphic-designing-course-in-kerala",
         permanent: true,

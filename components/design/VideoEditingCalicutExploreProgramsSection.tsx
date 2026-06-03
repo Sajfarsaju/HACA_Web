@@ -1,5 +1,7 @@
 "use client";
 
+
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -193,7 +195,7 @@ function KnowMoreButton() {
             <span style={{ fontFamily: vc, fontWeight: 500, fontSize: 14, lineHeight: "100%", whiteSpace: "nowrap" }}>
                 Know More
             </span>
-            <img
+            <Image
                 src="/photos/schools/design/courses/arrow_outward.svg"
                 alt=""
                 width={20}
@@ -270,17 +272,17 @@ function ProgramCardView(p: ProgramCard) {
 
             {!p.hideImage && p.imageSrc ? (
                 <div
-                    className={p.imageWrapClassName}
+                    className={[p.imageWrapClassName, "relative"].filter(Boolean).join(" ")}
                     style={p.imageWrapStyle}
                     aria-hidden
                 >
-                    <img
+                    <Image
                         src={p.imageSrc}
                         alt={p.imageAlt ?? ""}
-                        className={["h-full w-full", p.imageObjectClassName].join(" ")}
+                        fill
+                        className={p.imageObjectClassName}
                         style={p.imageStyle}
-                        loading="lazy"
-                        decoding="async"
+                        sizes="(max-width: 1024px) 360px, 440px"
                     />
                 </div>
             ) : null}

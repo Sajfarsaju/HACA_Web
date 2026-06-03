@@ -123,7 +123,7 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                             >
                                 <Image
                                     src="/photos/schools/design/Vector (11).svg"
-                                    alt=""
+                                    alt="" aria-hidden="true"
                                     width={185}
                                     height={8}
                                     className="object-contain"
@@ -137,7 +137,7 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                             >
                                 <Image
                                     src="/photos/schools/design/Vector (11).svg"
-                                    alt=""
+                                    alt="" aria-hidden="true"
                                     width={279}
                                     height={15}
                                     className="object-contain"
@@ -186,7 +186,7 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                                 <span className="relative h-full w-full" style={{ transform: "rotate(180deg)" }}>
                                     <Image
                                         src="/photos/schools/design/Frame 2131331135.svg"
-                                        alt=""
+                                        alt="" aria-hidden="true"
                                         fill
                                         className="object-contain"
                                         priority={false}
@@ -211,7 +211,7 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                                 <span className="relative h-full w-full">
                                     <Image
                                         src="/photos/schools/design/Frame 2131331135.svg"
-                                        alt=""
+                                        alt="" aria-hidden="true"
                                         fill
                                         className="object-contain"
                                         priority={false}

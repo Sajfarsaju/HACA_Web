@@ -111,7 +111,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                             {/* Design #1 (desktop): Group (3) on photo #2 top-left */}
                             <Image
                                 src="/photos/schools/design/Group (3).svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 width={97.25739288330078}
                                 height={83.58518981933594}
                                 className="pointer-events-none absolute z-[2]"
@@ -187,7 +187,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                             {/* Design #2 (desktop): Vector (10) on photo #7 top border */}
                             <Image
                                 src="/photos/schools/design/Vector (10).svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 width={42}
                                 height={97}
                                 className="pointer-events-none absolute z-[2]"
@@ -223,7 +223,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                             {/* Design #3 (desktop): Group (4) on photo #9 bottom-right */}
                             <Image
                                 src="/photos/schools/design/Group (4).svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 width={56.97090988773694}
                                 height={45.72423996662426}
                                 className="pointer-events-none absolute z-[2]"
@@ -281,7 +281,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 {/* Design #1 (mobile): Group (3) on photo #3 top-left */}
                                 <Image
                                     src="/photos/schools/design/Group (3).svg"
-                                    alt=""
+                                    alt="" aria-hidden="true"
                                     width={33.94257736206055}
                                     height={29.22036361694336}
                                     className="pointer-events-none absolute z-[2]"
@@ -342,7 +342,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                             {/* Design #2 (mobile): Vector (10) on photo #7 bottom border */}
                             <Image
                                 src="/photos/schools/design/Vector (10).svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 width={28}
                                 height={64.66667175292969}
                                 className="pointer-events-none absolute z-[2]"
@@ -374,7 +374,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 {/* Design #3 (mobile): Group (4) on photo #9 bottom-right */}
                                 <Image
                                     src="/photos/schools/design/Group (4).svg"
-                                    alt=""
+                                    alt="" aria-hidden="true"
                                     width={33.946136932868704}
                                     height={27.247394929596556}
                                     className="pointer-events-none absolute z-[2]"

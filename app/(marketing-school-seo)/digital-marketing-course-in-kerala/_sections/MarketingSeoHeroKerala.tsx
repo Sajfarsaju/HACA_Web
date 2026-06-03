@@ -111,13 +111,13 @@ export function MarketingSeoHeroKerala() {
                         className="pointer-events-none absolute -left-[25%] top-[8%] z-0 hidden opacity-100 lg:block"
                         style={{ width: "299.0725402832031px", height: "293px" }}
                     >
-                        <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" fill className="object-contain" />
+                        <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" aria-hidden="true" fill className="object-contain" />
                     </div>
                     <div
                         className="pointer-events-none absolute bottom-[40%] right-[5%] z-0 hidden opacity-100 lg:block"
                         style={{ width: "299.0725402832031px", height: "293px" }}
                     >
-                        <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" fill className="object-contain" />
+                        <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" aria-hidden="true" fill className="object-contain" />
                     </div>
 
                     <div className="pointer-events-none relative h-[48px] w-full max-w-[min(280px,92vw)] shrink-0 self-end md:h-[52px] md:max-w-[min(300px,88vw)] lg:absolute lg:z-[2] lg:h-[clamp(44px,6.5vw,74px)] lg:w-[clamp(180px,26vw,300px)] lg:max-w-none lg:max-xl:right-[clamp(44px,6vw,92px)] lg:max-xl:top-[clamp(10px,1.8vw,22px)] xl:right-[clamp(22px,2.8vw,48px)] xl:top-[clamp(14px,2vw,28px)] 2xl:right-6">
@@ -154,7 +154,7 @@ export function MarketingSeoHeroKerala() {
                             <div className="flex h-4 w-4 shrink-0 items-center justify-center">
                                 <Image
                                     src={SCROLL_ARROW}
-                                    alt=""
+                                    alt="" aria-hidden="true"
                                     width={16}
                                     height={16}
                                     className={`h-full w-full object-contain transition-[filter] duration-300 ease-out ${isDark ? "invert" : ""}`}

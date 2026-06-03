@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import * as React from "react"
 import type { BlogBlock } from "@/lib/blog-blocks"
 
@@ -104,12 +105,14 @@ export function BlogRenderer({ blocks }: { blocks: BlogBlock[] }) {
                     case "image":
                         return (
                             <figure key={block.id} className="w-full flex flex-col gap-2 md:gap-3 m-0">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
+                                <Image
                                     src={block.url}
                                     alt={block.alt || ""}
+                                    width={1200}
+                                    height={675}
                                     className="w-full h-auto rounded-[10.63px] sm:rounded-[14px] md:rounded-[18px] lg:rounded-[20px] object-cover bg-[#11152B]"
-                                    loading="lazy"
+                                    sizes="(max-width: 768px) 100vw, 800px"
+                                    unoptimized
                                 />
                                 {block.caption ? (
                                     <figcaption className="font-rethink font-medium text-[14px] md:text-[16px] text-[#A7ADBE] leading-[25.5px]">

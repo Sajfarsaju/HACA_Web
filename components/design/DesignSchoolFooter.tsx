@@ -236,7 +236,7 @@ export function DesignSchoolFooter({ font, serif, staticTheme }: DesignSchoolFoo
                     >
                         <Image
                             src={FOOTER_ILLUSTRATION_SRC}
-                            alt=""
+                            alt="" aria-hidden="true"
                             fill
                             unoptimized
                             sizes="(min-width: 1024px) 716px, 0px"
@@ -479,7 +479,7 @@ export function DesignSchoolFooter({ font, serif, staticTheme }: DesignSchoolFoo
                                                 aria-label="HACA Design School on Instagram"
                                                 onClick={(e) => e.stopPropagation()}
                                             >
-                                                <Image src="/photos/main/instagram.svg" alt="" width={22} height={22} className="brightness-0 invert" />
+                                                <Image src="/photos/main/instagram.svg" alt="" aria-hidden="true" width={22} height={22} className="brightness-0 invert" />
                                             </Link>
                                             <Link
                                                 href={DESIGN_YOUTUBE_URL}
@@ -489,7 +489,7 @@ export function DesignSchoolFooter({ font, serif, staticTheme }: DesignSchoolFoo
                                                 aria-label="HACA Design School on YouTube"
                                                 onClick={(e) => e.stopPropagation()}
                                             >
-                                                <Image src="/photos/main/mdi_youtube.svg" alt="" width={24} height={24} className="brightness-0 invert" />
+                                                <Image src="/photos/main/mdi_youtube.svg" alt="" aria-hidden="true" width={24} height={24} className="brightness-0 invert" />
                                             </Link>
                                         </div>
                                         <div className="mt-4 flex w-full items-center gap-10 text-[13px] font-light leading-[140%] text-[#F2F2F2]/85" style={{ fontFamily: font }}>
@@ -510,7 +510,7 @@ export function DesignSchoolFooter({ font, serif, staticTheme }: DesignSchoolFoo
                                                 aria-label="HACA Design School on Instagram"
                                                 onClick={(e) => e.stopPropagation()}
                                             >
-                                                <Image src="/photos/main/instagram.svg" alt="" width={22} height={22} className="brightness-0 invert" />
+                                                <Image src="/photos/main/instagram.svg" alt="" aria-hidden="true" width={22} height={22} className="brightness-0 invert" />
                                             </Link>
                                             <Link
                                                 href={DESIGN_YOUTUBE_URL}
@@ -520,7 +520,7 @@ export function DesignSchoolFooter({ font, serif, staticTheme }: DesignSchoolFoo
                                                 aria-label="HACA Design School on YouTube"
                                                 onClick={(e) => e.stopPropagation()}
                                             >
-                                                <Image src="/photos/main/mdi_youtube.svg" alt="" width={24} height={24} className="brightness-0 invert" />
+                                                <Image src="/photos/main/mdi_youtube.svg" alt="" aria-hidden="true" width={24} height={24} className="brightness-0 invert" />
                                             </Link>
                                         </div>
                                         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-center text-[12px] font-light leading-[140%] text-[#F2F2F2]/85" style={{ fontFamily: font }}>
@@ -536,7 +536,7 @@ export function DesignSchoolFooter({ font, serif, staticTheme }: DesignSchoolFoo
                         {/* Mobile illustration */}
                         <div className="pointer-events-none mt-2 w-full lg:hidden" aria-hidden>
                             <div className="relative mx-auto" style={{ width: "min(335px, 100%)", aspectRatio: "335 / 314.4134216308594" }}>
-                                <Image src={FOOTER_ILLUSTRATION_SRC} alt="" fill unoptimized sizes="335px" className="object-contain object-bottom" />
+                                <Image src={FOOTER_ILLUSTRATION_SRC} alt="" aria-hidden="true" fill unoptimized sizes="335px" className="object-contain object-bottom" />
                             </div>
                         </div>
 

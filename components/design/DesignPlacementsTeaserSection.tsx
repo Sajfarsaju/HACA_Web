@@ -107,7 +107,7 @@ export function DesignPlacementsTeaserSection({ items }: DesignPlacementsTeaserS
                                 }}
                                 aria-hidden="true"
                             >
-                                <Image src="/photos/schools/design/Vector (9).svg" alt="" fill className="object-contain" />
+                                <Image src="/photos/schools/design/Vector (9).svg" alt="" aria-hidden="true" fill className="object-contain" />
                             </span>
                         </span>
                     </h2>
@@ -136,7 +136,7 @@ export function DesignPlacementsTeaserSection({ items }: DesignPlacementsTeaserS
                                 }}
                                 aria-hidden="true"
                             >
-                                <Image src="/photos/schools/design/Vector (9).svg" alt="" fill className="object-contain" />
+                                <Image src="/photos/schools/design/Vector (9).svg" alt="" aria-hidden="true" fill className="object-contain" />
                             </span>
                         </span>
                     </h2>

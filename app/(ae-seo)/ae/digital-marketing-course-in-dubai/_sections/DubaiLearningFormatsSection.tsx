@@ -52,7 +52,7 @@ function IconText({ iconSrc, label }: { iconSrc: string; label: string }) {
     return (
         <div className="flex items-center gap-[10px]">
             <div className="relative h-6 w-6 shrink-0" aria-hidden>
-                <Image src={iconSrc} alt="" fill className="object-contain" sizes="24px" />
+                <Image src={iconSrc} alt="" aria-hidden="true" fill className="object-contain" sizes="24px" />
             </div>
             <span
                 className="text-[16px] font-normal leading-[150%] tracking-[-0.05em] text-black"

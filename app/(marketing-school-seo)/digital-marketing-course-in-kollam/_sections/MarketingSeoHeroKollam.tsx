@@ -110,13 +110,13 @@ export function MarketingSeoHeroKollam() {
                         className="pointer-events-none absolute -left-[25%] top-[8%] z-0 hidden opacity-100 lg:block"
                         style={{ width: "299.0725402832031px", height: "293px" }}
                     >
-                        <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" fill className="object-contain" />
+                        <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" aria-hidden="true" fill className="object-contain" />
                     </div>
                     <div
                         className="pointer-events-none absolute bottom-[40%] right-[5%] z-0 hidden opacity-100 lg:block"
                         style={{ width: "299.0725402832031px", height: "293px" }}
                     >
-                        <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" fill className="object-contain" />
+                        <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" aria-hidden="true" fill className="object-contain" />
                     </div>
 
                     {/* Mobile / tablet: SVG first (above photo). Desktop: out of flow overlay. */}

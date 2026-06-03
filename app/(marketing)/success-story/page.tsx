@@ -4,23 +4,13 @@ import {
     SchoolPlacementSection,
     type PlacementItem,
 } from "@/components/success-story/SchoolPlacementSection";
+import { buildSitePageMetadata } from "@/lib/site-page-metadata";
 
-export const metadata = {
+export const metadata = buildSitePageMetadata({
   title: "Success Story - Haris & Co Academy",
   description: "Marketing Design School",
-  openGraph: {
-    title: "Success Story - Haris & Co Academy",
-    description: "Marketing Design School",
-    url: "https://harisandcoacademy.com/success-story/",
-    siteName: "Haris & Co Academy",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Success Story - Haris & Co Academy",
-    description: "Marketing Design School",
-  },
-};
+  canonical: "https://harisandcoacademy.com/success-story/",
+});
 
 type PlacementGroup = {
     schoolName: string;

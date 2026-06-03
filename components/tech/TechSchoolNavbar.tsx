@@ -86,7 +86,7 @@ export function TechSchoolNavbar() {
                         aria-expanded={isMenuOpen}
                         onClick={() => setIsMenuOpen(true)}
                     >
-                        <Image src="/photos/Tech/Frame 68.svg" alt="" width={16} height={16} className="object-contain" />
+                        <Image src="/photos/Tech/Frame 68.svg" alt="" aria-hidden="true" width={16} height={16} className="object-contain" />
                     </button>
                 </div>
             </header>

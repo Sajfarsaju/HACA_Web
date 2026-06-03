@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useTransform, motion, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
+import { ALT } from "@/lib/image-alt-text";
 import { DesignEventCard } from "./DesignEventCard";
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
 import { ENQUIRE_URL } from "@/lib/enquire";
@@ -314,7 +315,7 @@ export function DesignHeroVideoTransition({ src }: Props) {
                                         Keep scrolling, it's worth it
                                     </span>
                                     <div className="relative w-[16px] h-[16px]">
-                                        <Image src="/photos/schools/design/solar_arrow-up-broken (1).svg" alt="" fill className="object-contain" />
+                                        <Image src="/photos/schools/design/solar_arrow-up-broken (1).svg" alt="" aria-hidden="true" fill className="object-contain" />
                                     </div>
                                 </div>
                             </div>
@@ -342,7 +343,7 @@ export function DesignHeroVideoTransition({ src }: Props) {
                                 >
                                     <Image
                                         src="/photos/schools/design/57d01472fcc68dc28b23f66493f860df1603a284.webp"
-                                        alt="" fill className="object-cover"
+                                        alt={ALT.designHeroStudents} fill className="object-cover"
                                     />
                                     {src && (
                                         <video ref={videoRef} src={src}
@@ -408,7 +409,7 @@ export function DesignHeroVideoTransition({ src }: Props) {
                                                 Keep scrolling, it's worth it
                                             </span>
                                             <div className="relative w-[11.78px] h-[11.78px]">
-                                                <Image src="/photos/schools/design/solar_arrow-up-broken (1).svg" alt="" fill className="object-contain" />
+                                                <Image src="/photos/schools/design/solar_arrow-up-broken (1).svg" alt="" aria-hidden="true" fill className="object-contain" />
                                             </div>
                                         </div>
 
@@ -513,7 +514,7 @@ export function DesignHeroVideoTransition({ src }: Props) {
                                 >
                                     <Image
                                         src="/photos/schools/design/57d01472fcc68dc28b23f66493f860df1603a284.webp"
-                                        alt="" fill className="object-cover"
+                                        alt={ALT.designHeroStudents} fill className="object-cover"
                                     />
                                     {src && (
                                         <video ref={videoRef2} src={src}

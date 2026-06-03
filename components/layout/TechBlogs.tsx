@@ -69,7 +69,7 @@ function ArrowBtn({ onClick, disabled, label, isPrev }: {
             disabled={disabled}
             className={`relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] cursor-pointer transition-opacity duration-200 ease-in-out disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30 ${isPrev ? "rotate-[-180deg] opacity-70 hover:opacity-100" : "opacity-100 hover:opacity-80"}`}
         >
-            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
+            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" aria-hidden="true" className="object-contain" />
         </button>
     );
 }
@@ -136,7 +136,7 @@ export function TechBlogs() {
 
                     {/* Background Gradient — static, not animated */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none w-[250%] max-w-[1400px] aspect-[1/1] min-w-[800px] opacity-90">
-                        <Image src="/photos/schools/tech/Group 54.svg" alt="" fill className="object-contain object-center" />
+                        <Image src="/photos/schools/tech/Group 54.svg" alt="" aria-hidden="true" fill className="object-contain object-center" />
                     </div>
 
                     <AnimatePresence custom={direction} mode="wait">

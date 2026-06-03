@@ -17,26 +17,14 @@ import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { MarketingTestimonialsAndFaqWrapper } from "@/components/marketing/MarketingTestimonialsAndFaqWrapper";
 import { MarketingPageColorLayer } from "@/components/marketing/MarketingPageColorLayer";
+import { buildSitePageMetadata } from "@/lib/site-page-metadata";
 
-export const metadata = {
+export const metadata = buildSitePageMetadata({
   title: "Digital Marketing School by HACA | Learn in a Career-Driven Ecosystem",
   description:
     "Build your digital marketing career with HACA's expert-led digital marketing school, part of a thriving ecosystem. Get hands-on training and expert mentorship.",
-  openGraph: {
-    title: "Digital Marketing School by HACA | Learn in a Career-Driven Ecosystem",
-    description:
-      "Build your digital marketing career with HACA's expert-led digital marketing school, part of a thriving ecosystem. Get hands-on training and expert mentorship.",
-    url: "https://harisandcoacademy.com/marketing-school/",
-    siteName: "Haris & Co Academy",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Digital Marketing School by HACA | Learn in a Career-Driven Ecosystem",
-    description:
-      "Build your digital marketing career with HACA's expert-led digital marketing school, part of a thriving ecosystem. Get hands-on training and expert mentorship.",
-  },
-};
+  canonical: "https://harisandcoacademy.com/marketing-school/",
+});
 
 export default async function MarketingSchoolPage() {
     const marketingPlacements = await fetchMarketingSchoolPlacements();

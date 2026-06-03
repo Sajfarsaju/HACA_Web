@@ -17,7 +17,7 @@ const ROWS: Row[] = [
             "Instead of learning one design skill, you'll explore graphic design, motion graphics, branding, UI/UX, and video editing together in one creative ecosystem.",
         lineColor: "#FF5659",
         icon: (
-            <Image src="/photos/schools/design/Vector (3).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (3).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -26,7 +26,7 @@ const ROWS: Row[] = [
             "We focus heavily on practical execution. Every module includes hands-on projects designed to improve your creative thinking and industry readiness.",
         lineColor: "#29C76B",
         icon: (
-            <Image src="/photos/schools/design/Vector (4).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (4).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -35,7 +35,7 @@ const ROWS: Row[] = [
             "Learn directly from professionals who actively work in agencies, branding studios, and digital companies.",
         lineColor: "#2592FF",
         icon: (
-            <Image src="/photos/schools/design/Vector (7).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (7).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -44,7 +44,7 @@ const ROWS: Row[] = [
             "Your portfolio matters more than certificates in the design industry. That's why we help you build strong portfolio projects from day one.",
         lineColor: "#8F56FF",
         icon: (
-            <Image src="/photos/schools/design/seo/creativity dsn 1.svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/seo/creativity dsn 1.svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -53,7 +53,7 @@ const ROWS: Row[] = [
             "Our EdTech platform helps you access projects, assignments, resources, and learning support anytime.",
         lineColor: "#FF5C00",
         icon: (
-            <Image src="/photos/schools/design/Vector (5).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (5).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -62,7 +62,7 @@ const ROWS: Row[] = [
             "Students get opportunities to work on real projects and gain industry experience through internships and collaborations.",
         lineColor: "#F2C94C",
         icon: (
-            <Image src="/photos/schools/design/Vector (6).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (6).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -71,7 +71,7 @@ const ROWS: Row[] = [
             "From resume building to mock interviews and portfolio reviews, we help you prepare for creative job opportunities across Kerala and beyond.",
         lineColor: "#FF5CCF",
         icon: (
-            <Image src="/photos/schools/design/Vector (4).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (4).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -80,7 +80,7 @@ const ROWS: Row[] = [
             "We believe creativity should not stop because of financial limitations. Easy EMI options are available for eligible students.",
         lineColor: "#29C76B",
         icon: (
-            <Image src="/photos/schools/design/seo/creativity dsn 2.svg" alt="" width={60} height={59} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/seo/creativity dsn 2.svg" alt="" aria-hidden="true" width={60} height={59} className="h-full w-full object-contain" />
         ),
     },
 ];

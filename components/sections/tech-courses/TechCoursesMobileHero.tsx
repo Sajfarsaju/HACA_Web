@@ -83,7 +83,7 @@ export function TechCoursesMobileHero({ scale }: TechCoursesMobileHeroProps) {
                         >
                             <Image
                                 src="/photos/Tech/DOTsBG.svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 fill
                                 style={{ objectFit: "contain" }}
                             />
@@ -93,7 +93,7 @@ export function TechCoursesMobileHero({ scale }: TechCoursesMobileHeroProps) {
                         >
                             <Image
                                 src="/photos/Tech/Group 23.svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 fill
                                 style={{ objectFit: "contain" }}
                             />

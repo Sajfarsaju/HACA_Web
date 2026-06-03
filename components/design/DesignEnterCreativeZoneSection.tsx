@@ -259,7 +259,7 @@ function InlineDeco({
             transition={anim.transition}
             aria-hidden="true"
         >
-            <Image src={decoSrc} alt="" fill className="object-contain" />
+            <Image src={decoSrc} alt="" aria-hidden="true" fill className="object-contain" />
         </motion.span>
     )
 }
@@ -287,7 +287,7 @@ function WordWithDeco({
                 transition={anim.transition}
                 aria-hidden="true"
             >
-                <Image src={decoSrc} alt="" fill className="object-contain" />
+                <Image src={decoSrc} alt="" aria-hidden="true" fill className="object-contain" />
             </motion.span>
         </span>
     )

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntroAnimation";
 import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
 import Image from "next/image";
+import { ALT } from "@/lib/image-alt-text";
 
 export const metadata: Metadata = {
     title: "Design School Projects | HACA",
@@ -48,7 +49,7 @@ export default function DesignSchoolProjectsPage() {
                                 <div className="w-full h-[442px] lg:h-[clamp(340px,32vw,442px)] relative overflow-hidden bg-[#EDEDED]">
                                     <Image
                                         src="/photos/schools/design/projects/Rectangle 244.webp"
-                                        alt=""
+                                        alt={ALT.designStudentProject}
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 1024px) 100vw, (max-width: 1320px) 560px, 648px"

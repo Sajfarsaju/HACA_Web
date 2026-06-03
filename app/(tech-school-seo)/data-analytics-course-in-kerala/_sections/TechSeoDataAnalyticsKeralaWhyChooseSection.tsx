@@ -80,7 +80,7 @@ function WhyChooseCard({
             <div className="relative h-[60px] w-[60px] shrink-0">
                 <Image
                     src={whyChooseIconSrc(icon)}
-                    alt=""
+                    alt="" aria-hidden="true"
                     fill
                     className="object-contain object-left"
                     sizes="60px"

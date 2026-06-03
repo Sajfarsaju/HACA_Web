@@ -33,7 +33,7 @@ function PlacementCard({ name, accentIndex }: { name: string; accentIndex: numbe
                 <div className="relative h-[10px] w-[72px] opacity-90 lg:h-[14px] lg:w-[100px]">
                     <Image
                         src="/photos/schools/marketing/marketing%20school%20logo.svg"
-                        alt=""
+                        alt="" aria-hidden="true"
                         fill
                         className="object-contain object-center"
                         sizes="100px"

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { GraphicDesigningKeralaHeroSection } from "./_sections/GraphicDesigningKeralaHeroSection";
 import { GraphicDesigningKeralaStatsSection } from "./_sections/GraphicDesigningKeralaStatsSection";
 import { GraphicDesigningKeralaWhatWeHaveSection } from "./_sections/GraphicDesigningKeralaWhatWeHaveSection";
@@ -403,7 +404,7 @@ export default function GraphicDesigningCourseInKeralaPage() {
                                         className="flex items-center justify-center w-full h-full"
                                         style={{ paddingTop: 16.33, paddingRight: 12.24, paddingBottom: 16.33, paddingLeft: 12.24, gap: 16.33 }}
                                     >
-                                        <img src={LIVE_IT_SVG} alt="" aria-hidden className="block w-[48.97581481933594px] h-[48.18134307861328px]" />
+                                        <Image src={LIVE_IT_SVG} alt="" aria-hidden width={49} height={48} className="block w-[48.97581481933594px] h-[48.18134307861328px]" />
                                         <span style={{ fontFamily: DESIGN_HEADING_FONT, fontWeight: 500, lineHeight: "120%" }}>
                                             <span className="lg:hidden" style={{ fontSize: 35 }}>Live it.</span>
                                             <span className="hidden lg:inline" style={{ fontSize: 56 }}>Live it.</span>
@@ -418,7 +419,7 @@ export default function GraphicDesigningCourseInKeralaPage() {
                                         className="flex items-center justify-center w-full h-full"
                                         style={{ paddingTop: 16.33, paddingRight: 12.24, paddingBottom: 16.33, paddingLeft: 12.24, gap: 16.33 }}
                                     >
-                                        <img src={CREATE_IT_SVG} alt="" aria-hidden className="block w-[48.97581481933594px] h-[50.33625793457031px]" />
+                                        <Image src={CREATE_IT_SVG} alt="" aria-hidden width={49} height={50} className="block w-[48.97581481933594px] h-[50.33625793457031px]" />
                                         <span style={{ fontFamily: DESIGN_HEADING_FONT, fontWeight: 500, lineHeight: "120%" }}>
                                             <span className="lg:hidden" style={{ fontSize: 35 }}>Create it.</span>
                                             <span className="hidden lg:inline" style={{ fontSize: 56 }}>Create it.</span>
@@ -433,7 +434,7 @@ export default function GraphicDesigningCourseInKeralaPage() {
                                         className="flex items-center justify-center w-full h-full"
                                         style={{ paddingTop: 16.33, paddingRight: 12.24, paddingBottom: 16.33, paddingLeft: 12.24, gap: 16.33 }}
                                     >
-                                        <img src={OWN_IT_SVG} alt="" aria-hidden className="block w-[48.97581481933594px] h-[54.50560760498047px]" />
+                                        <Image src={OWN_IT_SVG} alt="" aria-hidden width={49} height={55} className="block w-[48.97581481933594px] h-[54.50560760498047px]" />
                                         <span style={{ fontFamily: DESIGN_HEADING_FONT, fontWeight: 500, lineHeight: "120%" }}>
                                             <span className="lg:hidden" style={{ fontSize: 35 }}>Own it.</span>
                                             <span className="hidden lg:inline" style={{ fontSize: 56 }}>Own it.</span>

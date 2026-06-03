@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ALT } from "@/lib/image-alt-text";
 import React, { useRef, useEffect, type CSSProperties } from "react";
 import { DesignCulturePhotosSection } from "./DesignCulturePhotosSection";
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
@@ -189,7 +190,7 @@ export function DesignStudentProjectsSection() {
                             <div className="relative w-full h-full">
                                 <Image
                                     src="/photos/schools/design/Frame 2131331224.svg"
-                                    alt=""
+                                    alt="" aria-hidden="true"
                                     fill
                                     className="object-contain object-center"
                                     priority={false}
@@ -234,7 +235,7 @@ export function DesignStudentProjectsSection() {
                             <div className="relative w-full h-full">
                                 <Image
                                     src="/photos/schools/design/Frame 2131331224.svg"
-                                    alt=""
+                                    alt="" aria-hidden="true"
                                     fill
                                     className="object-contain object-left"
                                     priority={false}
@@ -310,7 +311,7 @@ function StudentProjectCard({ imageSrc, font }: { imageSrc: string; font: string
             >
                 <Image
                     src={imageSrc}
-                    alt=""
+                    alt={ALT.studentPortfolio}
                     fill
                     className="relative z-[1] object-cover"
                     sizes="(max-width: 1024px) 335px, 460px"

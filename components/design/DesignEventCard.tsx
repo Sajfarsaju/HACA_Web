@@ -29,7 +29,7 @@ export function DesignEventCard() {
                 onClick={() => setIsOpen(false)}
                 className="absolute -top-[15px] -right-[15px] w-[30px] h-[30px] rounded-full overflow-hidden"
             >
-                <Image src="/photos/schools/design/Group 41623.svg" alt="" fill className="object-contain" />
+                <Image src="/photos/schools/design/Group 41623.svg" alt="" aria-hidden="true" fill className="object-contain" />
             </button>
 
             {/* Top container */}
@@ -47,7 +47,7 @@ export function DesignEventCard() {
                 <div className="w-full flex items-center justify-between" style={{ height: "21px" }}>
                     {/* Left pill button */}
                     <div className="relative w-[94px] h-[21px] shrink-0">
-                        <Image src="/photos/schools/design/Frame 2131331240.svg" alt="" fill className="object-contain" />
+                        <Image src="/photos/schools/design/Frame 2131331240.svg" alt="" aria-hidden="true" fill className="object-contain" />
                     </div>
 
                     {/* Date + time */}
@@ -82,7 +82,7 @@ export function DesignEventCard() {
                 </div>
 
                 <button type="button" aria-label="Open event" className="relative w-[53px] h-[53px] shrink-0">
-                    <Image src="/photos/schools/design/Frame 2131331242.svg" alt="" fill className="object-contain" />
+                    <Image src="/photos/schools/design/Frame 2131331242.svg" alt="" aria-hidden="true" fill className="object-contain" />
                 </button>
             </div>
         </div>
