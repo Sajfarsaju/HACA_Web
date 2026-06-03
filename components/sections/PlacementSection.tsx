@@ -11,7 +11,7 @@ const COLUMNS = [0, 1, 2, 3, 4]
 const CARDS_PER_COL = 7
 const TOTAL_SLOTS = COLUMNS.length * CARDS_PER_COL
 
-type PlacementItem = {
+export type PlacementItem = {
     _id: string
     title: string | null
     imageUrl: string
@@ -19,7 +19,7 @@ type PlacementItem = {
     createdAt?: string | null
 }
 
-type PlacementGroup = { schoolName: string; items: PlacementItem[] }
+export type PlacementGroup = { schoolName: string; items: PlacementItem[] }
 
 /** Column 0–2: fixed school order (API already returns newest-first per school). */
 const SCHOOL_BY_COLUMN: [string, string, string] = [
@@ -81,25 +81,26 @@ function buildPlacementSlots(groups: PlacementGroup[]): (PlacementItem | null)[]
 const placementCardClassName =
     "group relative flex flex-col bg-[#0A0C16] overflow-hidden border border-[#232D6B]/30 hover:border-[#232D6B] transition-all duration-500 shadow-2xl w-full shrink-0 min-w-0 rounded-[10px] aspect-[247.6561737060547/270]"
 
-export function PlacementSection() {
+export function PlacementSection({ initialGroups }: { initialGroups?: PlacementGroup[] }) {
     const router = useRouter()
     const [slots, setSlots] = useState<(PlacementItem | null)[]>(() =>
-        Array.from({ length: TOTAL_SLOTS }, () => null)
+        initialGroups
+            ? buildPlacementSlots(initialGroups)
+            : Array.from({ length: TOTAL_SLOTS }, () => null)
     )
 
     useEffect(() => {
+        if (initialGroups) return
         const base = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:5000"
         axios
             .get<{ groups?: PlacementGroup[] }>(`${base}/api/placements/grouped?limit=200`)
             .then(({ data }) => {
                 const groups = data.groups
-                if (!Array.isArray(groups)) {
-                    setSlots(Array.from({ length: TOTAL_SLOTS }, () => null))
-                    return
-                }
+                if (!Array.isArray(groups)) return
                 setSlots(buildPlacementSlots(groups))
             })
-            .catch(() => setSlots(Array.from({ length: TOTAL_SLOTS }, () => null)))
+            .catch(() => {})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
