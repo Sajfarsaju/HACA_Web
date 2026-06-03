@@ -2,8 +2,23 @@ import { BlogPageContent } from "@/components/blog/BlogPageContent"
 import { BLOG_POSTS, BlogPost } from "@/lib/blog-data"
 
 export const metadata = {
-    title: "Blogs | HACA",
-    description: "Insights and tutorials on engineering, design, and marketing from the HACA team.",
+  title: "Blog - Haris & Co Academy",
+  description:
+    "Fuel your creative and professional fire with insights on digital marketing, tech, design, and careers.",
+  openGraph: {
+    title: "Blog - Haris & Co Academy",
+    description:
+      "Fuel your creative and professional fire with insights on digital marketing, tech, design, and careers.",
+    url: "https://harisandcoacademy.com/blog",
+    siteName: "Haris & Co Academy",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog - Haris & Co Academy",
+    description:
+      "Fuel your creative and professional fire with insights on digital marketing, tech, design, and careers.",
+  },
 }
 
 async function getDynamicBlogs(): Promise<BlogPost[]> {

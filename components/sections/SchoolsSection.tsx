@@ -31,12 +31,6 @@ const schools = [
         alt: "Tech School",
         exploreHref: "/tech-school",
     },
-    {
-        id: 4,
-        logo: "/photos/main/FINANCE SCHOOL.svg",
-        alt: "Finance School",
-        exploreHref: "/finance-school",
-    },
 ] as const
 
 function SchoolCard({

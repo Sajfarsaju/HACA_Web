@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import axios from "axios";
 import { Footer } from "@/components/layout/Footer";
 import {
@@ -6,10 +5,21 @@ import {
     type PlacementItem,
 } from "@/components/success-story/SchoolPlacementSection";
 
-export const metadata: Metadata = {
-    title: "Success Stories | HACA",
-    description:
-        "They studied across our schools. Now they're building creative careers across agencies, brands, and studios.",
+export const metadata = {
+  title: "Success Story - Haris & Co Academy",
+  description: "Marketing Design School",
+  openGraph: {
+    title: "Success Story - Haris & Co Academy",
+    description: "Marketing Design School",
+    url: "https://harisandcoacademy.com/success-story/",
+    siteName: "Haris & Co Academy",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Success Story - Haris & Co Academy",
+    description: "Marketing Design School",
+  },
 };
 
 type PlacementGroup = {

@@ -14,7 +14,6 @@ const schools = [
     { label: "Marketing School", href: "/marketing-school" },
     { label: "Design School", href: "/design-school" },
     { label: "Tech School", href: "/tech-school" },
-    { label: "Finance School", href: "/finance-school" },
 ]
 
 const contactIndia = {

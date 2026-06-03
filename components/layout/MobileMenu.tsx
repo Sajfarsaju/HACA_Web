@@ -106,9 +106,6 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                                 <Link href="/tech-school" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
                                     <span className="font-rethink font-normal text-[18px] text-[#A7ADBE] group-hover/dropdown:text-[#FFFFFF]">Tech School</span>
                                 </Link>
-                                <Link href="/finance-school" className="h-[40px] flex items-center px-[16px] no-underline rounded-[12px] transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={handleLinkClick}>
-                                    <span className="font-rethink font-normal text-[18px] text-[#A7ADBE] group-hover/dropdown:text-[#FFFFFF]">Finance School</span>
-                                </Link>
                             </div>
                         )}
                     </div>

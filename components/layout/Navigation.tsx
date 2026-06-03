@@ -29,11 +29,6 @@ const schools: { title: string; href: string; description: string }[] = [
         href: "/tech-school",
         description: "Advanced engineering and development tracks.",
     },
-    {
-        title: "Finance School",
-        href: "/finance-school",
-        description: "Understanding fintech and business economics.",
-    },
 ]
 
 export function Navigation() {
@@ -72,8 +67,8 @@ export function Navigation() {
                     <NavigationMenuTrigger>Schools</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul
-                            className="flex flex-col gap-2 p-[10px] w-[197px] min-h-[200px] rounded-[20px] border border-[#232D6B] bg-[#000210]"
-                            style={{ width: '197px', height: '200px' }}
+                            className="flex flex-col gap-2 p-[10px] w-[197px] min-h-[155px] rounded-[20px] border border-[#232D6B] bg-[#000210]"
+                            style={{ width: '197px', height: '155px' }}
                         >
                             {schools.map((school) => (
                                 <ListItem

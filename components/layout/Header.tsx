@@ -77,9 +77,6 @@ export function Header() {
                                 <DropdownMenuItem asChild className="pl-4">
                                     <Link href="/tech-school">Tech School</Link>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem asChild className="pl-4">
-                                    <Link href="/finance-school">Finance School</Link>
-                                </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
                                     <Link href="/contact" className="font-semibold text-primary mt-2">
                                         Get Started

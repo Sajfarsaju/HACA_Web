@@ -75,7 +75,6 @@ const COURSE_SCHOOL_OPTIONS = [
   "Marketing School",
   "Design School",
   "Tech School",
-  "Finance School",
 ] as const;
 
 type CourseSchoolName = (typeof COURSE_SCHOOL_OPTIONS)[number];
@@ -98,7 +97,6 @@ const schoolAccent: Record<string, string> = {
   "Marketing School": "from-rose-500/12 to-orange-500/6 ring-rose-400/25",
   "Design School": "from-violet-500/12 to-fuchsia-500/6 ring-violet-400/25",
   "Tech School": "from-cyan-500/12 to-blue-500/6 ring-cyan-400/25",
-  "Finance School": "from-emerald-500/12 to-teal-500/6 ring-emerald-400/25",
 };
 
 const EMPTY_MODULE: CourseModule = { label: "", title: "", content: "" };

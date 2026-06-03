@@ -99,7 +99,6 @@ const cards: SocialCardProps[] = [
     { logoSrc: "/photos/main/haca degital marketing.svg", logoAlt: "Digital Marketing", logoW: 113, logoH: 33 },
     { logoSrc: "/photos/main/haca design school.svg", logoAlt: "Design School", logoW: 113, logoH: 33 },
     { logoSrc: "/photos/main/haca tech school.svg", logoAlt: "Tech School", logoW: 113, logoH: 33 },
-    { logoSrc: "/photos/main/haca FINANCE SCHOOL.svg", logoAlt: "Finance School", logoW: 113, logoH: 33 },
 ]
 
 export function StayConnectedSection() {

@@ -32,7 +32,7 @@ export function AboutHacaSection() {
                         <p className="w-full font-rethink font-medium text-[20px] leading-[140%] text-[#A7ADBE] m-0 text-left max-[1024px]:text-[clamp(14px,2vw,20px)] max-md:text-[14px] max-md:text-center">
                             What began as Haris’s idea to train young talents inside his own agency,
                             Haris&Co., has grown into an agency-based academy with 600+ active students
-                            across four schools: Digital Marketing, Graphic Design, Tech, and Finance.
+                            across three schools: Digital Marketing, Graphic Design, and Tech.
                             From that tiny room to a 10,000 sq. ft campus in Calicut and a new campus
                             in Dubai, HACA continues to shape real careers through real experiences.
                         </p>

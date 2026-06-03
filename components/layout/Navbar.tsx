@@ -116,7 +116,7 @@ export function Navbar() {
 
                         {/* Dropdown Overlay */}
                         {isSchoolsOpen && (
-                            <div className="absolute top-[calc(100%+15px)] left-1/2 -translate-x-1/2 w-[197px] h-[200px] bg-[#000319] border border-[#232D6B] rounded-[20px] p-[10px] flex flex-col z-[60]">
+                            <div className="absolute top-[calc(100%+15px)] left-1/2 -translate-x-1/2 w-[197px] h-[155px] bg-[#000319] border border-[#232D6B] rounded-[20px] p-[10px] flex flex-col z-[60]">
                                 <Link href="/marketing-school" className="w-[177px] h-[45px] p-[10px_16px] flex items-center gap-[10px] rounded-[12px] no-underline transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={closeDropdown}>
                                     <span className="w-[145px] h-[25px] font-manrope font-semibold text-[18px] leading-[100%] tracking-[-0.36px] text-[#A7ADBE] whitespace-nowrap transition-colors duration-200 group-hover/dropdown:text-[#FFFFFF]">Marketing School</span>
                                 </Link>
@@ -125,9 +125,6 @@ export function Navbar() {
                                 </Link>
                                 <Link href="/tech-school" className="w-[177px] h-[45px] p-[10px_16px] flex items-center gap-[10px] rounded-[12px] no-underline transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={closeDropdown}>
                                     <span className="w-[145px] h-[25px] font-manrope font-semibold text-[18px] leading-[100%] tracking-[-0.36px] text-[#A7ADBE] whitespace-nowrap transition-colors duration-200 group-hover/dropdown:text-[#FFFFFF]">Tech School</span>
-                                </Link>
-                                <Link href="/finance-school" className="w-[177px] h-[45px] p-[10px_16px] flex items-center gap-[10px] rounded-[12px] no-underline transition-colors duration-200 ease group/dropdown hover:bg-[#131839]" onClick={closeDropdown}>
-                                    <span className="w-[145px] h-[25px] font-manrope font-semibold text-[18px] leading-[100%] tracking-[-0.36px] text-[#A7ADBE] whitespace-nowrap transition-colors duration-200 group-hover/dropdown:text-[#FFFFFF]">Finance School</span>
                                 </Link>
                             </div>
                         )}

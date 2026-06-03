@@ -1,12 +1,14 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://harisandcoacademy.com";
 
 export default function robots(): MetadataRoute.Robots {
     return {
         rules: {
-            userAgent: '*',
-            allow: '/',
-            disallow: ['/api/', '/admin/'],
+            userAgent: "*",
+            allow: "/",
+            disallow: ["/api/", "/admin/"],
         },
-        sitemap: 'https://haca-web.com/sitemap.xml',
-    }
+        sitemap: `${SITE_URL}/sitemap.xml`,
+    };
 }
