@@ -99,7 +99,7 @@ export function Hero() {
                             </motion.button>
                         </Link>
                         <Link
-                            href="https://harisandcoacademy.com/enquire"
+                            href="/enquire"
                             className="flex items-center justify-center no-underline"
                         >
                             <motion.button

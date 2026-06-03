@@ -42,7 +42,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     </button>
 
                     <div className="flex items-center gap-[12px]">
-                        <Link href="https://harisandcoacademy.com/enquire" onClick={handleLinkClick}>
+                        <Link href="/enquire" onClick={handleLinkClick}>
                             <motion.button
                                 className="group relative w-[121px] h-[46px] rounded-[82px] border-none bg-[linear-gradient(180deg,#4C75FF_0%,#1A4FFF_100%)] flex items-center justify-center px-[18px] cursor-pointer overflow-hidden"
                                 whileHover={{ scale: 1.04 }}

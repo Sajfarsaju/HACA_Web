@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 
-const ENQUIRE_URL = "https://harisandcoacademy.com/enquire"
+const ENQUIRE_URL = "/enquire"
 
 export function HeroBottom() {
   return (

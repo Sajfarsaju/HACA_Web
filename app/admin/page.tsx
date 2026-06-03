@@ -209,6 +209,10 @@ export default function AdminPage() {
   const [mentorPhotoCropOpen, setMentorPhotoCropOpen] = useState(false);
   const [mentorPhotoCropSrc, setMentorPhotoCropSrc] = useState<string | null>(null);
   const [mentorFilterSchool, setMentorFilterSchool] = useState<MentorSchoolName | "All">("All");
+  const [editingMentorId, setEditingMentorId] = useState<string | null>(null);
+  const [editingMentorExistingPhoto, setEditingMentorExistingPhoto] = useState<string>("");
+  const mentorFormSectionRef = useRef<HTMLElement>(null);
+  const [confirmDialog, setConfirmDialog] = useState<{ label: string; onConfirm: () => void } | null>(null);
 
   // ─── Toast ──────────────────────────────────────────────────────────────────
 
@@ -873,6 +877,54 @@ export default function AdminPage() {
     }
   }
 
+  function handleEditMentor(mentor: MentorDoc) {
+    setEditingMentorId(mentor._id);
+    setEditingMentorExistingPhoto(mentor.photoUrl);
+    setMentorName(mentor.name);
+    setMentorDesignation(mentor.designation);
+    setMentorSchoolName(mentor.schoolName as MentorSchoolName);
+    setMentorLinkedinUrl(mentor.linkedinUrl ?? "");
+    setMentorPhotoFile(null);
+    mentorFormSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function handleCancelEditMentor() {
+    setEditingMentorId(null);
+    setEditingMentorExistingPhoto("");
+    setMentorName("");
+    setMentorDesignation("");
+    setMentorSchoolName("HACA");
+    setMentorLinkedinUrl("");
+    setMentorPhotoFile(null);
+  }
+
+  async function handleUpdateMentor(e: React.FormEvent) {
+    e.preventDefault();
+    if (!token || !editingMentorId) return;
+    if (!mentorName.trim()) { setError("Name is required."); return; }
+    if (!mentorDesignation.trim()) { setError("Designation is required."); return; }
+    setError(null);
+    setLoading(true);
+    try {
+      const form = new FormData();
+      form.append("name", mentorName.trim());
+      form.append("designation", mentorDesignation.trim());
+      form.append("schoolName", mentorSchoolName);
+      form.append("linkedinUrl", mentorLinkedinUrl.trim());
+      if (mentorPhotoFile) form.append("photo", mentorPhotoFile);
+      await axios.put(`${backendUrl}/api/admin/mentors/${editingMentorId}`, form, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      handleCancelEditMentor();
+      await refreshMentors(token);
+      showToast("Mentor updated successfully!", "success");
+    } catch (e: unknown) {
+      setError(getApiErrorMessage(e, "Update failed"));
+    } finally {
+      setLoading(false);
+    }
+  }
+
   // ─── Derived ─────────────────────────────────────────────────────────────────
 
   const schoolsWithCards = groups.filter((g) => g.items.length > 0).length;
@@ -924,6 +976,38 @@ export default function AdminPage() {
           aspect={1}
         />
       ) : null}
+
+      {/* ── Confirm delete dialog ── */}
+      {confirmDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="w-full max-w-sm rounded-2xl border border-white/15 bg-[#0f1520] p-6 shadow-2xl">
+            <h3 className="font-[family-name:var(--font-manrope)] text-base font-semibold text-white">
+              Confirm Delete
+            </h3>
+            <p className="mt-2 text-sm text-[#9aa3b8]">
+              Are you sure you want to delete{" "}
+              <span className="font-medium text-white">&ldquo;{confirmDialog.label}&rdquo;</span>?
+              This cannot be undone.
+            </p>
+            <div className="mt-5 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmDialog(null)}
+                className="rounded-xl border border-white/20 px-4 py-2 text-sm font-medium text-[#9aa3b8] transition hover:border-white/35 hover:text-white"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                className="rounded-xl border border-red-400/35 bg-red-500/15 px-4 py-2 text-sm font-semibold text-red-100 transition hover:bg-red-500/25"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Toast notification ── */}
       {toast && (
@@ -1986,7 +2070,7 @@ export default function AdminPage() {
                             <button
                               type="button"
                               className="rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18 disabled:opacity-40"
-                              onClick={() => handleDeleteBlog(blog._id)}
+                              onClick={() => setConfirmDialog({ label: blog.title, onConfirm: () => handleDeleteBlog(blog._id) })}
                               disabled={loading}
                             >
                               Delete
@@ -2004,26 +2088,37 @@ export default function AdminPage() {
           {/* ── Mentors Tab ── */}
           {activeTab === "mentors" && (
             <div className="space-y-10">
-              {/* Add mentor form */}
-              <section className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
+              {/* Add / Edit mentor form */}
+              <section ref={mentorFormSectionRef} className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
                 <div className="mb-6 border-b border-white/12 pb-6">
                   <h2 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
-                    Add mentor
+                    {editingMentorId ? "Edit mentor" : "Add mentor"}
                   </h2>
                   <p className="mt-1 text-sm text-[#9aa3b8]">
-                    Upload a photo (will be cropped to 1:1), fill in the details, then submit.
+                    {editingMentorId
+                      ? "Update the mentor's details. Leave photo unchanged to keep the existing one."
+                      : "Upload a photo (will be cropped to 1:1), fill in the details, then submit."}
                   </p>
                 </div>
 
-                <form onSubmit={handleAddMentor} className="space-y-5">
+                <form onSubmit={editingMentorId ? handleUpdateMentor : handleAddMentor} className="space-y-5">
                   {/* Photo picker */}
                   <div className="flex flex-col gap-2">
                     <label className="text-xs font-medium text-[#A7ADBE]">
-                      Photo <span className="text-red-400">*</span>
+                      Photo{" "}
+                      {editingMentorId
+                        ? <span className="text-[#6b7280]">(optional — keep current if not changed)</span>
+                        : <span className="text-red-400">*</span>}
                     </label>
+                    {editingMentorId && editingMentorExistingPhoto && !mentorPhotoFile && (
+                      <div className="h-20 w-20 overflow-hidden rounded-xl border border-white/15">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={editingMentorExistingPhoto} alt="Current photo" className="h-full w-full object-cover" />
+                      </div>
+                    )}
                     <div className="flex items-center gap-4">
                       <label className="cursor-pointer rounded-xl border border-dashed border-white/25 bg-white/[0.05] px-5 py-3 text-sm text-[#9aa3b8] transition hover:border-white/40 hover:text-white">
-                        {mentorPhotoFile ? "✓ Photo selected — click to change" : "Click to choose photo"}
+                        {mentorPhotoFile ? "✓ Photo selected — click to change" : editingMentorId ? "Click to change photo" : "Click to choose photo"}
                         <input
                           type="file"
                           accept="image/*"
@@ -2103,13 +2198,27 @@ export default function AdminPage() {
                     />
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="rounded-xl bg-gradient-to-r from-[#4C75FF] to-[#3558e6] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:brightness-110 disabled:opacity-50"
-                  >
-                    {loading ? "Uploading…" : "Add Mentor"}
-                  </button>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="rounded-xl bg-gradient-to-r from-[#4C75FF] to-[#3558e6] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:brightness-110 disabled:opacity-50"
+                    >
+                      {editingMentorId
+                        ? (loading ? "Saving…" : "Save Changes")
+                        : (loading ? "Uploading…" : "Add Mentor")}
+                    </button>
+                    {editingMentorId && (
+                      <button
+                        type="button"
+                        onClick={handleCancelEditMentor}
+                        disabled={loading}
+                        className="rounded-xl border border-white/20 px-6 py-3 text-sm font-medium text-[#9aa3b8] transition hover:border-white/35 hover:text-white disabled:opacity-50"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                  </div>
                 </form>
               </section>
 
@@ -2173,13 +2282,21 @@ export default function AdminPage() {
                           )}
                         </div>
 
-                        {/* Delete */}
-                        <div className="border-t border-white/10 px-4 pb-4 pt-3">
+                        {/* Actions */}
+                        <div className="flex gap-2 border-t border-white/10 px-4 pb-4 pt-3">
                           <button
                             type="button"
                             disabled={loading}
-                            onClick={() => handleDeleteMentor(mentor._id)}
-                            className="rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18 disabled:opacity-40"
+                            onClick={() => handleEditMentor(mentor)}
+                            className="rounded-lg border border-[#4C75FF]/35 bg-[#4C75FF]/10 px-3 py-1.5 text-xs font-medium text-[#7fa0ff] transition hover:bg-[#4C75FF]/20 disabled:opacity-40"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            type="button"
+                            disabled={loading}
+                            onClick={() => setConfirmDialog({ label: mentor.name, onConfirm: () => handleDeleteMentor(mentor._id) })}
+                            className="rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/20 disabled:opacity-40"
                           >
                             Delete
                           </button>

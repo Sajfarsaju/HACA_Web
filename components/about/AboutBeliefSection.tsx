@@ -49,7 +49,7 @@ export function AboutBeliefSection() {
 
                 {/* Talk to Our Team - secondary */}
                 <Link
-                    href="https://harisandcoacademy.com/enquire/"
+                    href="/enquire"
                     className="inline-flex w-full max-w-[178px] max-md:max-w-[149.45px] no-underline"
                     aria-label="Talk to our team"
                 >

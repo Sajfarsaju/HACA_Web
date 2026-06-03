@@ -77,7 +77,7 @@ export function BottomReserveCta() {
 
                 {/* Button */}
                 <Link
-                    href="https://harisandcoacademy.com/enquire"
+                    href="/enquire"
                     className="shrink-0 flex items-center justify-center"
                     aria-label="Select a course"
                 >

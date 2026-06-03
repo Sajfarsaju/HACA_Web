@@ -1,1 +1,1 @@
-export const ENQUIRE_URL = "https://harisandcoacademy.com/enquire/"
+export const ENQUIRE_URL = "/enquire"

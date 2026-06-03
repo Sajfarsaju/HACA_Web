@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import Link from "next/link"
 import { useCallback, useEffect, useState } from "react"
 
-const ENQUIRE_URL = "https://harisandcoacademy.com/enquire/"
+const ENQUIRE_URL = "/enquire"
 import type { Course, CourseModule } from "@/lib/courseCatalog"
 import { formatCourseBadgeLine, getModulesForCourse } from "@/lib/courseCatalog"
 import { CourseToolsMarquee } from "@/components/courses/CourseToolsMarquee"
