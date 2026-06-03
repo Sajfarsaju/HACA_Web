@@ -1,5 +1,6 @@
-﻿"use client";
+"use client";
 
+import { pressLogoAlt } from "@/lib/image-alt-text";
 import Image from "next/image";
 import React from "react";
 
@@ -114,7 +115,7 @@ export function MarketingSeoTrustedPressStatsSection() {
                     <div className="marketing-seo-thrissur-press-marquee-track">
                         {MARQUEE_TRACK.map((logo, index) => (
                             <div key={`${logo.key}-${index}`} className={logo.wrapperClass}>
-                                <Image src={logo.src} alt="" width={logo.width} height={logo.height} className={logo.imgClass} sizes="(max-width: 768px) 120px, 200px" />
+                                <Image src={logo.src} alt={pressLogoAlt(logo.alt)} width={logo.width} height={logo.height} className={logo.imgClass} sizes="(max-width: 768px) 120px, 200px" />
                             </div>
                         ))}
                     </div>

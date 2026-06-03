@@ -102,7 +102,7 @@ function BlogCard({
                 <span className="inline-flex items-center w-fit pointer-events-none" aria-hidden="true">
                     <Image
                         src="/photos/main/read full blog.svg"
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={123}
                         height={26}
                         className="block h-[clamp(20px,2vw,26px)] w-auto"

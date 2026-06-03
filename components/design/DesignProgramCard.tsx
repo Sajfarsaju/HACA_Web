@@ -173,7 +173,7 @@ export function DesignProgramCard({
                         <div className="relative inline-block">
                             {decoration && decoStyle && (
                                 <div className="pointer-events-none absolute" style={decoStyle}>
-                                    <Image src={decoration.src} alt="" fill className="object-contain" />
+                                    <Image src={decoration.src} alt="" aria-hidden="true" fill className="object-contain" />
                                 </div>
                             )}
 
@@ -199,7 +199,7 @@ export function DesignProgramCard({
                                         >
                                             <Image
                                                 src={underline.src}
-                                                alt=""
+                                                alt="" aria-hidden="true"
                                                 fill
                                                 className="object-contain"
                                                 style={{
@@ -282,7 +282,7 @@ export function DesignProgramCard({
                             {/* Top-right decoration */}
                             {decoration && decoStyle && (
                                 <div className="pointer-events-none absolute" style={decoStyle}>
-                                    <Image src={decoration.src} alt="" fill className="object-contain" />
+                                    <Image src={decoration.src} alt="" aria-hidden="true" fill className="object-contain" />
                                 </div>
                             )}
 
@@ -303,7 +303,7 @@ export function DesignProgramCard({
                                                   height: ulHeight!,
                                               }}
                                               aria-hidden="true">
-                                            <Image src={underline.src} alt="" fill className="object-contain"
+                                            <Image src={underline.src} alt="" aria-hidden="true" fill className="object-contain"
                                                    style={{ transform: underline.desktop.rotation ? `rotate(${underline.desktop.rotation}deg)` : undefined, transformOrigin: "center" }} />
                                         </span>
                                     )}

@@ -1,5 +1,7 @@
 "use client";
 
+
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -189,7 +191,7 @@ function EnquireButton({ bg, fg }: { bg: string; fg: string }) {
     return (
         <div className="inline-flex items-center rounded-[999px] pl-4 pr-2 py-2" style={{ backgroundColor: bg, color: fg }}>
             <span style={{ fontFamily: vc, fontWeight: 500, fontSize: 14, lineHeight: "100%", whiteSpace: "nowrap" }}>Enquire Now</span>
-            <img
+            <Image
                 className="ml-2"
                 src="/photos/schools/design/arrow_cool_down.svg"
                 alt=""
@@ -257,14 +259,14 @@ function ProgramCardView(p: ProgramCard) {
                 aria-hidden
             />
 
-            <div className={[p.imageWrapClassName, "z-[1] overflow-hidden"].join(" ")} aria-hidden>
-                <img
+            <div className={[p.imageWrapClassName, "relative z-[1] overflow-hidden"].join(" ")} aria-hidden>
+                <Image
                     src={p.imageSrc}
                     alt={p.imageAlt}
-                    className={["h-full w-full", p.imageObjectClassName].join(" ")}
+                    fill
+                    className={p.imageObjectClassName}
                     style={p.imageStyle}
-                    loading="lazy"
-                    decoding="async"
+                    sizes="(max-width: 1024px) 360px, 440px"
                 />
             </div>
         </Link>

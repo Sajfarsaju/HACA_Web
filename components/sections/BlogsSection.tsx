@@ -23,7 +23,7 @@ export function BlogsSection({ blogs }: BlogsSectionProps) {
                     <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
                         <Image
                             src="/photos/main/blue arrow.svg"
-                            alt=""
+                            alt="" aria-hidden="true"
                             width={38}
                             height={26}
                             className="w-full h-full object-contain"
@@ -75,7 +75,7 @@ export function BlogsSection({ blogs }: BlogsSectionProps) {
                             <span className="inline-flex items-center w-fit pointer-events-none" aria-hidden="true">
                                 <Image
                                     src="/photos/main/read full blog.svg"
-                                    alt=""
+                                    alt="" aria-hidden="true"
                                     width={123}
                                     height={26}
                                     className="block h-[26px] w-auto"

@@ -35,7 +35,7 @@ export const DESIGN_SCHOOL_SEO_PAGES: Record<DesignSchoolSeoSlug, PageSeo> = {
     "graphic-designing-course-in-kerala": {
         title: "Graphic Designing Course in Kerala | HACA Design School",
         description:
-            "Join HACA Design School for Kerala’s practical graphic design training—live mentorship, portfolio-first learning, and placement support across graphic design, motion, UI/UX, and branding.",
+            "Join the leading graphic designing course in Kerala at HACA Design School. Learn practically with expert faculty, and real-world projects to boost your design career.",
         eyebrow: "Design School by HACA",
         h1: "Choose the best graphic designing course in Kerala",
         intro: [
@@ -51,7 +51,7 @@ export const DESIGN_SCHOOL_SEO_PAGES: Record<DesignSchoolSeoSlug, PageSeo> = {
     "graphic-design-classes-online": {
         title: "Graphic Design Classes Online | HACA Design School",
         description:
-            "Live, hands-on graphic design classes online from HACA—learn layout, typography, branding, UI/UX, and motion from anywhere in India with mentor feedback and portfolio support.",
+            "Boost your creative career with HACA's graphic design classes online. Learn Photoshop, Illustrator & real-world design skills from industry experts.",
         eyebrow: "Learn designing the way it should be",
         h1: "Take graphic design classes online",
         intro: [
@@ -67,7 +67,7 @@ export const DESIGN_SCHOOL_SEO_PAGES: Record<DesignSchoolSeoSlug, PageSeo> = {
     "video-editing-course-in-calicut": {
         title: "Video Editing Course in Calicut | HACA Design School",
         description:
-            "Career-focused video editing course in Calicut (online too)—visual storytelling, Premiere Pro, After Effects, sound design, colour grading, and portfolio-ready projects with HACA mentors.",
+            "Presenting Video Editing Course in Calicut to become a skilled designer while building your portfolio with real clients. Transform your passion into profession.",
         eyebrow: "Trusted by creators across Kerala",
         h1: "The video editing course in Calicut built for storytellers",
         intro: [
@@ -83,7 +83,7 @@ export const DESIGN_SCHOOL_SEO_PAGES: Record<DesignSchoolSeoSlug, PageSeo> = {
     "graphic-designing-course-in-calicut": {
         title: "Graphic Designing Course in Calicut | HACA Design School",
         description:
-            "Offline graphic designing course in Calicut at HACA—five-month Creative Design & Communication with graphic design, motion, video, UI/UX, branding, internships, and placement help.",
+            "Presenting Graphic Designing course in Calicut to become a skilled designer while building your portfolio with real clients. Transform your passion into profession.",
         eyebrow: "Your creativity deserves a place to grow",
         h1: "Join the best graphic designing course in Calicut",
         intro: [
@@ -97,9 +97,9 @@ export const DESIGN_SCHOOL_SEO_PAGES: Record<DesignSchoolSeoSlug, PageSeo> = {
         ],
     },
     "ui-ux-design-course-in-calicut": {
-        title: "UI/UX Design Course in Calicut | HACA Design School",
+        title: "UI UX Design Course in Calicut | HACA Design School",
         description:
-            "Three-month, career-ready UI/UX design course in Calicut (online available)—research, IA, wireframes, Figma, prototyping, and AI-aware workflows with HACA Design School.",
+            "Join the leading ui ux design course in Calicut at Haris and Co Academy: practical training, expert faculty, and real-world projects to boost your design career.",
         eyebrow: "Build a serious career in product design",
         h1: "Join the career-ready UI/UX design course in Calicut",
         intro: [
@@ -113,9 +113,9 @@ export const DESIGN_SCHOOL_SEO_PAGES: Record<DesignSchoolSeoSlug, PageSeo> = {
         ],
     },
     "introduction-to-graphic-design": {
-        title: "Introduction to Graphic Design | HACA Design School",
+        title: "Introduction to Graphic Design - Haris & Co Academy",
         description:
-            "Ten-week online introduction to graphic design—layout, typography, colour, branding basics, Photoshop & Illustrator, plus creative strategy and LinkedIn visibility with HACA mentors.",
+            "As graphic design is a practical creative ability best learned by hands-on experience, the best course for graphic design in Calicut would be offline.",
         eyebrow: "Unleash your creativity",
         h1: "Learn graphic design online from the ground up",
         intro: [
@@ -129,9 +129,8 @@ export const DESIGN_SCHOOL_SEO_PAGES: Record<DesignSchoolSeoSlug, PageSeo> = {
         ],
     },
     "creative-design-and-communication": {
-        title: "Creative Design and Communication | HACA Design School",
-        description:
-            "HACA’s Creative Design & Communication program—graphic design, motion, video editing, UI/UX, and brand design in one multidisciplinary offline journey with demos and mentor support.",
+        title: "Creative Design and Communication - Haris & Co Academy",
+        description: "0",
         eyebrow: "Design School from the house of HACA",
         h1: "Creative design & communication flagship program",
         intro: [

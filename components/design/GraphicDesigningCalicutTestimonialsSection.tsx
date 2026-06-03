@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 
 const vc = '"VC Nudge Trial Normal", sans-serif';
@@ -60,11 +61,37 @@ function Avatar({ src, name, size }: { src: string; name: string; size: number }
     const [err, setErr] = useState(false);
     const initials = name.split(" ").map((w) => w[0] ?? "").join("").slice(0, 2).toUpperCase();
     return (
-        <div style={{ width: size, height: size, borderRadius: "50%", overflow: "hidden", backgroundColor: "rgba(255,255,255,0.28)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {!err
-                ? <img src={src} alt={name} onError={() => setErr(true)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                : <span style={{ fontFamily: vc, fontWeight: 700, fontSize: size * 0.3, color: "#fff", letterSpacing: "0.05em" }}>{initials}</span>
-            }
+        <div
+            className="relative shrink-0 overflow-hidden rounded-full"
+            style={{
+                width: size,
+                height: size,
+                backgroundColor: "rgba(255,255,255,0.28)",
+            }}
+        >
+            {!err ? (
+                <Image
+                    src={src}
+                    alt={name}
+                    fill
+                    className="object-cover"
+                    sizes={`${size}px`}
+                    onError={() => setErr(true)}
+                />
+            ) : (
+                <span
+                    className="flex h-full w-full items-center justify-center"
+                    style={{
+                        fontFamily: vc,
+                        fontWeight: 700,
+                        fontSize: size * 0.3,
+                        color: "#fff",
+                        letterSpacing: "0.05em",
+                    }}
+                >
+                    {initials}
+                </span>
+            )}
         </div>
     );
 }

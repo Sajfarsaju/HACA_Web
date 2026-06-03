@@ -57,14 +57,14 @@ export function MarketingSeoToolsHiredSection() {
                         <div className="flex shrink-0 flex-row items-center gap-[54px]">
                             {TOOL_LOGOS.map((tool) => (
                                 <div key={`a-${tool.file}`} className="relative flex h-[100px] w-[200px] shrink-0 items-center justify-center">
-                                    <Image src={toolSrc(tool.file)} alt="" fill className="object-contain object-center" sizes="200px" />
+                                    <Image src={toolSrc(tool.file)} alt="" aria-hidden="true" fill className="object-contain object-center" sizes="200px" />
                                 </div>
                             ))}
                         </div>
                         <div className="flex shrink-0 flex-row items-center gap-[54px]">
                             {TOOL_LOGOS.map((tool) => (
                                 <div key={`b-${tool.file}`} className="relative flex h-[100px] w-[200px] shrink-0 items-center justify-center">
-                                    <Image src={toolSrc(tool.file)} alt="" fill className="object-contain object-center" sizes="200px" />
+                                    <Image src={toolSrc(tool.file)} alt="" aria-hidden="true" fill className="object-contain object-center" sizes="200px" />
                                 </div>
                             ))}
                         </div>

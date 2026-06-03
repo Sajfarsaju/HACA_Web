@@ -183,7 +183,7 @@ export function TechProjectsSection() {
                                                             className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] rotate-[-180deg] opacity-70 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                                                             aria-label="Previous project"
                                                         >
-                                                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
+                                                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" aria-hidden="true" className="object-contain" />
                                                         </button>
                                                         <button
                                                             onClick={() => {
@@ -195,7 +195,7 @@ export function TechProjectsSection() {
                                                             className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] opacity-100 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                                                             aria-label="Next project"
                                                         >
-                                                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
+                                                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" aria-hidden="true" className="object-contain" />
                                                         </button>
                                                     </div>
                                                 </div>
@@ -216,7 +216,7 @@ export function TechProjectsSection() {
                                         className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] rotate-[-180deg] opacity-70 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                                         aria-label="Previous project"
                                     >
-                                        <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
+                                        <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" aria-hidden="true" className="object-contain" />
                                     </button>
                                     <button
                                         onClick={() => {
@@ -228,7 +228,7 @@ export function TechProjectsSection() {
                                         className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] opacity-100 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                                         aria-label="Next project"
                                     >
-                                        <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" className="object-contain" />
+                                        <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" aria-hidden="true" className="object-contain" />
                                     </button>
                                 </div>
                             </div>

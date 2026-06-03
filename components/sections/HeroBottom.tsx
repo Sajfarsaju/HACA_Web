@@ -44,7 +44,7 @@ export function HeroBottom() {
           >
             <Image
               src="/photos/Tech/Ellipse 3.svg"
-              alt=""
+              alt="" aria-hidden="true"
               fill
               priority
               className="object-contain opacity-40"

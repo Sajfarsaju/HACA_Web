@@ -90,7 +90,7 @@ function DifferentRow({ row }: { row: Row }) {
                     >
                         <Image
                             src={row.iconSrc}
-                            alt=""
+                            alt="" aria-hidden="true"
                             width={50}
                             height={50}
                             className="h-full w-full object-contain"

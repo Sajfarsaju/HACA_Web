@@ -1,4 +1,5 @@
 ﻿import Image from 'next/image'
+import { ALT } from "@/lib/image-alt-text";
 
 export function Haca360Section() {
     return (
@@ -11,7 +12,7 @@ export function Haca360Section() {
                     <div className="absolute top-[150%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1440px] h-[clamp(300px,37.6vw,542px)] pointer-events-none -z-10 max-[1024px]:max-w-full md:top-[168%] max-md:w-[calc(100%-48px)] max-md:max-w-[335px] max-md:h-[clamp(180px,33vw,480px)] max-md:top-[150%]">
                         <Image
                             src="/photos/main/bg-gradiant-1.svg"
-                            alt=""
+                            alt="" aria-hidden="true"
                             fill
                             className="object-cover max-md:object-contain max-md:opacity-90"
                         />
@@ -30,7 +31,7 @@ export function Haca360Section() {
                         <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
                             <Image
                                 src="/photos/main/blue arrow.svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 width={38}
                                 height={26}
                                 className="w-full h-full object-contain"
@@ -53,7 +54,7 @@ export function Haca360Section() {
                         <div className="absolute inset-0 z-0" aria-hidden="true">
                             <Image
                                 src="/photos/main/Rectangle 2.webp"
-                                alt=""
+                                alt={ALT.haca360Campus}
                                 fill
                                 className="object-cover object-center"
                                 priority
@@ -65,7 +66,7 @@ export function Haca360Section() {
                             <button className="w-[70px] h-[70px] flex items-center justify-center bg-transparent border-none cursor-pointer transition-all duration-200 ease-in hover:scale-[1.1] hover:opacity-85 max-md:w-[46px] max-md:h-[46px]" aria-label="Pause video">
                                 {/*
                                     Pause SVG — replace with:
-                                    <Image src="/photos/main/pause button.svg" alt="" width={70} height={70} />
+                                    <Image src="/photos/main/pause button.svg" alt="" aria-hidden="true" width={70} height={70} />
                                     once the asset is added.
                                 */}
                                 <svg

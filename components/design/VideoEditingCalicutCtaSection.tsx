@@ -74,14 +74,14 @@ function VideoPlayerChrome() {
                 <div className="flex min-w-0 items-center gap-1.5 sm:gap-3 lg:gap-5">
                     <Image
                         src={GROUP_LEFT}
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={174}
                         height={36}
                         className="h-[14px] w-auto shrink-0 sm:h-[22px] lg:h-9"
                     />
                     <Image
                         src={TIME_0_00}
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={50}
                         height={19}
                         className="h-[9px] w-auto shrink-0 sm:h-[14px] lg:h-[19px]"
@@ -91,28 +91,28 @@ function VideoPlayerChrome() {
                 <div className="flex shrink-0 items-center gap-1.5 sm:gap-3 lg:gap-5">
                     <Image
                         src={GROUP_SETTINGS}
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={38}
                         height={38}
                         className="size-4 shrink-0 sm:size-6 lg:size-[38px]"
                     />
                     <Image
                         src={GROUP_THEATER}
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={41}
                         height={33}
                         className="h-3.5 w-auto shrink-0 sm:h-6 lg:h-[33px]"
                     />
                     <Image
                         src={GROUP_MINI}
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={41}
                         height={33}
                         className="h-3.5 w-auto shrink-0 sm:h-6 lg:h-[33px]"
                     />
                     <Image
                         src={GROUP_FULLSCREEN}
-                        alt=""
+                        alt="" aria-hidden="true"
                         width={33}
                         height={33}
                         className="size-4 shrink-0 sm:size-6 lg:size-[33px]"

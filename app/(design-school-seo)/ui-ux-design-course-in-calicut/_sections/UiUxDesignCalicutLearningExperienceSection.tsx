@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ALT } from "@/lib/image-alt-text";
 import { useState } from "react";
 
 const vc = '"VC Nudge Trial Normal", sans-serif' as const;
@@ -54,7 +55,7 @@ function PhotoCard({ src, grow, height }: { src: string; grow: number; height: n
             {!err && (
                 <Image
                     src={src}
-                    alt=""
+                    alt={ALT.studentPortfolio}
                     fill
                     className="object-cover object-center"
                     sizes="(max-width: 1024px) 50vw, 25vw"

@@ -69,7 +69,7 @@ export function TechProjectsHeaderSection({
                         <div style={{ width: 20, height: 20, position: "relative", flexShrink: 0 }}>
                             <Image
                                 src="/photos/Tech/material-symbols_search.svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 fill
                                 style={{ objectFit: "contain", opacity: 0.8 }}
                             />
@@ -139,7 +139,7 @@ export function TechProjectsHeaderSection({
                             <div style={{ width: 17.92, height: 17.92, position: "relative" }}>
                                 <Image
                                     src="/photos/Tech/iconamoon_arrow-up-2-light.svg"
-                                    alt=""
+                                    alt="" aria-hidden="true"
                                     fill
                                     style={{ objectFit: "contain" }}
                                 />
@@ -254,7 +254,7 @@ export function TechProjectsHeaderSection({
                         <div style={{ width: 24, height: 24, position: "relative", flexShrink: 0 }}>
                             <Image
                                 src="/photos/Tech/material-symbols_search.svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 fill
                                 style={{ objectFit: "contain", opacity: 0.8 }}
                             />
@@ -325,7 +325,7 @@ export function TechProjectsHeaderSection({
                             All
                         </button>
                         <div style={{ width: 1, height: 22, position: "relative", flexShrink: 0, display: "flex", alignItems: "center" }}>
-                            <Image src="/photos/Tech/Vector 4.svg" alt="" fill style={{ objectFit: "cover" }} />
+                            <Image src="/photos/Tech/Vector 4.svg" alt="" aria-hidden="true" fill style={{ objectFit: "cover" }} />
                         </div>
                         <button
                             type="button"
@@ -353,7 +353,7 @@ export function TechProjectsHeaderSection({
                             Web Application
                         </button>
                         <div style={{ width: 1, height: 22, position: "relative", flexShrink: 0, display: "flex", alignItems: "center" }}>
-                            <Image src="/photos/Tech/Vector 4.svg" alt="" fill style={{ objectFit: "cover" }} />
+                            <Image src="/photos/Tech/Vector 4.svg" alt="" aria-hidden="true" fill style={{ objectFit: "cover" }} />
                         </div>
                         <button
                             type="button"
@@ -421,7 +421,7 @@ export function TechProjectsHeaderSection({
                             Latest
                         </button>
                         <div style={{ width: 1, height: 22, position: "relative", flexShrink: 0 }}>
-                            <Image src="/photos/Tech/Vector 4.svg" alt="" fill style={{ objectFit: "cover" }} />
+                            <Image src="/photos/Tech/Vector 4.svg" alt="" aria-hidden="true" fill style={{ objectFit: "cover" }} />
                         </div>
                         <button
                             type="button"

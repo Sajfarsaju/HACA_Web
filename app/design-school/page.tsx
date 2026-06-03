@@ -1,4 +1,3 @@
-import { schoolData } from "@/lib/schools-data";
 import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntroAnimation";
 import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
 import { DesignHeroVideoTransition } from "@/components/design/DesignHeroVideoTransition";
@@ -19,32 +18,18 @@ import { DesignStudentProjectsSection } from "@/components/design/DesignStudentP
 import { DesignTestimonialsSection } from "@/components/design/DesignTestimonialsSection";
 import { DesignFaqSection } from "@/components/design/DesignFaqSection";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
+import { buildSitePageMetadata } from "@/lib/site-page-metadata";
 
 /** Match testimonials / hero typography on design school pages */
 const DESIGN_HEADING_FONT = '"VC Nudge Trial Normal", sans-serif'
 const DESIGN_SERIF_FONT = '"IvyPresto Display", serif';
 
-const school = schoolData.design;
-
-export const metadata = {
+export const metadata = buildSitePageMetadata({
   title: "Master Graphic Design & UI/UX Skills | Design School by HACA",
   description:
     "Join Design School at HACA to master graphic design, UI/UX, and motion graphics with expert mentors. Learn through hands-on projects and real-world applications!",
-  openGraph: {
-    title: "Master Graphic Design & UI/UX Skills | Design School by HACA",
-    description:
-      "Join Design School at HACA to master graphic design, UI/UX, and motion graphics with expert mentors. Learn through hands-on projects and real-world applications!",
-    url: "https://harisandcoacademy.com/design-school/",
-    siteName: "Haris & Co Academy",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Master Graphic Design & UI/UX Skills | Design School by HACA",
-    description:
-      "Join Design School at HACA to master graphic design, UI/UX, and motion graphics with expert mentors. Learn through hands-on projects and real-world applications!",
-  },
-};
+  canonical: "https://harisandcoacademy.com/design-school/",
+});
 
 export default async function DesignSchoolPage() {
     const designPlacements = await fetchDesignSchoolPlacements();

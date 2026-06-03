@@ -24,7 +24,7 @@ export function DesignProgramsHeadingSection() {
                         >
                             <Image
                                 src="/photos/schools/design/Vector (2).svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 width={316}
                                 height={14}
                                 className="w-[316px] h-[14px]"
@@ -52,7 +52,7 @@ export function DesignProgramsHeadingSection() {
                         >
                             <Image
                                 src="/photos/schools/design/Vector (2).svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 width={97}
                                 height={7}
                                 className="w-[97px] h-[7px]"

@@ -241,7 +241,7 @@ export function UiUxDesignCalicutMentorsSection() {
                                 >
                                     <Image
                                         src="/photos/schools/design/Frame 2131331135.svg"
-                                        alt=""
+                                        alt="" aria-hidden="true"
                                         fill
                                         className="object-contain"
                                         priority={false}

@@ -43,7 +43,7 @@ export default function RootLayout({
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] 2xl:max-w-none h-[clamp(183px,16.2px+44.4vw,870px)] -z-10 pointer-events-none opacity-100 max-md:max-w-full">
           <Image
             src="/photos/main/bg-gradient-top.svg"
-            alt=""
+            alt="" aria-hidden="true"
             fill
             className="object-cover object-top"
             priority

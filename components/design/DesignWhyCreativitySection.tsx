@@ -102,7 +102,7 @@ export function DesignWhyCreativitySection() {
                                 }}
                                 aria-hidden="true"
                             >
-                                <Image src="/photos/schools/design/Group.svg" alt="" fill className="object-contain" />
+                                <Image src="/photos/schools/design/Group.svg" alt="" aria-hidden="true" fill className="object-contain" />
                             </span>
 
                             {/* Underline */}
@@ -118,7 +118,7 @@ export function DesignWhyCreativitySection() {
                                 }}
                                 aria-hidden="true"
                             >
-                                <Image src="/photos/schools/design/Vector (8).svg" alt="" fill className="object-contain" />
+                                <Image src="/photos/schools/design/Vector (8).svg" alt="" aria-hidden="true" fill className="object-contain" />
                             </span>
                         </span>
                     </h2>
@@ -154,7 +154,7 @@ export function DesignWhyCreativitySection() {
                                 }}
                                 aria-hidden="true"
                             >
-                                <Image src="/photos/schools/design/Group.svg" alt="" fill className="object-contain" />
+                                <Image src="/photos/schools/design/Group.svg" alt="" aria-hidden="true" fill className="object-contain" />
                             </span>
                         </span>
                         <br />
@@ -174,7 +174,7 @@ export function DesignWhyCreativitySection() {
                                 }}
                                 aria-hidden="true"
                             >
-                                <Image src="/photos/schools/design/Vector (8).svg" alt="" fill className="object-contain" />
+                                <Image src="/photos/schools/design/Vector (8).svg" alt="" aria-hidden="true" fill className="object-contain" />
                             </span>
                         </span>
                     </h2>
@@ -220,7 +220,7 @@ export function DesignWhyCreativitySection() {
                                     >
                                         <Image
                                             src={row.iconSrc}
-                                            alt=""
+                                            alt="" aria-hidden="true"
                                             fill
                                             className="object-contain"
                                         />

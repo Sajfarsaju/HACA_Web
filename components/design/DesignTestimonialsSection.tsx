@@ -135,7 +135,7 @@ function LearnedHereUnderline({ className }: { className?: string }) {
                 >
                     <Image
                         src={UNDERLINE_SRC}
-                        alt=""
+                        alt="" aria-hidden="true"
                         fill
                         unoptimized
                         sizes={`${UNDERLINE_MOBILE_W}px`}
@@ -145,7 +145,7 @@ function LearnedHereUnderline({ className }: { className?: string }) {
             </span>
             <span className="hidden shrink-0 rotate-180 lg:inline-block">
                 <span className="relative block max-w-none overflow-hidden" style={{ width: "269px", height: "14px" }}>
-                    <Image src={UNDERLINE_SRC} alt="" fill unoptimized sizes="269px" className="object-fill object-center" />
+                    <Image src={UNDERLINE_SRC} alt="" aria-hidden="true" fill unoptimized sizes="269px" className="object-fill object-center" />
                 </span>
             </span>
         </span>
@@ -162,7 +162,7 @@ function HeartAccent({ className }: { className?: string }) {
         >
             <Image
                 src={HEART_SRC}
-                alt=""
+                alt="" aria-hidden="true"
                 width={118}
                 height={122}
                 className="object-contain lg:hidden"
@@ -170,7 +170,7 @@ function HeartAccent({ className }: { className?: string }) {
             />
             <Image
                 src={HEART_SRC}
-                alt=""
+                alt="" aria-hidden="true"
                 width={118}
                 height={122}
                 className="hidden object-contain lg:block"

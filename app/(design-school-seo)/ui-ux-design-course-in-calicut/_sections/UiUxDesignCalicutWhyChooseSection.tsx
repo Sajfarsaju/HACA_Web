@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ALT } from "@/lib/image-alt-text";
 import React from "react";
 
 const vc = '"VC Nudge Trial Normal", sans-serif' as const;
@@ -160,7 +161,7 @@ export function UiUxDesignCalicutWhyChooseSection() {
                                             >
                                                 <Image
                                                     src={row.iconSrc}
-                                                    alt=""
+                                                    alt="" aria-hidden="true"
                                                     width={row.iconW ?? 50}
                                                     height={row.iconH ?? 50}
                                                     className="h-full w-full object-contain"
@@ -238,7 +239,7 @@ export function UiUxDesignCalicutWhyChooseSection() {
                             >
                                 <Image
                                     src={src}
-                                    alt=""
+                                    alt={ALT.studentPortfolio}
                                     fill
                                     className="object-cover object-center"
                                     sizes="(min-width: 1024px) 252px, 50vw"
@@ -298,10 +299,10 @@ export function UiUxDesignCalicutWhyChooseSection() {
                                         aria-hidden
                                     >
                                         <span className="relative block lg:hidden" style={{ width: 32, height: 32, transform: "rotate(12.65deg)", transformOrigin: "center" }}>
-                                            <Image src="/photos/schools/design/lsicon_pointer-filled.svg" alt="" fill className="object-contain" />
+                                            <Image src="/photos/schools/design/lsicon_pointer-filled.svg" alt="" aria-hidden="true" fill className="object-contain" />
                                         </span>
                                         <span className="relative hidden lg:block" style={{ width: 59.999999006541884, height: 59.999999006541884 }}>
-                                            <Image src="/photos/schools/design/lsicon_pointer-filled.svg" alt="" fill className="object-contain" />
+                                            <Image src="/photos/schools/design/lsicon_pointer-filled.svg" alt="" aria-hidden="true" fill className="object-contain" />
                                         </span>
                                     </span>
                                 </p>

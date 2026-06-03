@@ -48,10 +48,10 @@ export const DATA_ANALYTICS_KERALA_FAQS: DataAnalyticsKeralaFaqItem[] = [
 ];
 
 const DATA_ANALYTICS_KERALA_PAGE_TITLE =
-    "Data Analytics Course in Kerala | Python, SQL & Power BI Training | HACA";
+    "Data Analytics Course in Kerala | Learn from Industry Experts – HACA Tech School";
 
 const DATA_ANALYTICS_KERALA_PAGE_DESCRIPTION =
-    "Join HACA's Data Analytics Course in Kerala — hands-on training in Python, SQL, Power BI, Excel, and AI-driven analytics. Online and offline batches, expert mentors, live projects, and placement support. Build job-ready data skills from anywhere in Kerala.";
+    "Join the top-rated Data Analytics course in Kerala at HACA Tech School. Gain hands-on experience, learn from expert mentors, and build a future-proof career.";
 
 export function buildDataAnalyticsKeralaSeoMetadata(): Metadata {
     const canonical = `${TECH_SCHOOL_SEO_SITE_URL}${DATA_ANALYTICS_KERALA_SEO_PATH}`;
@@ -195,10 +195,10 @@ export const PYTHON_CALICUT_FAQS: PythonCalicutFaqItem[] = [
 ];
 
 const PYTHON_CALICUT_PAGE_TITLE =
-    "Python Course in Calicut | Django, React & Gen AI Training | HACA";
+    "Best Python Course in Calicut | Learn Programming & Coding";
 
 const PYTHON_CALICUT_PAGE_DESCRIPTION =
-    "Join HACA's Python Course in Calicut — hands-on training in Advanced Python, Django, React, REST APIs, LangChain, and Generative AI. Offline and online batches, expert mentors, real projects, and placement support. Become a job-ready AI full-stack developer in 5 months.";
+    "Join the best Python course in Calicut to master programming from basics to advanced. Learn practical coding skills and boost your career with expert training.";
 
 export function buildPythonCalicutSeoMetadata() {
     const canonical = `${TECH_SCHOOL_SEO_SITE_URL}${PYTHON_CALICUT_SEO_PATH}`;
@@ -342,10 +342,10 @@ export const CODING_KERALA_FAQS: CodingKeralaFaqItem[] = [
 ];
 
 const CODING_KERALA_PAGE_TITLE =
-    "Coding Courses in Kerala | Python, Web Dev & AI Training | HACA Tech School";
+    "Coding Courses in Kerala | HACA Coding School";
 
 const CODING_KERALA_PAGE_DESCRIPTION =
-    "Explore HACA Tech School's coding courses in Kerala — hands-on training in Python, Django, React, Full Stack Development, and Generative AI. Offline and online batches, expert mentors, live projects, and placement support. Build job-ready coding skills in Kerala.";
+    "HACA Coding School offers coding courses in Kerala, including Flutter, Full Stack, Python & Data Analytics. Learn in-demand skills with expert training. Enroll now!";
 
 export function buildCodingKeralaSeoMetadata(): Metadata {
     const canonical = `${TECH_SCHOOL_SEO_SITE_URL}${CODING_KERALA_SEO_PATH}`;

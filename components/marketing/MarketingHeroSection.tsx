@@ -58,13 +58,13 @@ export function MarketingHeroSection() {
                     className="hidden lg:block absolute left-[31%] top-[10%] z-0 opacity-100 pointer-events-none"
                     style={{ width: "299.0725402832031px", height: "293px" }}
                 >
-                    <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" fill className="object-contain" />
+                    <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" aria-hidden="true" fill className="object-contain" />
                 </div>
                 <div
                     className="hidden lg:block absolute right-[15%] bottom-[28%] z-0 opacity-100 pointer-events-none"
                     style={{ width: "299.0725402832031px", height: "293px" }}
                 >
-                    <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" fill className="object-contain" />
+                    <Image src={isDark ? PATTERN_DARK : PATTERN_LIGHT} alt="" aria-hidden="true" fill className="object-contain" />
                 </div>
 
                 {/* Left column: copy + enquire + summit logo */}
@@ -137,7 +137,7 @@ export function MarketingHeroSection() {
                         <div className="w-[16px] h-[16px] shrink-0 flex items-center justify-center">
                             <Image
                                 src="/photos/schools/marketing/solar_arrow-up-broken.svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 width={16}
                                 height={16}
                                 className={`h-full w-full object-contain transition-[filter] duration-300 ease-out ${isDark ? "invert" : ""}`}
@@ -150,7 +150,7 @@ export function MarketingHeroSection() {
                 <div className="hidden lg:flex w-[min(200px,18%)] xl:w-[clamp(170px,15vw,250px)] min-w-0 shrink-0 min-h-0 xl:min-h-[550px] items-start pt-0 relative lg:self-start">
                     <div className="absolute left-[clamp(-130px,-12vw,-90px)] top-[clamp(16px,2vw,40px)] xl:top-[clamp(40px,4vw,80px)] flex flex-col gap-[clamp(16px,2vw,24px)] w-[clamp(240px,22vw,313px)] h-auto opacity-100">
                         <div className="w-[clamp(35px,3.2vw,45px)] h-[clamp(35px,3.2vw,45px)] opacity-100 flex items-center justify-center">
-                            <Image src="/photos/schools/marketing/Crosshair.svg" alt="" width={45} height={45} className="w-full h-full object-contain" />
+                            <Image src="/photos/schools/marketing/Crosshair.svg" alt="" aria-hidden="true" width={45} height={45} className="w-full h-full object-contain" />
                         </div>
                         <p
                             className="m-0 align-middle"

@@ -1,3 +1,4 @@
+import { PlacementCtaDecorativeStars } from "@/components/marketing/PlacementCtaDecorativeStars";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -85,22 +86,7 @@ function LeadDecisionPanel() {
                 lg:min-h-[500px] lg:px-12 lg:py-14
             "
         >
-            <img
-                src="/photos/schools/marketing/placements/placement-cta-star-tr.svg"
-                alt=""
-                width={297}
-                height={301}
-                className="pointer-events-none absolute right-0 top-0 h-auto w-[min(297px,72%)] max-sm:w-[min(200px,58%)] select-none"
-                aria-hidden
-            />
-            <img
-                src="/photos/schools/marketing/placements/placement-cta-star-bl.svg"
-                alt=""
-                width={246}
-                height={250}
-                className="pointer-events-none absolute bottom-0 left-0 h-auto w-[min(246px,68%)] max-sm:w-[min(180px,55%)] select-none"
-                aria-hidden
-            />
+            <PlacementCtaDecorativeStars />
             <div className="relative z-10 mx-auto flex w-full max-w-[min(900px,100%)] flex-col items-center gap-5 text-center sm:gap-[30px]">
                 <p
                     className="

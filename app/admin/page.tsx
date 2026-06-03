@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { PlacementCropModal } from "@/components/admin/PlacementCropModal";
@@ -1260,11 +1261,13 @@ export default function AdminPage() {
                             className="group overflow-hidden rounded-2xl border border-white/12 bg-white/[0.06] shadow-lg shadow-black/10 backdrop-blur-sm transition hover:border-white/20"
                           >
                             <div className="relative w-full overflow-hidden bg-black/25 aspect-[247.6561737060547/270]">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img
+                              <Image
                                 src={card.imageUrl}
                                 alt={card.title || "Placement card"}
-                                className="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                                fill
+                                unoptimized
+                                className="object-cover transition duration-300 group-hover:scale-[1.02]"
+                                sizes="280px"
                               />
                               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60" />
                             </div>
@@ -1667,9 +1670,12 @@ export default function AdminPage() {
                         {pickedAuthor && (
                           <div className="flex items-center gap-3 rounded-xl border border-[#4C75FF]/25 bg-[#4C75FF]/[0.07] px-4 py-3">
                             {pickedAuthor.authorPhotoUrl ? (
-                              <img
+                              <Image
                                 src={pickedAuthor.authorPhotoUrl}
                                 alt={pickedAuthor.authorName}
+                                width={44}
+                                height={44}
+                                unoptimized
                                 className="w-11 h-11 rounded-full object-cover ring-1 ring-white/20 shrink-0"
                               />
                             ) : (
@@ -1756,7 +1762,14 @@ export default function AdminPage() {
                           <p className="text-center text-xs font-medium text-emerald-400/90">Ready: {blogAuthorPhotoFile.name}</p>
                         ) : blogAuthorPhotoUrl ? (
                           <div className="flex flex-col items-center gap-2">
-                            <img src={blogAuthorPhotoUrl} alt="Author" className="w-12 h-12 rounded-xl object-cover ring-1 ring-white/20" />
+                            <Image
+                              src={blogAuthorPhotoUrl}
+                              alt="Author"
+                              width={48}
+                              height={48}
+                              unoptimized
+                              className="w-12 h-12 rounded-xl object-cover ring-1 ring-white/20"
+                            />
                             <p className="text-center text-xs font-medium text-emerald-400/90">Using existing photo</p>
                           </div>
                         ) : (
@@ -2143,12 +2156,14 @@ export default function AdminPage() {
                         className="flex flex-col overflow-hidden rounded-2xl border border-white/12 bg-white/[0.06] backdrop-blur-sm transition hover:border-white/20"
                       >
                         {/* Photo */}
-                        <div className="aspect-square w-full overflow-hidden bg-white/[0.04]">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
+                        <div className="relative aspect-square w-full overflow-hidden bg-white/[0.04]">
+                          <Image
                             src={mentor.photoUrl}
                             alt={mentor.name}
-                            className="h-full w-full object-cover"
+                            fill
+                            unoptimized
+                            className="object-cover"
+                            sizes="200px"
                           />
                         </div>
 

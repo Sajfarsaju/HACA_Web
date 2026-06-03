@@ -7,6 +7,7 @@ import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntr
 import { DesignCoursesHashScroll } from "@/components/design/DesignCoursesHashScroll";
 import { designCourseElementId, DESIGN_COURSE_SLUGS } from "@/lib/design-courses";
 import { ENQUIRE_URL } from "@/lib/enquire";
+import { designCourseImageAlt } from "@/lib/image-alt-text";
 
 export const metadata: Metadata = {
     title: "Design School Courses | HACA",
@@ -218,6 +219,7 @@ type CourseCardProps = {
     buttonBg: string;
     imageSrc: string;
     imageSrcMobile: string;
+    imageAlt: string;
     imageObjectPosition?: string;
     mobileImageBox?: { left: number; top: number; width: number; height: number };
     desktopImageBox1440?: { left: number; top: number; width: number; height: number };
@@ -239,6 +241,7 @@ function CourseCard({
     buttonBg,
     imageSrc,
     imageSrcMobile,
+    imageAlt,
     imageObjectPosition,
     mobileImageBox,
     desktopImageBox1440,
@@ -356,13 +359,6 @@ function CourseCard({
 
                 {/* Image: per-Figma on mobile; full-bleed on tablet/desktop */}
                 <div className="absolute inset-0">
-                    <picture>
-                        <source media="(min-width: 1024px)" srcSet={imageSrc} />
-                        <source media="(min-width: 640px)" srcSet={imageSrc} />
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={imageSrcMobile} alt="" className="hidden" />
-                    </picture>
-
                     {/* Mobile (≤424px): position image within the box */}
                     <div className="hidden max-[424px]:block absolute inset-0">
                         <div
@@ -378,52 +374,69 @@ function CourseCard({
                                     : { left: "18.19px", top: "76.53px", width: "250.98px", height: "251.1px" }
                             }
                         >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={imageSrcMobile} alt="" className="w-full h-full object-contain" />
+                            <div className="relative w-full h-full">
+                                <Image
+                                    src={imageSrcMobile}
+                                    alt={imageAlt}
+                                    fill
+                                    className="object-contain"
+                                    sizes="260px"
+                                />
+                            </div>
                         </div>
                     </div>
 
                     {/* 425–500: full-width image area (matches widening card); stacked badge/title like mobile */}
                     <div className="hidden [@media(min-width:425px)_and_(max-width:500px)]:flex absolute inset-0 px-[16px] pb-[16px] pt-[84px] items-end justify-center [@media(min-width:425px)_and_(max-width:500px)]:px-[20px]">
-                        <div className="w-full min-w-0 h-full min-h-0 flex items-end justify-center">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
+                        <div className="relative w-full min-w-0 h-full min-h-0 flex items-end justify-center">
+                            <Image
                                 src={imageSrc}
-                                alt=""
-                                className="max-h-full w-full max-w-full object-contain object-bottom"
+                                alt={imageAlt}
+                                fill
+                                className="object-contain object-bottom"
+                                sizes="(max-width: 500px) 100vw, 500px"
                             />
                         </div>
                     </div>
 
                     {/* Phablet (501–767): full-width image row with large PNG */}
                     <div className="hidden [@media(min-width:501px)_and_(max-width:767px)]:flex absolute inset-0 px-[20px] pb-[20px] pt-[84px] items-end justify-center">
-                        <div className="w-full min-w-0 h-full min-h-0 flex items-end justify-center">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
+                        <div className="relative w-full min-w-0 h-full min-h-0 flex items-end justify-center">
+                            <Image
                                 src={imageSrc}
-                                alt=""
-                                className="max-h-full w-full max-w-full object-contain object-bottom"
+                                alt={imageAlt}
+                                fill
+                                className="object-contain object-bottom"
+                                sizes="(max-width: 767px) 100vw, 767px"
                             />
                         </div>
                     </div>
 
                     {/* Tablet (768–1299): center large PNG with safe top space for badge/title */}
                     <div className="hidden [@media(min-width:768px)_and_(max-width:1299px)]:flex absolute inset-0 px-[20px] pb-[20px] pt-[84px] items-center justify-center">
-                        <div className="w-full h-full max-w-[460px] max-h-[460px]">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={imageSrc} alt="" className="w-full h-full object-contain object-center" />
+                        <div className="relative w-full h-full max-w-[460px] max-h-[460px]">
+                            <Image
+                                src={imageSrc}
+                                alt={imageAlt}
+                                fill
+                                className="object-contain object-center"
+                                sizes="460px"
+                            />
                         </div>
                     </div>
 
                     {/* 1300–1439: desktop image fills most of panel */}
                     <div className="hidden [@media(min-width:1300px)_and_(max-width:1439px)]:flex absolute inset-0 px-[24px] pb-[24px] pt-[110px] items-end justify-start">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                            src={imageSrc}
-                            alt=""
-                            className="w-full h-full max-w-full max-h-full object-contain object-left-bottom"
-                            style={imageObjectPosition ? { objectPosition: imageObjectPosition } : undefined}
-                        />
+                        <div className="relative w-full h-full max-w-full max-h-full">
+                            <Image
+                                src={imageSrc}
+                                alt={imageAlt}
+                                fill
+                                className="object-contain object-left-bottom"
+                                style={imageObjectPosition ? { objectPosition: imageObjectPosition } : undefined}
+                                sizes="(max-width: 1439px) 50vw, 640px"
+                            />
+                        </div>
                     </div>
 
                     {/* >=1440: per-Figma desktop image box (per-card) */}
@@ -440,13 +453,16 @@ function CourseCard({
                                 : { left: "34px", top: "143px", width: "469px", height: "469.22px" }
                         }
                     >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                            src={imageSrc}
-                            alt=""
-                            className="w-full h-full object-contain object-left-top"
-                            style={imageObjectPosition ? { objectPosition: imageObjectPosition } : undefined}
-                        />
+                        <div className="relative w-full h-full">
+                            <Image
+                                src={imageSrc}
+                                alt={imageAlt}
+                                fill
+                                className="object-contain object-left-top"
+                                style={imageObjectPosition ? { objectPosition: imageObjectPosition } : undefined}
+                                sizes="470px"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -584,6 +600,7 @@ export default function DesignSchoolCoursesPage() {
                         buttonBg="#8F56FF"
                         imageSrc="/photos/schools/design/courses/CourseOne.webp"
                         imageSrcMobile="/photos/schools/design/courses/CourseOneMobile.webp"
+                        imageAlt={designCourseImageAlt("Creative Design and Communication")}
                         mobileImageBox={{ left: 18.19, top: 76.53, width: 250.982421875, height: 251.0989990234375 }}
                         desktopImageBox1440={{ left: 34, top: 143, width: 469, height: 469.21783447265625 }}
                         badgeLeft="Offline"
@@ -610,6 +627,7 @@ export default function DesignSchoolCoursesPage() {
                         buttonBg="#FF5659"
                         imageSrc="/photos/schools/design/courses/CourseTwo.webp"
                         imageSrcMobile="/photos/schools/design/courses/CourseTwoMobile.webp"
+                        imageAlt={designCourseImageAlt("AI Integrated Graphic Design")}
                         mobileImageBox={{ left: 20.34, top: 81.6, width: 161.6134033203125, height: 238.8249053955078 }}
                         desktopImageBox1440={{ left: 38, top: 152.49, width: 301.9999694824219, height: 446.28173828125 }}
                         titleBoxLg={{ left: 290, top: 34, width: 301, height: 96 }}
@@ -637,6 +655,7 @@ export default function DesignSchoolCoursesPage() {
                         buttonBg="#29BA66"
                         imageSrc="/photos/schools/design/courses/CourseThree.webp"
                         imageSrcMobile="/photos/schools/design/courses/CourseThreeMobile.webp"
+                        imageAlt={designCourseImageAlt("Branding and Identity Design Mastery")}
                         mobileImageBox={{ left: 18.2, top: 109.17, width: 231.13656616210938, height: 217.26837158203125 }}
                         desktopImageBox1440={{ left: 34, top: 204, width: 431.9148864746094, height: 406 }}
                         titleBoxLg={{ left: 290, top: 34, width: 301, height: 144 }}
@@ -666,6 +685,7 @@ export default function DesignSchoolCoursesPage() {
                         buttonBg="#2592FF"
                         imageSrc="/photos/schools/design/courses/CourseFour.webp"
                         imageSrcMobile="/photos/schools/design/courses/CourseFourMobile.webp"
+                        imageAlt={designCourseImageAlt("UI/UX Design + AI Program")}
                         mobileImageBox={{ left: 18.2, top: 120.94, width: 214.05751037597656, height: 201.21405029296875 }}
                         desktopImageBox1440={{ left: 34, top: 226, width: 400, height: 376 }}
                         titleBoxLg={{ left: 322, top: 34, width: 263, height: 96 }}
@@ -693,6 +713,7 @@ export default function DesignSchoolCoursesPage() {
                         buttonBg="#FF5C00"
                         imageSrc="/photos/schools/design/courses/CourseFive.webp"
                         imageSrcMobile="/photos/schools/design/courses/CourseFiveMobile.webp"
+                        imageAlt={designCourseImageAlt("AI Integrated Video Editing Mastery")}
                         mobileImageBox={{ left: 18.2, top: 120.94, width: 240.814697265625, height: 198.65296936035156 }}
                         imageObjectPosition="left 92%"
                         desktopImageBox1440={{ left: 34, top: 226, width: 450, height: 371.2142028808594 }}

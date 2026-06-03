@@ -17,7 +17,7 @@ const ROWS: Row[] = [
             "It’s a space to explore all sides of design. Learn UI/UX, graphic designing, branding, video editing, and more in a creatively charged environment.",
         lineColor: "#FF5659",
         icon: (
-            <Image src="/photos/schools/design/Vector (3).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (3).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -25,7 +25,7 @@ const ROWS: Row[] = [
         description: "We believe in learning by doing. You’ll get hands-on experience with real design projects, not just theory.",
         lineColor: "#29C76B",
         icon: (
-            <Image src="/photos/schools/design/Vector (4).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (4).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -34,7 +34,7 @@ const ROWS: Row[] = [
             "Our platform is designed for creative learners, making it easy to access lessons, tools, and projects that help you grow as a designer.",
         lineColor: "#2592FF",
         icon: (
-            <Image src="/photos/schools/design/Vector (5).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (5).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -43,7 +43,7 @@ const ROWS: Row[] = [
             "We provide resume-building assistance, mock interviews, and job placement support to help you kick-start your career in graphic design.",
         lineColor: "#8F56FF",
         icon: (
-            <Image src="/photos/schools/design/Vector (6).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (6).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -52,7 +52,7 @@ const ROWS: Row[] = [
             "Learn from real designers who have worked in the industry. They understand the challenges and will guide you with real-world insights.",
         lineColor: "#FF5C00",
         icon: (
-            <Image src="/photos/schools/design/Vector (7).svg" alt="" width={50} height={50} className="h-full w-full object-contain" />
+            <Image src="/photos/schools/design/Vector (7).svg" alt="" aria-hidden="true" width={50} height={50} className="h-full w-full object-contain" />
         ),
     },
     {
@@ -63,7 +63,7 @@ const ROWS: Row[] = [
         icon: (
             <Image
                 src="/photos/schools/design/seo/creativity dsn 1.svg"
-                alt=""
+                alt="" aria-hidden="true"
                 width={50}
                 height={50}
                 className="h-full w-full object-contain"
@@ -78,7 +78,7 @@ const ROWS: Row[] = [
         icon: (
             <Image
                 src="/photos/schools/design/seo/creativity dsn 2.svg"
-                alt=""
+                alt="" aria-hidden="true"
                 width={60}
                 height={59}
                 className="h-full w-full object-contain"

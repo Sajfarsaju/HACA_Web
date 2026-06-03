@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type Props = {
     author: string
     authorRole?: string
@@ -22,10 +24,16 @@ export function BlogAuthorBio({ author, authorRole, authorPhotoUrl, bio = DEFAUL
                    {/* Top row: avatar + name/role */}
             <div className="flex items-center gap-[18px] w-full">
                 {/* Avatar: photo if available, else initial */}
-                <div className="w-[82px] h-[80.5px] rounded-[16px] bg-[#11152B] flex items-center justify-center overflow-hidden shrink-0">
+                <div className="relative w-[82px] h-[80.5px] rounded-[16px] bg-[#11152B] flex items-center justify-center overflow-hidden shrink-0">
                     {authorPhotoUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={authorPhotoUrl} alt={author} className="w-full h-full object-cover" />
+                        <Image
+                            src={authorPhotoUrl}
+                            alt={author}
+                            fill
+                            className="object-cover"
+                            sizes="82px"
+                            unoptimized
+                        />
                     ) : (
                         <span className="text-white text-[32px] font-semibold leading-none tracking-[-0.02em]">
                             {initial}

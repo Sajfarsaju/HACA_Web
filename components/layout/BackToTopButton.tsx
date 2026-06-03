@@ -18,7 +18,7 @@ export function BackToTopButton() {
         >
             <Image
                 src="/photos/main/top pointing arrow button.svg"
-                alt=""
+                alt="" aria-hidden="true"
                 width={58}
                 height={58}
                 className="w-full h-full object-contain"

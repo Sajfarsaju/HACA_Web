@@ -1,3 +1,4 @@
+import { PlacementCtaDecorativeStars } from "@/components/marketing/PlacementCtaDecorativeStars";
 import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
@@ -71,21 +72,9 @@ export function AeCtaSection() {
                     "
                 >
                     {/* Decorative corner SVGs */}
-                    <img
-                        src="/photos/schools/marketing/placements/placement-cta-star-tr.svg"
-                        alt=""
-                        width={297}
-                        height={301}
-                        className="pointer-events-none absolute right-0 top-0 h-auto w-[min(297px,60%)] select-none max-sm:w-[min(180px,50%)]"
-                        aria-hidden
-                    />
-                    <img
-                        src="/photos/schools/marketing/placements/placement-cta-star-bl.svg"
-                        alt=""
-                        width={246}
-                        height={250}
-                        className="pointer-events-none absolute bottom-0 left-0 h-auto w-[min(246px,55%)] select-none max-sm:w-[min(160px,45%)]"
-                        aria-hidden
+                    <PlacementCtaDecorativeStars
+                        topRightClassName="pointer-events-none absolute right-0 top-0 h-auto w-[min(297px,60%)] select-none max-sm:w-[min(180px,50%)]"
+                        bottomLeftClassName="pointer-events-none absolute bottom-0 left-0 h-auto w-[min(246px,55%)] select-none max-sm:w-[min(160px,45%)]"
                     />
 
                     {/* Content */}

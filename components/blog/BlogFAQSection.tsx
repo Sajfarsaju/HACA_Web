@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import type { FaqItem } from "@/lib/blog-data";
@@ -45,9 +46,11 @@ export function BlogFAQSection({ faqs }: BlogFAQSectionProps) {
                   {faq.question}
                 </span>
                 <span className={`shrink-0 w-[32px] h-[32px] flex items-center justify-center transition-transform duration-300 ease max-md:w-[18px] max-md:h-[18px] ${isOpen ? "rotate-45" : ""}`}>
-                  <img
+                  <Image
                     src="/photos/main/plus icon.svg"
                     alt={isOpen ? "Collapse" : "Expand"}
+                    width={32}
+                    height={32}
                     className="w-[32px] h-[32px] block max-md:w-[18px] max-md:h-[18px]"
                   />
                 </span>

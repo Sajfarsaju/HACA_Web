@@ -88,7 +88,7 @@ export function MarketingSeoToolsHiredSection() {
                                 >
                                     <Image
                                         src={toolSrc(tool.file)}
-                                        alt=""
+                                        alt="" aria-hidden="true"
                                         fill
                                         className="object-contain object-center"
                                         sizes="200px"
@@ -104,7 +104,7 @@ export function MarketingSeoToolsHiredSection() {
                                 >
                                     <Image
                                         src={toolSrc(tool.file)}
-                                        alt=""
+                                        alt="" aria-hidden="true"
                                         fill
                                         className="object-contain object-center"
                                         sizes="200px"

@@ -91,7 +91,7 @@ function MentorCard({ mentor }: { mentor: Mentor }) {
                     >
                         <Image
                             src="/photos/main/linkedin icon.svg"
-                            alt=""
+                            alt="" aria-hidden="true"
                             width={24}
                             height={24}
                             className="h-[23.775px] w-[23.775px] max-lg:h-[22.5px] max-lg:w-[22.5px]"
@@ -101,7 +101,7 @@ function MentorCard({ mentor }: { mentor: Mentor }) {
                     <span className="shrink-0 opacity-60" aria-hidden>
                         <Image
                             src="/photos/main/linkedin icon.svg"
-                            alt=""
+                            alt="" aria-hidden="true"
                             width={24}
                             height={24}
                             className="h-[23.775px] w-[23.775px] max-lg:h-[22.5px] max-lg:w-[22.5px]"

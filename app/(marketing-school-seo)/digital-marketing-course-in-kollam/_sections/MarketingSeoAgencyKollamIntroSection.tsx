@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { partnerLogoAltFromFilename } from "@/lib/image-alt-text";
 
 const HEADING_ID = "marketing-kollam-agency-heading";
 const SUB_HEADING_ID = "marketing-kollam-agency-subheading";
@@ -91,8 +92,7 @@ export function MarketingSeoAgencyKollamIntroSection() {
                                         ].join(" ")}
                                     >
                                         <Image
-                                            src={partnerLogoSrc(filename)}
-                                            alt=""
+                                            src={partnerLogoSrc(filename)} alt={partnerLogoAltFromFilename(filename)}
                                             width={160}
                                             height={48}
                                             className="h-auto max-h-[15px] w-auto max-w-[min(100px,28vw)] object-contain object-center brightness-0 invert lg:max-h-[31px] lg:max-w-[129px]"

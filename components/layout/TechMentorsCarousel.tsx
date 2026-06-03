@@ -398,7 +398,7 @@ export function TechMentorsCarousel({
                             <Image
                                 src="/photos/Tech/Active Arowmark.svg"
                                 fill
-                                alt=""
+                                alt="" aria-hidden="true"
                                 className="object-contain"
                             />
                         </button>
@@ -416,7 +416,7 @@ export function TechMentorsCarousel({
                             <Image
                                 src="/photos/Tech/Active Arowmark.svg"
                                 fill
-                                alt=""
+                                alt="" aria-hidden="true"
                                 className="object-contain"
                             />
                         </button>

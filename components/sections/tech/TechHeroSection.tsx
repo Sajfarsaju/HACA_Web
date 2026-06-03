@@ -364,7 +364,7 @@ export default function TechHero() {
                             >
                                 <Image
                                     src="/photos/Tech/Frame 68.svg"
-                                    alt=""
+                                    alt="" aria-hidden="true"
                                     width={20}
                                     height={20}
                                     className={`transition-transform duration-300 ease-in-out ${isDesktopMenuOpen ? "tech-desktop-nav-toggle-open" : ""}`}
@@ -458,7 +458,7 @@ export default function TechHero() {
                         >
                             <Image
                                 src="/photos/Tech/Social Icons.svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 width={18}
                                 height={18}
                                 style={{ objectFit: "contain" }}
@@ -475,7 +475,7 @@ export default function TechHero() {
                         >
                             <Image
                                 src="/photos/Tech/mdi_youtube.svg"
-                                alt=""
+                                alt="" aria-hidden="true"
                                 width={18}
                                 height={18}
                                 style={{ objectFit: "contain" }}

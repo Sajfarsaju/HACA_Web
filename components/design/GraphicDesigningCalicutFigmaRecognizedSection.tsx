@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ALT } from "@/lib/image-alt-text";
 import React from "react";
 
 const BLOCK_IMAGES = [
@@ -50,7 +51,7 @@ export function GraphicDesigningCalicutFigmaRecognizedSection() {
                                 .filter(Boolean)
                                 .join(" ")}
                         >
-                            <Image src={src} alt="" fill className="object-cover object-center" sizes="(min-width: 1024px) 252px, 188px" />
+                            <Image src={src} alt={ALT.calicutFigmaBlock} fill className="object-cover object-center" sizes="(min-width: 1024px) 252px, 188px" />
                         </div>
                     ))}
                 </div>
@@ -118,10 +119,10 @@ export function GraphicDesigningCalicutFigmaRecognizedSection() {
                                             transformOrigin: "center",
                                         }}
                                     >
-                                        <Image src={POINTER_ICON} alt="" fill className="object-contain" />
+                                        <Image src={POINTER_ICON} alt="" aria-hidden="true" fill className="object-contain" />
                                     </span>
                                     <span className="relative hidden lg:block" style={{ width: 59.999999006541884, height: 59.999999006541884 }}>
-                                        <Image src={POINTER_ICON} alt="" fill className="object-contain" />
+                                        <Image src={POINTER_ICON} alt="" aria-hidden="true" fill className="object-contain" />
                                     </span>
                                 </span>
                             </p>

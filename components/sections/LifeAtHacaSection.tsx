@@ -38,7 +38,7 @@ export function LifeAtHacaSection() {
                     <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
                         <Image
                             src="/photos/main/blue arrow.svg"
-                            alt=""
+                            alt="" aria-hidden="true"
                             width={38}
                             height={26}
                             className="w-full h-full object-contain"

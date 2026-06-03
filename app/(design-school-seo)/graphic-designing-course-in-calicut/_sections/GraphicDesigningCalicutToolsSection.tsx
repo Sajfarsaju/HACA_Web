@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
 
 const vc = '"VC Nudge Trial Normal", sans-serif' as const;
@@ -20,10 +21,12 @@ function ToolItem({ t, className }: { t: Tool; className?: string }) {
         <div
             className={["flex items-center gap-4", className].filter(Boolean).join(" ")}
         >
-            <img
+            <Image
                 src={t.icon}
                 alt=""
                 aria-hidden
+                width={56}
+                height={56}
                 className="shrink-0"
                 style={{ width: "clamp(44px, 14vw, 56px)", height: "clamp(44px, 14vw, 56px)" }}
             />

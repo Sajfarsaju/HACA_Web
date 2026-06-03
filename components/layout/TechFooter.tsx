@@ -261,10 +261,11 @@ export function TechFooter({ variant = "default" }: TechFooterProps) {
                             rel="noopener noreferrer"
                             aria-label="Tech School Instagram"
                         >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
+                            <Image
                                 src="/photos/schools/tech/InstaIcon_footer.svg"
                                 alt="Instagram"
+                                width={32}
+                                height={32}
                                 className="h-[100%] w-auto"
                             />
                         </a>
@@ -274,10 +275,11 @@ export function TechFooter({ variant = "default" }: TechFooterProps) {
                             rel="noopener noreferrer"
                             aria-label="Tech School YouTube"
                         >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
+                            <Image
                                 src="/photos/schools/tech/YutubIcon_footer.svg"
                                 alt="Youtube"
+                                width={32}
+                                height={32}
                                 className="h-[100%] w-auto"
                             />
                         </a>

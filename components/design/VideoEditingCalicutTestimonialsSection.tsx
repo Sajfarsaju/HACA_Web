@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ALT } from "@/lib/image-alt-text";
 import { useCallback, useState } from "react";
 import { DM_Sans } from "next/font/google";
 
@@ -110,7 +111,7 @@ function TestimonialAvatar({
             {showImage ? (
                 <Image
                     src={src!}
-                    alt=""
+                    alt={ALT.studentTestimonial}
                     fill
                     className="object-cover object-center"
                     sizes={`${size}px`}
