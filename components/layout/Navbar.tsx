@@ -154,7 +154,7 @@ export function Navbar() {
 
                 {/* Enquire Now Button - Desktop only */}
                 <Link
-                    href="https://harisandcoacademy.com/enquire"
+                    href="/enquire"
                     className="flex flex-row items-center shrink-0 transition-transform duration-200 ease hover:scale-105 max-[1024px]:scale-90 max-[1024px]:origin-right max-[900px]:!scale-[0.8] max-md:!hidden"
                     onClick={closeDropdown}
                 >

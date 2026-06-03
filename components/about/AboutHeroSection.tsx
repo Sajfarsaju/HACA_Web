@@ -35,7 +35,7 @@ export function AboutHeroSection() {
                     transition={{ duration: 0.6, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
                 >
                     <Image
-                        src="/photos/main/about-hero.jpg"
+                        src="/photos/main/WhatsApp%20Image%202026-06-03%20at%203.38.03%20PM.webp"
                         alt="Students learning at HACA"
                         fill
                         className="object-cover"
