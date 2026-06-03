@@ -8,7 +8,8 @@ import { Hero } from "@/components/sections/Hero";
 import { HeroBottom } from "@/components/sections/HeroBottom";
 import { LifeAtHacaSection } from "@/components/sections/LifeAtHacaSection";
 import { MentorsSection } from "@/components/sections/MentorsSection";
-import { PlacementSection, type PlacementGroup } from "@/components/sections/PlacementSection";
+import { PlacementSection } from "@/components/sections/PlacementSection";
+import type { PlacementItem } from "@/lib/placements-api";
 import { SchoolsSection } from "@/components/sections/SchoolsSection";
 import { StayConnectedSection } from "@/components/sections/StayConnectedSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
@@ -17,17 +18,15 @@ import { SectionReveal } from "@/components/animations/SectionReveal";
 
 type HomePageContentProps = {
     homeBlogs: BlogPost[];
-    placementGroups?: PlacementGroup[];
+    placementSlots?: (PlacementItem | null)[];
 };
 
-export function HomePageContent({ homeBlogs, placementGroups }: HomePageContentProps) {
+export function HomePageContent({ homeBlogs, placementSlots }: HomePageContentProps) {
     return (
         <>
             {/* Above-the-fold: own staggered animations inside Hero */}
             <Hero />
-            <SectionReveal sectionIndex={0} delay={0.06} duration={0.55} y={28}>
-                <PlacementSection initialGroups={placementGroups} />
-            </SectionReveal>
+            <PlacementSection initialSlots={placementSlots} />
             <SectionReveal sectionIndex={1} delay={0.06} duration={0.55} y={28}>
                 <WhyHacaSection />
             </SectionReveal>

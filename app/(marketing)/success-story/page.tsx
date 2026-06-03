@@ -1,9 +1,9 @@
-import axios from "axios";
 import { Footer } from "@/components/layout/Footer";
 import {
     SchoolPlacementSection,
     type PlacementItem,
 } from "@/components/success-story/SchoolPlacementSection";
+import { fetchPlacementGroups } from "@/lib/placements-api";
 import { buildSitePageMetadata } from "@/lib/site-page-metadata";
 
 export const metadata = buildSitePageMetadata({
@@ -12,32 +12,8 @@ export const metadata = buildSitePageMetadata({
   canonical: "https://harisandcoacademy.com/success-story/",
 });
 
-type PlacementGroup = {
-    schoolName: string;
-    items: PlacementItem[];
-};
-
 /** Must match admin dropdown + API `schoolName` */
 const SCHOOL_NAMES = ["Marketing School", "Design School", "Tech School"] as const;
-
-async function fetchPlacementGroups(): Promise<PlacementGroup[]> {
-    const base =
-        process.env.NEXT_PUBLIC_BACKEND_URL ??
-        process.env.BACKEND_URL ??
-        "http://127.0.0.1:5000";
-
-    try {
-        const { data } = await axios.get<{ groups?: PlacementGroup[] }>(
-            `${base}/api/placements/grouped?limit=200`,
-            {
-                headers: { "Cache-Control": "no-store" },
-            }
-        );
-        return Array.isArray(data.groups) ? data.groups : [];
-    } catch {
-        return [];
-    }
-}
 
 export default async function SuccessStoryPage() {
     const placementGroups = await fetchPlacementGroups();
@@ -68,7 +44,7 @@ export default async function SuccessStoryPage() {
                     <div className="flex flex-col gap-12 sm:gap-16 md:gap-20 lg:gap-[80px] w-full items-center">
                         {SCHOOL_NAMES.map((schoolName) => {
                             const apiGroup = placementGroups.find((g) => g.schoolName === schoolName);
-                            const apiItems = apiGroup?.items ?? [];
+                            const apiItems: PlacementItem[] = apiGroup?.items ?? [];
 
                             return (
                                 <div

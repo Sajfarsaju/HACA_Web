@@ -1,24 +1,10 @@
 import { HomePageContent } from "@/components/sections/HomePageContent";
-import type { PlacementGroup } from "@/components/sections/PlacementSection";
 import { getLatestBlogsForHome } from "@/lib/blog-api";
+import {
+    buildPlacementSlots,
+    fetchPlacementGroups,
+} from "@/lib/placements-api";
 import { buildSitePageMetadata } from "@/lib/site-page-metadata";
-
-async function fetchPlacementGroups(): Promise<PlacementGroup[]> {
-  const base =
-    process.env.NEXT_PUBLIC_BACKEND_URL ??
-    process.env.BACKEND_URL ??
-    "http://127.0.0.1:5000";
-  try {
-    const res = await fetch(`${base}/api/placements/grouped?limit=200`, {
-      cache: "no-store",
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return Array.isArray(data.groups) ? data.groups : [];
-  } catch {
-    return [];
-  }
-}
 
 export const metadata = buildSitePageMetadata({
   title: "HACA | Digital Marketing, Tech, Finance & Design Courses",
@@ -33,5 +19,12 @@ export default async function HomePage() {
     getLatestBlogsForHome(3),
     fetchPlacementGroups(),
   ]);
-  return <HomePageContent homeBlogs={homeBlogs} placementGroups={placementGroups} />;
+  const placementSlots = buildPlacementSlots(placementGroups);
+
+  return (
+    <HomePageContent
+      homeBlogs={homeBlogs}
+      placementSlots={placementSlots}
+    />
+  );
 }

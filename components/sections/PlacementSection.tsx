@@ -1,107 +1,60 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import axios from "axios"
 import { PlacementCardMedia } from "@/components/success-story/PlacementCardMedia"
+import {
+    buildPlacementSlots,
+    getPublicBackendBase,
+    type PlacementGroup,
+    type PlacementItem,
+    PLACEMENT_TOTAL_SLOTS,
+} from "@/lib/placements-api"
+
+export type { PlacementGroup, PlacementItem } from "@/lib/placements-api"
 
 const COLUMNS = [0, 1, 2, 3, 4]
 const CARDS_PER_COL = 7
-const TOTAL_SLOTS = COLUMNS.length * CARDS_PER_COL
-
-export type PlacementItem = {
-    _id: string
-    title: string | null
-    imageUrl: string
-    /** ISO string from API — used to mix latest across schools in last two columns */
-    createdAt?: string | null
-}
-
-export type PlacementGroup = { schoolName: string; items: PlacementItem[] }
-
-/** Column 0–2: fixed school order (API already returns newest-first per school). */
-const SCHOOL_BY_COLUMN: [string, string, string] = [
-    "Tech School",
-    "Marketing School",
-    "Design School",
-]
-
-/**
- * Column-major slots: col0 = indices 0..6, col1 = 7..13, …
- * Col 0–2 (desktop cols 1–3): latest 7 per school — Tech, Marketing, Design.
- * Col 3–4 (desktop cols 4–5): remaining cards merged, sorted by latest first (all schools mixed).
- */
-function buildPlacementSlots(groups: PlacementGroup[]): (PlacementItem | null)[] {
-    const bySchool = new Map<string, PlacementItem[]>()
-    for (const g of groups) {
-        if (g.schoolName && Array.isArray(g.items)) {
-            bySchool.set(g.schoolName, g.items)
-        }
-    }
-
-    const next: (PlacementItem | null)[] = Array.from({ length: TOTAL_SLOTS }, () => null)
-    const usedIds = new Set<string>()
-
-    SCHOOL_BY_COLUMN.forEach((schoolName, colIndex) => {
-        const schoolItems = bySchool.get(schoolName) ?? []
-        for (let i = 0; i < CARDS_PER_COL; i++) {
-            const item = schoolItems[i] ?? null
-            const slotIndex = colIndex * CARDS_PER_COL + i
-            next[slotIndex] = item
-            if (item) usedIds.add(item._id)
-        }
-    })
-
-    const allItems: PlacementItem[] = []
-    for (const g of groups) {
-        if (Array.isArray(g.items)) allItems.push(...g.items)
-    }
-    const pool = allItems.filter((item) => !usedIds.has(item._id))
-    const mixedLatest = [...pool].sort((a, b) => {
-        const ta = a.createdAt ? new Date(a.createdAt).getTime() : 0
-        const tb = b.createdAt ? new Date(b.createdAt).getTime() : 0
-        return tb - ta
-    })
-
-    for (let c = 0; c < 2; c++) {
-        const colIndex = 3 + c
-        for (let i = 0; i < CARDS_PER_COL; i++) {
-            const slotIndex = colIndex * CARDS_PER_COL + i
-            const pick = mixedLatest[c * CARDS_PER_COL + i]
-            next[slotIndex] = pick ?? null
-        }
-    }
-
-    return next
-}
+const EMPTY_SLOTS = Array.from({ length: PLACEMENT_TOTAL_SLOTS }, () => null)
 
 /** Same card shell as success-story `SchoolPlacementSection`. */
 const placementCardClassName =
     "group relative flex flex-col bg-[#0A0C16] overflow-hidden border border-[#232D6B]/30 hover:border-[#232D6B] transition-all duration-500 shadow-2xl w-full shrink-0 min-w-0 rounded-[10px] aspect-[247.6561737060547/270]"
 
-export function PlacementSection({ initialGroups }: { initialGroups?: PlacementGroup[] }) {
+export function PlacementSection({
+    initialSlots,
+}: {
+    /** Pre-built slots from the server (home page). */
+    initialSlots?: (PlacementItem | null)[];
+}) {
     const router = useRouter()
-    const [slots, setSlots] = useState<(PlacementItem | null)[]>(() =>
-        initialGroups
-            ? buildPlacementSlots(initialGroups)
-            : Array.from({ length: TOTAL_SLOTS }, () => null)
+    const hasServerSlots = Boolean(initialSlots?.some((slot) => slot != null))
+    const [clientSlots, setClientSlots] = useState<(PlacementItem | null)[] | null>(
+        null
     )
 
+    const slots = useMemo(() => {
+        if (hasServerSlots && initialSlots) return initialSlots
+        if (clientSlots?.some((slot) => slot != null)) return clientSlots
+        return EMPTY_SLOTS
+    }, [hasServerSlots, initialSlots, clientSlots])
+
     useEffect(() => {
-        if (initialGroups?.length) return
-        const base = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:5000"
+        if (hasServerSlots) return
         axios
-            .get<{ groups?: PlacementGroup[] }>(`${base}/api/placements/grouped?limit=200`)
+            .get<{ groups?: PlacementGroup[] }>(
+                `${getPublicBackendBase()}/api/placements/grouped?limit=200`
+            )
             .then(({ data }) => {
                 const groups = data.groups
-                if (!Array.isArray(groups)) return
-                setSlots(buildPlacementSlots(groups))
+                if (!Array.isArray(groups) || groups.length === 0) return
+                setClientSlots(buildPlacementSlots(groups))
             })
             .catch(() => {})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [hasServerSlots])
 
     return (
         <section className="w-full section-4k mx-auto pt-[84px] px-[60px] pb-[32px] flex flex-col items-center gap-[36px] opacity-100 overflow-hidden max-[600px]:max-w-full max-[600px]:p-[20px_clamp(16px,5vw,24px)] max-[600px]:gap-[26px]">

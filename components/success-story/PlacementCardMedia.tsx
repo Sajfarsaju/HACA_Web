@@ -29,7 +29,7 @@ export function PlacementCardMedia({ imageUrl, alt, className = "" }: Props) {
     const src = imageUrl!.trim();
 
     return (
-        <div className={`relative overflow-hidden ${className}`}>
+        <div className={`relative h-full w-full min-h-[120px] overflow-hidden ${className}`}>
             <Image
                 src={src}
                 alt={alt}

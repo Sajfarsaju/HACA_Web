@@ -67,12 +67,6 @@ const cardClassName =
 const gridClassName =
     "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 w-full gap-[14px] md:gap-[50px]";
 
-const scrollViewport = {
-    once: true,
-    amount: 0.12 as const,
-    margin: "0px 0px -10% 0px" as const,
-};
-
 type Props = {
     schoolName: string;
     items: PlacementItem[];
@@ -95,18 +89,23 @@ function CardMediaBlock({
     );
 }
 
-/** Staggered when the grid scrolls into view (first row / placeholders). */
-function StaggerGrid({ children }: { children: ReactNode }) {
+/** Stagger on mount only — whileInView left cards stuck at opacity:0 when already in viewport. */
+function StaggerGrid({
+    children,
+    animateOnMount = false,
+}: {
+    children: ReactNode;
+    animateOnMount?: boolean;
+}) {
     const reduce = useReducedMotion();
-    if (reduce) {
+    if (reduce || !animateOnMount) {
         return <div className={gridClassName}>{children}</div>;
     }
     return (
         <motion.div
             className={gridClassName}
             initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.12, margin: "0px 0px -8% 0px" }}
+            animate="show"
             variants={staggerContainerVariants}
         >
             {children}
@@ -114,9 +113,15 @@ function StaggerGrid({ children }: { children: ReactNode }) {
     );
 }
 
-function StaggerCard({ children }: { children: ReactNode }) {
+function StaggerCard({
+    children,
+    animated = false,
+}: {
+    children: ReactNode;
+    animated?: boolean;
+}) {
     const reduce = useReducedMotion();
-    if (reduce) {
+    if (reduce || !animated) {
         return <div className={cardClassName}>{children}</div>;
     }
     return (
@@ -126,23 +131,13 @@ function StaggerCard({ children }: { children: ReactNode }) {
     );
 }
 
-/** Each card animates when it enters the viewport (expanded “View more” grid). */
+function PlacementCardShell({ children }: { children: ReactNode }) {
+    return <div className={cardClassName}>{children}</div>;
+}
+
+/** Expanded “View more” row — visible by default (same whileInView opacity bug as StaggerGrid). */
 function ScrollRevealCard({ children }: { children: ReactNode }) {
-    const reduce = useReducedMotion();
-    if (reduce) {
-        return <div className={cardClassName}>{children}</div>;
-    }
-    return (
-        <motion.div
-            className={cardClassName}
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={scrollViewport}
-            transition={{ duration: 0.5, ease }}
-        >
-            {children}
-        </motion.div>
-    );
+    return <PlacementCardShell>{children}</PlacementCardShell>;
 }
 
 export function SchoolPlacementSection({ schoolName, items }: Props) {
@@ -163,11 +158,11 @@ export function SchoolPlacementSection({ schoolName, items }: Props) {
         prevExpanded.current = expanded;
     }, [expanded]);
 
-    const renderStaggerCard = useCallback(
+    const renderPlacementCard = useCallback(
         (item: PlacementItem) => (
-            <StaggerCard key={item._id}>
+            <PlacementCardShell key={item._id}>
                 <CardMediaBlock item={item} schoolName={schoolName} />
-            </StaggerCard>
+            </PlacementCardShell>
         ),
         [schoolName]
     );
@@ -183,9 +178,9 @@ export function SchoolPlacementSection({ schoolName, items }: Props) {
 
     if (items.length === 0) {
         return (
-            <StaggerGrid>
+            <StaggerGrid animateOnMount>
                 {Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => (
-                    <StaggerCard key={`placeholder-${schoolName}-${i}`}>
+                    <StaggerCard key={`placeholder-${schoolName}-${i}`} animated>
                         <div className="relative w-full h-full overflow-hidden flex-1 min-h-0">
                             <PlacementCardMedia imageUrl={null} alt="" />
                         </div>
@@ -197,8 +192,10 @@ export function SchoolPlacementSection({ schoolName, items }: Props) {
 
     return (
         <div className="flex w-full flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-            {/* First batch always stays mounted; expanded content appends below (no full-grid swap). */}
-            <StaggerGrid>{firstRow.map((item) => renderStaggerCard(item))}</StaggerGrid>
+            {/* Real placement photos: no opacity-0 stagger (data is already loaded). */}
+            <div className={gridClassName}>
+                {firstRow.map((item) => renderPlacementCard(item))}
+            </div>
 
             {expanded && rest.length > 0 ? (
                 <div className={gridClassName}>{rest.map((item) => renderScrollRevealCard(item))}</div>
