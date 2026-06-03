@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { MarketingHeroSection } from "@/components/marketing/MarketingHeroSection";
 import { MarketingImpactSection } from "@/components/marketing/MarketingImpactSection";
 import { MarketingCoursesSection } from "@/components/marketing/MarketingCoursesSection";
@@ -19,9 +18,24 @@ import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { MarketingTestimonialsAndFaqWrapper } from "@/components/marketing/MarketingTestimonialsAndFaqWrapper";
 import { MarketingPageColorLayer } from "@/components/marketing/MarketingPageColorLayer";
 
-export const metadata: Metadata = {
-    title: "Marketing School | HACA",
-    description: "HACA Marketing School page.",
+export const metadata = {
+  title: "Digital Marketing School by HACA | Learn in a Career-Driven Ecosystem",
+  description:
+    "Build your digital marketing career with HACA's expert-led digital marketing school, part of a thriving ecosystem. Get hands-on training and expert mentorship.",
+  openGraph: {
+    title: "Digital Marketing School by HACA | Learn in a Career-Driven Ecosystem",
+    description:
+      "Build your digital marketing career with HACA's expert-led digital marketing school, part of a thriving ecosystem. Get hands-on training and expert mentorship.",
+    url: "https://harisandcoacademy.com/marketing-school/",
+    siteName: "Haris & Co Academy",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Digital Marketing School by HACA | Learn in a Career-Driven Ecosystem",
+    description:
+      "Build your digital marketing career with HACA's expert-led digital marketing school, part of a thriving ecosystem. Get hands-on training and expert mentorship.",
+  },
 };
 
 export default async function MarketingSchoolPage() {

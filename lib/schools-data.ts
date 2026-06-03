@@ -14,9 +14,4 @@ export const schoolData: Record<string, { title: string; description: string; cu
         description: "Deep dive into production-grade engineering and architecture.",
         curriculum: ["Next.js Masterclass", "Cloud Native Architectures", "Security Foundations", "DevOps at Scale"],
     },
-    finance: {
-        title: "Finance School",
-        description: "The intersection of business strategy and digital finance.",
-        curriculum: ["Fintech Ecosystems", "Digital Economy", "Venture Capital basics", "Business Analysis"],
-    },
 };

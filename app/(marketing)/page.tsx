@@ -1,17 +1,25 @@
 import { HomePageContent } from "@/components/sections/HomePageContent";
 import { getLatestBlogsForHome } from "@/lib/blog-api";
-import type { Metadata } from "next"
 
-export const metadata: Metadata = {
-  title: "HACA | Build Production-Grade Web Experiences",
-  description: "The official website of HACA. Experience the ultimate fusion of performance, design, and developer efficiency with our production-ready tech stack.",
+export const metadata = {
+  title: "HACA | Digital Marketing, Tech, Finance & Design Courses",
+  description:
+    "Build real-world skills with practical courses in digital marketing, technology, finance, and design. Learn through hands-on projects and industry-focused training.",
   openGraph: {
-    title: "HACA | Build Production-Grade Web Experiences",
-    description: "Enterprise-ready foundations for modern web applications.",
+    title: "HACA | Digital Marketing, Tech, Finance & Design Courses",
+    description:
+      "Build real-world skills with practical courses in digital marketing, technology, finance, and design. Learn through hands-on projects and industry-focused training.",
+    url: "https://harisandcoacademy.com/",
+    siteName: "Haris & Co Academy",
     type: "website",
-    url: "https://haca-web.com",
   },
-}
+  twitter: {
+    card: "summary_large_image",
+    title: "HACA | Digital Marketing, Tech, Finance & Design Courses",
+    description:
+      "Build real-world skills with practical courses in digital marketing, technology, finance, and design. Learn through hands-on projects and industry-focused training.",
+  },
+};
 
 export default async function HomePage() {
   const homeBlogs = await getLatestBlogsForHome(3);

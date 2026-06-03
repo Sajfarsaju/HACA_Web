@@ -29,17 +29,13 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
         pathname === "/schools/design" ||
         pathname.startsWith("/schools/design/") ||
         isDesignSchoolSeoPath(pathname);
-    const isFinanceSchool =
-        pathname === "/finance-school" ||
-        pathname.startsWith("/finance-school/");
     const isHome = pathname === "/";
     const excludeLayout =
         isTechSchool ||
         isTechSchoolSeo ||
         isMarketingSchool ||
         isMarketingSchoolSeo ||
-        isDesignSchool ||
-        isFinanceSchool;
+        isDesignSchool;
 
     return (
         <>

@@ -5,6 +5,26 @@ import TechHero from "@/components/sections/tech/TechHeroSection";
 import { TechIntroSection } from "@/components/sections/tech/TechIntroSection";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 
+export const metadata = {
+  title: "AI-Infused Coding Courses | Learn to Code Smarter at Tech School",
+  description:
+    "Learn to code with AI at Tech School-master MERN, Flutter, Python & analytics. Build the future with skills that go beyond basics.",
+  openGraph: {
+    title: "AI-Infused Coding Courses | Learn to Code Smarter at Tech School",
+    description:
+      "Learn to code with AI at Tech School-master MERN, Flutter, Python & analytics. Build the future with skills that go beyond basics.",
+    url: "https://harisandcoacademy.com/tech-school/",
+    siteName: "Haris & Co Academy",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI-Infused Coding Courses | Learn to Code Smarter at Tech School",
+    description:
+      "Learn to code with AI at Tech School-master MERN, Flutter, Python & analytics. Build the future with skills that go beyond basics.",
+  },
+};
+
 // Below-fold sections — loaded only when browser is idle / user scrolls
 const TechShowcaseSection   = dynamic(() => import("@/components/sections/tech/TechShowcaseSection").then(m => ({ default: m.TechShowcaseSection })));
 const TechPathSection       = dynamic(() => import("@/components/sections/tech/TechPathSection").then(m => ({ default: m.TechPathSection })));

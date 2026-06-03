@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { schoolData } from "@/lib/schools-data";
 import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntroAnimation";
 import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
@@ -27,9 +26,24 @@ const DESIGN_SERIF_FONT = '"IvyPresto Display", serif';
 
 const school = schoolData.design;
 
-export const metadata: Metadata = {
-    title: `${school.title} | HACA`,
-    description: school.description,
+export const metadata = {
+  title: "Master Graphic Design & UI/UX Skills | Design School by HACA",
+  description:
+    "Join Design School at HACA to master graphic design, UI/UX, and motion graphics with expert mentors. Learn through hands-on projects and real-world applications!",
+  openGraph: {
+    title: "Master Graphic Design & UI/UX Skills | Design School by HACA",
+    description:
+      "Join Design School at HACA to master graphic design, UI/UX, and motion graphics with expert mentors. Learn through hands-on projects and real-world applications!",
+    url: "https://harisandcoacademy.com/design-school/",
+    siteName: "Haris & Co Academy",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Master Graphic Design & UI/UX Skills | Design School by HACA",
+    description:
+      "Join Design School at HACA to master graphic design, UI/UX, and motion graphics with expert mentors. Learn through hands-on projects and real-world applications!",
+  },
 };
 
 export default async function DesignSchoolPage() {

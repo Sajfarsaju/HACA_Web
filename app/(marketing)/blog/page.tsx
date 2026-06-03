@@ -3,8 +3,23 @@ import { BLOG_POSTS } from "@/lib/blog-data"
 import { fetchPublicBlogs } from "@/lib/blog-api"
 
 export const metadata = {
-    title: "Blogs | HACA",
-    description: "Insights and tutorials on engineering, design, and marketing from the HACA team.",
+  title: "Blog - Haris & Co Academy",
+  description:
+    "Fuel your creative and professional fire with insights on digital marketing, tech, design, and careers.",
+  openGraph: {
+    title: "Blog - Haris & Co Academy",
+    description:
+      "Fuel your creative and professional fire with insights on digital marketing, tech, design, and careers.",
+    url: "https://harisandcoacademy.com/blog",
+    siteName: "Haris & Co Academy",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog - Haris & Co Academy",
+    description:
+      "Fuel your creative and professional fire with insights on digital marketing, tech, design, and careers.",
+  },
 }
 
 export default async function BlogPage() {
