@@ -90,7 +90,7 @@ export function PlacementSection({ initialGroups }: { initialGroups?: PlacementG
     )
 
     useEffect(() => {
-        if (initialGroups) return
+        if (initialGroups?.length) return
         const base = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:5000"
         axios
             .get<{ groups?: PlacementGroup[] }>(`${base}/api/placements/grouped?limit=200`)
