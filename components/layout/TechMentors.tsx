@@ -1,6 +1,10 @@
-import { TechMentorsCarousel } from "@/components/layout/TechMentorsCarousel";
+import { TechMentorsCarousel, type TechMentorCard } from "@/components/layout/TechMentorsCarousel";
 
-export function TechMentors() {
+type Props = {
+    mentors: TechMentorCard[];
+};
+
+export function TechMentors({ mentors }: Props) {
     return (
         <section className="relative -mb-[120px] flex h-auto min-h-[828px] w-full flex-col items-center gap-[60px] overflow-hidden bg-transparent px-[clamp(16px,4vw,60px)] pb-[80px] pt-0 sm:mb-0 lg:pt-[10px] xl:pt-[60px]">
             <div className="relative z-10 flex w-full flex-col items-center gap-[60px]">
@@ -14,7 +18,7 @@ export function TechMentors() {
                     </p>
                 </div>
 
-                <TechMentorsCarousel className="w-full" />
+                <TechMentorsCarousel className="w-full" initialMentors={mentors} />
             </div>
         </section>
     );
