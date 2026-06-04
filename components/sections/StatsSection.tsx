@@ -5,8 +5,8 @@ import React, { useEffect, useRef, useState } from "react"
 const RAW_STATS = [
     { value: 15, suffix: "+", label: "Professional Courses" },
     { value: 150, suffix: "+", label: "Expert Mentors" },
-    { value: 200, suffix: "+", label: "Placement Partners" },
-    { value: 1000, suffix: "+", label: "Placements" },
+    { value: 500, suffix: "+", label: "Placement Partners" },
+    { value: 2000, suffix: "+", label: "Placements" },
 ]
 
 export function StatsSection() {

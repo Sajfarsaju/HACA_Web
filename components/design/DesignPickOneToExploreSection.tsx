@@ -25,7 +25,7 @@ export function DesignPickOneToExploreSection() {
 
     return (
         <section
-            className="w-full h-full bg-black flex flex-col items-center justify-center
+            className="w-full lg:h-full bg-black flex flex-col items-center justify-center
                        gap-[30px] lg:gap-[60px]
                        px-[20px] lg:px-[54px]
                        py-[40px]"

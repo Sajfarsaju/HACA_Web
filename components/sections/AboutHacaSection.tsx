@@ -41,7 +41,7 @@ export function AboutHacaSection() {
                         </p>
                         <Link
                             href="/about"
-                            className="flex items-center justify-center no-underline max-md:mx-auto"
+                            className="inline-flex items-center justify-start no-underline self-start max-md:mx-auto max-md:self-center"
                             aria-label="Know more about us"
                         >
                             <motion.button

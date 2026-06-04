@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useId, useState } from "react";
+import { useId, useState, type ReactNode } from "react";
 
 const Q_MARK_SRC = "/photos/schools/design/Group%20(5).svg";
 
@@ -12,39 +12,72 @@ type FaqItem = {
     id: string;
     q: string;
     plusColor: string;
-    a: string;
+    a: ReactNode;
 };
+
+const designFaqAnswerLinkClass =
+    "text-[#0A0A0A] underline underline-offset-[3px] decoration-[#0A0A0A]/35 hover:decoration-[#8F56FF] transition-colors";
 
 const FAQ_ITEMS: FaqItem[] = [
     {
         id: "design-faq-1",
-        q: "What makes HACA design school different from others?",
+        q: "What is HACA, and how is it different from other institutes?",
         plusColor: "#8F56FF",
-        a: "We combine studio-style projects, mentor feedback, and real briefs—not just slides and tool demos—so you learn to think visually, present ideas clearly, and build a portfolio that reflects how you solve problems.",
+        a: (
+            <>
+                HACA is a practical, job-oriented academy built inside Haris&Co., one of{" "}
+                <a
+                    href="https://harisand.co/digital-marketing-agency-in-kerala"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={designFaqAnswerLinkClass}
+                >
+                    Kerala’s leading digital marketing agencies.
+                </a>{" "}
+                Every course here is designed inside a real agency environment, so instead of just learning theories, you work on live projects, real brands, and hands-on campaigns. That’s what makes HACA one of the most career-focused institutes in Kerala for digital marketing, design, tech, and finance.
+            </>
+        ),
     },
     {
         id: "design-faq-2",
-        q: "Do you focus only on tools or also on creative thinking?",
+        q: "Which courses are offered at HACA?",
         plusColor: "#FF5C00",
-        a: "Both. Tools support the work, but assignments are built around ideas, restraint, typography, composition, and iteration so your creative judgement grows alongside technical skill.",
+        a: "We currently have four schools under HACA: Marketing, Design, Tech, and Finance. Each one focuses on building practical, job-ready skills through hands-on training and real-world experience.",
     },
     {
         id: "design-faq-3",
-        q: "Do I need a design background to join?",
+        q: "Are HACA courses beginner-friendly?",
         plusColor: "#2592FF",
-        a: "No. Many students start fresh. Curiosity and consistency matter most; we scaffold fundamentals before moving into more advanced craft and branding projects.",
+        a: "Absolutely. You don’t need prior experience to join. Whether you’re a 12th pass-out, college student, or someone switching careers, our mentors teach everything from scratch with real examples and projects.",
     },
     {
         id: "design-faq-4",
-        q: "What kind of roles can I move into after joining these creative courses?",
+        q: "Does HACA offer online or offline classes?",
         plusColor: "#29C76B",
-        a: "Graduates often pursue paths like graphic designer, visual designer, branding assistant, presentation designer, freelance visual work, or further specialisation after building a credible body of projects.",
+        a: (
+            <>
+                HACA offers both offline and online courses, depending on the program. Our offline campuses in{" "}
+                <a
+                    href="https://harisandcoacademy.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={designFaqAnswerLinkClass}
+                >
+                    Calicut
+                </a>{" "}
+                and{" "}
+                <a href="https://www.haca.ae/" target="_blank" rel="noopener noreferrer" className={designFaqAnswerLinkClass}>
+                    Dubai
+                </a>{" "}
+                are built for hands-on collaboration and real project experience, while select programs are also available online for flexible learning. You can visit the individual school pages to know which courses are offered online and offline.
+            </>
+        ),
     },
     {
         id: "design-faq-5",
-        q: "What kind of learning environment can I expect?",
+        q: "Which is the best institute for digital marketing, design, and tech courses in Kerala?",
         plusColor: "#F25555",
-        a: "Expect a calm, critique-friendly studio vibe: deadlines, checkpoints, collaborative reviews, and space to rework ideas until they feel deliberate—not rushed template output.",
+        a: "If you’re looking for agency-based learning that leads to actual jobs, HACA is among the top-rated choices in Kerala. We’re backed by Haris&Co., have 200+ placement partners, and focus purely on career outcomes, not theory.",
     },
 ];
 

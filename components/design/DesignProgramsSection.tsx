@@ -194,6 +194,19 @@ export function DesignProgramsSection() {
     const cardRefs       = useRef<(HTMLDivElement | null)[]>([]);
     const exploreCardRef = useRef<HTMLDivElement>(null);
     const [wrapperH, setWrapperH] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect mobile before first paint so layout is correct immediately
+    useLayoutEffect(() => {
+        setIsMobile(window.innerWidth < 768);
+    }, []);
+
+    // Keep in sync on resize
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener("resize", check, { passive: true });
+        return () => window.removeEventListener("resize", check);
+    }, []);
 
     // Animation progress 0 → (N-1)*PROGRESS_PER_CARD
     const progress    = useRef(0);
@@ -209,6 +222,7 @@ export function DesignProgramsSection() {
 
     // Measure max card height before first paint; push cards 1-N off-screen.
     useLayoutEffect(() => {
+        if (window.innerWidth < 768) return;
         const card0 = cardRefs.current[0];
         if (!card0) return;
         const h = Math.max(...cardRefs.current.map(c => c?.offsetHeight ?? 0));
@@ -227,6 +241,7 @@ export function DesignProgramsSection() {
         const card0 = cardRefs.current[0];
         if (!card0) return;
         const onResize = () => {
+            if (window.innerWidth < 768) return;
             const h = Math.max(...cardRefs.current.map(c => c?.offsetHeight ?? 0));
             if (h > 0) setWrapperH(h);
         };
@@ -237,7 +252,7 @@ export function DesignProgramsSection() {
     // ── Main hijack + animation effect ──────────────────────────────────────────
     useEffect(() => {
         const container = containerRef.current;
-        if (!container || wrapperH === 0) return;
+        if (!container || wrapperH === 0 || isMobile) return;
 
         // One extra virtual card for the DesignPickOneToExploreSection
         const max = PROGRAMS.length * PROGRESS_PER_CARD;
@@ -477,41 +492,41 @@ export function DesignProgramsSection() {
             preventScrollLock = false;
             if (raf.current !== null) cancelAnimationFrame(raf.current);
         };
-    }, [wrapperH]);
+    }, [wrapperH, isMobile]);
 
     return (
         <>
-            <div ref={containerRef} style={{ overflowX: "hidden" }}>
+            <div ref={containerRef} style={{ overflowX: isMobile ? undefined : "hidden" }}>
                 <div
-                    className="relative overflow-hidden"
-                    style={{ height: wrapperH > 0 ? wrapperH : undefined }}
+                    className={isMobile ? "relative" : "relative overflow-hidden"}
+                    style={{ height: !isMobile && wrapperH > 0 ? wrapperH : undefined }}
                 >
                     {PROGRAMS.map((program, i) => (
                         <div
                             key={i}
                             ref={el => { cardRefs.current[i] = el; }}
                             className={
-                                i === 0
+                                isMobile || i === 0
                                     ? "relative"
                                     : "absolute top-0 left-0 right-0"
                             }
                             style={{
                                 zIndex:     i + 1,
-                                willChange: "transform",
+                                willChange: isMobile ? "auto" : "transform",
                             }}
                         >
                             <DesignProgramCard {...program} />
                         </div>
                     ))}
-                    {/* Explore section slides in as the final stacked card on all screen sizes */}
+                    {/* Explore section slides in on desktop; renders normally in flow on mobile */}
                     <div
                         ref={exploreCardRef}
-                        className="flex flex-col absolute top-0 left-0 right-0"
+                        className={isMobile ? "flex flex-col relative" : "flex flex-col absolute top-0 left-0 right-0"}
                         style={{
                             zIndex:     PROGRAMS.length + 1,
-                            willChange: "transform",
-                            height:     wrapperH > 0 ? wrapperH : undefined,
-                            overflow:   "hidden",
+                            willChange: isMobile ? "auto" : "transform",
+                            height:     !isMobile && wrapperH > 0 ? wrapperH : undefined,
+                            overflow:   isMobile ? undefined : "hidden",
                         }}
                     >
                         <DesignPickOneToExploreSection />

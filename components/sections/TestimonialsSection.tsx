@@ -12,8 +12,7 @@ const testimonials = [
     { id: 0, quote: "The digital marketing classes were practical, up to date, and easy to follow. The mentors were incredibly supportive, and the mock interviews really boosted my confidence.", name: "Nadha Faizal", role: "Digital Marketer" },
     { id: 1, quote: "HACA's design school gave me the skills to land my dream job. The portfolio projects were exactly what recruiters wanted to see.", name: "Priya Sharma", role: "UI/UX Designer" },
     { id: 2, quote: "I switched from a non-tech background to a developer role in 6 months. The tech school curriculum is intense but worth every hour.", name: "Arjun Mehta", role: "Full Stack Developer" },
-    { id: 3, quote: "The finance courses helped me understand real-world analysis. Now I work at a leading investment firm.", name: "Sneha Reddy", role: "Financial Analyst" },
-    { id: 4, quote: "Best decision I made for my career. The placement support and industry connections opened doors I never thought possible.", name: "Rahul Kumar", role: "Marketing Manager" },
+    { id: 3, quote: "Best decision I made for my career. The placement support and industry connections opened doors I never thought possible.", name: "Rahul Kumar", role: "Marketing Manager" },
 ]
 
 function mod(n: number, m: number) { return ((n % m) + m) % m }
