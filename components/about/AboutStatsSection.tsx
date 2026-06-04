@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from "react"
 
 const RAW_STATS = [
     { value: 4, suffix: "+", label: "Years of Skill-First Education" },
-    { value: 20, suffix: "+", label: "Career-Focused Programs" },
-    { value: 230, suffix: "+", label: "Industry Trainers & Mentors" },
-    { value: 1000, suffix: "+", label: "Professionals Placed" },
+    { value: 15, suffix: "+", label: "Career-Focused Programs" },
+    { value: 150, suffix: "+", label: "Industry Trainers & Mentors" },
+    { value: 2000, suffix: "+", label: "Professionals Placed" },
 ]
 
 export function AboutStatsSection() {

@@ -2,34 +2,66 @@
 
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
+import { useState, type ReactNode } from "react"
 
-/* ── FAQ data — updated with dummy answers ── */
-const faqs = [
+const faqAnswerLinkClass =
+    "text-[#FFFFFF] underline underline-offset-[3px] decoration-[#A7ADBE]/60 hover:decoration-[#FFFFFF] transition-colors"
+
+const faqs: { id: number; question: string; answer: ReactNode }[] = [
     {
         id: 1,
         question: "What is HACA, and how is it different from other institutes?",
-        answer: "HACA is a production-grade learning platform that focuses on real-world engineering practices. Unlike traditional institutes, we prioritize performance, design systems, and developer efficiency through a hands-on, project-based curriculum.",
+        answer: (
+            <>
+                HACA is a practical, job-oriented academy built inside Haris&Co., one of{" "}
+                <a
+                    href="https://harisand.co/digital-marketing-agency-in-kerala"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={faqAnswerLinkClass}
+                >
+                    Kerala’s leading digital marketing agencies.
+                </a>{" "}
+                Every course here is designed inside a real agency environment, so instead of just learning theories, you work on live projects, real brands, and hands-on campaigns. That’s what makes HACA one of the most career-focused institutes in Kerala for digital marketing, design, tech, and finance.
+            </>
+        ),
     },
     {
         id: 2,
-        question: "What courses does HACA offer for beginners?",
-        answer: "We offer foundational courses in Web Development, UI/UX Design, and Digital Marketing specifically tailored for beginners to build a strong professional portfolio from scratch.",
+        question: "Which courses are offered at HACA?",
+        answer: "We currently have four schools under HACA: Marketing, Design, Tech, and Finance. Each one focuses on building practical, job-ready skills through hands-on training and real-world experience.",
     },
     {
         id: 3,
-        question: "Do I need prior experience to join HACA programs?",
-        answer: "No prior experience is required for our beginner modules. We guide you through the basics of design and development before moving into advanced production-ready concepts.",
+        question: "Are HACA courses beginner-friendly?",
+        answer: "Absolutely. You don’t need prior experience to join. Whether you’re a 12th pass-out, college student, or someone switching careers, our mentors teach everything from scratch with real examples and projects.",
     },
     {
         id: 4,
-        question: "What kind of support does HACA provide after placement?",
-        answer: "Our support continues even after you land a job. We provide mentorship, code reviews, and access to our alumni network to ensure you thrive in your new professional role.",
+        question: "Does HACA offer online or offline classes?",
+        answer: (
+            <>
+                HACA offers both offline and online courses, depending on the program. Our offline campuses in{" "}
+                <a
+                    href="https://harisandcoacademy.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={faqAnswerLinkClass}
+                >
+                    Calicut
+                </a>{" "}
+                and{" "}
+                <a href="https://www.haca.ae/" target="_blank" rel="noopener noreferrer" className={faqAnswerLinkClass}>
+                    Dubai
+                </a>{" "}
+                are built for hands-on collaboration and real project experience, while select programs are also available online for flexible learning. You can visit the individual school pages to know which courses are offered online and offline.
+            </>
+        ),
     },
     {
         id: 5,
-        question: "How long does it take to complete a course at HACA?",
-        answer: "Course duration varies from 3 to 6 months depending on the program intensity and the specific track you choose, ensuring you have enough time to master the required skills.",
+        question: "Which is the best institute for digital marketing, design, and tech courses in Kerala?",
+        answer: "If you’re looking for agency-based learning that leads to actual jobs, HACA is among the top-rated choices in Kerala. We’re backed by Haris&Co., have 500+ placement partners, and focus purely on career outcomes, not theory.",
     },
 ]
 

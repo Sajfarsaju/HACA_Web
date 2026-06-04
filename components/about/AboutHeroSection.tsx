@@ -8,6 +8,9 @@ const fadeUp = {
     animate: { opacity: 1, y: 0 },
 }
 
+const heroBodyLinkClass =
+    "text-white underline underline-offset-[3px] decoration-[#A7ADBE]/60 hover:decoration-white transition-colors"
+
 export function AboutHeroSection() {
     return (
         <section className="w-full section-4k mx-auto pt-[120px] pb-[80px] flex flex-col items-center gap-[100px] px-[clamp(20px,4vw,60px)] max-md:pt-[24px] max-md:pb-[60px] max-md:gap-[30px]">
@@ -35,8 +38,8 @@ export function AboutHeroSection() {
                     transition={{ duration: 0.6, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
                 >
                     <Image
-                        src="/photos/main/WhatsApp%20Image%202026-06-03%20at%203.38.03%20PM.webp"
-                        alt="Students learning at HACA"
+                        src="/photos/main/Welcome%20to%20HACA.webp"
+                        alt="Welcome to HACA"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 335px, (max-width: 1200px) 34vw, 487px"
@@ -58,9 +61,17 @@ export function AboutHeroSection() {
                             Welcome to HACA
                         </h3>
                         <p className="font-rethink font-medium text-[clamp(16px,1.25vw,20px)] leading-[clamp(28px,2.1vw,34px)] text-[#A7ADBE] m-0">
-                            HACA ( Haris &amp; Co Academy ) is a multidisciplinary professional training institute built to prepare
+                            <a
+                                href="https://www.harisandcoacademy.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={heroBodyLinkClass}
+                            >
+                                HACA ( Haris &amp; Co Academy )
+                            </a>{" "}
+                            is a multidisciplinary professional training institute built to prepare
                             students for the real world of work. Backed by an active agency ecosystem, HACA focuses on skill-first
-                            education across Digital Marketing, Design, Technology, and Finance.
+                            education across Digital Marketing, Design, and Tech.
                             <br />
                             <br />
                             For the past 4 years, we’ve helped learners build industry-ready skills through hands-on training, real

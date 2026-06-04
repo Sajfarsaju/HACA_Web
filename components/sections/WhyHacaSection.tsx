@@ -11,7 +11,7 @@ const allCards: WhyCard[] = [
         id: "mentors",
         heading: "Mentors Who\nWork in the Field",
         paragraph:
-            "Our mentors are the professionals who work in marketing, design, coding, and finance every day. They share what they've learned from real experience.",
+            "Our mentors are the professionals who work in marketing, design and tech every day. They share what they've learned from real experience.",
     },
     {
         id: "practical-theory",
@@ -29,7 +29,7 @@ const allCards: WhyCard[] = [
         id: "real-clients",
         heading: "Work with\nReal Clients",
         paragraph:
-            "Get a one-month internship with real brands and clients, gain real experience before you even graduate.",
+            "Get a one-month internship with real brands and clients, gain real experience before you even graduate.by enrolling in our flagship programs",
     },
     {
         id: "flexible",
@@ -53,7 +53,7 @@ const allCards: WhyCard[] = [
         id: "portfolio",
         heading: "Portfolio-First\nTraining",
         paragraph:
-            "Every student graduates with a strong, job-ready portfolio built through real projects, whether in Digital Marketing, Design, Finance, or Tech.",
+            "Every student graduates with a strong, job-ready portfolio built through real projects, whether in Digital Marketing, Design or Tech.",
     },
 ]
 

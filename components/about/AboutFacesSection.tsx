@@ -9,6 +9,9 @@ const leaderSocialLabelClass =
 
 const leaderSocialIconClass = "w-[clamp(20px,1.9vw,25.9px)] h-[clamp(20px,1.9vw,25.9px)] shrink-0"
 
+const bioBodyLinkClass =
+    "text-white underline underline-offset-[3px] decoration-[#A7ADBE]/60 hover:decoration-white transition-colors"
+
 /** Same frame treatment as `MentorsSection` photo cards — outer width/aspect unchanged */
 const leaderPhotoFrameClass =
     "relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden border border-[#25317D] bg-[linear-gradient(340.87deg,rgba(0,2,15,0)_23.42%,rgba(15,47,153,0.2)_74.9%,rgba(26,79,255,0.2)_90.34%)] px-[18px] py-[19px] max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto max-md:rounded-[21.14px] max-md:px-[19.02px] max-md:py-[20.08px]"
@@ -68,7 +71,16 @@ export function AboutFacesSection() {
                                 Haris is a performance-driven entrepreneur and marketer, recognised by LinkedIn as an early member of the LinkedIn
                                 Creator Club, and featured across platforms such as TEDx, Josh Talks, and StartupStory Media.
                                 <br />
-                                He is the founder of Haris &amp; Co, a fast-growing digital marketing agency in Kerala with 250+ professionals and
+                                He is the founder of Haris &amp; Co, a fast-growing{" "}
+                                <a
+                                    href="https://harisand.co/digital-marketing-agency-in-kerala"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={bioBodyLinkClass}
+                                >
+                                    digital marketing agency in Kerala
+                                </a>{" "}
+                                with 250+ professionals and
                                 50+ clients across Asia within just 5 years of operation.
                                 <br />
                                 After experiencing multiple startup failures, Haris learned what actually works in business and what doesn’t. That
@@ -131,7 +143,7 @@ export function AboutFacesSection() {
                                     Rizwan Ramzan Ahamed
                                 </h3>
                                 <p className="font-rethink font-semibold text-[clamp(12px,1.1vw,16px)] leading-[1.6] text-left text-[#A7ADBE] m-0 whitespace-nowrap">
-                                    Co-Founder &amp; CEO, Haris &amp; Co Academy
+                                    Co-Founder &amp; CEO, HACA
                                 </p>
                             </div>
                             <p className="w-full font-rethink font-medium text-[clamp(16px,1.4vw,20px)] leading-[clamp(28px,2.1vw,34px)] text-[#A7ADBE] m-0">
