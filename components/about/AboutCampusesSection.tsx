@@ -24,8 +24,8 @@ export function AboutCampusesSection() {
                 {/* Photo 1 */}
                 <div className="relative w-[clamp(164px,23.6vw,340px)] aspect-[340/380] rounded-[23.43px] overflow-hidden bg-[#10152F] max-md:rounded-[11.32px]">
                     <Image
-                        src="/photos/main/about-campus-1.jpg"
-                        alt="HACA campus 1"
+                        src="/photos/main/DSC08759.webp"
+                        alt="HACA campus in Calicut"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 164px, (max-width: 1200px) 23.6vw, 340px"
@@ -35,8 +35,8 @@ export function AboutCampusesSection() {
                 {/* Photo 2 */}
                 <div className="relative w-[clamp(164px,23.6vw,340px)] aspect-[340/380] rounded-[23.43px] overflow-hidden bg-[#10152F] max-md:rounded-[11.32px] mt-[24px] max-md:mt-[16px]">
                     <Image
-                        src="/photos/main/about-campus-2.jpg"
-                        alt="HACA campus 2"
+                        src="/photos/main/IMG_0122.webp"
+                        alt="HACA campus in Dubai"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 164px, (max-width: 1200px) 23.6vw, 340px"

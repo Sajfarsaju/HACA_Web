@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
@@ -118,7 +118,7 @@ function CourseCard({ course }: { course: CourseDatum }) {
                 ) : null}
             </div>
             {!hideCta ? (
-                <Link href="/contact" className="group relative flex h-[60px] w-[194px] shrink-0 cursor-pointer items-center no-underline" aria-label={`Enquire now about: ${title}`}>
+                <Link href="/enquire" className="group relative flex h-[60px] w-[194px] shrink-0 cursor-pointer items-center no-underline" aria-label={`Enquire now about: ${title}`}>
                     <div className="absolute left-0 top-0 flex h-[60px] w-[189px] items-center rounded-[30px] bg-white pl-[20px] shadow-sm transition-colors duration-300 group-hover:bg-[#F5F5F5]">
                         <span className="whitespace-nowrap text-black" style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "18px", lineHeight: "100%" }}>Enquire Now</span>
                     </div>

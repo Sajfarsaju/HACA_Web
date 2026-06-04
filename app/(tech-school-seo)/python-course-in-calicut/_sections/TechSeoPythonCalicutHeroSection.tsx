@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 
 import { TECH_SEO_PAGE_BG } from "@/lib/tech-school-seo";
@@ -140,9 +140,9 @@ export function TechSeoPythonCalicutHeroSection() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2.5 lg:gap-3">
-                        <HeroCtaButton href="/contact" label="Join Now" variant="primary" />
+                        <HeroCtaButton href="/enquire" label="Join Now" variant="primary" />
                         <HeroCtaButton
-                            href="/contact"
+                            href="/enquire"
                             label="Get a free consultation"
                             variant="secondary"
                         />

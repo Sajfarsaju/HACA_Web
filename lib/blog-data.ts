@@ -23,6 +23,8 @@ export type BlogPost = {
     content?: string
     blocks?: BlogBlock[]
     faqs?: FaqItem[]
+    metaTitle?: string
+    metaDescription?: string
 }
 
 const DEFAULT_TOC = [

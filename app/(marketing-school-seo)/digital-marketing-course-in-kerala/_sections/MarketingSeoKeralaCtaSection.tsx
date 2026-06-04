@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
 
@@ -11,7 +11,7 @@ const BODY_LINE_2 = "Don't wait, your career is calling.";
 function ReservePlaceCta() {
     return (
         <Link
-            href="/contact"
+            href="/enquire"
             className="group relative inline-flex h-[60px] w-fit shrink-0 cursor-pointer items-center no-underline"
             aria-label="Reserve your place today — digital marketing course in Kerala"
         >

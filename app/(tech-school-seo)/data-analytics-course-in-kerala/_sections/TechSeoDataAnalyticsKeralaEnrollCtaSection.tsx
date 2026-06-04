@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 const HEADING_ID = "data-analytics-kerala-enroll-cta-heading";
 
@@ -62,7 +62,7 @@ export function TechSeoDataAnalyticsKeralaEnrollCtaSection() {
                         </p>
 
                         <Link
-                            href="/contact"
+                            href="/enquire"
                             className="inline-flex h-12 shrink-0 items-center justify-center rounded-[10px] bg-[#6949FF] px-[18px] py-[14px] font-manrope text-lg font-semibold leading-[110%] text-white no-underline transition-opacity hover:opacity-90 lg:h-[52px] lg:rounded-2xl lg:px-5 lg:py-4"
                         >
                             Enroll Today

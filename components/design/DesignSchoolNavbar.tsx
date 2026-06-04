@@ -51,7 +51,7 @@ function ArrowOutwardIcon({ fill }: { fill: string }) {
 function VideoCalicutContactUsButton({ onClick }: { onClick?: () => void }) {
     return (
         <Link
-            href="/contact"
+            href={ENQUIRE_URL}
             onClick={onClick}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-3.5"
             style={{ fontFamily: FONT, fontWeight: 550, backgroundColor: VIDEO_CALICUT_THEME }}
@@ -67,7 +67,7 @@ function VideoCalicutContactUsButton({ onClick }: { onClick?: () => void }) {
 function MobileContactUsButton({ onClick }: { onClick?: () => void }) {
     return (
         <Link
-            href="/contact"
+            href={ENQUIRE_URL}
             onClick={onClick}
             className="group flex h-[50.19px] w-[178.83px] shrink-0 items-center gap-[4.4px] no-underline"
             aria-label="Contact Us"
@@ -269,7 +269,7 @@ export function DesignSchoolNavbar({ variant = "default" }: DesignSchoolNavbarPr
                 ) : (
                     <div className="group hidden h-[60.5556px] w-[230.2222px] cursor-pointer flex-row items-center gap-[5.56px] lg:flex">
                         <Link
-                            href="/contact"
+                            href={ENQUIRE_URL}
                             className="flex h-[60.5556px] w-[164.67px] items-center justify-center rounded-[50px] border-[1.11px] border-[#FF5C00] bg-transparent px-[33.33px] py-[17.78px] transition-colors duration-300 group-hover:bg-[#FF5C00] no-underline"
                             style={{ fontFamily: FONT }}
                         >
@@ -281,7 +281,7 @@ export function DesignSchoolNavbar({ variant = "default" }: DesignSchoolNavbarPr
                             </span>
                         </Link>
                         <Link
-                            href="/contact"
+                            href={ENQUIRE_URL}
                             className="relative h-[60px] w-[60px] shrink-0 cursor-pointer overflow-hidden rounded-full bg-[#FF5C00]"
                             aria-label="Contact Us"
                         >

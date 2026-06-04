@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { DM_Sans } from "next/font/google";
 
@@ -50,7 +50,7 @@ function IntroParagraphDesktop() {
 function EnquireNowButton({ className = "" }: { className?: string }) {
     return (
         <Link
-            href="/contact"
+            href="/enquire"
             className={[
                 "inline-flex box-border items-center justify-center gap-[10px] rounded-[8px]",
                 "h-[45px] w-[144.6666717529297px] px-[10px] py-[12px]",

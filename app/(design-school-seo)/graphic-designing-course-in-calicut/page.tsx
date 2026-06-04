@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import { GraphicDesigningCalicutHeroSection } from "./_sections/GraphicDesigningCalicutHeroSection";
 import { GraphicDesigningCalicutStatsSection } from "./_sections/GraphicDesigningCalicutStatsSection";
 import { GraphicDesigningCalicutWhatWeHaveSection } from "./_sections/GraphicDesigningCalicutWhatWeHaveSection";
@@ -64,7 +64,7 @@ function JoinNowButton() {
             {/* Mobile */}
             <div className="flex items-center justify-center gap-[4.4px] group lg:hidden" style={{ width: 178.8333282470703, height: 50.19047546386719 }}>
                 <Link
-                    href="/contact"
+                    href="/enquire"
                     className="flex items-center justify-center rounded-[50px] border bg-transparent transition-colors duration-300 group-hover:bg-[#FF5C00]"
                     style={{
                         width: 131.2619,
@@ -79,7 +79,7 @@ function JoinNowButton() {
                     <span className="text-[#000000] leading-none whitespace-nowrap transition-colors duration-300 group-hover:text-white">Join Now</span>
                 </Link>
                 <Link
-                    href="/contact"
+                    href="/enquire"
                     className="relative shrink-0 overflow-hidden rounded-full"
                     style={{ width: 47.57143020629883, height: 47.57143020629883, backgroundColor: "#FF5C00" }}
                     aria-label="Join Now"
@@ -100,7 +100,7 @@ function JoinNowButton() {
             {/* Desktop */}
             <div className="hidden items-center justify-center gap-[5.56px] group lg:flex" style={{ width: 214.2222137451172, height: 60.5555534362793 }}>
                 <Link
-                    href="/contact"
+                    href="/enquire"
                     className="flex items-center justify-center rounded-[50px] border-[1.11px] bg-transparent transition-colors duration-300 group-hover:bg-[#FF5C00]"
                     style={{
                         width: 148.6667,
@@ -116,7 +116,7 @@ function JoinNowButton() {
                     <span className="text-[#000000] leading-none whitespace-nowrap transition-colors duration-300 group-hover:text-white">Join Now</span>
                 </Link>
                 <Link
-                    href="/contact"
+                    href="/enquire"
                     className="relative shrink-0 overflow-hidden rounded-full"
                     style={{ width: 60, height: 60, backgroundColor: "#FF5C00" }}
                     aria-label="Join Now"

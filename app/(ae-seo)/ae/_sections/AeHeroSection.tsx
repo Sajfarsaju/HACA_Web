@@ -102,8 +102,8 @@ export function AeHeroSection() {
 
                             {/* CTA Buttons */}
                             <div className="flex flex-col items-start gap-3 lg:flex-row lg:gap-4">
-                                <HeroCtaButton href="/contact" label="Join Now" />
-                                <HeroCtaButton href="/contact" label="Have Questions? Call Now" />
+                                <HeroCtaButton href="/enquire" label="Join Now" />
+                                <HeroCtaButton href="/enquire" label="Have Questions? Call Now" />
                             </div>
                         </div>
 

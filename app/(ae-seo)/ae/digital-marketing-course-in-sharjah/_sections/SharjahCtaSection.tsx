@@ -8,7 +8,7 @@ const HEADING_ID = "sharjah-cta-heading";
 function JoinNowButton() {
     return (
         <Link
-            href="/contact"
+            href="/enquire"
             className="
                 group relative inline-flex h-[44px] w-fit shrink-0 cursor-pointer items-center no-underline
                 max-lg:gap-[7.33px] max-lg:rounded-full max-lg:bg-[#E8F1FF] max-lg:pl-[14px] max-lg:pr-0

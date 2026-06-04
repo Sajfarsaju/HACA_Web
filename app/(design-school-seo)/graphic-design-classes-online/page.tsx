@@ -1,4 +1,4 @@
-import { GraphicDesignOnlineHeroSection } from "./_sections/GraphicDesignOnlineHeroSection";
+﻿import { GraphicDesignOnlineHeroSection } from "./_sections/GraphicDesignOnlineHeroSection";
 import { GraphicDesignOnlineStatsSection } from "./_sections/GraphicDesignOnlineStatsSection";
 import { GraphicDesignOnlineWhyChooseSection } from "./_sections/GraphicDesignOnlineWhyChooseSection";
 import { GraphicDesignOnlineCurriculumSection } from "./_sections/GraphicDesignOnlineCurriculumSection";
@@ -196,7 +196,7 @@ export default function GraphicDesignClassesOnlinePage() {
                         Join one of the best online graphic design courses with certificates and begin creating work that speaks for itself.
                     </p>
                     <Link
-                        href="/contact"
+                        href="/enquire"
                         className="inline-flex h-[54px] items-center justify-center rounded-full bg-[#FF5C00] px-9 text-[16px] font-medium text-white no-underline transition-opacity hover:opacity-90 lg:h-[60px] lg:px-10 lg:text-[18px]"
                         style={{ fontFamily: DESIGN_HEADING_FONT }}
                     >

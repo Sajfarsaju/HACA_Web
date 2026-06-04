@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 const PLUS_GRID_SVG = encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
@@ -57,7 +57,7 @@ export function TechSeoCodingKeralaBottomCtaSection() {
                         </p>
 
                         <Link
-                            href="/contact"
+                            href="/enquire"
                             className="mt-2 inline-flex h-12 shrink-0 items-center justify-center rounded-[10px] bg-[#6949FF] px-[18px] py-[14px] font-manrope text-lg font-semibold leading-[110%] text-white no-underline transition-opacity hover:opacity-90 lg:h-[52px] lg:rounded-2xl lg:px-5 lg:py-4"
                         >
                             Join Today

@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 
 const HERO_IMAGE =
@@ -320,7 +320,7 @@ export function UiUxDesignCalicutHeroSection() {
                                 />
                                 <HeroButton
                                     label="Enquire Now"
-                                    href="/contact"
+                                    href="/enquire"
                                     className="h-[48px]"
                                 />
                             </div>
@@ -369,7 +369,7 @@ export function UiUxDesignCalicutHeroSection() {
                                 />
                                 <HeroButton
                                     label="Enquire Now"
-                                    href="/contact"
+                                    href="/enquire"
                                     className="h-[41px]"
                                 />
                             </div>

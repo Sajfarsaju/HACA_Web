@@ -95,7 +95,7 @@ export function PlacementSection({
 
                 {/* Heading */}
                 <h2 className="font-rethink font-bold text-[32px] leading-[110%] tracking-[0%] text-[#ffffff] text-center m-0 max-[600px]:text-[22px] max-[600px]:max-w-none">
-                    They Started Right Where <br /> you are
+                    They Started Right Where <br /> You are
                 </h2>
             </div>
 

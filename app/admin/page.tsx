@@ -59,6 +59,8 @@ type BlogDoc = {
   bannerUrl?: string;
   content?: string;
   faqs?: { question: string; answer: string }[];
+  metaTitle?: string;
+  metaDescription?: string;
   createdAt: string;
 };
 
@@ -193,6 +195,8 @@ export default function AdminPage() {
   const [blogAuthorPhotoUrl, setBlogAuthorPhotoUrl] = useState<string>("");
   const [authorPhotoCropOpen, setAuthorPhotoCropOpen] = useState(false);
   const [authorPhotoCropSrc, setAuthorPhotoCropSrc] = useState<string | null>(null);
+  const [blogMetaTitle, setBlogMetaTitle] = useState("");
+  const [blogMetaDescription, setBlogMetaDescription] = useState("");
   // Blog FAQ + edit mode
   const [blogFaqs, setBlogFaqs] = useState<{ question: string; answer: string }[]>([]);
   const [editingBlogId, setEditingBlogId] = useState<string | null>(null);
@@ -497,6 +501,8 @@ export default function AdminPage() {
     setBlogCategory("Marketing");
     setBlogContent("");
     setBlogFaqs([]);
+    setBlogMetaTitle("");
+    setBlogMetaDescription("");
     setBlogBannerFile(null);
     setBlogAuthorPhotoFile(null);
     setBlogAuthorPhotoUrl("");
@@ -524,6 +530,8 @@ export default function AdminPage() {
       setBlogCategory(b.category || "Marketing");
       setBlogContent(b.content || "");
       setBlogFaqs(Array.isArray(b.faqs) ? b.faqs : []);
+      setBlogMetaTitle(b.metaTitle || "");
+      setBlogMetaDescription(b.metaDescription || "");
       setBlogAuthorPhotoUrl(b.authorPhotoUrl || "");
     } catch {
       // Fall back to data already in the list
@@ -535,6 +543,8 @@ export default function AdminPage() {
       setBlogCategory(blog.category || "Marketing");
       setBlogContent(blog.content || "");
       setBlogFaqs(Array.isArray(blog.faqs) ? blog.faqs : []);
+      setBlogMetaTitle(blog.metaTitle || "");
+      setBlogMetaDescription(blog.metaDescription || "");
       setBlogAuthorPhotoUrl(blog.authorPhotoUrl || "");
     }
     setBlogBannerFile(null);
@@ -571,6 +581,8 @@ export default function AdminPage() {
       form.append("category", blogCategory);
       form.append("content", blogContent);
       if (blogFaqs.length > 0) form.append("faqs", JSON.stringify(blogFaqs));
+      form.append("metaTitle", blogMetaTitle.trim());
+      form.append("metaDescription", blogMetaDescription.trim());
       if (blogBannerFile) form.append("banner", blogBannerFile);
       if (blogAuthorPhotoFile) {
         form.append("authorPhoto", blogAuthorPhotoFile);
@@ -2001,6 +2013,42 @@ export default function AdminPage() {
                         />
                       </div>
                     ))}
+                  </div>
+
+                  {/* SEO */}
+                  <div className="space-y-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-[#A7ADBE]">SEO (optional)</p>
+                    <div className="space-y-2">
+                      <label htmlFor="blog-meta-title" className="text-xs font-medium text-[#A7ADBE]">
+                        Meta title{" "}
+                        <span className="font-normal text-[#8890a0]">(defaults to blog title)</span>
+                      </label>
+                      <input
+                        id="blog-meta-title"
+                        className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                        value={blogMetaTitle}
+                        onChange={(e) => setBlogMetaTitle(e.target.value)}
+                        placeholder="e.g. How to Improve Google Ads Quality Score | HACA"
+                        maxLength={160}
+                      />
+                      <p className="text-right text-[11px] text-[#6b7280]">{blogMetaTitle.length}/160</p>
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="blog-meta-desc" className="text-xs font-medium text-[#A7ADBE]">
+                        Meta description{" "}
+                        <span className="font-normal text-[#8890a0]">(recommended: 120–160 chars)</span>
+                      </label>
+                      <textarea
+                        id="blog-meta-desc"
+                        rows={3}
+                        className="w-full resize-none rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                        value={blogMetaDescription}
+                        onChange={(e) => setBlogMetaDescription(e.target.value)}
+                        placeholder="e.g. Learn what Quality Score is in Google Ads and discover proven tips to improve it for lower CPC and better rankings."
+                        maxLength={320}
+                      />
+                      <p className="text-right text-[11px] text-[#6b7280]">{blogMetaDescription.length}/320</p>
+                    </div>
                   </div>
 
                   {/* Submit */}

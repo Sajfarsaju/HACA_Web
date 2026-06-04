@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 const vc = '"VC Nudge Trial Normal", sans-serif' as const;
 
@@ -47,14 +47,14 @@ export function GraphicDesignOnlineHeroSection() {
                     <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
                         <div className="flex items-center gap-2.5 group">
                             <Link
-                                href="/contact"
+                                href="/enquire"
                                 className="inline-flex h-[50px] items-center justify-center rounded-full border border-[#FF5C00] bg-transparent px-7 text-[15px] font-medium text-black transition-colors duration-300 group-hover:bg-[#FF5C00] group-hover:text-white no-underline lg:h-[56px] lg:px-8 lg:text-[17px]"
                                 style={{ fontFamily: vc }}
                             >
                                 Join Now
                             </Link>
                             <Link
-                                href="/contact"
+                                href="/enquire"
                                 className="relative flex h-[46px] w-[46px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#FF5C00] lg:h-[52px] lg:w-[52px]"
                                 aria-label="Join Now"
                             >
@@ -72,7 +72,7 @@ export function GraphicDesignOnlineHeroSection() {
                         </div>
 
                         <Link
-                            href="/contact"
+                            href="/enquire"
                             className="inline-flex h-[50px] items-center justify-center rounded-full bg-black px-7 text-[15px] font-medium text-white no-underline transition-opacity hover:opacity-80 lg:h-[56px] lg:px-8 lg:text-[17px]"
                             style={{ fontFamily: vc }}
                         >

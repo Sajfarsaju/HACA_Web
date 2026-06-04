@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
@@ -189,7 +189,7 @@ export function MarketingSeoLearningIsntEnoughSection() {
                             body="Signing up for the best digital marketing course in Kerala gives you more than just classes. With REWIRED, our exclusive invite-only series, you'll hear unfiltered strategies, real stories, and expert shortcuts directly from industry leaders."
                             imageSrc={marketingAsset("Group 1.webp")}
                             imageAlt="REWIRED invite-only series visuals"
-                            learnHref="/contact"
+                            learnHref="/enquire"
                             learnAriaLabel="Learn more about REWIRED"
                         />
                         <FeatureCard
@@ -202,7 +202,7 @@ export function MarketingSeoLearningIsntEnoughSection() {
                             body="This is where ambition meets action. At Creator's Club, you'll collaborate on live projects, experiment with new ideas, and grow your personal brand alongside a community of equally driven learners."
                             imageSrc={marketingAsset("Group 2.webp")}
                             imageAlt="Creator's Club community at HACA"
-                            learnHref="/contact"
+                            learnHref="/enquire"
                             learnAriaLabel="Learn more about Creator's Club"
                         />
                     </div>

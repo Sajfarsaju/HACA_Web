@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { DM_Sans } from "next/font/google";
 
@@ -28,7 +28,7 @@ const TIME_0_00 = seoAsset("0_00.svg");
 function EnquireNowButton() {
     return (
         <Link
-            href="/contact"
+            href="/enquire"
             className={[
                 "inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[8px] bg-white",
                 "px-3.5 py-2 transition-opacity hover:opacity-90 active:opacity-80",

@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
@@ -196,7 +196,7 @@ export function MarketingSeoLearningIsntEnoughSection() {
                             body="Enrol in the best institute for digital marketing courses and get exclusive access to REWIRED, a special invite-only series where industry experts reveal insider secrets."
                             imageSrc={marketingAsset("Group 1.webp")}
                             imageAlt="REWIRED invite-only series visuals"
-                            learnHref="/contact"
+                            learnHref="/enquire"
                             learnAriaLabel="Learn more about REWIRED"
                         />
                         <FeatureCard
@@ -209,7 +209,7 @@ export function MarketingSeoLearningIsntEnoughSection() {
                             body="Join our digital marketing course and become part of the Creator's Club, a place where you can sharpen your skills, build your personal brand, and work on real projects with other passionate creators."
                             imageSrc={marketingAsset("Group 2.webp")}
                             imageAlt="Creator's Club community at HACA"
-                            learnHref="/contact"
+                            learnHref="/enquire"
                             learnAriaLabel="Learn more about Creator's Club"
                         />
                     </div>

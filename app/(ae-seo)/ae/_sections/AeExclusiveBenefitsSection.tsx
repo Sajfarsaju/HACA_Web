@@ -139,7 +139,7 @@ export function AeExclusiveBenefitsSection() {
                             practical assignments, and career-focused training.
                         </CardBody>
                         <LearnMoreLink
-                            href="/contact"
+                            href="/enquire"
                             ariaLabel="Learn more about 4000 AED Worth of Modules & Short Courses"
                             className="mt-0"
                         />
@@ -182,7 +182,7 @@ export function AeExclusiveBenefitsSection() {
                             Learn beyond classrooms through Brand War, TGIF (Debate Room, Agency Files, Purple Cow),
                             Founder Interview activities, and two guest sessions every month.
                         </CardBody>
-                        <LearnMoreLink href="/contact" ariaLabel="Learn more about Live Events & Industry Activities" className="mt-0" />
+                        <LearnMoreLink href="/enquire" ariaLabel="Learn more about Live Events & Industry Activities" className="mt-0" />
                         <CardImage src={CARD2_IMAGE} alt="HACA live industry event and student activities" />
                     </BenefitCardShell>
 
@@ -197,7 +197,7 @@ export function AeExclusiveBenefitsSection() {
                                 Stay connected and grow with our professional network, mentorship community, and industry ecosystem.
                             </CardBody>
                         </div>
-                        <LearnMoreLink href="/contact" ariaLabel="Learn more about Lifetime Community Membership" className="lg:mt-0" />
+                        <LearnMoreLink href="/enquire" ariaLabel="Learn more about Lifetime Community Membership" className="lg:mt-0" />
                     </BenefitCardShell>
 
                 </div>

@@ -102,6 +102,8 @@ async function getDynamicBlog(slug: string): Promise<BlogPost | null> {
             blocks,
             toc,
             faqs: parseFaqs(b.faqs),
+            metaTitle: b.metaTitle || undefined,
+            metaDescription: b.metaDescription || undefined,
         }
     } catch (err) {
         console.error("[getDynamicBlog] fetch error:", err)
@@ -121,8 +123,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     
     if (!post) return { title: "Blog | HACA" }
     return {
-        title: `${post.title} | HACA Blog`,
-        description: `Read ${post.title} on the HACA blog.`,
+        title: post.metaTitle || `${post.title} | HACA Blog`,
+        description: post.metaDescription || `Read ${post.title} on the HACA blog.`,
     }
 }
 

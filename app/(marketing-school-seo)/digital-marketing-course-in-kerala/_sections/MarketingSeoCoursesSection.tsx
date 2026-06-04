@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
@@ -120,7 +120,7 @@ function CourseCard({ course }: { course: CourseDatum }) {
 
             {!hideCta ? (
                 <Link
-                    href="/contact"
+                    href="/enquire"
                     className="group relative flex h-[60px] w-[194px] shrink-0 cursor-pointer items-center no-underline"
                     aria-label={`Enquire now about: ${title}`}
                 >

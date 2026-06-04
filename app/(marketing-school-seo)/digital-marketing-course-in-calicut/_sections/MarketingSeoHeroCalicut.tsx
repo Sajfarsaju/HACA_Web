@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -89,7 +89,7 @@ export function MarketingSeoHeroCalicut() {
                         </h1>
 
                         <div className="flex flex-wrap items-center gap-3 md:gap-4">
-                            <HeroPillCta href="/contact" label="Join Now" />
+                            <HeroPillCta href="/enquire" label="Join Now" />
                             <HeroPillCta href="tel:+9108031332470" label="Have Questions? Call Now" />
                         </div>
 

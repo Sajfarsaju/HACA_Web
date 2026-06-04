@@ -1,4 +1,4 @@
-import { PlacementCtaDecorativeStars } from "@/components/marketing/PlacementCtaDecorativeStars";
+﻿import { PlacementCtaDecorativeStars } from "@/components/marketing/PlacementCtaDecorativeStars";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,7 +40,7 @@ function LearnMoreLink({ href, ariaLabel, className = "" }: { href: string; aria
 function JoinLeadCta() {
     return (
         <Link
-            href="/contact"
+            href="/enquire"
             className="
                 group relative inline-flex h-[44px] w-fit shrink-0 cursor-pointer items-center no-underline
                 max-lg:gap-[7.33px] max-lg:rounded-full max-lg:bg-[#E8F1FF] max-lg:pl-[14px] max-lg:pr-0
@@ -224,7 +224,7 @@ export function MarketingSeoExclusiveBenefitsSection() {
                             show up and do the work.
                         </CardBody>
                         <LearnMoreLink
-                            href="/contact"
+                            href="/enquire"
                             ariaLabel="Learn more about the Learner Scholarship Fund"
                             className="mt-0"
                         />
@@ -269,7 +269,7 @@ export function MarketingSeoExclusiveBenefitsSection() {
                             A high-energy brand challenge where teams build campaigns, defend ideas, and learn how agencies
                             really pitch.
                         </CardBody>
-                        <LearnMoreLink href="/contact" ariaLabel="Learn more about Brand War" className="mt-0" />
+                        <LearnMoreLink href="/enquire" ariaLabel="Learn more about Brand War" className="mt-0" />
                         <CardImage src={marketingAsset(BRAND_WAR_CARD_IMAGE)} alt="Brand War team challenge" />
                     </BenefitCardShell>
 
@@ -285,7 +285,7 @@ export function MarketingSeoExclusiveBenefitsSection() {
                                 after class ends.
                             </CardBody>
                         </div>
-                        <LearnMoreLink href="/contact" ariaLabel="Learn more about HACA X Community" className="lg:mt-0" />
+                        <LearnMoreLink href="/enquire" ariaLabel="Learn more about HACA X Community" className="lg:mt-0" />
                     </BenefitCardShell>
                 </div>
 

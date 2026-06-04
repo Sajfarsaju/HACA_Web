@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+﻿import type { CSSProperties } from "react";
 import Image from "next/image";
 import { DesignPillArrowCta } from "@/components/design/DesignPillArrowCta";
 
@@ -197,7 +197,7 @@ export function GraphicDesigningCalicutHeroSection() {
                                 size="compact"
                                 fullWidth
                             />
-                            <DesignPillArrowCta label="join now" href="/contact" variant="orange" size="compact" />
+                            <DesignPillArrowCta label="join now" href="/enquire" variant="orange" size="compact" />
                         </div>
                     </div>
 
@@ -239,7 +239,7 @@ export function GraphicDesigningCalicutHeroSection() {
                                 href="tel:+918031332470"
                                 variant="purple"
                             />
-                            <DesignPillArrowCta label="join now" href="/contact" variant="orange" />
+                            <DesignPillArrowCta label="join now" href="/enquire" variant="orange" />
                         </div>
                     </div>
 
