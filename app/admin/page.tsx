@@ -57,6 +57,7 @@ type BlogDoc = {
   readTime: string;
   category: string;
   bannerUrl?: string;
+  bannerAlt?: string;
   content?: string;
   faqs?: { question: string; answer: string }[];
   metaTitle?: string;
@@ -188,6 +189,7 @@ export default function AdminPage() {
   const [blogCategory, setBlogCategory] = useState("Marketing");
   const [blogContent, setBlogContent] = useState("");
   const [blogBannerFile, setBlogBannerFile] = useState<File | null>(null);
+  const [blogBannerAlt, setBlogBannerAlt] = useState("");
   const [blogCropOpen, setBlogCropOpen] = useState(false);
   const [blogCropSrc, setBlogCropSrc] = useState<string | null>(null);
   // Author photo crop state
@@ -504,6 +506,7 @@ export default function AdminPage() {
     setBlogMetaTitle("");
     setBlogMetaDescription("");
     setBlogBannerFile(null);
+    setBlogBannerAlt("");
     setBlogAuthorPhotoFile(null);
     setBlogAuthorPhotoUrl("");
     setEditingBlogId(null);
@@ -532,6 +535,7 @@ export default function AdminPage() {
       setBlogFaqs(Array.isArray(b.faqs) ? b.faqs : []);
       setBlogMetaTitle(b.metaTitle || "");
       setBlogMetaDescription(b.metaDescription || "");
+      setBlogBannerAlt(b.bannerAlt || "");
       setBlogAuthorPhotoUrl(b.authorPhotoUrl || "");
     } catch {
       // Fall back to data already in the list
@@ -545,6 +549,7 @@ export default function AdminPage() {
       setBlogFaqs(Array.isArray(blog.faqs) ? blog.faqs : []);
       setBlogMetaTitle(blog.metaTitle || "");
       setBlogMetaDescription(blog.metaDescription || "");
+      setBlogBannerAlt(blog.bannerAlt || "");
       setBlogAuthorPhotoUrl(blog.authorPhotoUrl || "");
     }
     setBlogBannerFile(null);
@@ -583,6 +588,7 @@ export default function AdminPage() {
       if (blogFaqs.length > 0) form.append("faqs", JSON.stringify(blogFaqs));
       form.append("metaTitle", blogMetaTitle.trim());
       form.append("metaDescription", blogMetaDescription.trim());
+      form.append("bannerAlt", blogBannerAlt.trim());
       if (blogBannerFile) form.append("banner", blogBannerFile);
       if (blogAuthorPhotoFile) {
         form.append("authorPhoto", blogAuthorPhotoFile);
@@ -1943,6 +1949,18 @@ export default function AdminPage() {
                       ) : (
                         <p className="text-center text-xs text-[#8890a0]">No banner selected</p>
                       )}
+                    </div>
+                    <div className="space-y-1">
+                      <label htmlFor="blog-banner-alt" className="text-xs font-medium text-[#A7ADBE]">
+                        Banner alt text <span className="font-normal text-[#8890a0]">(for SEO &amp; accessibility)</span>
+                      </label>
+                      <input
+                        id="blog-banner-alt"
+                        className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                        value={blogBannerAlt}
+                        onChange={(e) => setBlogBannerAlt(e.target.value)}
+                        placeholder="e.g. Students learning digital marketing at HACA Calicut"
+                      />
                     </div>
                   </div>
 

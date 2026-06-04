@@ -104,6 +104,7 @@ async function getDynamicBlog(slug: string): Promise<BlogPost | null> {
             faqs: parseFaqs(b.faqs),
             metaTitle: b.metaTitle || undefined,
             metaDescription: b.metaDescription || undefined,
+            bannerAlt: b.bannerAlt || undefined,
         }
     } catch (err) {
         console.error("[getDynamicBlog] fetch error:", err)
@@ -193,7 +194,7 @@ export default async function BlogDetailPage({ params }: Props) {
                                 <div className="relative w-full aspect-[871/514] overflow-hidden rounded-[10.63px] sm:rounded-[14px] md:rounded-[18px] lg:rounded-[20px] bg-white shadow-lg">
                                     <Image
                                         src={coverImageSrc}
-                                        alt={post.title}
+                                        alt={post.bannerAlt || post.title}
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 871px"

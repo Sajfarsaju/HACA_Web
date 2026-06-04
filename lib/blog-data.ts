@@ -20,6 +20,7 @@ export type BlogPost = {
     readTime: string
     toc?: TocItem[]
     bannerUrl?: string
+    bannerAlt?: string
     content?: string
     blocks?: BlogBlock[]
     faqs?: FaqItem[]

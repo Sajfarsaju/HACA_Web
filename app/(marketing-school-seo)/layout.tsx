@@ -3,6 +3,8 @@ import React from "react";
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { MarketingPageColorLayer } from "@/components/marketing/MarketingPageColorLayer";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { WHATSAPP_CHAT_URL } from "@/lib/whatsapp";
 
 export default function MarketingSchoolSeoGroupLayout({
     children,
@@ -16,6 +18,7 @@ export default function MarketingSchoolSeoGroupLayout({
                 {children}
                 <MarketingFooter />
             </main>
+            <WhatsAppButton href={WHATSAPP_CHAT_URL} />
         </MarketingPageColorLayer>
     );
 }
