@@ -3,22 +3,23 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-type TechMentor = {
+export type TechMentorCard = {
     imgSrc: string;
     name: string;
     role: string;
 };
 
-const FALLBACK_MENTORS: TechMentor[] = [
-    { imgSrc: "/photos/schools/tech/Testimonial Card1.webp", name: "Muhammad Sajfar", role: "MERN Stack Mentor & Developer" },
-    { imgSrc: "/photos/schools/tech/Testimonial Card2.webp", name: "Mohammed Nazil K", role: "Tech Researcher & Mentor" },
-    { imgSrc: "/photos/schools/tech/Testimonial Card3.webp", name: "Radhika E K", role: "Python Mentor" },
-    { imgSrc: "/photos/schools/tech/Testimonial Card1.webp", name: "Muhammad Sajfar", role: "MERN Stack Mentor & Developer" },
-    { imgSrc: "/photos/schools/tech/Testimonial Card2.webp", name: "Mohammed Nazil K", role: "Tech Researcher & Mentor" },
-    { imgSrc: "/photos/schools/tech/Testimonial Card3.webp", name: "Radhika E K", role: "Python Mentor" },
-];
-
-const INITIAL_MENTOR_INDEX = Math.min(1, FALLBACK_MENTORS.length - 1);
+function mapApiMentors(
+    raw: { photoUrl?: string; name?: string; designation?: string }[]
+): TechMentorCard[] {
+    return raw
+        .filter((m) => m?.photoUrl?.trim() && m?.name?.trim())
+        .map((m) => ({
+            imgSrc: m.photoUrl!.trim(),
+            name: m.name!.trim(),
+            role: (m.designation || "").trim(),
+        }));
+}
 
 function getCardSizes(width: number) {
     if (width < 360) {
@@ -109,6 +110,10 @@ function MentorInfoBox({
 
 export type TechMentorsCarouselProps = {
     className?: string;
+    /** From server fetch (tech-school page) or client /api/mentors proxy. */
+    initialMentors?: TechMentorCard[];
+    /** Used when initialMentors is omitted (SEO pages, etc.). */
+    schoolName?: string;
     showBackgroundEffects?: boolean;
     showNavigation?: boolean;
     /** When set, advances slides on an interval (loops). */
@@ -119,35 +124,40 @@ export type TechMentorsCarouselProps = {
 /** Shared mentor carousel (cards, peeks, arrows) used on tech school and SEO pages. */
 export function TechMentorsCarousel({
     className = "",
+    initialMentors = [],
+    schoolName = "Tech School",
     showBackgroundEffects = true,
     showNavigation = true,
     autoAdvanceMs,
     navigationClassName = "flex gap-[10px] -mt-[50px] sm:mt-[12px]",
 }: TechMentorsCarouselProps) {
-    const [activeIndex, setActiveIndex] = useState(INITIAL_MENTOR_INDEX);
+    const [activeIndex, setActiveIndex] = useState(0);
     const [windowWidth, setWindowWidth] = useState(() =>
         typeof window !== "undefined" ? window.innerWidth : 1280,
     );
-    const [MENTORS, setMENTORS] = useState<TechMentor[]>([]);
+    const [MENTORS, setMENTORS] = useState<TechMentorCard[]>(initialMentors);
     const touchStartX = useRef<number | null>(null);
 
     useEffect(() => {
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/mentors?school=Tech%20School`;
+        if (initialMentors.length > 0) {
+            setMENTORS(initialMentors);
+            setActiveIndex(Math.min(1, initialMentors.length - 1));
+            return;
+        }
+
+        const url = `/api/mentors?school=${encodeURIComponent(schoolName)}`;
         fetch(url)
             .then((r) => (r.ok ? r.json() : null))
             .then((data) => {
-                const list: TechMentor[] = Array.isArray(data?.mentors)
-                    ? data.mentors.map((m: { photoUrl: string; name: string; designation: string }) => ({
-                          imgSrc: m.photoUrl,
-                          name: m.name,
-                          role: m.designation,
-                      }))
-                    : [];
+                const list = mapApiMentors(
+                    Array.isArray(data?.mentors) ? data.mentors : []
+                );
+                if (list.length === 0) return;
                 setMENTORS(list);
-                if (list.length > 0) setActiveIndex(Math.min(1, list.length - 1));
+                setActiveIndex(Math.min(1, list.length - 1));
             })
             .catch(() => {});
-    }, []);
+    }, [initialMentors, schoolName]);
 
     const handleResize = useCallback(() => {
         setWindowWidth(window.innerWidth);
@@ -178,7 +188,13 @@ export function TechMentorsCarousel({
         return () => clearInterval(timer);
     }, [autoAdvanceMs, total]);
 
-    if (total === 0) return null;
+    if (total === 0) {
+        return (
+            <p className="m-0 text-center font-outfit text-[16px] text-[#A7A7A7]">
+                Mentors will appear here soon.
+            </p>
+        );
+    }
 
     const { centerW, centerH, sideW, sideH, gap, showSide } = getCardSizes(windowWidth);
     const isMobileView = windowWidth < 768;

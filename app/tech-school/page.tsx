@@ -4,6 +4,9 @@ import { TechDotsBackground } from "@/components/tech/TechDotsBackground";
 import TechHero from "@/components/sections/tech/TechHeroSection";
 import { TechIntroSection } from "@/components/sections/tech/TechIntroSection";
 import { SectionReveal } from "@/components/animations/SectionReveal";
+import { TechMentors } from "@/components/layout/TechMentors";
+import type { TechMentorCard } from "@/components/layout/TechMentorsCarousel";
+import { fetchMentorsBySchool } from "@/lib/mentors-api";
 import { buildSitePageMetadata } from "@/lib/site-page-metadata";
 
 export const metadata = buildSitePageMetadata({
@@ -19,7 +22,6 @@ const TechPathSection       = dynamic(() => import("@/components/sections/tech/T
 const TechProjectsSection   = dynamic(() => import("@/components/sections/tech/TechProjectsSection").then(m => ({ default: m.TechProjectsSection })));
 const TechPlacementsSection = dynamic(() => import("@/components/sections/tech/TechPlacementsSection").then(m => ({ default: m.TechPlacementsSection })));
 const TechPreneur           = dynamic(() => import("@/components/layout/TechPreneur").then(m => ({ default: m.TechPreneur })));
-const TechMentors           = dynamic(() => import("@/components/layout/TechMentors").then(m => ({ default: m.TechMentors })));
 const TechWhyChoose         = dynamic(() => import("@/components/layout/TechWhyChoose").then(m => ({ default: m.TechWhyChoose })));
 const TechCulture           = dynamic(() => import("@/components/layout/TechCulture").then(m => ({ default: m.TechCulture })));
 const TechYoutube           = dynamic(() => import("@/components/layout/TechYoutube").then(m => ({ default: m.TechYoutube })));
@@ -30,7 +32,14 @@ const TechQuote             = dynamic(() => import("@/components/layout/TechQuot
 const TechFooter            = dynamic(() => import("@/components/layout/TechFooter").then(m => ({ default: m.TechFooter })));
 const TechWhatsAppFloatingButton = dynamic(() => import("@/components/layout/TechWhatsAppFloatingButton").then(m => ({ default: m.TechWhatsAppFloatingButton })));
 
-export default function TechSchoolPage() {
+export default async function TechSchoolPage() {
+    const apiMentors = await fetchMentorsBySchool("Tech School");
+    const techMentorCards: TechMentorCard[] = apiMentors.map((m) => ({
+        imgSrc: m.photoUrl,
+        name: m.name,
+        role: m.designation,
+    }));
+
     return (
         <div className="w-full min-h-[1391px] bg-[#111111] overflow-x-hidden relative" role="main">
             <TechWhatsAppFloatingButton />
@@ -72,7 +81,7 @@ export default function TechSchoolPage() {
                             <TechPreneur />
                         </SectionReveal>
                         <SectionReveal>
-                            <TechMentors />
+                            <TechMentors mentors={techMentorCards} />
                         </SectionReveal>
 
                         {/* WhyChoose + Culture — shared gradient layer for tablet+ */}
