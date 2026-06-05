@@ -27,7 +27,7 @@ export function EnquireSection() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                 >
                     {/* ─── Headline ─── */}
-                    <p className="w-full max-w-[750px] font-manrope font-normal text-[42px] leading-[110%] text-center text-[#FFFFFF] m-0 max-md:font-semibold max-md:text-[clamp(18px,5.3vw,20px)] max-md:leading-[110%]">
+                    <p className="w-full max-w-[750px] font-rethink font-normal text-[42px] leading-[110%] text-center text-[#FFFFFF] m-0 max-md:font-semibold max-md:text-[clamp(18px,5.3vw,20px)] max-md:leading-[110%]">
                         Everyone starts somewhere. The smart ones start here.
                     </p>
 

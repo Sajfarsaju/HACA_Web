@@ -50,7 +50,7 @@ export default function EnquirePage() {
     }, []);
 
     return (
-        <main className="min-h-screen w-full bg-[#000010] flex flex-col items-center justify-start px-4 py-16 sm:py-24">
+        <main className="min-h-screen w-full flex flex-col items-center justify-start px-4 py-16 sm:py-24">
             <div className="w-full max-w-2xl mx-auto">
                 <div className="mb-10 text-center">
                     <h1

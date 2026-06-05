@@ -52,7 +52,7 @@ export function HeroBottom() {
           </div>
 
           {/* ─── Headline: mobile = two lines per Figma (break before "mentors."); md+ = one line ─── */}
-          <p className="w-full max-w-[750px] font-manrope font-normal text-[42px] leading-[110%] text-center text-[#FFFFFF] m-0 max-md:font-medium max-md:text-[clamp(16px,4.85vw,20px)] max-md:leading-[118%] max-md:tracking-[-0.01em]">
+          <p className="w-full max-w-[750px] font-rethink font-normal text-[42px] leading-[110%] text-center text-[#FFFFFF] m-0 max-md:font-medium max-md:text-[clamp(16px,4.85vw,20px)] max-md:leading-[118%] max-md:tracking-[-0.01em]">
             <span className="max-md:block md:inline">
               Find your passion. Find your{" "}
             </span>

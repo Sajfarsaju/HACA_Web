@@ -66,6 +66,71 @@ const nextConfig: NextConfig = {
         destination: "/success-story/:path*",
         permanent: true,
       },
+      {
+        source: "/finance-school",
+        destination: "/not-available",
+        permanent: false,
+      },
+      {
+        source: "/finance-school/:path*",
+        destination: "/not-available",
+        permanent: false,
+      },
+      {
+        source: "/web-development-mastery",
+        destination: "/not-available",
+        permanent: false,
+      },
+      {
+        source: "/creators-club",
+        destination: "/not-available",
+        permanent: false,
+      },
+      {
+        source: "/performance-marketing-mastery",
+        destination: "/not-available",
+        permanent: false,
+      },
+      {
+        source: "/performance-marketing-mastery/:path*",
+        destination: "/not-available",
+        permanent: false,
+      },
+      {
+        source: "/branding-pitch-for-clients",
+        destination: "/not-available",
+        permanent: false,
+      },
+      {
+        source: "/branding-pitch-for-clients/:path*",
+        destination: "/not-available",
+        permanent: false,
+      },
+      {
+        source: "/blog/what-is-tax-planning",
+        destination: "/article-not-available",
+        permanent: false,
+      },
+      {
+        source: "/blog/non-cash-expenses",
+        destination: "/article-not-available",
+        permanent: false,
+      },
+      {
+        source: "/blog/career-in-accounting-and-finance",
+        destination: "/article-not-available",
+        permanent: false,
+      },
+      {
+        source: "/blog/what-is-financial-planning",
+        destination: "/article-not-available",
+        permanent: false,
+      },
+      {
+        source: "/blog/top-4-tools-used-in-accounting",
+        destination: "/article-not-available",
+        permanent: false,
+      },
     ];
   },
 };
