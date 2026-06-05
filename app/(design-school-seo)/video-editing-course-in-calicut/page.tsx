@@ -6,6 +6,7 @@ import { VideoEditingCalicutAchieveSection } from "@/components/design/VideoEdit
 import { VideoEditingCalicutExploreProgramsSection } from "@/components/design/VideoEditingCalicutExploreProgramsSection";
 import { VideoEditingCalicutWhatMakesDifferentSection } from "@/components/design/VideoEditingCalicutWhatMakesDifferentSection";
 import { VideoEditingCalicutMentorsSection } from "@/components/design/VideoEditingCalicutMentorsSection";
+import { DesignSchoolSeoPlacementsSection } from "@/components/design/DesignSchoolSeoPlacementsSection";
 import { VideoEditingCalicutLearningCultureSection } from "@/components/design/VideoEditingCalicutLearningCultureSection";
 import { VideoEditingCalicutTestimonialsSection } from "@/components/design/VideoEditingCalicutTestimonialsSection";
 import { VideoEditingCalicutFaqSection } from "@/components/design/VideoEditingCalicutFaqSection";
@@ -35,6 +36,7 @@ export default function VideoEditingCourseInCalicutPage() {
             <VideoEditingCalicutExploreProgramsSection />
             <VideoEditingCalicutWhatMakesDifferentSection />
             <VideoEditingCalicutMentorsSection />
+            <DesignSchoolSeoPlacementsSection />
             <VideoEditingCalicutLearningCultureSection />
             <VideoEditingCalicutTestimonialsSection />
             <VideoEditingCalicutFaqSection />

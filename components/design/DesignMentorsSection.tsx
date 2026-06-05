@@ -45,24 +45,23 @@ export function DesignMentorsSection() {
     const [desktopAtStart, setDesktopAtStart] = useState(true);
     const [desktopShift, setDesktopShift]     = useState(0);
     const [mobileShift, setMobileShift]       = useState(0);
-    const [MENTORS, setMENTORS]               = useState<MentorCard[]>([]);
+    const [MENTORS, setMENTORS]               = useState<MentorCard[]>(FALLBACK_MENTORS);
 
     useEffect(() => {
         const url = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/mentors?school=Design%20School`;
         fetch(url)
             .then((r) => (r.ok ? r.json() : null))
             .then((data) => {
-                setMENTORS(
-                    Array.isArray(data?.mentors)
-                        ? data.mentors.map((m: { _id: string; name: string; designation: string; photoUrl: string }, i: number) => ({
-                              id: m._id,
-                              name: m.name,
-                              designation: m.designation,
-                              photoSrc: m.photoUrl,
-                              filterColor: FILTER_COLORS[i % FILTER_COLORS.length],
-                          }))
-                        : []
-                );
+                const mentors = Array.isArray(data?.mentors)
+                    ? data.mentors.map((m: { _id: string; name: string; designation: string; photoUrl: string }, i: number) => ({
+                          id: m._id,
+                          name: m.name,
+                          designation: m.designation,
+                          photoSrc: m.photoUrl,
+                          filterColor: FILTER_COLORS[i % FILTER_COLORS.length],
+                      }))
+                    : null;
+                if (mentors && mentors.length > 0) setMENTORS(mentors);
             })
             .catch(() => {});
     }, []);
@@ -98,8 +97,6 @@ export function DesignMentorsSection() {
         el.addEventListener("scroll", update, { passive: true });
         return () => el.removeEventListener("scroll", update);
     }, []);
-
-    if (MENTORS.length === 0) return null;
 
     return (
         <section

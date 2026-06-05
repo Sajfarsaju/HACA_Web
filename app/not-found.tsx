@@ -1,92 +1,130 @@
-import Link from "next/link";
+"use client"
+
+import Link from "next/link"
+import { motion } from "framer-motion"
+
+const fadeUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 28 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, delay, ease: [0.21, 0.47, 0.32, 0.98] },
+})
 
 export default function NotFound() {
     return (
-        <>
-            <style>{`
-                @keyframes nf-float {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(-12px); }
-                }
-                @keyframes nf-glow {
-                    0%, 100% { opacity: 0.18; }
-                    50% { opacity: 0.32; }
-                }
-                @keyframes nf-fadein {
-                    from { opacity: 0; transform: translateY(24px); }
-                    to   { opacity: 1; transform: translateY(0); }
-                }
-                .nf-num   { animation: nf-float 5s ease-in-out infinite; }
-                .nf-orb   { animation: nf-glow 4s ease-in-out infinite; }
-                .nf-body  { animation: nf-fadein 0.7s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
-                .nf-btn-primary {
-                    display: inline-flex; align-items: center; justify-content: center;
-                    height: 50px; border-radius: 100px; padding: 0 32px;
-                    background: #ffffff; color: #000210;
-                    font-size: 15px; font-weight: 700; text-decoration: none;
-                    transition: transform 0.22s ease, box-shadow 0.22s ease;
-                }
-                .nf-btn-primary:hover {
-                    transform: translateY(-3px);
-                    box-shadow: 0 12px 36px rgba(76,117,255,0.35);
-                }
-                .nf-dots {
-                    background-image: radial-gradient(circle, rgba(76,117,255,0.18) 1px, transparent 1px);
-                    background-size: 36px 36px;
-                }
-            `}</style>
+        <div
+            className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-center gap-0 px-6 py-16 text-center"
+            style={{ fontFamily: "var(--font-rethink-sans), sans-serif" }}
+        >
+            {/* Ambient glow */}
+            <motion.div
+                className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                style={{
+                    width: "min(700px, 90vw)", height: "min(700px, 90vw)",
+                    background: "radial-gradient(circle, rgba(26,79,255,0.13) 0%, transparent 68%)",
+                }}
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                aria-hidden
+            />
 
-            <div
-                className="nf-dots relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-center bg-[#000210] px-6 text-center"
-                style={{ fontFamily: "var(--font-rethink-sans), sans-serif" }}
+            {/* 404 number block */}
+            <motion.div
+                className="relative select-none"
+                initial={{ opacity: 0, y: 36, scale: 0.94 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
             >
-                {/* Radial glow */}
-                <div
-                    className="nf-orb pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                {/* Blue glow blur */}
+                <span
+                    className="pointer-events-none absolute inset-0 flex items-center justify-center font-bold leading-none"
+                    aria-hidden
                     style={{
-                        width: 560, height: 560,
-                        background: "radial-gradient(circle, rgba(76,117,255,0.22) 0%, transparent 70%)",
+                        fontSize: "clamp(72px, 16vw, 190px)",
+                        letterSpacing: "-0.04em",
+                        background: "linear-gradient(180deg, #4C75FF 0%, #1A4FFF 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        filter: "blur(38px)",
+                        opacity: 0.4,
                     }}
-                />
+                >404</span>
 
-                {/* 404 */}
-                <div className="nf-num relative select-none">
-                    <span
-                        className="block font-bold leading-none text-white"
-                        style={{ fontSize: "clamp(100px, 18vw, 210px)", letterSpacing: "-0.04em", opacity: 0.92 }}
-                    >
-                        404
-                    </span>
-                    {/* Reflection */}
-                    <span
-                        className="pointer-events-none block font-bold leading-none text-white"
-                        style={{
-                            fontSize: "clamp(100px, 18vw, 210px)", letterSpacing: "-0.04em",
-                            opacity: 0.06, transform: "scaleY(-1) translateY(-4px)",
-                            maskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
-                            WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
-                        }}
-                        aria-hidden
-                    >
-                        404
-                    </span>
-                </div>
+                {/* Main number */}
+                <motion.span
+                    className="relative block font-bold leading-none"
+                    style={{
+                        fontSize: "clamp(72px, 16vw, 190px)",
+                        letterSpacing: "-0.04em",
+                        background: "linear-gradient(180deg, #ffffff 25%, rgba(255,255,255,0.42) 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                    }}
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                >404</motion.span>
 
-                {/* Body */}
-                <div className="nf-body relative z-10 -mt-2 flex flex-col items-center gap-4">
-                    <h1 className="m-0 text-[26px] font-bold leading-tight text-white lg:text-[38px]">
-                        Page Not Found
-                    </h1>
-                    <p className="m-0 max-w-[360px] text-[15px] leading-relaxed text-[#A7ADBE] lg:text-[16px]">
-                        Looks like this page took a wrong turn. Let&apos;s get you back.
-                    </p>
-                    <div className="mt-4">
-                        <Link href="/" className="nf-btn-primary">
-                            ← Back to Home
-                        </Link>
-                    </div>
-                </div>
+                {/* Reflection — hidden on mobile */}
+                <span
+                    className="pointer-events-none hidden md:block font-bold leading-none"
+                    style={{
+                        fontSize: "clamp(72px, 16vw, 190px)",
+                        letterSpacing: "-0.04em",
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 60%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        transform: "scaleY(-1) translateY(-6px)",
+                        maskImage: "linear-gradient(to bottom, black 0%, transparent 55%)",
+                        WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 55%)",
+                    }}
+                    aria-hidden
+                >404</span>
+            </motion.div>
+
+            {/* Vertical divider */}
+            <motion.div
+                className="w-px my-4 md:my-6"
+                style={{
+                    height: 40,
+                    background: "linear-gradient(to bottom, transparent, rgba(76,117,255,0.55), transparent)",
+                }}
+                initial={{ opacity: 0, scaleY: 0 }}
+                animate={{ opacity: 1, scaleY: 1 }}
+                transition={{ duration: 0.5, delay: 0.42, ease: "easeOut" }}
+                aria-hidden
+            />
+
+            {/* Body */}
+            <div className="relative z-10 flex flex-col items-center gap-5 max-w-[480px]">
+
+                <motion.h1
+                    {...fadeUp(0.52)}
+                    className="m-0 font-bold text-white leading-[115%]"
+                    style={{ fontSize: "clamp(20px, 3.8vw, 40px)" }}
+                >
+                    This page packed its bags and left.
+                </motion.h1>
+
+                <motion.div {...fadeUp(0.64)}>
+                    <Link href="/" aria-label="Back to home" className="no-underline">
+                        <motion.span
+                            className="inline-flex items-center justify-center gap-2.5 h-[50px] md:h-[52px] px-7 md:px-8 rounded-[100px] font-semibold text-[14px] md:text-[15px] text-[#000210] bg-white cursor-pointer"
+                            style={{ boxShadow: "0 4px 24px rgba(76,117,255,0.18), 0 1px 3px rgba(0,0,0,0.25)" }}
+                            whileHover={{
+                                scale: 1.05,
+                                boxShadow: "0 8px 40px rgba(76,117,255,0.48), 0 2px 8px rgba(0,0,0,0.25)",
+                            }}
+                            whileTap={{ scale: 0.97 }}
+                            transition={{ type: "spring", stiffness: 320, damping: 22 }}
+                        >
+                            Back to Home
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                <path d="M5 12h14M12 5l7 7-7 7" stroke="#000210" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </motion.span>
+                    </Link>
+                </motion.div>
+
             </div>
-        </>
-    );
+        </div>
+    )
 }

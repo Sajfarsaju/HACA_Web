@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { PlacementCardMedia } from "@/components/success-story/PlacementCardMedia";
+import { getPublicBackendBase, type PlacementGroup, type PlacementItem } from "@/lib/placements-api";
 
 const FONT = '"VC Nudge Trial Normal", sans-serif' as const;
 
@@ -10,18 +12,42 @@ const HEADING_ID = "graphic-design-calicut-students-working-heading";
 const CARD_WIDTH_PX = 409.61407470703125;
 const CARD_HEIGHT_PX = 464.624267578125;
 const CARD_GAP_PX = 10;
-/** One set of four cards; duplicated in the DOM so the strip is wider than common viewports. */
-const CARD_INDEXES = [0, 1, 2, 3, 0, 1, 2, 3] as const;
+const DESIGN_SCHOOL_NAME = "Design School";
+const PLACEHOLDER_COUNT = 8;
 
 export function GraphicDesigningCalicutStudentsWorkingSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
     const [shift, setShift] = useState(0);
+    const [designPlacements, setDesignPlacements] = useState<PlacementItem[] | null>(null);
     const dragRef = useRef<{
         pointerId: number;
         startClientX: number;
         startScrollLeft: number;
     } | null>(null);
+
+    useEffect(() => {
+        let cancelled = false;
+        async function run() {
+            try {
+                const res = await fetch(`${getPublicBackendBase()}/api/placements/grouped?limit=200`, {
+                    cache: "no-store",
+                });
+                if (!res.ok) return;
+                const data: { groups?: PlacementGroup[] } = await res.json();
+                const groups = Array.isArray(data.groups) ? data.groups : [];
+                const design = groups.find((g) => g.schoolName === DESIGN_SCHOOL_NAME);
+                const items = Array.isArray(design?.items) ? design!.items : [];
+                if (!cancelled) setDesignPlacements(items);
+            } catch {
+                // keep placeholders
+            }
+        }
+        run();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
     useEffect(() => {
         const el = scrollRef.current;
@@ -79,6 +105,11 @@ export function GraphicDesigningCalicutStudentsWorkingSection() {
         document.addEventListener("pointerup", onUp);
         document.addEventListener("pointercancel", onUp);
     }, [endPointerDrag]);
+
+    const cards: (PlacementItem | null)[] =
+        designPlacements && designPlacements.length > 0
+            ? designPlacements
+            : Array.from({ length: PLACEHOLDER_COUNT }, () => null);
 
     return (
         <section
@@ -185,16 +216,23 @@ export function GraphicDesigningCalicutStudentsWorkingSection() {
                                         paddingRight: "clamp(28px, 4.17vw, 72px)",
                                     }}
                                 >
-                                    {CARD_INDEXES.map((idx, i) => (
+                                    {cards.map((item, i) => (
                                         <div
-                                            key={`card-${i}`}
-                                            className="box-border shrink-0 bg-[#E8E8E8]"
+                                            key={item?._id ?? `placeholder-${i}`}
+                                            className="relative box-border shrink-0 overflow-hidden rounded-[14px] bg-[#E8E8E8]"
                                             style={{
                                                 width: CARD_WIDTH_PX,
                                                 height: CARD_HEIGHT_PX,
                                             }}
-                                            aria-hidden="true"
-                                        />
+                                            aria-label={item?.title || "Design school placement"}
+                                            aria-hidden={!item}
+                                        >
+                                            <PlacementCardMedia
+                                                imageUrl={item?.imageUrl ?? null}
+                                                alt={item?.title || "Design school placement"}
+                                                className="absolute inset-0 h-full w-full"
+                                            />
+                                        </div>
                                     ))}
                                 </div>
                             </div>
