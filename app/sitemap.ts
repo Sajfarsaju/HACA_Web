@@ -1,5 +1,4 @@
 import { MetadataRoute } from "next";
-import { BLOG_POSTS } from "@/lib/blog-data";
 import { DESIGN_SCHOOL_SEO_PATHS } from "@/lib/design-school-seo";
 import {
     DIGITAL_MARKETING_CALICUT_SEO_PATH,
@@ -99,8 +98,6 @@ const CORE_PAGES: Array<{ path: string; priority?: number; changeFrequency?: Cha
 ];
 
 async function getBlogSlugs(): Promise<string[]> {
-    const slugs = new Set(BLOG_POSTS.map((post) => post.slug));
-
     try {
         const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:5000";
         const res = await fetch(`${backendUrl}/api/admin/public-blogs`, {
@@ -108,9 +105,10 @@ async function getBlogSlugs(): Promise<string[]> {
             signal: AbortSignal.timeout(3000),
         });
 
-        if (!res.ok) return [...slugs];
+        if (!res.ok) return [];
 
         const data: { items?: unknown[] } = await res.json();
+        const slugs: string[] = [];
 
         for (const item of data.items ?? []) {
             if (!item || typeof item !== "object") continue;
@@ -121,13 +119,13 @@ async function getBlogSlugs(): Promise<string[]> {
                     : typeof blog._id === "string" || typeof blog._id === "number"
                       ? String(blog._id)
                       : null;
-            if (slug) slugs.add(slug);
+            if (slug) slugs.push(slug);
         }
-    } catch {
-        // Fall back to static blog slugs when the API is unavailable at build time.
-    }
 
-    return [...slugs];
+        return slugs;
+    } catch {
+        return [];
+    }
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
