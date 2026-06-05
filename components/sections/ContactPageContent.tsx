@@ -8,7 +8,7 @@ const fadeUp = (delay = 0) => ({
     initial: { opacity: 0, y: 28 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, amount: 0.15 },
-    transition: { duration: 0.6, delay, ease: [0.21, 0.47, 0.32, 0.98] },
+    transition: { duration: 0.6, delay, ease: [0.21, 0.47, 0.32, 0.98] as const },
 })
 
 function MapPinIcon() {
@@ -136,7 +136,7 @@ export function ContactPageContent() {
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
+                        transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] as const }}
                     >
                         <span className="inline-flex items-center gap-2 bg-white/[0.06] border border-white/[0.10] px-4 py-2 rounded-full font-rethink text-[12px] uppercase tracking-widest text-[#A7ADBE]">
                             Contact Us
@@ -146,7 +146,7 @@ export function ContactPageContent() {
                     <motion.h1
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.65, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
+                        transition={{ duration: 0.65, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] as const }}
                         className="m-0 font-rethink font-bold text-white leading-[110%]"
                         style={{ fontSize: "clamp(36px, 6vw, 72px)" }}
                     >
@@ -159,7 +159,7 @@ export function ContactPageContent() {
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+                        transition={{ duration: 0.6, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] as const }}
                         className="m-0 font-rethink text-[#A7ADBE] max-w-[500px]"
                         style={{ fontSize: "clamp(15px, 1.8vw, 18px)", lineHeight: "170%" }}
                     >

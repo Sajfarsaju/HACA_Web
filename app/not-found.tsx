@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 const fadeUp = (delay = 0) => ({
     initial: { opacity: 0, y: 28 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, delay, ease: [0.21, 0.47, 0.32, 0.98] },
+    transition: { duration: 0.6, delay, ease: [0.21, 0.47, 0.32, 0.98] as const },
 })
 
 export default function NotFound() {
@@ -32,7 +32,7 @@ export default function NotFound() {
                 className="relative select-none"
                 initial={{ opacity: 0, y: 36, scale: 0.94 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+                transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] as const }}
             >
                 {/* Blue glow blur */}
                 <span

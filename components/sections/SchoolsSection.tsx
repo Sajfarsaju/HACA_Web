@@ -82,7 +82,7 @@ function SchoolCard({
             transition={{
                 duration: 0.5,
                 delay: cardIndex * 0.12,
-                ease: [0.21, 0.47, 0.32, 0.98],
+                ease: [0.21, 0.47, 0.32, 0.98] as const,
             }}
         >
             <Link

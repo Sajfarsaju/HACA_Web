@@ -65,7 +65,7 @@ export function MentorsSection() {
                         initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
                         whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.15, margin: "-48px 0px -32px 0px" }}
-                        transition={{ duration: 0.5, delay: index * 0.12, ease: [0.21, 0.47, 0.32, 0.98] }}
+                        transition={{ duration: 0.5, delay: index * 0.12, ease: [0.21, 0.47, 0.32, 0.98] as const }}
                     >
                         <div className="relative w-full aspect-[317/367] rounded-[20px] border border-[#25317D] overflow-hidden bg-[linear-gradient(340.87deg,rgba(0,2,15,0)_23.42%,rgba(15,47,153,0.2)_74.9%,rgba(26,79,255,0.2)_90.34%)] px-[18px] py-[19px] max-md:rounded-[21.14px] max-md:px-[19.02px] max-md:py-[20.08px]">
                             <Image src={mentor.photo} alt={mentor.name} fill className="object-cover object-top rounded-[16px]" sizes="(max-width: 767px) 100vw, 317px" />

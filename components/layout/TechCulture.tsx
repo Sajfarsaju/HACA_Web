@@ -72,7 +72,7 @@ export function TechCulture() {
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: reduceMotion ? 0 : 0.45, ease: [0.21, 0.47, 0.32, 0.98] },
+            transition: { duration: reduceMotion ? 0 : 0.45, ease: [0.21, 0.47, 0.32, 0.98] as const },
         },
     } as const;
 

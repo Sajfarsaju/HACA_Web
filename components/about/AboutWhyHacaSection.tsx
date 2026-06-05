@@ -76,7 +76,7 @@ function AboutWhyCard({
             transition={{
                 duration: 0.55,
                 delay,
-                ease: [0.21, 0.47, 0.32, 0.98],
+                ease: [0.21, 0.47, 0.32, 0.98] as const,
             }}
         >
             <div className="relative h-[clamp(50px,5vw,70px)] w-[clamp(50px,5vw,70px)] shrink-0 max-md:h-[67.08px] max-md:w-[67.08px]">
@@ -118,7 +118,7 @@ export function AboutWhyHacaSection() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px 0px" }}
-                transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
+                transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] as const }}
             >
                 Why HACA?
             </motion.h2>

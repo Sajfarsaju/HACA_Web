@@ -18,14 +18,14 @@ export function AboutHeroSection() {
                 <motion.h1
                     className="w-full font-rethink font-bold text-[clamp(32px,4vw,54px)] leading-[1.1] text-center text-white m-0"
                     {...fadeUp}
-                    transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] as const }}
                 >
                     About us
                 </motion.h1>
                 <motion.p
                     className="w-full font-rethink font-bold text-[clamp(14px,1.4vw,20px)] leading-[clamp(17px,2.1vw,34px)] text-center text-[#A7ADBE] m-0"
                     {...fadeUp}
-                    transition={{ duration: 0.6, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    transition={{ duration: 0.6, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] as const }}
                 >
                     A quick overview of what HACA is all about and how we help you build real skills, gain industry exposure, and step confidently into your career.
                 </motion.p>
@@ -35,7 +35,7 @@ export function AboutHeroSection() {
                 <motion.div
                     className="relative w-[clamp(260px,34vw,487px)] aspect-[487/537] rounded-[20px] overflow-hidden bg-[#10152F] shrink-0 max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto"
                     {...fadeUp}
-                    transition={{ duration: 0.6, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    transition={{ duration: 0.6, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] as const }}
                 >
                     <Image
                         src="/photos/main/Welcome%20to%20HACA.webp"
@@ -50,7 +50,7 @@ export function AboutHeroSection() {
                 <motion.div
                     className="w-full max-w-[clamp(320px,48vw,741px)] flex flex-col gap-[50px] max-md:max-w-[335px] max-md:gap-[20px] max-md:mx-auto"
                     {...fadeUp}
-                    transition={{ duration: 0.6, delay: 0.28, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    transition={{ duration: 0.6, delay: 0.28, ease: [0.21, 0.47, 0.32, 0.98] as const }}
                 >
                     <h2 className="w-full max-w-[min(597px,100%)] font-rethink font-semibold text-[clamp(26px,4vw,48px)] leading-[110%] text-white m-0">
                         Industry-Ready Skill Training Institute in India &amp; UAE
