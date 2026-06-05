@@ -1,5 +1,4 @@
 import { TechFooter } from "@/components/layout/TechFooter";
-import { TechReserveBottomBar } from "@/components/layout/TechReserveBottomBar";
 import { TechWhatsAppFloatingButton } from "@/components/layout/TechWhatsAppFloatingButton";
 import { TechSchoolNavbar } from "@/components/tech/TechSchoolNavbar";
 import { TECH_SEO_PAGE_BG } from "@/lib/tech-school-seo";
@@ -26,7 +25,6 @@ export default function TechSchoolSeoGroupLayout({
             <div className="relative z-10">
                 <TechFooter variant="seo" />
             </div>
-            <TechReserveBottomBar />
         </div>
     );
 }

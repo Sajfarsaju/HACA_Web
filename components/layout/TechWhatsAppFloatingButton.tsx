@@ -1,77 +1,26 @@
- "use client";
- 
- import Image from "next/image";
- import Link from "next/link";
- import { useEffect, useRef, useState } from "react";
- import { WHATSAPP_CHAT_URL } from "@/lib/whatsapp";
- 
- const INTRO_SECTION_ID = "tech-intro-section";
- 
- export function TechWhatsAppFloatingButton() {
-     const [isVisible, setIsVisible] = useState(false);
-     const rafRef = useRef<number | null>(null);
- 
-     useEffect(() => {
-         const update = () => {
-             const intro = document.getElementById(INTRO_SECTION_ID);
-             if (!intro) return;
- 
-             const rect = intro.getBoundingClientRect();
-             const vh = window.innerHeight || 0;
- 
-             // Show once the intro section has entered the viewport (or we have scrolled past it).
-             // Hide again when we scroll back above it.
-             const shouldShow = rect.top <= vh * 0.9;
-             const shouldHide = rect.top > vh * 0.9;
- 
-             setIsVisible((prev) => {
-                 if (prev && shouldHide) return false;
-                 if (!prev && shouldShow) return true;
-                 return prev;
-             });
-         };
- 
-         const onScrollOrResize = () => {
-             if (rafRef.current) cancelAnimationFrame(rafRef.current);
-             rafRef.current = requestAnimationFrame(update);
-         };
- 
-         update();
-         window.addEventListener("scroll", onScrollOrResize, { passive: true });
-         window.addEventListener("resize", onScrollOrResize);
-         return () => {
-             window.removeEventListener("scroll", onScrollOrResize);
-             window.removeEventListener("resize", onScrollOrResize);
-             if (rafRef.current) cancelAnimationFrame(rafRef.current);
-         };
-     }, []);
- 
-     return (
-         <Link
-             href={WHATSAPP_CHAT_URL}
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Contact us on WhatsApp"
-             className={[
-                 /* Clear TechReserveBottomBar (fixed bottom bar) + safe area */
-                 "fixed right-[16px] bottom-[calc(124px+env(safe-area-inset-bottom,0px))] md:right-[24px] lg:right-[34px]",
-                 "w-[56px] h-[56px] md:w-[62px] md:h-[62px] lg:w-[70px] lg:h-[70px]",
-                 "rounded-[200px] border border-white/30 overflow-hidden p-0 z-[9999]",
-                 "cursor-pointer bg-white/5 flex items-center justify-center",
-                 "transition-transform duration-300 ease-in-out select-none hover:scale-110",
-                 "transition-opacity duration-200 ease-out",
-                 isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-             ].join(" ")}
-         >
-             <Image
-                 src="/photos/Tech/ic_baseline-whatsapp.svg"
-                 alt="WhatsApp"
-                 width={80}
-                 height={80}
-                 className="block w-full h-full shrink-0 object-contain"
-                 priority={false}
-             />
-         </Link>
-     );
- }
- 
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { WHATSAPP_CHAT_URL } from "@/lib/whatsapp";
+
+export function TechWhatsAppFloatingButton() {
+    return (
+        <Link
+            href={WHATSAPP_CHAT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Contact us on WhatsApp"
+            className="fixed bottom-[90px] right-[24px] w-[50px] h-[50px] md:w-[70px] md:h-[70px] z-[9999] flex items-center justify-center transition-transform duration-300 ease-in-out select-none hover:scale-110"
+        >
+            <Image
+                src="/photos/Tech/ic_baseline-whatsapp.svg"
+                alt="WhatsApp"
+                width={80}
+                height={80}
+                className="block w-full h-full shrink-0 object-contain"
+                priority={false}
+            />
+        </Link>
+    );
+}

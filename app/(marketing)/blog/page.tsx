@@ -1,5 +1,4 @@
 import { BlogPageContent } from "@/components/blog/BlogPageContent"
-import { BLOG_POSTS } from "@/lib/blog-data"
 import { fetchPublicBlogs } from "@/lib/blog-api"
 import { buildSitePageMetadata } from "@/lib/site-page-metadata"
 
@@ -11,9 +10,7 @@ export const metadata = buildSitePageMetadata({
 })
 
 export default async function BlogPage() {
-    const dynamicBlogs = await fetchPublicBlogs()
-    const dynamicSlugs = new Set(dynamicBlogs.map((b) => b.slug))
-    const allBlogs = [...dynamicBlogs, ...BLOG_POSTS.filter((b) => !dynamicSlugs.has(b.slug))]
+    const allBlogs = await fetchPublicBlogs()
 
     return (
         <main className="w-full min-h-screen bg-transparent text-white">

@@ -21,28 +21,25 @@ const FALLBACK: DisplayMentor[] = [
 
 export function MentorsSection() {
     const prefersReducedMotion = useReducedMotion()
-    const [displayMentors, setDisplayMentors] = useState<DisplayMentor[]>([])
+    const [displayMentors, setDisplayMentors] = useState<DisplayMentor[]>(FALLBACK)
 
     useEffect(() => {
         const url = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/mentors?school=HACA`
         fetch(url)
             .then((r) => (r.ok ? r.json() : null))
             .then((data) => {
-                setDisplayMentors(
-                    Array.isArray(data?.mentors)
-                        ? data.mentors.map((m: { _id: string; name: string; designation: string; photoUrl: string }) => ({
-                              id: m._id,
-                              photo: m.photoUrl,
-                              name: m.name,
-                              position: m.designation,
-                          }))
-                        : []
-                )
+                const mentors = Array.isArray(data?.mentors)
+                    ? data.mentors.map((m: { _id: string; name: string; designation: string; photoUrl: string }) => ({
+                          id: m._id,
+                          photo: m.photoUrl,
+                          name: m.name,
+                          position: m.designation,
+                      }))
+                    : null
+                if (mentors && mentors.length > 0) setDisplayMentors(mentors)
             })
             .catch(() => {})
     }, [])
-
-    if (displayMentors.length === 0) return null;
 
     return (
         <section className="w-full max-w-[1440px] mx-auto p-[40px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,24px)] max-md:gap-[26px] max-md:items-start">

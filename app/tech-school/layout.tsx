@@ -1,4 +1,4 @@
-import { TechReserveBottomBar } from "@/components/layout/TechReserveBottomBar";
+import { TechWhatsAppFloatingButton } from "@/components/layout/TechWhatsAppFloatingButton";
 import { Outfit } from "next/font/google";
 
 const outfit = Outfit({
@@ -9,8 +9,8 @@ const outfit = Outfit({
 export default function TechSchoolLayout({ children }: { children: React.ReactNode }) {
     return (
         <div className={outfit.className}>
+            <TechWhatsAppFloatingButton />
             {children}
-            <TechReserveBottomBar />
         </div>
     );
 }

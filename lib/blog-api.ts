@@ -1,4 +1,4 @@
-import { BLOG_POSTS, type BlogPost } from "@/lib/blog-data";
+import type { BlogPost } from "@/lib/blog-data";
 
 function mapBlogRecord(blog: unknown): BlogPost | null {
     if (!blog || typeof blog !== "object") return null;
@@ -54,10 +54,8 @@ export async function fetchPublicBlogs(): Promise<BlogPost[]> {
     }
 }
 
-/** Latest posts for home preview: API blogs first, then static fallback, deduped by slug. */
+/** Latest published posts for the home page preview. */
 export async function getLatestBlogsForHome(limit = 3): Promise<BlogPost[]> {
-    const dynamicBlogs = await fetchPublicBlogs();
-    const dynamicSlugs = new Set(dynamicBlogs.map((b) => b.slug));
-    const staticOnly = BLOG_POSTS.filter((b) => !dynamicSlugs.has(b.slug));
-    return [...dynamicBlogs, ...staticOnly].slice(0, limit);
+    const blogs = await fetchPublicBlogs();
+    return blogs.slice(0, limit);
 }

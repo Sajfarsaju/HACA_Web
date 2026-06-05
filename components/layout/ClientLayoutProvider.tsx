@@ -4,9 +4,10 @@ import { usePathname } from "next/navigation";
 import { isDesignSchoolSeoPath } from "@/lib/design-school-seo";
 import { isMarketingSchoolSeoPath } from "@/lib/marketing-school-seo";
 import { isTechSchoolSeoPath } from "@/lib/tech-school-seo";
+import { WHATSAPP_CHAT_URL } from "@/lib/whatsapp";
 import { Navbar } from "./Navbar";
 import { WhatsAppButton } from "./WhatsAppButton";
-import { BottomReserveCta } from "./BottomReserveCta";
+import { ReturnToHacaButton } from "./ReturnToHacaButton";
 import { ConditionalFooter } from "./ConditionalFooter";
 
 export function ClientLayoutProvider({ children }: { children: React.ReactNode }) {
@@ -23,19 +24,25 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
         pathname.startsWith("/schools/marketing/");
     const isMarketingSchoolSeo = isMarketingSchoolSeoPath(pathname);
     const isTechSchoolSeo = isTechSchoolSeoPath(pathname);
+    const isDesignSchoolSeo = isDesignSchoolSeoPath(pathname);
     const isDesignSchool =
         pathname === "/design-school" ||
         pathname.startsWith("/design-school/") ||
         pathname === "/schools/design" ||
         pathname.startsWith("/schools/design/") ||
-        isDesignSchoolSeoPath(pathname);
-    const isHome = pathname === "/";
+        isDesignSchoolSeo;
+    // Navbar: excluded on all school pages (they have their own)
     const excludeLayout =
         isTechSchool ||
         isTechSchoolSeo ||
         isMarketingSchool ||
         isMarketingSchoolSeo ||
         isDesignSchool;
+
+    // WhatsApp: tech school pages have their own TechWhatsAppFloatingButton.
+    // Marketing-seo, AE, and design-seo pages have their own buttons in their layouts.
+    // General pages and marketing/design main pages show the button here.
+    const showWhatsApp = !isTechSchool && !isTechSchoolSeo && !isMarketingSchoolSeo && !isDesignSchoolSeo;
 
     return (
         <>
@@ -44,8 +51,8 @@ export function ClientLayoutProvider({ children }: { children: React.ReactNode }
                 {children}
                 <ConditionalFooter />
             </main>
-            {!excludeLayout && <WhatsAppButton />}
-            {isHome && <BottomReserveCta />}
+            {showWhatsApp && <WhatsAppButton href={WHATSAPP_CHAT_URL} />}
+            <ReturnToHacaButton />
         </>
     );
 }

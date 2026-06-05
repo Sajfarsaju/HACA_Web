@@ -4,13 +4,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { WHATSAPP_CHAT_URL } from "@/lib/whatsapp"
 
-export function WhatsAppButton() {
+export function WhatsAppButton({ href = WHATSAPP_CHAT_URL }: { href?: string }) {
     return (
         <Link
-            href={WHATSAPP_CHAT_URL}
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-[25px] right-[25px] md:bottom-[40px] md:right-[40px] lg:bottom-[140px] z-[100] flex items-center justify-center transition-transform duration-300 ease-in-out select-none hover:scale-110"
+            className="fixed bottom-[90px] right-[24px] z-[100] flex items-center justify-center transition-transform duration-300 ease-in-out select-none hover:scale-110"
             aria-label="Contact us on WhatsApp"
         >
             <Image
