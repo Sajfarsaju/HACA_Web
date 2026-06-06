@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import { Geist, Geist_Mono, Rethink_Sans, Outfit, Manrope } from "next/font/google";
 import "../styles/globals.css";
 import { ClientLayoutProvider } from "@/components/layout/ClientLayoutProvider";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+    icons: {
+        icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+        shortcut: "/icon.svg",
+    },
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

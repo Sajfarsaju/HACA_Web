@@ -31,7 +31,18 @@ const PROGRAMS: DesignProgramCardProps[] = [
         titleLine2: "Communication",
         description:
             "This program is designed to help you understand design as a process, not just a set of tools. You'll learn through real projects, guided practice, and internship-style assignments that reflect how the creative industry works.",
-        tools: DUMMY_TOOLS,
+        tools: [
+            { src: "/photos/schools/design/tools%202/photoshop.svg",                   alt: "Photoshop" },
+            { src: "/photos/schools/design/tools%202/illustrator.svg",                 alt: "Illustrator" },
+            { src: "/photos/schools/design/tools%202/premiere.svg",                    alt: "Premiere Pro" },
+            { src: "/photos/schools/design/tools%202/after-effects.svg",               alt: "After Effects" },
+            { src: "/photos/schools/design/tools%202/Frame%202131331098.svg",          alt: "Figma" },
+            { src: "/photos/schools/design/tools%202/davinci%20resolve.svg",           alt: "DaVinci Resolve" },
+            { src: "/photos/schools/design/tools%202/devicon_behance.svg",             alt: "Behance" },
+            { src: "/photos/schools/design/tools%202/Freepik.svg",                     alt: "Freepik" },
+            { src: "/photos/schools/design/tools%202/gemini.svg",                      alt: "Gemini" },
+            { src: "/photos/schools/design/tools%202/ChatGPT_logo_Square%20logo.svg",  alt: "ChatGPT" },
+        ],
         photoSrc: "/photos/schools/design/program 1 photo.webp",
         photoConfig: {
             desktop: { top: 100, left: 729, width: 491, height: 628 },
@@ -64,7 +75,16 @@ const PROGRAMS: DesignProgramCardProps[] = [
         titleLine2: "Graphic Design",
         description:
             "Build strong visual foundations that support every creative role. This module focuses on clarity, structure, and intentional design choices.",
-        tools: DUMMY_TOOLS,
+        tools: [
+            { src: "/photos/schools/design/tools%202/photoshop.svg",                  alt: "Photoshop" },
+            { src: "/photos/schools/design/tools%202/illustrator.svg",                alt: "Illustrator" },
+            { src: "/photos/schools/design/tools%202/devicon_behance.svg",            alt: "Behance" },
+            { src: "/photos/schools/design/tools%202/ChatGPT_logo_Square%20logo.svg", alt: "ChatGPT" },
+            { src: "/photos/schools/design/tools%202/gemini.svg",                     alt: "Gemini" },
+            { src: "/photos/schools/design/tools%202/Freepik.svg",                    alt: "Freepik" },
+            { src: "/photos/schools/design/tools%202/ai%20studio.svg",                alt: "AI Studio" },
+            { src: "/photos/schools/design/tools%202/ideogram.svg",                  alt: "Ideogram" },
+        ],
         photoSrc: "/photos/schools/design/program 2 photo.webp",
         photoConfig: {
             desktop: { top: 55, left: 674, width: 650, height: 724 },
@@ -132,7 +152,17 @@ const PROGRAMS: DesignProgramCardProps[] = [
         titleLine2: "+ AI Program",
         description:
             "Build user-friendly digital experiences through design thinking, wireframing, and prototyping, which are ideal for future app and web designers.",
-        tools: DUMMY_TOOLS,
+        tools: [
+            { src: "/photos/schools/design/tools/figma.svg",                     alt: "Figma" },
+            { src: "/photos/schools/design/tools%202/devicon_behance.svg",       alt: "Behance" },
+            { src: "/photos/schools/design/tools/ui%20ux%20tools%209.svg",       alt: "LinkedIn" },
+            { src: "/photos/schools/design/tools%202/gemini.svg",                alt: "Gemini" },
+            { src: "/photos/schools/design/tools/ui%20ux%20tools%201.svg",       alt: "Anthropic" },
+            { src: "/photos/schools/design/tools/ui%20ux%20tools%203.svg",       alt: "ChatGPT" },
+            { src: "/photos/schools/design/tools/ui%20ux%20tools%204.svg",       alt: "Uizard" },
+            { src: "/photos/schools/design/tools/ui%20ux%20tools%202.svg",       alt: "Spline" },
+            { src: "/photos/schools/design/tools/ui%20ux%20tools%205.svg",       alt: "Dribbble" },
+        ],
         photoSrc: "/photos/schools/design/program 4 photo.webp",
         photoConfig: {
             desktop: { top: 53.19, left: 754, width: 407, height: 668 },
@@ -164,7 +194,20 @@ const PROGRAMS: DesignProgramCardProps[] = [
         titleLine2: "Editing Mastery",
         description:
             "Editing is storytelling. This module focuses on how visuals, sound, and cuts work together to hold attention and deliver meaning.",
-        tools: DUMMY_TOOLS,
+        tools: [
+            { src: "/photos/schools/design/tools/premiere.svg",                  alt: "Premiere Pro" },
+            { src: "/photos/schools/design/tools%202/davinci%20resolve.svg",     alt: "DaVinci Resolve" },
+            { src: "/photos/schools/design/tools/skill-icons_audition.svg",      alt: "Audition" },
+            { src: "/photos/schools/design/tools%202/final%20cut.svg",           alt: "Final Cut Pro" },
+            { src: "/photos/schools/design/tools%202/google%20(2).svg",          alt: "Google" },
+            { src: "/photos/schools/design/tools/Group%205.svg",                 alt: "ChatGPT" },
+            { src: "/photos/schools/design/tools/Group%202.svg",                 alt: "Gyroflow" },
+            { src: "/photos/schools/design/tools/Group%207.svg",                 alt: "Motion" },
+            { src: "/photos/schools/design/tools/Group%203.svg",                 alt: "CapCut" },
+            { src: "/photos/schools/design/tools/Group%204.svg",                 alt: "Runway" },
+            { src: "/photos/schools/design/tools/Group%206.svg",                 alt: "VidIQ" },
+            { src: "/photos/schools/design/tools%202/Freepik.svg",               alt: "Freepik" },
+        ],
         photoSrc: "/photos/schools/design/program 5 photo.webp",
         photoConfig: {
             desktop: { top: 78.63, left: 788, width: 420, height: 599.8787841796875 },

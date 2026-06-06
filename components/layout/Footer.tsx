@@ -18,7 +18,7 @@ const schools = [
 
 const contactIndia = {
     heading: "India",
-    address: "HACA ((Haris&Co. Academy), Second Floor, 4 Wing Avenue, Panniyankara, Kozhikode, Kerala 673003",
+    address: "HACA (Haris&Co. Academy), Second Floor, 4 Wing Avenue, Panniyankara, Kozhikode, Kerala 673003",
     phone: "+91 08031332470",
 }
 const contactUAE = {

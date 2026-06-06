@@ -2,10 +2,114 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-
+import { getPublicBackendBase } from "@/lib/placements-api";
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
 
 const DESIGN_YOUTUBE_URL = "https://youtube.com/@designschoolhaca";
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function getYouTubeId(url: string): string | null {
+    const patterns = [
+        /[?&]v=([^&\s]+)/,
+        /youtu\.be\/([^?&\s]+)/,
+        /embed\/([^?&\s]+)/,
+        /shorts\/([^?&\s]+)/,
+    ];
+    for (const p of patterns) {
+        const m = url.match(p);
+        if (m) return m[1];
+    }
+    return null;
+}
+
+type VideoCard = { youtubeId: string; thumbSrc: string };
+
+// ─── Video card ───────────────────────────────────────────────────────────────
+
+function StoryCard({
+    card,
+    width,
+    height,
+    borderWidth,
+    radius,
+    inView,
+    delay,
+    isPlaying,
+    onClick,
+    cardGradient,
+}: {
+    card: VideoCard | null;
+    width: number;
+    height: number;
+    borderWidth: number;
+    radius?: number;
+    inView: boolean;
+    delay: number;
+    isPlaying: boolean;
+    onClick: () => void;
+    cardGradient: string;
+}) {
+    return (
+        <div
+            data-story-card
+            className={[
+                "relative shrink-0 overflow-hidden transition-all duration-700 ease-out",
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
+                card ? "cursor-pointer" : "",
+            ].join(" ")}
+            style={{
+                transitionDelay: `${delay}ms`,
+                width,
+                height,
+                borderStyle: "solid",
+                borderWidth,
+                borderColor: "rgba(0,0,0,0.18)",
+                background: cardGradient,
+                borderRadius: radius,
+            }}
+            onClick={card ? onClick : undefined}
+        >
+            {isPlaying && card ? (
+                <iframe
+                    src={`https://www.youtube.com/embed/${card.youtubeId}?autoplay=1&rel=0`}
+                    title="YouTube video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full border-0"
+                />
+            ) : card ? (
+                <>
+                    <Image
+                        src={card.thumbSrc}
+                        alt="Design School story"
+                        fill
+                        className="object-cover"
+                        sizes={`${Math.round(width)}px`}
+                        unoptimized
+                    />
+                    <div className="absolute inset-0 bg-black/10" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div
+                            className="rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+                            style={{ width: Math.round(height * 0.13), height: Math.round(height * 0.13) }}
+                        >
+                            <svg
+                                style={{ width: "40%", height: "40%", marginLeft: "8%" }}
+                                viewBox="0 0 24 24"
+                                fill="white"
+                            >
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </div>
+                    </div>
+                </>
+            ) : null}
+        </div>
+    );
+}
+
+// ─── Main component ───────────────────────────────────────────────────────────
 
 export function DesignStoriesInsightsSection({ font, serif }: { font: string; serif: string }) {
     const cardGradient =
@@ -21,6 +125,42 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
     const [mobilePad, setMobilePad] = useState(20);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
+
+    const [videos, setVideos] = useState<VideoCard[]>([]);
+    const [playingIdx, setPlayingIdx] = useState<number | null>(null);
+
+    useEffect(() => {
+        fetch(`${getPublicBackendBase()}/api/founder-videos?category=design-school`)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data: { videos?: { youtubeUrl: string }[] } | null) => {
+                if (data?.videos && data.videos.length > 0) {
+                    const cards: VideoCard[] = data.videos.flatMap((v) => {
+                        const id = getYouTubeId(v.youtubeUrl);
+                        if (!id) return [];
+                        return [{ youtubeId: id, thumbSrc: `https://img.youtube.com/vi/${id}/maxresdefault.jpg` }];
+                    });
+                    if (cards.length > 0) setVideos(cards);
+                }
+            })
+            .catch(() => {});
+    }, []);
+
+    // Close playing card when clicking outside
+    useEffect(() => {
+        if (playingIdx === null) return;
+        const handlePointerDown = (e: PointerEvent) => {
+            const target = e.target;
+            if (!(target instanceof Node)) return;
+            const cards = sectionRef.current?.querySelectorAll("[data-story-card]");
+            if (!cards) return;
+            for (const card of cards) {
+                if (card.contains(target)) return;
+            }
+            setPlayingIdx(null);
+        };
+        document.addEventListener("pointerdown", handlePointerDown);
+        return () => document.removeEventListener("pointerdown", handlePointerDown);
+    }, [playingIdx]);
 
     useEffect(() => {
         const el = sectionRef.current;
@@ -68,10 +208,14 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
     const scrollDesktopByCards = (dir: -1 | 1) => {
         const el = desktopScrollerRef.current;
         if (!el) return;
-        const cardW = 644;
-        const gap = 2;
-        el.scrollBy({ left: dir * (cardW + gap), behavior: "smooth" });
+        el.scrollBy({ left: dir * (644 + 2), behavior: "smooth" });
     };
+
+    // Show at least 3 placeholder slots; fill with real videos when available
+    const desktopCount = Math.max(3, videos.length);
+    const mobileCount = Math.max(3, videos.length);
+
+    const cardFor = (i: number): VideoCard | null => videos[i] ?? null;
 
     return (
         <section
@@ -84,7 +228,7 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
             "
         >
             <div className="flex w-full min-w-0 flex-col gap-[50px] lg:gap-[80px]">
-                {/* Heading — desktop frame: ~447 × 124 */}
+                {/* Heading */}
                 <div className="w-full min-h-0 lg:min-h-[123.574px] lg:w-[447px] lg:max-w-full">
                     <h2
                         className="m-0 w-full max-w-full text-black"
@@ -155,9 +299,9 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                     </h2>
                 </div>
 
-                {/* Videos container + desktop-only button row */}
+                {/* Videos container */}
                 <div className="flex w-full min-w-0 flex-col lg:gap-[40px]" style={{ gap: "20.66px" }}>
-                    {/* Desktop: mentor-like scrolling (edge-only gaps, touch right border) */}
+                    {/* Desktop */}
                     <div
                         className="hidden lg:block"
                         style={{
@@ -168,7 +312,6 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                         }}
                     >
                         <div className="relative w-full">
-                            {/* Desktop-only scroll buttons (like mentors) */}
                             <button
                                 type="button"
                                 aria-label="Scroll left"
@@ -184,13 +327,7 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                                 ].join(" ")}
                             >
                                 <span className="relative h-full w-full" style={{ transform: "rotate(180deg)" }}>
-                                    <Image
-                                        src="/photos/schools/design/Frame 2131331135.svg"
-                                        alt="" aria-hidden="true"
-                                        fill
-                                        className="object-contain"
-                                        priority={false}
-                                    />
+                                    <Image src="/photos/schools/design/Frame 2131331135.svg" alt="" aria-hidden="true" fill className="object-contain" priority={false} />
                                 </span>
                             </button>
 
@@ -209,50 +346,34 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                                 ].join(" ")}
                             >
                                 <span className="relative h-full w-full">
-                                    <Image
-                                        src="/photos/schools/design/Frame 2131331135.svg"
-                                        alt="" aria-hidden="true"
-                                        fill
-                                        className="object-contain"
-                                        priority={false}
-                                    />
+                                    <Image src="/photos/schools/design/Frame 2131331135.svg" alt="" aria-hidden="true" fill className="object-contain" priority={false} />
                                 </span>
                             </button>
 
                             <div
                                 ref={desktopScrollerRef}
                                 className="storiesScroller flex overflow-x-auto overflow-y-hidden scroll-smooth"
-                                style={{
-                                    width: "100%",
-                                    gap: "2px",
-                                    WebkitOverflowScrolling: "touch",
-                                    scrollbarWidth: "none",
-                                    msOverflowStyle: "none",
-                                }}
+                                style={{ width: "100%", gap: "2px", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}
                             >
-                                {Array.from({ length: 3 }, (_, i) => i).map((i) => (
-                                    <div
+                                {Array.from({ length: desktopCount }, (_, i) => (
+                                    <StoryCard
                                         key={i}
-                                        className={[
-                                            "shrink-0 transition-all duration-700 ease-out",
-                                            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
-                                        ].join(" ")}
-                                        style={{
-                                            transitionDelay: `${Math.min(i * 90, 240)}ms`,
-                                            width: "644px",
-                                            height: "392.5577697753906px",
-                                            borderStyle: "solid",
-                                            borderWidth: "1px",
-                                            borderColor: "rgba(0,0,0,0.18)",
-                                            background: cardGradient,
-                                        }}
+                                        card={cardFor(i)}
+                                        width={644}
+                                        height={392.5577697753906}
+                                        borderWidth={1}
+                                        inView={inView}
+                                        delay={Math.min(i * 90, 240)}
+                                        isPlaying={playingIdx === i}
+                                        onClick={() => setPlayingIdx(playingIdx === i ? null : i)}
+                                        cardGradient={cardGradient}
                                     />
                                 ))}
                             </div>
                         </div>
                     </div>
 
-                    {/* Mobile: mentor-like scrolling (edge-only gaps, touch right border) */}
+                    {/* Mobile */}
                     <div
                         className="lg:hidden"
                         style={{
@@ -264,30 +385,20 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                         <div
                             ref={mobileScrollerRef}
                             className="storiesScroller flex overflow-x-auto overflow-y-hidden"
-                            style={{
-                                width: "100%",
-                                gap: "1.03px",
-                                WebkitOverflowScrolling: "touch",
-                                scrollbarWidth: "none",
-                                msOverflowStyle: "none",
-                            }}
+                            style={{ width: "100%", gap: "1.03px", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}
                         >
-                            {Array.from({ length: 3 }, (_, i) => i).map((i) => (
-                                <div
+                            {Array.from({ length: mobileCount }, (_, i) => (
+                                <StoryCard
                                     key={i}
-                                    className={[
-                                        "shrink-0 transition-all duration-700 ease-out",
-                                        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
-                                    ].join(" ")}
-                                    style={{
-                                        transitionDelay: `${Math.min(i * 90, 240)}ms`,
-                                        width: "332.6446228027344px",
-                                        height: "202.76744079589844px",
-                                        borderStyle: "solid",
-                                        borderWidth: "0.52px",
-                                        borderColor: "rgba(0,0,0,0.18)",
-                                        background: cardGradient,
-                                    }}
+                                    card={cardFor(i)}
+                                    width={332.6446228027344}
+                                    height={202.76744079589844}
+                                    borderWidth={0.52}
+                                    inView={inView}
+                                    delay={Math.min(i * 90, 240)}
+                                    isPlaying={playingIdx === i}
+                                    onClick={() => setPlayingIdx(playingIdx === i ? null : i)}
+                                    cardGradient={cardGradient}
                                 />
                             ))}
                         </div>
@@ -301,7 +412,7 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
                         }
                     `}</style>
 
-                    {/* Desktop-only button container */}
+                    {/* Desktop CTA button */}
                     <div className="hidden lg:flex w-full max-w-[1320px] justify-center items-center" style={{ height: "82px" }}>
                         <VisitPageButton font={font} />
                     </div>

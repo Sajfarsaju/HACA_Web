@@ -6,6 +6,7 @@ import axios from "axios";
 import { PlacementCropModal } from "@/components/admin/PlacementCropModal";
 import { BlogEditor } from "@/components/admin/BlogEditor";
 import { CultureAdminSection } from "@/components/admin/CultureAdminSection";
+import { FounderVideosAdminSection } from "@/components/admin/FounderVideosAdminSection";
 import {
   PLACEMENT_SCHOOL_OPTIONS,
   type PlacementSchoolName,
@@ -149,7 +150,7 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null);
 
   // ── Active admin tab
-  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "mentors" | "culture">(
+  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "mentors" | "culture" | "videos">(
     "placements"
   );
 
@@ -1252,157 +1253,173 @@ export default function AdminPage() {
             >
               Culture
             </button>
+            <button
+              type="button"
+              id="tab-videos"
+              onClick={() => setActiveTab("videos")}
+              className={`rounded-xl px-5 py-2.5 text-sm font-medium transition ${
+                activeTab === "videos"
+                  ? "bg-white/15 text-white shadow-sm"
+                  : "text-[#9aa3b8] hover:text-white"
+              }`}
+            >
+              Videos
+            </button>
           </div>
 
           {/* ── Placements Tab ── */}
           {activeTab === "placements" && (
-            <div className="space-y-10">
-              <section className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
-                <div className="mb-6 flex flex-col gap-1 border-b border-white/12 pb-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="space-y-8">
+
+              {/* ── Upload form ── */}
+              <section className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-5 backdrop-blur-md sm:p-6">
+                <div className="mb-5 flex items-center gap-3 border-b border-white/10 pb-5">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#4C75FF]/20">
+                    <svg className="h-4 w-4 text-[#4C75FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                  </div>
                   <div>
-                    <h2 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
-                      New placement
-                    </h2>
-                    <p className="mt-1 text-sm text-[#9aa3b8]">
-                      Pick an image to open the cropper, then submit to upload.
-                    </p>
+                    <h2 className="font-[family-name:var(--font-manrope)] text-base font-semibold text-white">Upload placement card</h2>
+                    <p className="text-xs text-[#9aa3b8]">Select a school, pick an image, crop and upload.</p>
                   </div>
                 </div>
-                <form onSubmit={handleUpload} className="grid gap-6 lg:grid-cols-2">
-                  <div className="space-y-5">
-                    <div className="space-y-2">
-                      <label htmlFor="upload-title" className="text-xs font-medium text-[#A7ADBE]">
-                        Title <span className="font-normal text-[#8890a0]">(optional)</span>
-                      </label>
-                      <input
-                        id="upload-title"
-                        className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
-                        value={uploadTitle}
-                        onChange={(e) => setUploadTitle(e.target.value)}
-                        placeholder="e.g. Placement at Acme Corp"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor="school-select" className="text-xs font-medium text-[#A7ADBE]">
-                        School
-                      </label>
-                      <select
-                        id="school-select"
-                        className="w-full cursor-pointer appearance-none rounded-xl border border-white/20 bg-white/10 bg-[length:1rem] bg-[right_1rem_center] bg-no-repeat px-4 py-3 text-sm text-white outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
-                        style={{
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371717a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
-                        }}
-                        value={uploadSchoolName}
-                        onChange={(e) =>
-                          setUploadSchoolName(e.target.value as PlacementSchoolName)
-                        }
-                      >
-                        {PLACEMENT_SCHOOL_OPTIONS.map((name) => (
-                          <option key={name} value={name} className="bg-[#1a1f2e] text-white">
-                            {name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="flex flex-col justify-between gap-4 rounded-xl border border-dashed border-white/20 bg-white/[0.06] p-5 backdrop-blur-sm">
-                    <div className="space-y-2">
-                      <span className="text-xs font-medium text-[#A7ADBE]">Photo</span>
-                      <label className="relative flex cursor-pointer flex-col items-center justify-center rounded-lg border border-white/15 bg-white/[0.06] py-8 transition hover:border-[#4C75FF]/40 hover:bg-white/10">
+
+                <form onSubmit={handleUpload}>
+                  <div className="grid gap-4 lg:grid-cols-[1fr_180px]">
+                    {/* Fields */}
+                    <div className="space-y-3">
+                      <div className="space-y-1.5">
+                        <label htmlFor="school-select" className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#9aa3b8]">School</label>
+                        <select
+                          id="school-select"
+                          className="w-full cursor-pointer appearance-none rounded-xl border border-white/20 bg-white/10 bg-[length:1rem] bg-[right_0.75rem_center] bg-no-repeat px-3 py-2.5 text-sm text-white outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371717a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")` }}
+                          value={uploadSchoolName}
+                          onChange={(e) => setUploadSchoolName(e.target.value as PlacementSchoolName)}
+                        >
+                          {PLACEMENT_SCHOOL_OPTIONS.map((name) => (
+                            <option key={name} value={name} className="bg-[#1a1f2e] text-white">{name}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="space-y-1.5">
+                        <label htmlFor="upload-title" className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#9aa3b8]">
+                          Title <span className="font-normal normal-case tracking-normal text-[#8890a0]">(optional)</span>
+                        </label>
                         <input
-                          className="absolute inset-0 cursor-pointer opacity-0"
-                          type="file"
-                          accept="image/*"
-                          onChange={handlePickImage}
+                          id="upload-title"
+                          className="w-full rounded-xl border border-white/20 bg-white/10 px-3 py-2.5 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                          value={uploadTitle}
+                          onChange={(e) => setUploadTitle(e.target.value)}
+                          placeholder="e.g. Placed at Acme Corp"
                         />
-                        <span className="text-sm font-medium text-[#d1d5e0]">Click or drop image</span>
-                        <span className="mt-1 text-xs text-[#8890a0]">Opens crop tool with fixed ratio</span>
-                      </label>
+                      </div>
                     </div>
-                    {uploadFile ? (
-                      <p className="text-center text-xs font-medium text-emerald-400/90">
-                        Ready: {uploadFile.name}
-                      </p>
-                    ) : (
-                      <p className="text-center text-xs text-[#8890a0]">No file selected yet</p>
-                    )}
-                    <button
-                      type="submit"
-                      disabled={loading || !uploadFile}
-                      className="w-full rounded-xl bg-gradient-to-r from-[#4C75FF] to-[#3558e6] py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:brightness-110 disabled:opacity-40"
-                    >
-                      {loading ? "Uploading…" : "Upload to Cloudinary"}
-                    </button>
+
+                    {/* Drop zone + button */}
+                    <div className="flex flex-col gap-2.5">
+                      <label
+                        className="relative flex cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border border-dashed border-white/25 bg-white/[0.04] transition hover:border-[#4C75FF]/50 hover:bg-white/[0.07]"
+                        style={{ aspectRatio: "247/270" }}
+                      >
+                        <input className="absolute inset-0 cursor-pointer opacity-0" type="file" accept="image/*" onChange={handlePickImage} />
+                        {uploadFile ? (
+                          <span className="flex flex-col items-center gap-1 px-2 text-center">
+                            <svg className="h-5 w-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span className="break-all text-[10px] font-medium leading-tight text-emerald-400">{uploadFile.name}</span>
+                          </span>
+                        ) : (
+                          <span className="flex flex-col items-center gap-1.5 px-2 text-center">
+                            <svg className="h-6 w-6 text-[#9aa3b8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                            </svg>
+                            <span className="text-[11px] leading-snug text-[#9aa3b8]">Click to pick<br />image</span>
+                          </span>
+                        )}
+                      </label>
+                      <button
+                        type="submit"
+                        disabled={loading || !uploadFile}
+                        className="w-full rounded-xl bg-gradient-to-r from-[#4C75FF] to-[#3558e6] py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:brightness-110 disabled:opacity-40"
+                      >
+                        {loading ? "Uploading…" : "Upload"}
+                      </button>
+                    </div>
                   </div>
                 </form>
               </section>
 
-              {/* Placement library */}
+              {/* ── Library ── */}
               <section>
-                <div className="mb-6 flex items-end justify-between gap-4">
+                <div className="mb-4 flex items-center justify-between gap-4">
                   <div>
-                    <h2 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
-                      Library by school
-                    </h2>
-                    <p className="mt-1 text-sm text-[#9aa3b8]">
-                      Cards grouped like the public Success Story page.
-                    </p>
+                    <h2 className="font-[family-name:var(--font-manrope)] text-base font-semibold text-white">Library</h2>
+                    <p className="mt-0.5 text-xs text-[#9aa3b8]">Grouped by school. Hover a card to delete.</p>
                   </div>
+                  {groupsMeta && (
+                    <span className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-medium tabular-nums text-[#A7ADBE]">
+                      {groupsMeta.total} total
+                    </span>
+                  )}
                 </div>
 
                 {groups.length === 0 && !loading ? (
-                  <div className="rounded-2xl border border-white/12 bg-white/[0.06] px-6 py-14 text-center text-sm text-[#9aa3b8] backdrop-blur-sm">
+                  <div className="rounded-2xl border border-white/12 bg-white/[0.06] px-6 py-14 text-center text-sm text-[#9aa3b8]">
                     No cards uploaded yet. Add your first placement above.
                   </div>
                 ) : null}
 
-                <div className="space-y-12">
+                <div className="space-y-8">
                   {groups.map((group) => (
-                    <div key={group.schoolName} className="space-y-5">
-                      <div
-                        className={`flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/12 bg-gradient-to-r px-5 py-4 ring-1 backdrop-blur-md ${schoolAccent[group.schoolName] ?? "from-white/8 to-white/[0.02] ring-white/15"}`}
-                      >
-                        <h3 className="font-[family-name:var(--font-manrope)] text-base font-semibold text-white">
-                          {group.schoolName}
-                        </h3>
-                        <span className="rounded-full border border-white/15 bg-white/[0.08] px-3 py-1 text-xs font-medium tabular-nums text-[#A7ADBE] backdrop-blur-sm">
+                    <div key={group.schoolName} className="space-y-3">
+                      <div className={`flex items-center justify-between gap-3 rounded-xl border border-white/12 bg-gradient-to-r px-4 py-3 ring-1 backdrop-blur-md ${schoolAccent[group.schoolName] ?? "from-white/8 to-white/[0.02] ring-white/15"}`}>
+                        <h3 className="font-[family-name:var(--font-manrope)] text-sm font-semibold text-white">{group.schoolName}</h3>
+                        <span className="rounded-full border border-white/15 bg-white/[0.08] px-2.5 py-0.5 text-[11px] font-medium tabular-nums text-[#A7ADBE]">
                           {group.total} {group.total === 1 ? "card" : "cards"}
                         </span>
                       </div>
 
-                      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                      <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7">
                         {group.items.map((card) => (
                           <article
                             key={card._id}
-                            className="group overflow-hidden rounded-2xl border border-white/12 bg-white/[0.06] shadow-lg shadow-black/10 backdrop-blur-sm transition hover:border-white/20"
+                            className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-sm"
+                            style={{ aspectRatio: "247.656/270" }}
                           >
-                            <div className="relative w-full overflow-hidden bg-black/25 aspect-[247.6561737060547/270]">
-                              <Image
-                                src={card.imageUrl}
-                                alt={card.title || "Placement card"}
-                                fill
-                                unoptimized
-                                className="object-cover transition duration-300 group-hover:scale-[1.02]"
-                                sizes="280px"
-                              />
-                              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60" />
-                            </div>
-                            <div className="flex items-center justify-between gap-3 border-t border-white/12 px-4 py-3">
-                              <div className="min-w-0">
-                                <p className="truncate text-sm font-medium text-white">
-                                  {card.title || "Untitled"}
-                                </p>
-                                <p className="truncate text-xs text-[#9aa3b8]">{card.schoolName}</p>
-                              </div>
+                            <Image
+                              src={card.imageUrl}
+                              alt={card.title || "Placement card"}
+                              fill
+                              unoptimized
+                              className="object-cover transition duration-300 group-hover:scale-[1.04]"
+                              sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, (max-width: 1024px) 20vw, 160px"
+                            />
+                            {/* Hover overlay with delete */}
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/55 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                               <button
                                 type="button"
-                                className="shrink-0 rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18"
-                                onClick={() => handleDelete(card._id)}
+                                onClick={() => setConfirmDialog({
+                                  label: card.title || "this card",
+                                  onConfirm: () => handleDelete(card._id),
+                                })}
                                 disabled={loading}
+                                className="flex h-9 w-9 items-center justify-center rounded-full border border-red-400/50 bg-red-500/20 text-red-300 transition hover:bg-red-500/40 hover:text-red-100 disabled:opacity-50"
+                                aria-label="Delete card"
                               >
-                                Delete
+                                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
                               </button>
                             </div>
+                            {/* Title badge */}
+                            {card.title && (
+                              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-1.5 pb-1.5 pt-5">
+                                <p className="truncate text-[9px] font-medium leading-tight text-white/90">{card.title}</p>
+                              </div>
+                            )}
                           </article>
                         ))}
                       </div>
@@ -1410,6 +1427,7 @@ export default function AdminPage() {
                   ))}
                 </div>
               </section>
+
             </div>
           )}
 
@@ -2407,6 +2425,15 @@ export default function AdminPage() {
           {/* ── Culture Tab ── */}
           {activeTab === "culture" && token && (
             <CultureAdminSection
+              token={token}
+              backendUrl={backendUrl}
+              showToast={showToast}
+            />
+          )}
+
+          {/* ── Videos Tab ── */}
+          {activeTab === "videos" && token && (
+            <FounderVideosAdminSection
               token={token}
               backendUrl={backendUrl}
               showToast={showToast}
