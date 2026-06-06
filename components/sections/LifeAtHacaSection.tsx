@@ -1,7 +1,19 @@
-﻿"use client"
+"use client"
 
-import Image from "next/image"
+import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
+import { getPublicBackendBase } from "@/lib/placements-api"
+
+// Static fallbacks — used until API photos are uploaded
+const FALLBACK: Record<number, string> = {
+    0: "/photos/main/events/DSC05453%201.webp",
+    1: "/photos/main/events/DSC09981.webp",
+    2: "/photos/main/events/Rectangle%2012.webp",
+    3: "/photos/main/events/DSC03240%201.webp",
+    4: "/photos/main/events/DSC04963%201.webp",
+    5: "/photos/main/events/DSC08138%201.webp",
+    6: "/photos/main/events/kattan.webp",
+}
 
 function photoTileReveal(index: number, reducedMotion: boolean) {
     return {
@@ -18,6 +30,23 @@ function photoTileReveal(index: number, reducedMotion: boolean) {
 
 export function LifeAtHacaSection() {
     const reducedMotion = useReducedMotion() === true
+    const [photoMap, setPhotoMap] = useState<Map<number, string>>(new Map())
+
+    useEffect(() => {
+        fetch(`${getPublicBackendBase()}/api/culture-photos?school=${encodeURIComponent("HACA Home")}`)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data: { photos?: { slotIndex: number; imageUrl: string }[] } | null) => {
+                if (data?.photos && data.photos.length > 0) {
+                    const map = new Map<number, string>()
+                    for (const p of data.photos) map.set(p.slotIndex, p.imageUrl)
+                    setPhotoMap(map)
+                }
+            })
+            .catch(() => {})
+    }, [])
+
+    // API photo takes priority; fall back to static local file
+    const bg = (slot: number) => `url('${photoMap.get(slot) ?? FALLBACK[slot]}')`
 
     return (
         /* ─── Outer Section: 1440×868 desktop, 375×510 mobile ─── */
@@ -31,14 +60,15 @@ export function LifeAtHacaSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                {/* ─── Pill Button: 158×42 (desktop) / 113×32 (mobile) ─── */}
-                {/* We use width 180 to ensure the internal pill is exactly 158px wide */}
+                {/* ─── Pill Button ─── */}
                 <button type="button" className="inline-flex flex-row items-center gap-[10px] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] p-[8px_8px_8px_16px] rounded-[100px] border border-[rgba(255,255,255,0.12)] cursor-default h-[42px] max-md:h-[32px] max-md:p-[3px_6px_3px_12px] max-md:gap-[6px]" aria-label="Life@HACA">
                     <span className="font-rethink font-medium text-[16px] leading-[100%] text-[#A7ADBE] whitespace-nowrap max-md:text-[13px]">Life@HACA</span>
                     <span className="flex items-center justify-center shrink-0 w-[38px] h-[26px] max-md:w-[24px] max-md:h-[16.42px]" aria-hidden="true">
-                        <Image
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
                             src="/photos/main/blue arrow.svg"
-                            alt="" aria-hidden="true"
+                            alt=""
+                            aria-hidden="true"
                             width={38}
                             height={26}
                             className="w-full h-full object-contain"
@@ -55,57 +85,64 @@ export function LifeAtHacaSection() {
             {/* ─── Photo Grid: 1320×619 desktop, 335×357 mobile ─── */}
             <div className="w-full max-w-[min(1320px,91vw)] max-md:max-w-none flex flex-col gap-[15px] max-md:gap-[10.14px]">
 
-                {/* ─── Row 1: 3 photos desktop / 2 photos mobile — event photos ─── */}
+                {/* ─── Row 1: 3 photos desktop / 2 photos mobile ─── */}
                 <div className="w-full flex flex-row justify-between gap-0 max-md:gap-[10.14px]">
-                    {/* Photo 1: 449×302 desktop / 196×174 mobile */}
+                    {/* Photo slot 0: 449×302 desktop / 196×174 mobile */}
                     <motion.div
                         {...photoTileReveal(0, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC05453%201.webp')] shrink-0 w-[calc(449/1320*100%)] aspect-[449/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(196.42/324.15))] max-md:aspect-[196.42/173.95]"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden shrink-0 w-[calc(449/1320*100%)] aspect-[449/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(196.42/324.15))] max-md:aspect-[196.42/173.95]"
+                        style={{ backgroundImage: bg(0) }}
                         aria-hidden="true"
                     />
 
-                    {/* Photo 2: 341×302 desktop / 128×174 mobile */}
+                    {/* Photo slot 1: 341×302 desktop / 128×174 mobile */}
                     <motion.div
                         {...photoTileReveal(1, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC09981.webp')] shrink-0 w-[calc(341/1320*100%)] aspect-[341/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(127.73/324.15))] max-md:aspect-[127.73/174.37]"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden shrink-0 w-[calc(341/1320*100%)] aspect-[341/302] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(127.73/324.15))] max-md:aspect-[127.73/174.37]"
+                        style={{ backgroundImage: bg(1) }}
                         aria-hidden="true"
                     />
 
-                    {/* Photo 3: 490×302 desktop only */}
+                    {/* Photo slot 2: 490×302 desktop only */}
                     <motion.div
                         {...photoTileReveal(2, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/Rectangle%2012.webp')] shrink-0 w-[calc(490/1320*100%)] aspect-[490/302] max-md:hidden"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden shrink-0 w-[calc(490/1320*100%)] aspect-[490/302] max-md:hidden"
+                        style={{ backgroundImage: bg(2) }}
                         aria-hidden="true"
                     />
                 </div>
 
-                {/* ─── Row 2: 4 photos desktop / 2 photos mobile — event photos ─── */}
+                {/* ─── Row 2: 4 photos desktop / 2 photos mobile ─── */}
                 <div className="w-full flex flex-row justify-between gap-0 max-md:gap-[10.14px]">
-                    {/* Photo 1: 214×305 desktop / 123×176 mobile */}
+                    {/* Photo slot 3: 214×305 desktop / 123×176 mobile */}
                     <motion.div
                         {...photoTileReveal(3, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC03240%201.webp')] shrink-0 w-[calc(214/1320*100%)] aspect-[214/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(123.26/324.86))] max-md:aspect-[123.26/175.68]"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden shrink-0 w-[calc(214/1320*100%)] aspect-[214/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(123.26/324.86))] max-md:aspect-[123.26/175.68]"
+                        style={{ backgroundImage: bg(3) }}
                         aria-hidden="true"
                     />
 
-                    {/* Photo 2: 350×305 desktop / 202×176 mobile */}
+                    {/* Photo slot 4: 350×305 desktop / 202×176 mobile */}
                     <motion.div
                         {...photoTileReveal(4, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC04963%201.webp')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(201.60/324.86))] max-md:aspect-[201.60/175.68]"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:rounded-[5.76px] max-md:border-[0.58px] max-md:w-[calc((100%-10.14px)*(201.60/324.86))] max-md:aspect-[201.60/175.68]"
+                        style={{ backgroundImage: bg(4) }}
                         aria-hidden="true"
                     />
 
-                    {/* Photo 3: 350×305 desktop only */}
+                    {/* Photo slot 5: 350×305 desktop only */}
                     <motion.div
                         {...photoTileReveal(5, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/DSC08138%201.webp')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden"
+                        style={{ backgroundImage: bg(5) }}
                         aria-hidden="true"
                     />
 
-                    {/* Photo 4: 350×305 desktop only */}
+                    {/* Photo slot 6: 350×305 desktop only */}
                     <motion.div
                         {...photoTileReveal(6, reducedMotion)}
-                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden bg-[url('/photos/main/events/kattan.webp')] shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden"
+                        className="border border-[#25317d] rounded-[10px] bg-cover bg-center overflow-hidden shrink-0 w-[calc(350/1320*100%)] aspect-[350/305] max-md:hidden"
+                        style={{ backgroundImage: bg(6) }}
                         aria-hidden="true"
                     />
                 </div>

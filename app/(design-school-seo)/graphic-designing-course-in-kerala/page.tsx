@@ -14,6 +14,7 @@ import { GraphicDesigningCalicutBrandsSection } from "@/components/design/Graphi
 import { GraphicDesigningCalicutStudentsWorkingSection } from "@/components/design/GraphicDesigningCalicutStudentsWorkingSection";
 import { GraphicDesigningCalicutStudentsWorkSection } from "@/components/design/GraphicDesigningCalicutStudentsWorkSection";
 import { GraphicDesigningCalicutTestimonialsSection } from "@/components/design/GraphicDesigningCalicutTestimonialsSection";
+import { DesignSeoCultureGrid } from "@/components/design/DesignSeoCultureGrid";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
 import { DesignSeoFaqList, type FaqItem } from "@/components/design/DesignSeoFaqList";
 import { buildDesignSchoolSeoMetadata } from "@/lib/design-school-seo";
@@ -209,10 +210,8 @@ export default function GraphicDesigningCourseInKeralaPage() {
                         flex flex-col items-center
                         px-[20px] pt-[30px] pb-[30px]
                         gap-[30px]
-                        h-[885.9034423828125px]
                         lg:px-[60px] lg:pt-[60px] lg:pb-[60px]
                         lg:gap-[60px]
-                        lg:h-[920px]
                     "
                 >
                     <div className="w-full flex flex-col items-center text-center gap-[10px] lg:gap-[16px] lg:h-[140px]">
@@ -272,41 +271,7 @@ export default function GraphicDesigningCourseInKeralaPage() {
                         </p>
                     </div>
 
-                    <div className="w-full flex justify-center">
-                        <div className="w-full flex flex-col gap-[10px] lg:hidden">
-                            <div className="flex gap-[10px]">
-                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-br from-[#FDE7F3] to-[#E0F2FE]" style={{ flexGrow: 205 }} />
-                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-br from-[#EDE9FE] to-[#DCFCE7]" style={{ flexGrow: 134 }} />
-                            </div>
-                            <div className="flex gap-[10px]">
-                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-br from-[#FEF9C3] to-[#DBEAFE]" style={{ flexGrow: 166 }} />
-                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-br from-[#FFE4E6] to-[#E0E7FF]" style={{ flexGrow: 174 }} />
-                            </div>
-                            <div className="flex gap-[10px]">
-                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-tl from-[#ECFCCB] to-[#E0F2FE]" style={{ flexGrow: 134 }} />
-                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-tl from-[#FCE7F3] to-[#FFEDD5]" style={{ flexGrow: 205 }} />
-                            </div>
-                            <div className="flex gap-[10px]">
-                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-tl from-[#E0E7FF] to-[#DCFCE7]" style={{ flexGrow: 174 }} />
-                                <div className="h-[151px] min-w-0 rounded-[10.25px] bg-gradient-to-tl from-[#DBEAFE] to-[#FEF9C3]" style={{ flexGrow: 166 }} />
-                            </div>
-                        </div>
-
-                        <div className="hidden w-full lg:flex lg:flex-col lg:gap-[11px] lg:h-[600px]">
-                            <div className="flex w-full gap-[11px]">
-                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#FDE7F3] to-[#E0F2FE]" style={{ flexGrow: 400 }} />
-                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#EDE9FE] to-[#DCFCE7]" style={{ flexGrow: 262 }} />
-                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#FEF9C3] to-[#DBEAFE]" style={{ flexGrow: 336 }} />
-                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#FFE4E6] to-[#E0E7FF]" style={{ flexGrow: 269 }} />
-                            </div>
-                            <div className="flex w-full gap-[11px]">
-                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#ECFCCB] to-[#E0F2FE]" style={{ flexGrow: 323 }} />
-                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#FCE7F3] to-[#FFEDD5]" style={{ flexGrow: 262 }} />
-                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#E0E7FF] to-[#DCFCE7]" style={{ flexGrow: 302 }} />
-                                <div className="h-[295px] min-w-0 rounded-[20px] bg-gradient-to-br from-[#DBEAFE] to-[#FEF9C3]" style={{ flexGrow: 380 }} />
-                            </div>
-                        </div>
-                    </div>
+                    <DesignSeoCultureGrid />
                 </div>
             </section>
 

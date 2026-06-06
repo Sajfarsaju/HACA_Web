@@ -7,6 +7,7 @@ export const PLACEMENT_SCHOOL_OPTIONS = [
   "Marketing School",
   "Design School",
   "Tech School",
+  "UAE School",
 ] as const;
 
 export type PlacementSchoolName = (typeof PLACEMENT_SCHOOL_OPTIONS)[number];

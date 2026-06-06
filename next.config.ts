@@ -1,6 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async headers() {
+    const noIndexPaths = [
+      "/web-development-mastery",
+      "/performance-marketing-mastery",
+      "/performance-marketing-mastery/:path*",
+      "/branding-pitch-for-clients",
+      "/branding-pitch-for-clients/:path*",
+    ];
+    return noIndexPaths.map((source) => ({
+      source,
+      headers: [{ key: "X-Robots-Tag", value: "noindex, follow" }],
+    }));
+  },
   images: {
     remotePatterns: [
       {
@@ -23,12 +36,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/creative-design-and-communication",
-        destination: "/graphic-designing-course-in-kerala",
+        destination: "/graphic-designing-course-in-calicut",
         permanent: true,
       },
       {
         source: "/creative-design-and-communication/:path*",
-        destination: "/graphic-designing-course-in-kerala/:path*",
+        destination: "/graphic-designing-course-in-calicut",
         permanent: true,
       },
       {
@@ -67,68 +80,58 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/finance-school",
-        destination: "/not-available",
-        permanent: false,
+        source: "/digital-marketing-course-in-ernakulam",
+        destination: "/digital-marketing-course-in-kochi",
+        permanent: true,
       },
       {
-        source: "/finance-school/:path*",
-        destination: "/not-available",
-        permanent: false,
+        source: "/digital-marketing-course-in-ernakulam/:path*",
+        destination: "/digital-marketing-course-in-kochi",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-kottayam",
+        destination: "/digital-marketing-course-in-kerala",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-kottayam/:path*",
+        destination: "/digital-marketing-course-in-kerala",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-alappuzha",
+        destination: "/digital-marketing-course-in-kerala",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-alappuzha/:path*",
+        destination: "/digital-marketing-course-in-kerala",
+        permanent: true,
       },
       {
         source: "/web-development-mastery",
-        destination: "/not-available",
-        permanent: false,
-      },
-      {
-        source: "/creators-club",
-        destination: "/not-available",
+        destination: "/marketing-school",
         permanent: false,
       },
       {
         source: "/performance-marketing-mastery",
-        destination: "/not-available",
+        destination: "/marketing-school",
         permanent: false,
       },
       {
         source: "/performance-marketing-mastery/:path*",
-        destination: "/not-available",
+        destination: "/marketing-school",
         permanent: false,
       },
       {
         source: "/branding-pitch-for-clients",
-        destination: "/not-available",
+        destination: "/design-school",
         permanent: false,
       },
       {
         source: "/branding-pitch-for-clients/:path*",
-        destination: "/not-available",
-        permanent: false,
-      },
-      {
-        source: "/blog/what-is-tax-planning",
-        destination: "/article-not-available",
-        permanent: false,
-      },
-      {
-        source: "/blog/non-cash-expenses",
-        destination: "/article-not-available",
-        permanent: false,
-      },
-      {
-        source: "/blog/career-in-accounting-and-finance",
-        destination: "/article-not-available",
-        permanent: false,
-      },
-      {
-        source: "/blog/what-is-financial-planning",
-        destination: "/article-not-available",
-        permanent: false,
-      },
-      {
-        source: "/blog/top-4-tools-used-in-accounting",
-        destination: "/article-not-available",
+        destination: "/design-school",
         permanent: false,
       },
     ];

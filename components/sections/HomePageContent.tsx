@@ -9,6 +9,7 @@ import { HeroBottom } from "@/components/sections/HeroBottom";
 import { LifeAtHacaSection } from "@/components/sections/LifeAtHacaSection";
 import { MentorsSection } from "@/components/sections/MentorsSection";
 import { PlacementSection } from "@/components/sections/PlacementSection";
+import type { PublicMentor } from "@/lib/mentors-api";
 import type { PlacementItem } from "@/lib/placements-api";
 import { SchoolsSection } from "@/components/sections/SchoolsSection";
 import { StayConnectedSection } from "@/components/sections/StayConnectedSection";
@@ -19,9 +20,10 @@ import { SectionReveal } from "@/components/animations/SectionReveal";
 type HomePageContentProps = {
     homeBlogs: BlogPost[];
     placementSlots?: (PlacementItem | null)[];
+    homeMentors?: PublicMentor[];
 };
 
-export function HomePageContent({ homeBlogs, placementSlots }: HomePageContentProps) {
+export function HomePageContent({ homeBlogs, placementSlots, homeMentors }: HomePageContentProps) {
     return (
         <>
             {/* Above-the-fold: own staggered animations inside Hero */}
@@ -34,7 +36,7 @@ export function HomePageContent({ homeBlogs, placementSlots }: HomePageContentPr
                 <SchoolsSection />
             </SectionReveal>
             <SectionReveal sectionIndex={3} delay={0.06} duration={0.55} y={28}>
-                <MentorsSection />
+                <MentorsSection initialMentors={homeMentors} />
             </SectionReveal>
             <SectionReveal sectionIndex={4} delay={0.06} duration={0.55} y={28}>
                 <EnquireSection />

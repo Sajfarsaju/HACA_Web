@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { PlacementCropModal } from "@/components/admin/PlacementCropModal";
 import { BlogEditor } from "@/components/admin/BlogEditor";
+import { CultureAdminSection } from "@/components/admin/CultureAdminSection";
 import {
   PLACEMENT_SCHOOL_OPTIONS,
   type PlacementSchoolName,
@@ -127,6 +128,7 @@ const schoolAccent: Record<string, string> = {
   "Marketing School": "from-rose-500/12 to-orange-500/6 ring-rose-400/25",
   "Design School": "from-violet-500/12 to-fuchsia-500/6 ring-violet-400/25",
   "Tech School": "from-cyan-500/12 to-blue-500/6 ring-cyan-400/25",
+  "UAE School": "from-amber-500/12 to-yellow-500/6 ring-amber-400/25",
 };
 
 const EMPTY_MODULE: CourseModule = { label: "", title: "", content: "" };
@@ -147,7 +149,7 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null);
 
   // ── Active admin tab
-  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "mentors">(
+  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "mentors" | "culture">(
     "placements"
   );
 
@@ -1237,6 +1239,18 @@ export default function AdminPage() {
               }`}
             >
               Mentors
+            </button>
+            <button
+              type="button"
+              id="tab-culture"
+              onClick={() => setActiveTab("culture")}
+              className={`rounded-xl px-5 py-2.5 text-sm font-medium transition ${
+                activeTab === "culture"
+                  ? "bg-white/15 text-white shadow-sm"
+                  : "text-[#9aa3b8] hover:text-white"
+              }`}
+            >
+              Culture
             </button>
           </div>
 
@@ -2388,6 +2402,15 @@ export default function AdminPage() {
                 )}
               </section>
             </div>
+          )}
+
+          {/* ── Culture Tab ── */}
+          {activeTab === "culture" && token && (
+            <CultureAdminSection
+              token={token}
+              backendUrl={backendUrl}
+              showToast={showToast}
+            />
           )}
         </div>
       )}

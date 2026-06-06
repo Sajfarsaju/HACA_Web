@@ -1,3 +1,5 @@
+import { getBackendBase } from "@/lib/placements-api";
+
 export type PublicMentor = {
     _id: string;
     name: string;
@@ -6,14 +8,6 @@ export type PublicMentor = {
     linkedinUrl?: string | null;
     schoolName?: string;
 };
-
-function getBackendBase() {
-    const url =
-        process.env.NEXT_PUBLIC_BACKEND_URL ||
-        process.env.BACKEND_URL ||
-        "http://127.0.0.1:5000";
-    return url.replace(/\/$/, "");
-}
 
 /** Fetch mentors for a school (server components). */
 export async function fetchMentorsBySchool(
@@ -51,6 +45,24 @@ export async function fetchAllMentors(): Promise<PublicMentor[]> {
         const data: { mentors?: PublicMentor[] } = await res.json();
         if (!Array.isArray(data.mentors)) return [];
         return data.mentors.filter((m) => m.name?.trim() && m.photoUrl?.trim());
+    } catch {
+        return [];
+    }
+}
+
+/** Public mentors list (optional filter by admin `schoolName`, e.g. "HACA"). */
+export async function fetchPublicMentors(school?: string): Promise<PublicMentor[]> {
+    try {
+        const qs =
+            typeof school === "string" && school.trim()
+                ? `?school=${encodeURIComponent(school.trim())}`
+                : "";
+        const res = await fetch(`${getBackendBase()}/api/mentors${qs}`, {
+            next: { revalidate: 60 },
+        });
+        if (!res.ok) return [];
+        const data: { mentors?: PublicMentor[] } = await res.json();
+        return Array.isArray(data.mentors) ? data.mentors : [];
     } catch {
         return [];
     }

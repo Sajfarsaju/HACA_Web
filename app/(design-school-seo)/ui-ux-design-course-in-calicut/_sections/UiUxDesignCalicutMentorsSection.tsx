@@ -2,10 +2,18 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { getPublicBackendBase } from "@/lib/placements-api";
 
 const FONT = '"VC Nudge Trial Normal", sans-serif' as const;
 
-const MENTORS = [
+type MentorEntry = {
+    id: string;
+    name: string;
+    role: string;
+    photoSrc: string;
+};
+
+const FALLBACK_MENTORS: MentorEntry[] = [
     {
         id: "nanditha",
         name: "Nanditha",
@@ -36,9 +44,7 @@ const MENTORS = [
         role: "Motion Graphics Mentor",
         photoSrc: "/photos/schools/design/faheem.webp",
     },
-] as const;
-
-type MentorEntry = (typeof MENTORS)[number];
+];
 
 const HEADING_ID = "ui-ux-calicut-mentors-heading";
 
@@ -46,7 +52,7 @@ const STUDIO_BACKDROP = "#D8D8D8" as const;
 
 function MentorFigure({ mentor }: { mentor: MentorEntry }) {
     const alt = `${mentor.name}, ${mentor.role} at HACA Design School, Calicut`;
-    const normalizeWhiteBackdrop = mentor.id === "ashif";
+    const normalizeWhiteBackdrop = mentor.name.toLowerCase() === "ashif";
 
     return (
         <figure
@@ -119,6 +125,25 @@ export function UiUxDesignCalicutMentorsSection() {
     const [desktopAtStart, setDesktopAtStart] = useState(true);
     const [desktopShift, setDesktopShift] = useState(0);
     const [mobileShift, setMobileShift] = useState(0);
+    const [mentors, setMentors] = useState<MentorEntry[]>(FALLBACK_MENTORS);
+
+    useEffect(() => {
+        fetch(`${getPublicBackendBase()}/api/mentors?school=${encodeURIComponent("Design School")}`)
+            .then((r) => r.ok ? r.json() : null)
+            .then((data: { mentors?: Array<{ _id: string; name: string; designation: string; photoUrl: string }> } | null) => {
+                if (data?.mentors && data.mentors.length > 0) {
+                    setMentors(
+                        data.mentors.map((m) => ({
+                            id: m._id,
+                            name: m.name,
+                            role: m.designation,
+                            photoSrc: m.photoUrl,
+                        }))
+                    );
+                }
+            })
+            .catch(() => {});
+    }, []);
 
     useEffect(() => {
         const el = desktopScrollerRef.current;
@@ -211,7 +236,7 @@ export function UiUxDesignCalicutMentorsSection() {
                                     }}
                                     aria-label="UI/UX design mentors"
                                 >
-                                    {MENTORS.map((m) => (
+                                    {mentors.map((m) => (
                                         <li key={m.id} className="shrink-0">
                                             <MentorFigure mentor={m} />
                                         </li>
@@ -278,7 +303,7 @@ export function UiUxDesignCalicutMentorsSection() {
                                 }}
                                 aria-label="UI/UX design mentors"
                             >
-                                {MENTORS.map((m) => (
+                                {mentors.map((m) => (
                                     <li key={m.id} className="shrink-0">
                                         <MentorFigure mentor={m} />
                                     </li>
