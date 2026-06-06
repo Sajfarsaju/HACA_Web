@@ -2,42 +2,32 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useId, useState } from "react";
+import { getPublicBackendBase } from "@/lib/placements-api";
 
-const DEFAULT_THUMBNAILS = [
-    { src: "/photos/schools/tech/Yutub1.webp", alt: "YouTube Thumbnail 1" },
+type Thumbnail = { src: string; alt: string; youtubeId?: string };
+
+const STATIC_THUMBNAILS: Thumbnail[] = [
+    { src: "/photos/schools/tech/Yutub1.webp",            alt: "YouTube Thumbnail 1" },
     { src: "/photos/schools/tech/YutubDataThumbnail.webp", alt: "YouTube Data Thumbnail" },
-    { src: "/photos/schools/tech/Yutub3.webp", alt: "YouTube Thumbnail 3" },
-    { src: "/photos/schools/tech/Yutub1.webp", alt: "YouTube Thumbnail 4" },
+    { src: "/photos/schools/tech/Yutub3.webp",            alt: "YouTube Thumbnail 3" },
+    { src: "/photos/schools/tech/Yutub1.webp",            alt: "YouTube Thumbnail 4" },
     { src: "/photos/schools/tech/YutubDataThumbnail.webp", alt: "YouTube Data Thumbnail 5" },
-    { src: "/photos/schools/tech/Yutub3.webp", alt: "YouTube Thumbnail 6" },
-] as const;
+    { src: "/photos/schools/tech/Yutub3.webp",            alt: "YouTube Thumbnail 6" },
+];
 
-const SEO_THUMBNAILS = [
-    {
-        src: "/photos/schools/tech/YutubDataThumbnail.webp",
-        alt: "HACA data analytics course learner testimonial video",
-    },
-    {
-        src: "/photos/schools/tech/Yutub1.webp",
-        alt: "Student review of the data analytics program at HACA Tech School",
-    },
-    {
-        src: "/photos/schools/tech/Yutub3.webp",
-        alt: "Graduate discussing analytics projects and career outcomes",
-    },
-    {
-        src: "/photos/schools/tech/YutubDataThumbnail.webp",
-        alt: "Data analytics training experience shared by a HACA learner",
-    },
-    {
-        src: "/photos/schools/tech/Yutub1.webp",
-        alt: "Kerala student talking about hands-on data analytics learning",
-    },
-    {
-        src: "/photos/schools/tech/Yutub3.webp",
-        alt: "Learner video on Python, SQL, and dashboard skills from HACA",
-    },
-] as const;
+function getYouTubeId(url: string): string | null {
+    const patterns = [
+        /[?&]v=([^&\s]+)/,
+        /youtu\.be\/([^?&\s]+)/,
+        /embed\/([^?&\s]+)/,
+        /shorts\/([^?&\s]+)/,
+    ];
+    for (const p of patterns) {
+        const m = url.match(p);
+        if (m) return m[1];
+    }
+    return null;
+}
 
 function getCardSizesBase(width: number) {
     if (width < 360) {
@@ -245,7 +235,27 @@ export function TechYoutubeCarousel({
     className = "",
 }: TechYoutubeCarouselProps) {
     const stageLabelId = useId();
-    const thumbnails = variant === "seo" ? SEO_THUMBNAILS : DEFAULT_THUMBNAILS;
+    const [thumbnails, setThumbnails] = useState<Thumbnail[]>(STATIC_THUMBNAILS);
+    const [playingIdx, setPlayingIdx] = useState<number | null>(null);
+
+    useEffect(() => {
+        fetch(`${getPublicBackendBase()}/api/founder-videos?category=tech-school`)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data: { videos?: { youtubeUrl: string }[] } | null) => {
+                if (data?.videos && data.videos.length > 0) {
+                    const fetched: Thumbnail[] = data.videos.map((v, i) => {
+                        const id = getYouTubeId(v.youtubeUrl);
+                        return {
+                            src: id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : STATIC_THUMBNAILS[i % STATIC_THUMBNAILS.length].src,
+                            alt: `Tech School YouTube video ${i + 1}`,
+                            youtubeId: id ?? undefined,
+                        };
+                    });
+                    setThumbnails(fetched);
+                }
+            })
+            .catch(() => {});
+    }, []);
 
     const [active, setActive] = useState(1);
     const [isHoveringStage, setIsHoveringStage] = useState(false);
@@ -263,6 +273,9 @@ export function TechYoutubeCarousel({
     }, [handleResize]);
 
     const total = thumbnails.length;
+
+    // Clear playing when carousel advances
+    useEffect(() => { setPlayingIdx(null); }, [active]);
 
     useEffect(() => {
         if (isHoveringStage) return;
@@ -348,6 +361,7 @@ export function TechYoutubeCarousel({
                     const isVisible = showSide ? Math.abs(offset) <= 1 : isCenter;
                     const cardW = isCenter ? centerW : sideW;
                     const cardH = isCenter ? centerH : sideH;
+                    const isPlaying = isCenter && playingIdx === i;
 
                     let translateX = 0;
                     if (offset !== 0 && showSide) {
@@ -363,10 +377,13 @@ export function TechYoutubeCarousel({
                         <div
                             key={`${thumb.src}-${i}`}
                             onClick={() => {
-                                if (offset === -1) prev();
-                                if (offset === 1) next();
+                                if (offset === -1) { prev(); return; }
+                                if (offset === 1)  { next(); return; }
+                                if (isCenter && thumb.youtubeId) {
+                                    setPlayingIdx(isPlaying ? null : i);
+                                }
                             }}
-                            className={`absolute overflow-hidden ${isCenter ? "z-[2] cursor-default" : "z-[1] cursor-pointer"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
+                            className={`absolute overflow-hidden ${isCenter ? (thumb.youtubeId ? "z-[2] cursor-pointer" : "z-[2] cursor-default") : "z-[1] cursor-pointer"} ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
                             style={{
                                 width: `${cardW}px`,
                                 height: `${cardH}px`,
@@ -379,33 +396,32 @@ export function TechYoutubeCarousel({
                                     : `${sideBorderWidth}px solid rgba(255,255,255,0.15)`,
                                 transform: `translateX(${translateX}px) scale(${isCenter ? 1 : 0.96})`,
                                 opacity: isVisible ? 1 : 0,
-                                transition:
-                                    "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, width 0.5s ease, height 0.5s ease",
+                                transition: "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, width 0.5s ease, height 0.5s ease",
                             }}
                         >
-                            <Image src={thumb.src} alt={thumb.alt} fill className="object-fill" />
-                            {isCenter ? (
-                                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/10 opacity-0 transition-opacity duration-300 hover:opacity-100">
-                                    <div className="relative z-10 flex h-[78px] w-[94px] cursor-pointer items-center justify-center transition-transform duration-300 ease-in-out hover:scale-[1.08] max-md:h-[60px] max-md:w-[67px] max-[480px]:h-[48px] max-[480px]:w-[48px]">
-                                        <Image
-                                            src="/photos/Tech/gridicons_play copy.svg"
-                                            alt=""
-                                            width={94}
-                                            height={78}
-                                            aria-hidden
-                                        />
-                                        <div className="relative left-[8px] flex h-[78px] w-[78px] items-center justify-center max-md:left-[5px] max-md:h-[53px] max-md:w-[53px] max-[480px]:left-[3px] max-[480px]:h-[40px] max-[480px]:w-[40px]">
-                                            <Image
-                                                src="/photos/Tech/Vector (1).svg"
-                                                alt="Play learner video"
-                                                width={78}
-                                                height={78}
-                                                className="h-full w-full object-contain drop-shadow-[0_4px_24px_rgba(105,74,255,0.55)]"
-                                            />
+                            {isPlaying && thumb.youtubeId ? (
+                                <iframe
+                                    src={`https://www.youtube.com/embed/${thumb.youtubeId}?autoplay=1&rel=0`}
+                                    title="YouTube video"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    className="absolute inset-0 w-full h-full border-0"
+                                />
+                            ) : (
+                                <>
+                                    <Image src={thumb.src} alt={thumb.alt} fill className="object-fill" unoptimized={thumb.src.startsWith("https://img.youtube.com")} />
+                                    {isCenter ? (
+                                        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/10 opacity-0 transition-opacity duration-300 hover:opacity-100">
+                                            <div className="relative z-10 flex h-[78px] w-[94px] cursor-pointer items-center justify-center transition-transform duration-300 ease-in-out hover:scale-[1.08] max-md:h-[60px] max-md:w-[67px] max-[480px]:h-[48px] max-[480px]:w-[48px]">
+                                                <Image src="/photos/Tech/gridicons_play copy.svg" alt="" width={94} height={78} aria-hidden />
+                                                <div className="relative left-[8px] flex h-[78px] w-[78px] items-center justify-center max-md:left-[5px] max-md:h-[53px] max-md:w-[53px] max-[480px]:left-[3px] max-[480px]:h-[40px] max-[480px]:w-[40px]">
+                                                    <Image src="/photos/Tech/Vector (1).svg" alt="Play video" width={78} height={78} className="h-full w-full object-contain drop-shadow-[0_4px_24px_rgba(105,74,255,0.55)]" />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            ) : null}
+                                    ) : null}
+                                </>
+                            )}
                         </div>
                     );
                 })}

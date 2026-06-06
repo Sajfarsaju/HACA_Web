@@ -52,13 +52,14 @@ export interface DesignProgramCardProps {
 }
 
 function ToolGrid({ tools, size, gap }: { tools: ToolItem[]; size: number; gap: number }) {
-    const rows = [tools.slice(0, 5), tools.slice(5, 10)];
+    const half = Math.floor(tools.length / 2);
+    const rows = [tools.slice(0, half), tools.slice(half)];
     return (
         <div className="flex flex-col" style={{ gap }}>
             {rows.map((row, ri) => (
                 <div key={ri} className="flex" style={{ gap }}>
                     {row.map((tool, ti) => (
-                        <div key={ti} className="rounded-[7px] bg-[#0A0A0A] shrink-0 overflow-hidden" style={{ width: size, height: size }}>
+                        <div key={ti} className="rounded-[7px] shrink-0 overflow-hidden" style={{ width: size, height: size }}>
                             {tool.src && <Image src={tool.src} alt={tool.alt} width={size} height={size} className="w-full h-full object-cover" />}
                         </div>
                     ))}
