@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { getPublicBackendBase } from "@/lib/placements-api";
 
 // ── Bento Cell ─────────────────────────────────────────────────────────
 interface BentoCellProps {
@@ -53,9 +54,34 @@ function BentoCell({ label, imgSrc, style, className = "" }: BentoCellProps) {
     );
 }
 
+// Static fallbacks for slots that already have local photos
+const STATIC_FALLBACK: Record<number, string> = {
+    0: "/photos/schools/tech/cultureGrid1.webp",
+    1: "/photos/schools/tech/cultureGrid2.webp",
+    2: "/photos/schools/tech/cultureGrid3.webp",
+    6: "/photos/schools/tech/cultureGrid7.webp",
+};
+
 // ── TechCulture Section ─────────────────────────────────────────────────
 export function TechCulture() {
     const reduceMotion = useReducedMotion();
+    const [photoMap, setPhotoMap] = useState<Map<number, string>>(new Map());
+
+    useEffect(() => {
+        fetch(`${getPublicBackendBase()}/api/culture-photos?school=${encodeURIComponent("Tech School")}`)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data: { photos?: { slotIndex: number; imageUrl: string }[] } | null) => {
+                if (data?.photos && data.photos.length > 0) {
+                    const map = new Map<number, string>();
+                    for (const p of data.photos) map.set(p.slotIndex, p.imageUrl);
+                    setPhotoMap(map);
+                }
+            })
+            .catch(() => {});
+    }, []);
+
+    // API photo takes priority; fall back to static local file if available
+    const src = (slot: number) => photoMap.get(slot) ?? STATIC_FALLBACK[slot];
 
     const container = {
         hidden: {},
@@ -97,42 +123,42 @@ export function TechCulture() {
                     {/* Col 1 (412/1319 ratio) */}
                     <div className="flex-[412_1_0%] min-w-0 flex flex-col gap-[10px]">
                         <motion.div variants={item}>
-                            <BentoCell label="Culture Photo A" imgSrc="/photos/schools/tech/cultureGrid1.webp" className="w-full h-[242px] rounded-[10px]" />
+                            <BentoCell label="Culture Photo A" imgSrc={src(0)} className="w-full h-[242px] rounded-[10px]" />
                         </motion.div>
                         <motion.div variants={item}>
-                            <BentoCell label="Culture Photo B" imgSrc="/photos/schools/tech/cultureGrid2.webp" className="w-full h-[515px] rounded-[19.97px]" />
+                            <BentoCell label="Culture Photo B" imgSrc={src(1)} className="w-full h-[515px] rounded-[19.97px]" />
                         </motion.div>
                     </div>
 
                     {/* Col 2 (433/1319 ratio) */}
                     <div className="flex-[433_1_0%] min-w-0 flex flex-col gap-[10px]">
                         <motion.div variants={item}>
-                            <BentoCell label="Culture Photo C" imgSrc="/photos/schools/tech/cultureGrid3.webp" className="w-full h-[242px] rounded-[10px]" />
+                            <BentoCell label="Culture Photo C" imgSrc={src(2)} className="w-full h-[242px] rounded-[10px]" />
                         </motion.div>
                         <div className="flex gap-[10px] w-full">
                             <motion.div variants={item} className="flex-1">
-                                <BentoCell label="Culture Photo D" className="w-full h-[211px] rounded-[19.97px]" />
+                                <BentoCell label="Culture Photo D" imgSrc={src(3)}className="w-full h-[211px] rounded-[19.97px]" />
                             </motion.div>
                             <motion.div variants={item} className="flex-1">
-                                <BentoCell label="Culture Photo E" className="w-full h-[211px] rounded-[19.97px]" />
+                                <BentoCell label="Culture Photo E" imgSrc={src(4)}className="w-full h-[211px] rounded-[19.97px]" />
                             </motion.div>
                         </div>
                         <motion.div variants={item}>
-                            <BentoCell label="Culture Photo F" className="w-full h-[294px] rounded-[19.97px]" />
+                            <BentoCell label="Culture Photo F" imgSrc={src(5)}className="w-full h-[294px] rounded-[19.97px]" />
                         </motion.div>
                     </div>
 
                     {/* Col 3 (474/1319 ratio) */}
                     <div className="flex-[474_1_0%] min-w-0 flex flex-col gap-[10px]">
                         <motion.div variants={item}>
-                            <BentoCell label="Culture Photo G" imgSrc="/photos/schools/tech/cultureGrid7.webp" className="w-full h-[498px] rounded-[19.97px]" />
+                            <BentoCell label="Culture Photo G" imgSrc={src(6)} className="w-full h-[498px] rounded-[19.97px]" />
                         </motion.div>
                         <div className="flex gap-[10px] w-full">
                             <motion.div variants={item} className="flex-1">
-                                <BentoCell label="Culture Photo H" className="w-full h-[259px] rounded-[19.97px]" />
+                                <BentoCell label="Culture Photo H" imgSrc={src(7)}className="w-full h-[259px] rounded-[19.97px]" />
                             </motion.div>
                             <motion.div variants={item} className="flex-1">
-                                <BentoCell label="Culture Photo I" className="w-full h-[259px] rounded-[19.97px]" />
+                                <BentoCell label="Culture Photo I" imgSrc={src(8)}className="w-full h-[259px] rounded-[19.97px]" />
                             </motion.div>
                         </div>
                     </div>
@@ -149,37 +175,37 @@ export function TechCulture() {
                     {/* Left column */}
                     <div className="flex-1 flex flex-col gap-[10px] min-w-0">
                         <motion.div variants={item}>
-                            <BentoCell label="Culture Photo A" imgSrc="/photos/schools/tech/cultureGrid1.webp" className="w-full h-[160px] rounded-[10px]" />
+                            <BentoCell label="Culture Photo A" imgSrc={src(0)} className="w-full h-[160px] rounded-[10px]" />
                         </motion.div>
                         <motion.div variants={item}>
-                            <BentoCell label="Culture Photo B" imgSrc="/photos/schools/tech/cultureGrid2.webp" className="w-full h-[280px] rounded-[14px]" />
+                            <BentoCell label="Culture Photo B" imgSrc={src(1)} className="w-full h-[280px] rounded-[14px]" />
                         </motion.div>
                         <motion.div variants={item}>
-                            <BentoCell label="Culture Photo C" imgSrc="/photos/schools/tech/cultureGrid3.webp" className="w-full h-[160px] rounded-[10px]" />
+                            <BentoCell label="Culture Photo C" imgSrc={src(2)} className="w-full h-[160px] rounded-[10px]" />
                         </motion.div>
                         <div className="flex gap-[10px] w-full">
                             <motion.div variants={item} className="flex-1">
-                                <BentoCell label="Photo D" className="w-full h-[130px] rounded-[14px]" />
+                                <BentoCell label="Photo D" imgSrc={src(3)}className="w-full h-[130px] rounded-[14px]" />
                             </motion.div>
                             <motion.div variants={item} className="flex-1">
-                                <BentoCell label="Photo E" className="w-full h-[130px] rounded-[14px]" />
+                                <BentoCell label="Photo E" imgSrc={src(4)}className="w-full h-[130px] rounded-[14px]" />
                             </motion.div>
                         </div>
                     </div>
                     {/* Right column */}
                     <div className="flex-1 flex flex-col gap-[10px] min-w-0">
                         <motion.div variants={item}>
-                            <BentoCell label="Culture Photo G" imgSrc="/photos/schools/tech/cultureGrid7.webp" className="w-full h-[300px] rounded-[14px]" />
+                            <BentoCell label="Culture Photo G" imgSrc={src(6)} className="w-full h-[300px] rounded-[14px]" />
                         </motion.div>
                         <motion.div variants={item}>
-                            <BentoCell label="Culture Photo F" className="w-full h-[170px] rounded-[14px]" />
+                            <BentoCell label="Culture Photo F" imgSrc={src(5)}className="w-full h-[170px] rounded-[14px]" />
                         </motion.div>
                         <div className="flex gap-[10px] w-full">
                             <motion.div variants={item} className="flex-1">
-                                <BentoCell label="Photo H" className="w-full h-[140px] rounded-[14px]" />
+                                <BentoCell label="Photo H" imgSrc={src(7)}className="w-full h-[140px] rounded-[14px]" />
                             </motion.div>
                             <motion.div variants={item} className="flex-1">
-                                <BentoCell label="Photo I" className="w-full h-[140px] rounded-[14px]" />
+                                <BentoCell label="Photo I" imgSrc={src(8)}className="w-full h-[140px] rounded-[14px]" />
                             </motion.div>
                         </div>
                     </div>
@@ -197,12 +223,12 @@ export function TechCulture() {
                     <motion.div variants={item} className="flex gap-[6px] w-full" style={{ aspectRatio: "343/125" }}>
                         <BentoCell
                             label="Culture Photo A"
-                            imgSrc="/photos/schools/tech/cultureGrid1.webp"
+                            imgSrc={src(0)}
                             style={{ flex: "200 0 0%", borderRadius: "6.55px" }}
                         />
                         <BentoCell
                             label="Culture Photo B"
-                            imgSrc="/photos/schools/tech/cultureGrid2.webp"
+                            imgSrc={src(1)}
                             style={{ flex: "137 0 0%", borderRadius: "10.32px" }}
                         />
                     </motion.div>
@@ -211,12 +237,12 @@ export function TechCulture() {
                     <motion.div variants={item} className="flex gap-[6px] w-full" style={{ aspectRatio: "343/170" }}>
                         <BentoCell
                             label="Culture Photo C"
-                            imgSrc="/photos/schools/tech/cultureGrid3.webp"
+                            imgSrc={src(2)}
                             style={{ flex: "174 0 0%", borderRadius: "6.8px" }}
                         />
                         <BentoCell
                             label="Culture Photo G"
-                            imgSrc="/photos/schools/tech/cultureGrid7.webp"
+                            imgSrc={src(6)}
                             style={{ flex: "163 0 0%", borderRadius: "9.83px" }}
                         />
                     </motion.div>

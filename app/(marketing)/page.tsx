@@ -1,5 +1,6 @@
 import { HomePageContent } from "@/components/sections/HomePageContent";
 import { getLatestBlogsForHome } from "@/lib/blog-api";
+import { fetchPublicMentors } from "@/lib/mentors-api";
 import {
     buildPlacementSlots,
     fetchPlacementGroups,
@@ -15,9 +16,10 @@ export const metadata = buildSitePageMetadata({
 });
 
 export default async function HomePage() {
-  const [homeBlogs, placementGroups] = await Promise.all([
+  const [homeBlogs, placementGroups, homeMentors] = await Promise.all([
     getLatestBlogsForHome(3),
     fetchPlacementGroups(),
+    fetchPublicMentors("HACA"),
   ]);
   const placementSlots = buildPlacementSlots(placementGroups);
 
@@ -25,6 +27,7 @@ export default async function HomePage() {
     <HomePageContent
       homeBlogs={homeBlogs}
       placementSlots={placementSlots}
+      homeMentors={homeMentors}
     />
   );
 }

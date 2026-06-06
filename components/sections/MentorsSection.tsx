@@ -1,9 +1,11 @@
 ﻿"use client"
 
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useMemo } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import Link from "next/link"
+import type { PublicMentor } from "@/lib/mentors-api"
+import { MentorPhotoFrame } from "@/components/mentors/MentorPhotoFrame"
 
 type DisplayMentor = {
     id: string
@@ -19,27 +21,21 @@ const FALLBACK: DisplayMentor[] = [
     { id: "4", photo: "/photos/main/mentor 4.webp", name: "Nanditha", position: "Motion Graphics Mentor" },
 ]
 
-export function MentorsSection() {
-    const prefersReducedMotion = useReducedMotion()
-    const [displayMentors, setDisplayMentors] = useState<DisplayMentor[]>(FALLBACK)
+function toDisplayMentors(mentors: PublicMentor[]): DisplayMentor[] {
+    return mentors.map((m) => ({
+        id: m._id,
+        photo: m.photoUrl,
+        name: m.name,
+        position: m.designation,
+    }))
+}
 
-    useEffect(() => {
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/mentors?school=HACA`
-        fetch(url)
-            .then((r) => (r.ok ? r.json() : null))
-            .then((data) => {
-                const mentors = Array.isArray(data?.mentors)
-                    ? data.mentors.map((m: { _id: string; name: string; designation: string; photoUrl: string }) => ({
-                          id: m._id,
-                          photo: m.photoUrl,
-                          name: m.name,
-                          position: m.designation,
-                      }))
-                    : null
-                if (mentors && mentors.length > 0) setDisplayMentors(mentors)
-            })
-            .catch(() => {})
-    }, [])
+export function MentorsSection({ initialMentors }: { initialMentors?: PublicMentor[] }) {
+    const prefersReducedMotion = useReducedMotion()
+    const displayMentors = useMemo(() => {
+        const fromApi = initialMentors?.length ? toDisplayMentors(initialMentors) : null
+        return fromApi && fromApi.length > 0 ? fromApi : FALLBACK
+    }, [initialMentors])
 
     return (
         <section className="w-full max-w-[1440px] mx-auto p-[40px_60px_32px_60px] flex flex-col items-center gap-[36px] overflow-hidden opacity-100 max-md:p-[clamp(20px,5vw,32px)_clamp(16px,5vw,24px)] max-md:gap-[26px] max-md:items-start">
@@ -67,9 +63,7 @@ export function MentorsSection() {
                         viewport={{ once: true, amount: 0.15, margin: "-48px 0px -32px 0px" }}
                         transition={{ duration: 0.5, delay: index * 0.12, ease: [0.21, 0.47, 0.32, 0.98] }}
                     >
-                        <div className="relative w-full aspect-[317/367] rounded-[20px] border border-[#25317D] overflow-hidden bg-[linear-gradient(340.87deg,rgba(0,2,15,0)_23.42%,rgba(15,47,153,0.2)_74.9%,rgba(26,79,255,0.2)_90.34%)] px-[18px] py-[19px] max-md:rounded-[21.14px] max-md:px-[19.02px] max-md:py-[20.08px]">
-                            <Image src={mentor.photo} alt={mentor.name} fill className="object-cover object-top rounded-[16px]" sizes="(max-width: 767px) 100vw, 317px" />
-                        </div>
+                        <MentorPhotoFrame src={mentor.photo} alt={mentor.name} />
                         <div className="flex flex-col gap-[2px]">
                             <p className="font-outfit font-light text-[14px] leading-[140%] text-[#a3a3a3] m-0 max-md:text-[12px]">{mentor.position}</p>
                             <p className="font-outfit font-medium text-[clamp(18px,2.5vw,24px)] leading-[120%] tracking-[0%] text-[#ffffff] m-0 max-md:text-[clamp(18px,5.3vw,22px)]">{mentor.name}</p>

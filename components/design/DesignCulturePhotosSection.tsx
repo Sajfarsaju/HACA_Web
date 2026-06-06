@@ -1,14 +1,58 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta";
 import { ENQUIRE_URL } from "@/lib/enquire";
+import { getPublicBackendBase } from "@/lib/placements-api";
+
+const PHOTO_GRADIENT =
+    "linear-gradient(135deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.02) 35%, rgba(0,0,0,0.06) 100%)";
+
+// Slots 0-8 map to Desktop Photos 1-9 in order.
+// Mobile shows slots: 0,1,2,3,4, 6,7,8 (slot 5 is desktop-only).
+function SlotPhoto({
+    slotIndex,
+    photoMap,
+    alt,
+    sizes,
+}: {
+    slotIndex: number;
+    photoMap: Map<number, string>;
+    alt: string;
+    sizes?: string;
+}) {
+    const src = photoMap.get(slotIndex);
+    if (src) {
+        return (
+            <Image
+                src={src}
+                alt={alt}
+                fill
+                className="object-cover object-center"
+                sizes={sizes ?? "(max-width: 768px) 50vw, 33vw"}
+            />
+        );
+    }
+    return <div className="absolute inset-0" style={{ background: PHOTO_GRADIENT }} />;
+}
 
 export function DesignCulturePhotosSection({ font, serif }: { font: string; serif: string }) {
-    // Placeholder-only (user will add real photos later)
-    const photoGradient =
-        "linear-gradient(135deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.02) 35%, rgba(0,0,0,0.06) 100%)";
+    const [photoMap, setPhotoMap] = useState<Map<number, string>>(new Map());
+
+    useEffect(() => {
+        fetch(`${getPublicBackendBase()}/api/culture-photos?school=${encodeURIComponent("Design School")}`)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data: { photos?: { slotIndex: number; imageUrl: string }[] } | null) => {
+                if (data?.photos && data.photos.length > 0) {
+                    const map = new Map<number, string>();
+                    for (const p of data.photos) map.set(p.slotIndex, p.imageUrl);
+                    setPhotoMap(map);
+                }
+            })
+            .catch(() => {});
+    }, []);
 
     const DESKTOP_CANVAS_W = 1320;
     const DESKTOP_CANVAS_H = 878.08984375;
@@ -53,9 +97,8 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
 
                 {/* Desktop collage */}
                 <div className="hidden lg:block w-full">
-                    {/* Responsive canvas: preserves layout by percentage positioning */}
                     <div className="relative w-full max-w-[1320px]" style={{ aspectRatio: `${DESKTOP_CANVAS_W} / ${DESKTOP_CANVAS_H}` }}>
-                        {/* Desktop heading: top aligns with photo #1 top */}
+                        {/* Desktop heading */}
                         <h2
                             className="absolute m-0 text-black"
                             style={{
@@ -84,21 +127,20 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                             </span>
                         </h2>
 
-                        {/* 1 */}
+                        {/* Slot 0 */}
                         <div
-                            className="absolute"
+                            className="absolute overflow-hidden"
                             style={{
                                 left: pctX(906.8),
                                 top: pctY(0),
                                 width: pctX(237.3952484130862),
-                                // Reduced height (was 286.4782px)
                                 height: pctY(235),
                             }}
                         >
-                            <div className="w-full h-full" style={{ background: photoGradient }} />
+                            <SlotPhoto slotIndex={0} photoMap={photoMap} alt="Design culture moment 1" sizes="240px" />
                         </div>
 
-                        {/* 2 */}
+                        {/* Slot 1 */}
                         <div
                             className="absolute"
                             style={{
@@ -108,7 +150,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 height: pctY(214.74302673339844),
                             }}
                         >
-                            {/* Design #1 (desktop): Group (3) on photo #2 top-left */}
+                            {/* Design #1 (desktop): Group (3) on photo top-left */}
                             <Image
                                 src="/photos/schools/design/Group (3).svg"
                                 alt="" aria-hidden="true"
@@ -118,26 +160,27 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 style={{ left: 0, top: 0, transform: "translate(-50%, -50%)" }}
                                 priority={false}
                             />
-                            <div className="w-full h-full" style={{ background: photoGradient }} />
+                            <div className="absolute inset-0 overflow-hidden">
+                                <SlotPhoto slotIndex={1} photoMap={photoMap} alt="Design culture moment 2" sizes="350px" />
+                            </div>
                         </div>
 
-                        {/* 3 */}
+                        {/* Slot 2 */}
                         <div
-                            className="absolute"
+                            className="absolute overflow-hidden"
                             style={{
                                 left: pctX(626.52),
-                                // Align bottom with photo #2 bottom
                                 top: pctY(189.532),
                                 width: pctX(256.4231262207034),
                                 height: pctY(262.6912231445314),
                             }}
                         >
-                            <div className="w-full h-full" style={{ background: photoGradient }} />
+                            <SlotPhoto slotIndex={2} photoMap={photoMap} alt="Design culture moment 3" sizes="260px" />
                         </div>
 
-                        {/* 4 */}
+                        {/* Slot 3 */}
                         <div
-                            className="absolute"
+                            className="absolute overflow-hidden"
                             style={{
                                 left: pctX(0),
                                 top: pctY(467.09),
@@ -145,12 +188,12 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 height: pctY(411),
                             }}
                         >
-                            <div className="w-full h-full" style={{ background: photoGradient }} />
+                            <SlotPhoto slotIndex={3} photoMap={photoMap} alt="Design culture moment 4" sizes="430px" />
                         </div>
 
-                        {/* 5 */}
+                        {/* Slot 4 */}
                         <div
-                            className="absolute"
+                            className="absolute overflow-hidden"
                             style={{
                                 left: pctX(439.33),
                                 top: pctY(466.63),
@@ -158,12 +201,12 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 height: pctY(200.24562072753906),
                             }}
                         >
-                            <div className="w-full h-full" style={{ background: photoGradient }} />
+                            <SlotPhoto slotIndex={4} photoMap={photoMap} alt="Design culture moment 5" sizes="360px" />
                         </div>
 
-                        {/* 6 */}
+                        {/* Slot 5 */}
                         <div
-                            className="absolute"
+                            className="absolute overflow-hidden"
                             style={{
                                 left: pctX(439.33),
                                 top: pctY(677.75),
@@ -171,10 +214,10 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 height: pctY(200.24562072753906),
                             }}
                         >
-                            <div className="w-full h-full" style={{ background: photoGradient }} />
+                            <SlotPhoto slotIndex={5} photoMap={photoMap} alt="Design culture moment 6" sizes="360px" />
                         </div>
 
-                        {/* 7 */}
+                        {/* Slot 6 */}
                         <div
                             className="absolute"
                             style={{
@@ -184,7 +227,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 height: pctY(200),
                             }}
                         >
-                            {/* Design #2 (desktop): Vector (10) on photo #7 top border */}
+                            {/* Design #2 (desktop): Vector (10) on photo top border */}
                             <Image
                                 src="/photos/schools/design/Vector (10).svg"
                                 alt="" aria-hidden="true"
@@ -194,12 +237,14 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 style={{ right: "-4px", top: "-44px" }}
                                 priority={false}
                             />
-                            <div className="w-full h-full" style={{ background: photoGradient }} />
+                            <div className="absolute inset-0 overflow-hidden">
+                                <SlotPhoto slotIndex={6} photoMap={photoMap} alt="Design culture moment 7" sizes="400px" />
+                            </div>
                         </div>
 
-                        {/* 8 */}
+                        {/* Slot 7 */}
                         <div
-                            className="absolute"
+                            className="absolute overflow-hidden"
                             style={{
                                 left: pctX(806.45),
                                 top: pctY(467.09),
@@ -207,10 +252,10 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 height: pctY(253.50335693359403),
                             }}
                         >
-                            <div className="w-full h-full" style={{ background: photoGradient }} />
+                            <SlotPhoto slotIndex={7} photoMap={photoMap} alt="Design culture moment 8" sizes="240px" />
                         </div>
 
-                        {/* 9 */}
+                        {/* Slot 8 */}
                         <div
                             className="absolute"
                             style={{
@@ -220,7 +265,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 height: pctY(253.50335693359403),
                             }}
                         >
-                            {/* Design #3 (desktop): Group (4) on photo #9 bottom-right */}
+                            {/* Design #3 (desktop): Group (4) on photo bottom-right */}
                             <Image
                                 src="/photos/schools/design/Group (4).svg"
                                 alt="" aria-hidden="true"
@@ -230,7 +275,9 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 style={{ right: 0, bottom: 0, transform: "translate(50%, 50%) rotate(171.71deg)" }}
                                 priority={false}
                             />
-                            <div className="w-full h-full" style={{ background: photoGradient }} />
+                            <div className="absolute inset-0 overflow-hidden">
+                                <SlotPhoto slotIndex={8} photoMap={photoMap} alt="Design culture moment 9" sizes="240px" />
+                            </div>
                         </div>
 
                         {/* Paragraph + button */}
@@ -255,30 +302,30 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                     </div>
                 </div>
 
-                {/* Mobile collage (4 rows) + paragraph/button */}
+                {/* Mobile collage (4 rows) */}
                 <div className="lg:hidden w-full flex flex-col gap-[20px]">
                     <div className="w-full flex flex-col" style={{ gap: "10px" }}>
-                        {/* Row 1 */}
+                        {/* Row 1 — slots 0, 1 */}
                         <div className="w-full flex items-end" style={{ gap: "10px" }}>
                             <div
-                                className="culture-photo-card shrink-0"
+                                className="culture-photo-card shrink-0 relative overflow-hidden"
                                 style={{
                                     flexBasis: `${(185.5399932861328 / 335) * 100}%`,
                                     aspectRatio: `${185.5399932861328} / ${114.29203796386719}`,
-                                    background: photoGradient,
-                                    ["--culture-card-delay" as any]: "0ms",
+                                    ["--culture-card-delay" as string]: "0ms",
                                 }}
-                            />
+                            >
+                                <SlotPhoto slotIndex={0} photoMap={photoMap} alt="Design culture moment 1" sizes="50vw" />
+                            </div>
                             <div
                                 className="culture-photo-card shrink-0 relative"
                                 style={{
                                     flexBasis: `${(136.47531127929702 / 335) * 100}%`,
                                     aspectRatio: `${136.47531127929702} / ${139.81137084960946}`,
-                                    background: photoGradient,
-                                    ["--culture-card-delay" as any]: "120ms",
+                                    ["--culture-card-delay" as string]: "120ms",
                                 }}
                             >
-                                {/* Design #1 (mobile): Group (3) on photo #3 top-left */}
+                                {/* Design #1 (mobile): Group (3) on slot 1 top-left */}
                                 <Image
                                     src="/photos/schools/design/Group (3).svg"
                                     alt="" aria-hidden="true"
@@ -288,20 +335,24 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                     style={{ left: 0, top: 0, transform: "translate(-50%, -50%)" }}
                                     priority={false}
                                 />
+                                <div className="absolute inset-0 overflow-hidden">
+                                    <SlotPhoto slotIndex={1} photoMap={photoMap} alt="Design culture moment 2" sizes="40vw" />
+                                </div>
                             </div>
                         </div>
 
-                        {/* Row 2 */}
+                        {/* Row 2 — slots 2, 3, 4 */}
                         <div className="w-full flex items-start" style={{ gap: "10px" }}>
                             <div
-                                className="culture-photo-card shrink-0"
+                                className="culture-photo-card shrink-0 relative overflow-hidden"
                                 style={{
                                     flexBasis: `${(178.64999389648438 / 335) * 100}%`,
                                     aspectRatio: `${178.64999389648438} / ${177.580078125}`,
-                                    background: photoGradient,
-                                    ["--culture-card-delay" as any]: "240ms",
+                                    ["--culture-card-delay" as string]: "240ms",
                                 }}
-                            />
+                            >
+                                <SlotPhoto slotIndex={2} photoMap={photoMap} alt="Design culture moment 3" sizes="50vw" />
+                            </div>
                             <div
                                 className="flex flex-col shrink-0"
                                 style={{
@@ -310,36 +361,37 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 }}
                             >
                                 <div
-                                    className="culture-photo-card"
+                                    className="culture-photo-card relative overflow-hidden"
                                     style={{
                                         width: "100%",
                                         aspectRatio: `${146.7036590576172} / ${83.7900390625}`,
-                                        background: photoGradient,
-                                        ["--culture-card-delay" as any]: "360ms",
+                                        ["--culture-card-delay" as string]: "360ms",
                                     }}
-                                />
+                                >
+                                    <SlotPhoto slotIndex={3} photoMap={photoMap} alt="Design culture moment 4" sizes="40vw" />
+                                </div>
                                 <div
-                                    className="culture-photo-card"
+                                    className="culture-photo-card relative overflow-hidden"
                                     style={{
                                         width: "100%",
                                         aspectRatio: `${146.7036590576172} / ${83.7900390625}`,
-                                        background: photoGradient,
-                                        ["--culture-card-delay" as any]: "480ms",
+                                        ["--culture-card-delay" as string]: "480ms",
                                     }}
-                                />
+                                >
+                                    <SlotPhoto slotIndex={4} photoMap={photoMap} alt="Design culture moment 5" sizes="40vw" />
+                                </div>
                             </div>
                         </div>
 
-                        {/* Row 3 */}
+                        {/* Row 3 — slot 6 (slot 5 is desktop-only) */}
                         <div
                             className="culture-photo-card w-full relative"
                             style={{
                                 aspectRatio: `335 / 167.52113342285156`,
-                                background: photoGradient,
-                                ["--culture-card-delay" as any]: "600ms",
+                                ["--culture-card-delay" as string]: "600ms",
                             }}
                         >
-                            {/* Design #2 (mobile): Vector (10) on photo #7 bottom border */}
+                            {/* Design #2 (mobile): Vector (10) on slot 6 bottom border */}
                             <Image
                                 src="/photos/schools/design/Vector (10).svg"
                                 alt="" aria-hidden="true"
@@ -349,29 +401,32 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                 style={{ right: "-2px", bottom: "-30px" }}
                                 priority={false}
                             />
+                            <div className="absolute inset-0 overflow-hidden">
+                                <SlotPhoto slotIndex={6} photoMap={photoMap} alt="Design culture moment 7" sizes="100vw" />
+                            </div>
                         </div>
 
-                        {/* Row 4 */}
+                        {/* Row 4 — slots 7, 8 */}
                         <div className="w-full flex items-start" style={{ gap: "6.57px" }}>
                             <div
-                                className="culture-photo-card shrink-0"
+                                className="culture-photo-card shrink-0 relative overflow-hidden"
                                 style={{
                                     flexBasis: `${(157.6665649414064 / 335) * 100}%`,
                                     aspectRatio: `${157.6665649414064} / ${166.53750610351582}`,
-                                    background: photoGradient,
-                                    ["--culture-card-delay" as any]: "720ms",
+                                    ["--culture-card-delay" as string]: "720ms",
                                 }}
-                            />
+                            >
+                                <SlotPhoto slotIndex={7} photoMap={photoMap} alt="Design culture moment 8" sizes="50vw" />
+                            </div>
                             <div
                                 className="culture-photo-card shrink-0 relative"
                                 style={{
                                     flexBasis: `${(157.6665649414064 / 335) * 100}%`,
                                     aspectRatio: `${157.6665649414064} / ${166.53750610351582}`,
-                                    background: photoGradient,
-                                    ["--culture-card-delay" as any]: "840ms",
+                                    ["--culture-card-delay" as string]: "840ms",
                                 }}
                             >
-                                {/* Design #3 (mobile): Group (4) on photo #9 bottom-right */}
+                                {/* Design #3 (mobile): Group (4) on slot 8 bottom-right */}
                                 <Image
                                     src="/photos/schools/design/Group (4).svg"
                                     alt="" aria-hidden="true"
@@ -381,6 +436,9 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                                     style={{ right: 0, bottom: 0, transform: "translate(50%, 50%) rotate(171.71deg)" }}
                                     priority={false}
                                 />
+                                <div className="absolute inset-0 overflow-hidden">
+                                    <SlotPhoto slotIndex={8} photoMap={photoMap} alt="Design culture moment 9" sizes="50vw" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -406,7 +464,6 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
             </div>
 
             <style>{`
-                /* “Load one by one” reveal */
                 #design-culture .culture-photo-card {
                     opacity: 0;
                     transform: translateY(10px) scale(0.985);
@@ -415,10 +472,7 @@ export function DesignCulturePhotosSection({ font, serif }: { font: string; seri
                     will-change: transform, opacity;
                 }
                 @keyframes designCultureCardIn {
-                    to {
-                        opacity: 1;
-                        transform: translateY(0) scale(1);
-                    }
+                    to { opacity: 1; transform: translateY(0) scale(1); }
                 }
                 @media (prefers-reduced-motion: reduce) {
                     #design-culture .culture-photo-card {
@@ -472,4 +526,3 @@ function DesignCultureJoinNowButton({ font, isMobile }: { font: string; isMobile
         />
     );
 }
-

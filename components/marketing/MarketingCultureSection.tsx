@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import React, { useEffect, useMemo, useRef, useState } from "react"
+import { getPublicBackendBase } from "@/lib/placements-api"
 
 const ACCENT = "#0066FF"
 
@@ -35,9 +36,23 @@ function CultureAbsTile({ src, alt, left, top, width, height, priority, radius =
     )
 }
 
+// Slot-to-static-fallback map (slots 0-8 in order of desktop layout)
+const STATIC_FALLBACK: Record<number, string> = {
+    0: "/photos/schools/marketing/culture/rectangle-34.webp",
+    1: "/photos/schools/marketing/culture/rectangle-36.webp",
+    2: "/photos/schools/marketing/culture/rectangle-39.webp",
+    3: "/photos/schools/marketing/culture/rectangle-41.webp",
+    4: "/photos/schools/marketing/culture/rectangle-35.webp",
+    5: "/photos/schools/marketing/culture/rectangle-40.webp",
+    6: "/photos/schools/marketing/culture/rectangle-38.webp",
+    7: "/photos/schools/marketing/culture/rectangle-37.webp",
+    8: "/photos/schools/marketing/culture/rectangle-42.webp",
+}
+
 export function MarketingCultureSection() {
     const desktopViewportRef = useRef<HTMLDivElement | null>(null)
     const [desktopScale, setDesktopScale] = useState(1)
+    const [photoMap, setPhotoMap] = useState<Map<number, string>>(new Map())
 
     const mobileViewportRef = useRef<HTMLDivElement | null>(null)
     const [mobileScale, setMobileScale] = useState(1)
@@ -85,6 +100,22 @@ export function MarketingCultureSection() {
         ro.observe(el)
         return () => ro.disconnect()
     }, [])
+
+    useEffect(() => {
+        fetch(`${getPublicBackendBase()}/api/culture-photos?school=${encodeURIComponent("Marketing School")}`)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data: { photos?: { slotIndex: number; imageUrl: string }[] } | null) => {
+                if (data?.photos && data.photos.length > 0) {
+                    const map = new Map<number, string>()
+                    for (const p of data.photos) map.set(p.slotIndex, p.imageUrl)
+                    setPhotoMap(map)
+                }
+            })
+            .catch(() => {})
+    }, [])
+
+    // API photo takes priority; fall back to static local file
+    const p = (slot: number) => photoMap.get(slot) ?? STATIC_FALLBACK[slot]
 
     return (
         <section
@@ -154,7 +185,7 @@ export function MarketingCultureSection() {
                                     }}
                                 >
                                 <CultureAbsTile
-                                    src="/photos/schools/marketing/culture/rectangle-34.webp"
+                                    src={p(0)}
                                     alt="Culture moment"
                                     left={0}
                                     top={3.74}
@@ -164,7 +195,7 @@ export function MarketingCultureSection() {
                                     priority
                                 />
                                 <CultureAbsTile
-                                    src="/photos/schools/marketing/culture/rectangle-36.webp"
+                                    src={p(1)}
                                     alt="Culture moment"
                                     left={174.05}
                                     top={0}
@@ -173,7 +204,7 @@ export function MarketingCultureSection() {
                                     radius={5.35}
                                 />
                                 <CultureAbsTile
-                                    src="/photos/schools/marketing/culture/rectangle-35.webp"
+                                    src={p(4)}
                                     alt="Culture moment"
                                     left={174.05}
                                     top={126.71}
@@ -182,7 +213,7 @@ export function MarketingCultureSection() {
                                     radius={5.35}
                                 />
                                 <CultureAbsTile
-                                    src="/photos/schools/marketing/culture/rectangle-38.webp"
+                                    src={p(6)}
                                     alt="Culture moment"
                                     left={0.42}
                                     top={253.42}
@@ -191,7 +222,7 @@ export function MarketingCultureSection() {
                                     radius={5.35}
                                 />
                                 <CultureAbsTile
-                                    src="/photos/schools/marketing/culture/rectangle-37.webp"
+                                    src={p(7)}
                                     alt="Culture moment"
                                     left={114.57}
                                     top={253.99}
@@ -209,15 +240,15 @@ export function MarketingCultureSection() {
                         <div className="w-full max-w-[768px] min-w-0">
                             <div className="mx-auto w-[1320px] md:[zoom:0.58]">
                                 <div className="relative w-[1320px]" style={{ height: 693 }}>
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-34.webp" alt="Culture moment" left={0} top={0} width={313.4869} height={455} priority />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-36.webp" alt="Culture moment" left={333.41} top={0} width={423.5743} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-39.webp" alt="Culture moment" left={776.9} top={0} width={207.5933} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-41.webp" alt="Culture moment" left={1004.42} top={0} width={315.5838} height={335} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-35.webp" alt="Culture moment" left={333.41} top={238} width={315.5838} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-40.webp" alt="Culture moment" left={668.91} top={238} width={315.5838} height={455} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-38.webp" alt="Culture moment" left={0} top={475} width={199.2057} height={218} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-37.webp" alt="Culture moment" left={222.27} top={475} width={426.7196} height={218} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-42.webp" alt="Culture moment" left={1004.42} top={358} width={315.5838} height={335} />
+                                    <CultureAbsTile src={p(0)} alt="Culture moment" left={0} top={0} width={313.4869} height={455} priority />
+                                    <CultureAbsTile src={p(1)} alt="Culture moment" left={333.41} top={0} width={423.5743} height={217} />
+                                    <CultureAbsTile src={p(2)} alt="Culture moment" left={776.9} top={0} width={207.5933} height={217} />
+                                    <CultureAbsTile src={p(3)} alt="Culture moment" left={1004.42} top={0} width={315.5838} height={335} />
+                                    <CultureAbsTile src={p(4)} alt="Culture moment" left={333.41} top={238} width={315.5838} height={217} />
+                                    <CultureAbsTile src={p(5)} alt="Culture moment" left={668.91} top={238} width={315.5838} height={455} />
+                                    <CultureAbsTile src={p(6)} alt="Culture moment" left={0} top={475} width={199.2057} height={218} />
+                                    <CultureAbsTile src={p(7)} alt="Culture moment" left={222.27} top={475} width={426.7196} height={218} />
+                                    <CultureAbsTile src={p(8)} alt="Culture moment" left={1004.42} top={358} width={315.5838} height={335} />
                                 </div>
                             </div>
                         </div>
@@ -234,15 +265,15 @@ export function MarketingCultureSection() {
                                 }}
                             >
                                 <div className="relative h-[693px] w-[1320px]">
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-34.webp" alt="Culture moment" left={0} top={0} width={313.4869} height={455} priority />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-36.webp" alt="Culture moment" left={333.41} top={0} width={423.5743} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-39.webp" alt="Culture moment" left={776.9} top={0} width={207.5933} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-41.webp" alt="Culture moment" left={1004.42} top={0} width={315.5838} height={335} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-35.webp" alt="Culture moment" left={333.41} top={238} width={315.5838} height={217} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-40.webp" alt="Culture moment" left={668.91} top={238} width={315.5838} height={455} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-38.webp" alt="Culture moment" left={0} top={475} width={199.2057} height={218} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-37.webp" alt="Culture moment" left={222.27} top={475} width={426.7196} height={218} />
-                                    <CultureAbsTile src="/photos/schools/marketing/culture/rectangle-42.webp" alt="Culture moment" left={1004.42} top={358} width={315.5838} height={335} />
+                                    <CultureAbsTile src={p(0)} alt="Culture moment" left={0} top={0} width={313.4869} height={455} priority />
+                                    <CultureAbsTile src={p(1)} alt="Culture moment" left={333.41} top={0} width={423.5743} height={217} />
+                                    <CultureAbsTile src={p(2)} alt="Culture moment" left={776.9} top={0} width={207.5933} height={217} />
+                                    <CultureAbsTile src={p(3)} alt="Culture moment" left={1004.42} top={0} width={315.5838} height={335} />
+                                    <CultureAbsTile src={p(4)} alt="Culture moment" left={333.41} top={238} width={315.5838} height={217} />
+                                    <CultureAbsTile src={p(5)} alt="Culture moment" left={668.91} top={238} width={315.5838} height={455} />
+                                    <CultureAbsTile src={p(6)} alt="Culture moment" left={0} top={475} width={199.2057} height={218} />
+                                    <CultureAbsTile src={p(7)} alt="Culture moment" left={222.27} top={475} width={426.7196} height={218} />
+                                    <CultureAbsTile src={p(8)} alt="Culture moment" left={1004.42} top={358} width={315.5838} height={335} />
                                 </div>
                             </div>
                         </div>

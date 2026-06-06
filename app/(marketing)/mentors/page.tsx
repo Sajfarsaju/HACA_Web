@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Footer } from "@/components/layout/Footer";
+import { MentorPhotoFrame } from "@/components/mentors/MentorPhotoFrame";
 
 export const metadata: Metadata = {
     title: "Mentors | HACA",
@@ -36,26 +37,12 @@ function MentorCard({ mentor }: { mentor: Mentor }) {
     return (
         <article className="w-full max-w-[317px] max-lg:max-w-[300px] mx-auto flex flex-col">
             {/* Photo container */}
-            <div
-                className="
-                    relative overflow-hidden
-                    border-[#25317D] border-[1px] max-lg:border-[0.95px]
-                    bg-[linear-gradient(340.87deg,rgba(0,2,15,0)_23.42%,rgba(15,47,153,0.2)_74.9%,rgba(26,79,255,0.2)_90.34%)]
-                    rounded-t-[15.85px] max-lg:rounded-t-[15px]
-                    aspect-[317/367]
-                    px-[clamp(17.03px,1.3vw,18px)] py-[clamp(17.98px,1.35vw,19px)]
-                "
-            >
-                <div className="relative w-full h-full rounded-[16px] overflow-hidden">
-                    <Image
-                        src={mentor.photoUrl}
-                        alt={mentor.name}
-                        fill
-                        className="object-cover object-top"
-                        sizes="(max-width: 1024px) 300px, 317px"
-                    />
-                </div>
-            </div>
+            <MentorPhotoFrame
+                src={mentor.photoUrl}
+                alt={mentor.name}
+                sizes="(max-width: 1024px) 300px, 317px"
+                className="rounded-t-[15.85px] max-lg:rounded-t-[15px] border-[#25317D] border-[1px] max-lg:border-[0.95px] px-[clamp(17.03px,1.3vw,18px)] py-[clamp(17.98px,1.35vw,19px)] bg-[linear-gradient(340.87deg,rgba(0,2,15,0)_23.42%,rgba(15,47,153,0.2)_74.9%,rgba(26,79,255,0.2)_90.34%)]"
+            />
 
             {/* Name + designation + LinkedIn */}
             <div

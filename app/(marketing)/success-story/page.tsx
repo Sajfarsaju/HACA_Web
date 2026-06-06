@@ -13,7 +13,7 @@ export const metadata = buildSitePageMetadata({
 });
 
 /** Must match admin dropdown + API `schoolName` */
-const SCHOOL_NAMES = ["Marketing School", "Design School", "Tech School"] as const;
+const SCHOOL_NAMES = ["Marketing School", "Design School", "Tech School", "UAE School"] as const;
 
 export default async function SuccessStoryPage() {
     const placementGroups = await fetchPlacementGroups();
