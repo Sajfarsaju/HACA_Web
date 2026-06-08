@@ -1,4 +1,4 @@
-import {
+﻿import {
     buildDigitalMarketingKeralaSeoMetadata,
     digitalMarketingKeralaJsonLd,
 } from "@/lib/marketing-school-seo";
@@ -15,8 +15,8 @@ import { MarketingSeoLearningIsntEnoughSection } from "./_sections/MarketingSeoL
 import { MarketingSeoExclusiveBenefitsSection } from "./_sections/MarketingSeoExclusiveBenefitsSection";
 import { MarketingSeoMentorsSection } from "./_sections/MarketingSeoMentorsSection";
 import { MarketingSeoGuestExpertsSection } from "./_sections/MarketingSeoGuestExpertsSection";
-import { MarketingSeoCareerWinsSection } from "./_sections/MarketingSeoCareerWinsSection";
-import { MarketingSeoBlogInsightsSection } from "./_sections/MarketingSeoBlogInsightsSection";
+import { MarketingCareerWinsSection } from "@/components/marketing/MarketingCareerWinsSection";
+import { MarketingSeoBlogInsightsSection } from "@/components/marketing/MarketingSeoBlogInsightsSection";
 import { MarketingSeoMentorsBroughtHomeSection } from "./_sections/MarketingSeoMentorsBroughtHomeSection";
 import { MarketingSeoJobReadyCareersSection } from "./_sections/MarketingSeoJobReadyCareersSection";
 import { MarketingSeoHacaCultureSection } from "./_sections/MarketingSeoHacaCultureSection";
@@ -48,7 +48,7 @@ export default function DigitalMarketingCourseInKeralaPage() {
                 <MarketingSeoExclusiveBenefitsSection />
                 <MarketingSeoMentorsSection />
                 <MarketingSeoGuestExpertsSection />
-                <MarketingSeoCareerWinsSection />
+                <MarketingCareerWinsSection />
                 <MarketingSeoBlogInsightsSection />
                 <MarketingSeoMentorsBroughtHomeSection />
                 <MarketingSeoJobReadyCareersSection />

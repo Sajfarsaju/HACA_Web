@@ -1,5 +1,9 @@
 import { buildDesignSchoolSeoMetadata } from "@/lib/design-school-seo";
+import { DesignStoriesInsightsSection } from "@/components/design/DesignStoriesInsightsSection";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
+
+const DESIGN_HEADING_FONT = '"VC Nudge Trial Normal", sans-serif';
+const DESIGN_SERIF_FONT = '"IvyPresto Display", serif';
 import { UiUxDesignCalicutHeroSection } from "./_sections/UiUxDesignCalicutHeroSection";
 import { UiUxDesignCalicutWhatWeHaveSection } from "./_sections/UiUxDesignCalicutWhatWeHaveSection";
 import { UiUxDesignCalicutWhyChooseSection } from "./_sections/UiUxDesignCalicutWhyChooseSection";
@@ -34,12 +38,12 @@ export default function UiUxDesignCourseInCalicutPage() {
             <UiUxDesignCalicutWhyChooseSection />
             <UiUxDesignCalicutLearningExperienceSection />
             <UiUxDesignCalicutPortfolioSection />
+            <div className="w-full bg-[#FCFCFC] flex justify-center">
+                <DesignStoriesInsightsSection font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
+            </div>
             <UiUxDesignCalicutFaqSection />
             <UiUxDesignCalicutCtaSection />
-            <DesignSchoolFooter
-                font='"VC Nudge Trial Normal", sans-serif'
-                serif='"IvyPresto Display", serif'
-            />
+            <DesignSchoolFooter font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
         </>
     );
 }

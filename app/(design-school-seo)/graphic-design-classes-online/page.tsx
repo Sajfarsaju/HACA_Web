@@ -12,6 +12,7 @@ import { GraphicDesigningCalicutBrandsSection } from "@/components/design/Graphi
 import { GraphicDesigningCalicutTestimonialsSection } from "@/components/design/GraphicDesigningCalicutTestimonialsSection";
 import { GraphicDesigningCalicutMentorsSection } from "@/components/design/GraphicDesigningCalicutMentorsSection";
 import { GraphicDesigningCalicutStudentsWorkSection } from "@/components/design/GraphicDesigningCalicutStudentsWorkSection";
+import { DesignStoriesInsightsSection } from "@/components/design/DesignStoriesInsightsSection";
 import { DesignSeoCultureGrid } from "@/components/design/DesignSeoCultureGrid";
 import { DesignSeoFaqList, type FaqItem } from "@/components/design/DesignSeoFaqList";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
@@ -79,6 +80,10 @@ export default function GraphicDesignClassesOnlinePage() {
             <GraphicDesignOnlineExploreProgramsSection />
             <GraphicDesignOnlineWhyDesignSchoolSection />
             <GraphicDesigningCalicutStudentsWorkSection />
+
+            <div className="w-full bg-[#FCFCFC] flex justify-center">
+                <DesignStoriesInsightsSection font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
+            </div>
 
             {/* Culture section */}
             <section className="w-full bg-[#FCFCFC] flex justify-center" aria-label="Learning community">

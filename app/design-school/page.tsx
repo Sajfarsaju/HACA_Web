@@ -1,3 +1,4 @@
+import React from "react";
 import { DesignSchoolIntroAnimation } from "@/components/design/DesignSchoolIntroAnimation";
 import { DesignSchoolNavbar } from "@/components/design/DesignSchoolNavbar";
 import { DesignHeroVideoTransition } from "@/components/design/DesignHeroVideoTransition";
@@ -37,7 +38,14 @@ export default async function DesignSchoolPage() {
         designPlacements.length > 0 ? designPlacements : designPlacementFallbackItems(5);
 
     return (
-        <div className="w-full bg-[#FCFCFC] min-h-screen">
+        <div
+            className="w-full bg-[#FCFCFC] min-h-screen"
+            style={{
+                fontFamily: DESIGN_HEADING_FONT,
+                "--font-heading": DESIGN_HEADING_FONT,
+                "--font-serif": DESIGN_SERIF_FONT,
+            } as React.CSSProperties}
+        >
             <DesignSchoolIntroAnimation />
             <DesignSchoolNavbar />
 

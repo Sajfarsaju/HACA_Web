@@ -229,7 +229,7 @@ export function DesignStoriesInsightsSection({ font, serif }: { font: string; se
         >
             <div className="flex w-full min-w-0 flex-col gap-[50px] lg:gap-[80px]">
                 {/* Heading */}
-                <div className="w-full min-h-0 lg:min-h-[123.574px] lg:w-[447px] lg:max-w-full">
+                <div className="w-full min-h-0 lg:min-h-[123.574px]">
                     <h2
                         className="m-0 w-full max-w-full text-black"
                         style={{

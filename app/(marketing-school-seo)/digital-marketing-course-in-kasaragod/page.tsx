@@ -1,4 +1,4 @@
-import {
+﻿import {
     buildDigitalMarketingKasaragodSeoMetadata,
     digitalMarketingKasaragodJsonLd,
 } from "@/lib/marketing-school-seo";
@@ -15,8 +15,8 @@ import { MarketingSeoExclusiveBenefitsSection } from "./_sections/MarketingSeoEx
 import { MarketingSeoTestimonialsSection } from "./_sections/MarketingSeoTestimonialsSection";
 import { MarketingSeoMentorsSection } from "./_sections/MarketingSeoMentorsSection";
 import { MarketingSeoGuestExpertsSection } from "./_sections/MarketingSeoGuestExpertsSection";
-import { MarketingSeoCareerWinsSection } from "./_sections/MarketingSeoCareerWinsSection";
-import { MarketingSeoBlogInsightsSection } from "./_sections/MarketingSeoBlogInsightsSection";
+import { MarketingCareerWinsSection } from "@/components/marketing/MarketingCareerWinsSection";
+import { MarketingSeoBlogInsightsSection } from "@/components/marketing/MarketingSeoBlogInsightsSection";
 import { MarketingSeoMentorsBroughtHomeSection } from "./_sections/MarketingSeoMentorsBroughtHomeSection";
 import { MarketingSeoJobReadyCareersSection } from "./_sections/MarketingSeoJobReadyCareersSection";
 import { MarketingSeoHacaCultureSection } from "./_sections/MarketingSeoHacaCultureSection";
@@ -48,7 +48,7 @@ export default function DigitalMarketingCourseInKasaragodPage() {
                 <MarketingSeoTestimonialsSection />
                 <MarketingSeoMentorsSection />
                 <MarketingSeoGuestExpertsSection />
-                <MarketingSeoCareerWinsSection />
+                <MarketingCareerWinsSection />
                 <MarketingSeoBlogInsightsSection />
                 <MarketingSeoMentorsBroughtHomeSection />
                 <MarketingSeoJobReadyCareersSection />
