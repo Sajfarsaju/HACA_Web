@@ -148,7 +148,11 @@ export function isMarketingSchoolSeoPath(pathname: string): boolean {
         pathname === DIGITAL_MARKETING_ERNAKULAM_SEO_PATH ||
         pathname.startsWith(`${DIGITAL_MARKETING_ERNAKULAM_SEO_PATH}/`) ||
         pathname === HACA_AE_SEO_PATH ||
-        pathname.startsWith(`${HACA_AE_SEO_PATH}/`)
+        pathname.startsWith(`${HACA_AE_SEO_PATH}/`) ||
+        pathname === DIGITAL_MARKETING_MALAYALAM_SEO_PATH ||
+        pathname.startsWith(`${DIGITAL_MARKETING_MALAYALAM_SEO_PATH}/`) ||
+        pathname === ONLINE_DIGITAL_MARKETING_INDIA_SEO_PATH ||
+        pathname.startsWith(`${ONLINE_DIGITAL_MARKETING_INDIA_SEO_PATH}/`)
     );
 }
 
@@ -2129,27 +2133,187 @@ export function buildDigitalMarketingAlappuzhaSeoMetadata(): Metadata {
     );
 }
 
+// ─────────────────────────────────────────────────────────────
+// Malayalam SEO page
+// ─────────────────────────────────────────────────────────────
+
+export type MarketingMalayalamFaqItem = {
+    id: string;
+    question: string;
+    answer: string;
+};
+
+export const MARKETING_MALAYALAM_FAQS: MarketingMalayalamFaqItem[] = [
+    {
+        id: "malayalam-faq-1",
+        question: "What is the duration of the online digital marketing course in Malayalam?",
+        answer:
+            "The course typically lasts for 5 months, with interactive live classes and project-based learning. You can learn at your own pace through the flexible online format.",
+    },
+    {
+        id: "malayalam-faq-2",
+        question: "Will the classes be conducted in Malayalam?",
+        answer:
+            "Yes. All classes are conducted in Malayalam and will be taught by Malayali mentors, making it easy for beginners and professionals to learn. The course covers everything from basic concepts to advanced strategies, perfect for students, small business owners, and entrepreneurs.",
+    },
+    {
+        id: "malayalam-faq-3",
+        question: "Is certification included in the digital marketing course in Malayalam?",
+        answer:
+            "Yes, upon successful completion of the course, you will receive a digital marketing certification that enhances your employability and demonstrates your skills to potential employers or clients.",
+    },
+    {
+        id: "malayalam-faq-4",
+        question: "What are the career opportunities after completing this course?",
+        answer:
+            "After completing the course, you can pursue roles such as Digital Marketing Specialist, Social Media Manager, SEO Expert, PPC Expert, Content Strategist, or even start your own digital marketing agency.",
+    },
+    {
+        id: "malayalam-faq-5",
+        question: "Are there any live projects included in the course?",
+        answer:
+            "Yes, you will have opportunities to work on live projects, gaining hands-on experience that will enhance your learning and provide practical skills to apply in real-world scenarios.",
+    },
+];
+
 export const DIGITAL_MARKETING_MALAYALAM_SEO_PATH =
     "/digital-marketing-course-in-malayalam" as const;
 
 const MALAYALAM_PAGE_TITLE = "Best Digital Marketing Course in Malayalam with Certification";
 const MALAYALAM_PAGE_DESCRIPTION =
-    "Join Haris and Co Academy which offers the best digital marketing course in Malayalam with certification and master digital marketing skills with expert-led training.";
+    "Master digital marketing in Malayalam with HACA's AI-integrated training program. Learn SEO, Google Ads, Meta Ads, AI Automation, Content Marketing, Ecommerce, and more with certification, mentorship, live projects, and career support.";
 
 export function buildDigitalMarketingMalayalamSeoMetadata(): Metadata {
-    return buildMarketingLandingSeoMetadata(
-        DIGITAL_MARKETING_MALAYALAM_SEO_PATH,
-        MALAYALAM_PAGE_TITLE,
-        MALAYALAM_PAGE_DESCRIPTION
-    );
+    const canonical = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_MALAYALAM_SEO_PATH}`;
+    return {
+        title: MALAYALAM_PAGE_TITLE,
+        description: MALAYALAM_PAGE_DESCRIPTION,
+        alternates: { canonical },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: MALAYALAM_PAGE_TITLE,
+            description: MALAYALAM_PAGE_DESCRIPTION,
+            url: canonical,
+            siteName: "Haris & Co Academy",
+            locale: "en_IN",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: MALAYALAM_PAGE_TITLE,
+            description: MALAYALAM_PAGE_DESCRIPTION,
+        },
+        keywords: [
+            "digital marketing course in Malayalam",
+            "best digital marketing course in Malayalam",
+            "digital marketing course in Malayalam with certification",
+            "online digital marketing course in Malayalam",
+            "digital marketing training in Malayalam",
+            "Malayalam digital marketing course",
+            "learn digital marketing in Malayalam",
+            "AI digital marketing course Malayalam",
+            "SEO course in Malayalam",
+            "Google Ads course in Malayalam",
+            "Meta Ads course in Malayalam",
+            "digital marketing course for Malayalees",
+            "HACA digital marketing Malayalam",
+        ],
+    };
+}
+
+export function digitalMarketingMalayalamJsonLd() {
+    const url = `${MARKETING_SCHOOL_SEO_SITE_URL}${DIGITAL_MARKETING_MALAYALAM_SEO_PATH}`;
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${url}#webpage`,
+                url,
+                name: MALAYALAM_PAGE_TITLE,
+                description: MALAYALAM_PAGE_DESCRIPTION,
+                isPartOf: {
+                    "@type": "WebSite",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+            },
+            {
+                "@type": "Course",
+                "@id": `${url}#course`,
+                name: "Digital Marketing Course in Malayalam",
+                description: MALAYALAM_PAGE_DESCRIPTION,
+                provider: {
+                    "@type": "EducationalOrganization",
+                    name: "Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+                url,
+                educationalLevel: "Beginner to Advanced",
+                courseMode: ["Onsite", "Online"],
+                inLanguage: "ml",
+                areaServed: {
+                    "@type": "State",
+                    name: "Kerala",
+                    containedInPlace: { "@type": "Country", name: "India" },
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${url}#faq`,
+                mainEntity: MARKETING_MALAYALAM_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.question,
+                    acceptedAnswer: { "@type": "Answer", text: item.answer },
+                })),
+            },
+        ],
+    };
 }
 
 export const ONLINE_DIGITAL_MARKETING_INDIA_SEO_PATH =
     "/online-digital-marketing-course-in-india" as const;
 
-const ONLINE_INDIA_PAGE_TITLE = "Best Online Digital Marketing Course in India | HACA";
+const ONLINE_INDIA_PAGE_TITLE =
+    "Online Digital Marketing Course in India | Live Training & Placement Support | HACA";
 const ONLINE_INDIA_PAGE_DESCRIPTION =
-    "Join HACA's online digital marketing course in India. Learn SEO, social media, and more with expert mentors. Start your career now!";
+    "Join HACA's Online Digital Marketing Course in India. Learn SEO, social media, Google Ads, branding, and automation through live classes, real projects, expert mentors, and placement support.";
+
+export type MarketingIndiaFaqItem = { id: string; question: string; answer: string };
+
+export const MARKETING_INDIA_FAQS: MarketingIndiaFaqItem[] = [
+    {
+        id: "india-faq-1",
+        question: "What makes HACA's online digital marketing course in India different from others?",
+        answer:
+            "HACA's program is built inside a real agency, not just a classroom. You'll get hands-on training, real projects, expert mentorship, and placement assistance, all 100% online.",
+    },
+    {
+        id: "india-faq-2",
+        question: "Do I need any prior marketing experience to join this course?",
+        answer:
+            "No! We start from the basics and gradually move into advanced digital marketing topics. All you need is curiosity and consistency.",
+    },
+    {
+        id: "india-faq-3",
+        question: "Is the online format as effective as offline learning?",
+        answer:
+            "Definitely! Our students experience the same hands-on learning, collaboration, and project-building environment—even online. In fact, many prefer it for the flexibility.",
+    },
+    {
+        id: "india-faq-4",
+        question: "How are the online classes conducted?",
+        answer:
+            "Our classes are live and interactive. You can ask questions in real-time, participate in activities, and collaborate with mentors and peers. All sessions are recorded for later access too.",
+    },
+    {
+        id: "india-faq-5",
+        question: "Do I need to take an aptitude test to join HACA's program?",
+        answer:
+            "Yes, before enrollment, you'll need to take a short aptitude test. Don't worry, it's designed to understand your current skill level and help us guide you better. Plus, it's your first step toward joining the most hands-on online digital marketing course in India.",
+    },
+];
 
 export function buildOnlineDigitalMarketingIndiaSeoMetadata(): Metadata {
     return buildMarketingLandingSeoMetadata(
@@ -2157,4 +2321,67 @@ export function buildOnlineDigitalMarketingIndiaSeoMetadata(): Metadata {
         ONLINE_INDIA_PAGE_TITLE,
         ONLINE_INDIA_PAGE_DESCRIPTION
     );
+}
+
+export function digitalMarketingIndiaJsonLd() {
+    const url = `${MARKETING_SCHOOL_SEO_SITE_URL}${ONLINE_DIGITAL_MARKETING_INDIA_SEO_PATH}`;
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": url,
+                url,
+                name: ONLINE_INDIA_PAGE_TITLE,
+                description: ONLINE_INDIA_PAGE_DESCRIPTION,
+                inLanguage: "en",
+                isPartOf: { "@id": `${MARKETING_SCHOOL_SEO_SITE_URL}/#website` },
+            },
+            {
+                "@type": "Course",
+                "@id": `${url}#course`,
+                name: "Online Digital Marketing Course in India",
+                description: ONLINE_INDIA_PAGE_DESCRIPTION,
+                provider: {
+                    "@type": "Organization",
+                    name: "HACA – Haris & Co Academy",
+                    url: MARKETING_SCHOOL_SEO_SITE_URL,
+                },
+                hasCourseInstance: [
+                    {
+                        "@type": "CourseInstance",
+                        courseMode: "Online",
+                        duration: "P5M",
+                        courseSchedule: {
+                            "@type": "Schedule",
+                            repeatFrequency: "Daily",
+                            byDay: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                            startTime: "20:00",
+                            endTime: "22:00",
+                        },
+                    },
+                ],
+                offers: {
+                    "@type": "Offer",
+                    availability: "https://schema.org/InStock",
+                    url,
+                    priceCurrency: "INR",
+                },
+                inLanguage: "en",
+                locationCreated: {
+                    "@type": "Country",
+                    name: "India",
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "@id": `${url}#faq`,
+                mainEntity: MARKETING_INDIA_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.question,
+                    acceptedAnswer: { "@type": "Answer", text: item.answer },
+                })),
+            },
+        ],
+    };
 }

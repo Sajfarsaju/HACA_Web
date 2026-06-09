@@ -43,10 +43,10 @@ export function MarketingSeoWhatYouLearnSection() {
     return (
         <section className="w-full bg-black text-white" aria-labelledby={HEADING_ID}>
             <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-[30px] px-[clamp(16px,4.16vw,60px)] pb-[10px] pt-[10px] md:px-[clamp(24px,5vw,48px)] lg:gap-[60px] lg:px-[60px] lg:pb-10 lg:pt-5">
-                <div className="flex w-full flex-col gap-[10px] lg:mx-0 lg:max-w-[1320px]">
+                <div className="flex w-full flex-col gap-[10px] lg:mx-0 lg:max-w-[1320px] lg:flex-row lg:items-end lg:justify-between lg:gap-[60px]">
                     <h2
                         id={HEADING_ID}
-                        className="m-0 max-w-[345px] font-semibold text-white [text-rendering:geometricPrecision] lg:max-w-[min(720px,55%)]"
+                        className="m-0 max-w-[345px] shrink-0 font-semibold text-white [text-rendering:geometricPrecision] lg:max-w-[min(720px,58%)]"
                         style={{ fontFamily: "Darker Grotesque, sans-serif" }}
                     >
                         <span className="flex flex-col text-[36px] leading-[95%] tracking-[0] lg:hidden">
@@ -60,7 +60,7 @@ export function MarketingSeoWhatYouLearnSection() {
                         </span>
                     </h2>
                     <p
-                        className="m-0 mt-2 max-w-[345px] text-[16px] leading-[140%] tracking-[0] text-[#FFFFFFB2] lg:max-w-[600px] lg:text-[18px] lg:leading-[150%]"
+                        className="m-0 mt-2 max-w-[345px] text-[16px] leading-[140%] tracking-[0] text-[#FFFFFFB2] lg:m-0 lg:max-w-[420px] lg:text-[18px] lg:leading-[150%]"
                         style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 400 }}
                     >
                         500+ hours of practical, AI-integrated training across the most in-demand digital marketing skills — from SEO and paid ads to AI automation and web development.

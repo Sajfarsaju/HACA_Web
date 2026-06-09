@@ -104,7 +104,7 @@ export function AboutFounderInsightsSection() {
                     100% { transform: translateX(-50%); }
                 }
                 .founder-insights-track {
-                    animation: founder-insights-marquee 34s linear infinite;
+                    animation: founder-insights-marquee 120s linear infinite;
                     will-change: transform;
                 }
                 .founder-insights-track:hover {

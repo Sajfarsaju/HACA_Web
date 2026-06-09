@@ -75,8 +75,12 @@ export function DesignEnterCreativeZoneSection() {
     const decoTools    = "/photos/schools/design/Ellipse.svg"
     const decoTalent   = "/photos/schools/design/Exclude.svg"
     const decoEnd      = "/photos/schools/design/Group (2).svg"
-    const mobileTextSize = "clamp(26px, 8.5vw, 32px)"
-    const mobileDecoSize = "clamp(26px, 8vw, 32px)"
+    const mobileTextSize = "32px"
+    const mobileDecoSize = "32px"
+    const desktopFontSize = "clamp(46px, 4.6vw, 66px)"
+    const desktopDecoSize = "clamp(53px, 5.35vw, 76.75px)"
+    const desktopEndDecoW = "clamp(78px, 7.82vw, 112.56px)"
+    const desktopGap      = "clamp(9px, 0.95vw, 13.7px)"
 
     return (
         <section
@@ -90,62 +94,61 @@ export function DesignEnterCreativeZoneSection() {
         >
             <div
                 className="w-full max-w-[1440px] mx-auto"
-                style={{ height: "262.3865661621094px" }}
             >
                 {/* ── Desktop ── */}
-                <div className="hidden lg:flex flex-col items-center justify-center gap-[21.92px] w-full h-full">
+                <div className="hidden lg:flex flex-col items-center justify-center gap-[21.92px] w-full">
                     {/* Line 1 */}
-                    <div className="flex items-center justify-center gap-[13.7px]" style={{ width: "1297.3983154296875px", height: "79px" }}>
+                    <div className="flex flex-nowrap items-center justify-center w-full" style={{ gap: desktopGap }}>
                         <WordWithDeco
                             label="Concepts"
                             font={font}
-                            textSize={66}
+                            textSize={desktopFontSize}
                             decoSrc={decoConcepts}
-                            decoW={76.74749755859375}
-                            decoH={76.7490234375}
-                            gap={13.7}
+                            decoW={desktopDecoSize}
+                            decoH={desktopDecoSize}
+                            gap={desktopGap}
                             decoIdx={0}
                         />
                         <WordWithDeco
                             label="Tools"
                             font={font}
-                            textSize={66}
+                            textSize={desktopFontSize}
                             decoSrc={decoTools}
-                            decoW={76.74749755859375}
-                            decoH={76.7490234375}
-                            gap={13.7}
+                            decoW={desktopDecoSize}
+                            decoH={desktopDecoSize}
+                            gap={desktopGap}
                             decoIdx={1}
                         />
                         <WordWithDeco
                             label="Talent"
                             font={font}
-                            textSize={66}
+                            textSize={desktopFontSize}
                             decoSrc={decoTalent}
-                            decoW={76.74749755859375}
-                            decoH={76.7490234375}
-                            gap={13.7}
+                            decoW={desktopDecoSize}
+                            decoH={desktopDecoSize}
+                            gap={desktopGap}
                             decoIdx={2}
                         />
                         <span
-                            className="text-[#0A0A0A]"
-                            style={{ fontFamily: font, fontWeight: 500, fontSize: "66px", lineHeight: "120%" }}
+                            className="text-[#0A0A0A] whitespace-nowrap"
+                            style={{ fontFamily: font, fontWeight: 500, fontSize: desktopFontSize, lineHeight: "120%", letterSpacing: 0 }}
                         >
                             Align here.
                         </span>
                     </div>
 
                     {/* Line 2 */}
-                    <div className="flex items-center justify-center gap-[13.7px]">
+                    <div className="flex items-center justify-center" style={{ gap: desktopGap }}>
                         <span
-                            className="text-[#0A0A0A]"
-                            style={{ fontFamily: font, fontWeight: 500, fontSize: "66px", lineHeight: "120%" }}
+                            className="text-[#0A0A0A] whitespace-nowrap"
+                            style={{ fontFamily: font, fontWeight: 500, fontSize: desktopFontSize, lineHeight: "120%", letterSpacing: 0 }}
                         >
                             Enter the Creative Zone.
                         </span>
                         <InlineDeco
                             decoSrc={decoEnd}
-                            w={112.5585}
-                            h={76.7475}
+                            w={desktopEndDecoW}
+                            h={desktopDecoSize}
                             decoIdx={3}
                         />
                     </div>
@@ -162,7 +165,7 @@ export function DesignEnterCreativeZoneSection() {
                             <div className="flex items-center gap-[5.71px]">
                                 <span
                                     className="text-[#0A0A0A]"
-                                    style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%" }}
+                                    style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%", letterSpacing: 0 }}
                                 >
                                     Concepts
                                 </span>
@@ -174,7 +177,7 @@ export function DesignEnterCreativeZoneSection() {
                             </div>
                             <span
                                 className="text-[#0A0A0A]"
-                                style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%" }}
+                                style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%", letterSpacing: 0 }}
                             >
                                 Tools
                             </span>
@@ -189,7 +192,7 @@ export function DesignEnterCreativeZoneSection() {
                         <div className="w-full flex items-center justify-center gap-[10px]">
                             <span
                                 className="text-[#0A0A0A]"
-                                style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%" }}
+                                style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%", letterSpacing: 0 }}
                             >
                                 Talent
                             </span>
@@ -200,7 +203,7 @@ export function DesignEnterCreativeZoneSection() {
                             />
                             <span
                                 className="text-[#0A0A0A]"
-                                style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%" }}
+                                style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%", letterSpacing: 0 }}
                             >
                                 Align here.
                             </span>
@@ -210,7 +213,7 @@ export function DesignEnterCreativeZoneSection() {
                         <div className="w-full flex items-center justify-center">
                             <span
                                 className="text-[#0A0A0A]"
-                                style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%" }}
+                                style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%", letterSpacing: 0 }}
                             >
                                 Enter the
                             </span>
@@ -220,7 +223,7 @@ export function DesignEnterCreativeZoneSection() {
                         <div className="w-full flex items-center justify-center gap-[5.71px]">
                             <span
                                 className="text-[#0A0A0A]"
-                                style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%" }}
+                                style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%", letterSpacing: 0 }}
                             >
                                 Creative Zone.
                             </span>
@@ -248,13 +251,15 @@ export function DesignEnterCreativeZoneSection() {
 function InlineDeco({
     decoSrc, w, h, size, decoIdx,
 }: {
-    decoSrc: string; w?: number; h?: number; size?: string; decoIdx: number
+    decoSrc: string; w?: number | string; h?: number | string; size?: string; decoIdx: number
 }) {
     const anim = DECO_ANIM[decoIdx]
+    const wVal = size ?? (typeof w === "string" ? w : `${w}px`)
+    const hVal = size ?? (typeof h === "string" ? h : `${h}px`)
     return (
         <motion.span
             className="relative shrink-0 inline-block"
-            style={{ width: size ?? `${w}px`, height: size ?? `${h}px`, zIndex: 10 }}
+            style={{ width: wVal, height: hVal, zIndex: 10 }}
             animate={anim.animate}
             transition={anim.transition}
             aria-hidden="true"
@@ -267,22 +272,22 @@ function InlineDeco({
 function WordWithDeco({
     label, font, textSize, decoSrc, decoW, decoH, gap, decoIdx,
 }: {
-    label: string; font: string; textSize: number
-    decoSrc: string; decoW: number; decoH: number; gap: number
+    label: string; font: string; textSize: string
+    decoSrc: string; decoW: string; decoH: string; gap: string
     decoIdx: number
 }) {
     const anim = DECO_ANIM[decoIdx]
     return (
-        <span className="inline-flex items-center" style={{ gap: `${gap}px` }}>
+        <span className="inline-flex items-center whitespace-nowrap" style={{ gap }}>
             <span
                 className="text-[#0A0A0A]"
-                style={{ fontFamily: font, fontWeight: 500, fontSize: `${textSize}px`, lineHeight: "120%" }}
+                style={{ fontFamily: font, fontWeight: 500, fontSize: textSize, lineHeight: "120%", letterSpacing: 0 }}
             >
                 {label}
             </span>
             <motion.span
                 className="relative shrink-0 inline-block"
-                style={{ width: `${decoW}px`, height: `${decoH}px`, zIndex: 10 }}
+                style={{ width: decoW, height: decoH, zIndex: 10 }}
                 animate={anim.animate}
                 transition={anim.transition}
                 aria-hidden="true"

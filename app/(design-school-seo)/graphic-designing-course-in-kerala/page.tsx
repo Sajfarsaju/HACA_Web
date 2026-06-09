@@ -14,6 +14,7 @@ import { GraphicDesigningCalicutBrandsSection } from "@/components/design/Graphi
 import { GraphicDesigningCalicutStudentsWorkingSection } from "@/components/design/GraphicDesigningCalicutStudentsWorkingSection";
 import { GraphicDesigningCalicutStudentsWorkSection } from "@/components/design/GraphicDesigningCalicutStudentsWorkSection";
 import { GraphicDesigningCalicutTestimonialsSection } from "@/components/design/GraphicDesigningCalicutTestimonialsSection";
+import { DesignStoriesInsightsSection } from "@/components/design/DesignStoriesInsightsSection";
 import { DesignSeoCultureGrid } from "@/components/design/DesignSeoCultureGrid";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
 import { DesignSeoFaqList, type FaqItem } from "@/components/design/DesignSeoFaqList";
@@ -202,6 +203,10 @@ export default function GraphicDesigningCourseInKeralaPage() {
             <GraphicDesigningCalicutStudentsWorkingSection />
             <GraphicDesigningCalicutStudentsWorkSection />
             <GraphicDesigningCalicutTestimonialsSection />
+
+            <div className="w-full bg-[#FCFCFC] flex justify-center">
+                <DesignStoriesInsightsSection font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
+            </div>
 
             <section className="w-full bg-[#FCFCFC] flex justify-center" aria-label="Design culture and events">
                 <div

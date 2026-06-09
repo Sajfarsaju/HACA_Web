@@ -95,13 +95,13 @@ function LeadDecisionPanel() {
                         lg:text-[clamp(2.25rem,4vw,3.5rem)] lg:leading-[1.08]
                     "
                 >
-                    Why Follow Trends When You Can Build Them?
+                    One Skill Can Create Multiple Career Paths
                 </p>
                 <p
                     className="m-0 max-w-[min(560px,100%)] text-[16px] font-normal leading-[150%] tracking-[-0.05em] text-white/95"
                     style={{ fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" }}
                 >
-                    Marketing becomes meaningful when you create, experiment, and execute.
+                    Today businesses across tourism, healthcare, ecommerce, education and local services depend on digital marketing. The right skills can create career opportunities, freelance projects and entrepreneurial possibilities.
                 </p>
                 <JoinLeadCta />
             </div>

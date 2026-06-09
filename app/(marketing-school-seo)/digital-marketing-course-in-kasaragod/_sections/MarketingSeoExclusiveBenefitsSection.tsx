@@ -95,13 +95,13 @@ function LeadDecisionPanel() {
                         lg:text-[clamp(2.25rem,4vw,3.5rem)] lg:leading-[1.08]
                     "
                 >
-                    Why Follow Trends When You Can Build Them?
+                    One Skill Today Could Create Bigger Opportunities Tomorrow
                 </p>
                 <p
                     className="m-0 max-w-[min(560px,100%)] text-[16px] font-normal leading-[150%] tracking-[-0.05em] text-white/95"
                     style={{ fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" }}
                 >
-                    Marketing becomes meaningful when you create, experiment, and execute.
+                    Learning the right skills today can unlock future jobs, freelance projects and career possibilities.
                 </p>
                 <JoinLeadCta />
             </div>

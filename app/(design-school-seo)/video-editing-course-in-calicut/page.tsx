@@ -7,6 +7,7 @@ import { VideoEditingCalicutExploreProgramsSection } from "@/components/design/V
 import { VideoEditingCalicutWhatMakesDifferentSection } from "@/components/design/VideoEditingCalicutWhatMakesDifferentSection";
 import { VideoEditingCalicutMentorsSection } from "@/components/design/VideoEditingCalicutMentorsSection";
 import { DesignSchoolSeoPlacementsSection } from "@/components/design/DesignSchoolSeoPlacementsSection";
+import { DesignStoriesInsightsSection } from "@/components/design/DesignStoriesInsightsSection";
 import { VideoEditingCalicutLearningCultureSection } from "@/components/design/VideoEditingCalicutLearningCultureSection";
 import { VideoEditingCalicutTestimonialsSection } from "@/components/design/VideoEditingCalicutTestimonialsSection";
 import { VideoEditingCalicutFaqSection } from "@/components/design/VideoEditingCalicutFaqSection";
@@ -39,6 +40,9 @@ export default function VideoEditingCourseInCalicutPage() {
             <DesignSchoolSeoPlacementsSection />
             <VideoEditingCalicutLearningCultureSection />
             <VideoEditingCalicutTestimonialsSection />
+            <div className="w-full bg-[#FCFCFC] flex justify-center">
+                <DesignStoriesInsightsSection font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
+            </div>
             <VideoEditingCalicutFaqSection />
             <VideoEditingCalicutCtaSection />
             <DesignSchoolFooter
