@@ -1,11 +1,11 @@
-﻿import { PlacementCtaDecorativeStars } from "@/components/marketing/PlacementCtaDecorativeStars";
+import { PlacementCtaDecorativeStars } from "@/components/marketing/PlacementCtaDecorativeStars";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
 
-const HEADING_ID = "marketing-seo-kochi-exclusive-benefits-heading";
+const HEADING_ID = "marketing-seo-malayalam-exclusive-benefits-heading";
 
 const SCHOLARSHIP_CARD_IMAGE = "Group 41771.webp";
 const BRAND_WAR_CARD_IMAGE = "Frame 79.webp";
@@ -46,7 +46,7 @@ function JoinLeadCta() {
                 max-lg:gap-[7.33px] max-lg:rounded-full max-lg:bg-[#E8F1FF] max-lg:pl-[14px] max-lg:pr-0
                 lg:h-[60px]
             "
-            aria-label="Join now — marketing course in Kochi"
+            aria-label="Join now — digital marketing course in Malayalam"
         >
             <span className="whitespace-nowrap text-black lg:hidden" style={{ fontFamily: "Satoshi, sans-serif", fontWeight: 500, fontSize: "16px", lineHeight: "100%" }}>
                 Join Now
@@ -95,13 +95,13 @@ function LeadDecisionPanel() {
                         lg:text-[clamp(2.25rem,4vw,3.5rem)] lg:leading-[1.08]
                     "
                 >
-                    Your Digital Marketing Career Could Start with One Decision
+                    The Future is Online, Ain&apos;t You?
                 </p>
                 <p
                     className="m-0 max-w-[min(560px,100%)] text-[16px] font-normal leading-[150%] tracking-[-0.05em] text-white/95"
                     style={{ fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" }}
                 >
-                    The right skills today can lead to jobs, freelance opportunities, and bigger possibilities tomorrow.
+                    Join the best online digital marketing program in Malayalam and become a digital marketing expert.
                 </p>
                 <JoinLeadCta />
             </div>
@@ -201,7 +201,7 @@ export function MarketingSeoExclusiveBenefitsSection() {
                     >
                         More Than Just A Course
                     </h2>
-                    
+
                 </header>
 
                 <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-4 lg:grid lg:min-h-[740px] lg:grid-cols-3 lg:gap-4">

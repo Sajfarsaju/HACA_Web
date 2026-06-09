@@ -988,7 +988,7 @@ export default function AdminPage() {
           aspect={1}
         />
       ) : null}
-      {/* Mentor photo crop modal — 1:1 square */}
+      {/* Mentor photo crop modal — 317:367 matches card aspect ratio */}
       {mentorPhotoCropSrc ? (
         <PlacementCropModal
           key={mentorPhotoCropSrc}
@@ -996,7 +996,7 @@ export default function AdminPage() {
           open={mentorPhotoCropOpen}
           onClose={handleMentorPhotoCropClose}
           onCropped={handleMentorPhotoCropped}
-          aspect={1}
+          aspect={317 / 367}
         />
       ) : null}
 

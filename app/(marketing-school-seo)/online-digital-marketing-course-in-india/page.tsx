@@ -11,7 +11,7 @@ import { MarketingSeoCoursesSection } from "./_sections/MarketingSeoCoursesSecti
 import { MarketingSeoToolsHiredSection } from "../digital-marketing-course-in-kannur/_sections/MarketingSeoToolsHiredSection";
 import { MarketingSeoSmarterLearnSection } from "./_sections/MarketingSeoSmarterLearnSection";
 import { MarketingSeoLearningIsntEnoughSection } from "./_sections/MarketingSeoLearningIsntEnoughSection";
-import { MarketingSeoExclusiveBenefitsSection } from "../digital-marketing-course-in-kannur/_sections/MarketingSeoExclusiveBenefitsSection";
+import { MarketingSeoExclusiveBenefitsSection } from "./_sections/MarketingSeoExclusiveBenefitsSection";
 import { MarketingSeoTestimonialsSection } from "./_sections/MarketingSeoTestimonialsSection";
 import { MarketingSeoMentorsSection } from "../digital-marketing-course-in-kannur/_sections/MarketingSeoMentorsSection";
 import { MarketingSeoGuestExpertsSection } from "../digital-marketing-course-in-kannur/_sections/MarketingSeoGuestExpertsSection";

@@ -101,7 +101,7 @@ function LeadDecisionPanel() {
                     className="m-0 max-w-[min(560px,100%)] text-[16px] font-normal leading-[150%] tracking-[-0.05em] text-white/95"
                     style={{ fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" }}
                 >
-                    Real digital marketing skills are built through practical experience, real projects, and hands-on execution — not just theory.
+                    The right skills today can lead to jobs, freelance opportunities, and bigger possibilities tomorrow.
                 </p>
                 <JoinLeadCta />
             </div>
