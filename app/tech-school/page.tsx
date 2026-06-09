@@ -1,10 +1,14 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { TechDotsBackground } from "@/components/tech/TechDotsBackground";
 import TechHero from "@/components/sections/tech/TechHeroSection";
 import { TechIntroSection } from "@/components/sections/tech/TechIntroSection";
 import { SectionReveal } from "@/components/animations/SectionReveal";
 import { buildSitePageMetadata } from "@/lib/site-page-metadata";
+import {
+    TechDotsBackground,
+    TechWhatsAppFloatingButton,
+    TechYoutube,
+} from "./_components/TechClientComponents";
 
 export const metadata = buildSitePageMetadata({
   title: "AI-Infused Coding Courses | Learn to Code Smarter at Tech School",
@@ -13,45 +17,81 @@ export const metadata = buildSitePageMetadata({
   canonical: "https://harisandcoacademy.com/tech-school/",
 });
 
-// Below-fold sections — loaded only when browser is idle / user scrolls
-const TechShowcaseSection   = dynamic(() => import("@/components/sections/tech/TechShowcaseSection").then(m => ({ default: m.TechShowcaseSection })));
-const TechPathSection       = dynamic(() => import("@/components/sections/tech/TechPathSection").then(m => ({ default: m.TechPathSection })));
-const TechProjectsSection   = dynamic(() => import("@/components/sections/tech/TechProjectsSection").then(m => ({ default: m.TechProjectsSection })));
-const TechPlacementsSection = dynamic(() => import("@/components/sections/tech/TechPlacementsSection").then(m => ({ default: m.TechPlacementsSection })));
-const TechPreneur           = dynamic(() => import("@/components/layout/TechPreneur").then(m => ({ default: m.TechPreneur })));
-const TechMentors           = dynamic(() => import("@/components/layout/TechMentors").then(m => ({ default: m.TechMentors })));
-const TechWhyChoose         = dynamic(() => import("@/components/layout/TechWhyChoose").then(m => ({ default: m.TechWhyChoose })));
-const TechCulture           = dynamic(() => import("@/components/layout/TechCulture").then(m => ({ default: m.TechCulture })));
-const TechYoutube           = dynamic(() => import("@/components/layout/TechYoutube").then(m => ({ default: m.TechYoutube })));
-const TechBlogs             = dynamic(() => import("@/components/layout/TechBlogs").then(m => ({ default: m.TechBlogs })));
-const TechFaq               = dynamic(() => import("@/components/layout/TechFaq").then(m => ({ default: m.TechFaq })));
-const TechGlobalLearning    = dynamic(() => import("@/components/layout/TechGlobalLearning").then(m => ({ default: m.TechGlobalLearning })));
-const TechQuote             = dynamic(() => import("@/components/layout/TechQuote").then(m => ({ default: m.TechQuote })));
-const TechFooter            = dynamic(() => import("@/components/layout/TechFooter").then(m => ({ default: m.TechFooter })));
-const TechWhatsAppFloatingButton = dynamic(() => import("@/components/layout/TechWhatsAppFloatingButton").then(m => ({ default: m.TechWhatsAppFloatingButton })));
+// ── Below-fold sections — lazy with height placeholders to prevent CLS ─────
+const TechShowcaseSection = dynamic(
+    () => import("@/components/sections/tech/TechShowcaseSection").then(m => ({ default: m.TechShowcaseSection })),
+    { loading: () => <div style={{ minHeight: 560 }} /> }
+);
+const TechPathSection = dynamic(
+    () => import("@/components/sections/tech/TechPathSection").then(m => ({ default: m.TechPathSection })),
+    { loading: () => <div style={{ minHeight: 500 }} /> }
+);
+const TechProjectsSection = dynamic(
+    () => import("@/components/sections/tech/TechProjectsSection").then(m => ({ default: m.TechProjectsSection })),
+    { loading: () => <div style={{ minHeight: 500 }} /> }
+);
+const TechPlacementsSection = dynamic(
+    () => import("@/components/sections/tech/TechPlacementsSection").then(m => ({ default: m.TechPlacementsSection })),
+    { loading: () => <div style={{ minHeight: 500 }} /> }
+);
+const TechPreneur = dynamic(
+    () => import("@/components/layout/TechPreneur").then(m => ({ default: m.TechPreneur })),
+    { loading: () => <div style={{ minHeight: 600 }} /> }
+);
+const TechMentors = dynamic(
+    () => import("@/components/layout/TechMentors").then(m => ({ default: m.TechMentors })),
+    { loading: () => <div style={{ minHeight: 600 }} /> }
+);
+const TechWhyChoose = dynamic(
+    () => import("@/components/layout/TechWhyChoose").then(m => ({ default: m.TechWhyChoose })),
+    { loading: () => <div style={{ minHeight: 500 }} /> }
+);
+const TechCulture = dynamic(
+    () => import("@/components/layout/TechCulture").then(m => ({ default: m.TechCulture })),
+    { loading: () => <div style={{ minHeight: 500 }} /> }
+);
+const TechBlogs = dynamic(
+    () => import("@/components/layout/TechBlogs").then(m => ({ default: m.TechBlogs })),
+    { loading: () => <div style={{ minHeight: 500 }} /> }
+);
+const TechFaq = dynamic(
+    () => import("@/components/layout/TechFaq").then(m => ({ default: m.TechFaq })),
+    { loading: () => <div style={{ minHeight: 400 }} /> }
+);
+const TechGlobalLearning = dynamic(
+    () => import("@/components/layout/TechGlobalLearning").then(m => ({ default: m.TechGlobalLearning })),
+    { loading: () => <div style={{ minHeight: 400 }} /> }
+);
+const TechQuote = dynamic(
+    () => import("@/components/layout/TechQuote").then(m => ({ default: m.TechQuote })),
+    { loading: () => <div style={{ minHeight: 300 }} /> }
+);
+const TechFooter = dynamic(
+    () => import("@/components/layout/TechFooter").then(m => ({ default: m.TechFooter })),
+    { loading: () => <div style={{ minHeight: 400 }} /> }
+);
 
 export default function TechSchoolPage() {
     return (
         <div className="w-full min-h-[1391px] bg-[#111111] overflow-x-hidden relative" role="main">
-            <TechWhatsAppFloatingButton />
 
             {/* ── Page content ── */}
             <div className="relative z-[2]">
+                {/* Hero — statically imported, renders immediately */}
                 <TechHero />
 
                 {/* ── All sections: TechIntro → TechQuote with single Image.svg background ── */}
                 <div className="relative w-full bg-[#111111]">
 
-                    {/* Dot grid follows pointer (mouse/touch); see TechDotsBackground.tsx for physics + tuning */}
+                    {/* Dot grid follows pointer — client-only, no SSR */}
                     <div className="absolute top-0 left-0 w-full h-full z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
                         <TechDotsBackground />
                     </div>
 
                     {/* Content components — TechIntro → TechPlacements */}
                     <div className="relative z-[5]">
-                        <SectionReveal>
-                            <TechIntroSection />
-                        </SectionReveal>
+                        {/* TechIntroSection is above the fold — no reveal animation */}
+                        <TechIntroSection />
                         <SectionReveal>
                             <TechShowcaseSection />
                         </SectionReveal>
@@ -78,29 +118,21 @@ export default function TechSchoolPage() {
                         {/* WhyChoose + Culture — shared gradient layer for tablet+ */}
                         <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column" }}>
 
-                            {/* Tablet+: purple gradient — strong presence from WhyChoose cards through Culture cards */}
+                            {/* Tablet+: purple gradient — simplified mask for lower GPU cost */}
                             <div
                                 className="hidden md:block absolute left-0 right-0 z-0 pointer-events-none overflow-hidden"
                                 style={{
                                     top: "250px",
                                     height: "1700px",
-                                    maskImage: `
-                                        linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 8%, rgba(0,0,0,0.5) 18%, black 25%, black 75%, rgba(0,0,0,0.5) 88%, rgba(0,0,0,0.1) 95%, transparent 100%),
-                                        radial-gradient(ellipse 80% 88% at 50% 50%, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.4) 60%, transparent 100%)
-                                    `,
-                                    WebkitMaskImage: `
-                                        linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 8%, rgba(0,0,0,0.5) 18%, black 25%, black 75%, rgba(0,0,0,0.5) 88%, rgba(0,0,0,0.1) 95%, transparent 100%),
-                                        radial-gradient(ellipse 80% 88% at 50% 50%, black 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.4) 60%, transparent 100%)
-                                    `,
-                                    maskComposite: "intersect",
-                                    WebkitMaskComposite: "source-in",
+                                    maskImage: "linear-gradient(to bottom, transparent 0%, black 10%, black 85%, transparent 100%)",
+                                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 10%, black 85%, transparent 100%)",
                                 }}
                             >
                                 <div style={{ position: "absolute", inset: 0 }}>
-                                    <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover object-center" aria-hidden />
+                                    <Image src="/photos/Tech/Gradient2.1.svg" alt="" fill className="object-cover object-center" aria-hidden loading="lazy" />
                                 </div>
                                 <div style={{ position: "absolute", inset: 0, opacity: 0.45 }}>
-                                    <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" aria-hidden />
+                                    <Image src="/photos/Tech/Ellipse 156.svg" alt="" fill className="object-cover object-center" aria-hidden loading="lazy" />
                                 </div>
                             </div>
 
@@ -136,7 +168,8 @@ export default function TechSchoolPage() {
                 </div>
             </div>
 
+            {/* Floating button — mounted last, client-only, no layout impact */}
+            <TechWhatsAppFloatingButton />
         </div>
     );
 }
-

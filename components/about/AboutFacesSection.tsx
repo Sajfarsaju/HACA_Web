@@ -12,11 +12,11 @@ const leaderSocialIconClass = "w-[clamp(20px,1.9vw,25.9px)] h-[clamp(20px,1.9vw,
 const bioBodyLinkClass =
     "text-white underline underline-offset-[3px] decoration-[#A7ADBE]/60 hover:decoration-white transition-colors"
 
-/** Same frame treatment as `MentorsSection` photo cards — outer width/aspect unchanged */
+/** Figma frame: 459×474, 20px radius, 0.48° — same proportions at every breakpoint */
 const leaderPhotoFrameClass =
-    "relative w-[clamp(260px,32vw,459px)] aspect-[459/474] rounded-[20px] overflow-hidden border border-[#25317D] bg-[linear-gradient(340.87deg,rgba(0,2,15,0)_23.42%,rgba(15,47,153,0.2)_74.9%,rgba(26,79,255,0.2)_90.34%)] px-[18px] py-[19px] max-md:w-full max-md:max-w-[335px] max-md:aspect-[335/286] max-md:mx-auto max-md:rounded-[21.14px] max-md:px-[19.02px] max-md:py-[20.08px]"
+    "relative w-full max-w-[459px] aspect-[459/474] rounded-[20px] overflow-hidden border border-[#25317D] bg-[linear-gradient(340.87deg,rgba(0,2,15,0)_23.42%,rgba(15,47,153,0.2)_74.9%,rgba(26,79,255,0.2)_90.34%)] px-[18px] py-[19px] shrink-0 rotate-[0.48deg] lg:mx-0 opacity-100 max-md:w-full max-md:max-w-[335px] max-md:mx-auto"
 
-const leaderPhotoImageClass = "object-cover object-top rounded-[16px]"
+const leaderPhotoImageClass = "object-cover object-top rounded-[16px] opacity-100"
 
 const HARIS_LINKEDIN_URL = "https://www.linkedin.com/in/haris-aboobacker"
 const HARIS_INSTAGRAM_URL =
@@ -29,22 +29,25 @@ const NABHAN_LINKEDIN_URL = "https://www.linkedin.com/in/abu-nabhan-232897191"
 const NABHAN_INSTAGRAM_URL =
     "https://www.instagram.com/abu__nabhan_?igsh=MW41aThwank4cnl0eg=="
 
+const leaderRowClass =
+    "w-full flex flex-col lg:items-stretch lg:justify-between gap-[clamp(20px,4vw,62px)] lg:px-[clamp(0px,4vw,60px)] max-md:px-0 max-md:py-[20px]"
+
 export function AboutFacesSection() {
     return (
         <section className="w-full section-4k mx-auto bg-[#000210] py-[30px] flex flex-col items-center gap-[clamp(30px,4vw,50px)] px-[clamp(20px,4vw,60px)] max-md:px-[20px]">
             {/* Heading */}
-            <h2 className="w-full max-w-[1320px] font-rethink font-medium text-[clamp(26px,2.2vw,36px)] leading-[34px] text-center text-white m-0 max-md:max-w-[335px]">
+            <h2 className="w-full max-w-[1320px] font-rethink font-medium text-[clamp(26px,2.2vw,36px)] leading-[34px] text-center text-white m-0 max-md:max-w-[335px] max-md:mx-auto">
                 Faces Behind HACA
             </h2>
 
             {/* Three founder/leader rows */}
             <div className="w-full max-w-[1320px] flex flex-col gap-[clamp(40px,5vw,70px)]">
                 {/* Row 1: Haris Aboobacker */}
-                <div className="w-full flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-[clamp(20px,4vw,62px)] px-[clamp(0px,4vw,60px)] max-md:px-0 max-md:py-[20px]">
+                <div className={`${leaderRowClass} lg:flex-row`}>
                     {/* Photo */}
                     <div className={leaderPhotoFrameClass}>
                         <Image
-                            src="/photos/main/haris.webp"
+                            src="/photos/main/Rectangle%2061.webp"
                             alt="Haris Aboobacker"
                             fill
                             className={leaderPhotoImageClass}
@@ -53,7 +56,7 @@ export function AboutFacesSection() {
                     </div>
 
                     {/* Text column */}
-                    <div className="w-full max-w-[794px] flex flex-col gap-[20px] max-md:max-w-[345px] lg:h-full lg:justify-between">
+                    <div className="w-full max-w-[794px] min-w-0 flex flex-col gap-[20px] lg:h-full lg:justify-between max-md:max-w-[335px] max-md:mx-auto">
                         {/* Founder details container */}
                         <div className="w-full flex flex-col gap-[clamp(20px,2vw,26px)]">
                             {/* Name + position */}
@@ -123,11 +126,11 @@ export function AboutFacesSection() {
                 </div>
 
                 {/* Row 2: Rizwan Ramzan Ahamed (photo on right in desktop) */}
-                <div className="w-full flex flex-col lg:flex-row-reverse lg:items-stretch lg:justify-between gap-[clamp(20px,4vw,62px)] px-[clamp(0px,4vw,60px)] max-md:px-0 max-md:py-[20px]">
+                <div className={`${leaderRowClass} lg:flex-row-reverse`}>
                     {/* Photo */}
                     <div className={leaderPhotoFrameClass}>
                         <Image
-                            src="/photos/main/rizwanLite.webp"
+                            src="/photos/main/Rectangle%2064.webp"
                             alt="Rizwan Ramzan Ahamed"
                             fill
                             className={leaderPhotoImageClass}
@@ -136,7 +139,7 @@ export function AboutFacesSection() {
                     </div>
 
                     {/* Text column */}
-                    <div className="w-full max-w-[794px] flex flex-col gap-[20px] max-md:max-w-[345px] lg:h-full lg:justify-between">
+                    <div className="w-full max-w-[794px] min-w-0 flex flex-col gap-[20px] lg:h-full lg:justify-between max-md:max-w-[335px] max-md:mx-auto">
                         <div className="w-full flex flex-col gap-[clamp(20px,2vw,26px)]">
                             <div className="flex flex-col gap-[clamp(4px,0.8vw,10px)]">
                                 <h3 className="font-rethink font-semibold text-[clamp(26px,3vw,36px)] leading-[34px] text-white m-0">
@@ -190,11 +193,11 @@ export function AboutFacesSection() {
                 </div>
 
                 {/* Row 3: Abu Nabhan */}
-                <div className="w-full flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-[clamp(20px,4vw,62px)] px-[clamp(0px,4vw,60px)] max-md:px-0 max-md:py-[20px]">
+                <div className={`${leaderRowClass} lg:flex-row`}>
                     {/* Photo */}
                     <div className={leaderPhotoFrameClass}>
                         <Image
-                            src="/photos/main/Naban.webp"
+                            src="/photos/main/Rectangle%2065.webp"
                             alt="Abu Nabhan"
                             fill
                             className={leaderPhotoImageClass}
@@ -203,7 +206,7 @@ export function AboutFacesSection() {
                     </div>
 
                     {/* Text column */}
-                    <div className="w-full max-w-[794px] flex flex-col gap-[20px] max-md:max-w-[345px] lg:h-full lg:justify-between">
+                    <div className="w-full max-w-[794px] min-w-0 flex flex-col gap-[20px] lg:h-full lg:justify-between max-md:max-w-[335px] max-md:mx-auto">
                         <div className="w-full flex flex-col gap-[clamp(20px,2vw,26px)]">
                             <div className="flex flex-col gap-[clamp(4px,0.8vw,10px)]">
                                 <h3 className="font-rethink font-semibold text-[clamp(26px,3vw,36px)] leading-[34px] text-white m-0">

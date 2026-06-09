@@ -3,8 +3,6 @@
 import Image from "next/image";
 import { techCourseImageAlt } from "@/lib/image-alt-text";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
-import type { Variants } from "framer-motion";
 import { GradientBlobOrb } from "@/components/tech/GradientBlobOrb";
 import { techCourseHref, TECH_COURSES_PAGE } from "@/lib/tech-courses";
 
@@ -65,24 +63,7 @@ const COURSES = [
     }
 ];
 
-const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 64, scale: 0.92 },
-    visible: (idx: number) => ({
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: {
-            type: "spring" as const,
-            stiffness: 240,
-            damping: 22,
-            mass: 0.75,
-            delay: (idx % 2) * 0.12,
-        },
-    }),
-};
-
 export function TechPathSection() {
-    const reduceMotion = useReducedMotion();
 
     return (
         <section className="w-full relative overflow-visible flex flex-col items-center bg-transparent" id="tech-paths">
@@ -392,15 +373,9 @@ export function TechPathSection() {
                 {/* Course Grid — each card animates when it becomes visible */}
                 <div className="w-full max-w-[1320px] mx-auto">
                     <div className="grid grid-cols-2 gap-[60px] max-lg:gap-[40px] max-md:grid-cols-1 max-md:gap-[24px] max-md:max-w-[500px] max-md:mx-auto max-sm:max-w-full">
-                        {COURSES.map((course, idx) => (
-                            <motion.div
+                        {COURSES.map((course) => (
+                            <div
                                 key={course.slug}
-                                custom={idx}
-                                variants={reduceMotion ? undefined : cardVariants}
-                                initial={reduceMotion ? { opacity: 1 } : "hidden"}
-                                whileInView={reduceMotion ? { opacity: 1 } : "visible"}
-                                viewport={{ once: true, amount: 0.12, margin: "0px 0px 25% 0px" }}
-                                style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
                                 className="tech-path-card-border relative w-full min-h-[394px] rounded-[22px] flex flex-col max-lg:min-h-[360px] max-md:min-h-[313px] max-md:border-transparent max-md:bg-transparent max-md:backdrop-blur-[12px]"
                             >
                                 {/* Clip layer: bg sits inside border; on ≤1024px clip-path insets so SVG stroke never touches edge */}
@@ -455,7 +430,7 @@ export function TechPathSection() {
                                         </div>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>

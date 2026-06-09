@@ -34,11 +34,11 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Build a strong visual foundation while learning modern creative workflows with AI-assisted design practices.",
         button: { bg: "#FF5C00", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/60b47d2800c7e3eca0f8d38692662a973f3b73b0.png",
+        imageSrc: "/photos/schools/design/60b47d2800c7e3eca0f8d38692662a973f3b73b0.webp",
         imageAlt: "AI Integrated Graphic Design",
         imageWrapClassName:
-            "absolute bottom-0 left-0 lg:-bottom-[80px] lg:-left-[50px] xl:-bottom-[150px] xl:-left-[80px] w-[300px] sm:w-[360px] lg:w-[300px] xl:w-[440px] h-[300px] sm:h-[380px] lg:h-[340px] xl:h-[500px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-bottom object-left",
+            "absolute z-[1] bottom-0 left-0 lg:bottom-[-80px] lg:left-[-50px] xl:bottom-[-150px] xl:left-[-80px] w-[300px] sm:w-[360px] lg:w-[300px] xl:w-[440px] h-[300px] sm:h-[380px] lg:h-[340px] xl:h-[500px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-left-bottom",
         contentWrapClassName: "ml-auto w-full max-w-[155px] lg:max-w-[210px] xl:max-w-[320px] text-left",
         titleMaxWidthClassName: "max-w-[150px] lg:max-w-[190px] xl:max-w-[280px]",
         descriptionMaxWidthClassName: "max-w-[150px] lg:max-w-[190px] xl:max-w-[280px]",
@@ -52,11 +52,11 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Learn editing, storytelling, pacing, transitions, and cinematic workflows for social media and commercial content.",
         button: { bg: "#29C76B", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/72a77144b3092dffcf6470686297c0e74e448b83.png",
+        imageSrc: "/photos/schools/design/72a77144b3092dffcf6470686297c0e74e448b83.webp",
         imageAlt: "AI Integrated Video Editing Mastery",
         imageWrapClassName:
-            "absolute -bottom-[60px] -left-[60px] sm:-bottom-[80px] sm:-left-[80px] lg:-bottom-[80px] lg:-left-[80px] xl:-bottom-[100px] xl:-left-[100px] w-[320px] sm:w-[400px] lg:w-[360px] xl:w-[530px] h-[320px] sm:h-[420px] lg:h-[380px] xl:h-[560px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-bottom object-left",
+            "absolute z-[1] bottom-[-60px] left-[-60px] sm:bottom-[-80px] sm:left-[-80px] lg:bottom-[-80px] lg:left-[-80px] xl:bottom-[-100px] xl:left-[-100px] w-[320px] sm:w-[400px] lg:w-[360px] xl:w-[530px] h-[320px] sm:h-[420px] lg:h-[380px] xl:h-[560px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-left-bottom",
         contentWrapClassName: "mt-auto ml-auto w-full max-w-[120px] lg:max-w-[170px] xl:max-w-[260px] text-left",
         titleMaxWidthClassName: "max-w-[115px] lg:max-w-[165px] xl:max-w-[250px]",
         descriptionMaxWidthClassName: "max-w-[115px] lg:max-w-[165px] xl:max-w-[250px]",
@@ -70,11 +70,11 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Design user-friendly apps and websites through wireframing, prototyping, and design thinking practices.",
         button: { bg: "#2592FF", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/efaa9dd8679f63c251e45143e7c74c5afcb821ae.png",
+        imageSrc: "/photos/schools/design/efaa9dd8679f63c251e45143e7c74c5afcb821ae.webp",
         imageAlt: "UI/UX Design + AI Program",
         imageWrapClassName:
-            "absolute -bottom-[130px] -right-[160px] sm:-bottom-[150px] sm:-right-[200px] lg:-bottom-[180px] lg:-right-[200px] xl:-bottom-[220px] xl:-right-[240px] w-[350px] sm:w-[520px] lg:w-[440px] xl:w-[620px] h-[350px] sm:h-[540px] lg:h-[470px] xl:h-[660px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-bottom object-right",
+            "absolute z-[1] bottom-[-130px] right-[-200px] sm:bottom-[-150px] sm:right-[-240px] lg:bottom-[-180px] lg:right-[-240px] xl:bottom-[-220px] xl:right-[-280px] w-[350px] sm:w-[520px] lg:w-[440px] xl:w-[620px] h-[350px] sm:h-[540px] lg:h-[470px] xl:h-[660px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-right-bottom",
         imageStyle: { transform: "scaleX(-1)" },
         contentWrapClassName: "w-full max-w-[155px] lg:max-w-[220px] xl:max-w-[330px] text-left",
         titleMaxWidthClassName: "max-w-[150px] lg:max-w-[200px] xl:max-w-[300px]",
@@ -89,11 +89,11 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Learn logo systems, visual storytelling, brand strategy, and identity creation for modern brands.",
         button: { bg: "#8F56FF", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/4bb434c3142cc5e13672d6cf063a4a96bdff02c0.png",
+        imageSrc: "/photos/schools/design/4bb434c3142cc5e13672d6cf063a4a96bdff02c0.webp",
         imageAlt: "Branding and Identity Design",
         imageWrapClassName:
-            "absolute top-0 -right-[60px] sm:-right-[80px] lg:-right-[80px] xl:-right-[100px] w-[340px] sm:w-[440px] lg:w-[390px] xl:w-[580px] h-[280px] sm:h-[360px] lg:h-[280px] xl:h-[430px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-top object-right",
+            "absolute z-[1] top-0 right-[-60px] sm:right-[-80px] lg:right-[-80px] xl:right-[-100px] w-[340px] sm:w-[440px] lg:w-[390px] xl:w-[580px] h-[280px] sm:h-[360px] lg:h-[280px] xl:h-[430px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-right-top",
         contentWrapClassName: "mt-auto w-full max-w-[155px] lg:max-w-[220px] xl:max-w-[330px] text-left",
         titleMaxWidthClassName: "max-w-[150px] lg:max-w-[210px] xl:max-w-[320px]",
         descriptionMaxWidthClassName: "max-w-[150px] lg:max-w-[210px] xl:max-w-[320px]",
@@ -139,13 +139,8 @@ const BADGE_CSS = `
         border-width: 1px;
         min-width: unset;
     }
-    .kerala-explore-badge-pill .badge-text {
-        font-size: 14px;
-    }
-    .kerala-explore-badge-pill .badge-divider {
-        height: 12px;
-        border-left-width: 2px;
-    }
+    .kerala-explore-badge-pill .badge-text { font-size: 14px; }
+    .kerala-explore-badge-pill .badge-divider { height: 12px; border-left-width: 2px; }
 }
 @media (min-width: 1280px) {
     .kerala-explore-badge-pill {
@@ -156,13 +151,8 @@ const BADGE_CSS = `
         border-width: 1px;
         min-width: 191px;
     }
-    .kerala-explore-badge-pill .badge-text {
-        font-size: 18px;
-    }
-    .kerala-explore-badge-pill .badge-divider {
-        height: 13.1px;
-        border-left-width: 2.91px;
-    }
+    .kerala-explore-badge-pill .badge-text { font-size: 18px; }
+    .kerala-explore-badge-pill .badge-divider { height: 13.1px; border-left-width: 2.91px; }
 }
 `;
 
@@ -171,17 +161,9 @@ function ExploreBadge({ mode, duration, accent }: { mode: string; duration: stri
         <>
             <style dangerouslySetInnerHTML={{ __html: BADGE_CSS }} />
             <div className="kerala-explore-badge-pill" style={{ borderColor: accent }}>
-                <span className="badge-text" style={{ fontFamily: vc }}>
-                    {mode}
-                </span>
-                <span
-                    className="badge-divider"
-                    style={{ borderColor: accent }}
-                    aria-hidden
-                />
-                <span className="badge-text" style={{ fontFamily: vc }}>
-                    {duration}
-                </span>
+                <span className="badge-text" style={{ fontFamily: vc }}>{mode}</span>
+                <span className="badge-divider" style={{ borderColor: accent }} aria-hidden />
+                <span className="badge-text" style={{ fontFamily: vc }}>{duration}</span>
             </div>
         </>
     );
@@ -209,14 +191,14 @@ function ProgramCardView(p: ProgramCard) {
         <Link
             href={p.href}
             className={[
-                "group relative block w-full overflow-hidden",
+                "group relative flex flex-col w-full overflow-hidden",
                 "rounded-[19.17px]",
                 "w-full lg:mx-auto lg:max-w-[640px]",
                 "min-h-[316px] lg:min-h-[clamp(420px,42vw,604px)]",
             ].join(" ")}
             style={{ backgroundColor: p.bg }}
         >
-            <div className="relative z-[2] flex h-full min-h-[316px] w-full flex-col gap-4 p-[20px] lg:p-[20px] xl:p-[30px]">
+            <div className="relative z-[2] flex flex-1 w-full flex-col gap-4 p-[20px] xl:p-[30px]">
                 <ExploreBadge mode={p.badge.mode} duration={p.badge.duration} accent={p.bg} />
 
                 <div className={["flex w-full flex-col gap-3", p.contentWrapClassName].join(" ")}>
@@ -237,17 +219,12 @@ function ProgramCardView(p: ProgramCard) {
 
                     <p
                         className={["m-0 text-white/85", p.descriptionMaxWidthClassName ?? ""].join(" ").trim()}
-                        style={{
-                            fontFamily: vc,
-                            fontWeight: 400,
-                            fontSize: 13,
-                            lineHeight: "120%",
-                        }}
+                        style={{ fontFamily: vc, fontWeight: 400, fontSize: 13, lineHeight: "120%" }}
                     >
                         {p.description}
                     </p>
 
-                    <div className="pt-2" style={{ width: "max-content" }}>
+                    <div className="pt-2 w-max">
                         <EnquireButton bg={p.button.bg} fg={p.button.fg} />
                     </div>
                 </div>
@@ -259,7 +236,7 @@ function ProgramCardView(p: ProgramCard) {
                 aria-hidden
             />
 
-            <div className={[p.imageWrapClassName, "relative z-[1] overflow-hidden"].join(" ")} aria-hidden>
+            <div className={p.imageWrapClassName} aria-hidden>
                 <Image
                     src={p.imageSrc}
                     alt={p.imageAlt}

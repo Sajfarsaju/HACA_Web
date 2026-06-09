@@ -36,12 +36,13 @@ const PROGRAMS: ProgramCard[] = [
         button: { bg: "#8F56FF", fg: "#FFFFFF" },
         imageSrc: "/photos/schools/design/seo/09dc2ab4736f03590e12a5a8084a79c961b2f925.webp",
         imageAlt: "Creative Design and Communication",
+        // Mobile: ~60% scale of xl (420×500px, -80px bottom, -40px right).
         imageWrapClassName:
-            "absolute bottom-0 right-0 lg:-bottom-[40px] lg:-right-[20px] xl:-bottom-[80px] xl:-right-[40px] w-[240px] sm:w-[300px] lg:w-[280px] xl:w-[420px] h-[280px] sm:h-[340px] lg:h-[340px] xl:h-[500px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-bottom object-right",
-        contentWrapClassName: "w-full max-w-[155px] lg:max-w-[210px] xl:max-w-[320px] text-left",
-        titleMaxWidthClassName: "max-w-[150px] lg:max-w-[200px] xl:max-w-[300px]",
-        descriptionMaxWidthClassName: "max-w-[150px] lg:max-w-[200px] xl:max-w-[300px]",
+            "absolute bottom-[-48px] right-[-24px] z-[1] w-[252px] h-[300px] lg:bottom-[-80px] lg:right-[-40px] lg:w-[420px] lg:h-[500px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-right-bottom",
+        contentWrapClassName: "w-full max-w-[192px] lg:max-w-[320px] text-left",
+        titleMaxWidthClassName: "max-w-[176px] lg:max-w-[294px]",
+        descriptionMaxWidthClassName: "max-w-[176px] lg:max-w-[294px]",
         href: "/design-school/courses/program-1",
     },
     {
@@ -52,14 +53,15 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Learn the core tools and techniques of modern graphic design, perfect for beginners and career-switchers who prefer learning from home.",
         button: { bg: "#FF5C00", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/60b47d2800c7e3eca0f8d38692662a973f3b73b0.png",
+        imageSrc: "/photos/schools/design/60b47d2800c7e3eca0f8d38692662a973f3b73b0.webp",
         imageAlt: "AI Integrated Graphic Design",
+        // Mobile: ~60% scale of xl (440×500px, -150px bottom, -80px left).
         imageWrapClassName:
-            "absolute bottom-0 left-0 lg:-bottom-[80px] lg:-left-[50px] xl:-bottom-[150px] xl:-left-[80px] w-[300px] sm:w-[360px] lg:w-[300px] xl:w-[440px] h-[300px] sm:h-[380px] lg:h-[340px] xl:h-[500px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-bottom object-left",
-        contentWrapClassName: "ml-auto w-full max-w-[155px] lg:max-w-[210px] xl:max-w-[320px] text-left",
-        titleMaxWidthClassName: "max-w-[150px] lg:max-w-[190px] xl:max-w-[280px]",
-        descriptionMaxWidthClassName: "max-w-[150px] lg:max-w-[190px] xl:max-w-[280px]",
+            "absolute bottom-[-90px] left-[-48px] z-[1] w-[264px] h-[300px] lg:bottom-[-150px] lg:left-[-80px] lg:w-[440px] lg:h-[500px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-left-bottom",
+        contentWrapClassName: "ml-auto w-full max-w-[192px] lg:max-w-[320px] text-left",
+        titleMaxWidthClassName: "max-w-[165px] lg:max-w-[277px]",
+        descriptionMaxWidthClassName: "max-w-[165px] lg:max-w-[277px]",
         href: "/design-school/courses/ai-graphic-design",
     },
     {
@@ -70,14 +72,15 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Editing is a form of storytelling. This module explores how visuals, audio, and cuts combine to sustain attention and convey meaning.",
         button: { bg: "#29C76B", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/72a77144b3092dffcf6470686297c0e74e448b83.png",
+        imageSrc: "/photos/schools/design/72a77144b3092dffcf6470686297c0e74e448b83.webp",
         imageAlt: "AI Integrated Video Editing Mastery",
+        // Mobile: ~60% scale of xl (530×560px, -100px bottom, -100px left).
         imageWrapClassName:
-            "absolute -bottom-[60px] -left-[60px] sm:-bottom-[80px] sm:-left-[80px] lg:-bottom-[80px] lg:-left-[80px] xl:-bottom-[100px] xl:-left-[100px] w-[320px] sm:w-[400px] lg:w-[360px] xl:w-[530px] h-[320px] sm:h-[420px] lg:h-[380px] xl:h-[560px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-bottom object-left",
-        contentWrapClassName: "mt-auto ml-auto w-full max-w-[120px] lg:max-w-[170px] xl:max-w-[260px] text-left",
-        titleMaxWidthClassName: "max-w-[115px] lg:max-w-[165px] xl:max-w-[250px]",
-        descriptionMaxWidthClassName: "max-w-[115px] lg:max-w-[165px] xl:max-w-[250px]",
+            "absolute bottom-[-60px] left-[-60px] z-[1] w-[318px] h-[336px] lg:bottom-[-100px] lg:left-[-100px] lg:w-[530px] lg:h-[560px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-left-bottom",
+        contentWrapClassName: "mt-auto ml-auto w-full max-w-[152px] lg:max-w-[258px] text-left",
+        titleMaxWidthClassName: "max-w-[145px] lg:max-w-[248px]",
+        descriptionMaxWidthClassName: "max-w-[145px] lg:max-w-[248px]",
         href: "/design-school/courses/program-5",
     },
     {
@@ -88,14 +91,15 @@ const PROGRAMS: ProgramCard[] = [
         description:
             "Master the art of brand storytelling, logo design, and visual identity, ideal for designers who want to specialise in branding fast.",
         button: { bg: "#8F56FF", fg: "#FFFFFF" },
-        imageSrc: "/photos/schools/design/seo/4bb434c3142cc5e13672d6cf063a4a96bdff02c0.png",
+        imageSrc: "/photos/schools/design/4bb434c3142cc5e13672d6cf063a4a96bdff02c0.webp",
         imageAlt: "Branding and Identity Design",
+        // Mobile: ~60% scale of xl (580×430px, top-0, -100px right).
         imageWrapClassName:
-            "absolute top-0 -right-[60px] sm:-right-[80px] lg:-right-[80px] xl:-right-[100px] w-[340px] sm:w-[440px] lg:w-[390px] xl:w-[580px] h-[280px] sm:h-[360px] lg:h-[280px] xl:h-[430px] pointer-events-none select-none",
-        imageObjectClassName: "object-contain object-top object-right",
-        contentWrapClassName: "mt-auto w-full max-w-[155px] lg:max-w-[220px] xl:max-w-[330px] text-left",
-        titleMaxWidthClassName: "max-w-[150px] lg:max-w-[210px] xl:max-w-[320px]",
-        descriptionMaxWidthClassName: "max-w-[150px] lg:max-w-[210px] xl:max-w-[320px]",
+            "absolute top-0 right-[-60px] z-[1] w-[348px] h-[258px] lg:right-[-100px] lg:w-[580px] lg:h-[430px] pointer-events-none select-none",
+        imageObjectClassName: "object-contain object-right-top",
+        contentWrapClassName: "mt-auto w-full max-w-[194px] lg:max-w-[330px] text-left",
+        titleMaxWidthClassName: "max-w-[188px] lg:max-w-[320px]",
+        descriptionMaxWidthClassName: "max-w-[188px] lg:max-w-[320px]",
         href: "/design-school/courses/program-3",
     },
 ] as const;
@@ -190,14 +194,14 @@ function ProgramCardView(p: ProgramCard) {
         <Link
             href={p.href}
             className={[
-                "group relative block w-full overflow-hidden",
+                "group relative flex flex-col w-full overflow-hidden",
                 "rounded-[19.17px]",
                 "w-full lg:mx-auto lg:max-w-[640px]",
                 "min-h-[316px] lg:min-h-[clamp(420px,42vw,604px)]",
             ].join(" ")}
             style={{ backgroundColor: p.bg }}
         >
-            <div className="relative z-[2] flex h-full min-h-[316px] w-full flex-col gap-4 p-[20px] xl:p-[30px]">
+            <div className="relative z-[2] flex flex-1 w-full flex-col gap-4 p-[20px] xl:p-[30px]">
                 <ExploreBadge mode={p.badge.mode} duration={p.badge.duration} accent={p.bg} />
 
                 <div className={["flex w-full flex-col gap-3", p.contentWrapClassName].join(" ")}>
@@ -223,7 +227,7 @@ function ProgramCardView(p: ProgramCard) {
                         {p.description}
                     </p>
 
-                    <div className="pt-2" style={{ width: "max-content" }}>
+                    <div className="pt-2 w-max">
                         <KnowMoreButton bg={p.button.bg} fg={p.button.fg} />
                     </div>
                 </div>
@@ -235,7 +239,7 @@ function ProgramCardView(p: ProgramCard) {
                 aria-hidden
             />
 
-            <div className={[p.imageWrapClassName, "relative z-[1] overflow-hidden"].join(" ")} aria-hidden>
+            <div className={p.imageWrapClassName} aria-hidden>
                 <Image
                     src={p.imageSrc}
                     alt={p.imageAlt}

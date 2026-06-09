@@ -49,6 +49,7 @@ type DesignSplitArrowCtaProps =
           label: ReactNode;
           href: string;
           accent?: string;
+          labelColor?: string;
           dims: DesignSplitArrowCtaDims;
           arrowPreset: DesignSplitArrowPreset;
           fontFamily: string;
@@ -65,6 +66,7 @@ type DesignSplitArrowCtaProps =
           label: ReactNode;
           href?: never;
           accent?: string;
+          labelColor?: string;
           dims: DesignSplitArrowCtaDims;
           arrowPreset: DesignSplitArrowPreset;
           fontFamily: string;
@@ -82,6 +84,7 @@ export function DesignSplitArrowCta(props: DesignSplitArrowCtaProps) {
     const {
         label,
         accent = "#FF5C00",
+        labelColor = "black",
         dims,
         arrowPreset,
         fontFamily,
@@ -98,7 +101,7 @@ export function DesignSplitArrowCta(props: DesignSplitArrowCtaProps) {
     const t = DESIGN_CTA_TRANSITION;
     const { inn, out } = arrowLayers(arrowPreset);
 
-    const groupVars = { "--ds-cta-accent": accent } as CSSProperties;
+    const groupVars = { "--ds-cta-accent": accent, "--cta-label": labelColor } as CSSProperties;
 
     const pillBaseClass = [
         "box-border flex shrink-0 cursor-pointer items-center justify-center bg-transparent outline-none transition-colors",
@@ -135,7 +138,7 @@ export function DesignSplitArrowCta(props: DesignSplitArrowCtaProps) {
     };
 
     const labelSpan = (
-        <span className={`leading-none whitespace-nowrap text-black transition-colors ${t} group-hover:text-white`}>{label}</span>
+        <span className={`leading-none whitespace-nowrap text-[color:var(--cta-label)] transition-colors ${t} group-hover:text-white`}>{label}</span>
     );
 
     const arrowStack = (
