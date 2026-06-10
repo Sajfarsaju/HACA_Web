@@ -114,6 +114,7 @@ function ScheduleCallButton({ font, accentColor }: { font: string; accentColor: 
             <div className="pointer-events-auto shrink-0 lg:hidden">
                 <DesignSplitArrowCta
                     accent={accentColor}
+                    labelColor="white"
                     href={ENQUIRE_URL}
                     ariaLabel="Schedule a Call"
                     label="Schedule a Call"
@@ -138,6 +139,7 @@ function ScheduleCallButton({ font, accentColor }: { font: string; accentColor: 
             <div className="pointer-events-auto hidden shrink-0 lg:block">
                 <DesignSplitArrowCta
                     accent={accentColor}
+                    labelColor="white"
                     href={ENQUIRE_URL}
                     ariaLabel="Schedule a Call"
                     label="Schedule a Call"
@@ -290,7 +292,7 @@ export function DesignSchoolFooter({ font, serif, staticTheme }: DesignSchoolFoo
                                 <span
                                     className="pointer-events-none absolute hidden lg:block"
                                     style={{
-                                        right: "103px",
+                                        right: "115px",
                                         top: "-6px",
                                         width: FOOTER_HEADING_DECO.d4.desk.w,
                                         height: FOOTER_HEADING_DECO.d4.desk.h,
@@ -361,7 +363,7 @@ export function DesignSchoolFooter({ font, serif, staticTheme }: DesignSchoolFoo
                                                             bottom: "100%",
                                                             width: FOOTER_HEADING_DECO.d3.mob.w,
                                                             height: FOOTER_HEADING_DECO.d3.mob.h,
-                                                            transform: "translate(calc(-50% + 4px), 0.72em)",
+                                                            transform: "translate(calc(-50% + 2px), 0.78em)",
                                                             zIndex: 2,
                                                             opacity: 1,
                                                         }}
@@ -391,7 +393,7 @@ export function DesignSchoolFooter({ font, serif, staticTheme }: DesignSchoolFoo
                                                         bottom: "100%",
                                                         width: FOOTER_HEADING_DECO.d3.desk.w,
                                                         height: FOOTER_HEADING_DECO.d3.desk.h,
-                                                        transform: "translate(calc(-50% + 6px), 0.64em)",
+                                                        transform: "translate(calc(-50% + 5px), 0.78em)",
                                                         zIndex: 2,
                                                         opacity: 1,
                                                     }}
@@ -437,10 +439,10 @@ export function DesignSchoolFooter({ font, serif, staticTheme }: DesignSchoolFoo
                                                           ].join(" ")
                                                         : [
                                                               "inline-block origin-center whitespace-nowrap text-[13px] font-medium leading-[120%] transition-[transform,color,opacity] duration-200 ease-out lg:text-base",
-                                                              "hover:scale-[1.06] hover:text-black",
+                                                              "hover:scale-[1.06] hover:text-white",
                                                               active
-                                                                  ? "text-black opacity-100"
-                                                                  : "text-[#F2F2F2]/95 hover:opacity-100",
+                                                                  ? "text-white opacity-100"
+                                                                  : "text-[#C0C0C0]",
                                                           ].join(" ")
                                                 }
                                                 style={{ fontFamily: font }}
