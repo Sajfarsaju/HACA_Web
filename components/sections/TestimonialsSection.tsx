@@ -8,12 +8,15 @@ import { useState, useCallback, useEffect } from "react"
 /** Shared card surface — border applied on the carousel wrapper; grill pattern unchanged in `TestimonialCardContent`. */
 const TESTIMONIAL_CARD_BG = "#000319"
 
-const testimonials = [
-    { id: 0, quote: "The digital marketing classes were practical, up to date, and easy to follow. The mentors were incredibly supportive, and the mock interviews really boosted my confidence.", name: "Nadha Faizal", role: "Digital Marketer" },
-    { id: 1, quote: "HACA's design school gave me the skills to land my dream job. The portfolio projects were exactly what recruiters wanted to see.", name: "Priya Sharma", role: "UI/UX Designer" },
-    { id: 2, quote: "I switched from a non-tech background to a developer role in 6 months. The tech school curriculum is intense but worth every hour.", name: "Arjun Mehta", role: "Full Stack Developer" },
-    { id: 3, quote: "Best decision I made for my career. The placement support and industry connections opened doors I never thought possible.", name: "Rahul Kumar", role: "Marketing Manager" },
-]
+type TestimonialItem = {
+    id: string | number;
+    quote: string;
+    name: string;
+    role: string;
+    photoUrl?: string | null;
+}
+
+
 
 function mod(n: number, m: number) { return ((n % m) + m) % m }
 
@@ -25,7 +28,7 @@ function getOffset(index: number, active: number, total: number) {
 }
 
 /* Card inner content */
-function TestimonialCardContent({ t }: { t: (typeof testimonials)[0] }) {
+function TestimonialCardContent({ t }: { t: TestimonialItem }) {
     return (
         <div className="w-full h-full relative overflow-hidden max-md:p-0">
             <div
@@ -53,24 +56,54 @@ function TestimonialCardContent({ t }: { t: (typeof testimonials)[0] }) {
             >
                 {t.quote}
             </p>
-            <div className="absolute top-[73.46%] left-[4.75%] flex flex-col gap-[clamp(2px,0.3vw,5px)] max-md:left-[16.21px] max-md:top-[138px] max-md:bottom-auto">
-                <h3 className="font-rethink font-semibold text-[clamp(14px,1.6vw,24px)] leading-[100%] tracking-[-0.02em] text-[#ffffff] m-0 max-md:text-[clamp(14px,4vw,16px)] max-md:leading-[100%] max-md:tracking-[-0.02em]">
-                    {t.name}
-                </h3>
-                <span className="font-manrope font-normal text-[clamp(9px,1.1vw,16px)] leading-[100%] tracking-[-0.02em] text-[#A7ADBE] m-0 max-md:text-[clamp(11px,3.2vw,13px)] max-md:leading-[100%] max-md:tracking-[-0.02em]">
-                    {t.role}
-                </span>
+            <div className="absolute top-[73.46%] left-[4.75%] flex items-center gap-[clamp(6px,0.8vw,12px)] max-md:left-[16.21px] max-md:top-[138px] max-md:bottom-auto">
+                {t.photoUrl && (
+                    <div className="relative shrink-0 rounded-full overflow-hidden border border-white/20"
+                        style={{ width: "clamp(32px,3.2vw,46px)", height: "clamp(32px,3.2vw,46px)" }}>
+                        <Image src={t.photoUrl} alt={t.name} fill className="object-cover" unoptimized />
+                    </div>
+                )}
+                <div className="flex flex-col gap-[clamp(2px,0.3vw,5px)]">
+                    <h3 className="font-rethink font-semibold text-[clamp(14px,1.6vw,24px)] leading-[100%] tracking-[-0.02em] text-[#ffffff] m-0 max-md:text-[clamp(14px,4vw,16px)] max-md:leading-[100%] max-md:tracking-[-0.02em]">
+                        {t.name}
+                    </h3>
+                    <span className="font-manrope font-normal text-[clamp(9px,1.1vw,16px)] leading-[100%] tracking-[-0.02em] text-[#A7ADBE] m-0 max-md:text-[clamp(11px,3.2vw,13px)] max-md:leading-[100%] max-md:tracking-[-0.02em]">
+                        {t.role}
+                    </span>
+                </div>
             </div>
         </div>
     )
 }
 
 export function TestimonialsSection() {
+    const [testimonials, setTestimonials] = useState<TestimonialItem[]>([])
+    const [loaded, setLoaded] = useState(false)
     const [active, setActive] = useState(0)
     const total = testimonials.length
     const [touchStart, setTouchStart] = useState<number | null>(null)
     const [touchEnd, setTouchEnd] = useState<number | null>(null)
     const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"
+        fetch(`${backendUrl}/api/testimonials?school=HACA`)
+            .then((r) => r.json())
+            .then((data) => {
+                const list: TestimonialItem[] = (data.testimonials || []).map(
+                    (t: { _id: string; quote: string; name: string; role: string; photoUrl?: string | null }) => ({
+                        id: t._id,
+                        quote: t.quote,
+                        name: t.name,
+                        role: t.role,
+                        photoUrl: t.photoUrl ?? null,
+                    })
+                )
+                setTestimonials(list)
+                setLoaded(true)
+            })
+            .catch(() => setLoaded(true))
+    }, [])
 
     const prev = useCallback(() => setActive(a => mod(a - 1, total)), [total])
     const next = useCallback(() => setActive(a => mod(a + 1, total)), [total])
@@ -100,6 +133,8 @@ export function TestimonialsSection() {
     const centerHalf = "calc(clamp(280px,72vw,1037px) / 2)"
     const sideHalf   = "calc(clamp(200px,59vw,847px) / 2)"
     const cardGap    = "22px"
+
+    if (!loaded || testimonials.length === 0) return null
 
     return (
         <section

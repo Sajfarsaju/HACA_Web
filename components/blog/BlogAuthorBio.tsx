@@ -20,7 +20,7 @@ export function BlogAuthorBio({ author, authorRole, authorPhotoUrl, bio = DEFAUL
             style={{ fontFamily: "var(--font-manrope), var(--font-rethink-sans), sans-serif" }}
         >
                 {/* Name + role - Manrope SemiBold 26px/20px, line-height 100%, letter-spacing -2%, #FFFFFF */}
-                <div className="flex flex-col gap-[10px] w-full max-w-[180px]">
+                <div className="flex flex-col gap-[10px] w-full">
                    {/* Top row: avatar + name/role */}
             <div className="flex items-center gap-[18px] w-full">
                 {/* Avatar: photo if available, else initial */}
@@ -41,9 +41,9 @@ export function BlogAuthorBio({ author, authorRole, authorPhotoUrl, bio = DEFAUL
                     )}
                 </div>
                 {/* Name + role stacked */}
-                <div className="flex flex-col gap-[6px]">
+                <div className="flex flex-col gap-[6px] min-w-0">
                     <p
-                        className="m-0"
+                        className="m-0 whitespace-nowrap"
                         style={{
                             fontFamily: "var(--font-manrope), var(--font-rethink-sans), sans-serif",
                             fontWeight: 600,
@@ -57,7 +57,7 @@ export function BlogAuthorBio({ author, authorRole, authorPhotoUrl, bio = DEFAUL
                     </p>
                     {authorRole && (
                         <p
-                            className="m-0"
+                            className="m-0 whitespace-nowrap"
                             style={{
                                 fontFamily: "var(--font-manrope), var(--font-rethink-sans), sans-serif",
                                 fontWeight: 500,

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { getPublicBackendBase } from "@/lib/placements-api";
 
 type Thumbnail = { src: string; alt: string; youtubeId?: string };
@@ -262,6 +262,8 @@ export function TechYoutubeCarousel({
     const [windowWidth, setWindowWidth] = useState(() =>
         typeof window !== "undefined" ? window.innerWidth : 1280,
     );
+    const dragStartX = useRef<number | null>(null);
+    const isDragging = useRef(false);
 
     const handleResize = useCallback(() => {
         setWindowWidth(window.innerWidth);
@@ -341,7 +343,7 @@ export function TechYoutubeCarousel({
 
             <div
                 className={`relative z-10 flex w-full items-center justify-center ${fullWidthStage ? "overflow-visible" : "overflow-hidden"}`}
-                style={{ height: `${centerH + 40}px` }}
+                style={{ height: `${centerH + 40}px`, touchAction: "pan-y" }}
                 role="group"
                 aria-roledescription="carousel"
                 aria-labelledby={stageLabelId}
@@ -349,6 +351,25 @@ export function TechYoutubeCarousel({
                 onMouseLeave={() => setIsHoveringStage(false)}
                 onFocusCapture={() => setIsHoveringStage(true)}
                 onBlurCapture={() => setIsHoveringStage(false)}
+                onPointerDown={(e) => {
+                    dragStartX.current = e.clientX;
+                    isDragging.current = false;
+                    e.currentTarget.setPointerCapture(e.pointerId);
+                }}
+                onPointerMove={(e) => {
+                    if (dragStartX.current === null) return;
+                    if (Math.abs(e.clientX - dragStartX.current) > 8) {
+                        isDragging.current = true;
+                    }
+                }}
+                onPointerUp={(e) => {
+                    if (dragStartX.current === null) return;
+                    const delta = e.clientX - dragStartX.current;
+                    dragStartX.current = null;
+                    e.currentTarget.releasePointerCapture(e.pointerId);
+                    if (Math.abs(delta) < 50) return;
+                    if (delta < 0) next(); else prev();
+                }}
             >
                 <p id={stageLabelId} className="sr-only">
                     Learner video highlights carousel. Use side previews or wait for slides to advance
@@ -377,6 +398,7 @@ export function TechYoutubeCarousel({
                         <div
                             key={`${thumb.src}-${i}`}
                             onClick={() => {
+                                if (isDragging.current) { isDragging.current = false; return; }
                                 if (offset === -1) { prev(); return; }
                                 if (offset === 1)  { next(); return; }
                                 if (isCenter && thumb.youtubeId) {
@@ -425,6 +447,38 @@ export function TechYoutubeCarousel({
                         </div>
                     );
                 })}
+            </div>
+
+            {/* Arrow navigation — same style as TechMentors */}
+            <div className="flex items-center justify-center gap-[10px] mt-[20px]">
+                <button
+                    type="button"
+                    aria-label="Previous video"
+                    onClick={prev}
+                    className="relative h-[46.67px] w-[46.67px] rotate-[-180deg] cursor-pointer border-none bg-transparent p-0 opacity-70 transition-opacity duration-200 ease-in-out hover:opacity-100"
+                >
+                    <Image
+                        src="/photos/Tech/Active Arowmark.svg"
+                        fill
+                        alt=""
+                        aria-hidden="true"
+                        className="object-contain"
+                    />
+                </button>
+                <button
+                    type="button"
+                    aria-label="Next video"
+                    onClick={next}
+                    className="relative h-[46.67px] w-[46.67px] cursor-pointer border-none bg-transparent p-0 opacity-70 transition-opacity duration-200 ease-in-out hover:opacity-100"
+                >
+                    <Image
+                        src="/photos/Tech/Active Arowmark.svg"
+                        fill
+                        alt=""
+                        aria-hidden="true"
+                        className="object-contain"
+                    />
+                </button>
             </div>
         </div>
     );

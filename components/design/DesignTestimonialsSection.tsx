@@ -3,14 +3,14 @@
 import type { PanInfo } from "framer-motion";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 const FONT = '"VC Nudge Trial Normal", sans-serif';
 const SERIF = '"IvyPresto Display", serif';
 
 type Testimonial = { id: string; quote: string; name: string };
 
-const ITEMS: Testimonial[] = [
+const FALLBACK_ITEMS: Testimonial[] = [
     {
         id: "1",
         quote:
@@ -298,7 +298,7 @@ function ExpandableTestimonialQuote({ quote, variant }: { quote: string; variant
 // ── Desktop card stack ───────────────────────────────────────────────────────
 
 function DesktopCardStack({
-    order, prevOrder, reducedMotion, frontItem, direction, onPrev, onNext,
+    order, prevOrder, reducedMotion, frontItem, direction, onPrev, onNext, items,
 }: {
     order: StackOrder;
     prevOrder: StackOrder;
@@ -307,6 +307,7 @@ function DesktopCardStack({
     direction: 1 | -1;
     onPrev: () => void;
     onNext: () => void;
+    items: Testimonial[];
 }) {
     const tDeck   = deckTransition(reducedMotion);
     const tDepart = departingTransition(reducedMotion);
@@ -316,7 +317,7 @@ function DesktopCardStack({
             className="relative mx-auto overflow-visible lg:translate-x-[2px]"
             style={{ width: DESKTOP_STAGE_W, height: STACK_H, perspective: 1400 }}
         >
-            {ITEMS.map((item, itemIndex) => {
+            {items.map((item, itemIndex) => {
                 const depth     = depthOf(order,     itemIndex);
                 const prevDepth = depthOf(prevOrder,  itemIndex);
                 const L         = DESKTOP_LAYER[depth];
@@ -483,7 +484,7 @@ function DesktopCardStack({
 // ── Mobile card stack ────────────────────────────────────────────────────────
 
 function MobileCardStack({
-    order, prevOrder, reducedMotion, frontItem, direction, onPrev, onNext,
+    order, prevOrder, reducedMotion, frontItem, direction, onPrev, onNext, items,
 }: {
     order: StackOrder;
     prevOrder: StackOrder;
@@ -492,6 +493,7 @@ function MobileCardStack({
     direction: 1 | -1;
     onPrev: () => void;
     onNext: () => void;
+    items: Testimonial[];
 }) {
     const tDeck   = deckTransition(reducedMotion);
     const tDepart = departingTransition(reducedMotion);
@@ -517,7 +519,7 @@ function MobileCardStack({
             dragDirectionLock
             onDragEnd={onDragEnd}
         >
-            {ITEMS.map((item, itemIndex) => {
+            {items.map((item, itemIndex) => {
                 const depth     = depthOf(order,    itemIndex);
                 const prevDepth = depthOf(prevOrder, itemIndex);
                 const L         = MOBILE_LAYER[depth];
@@ -657,6 +659,32 @@ function MobileCardStack({
 type DeckFrames = { prev: StackOrder; current: StackOrder };
 
 export function DesignTestimonialsSection() {
+    const [items, setItems] = useState<Testimonial[]>([]);
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000";
+        fetch(`${backendUrl}/api/testimonials?school=Design+School`)
+            .then((r) => r.json())
+            .then((data) => {
+                const raw = (data.testimonials || []).map(
+                    (t: { _id: string; quote: string; name: string }) => ({
+                        id: t._id,
+                        quote: t.quote,
+                        name: t.name,
+                    })
+                ) as Testimonial[];
+                if (raw.length > 0) {
+                    // Stack requires exactly 3 items; pad with fallback if fewer
+                    const padded = [...raw];
+                    while (padded.length < 3) padded.push(FALLBACK_ITEMS[padded.length % FALLBACK_ITEMS.length]);
+                    setItems(padded.slice(0, 3));
+                }
+                setLoaded(true);
+            })
+            .catch(() => setLoaded(true));
+    }, []);
+
     const reducedMotion = useReducedMotion() ?? false;
     const [deck, setDeck] = useState<DeckFrames>(() => ({
         prev: INITIAL_ORDER,
@@ -667,11 +695,11 @@ export function DesignTestimonialsSection() {
     const order = deck.current;
     const prevOrder = deck.prev;
 
-    const frontItem = ITEMS[order[0]];
+    const frontItem = items[order[0]];
 
     const testimonialsRegionLabel = useMemo(
-        () => `Testimonials. Top card: ${ITEMS[order[0]].name}.`,
-        [order]
+        () => `Testimonials. Top card: ${items[order[0]]?.name ?? ""}.`,
+        [order, items]
     );
 
     const next = useCallback(() => {
@@ -682,6 +710,8 @@ export function DesignTestimonialsSection() {
         setDirection(-1);
         setDeck(({ current }) => ({ prev: current, current: rotateDeckBackward(current) }));
     }, []);
+
+    if (!loaded || items.length === 0) return null;
 
     return (
         <section
@@ -721,6 +751,7 @@ export function DesignTestimonialsSection() {
                                 direction={direction}
                                 onPrev={prevCb}
                                 onNext={next}
+                                items={items}
                             />
                         </div>
                         <div className="hidden lg:block">
@@ -732,6 +763,7 @@ export function DesignTestimonialsSection() {
                                 direction={direction}
                                 onPrev={prevCb}
                                 onNext={next}
+                                items={items}
                             />
                         </div>
                     </div>

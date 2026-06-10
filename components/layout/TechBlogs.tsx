@@ -5,29 +5,14 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ── Slide data ──────────────────────────────────────────────────────────────
-const SLIDES = [
-    {
-        id: 1,
-        text: "Tech school made the best change in my life, where I learned coding from basics. I never knew how to code before. Mentors in the academy helped in every part of the journey.",
-        name: "Arun Krishnan",
-        subtitle: "Full Stack Developer",
-        image: null as string | null,
-    },
-    {
-        id: 2,
-        text: "Amazing experience at HACA Tech School. The curriculum is well-structured and the mentors are incredibly supportive throughout the entire learning journey from day one.",
-        name: "Rahul Menon",
-        subtitle: "UI/UX Designer",
-        image: null as string | null,
-    },
-    {
-        id: 3,
-        text: "I joined with zero knowledge about programming. Now I confidently build full-stack applications. HACA transformed my career and opened doors I never thought possible.",
-        name: "Fathima Noor",
-        subtitle: "React Developer",
-        image: null as string | null,
-    },
-];
+type Slide = {
+    id: string | number;
+    text: string;
+    name: string;
+    subtitle: string;
+    image: string | null;
+};
+
 
 // ── Premium card variants — whole card animates as one unit ─────────────────
 const cardVariants = {
@@ -76,8 +61,30 @@ function ArrowBtn({ onClick, disabled, label, isPrev }: {
 
 // ── TechBlogs ───────────────────────────────────────────────────────────────
 export function TechBlogs() {
+    const [slides, setSlides] = useState<Slide[]>([]);
+    const [loaded, setLoaded] = useState(false);
     const [index, setIndex]       = useState(0);
     const [direction, setDirection] = useState(1);
+
+    useEffect(() => {
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000";
+        fetch(`${backendUrl}/api/testimonials?school=Tech+School`)
+            .then((r) => r.json())
+            .then((data) => {
+                const list: Slide[] = (data.testimonials || []).map(
+                    (t: { _id: string; quote: string; name: string; role: string; photoUrl: string | null }) => ({
+                        id: t._id,
+                        text: t.quote,
+                        name: t.name,
+                        subtitle: t.role || "",
+                        image: t.photoUrl || null,
+                    })
+                );
+                setSlides(list);
+                setLoaded(true);
+            })
+            .catch(() => setLoaded(true));
+    }, []);
 
     const goTo = useCallback((next: number, dir: number) => {
         setDirection(dir);
@@ -85,11 +92,13 @@ export function TechBlogs() {
     }, []);
 
     const prev = useCallback(() => { if (index > 0)                      goTo(index - 1, -1); }, [index, goTo]);
-    const next = useCallback(() => { if (index < SLIDES.length - 1)      goTo(index + 1,  1); }, [index, goTo]);
+    const next = useCallback(() => { if (index < slides.length - 1)      goTo(index + 1,  1); }, [index, slides.length, goTo]);
 
     // Manual navigation only (no auto-advance)
 
-    const slide = SLIDES[index];
+    if (!loaded || slides.length === 0) return null;
+
+    const slide = slides[index];
 
     return (
         <section
@@ -127,7 +136,7 @@ export function TechBlogs() {
 
                     <div className="hidden lg:flex gap-4">
                         <ArrowBtn isPrev onClick={prev} disabled={index === 0}                  label="Previous" />
-                        <ArrowBtn        onClick={next} disabled={index === SLIDES.length - 1} label="Next" />
+                        <ArrowBtn        onClick={next} disabled={index === slides.length - 1} label="Next" />
                     </div>
                 </div>
 
@@ -214,7 +223,7 @@ export function TechBlogs() {
                     {/* Arrow Controls — Mobile */}
                     <div className="flex lg:hidden gap-4 z-10">
                         <ArrowBtn isPrev onClick={prev} disabled={index === 0}                  label="Previous" />
-                        <ArrowBtn        onClick={next} disabled={index === SLIDES.length - 1} label="Next" />
+                        <ArrowBtn        onClick={next} disabled={index === slides.length - 1} label="Next" />
                     </div>
                 </div>
 
