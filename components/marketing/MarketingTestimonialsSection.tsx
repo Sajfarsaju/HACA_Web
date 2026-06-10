@@ -13,26 +13,6 @@ type Testimonial = {
     role: string
 }
 
-const TESTIMONIALS: Testimonial[] = [
-    {
-        id: "t-1",
-        quote: "I completed my Digital Marketing course at HACA (Haris & Co Academy), and it was a great experience. The classes were clear, practical, and easy to understand. The mentors were very supportive and always ready to help. I learned real skills that I can use in real projects. I highly recommend HACA for anyone who wants to start or grow in digital marketing.",
-        name: "Fathima Faathi",
-        role: "Digital Marketer",
-    },
-    {
-        id: "t-2",
-        quote: "The sessions were structured, hands-on, and focused on execution. The feedback loops helped me improve fast, and the support was consistent throughout the course.",
-        name: "Nadha Faizal",
-        role: "Digital Marketer",
-    },
-    {
-        id: "t-3",
-        quote: "I loved the practical approach—ads, copy, landing pages, and tracking. It made the learning feel real and helped me build confidence to apply for roles.",
-        name: "Rahul Kumar",
-        role: "Marketing Associate",
-    },
-]
 
 const COLOR_TRANSITION = "0.55s ease"
 
@@ -51,9 +31,30 @@ function ArrowIcon({ dir }: { dir: "left" | "right" }) {
 }
 
 export function MarketingTestimonialsSection() {
+    const [testimonials, setTestimonials] = useState<Testimonial[]>([])
+    const [loaded, setLoaded] = useState(false)
     const [active, setActive] = useState(0)
     const [isDark, setIsDark] = useState(false)
-    const total = TESTIMONIALS.length
+    const total = testimonials.length
+
+    useEffect(() => {
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"
+        fetch(`${backendUrl}/api/testimonials?school=Marketing+School`)
+            .then((r) => r.json())
+            .then((data) => {
+                const list: Testimonial[] = (data.testimonials || []).map(
+                    (t: { _id: string; quote: string; name: string; role: string }) => ({
+                        id: t._id,
+                        quote: t.quote,
+                        name: t.name,
+                        role: t.role || "",
+                    })
+                )
+                setTestimonials(list)
+                setLoaded(true)
+            })
+            .catch(() => setLoaded(true))
+    }, [])
 
     useEffect(() => {
         const handler = (e: Event) => {
@@ -64,7 +65,7 @@ export function MarketingTestimonialsSection() {
         return () => window.removeEventListener("marketing-page-color", handler)
     }, [])
 
-    const t = TESTIMONIALS[active]
+    const t = testimonials[active]
 
     const prev = useCallback(() => setActive((a) => (a - 1 + total) % total), [total])
     const next = useCallback(() => setActive((a) => (a + 1) % total), [total])
@@ -78,6 +79,8 @@ export function MarketingTestimonialsSection() {
         ),
         []
     )
+
+    if (!loaded || testimonials.length === 0) return null
 
     return (
         <section
@@ -152,20 +155,7 @@ export function MarketingTestimonialsSection() {
                                 "
                                 style={{ color: "var(--tf-text, #000000)", transition: `color ${COLOR_TRANSITION}` }}
                             >
-                                {t.id === "t-1" ? (
-                                    <>
-                                        <div className="hidden lg:flex flex-col gap-[6px]">
-                                            <span className="block">I completed my Digital Marketing course at HACA (Haris &amp; Co Academy), and it</span>
-                                            <span className="block">was a great experience. The classes were clear, practical, and easy to understand.</span>
-                                            <span className="block">The mentors were very supportive and always ready to help. I learned real skills that</span>
-                                            <span className="block">I can use in real projects. I highly recommend HACA for anyone who wants to start</span>
-                                            <span className="block">or grow in digital marketing.</span>
-                                        </div>
-                                        <span className="lg:hidden">{t.quote}</span>
-                                    </>
-                                ) : (
-                                    <span>{t.quote}</span>
-                                )}
+                                <span>{t.quote}</span>
                             </div>
 
                             <div className="text-left lg:mt-auto">

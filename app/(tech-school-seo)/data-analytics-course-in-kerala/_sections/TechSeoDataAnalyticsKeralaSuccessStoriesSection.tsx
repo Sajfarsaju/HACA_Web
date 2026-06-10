@@ -1,15 +1,28 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
 import { TechSeoSectionBottomRule } from "./TechSeoSectionBottomRule";
 
-/** Placeholder until final success-story card assets are added. */
-const CARD_FALLBACK_GRADIENT =
-    "linear-gradient(145deg, rgba(94, 184, 255, 0.95) 0%, rgba(0, 153, 255, 0.85) 42%, rgba(17, 6, 45, 0.9) 100%)";
+const PLACEMENTS = [
+    "/photos/schools/tech/placements/IMG_20260205_135110_480.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135132_304.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135156_730.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135237_626.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135304_434.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135329_601.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135354_480.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135421_019.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135441_651.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135511_739.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135540_651.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135602_603.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135623_589.jpg",
+    "/photos/schools/tech/placements/IMG_20260205_135657_154.jpg",
+] as const;
 
-/** Slide count for carousel; replace cards when assets are ready. */
-const SUCCESS_STORY_SLIDE_COUNT = 8;
+const SUCCESS_STORY_SLIDE_COUNT = PLACEMENTS.length;
 
 type CardSizeSpec = {
     centerW: number;
@@ -79,22 +92,32 @@ function getOffset(index: number, active: number, total: number) {
 }
 
 function SuccessStoryCard({
+    src,
     borderRadius,
     borderWidth,
+    isCenter,
 }: {
+    src: string;
     borderRadius: number;
     borderWidth: number;
+    isCenter: boolean;
 }) {
     return (
         <div
-            className="h-full w-full border-solid border-white/25"
+            className="relative h-full w-full overflow-hidden border-solid border-white/25"
             style={{
                 borderRadius: `${borderRadius}px`,
                 borderWidth: `${borderWidth}px`,
-                background: CARD_FALLBACK_GRADIENT,
             }}
-            aria-hidden
-        />
+        >
+            <Image
+                src={src}
+                fill
+                alt="Placement story"
+                className="object-cover"
+                sizes={isCenter ? "(max-width: 768px) 80vw, 416px" : "(max-width: 768px) 40vw, 348px"}
+            />
+        </div>
     );
 }
 
@@ -188,7 +211,7 @@ function SuccessStoriesCarousel() {
                         tabIndex={isVisible ? 0 : -1}
                         aria-current={isCenter ? "true" : undefined}
                     >
-                        <SuccessStoryCard borderRadius={radius} borderWidth={border} />
+                        <SuccessStoryCard src={PLACEMENTS[i % PLACEMENTS.length]} borderRadius={radius} borderWidth={border} isCenter={isCenter} />
                     </div>
                 );
             })}
