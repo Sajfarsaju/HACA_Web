@@ -25,6 +25,7 @@ const COURSES = [
         bgImage: "/photos/Tech/Rectangle 2 (1).svg",
         titleWidth: "325px"
     },
+    /*
     {
         slug: "data-science-with-gen-ai",
         title: "Data Science with Gen AI",
@@ -52,6 +53,7 @@ const COURSES = [
         bgImage: "/photos/Tech/Rectangle 3 (2).svg",
         titleWidth: "325px"
     },
+    */
     {
         slug: "dashboard-mastery-power-bi-excel",
         title: "Dashboard Mastery in Power BI + Excel Course",

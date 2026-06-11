@@ -772,8 +772,8 @@ const TECH_COURSES_CSS = `
         border-radius: 8px;
         padding: 0;
     }
-    /* Hide Frame 1984078075 (1).svg label and its outer wrap on mobile only */
-    .course-label-wrap:has(img[src*="1984078075"]) {
+    /* Hide course label badges on mobile */
+    .course-label-wrap {
         display: none !important;
     }
     .course-top-row {

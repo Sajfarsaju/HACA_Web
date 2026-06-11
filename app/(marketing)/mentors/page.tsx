@@ -19,12 +19,20 @@ type Mentor = {
     linkedinUrl?: string | null;
 };
 
-async function getMentors(): Promise<Mentor[]> {
+const SCHOOLS: { key: string; label: string }[] = [
+    { key: "HACA",             label: "HACA"             },
+    { key: "Design School",    label: "Design School"    },
+    { key: "Marketing School", label: "Marketing School" },
+    { key: "Tech School",      label: "Tech School"      },
+];
+
+async function getMentorsBySchool(school: string): Promise<Mentor[]> {
     try {
         const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000";
-        const res = await fetch(`${backendUrl}/api/mentors`, {
-            next: { revalidate: 60 },
-        });
+        const res = await fetch(
+            `${backendUrl}/api/mentors?school=${encodeURIComponent(school)}`,
+            { next: { revalidate: 60 } }
+        );
         if (!res.ok) return [];
         const data = await res.json();
         return data.mentors ?? [];
@@ -101,13 +109,13 @@ function MentorCard({ mentor }: { mentor: Mentor }) {
 }
 
 export default async function MentorsPage() {
-    const mentors = await getMentors();
+    const schoolMentors = await Promise.all(
+        SCHOOLS.map(async (s) => ({ ...s, mentors: await getMentorsBySchool(s.key) }))
+    );
+    const filledSchools = schoolMentors.filter((s) => s.mentors.length > 0);
 
     return (
-        <div
-            className="w-full bg-transparent overflow-x-hidden flex flex-col justify-between"
-            style={{ minHeight: "1733px" }}
-        >
+        <div className="w-full bg-transparent overflow-x-hidden flex flex-col justify-between min-h-screen">
             <div className="flex-grow">
                 <section
                     className="
@@ -115,10 +123,10 @@ export default async function MentorsPage() {
                         pt-12 md:pt-[100px] lg:pt-[120px]
                         px-4 md:px-10 lg:px-[60px]
                         pb-10 lg:pb-16
-                        gap-[30px] lg:gap-[50px]
+                        gap-[50px] lg:gap-[70px]
                     "
                 >
-                    {/* Heading + paragraph container */}
+                    {/* Page heading */}
                     <div className="w-full max-w-[788px] mx-auto flex flex-col items-center gap-[10px] lg:gap-[20px]">
                         <h1 className="w-full font-rethink font-bold text-[26px] lg:text-[58px] leading-[120%] lg:leading-[110%] text-center text-white m-0">
                             The Mentors Behind Your Success
@@ -129,27 +137,38 @@ export default async function MentorsPage() {
                         </p>
                     </div>
 
-                    {/* Cards container */}
-                    {mentors.length > 0 ? (
-                        <div className="w-full max-w-[1440px]">
-                            {/* Desktop: 4-col grid */}
-                            <div className="hidden lg:grid w-full max-w-[1320px] mx-auto grid-cols-4 gap-x-[20px] gap-y-[20px]">
-                                {mentors.map((m) => (
-                                    <MentorCard key={m._id} mentor={m} />
-                                ))}
-                            </div>
-
-                            {/* Mobile/tablet: single column */}
-                            <div className="lg:hidden w-full max-w-[343px] mx-auto flex flex-col gap-[20px] px-[20px] pb-[26px]">
-                                {mentors.map((m) => (
-                                    <MentorCard key={m._id} mentor={m} />
-                                ))}
-                            </div>
-                        </div>
-                    ) : (
+                    {filledSchools.length === 0 ? (
                         <p className="text-center text-[#A7ADBE] text-sm">
                             Mentor profiles coming soon.
                         </p>
+                    ) : (
+                        <div className="w-full max-w-[1440px] mx-auto flex flex-col gap-[50px] lg:gap-[70px]">
+                            {filledSchools.map((school) => (
+                                <div key={school.key} className="flex flex-col gap-[24px] lg:gap-[36px]">
+                                    {/* School label */}
+                                    <div className="flex items-center gap-[14px]">
+                                        <h2 className="m-0 font-rethink font-bold text-[20px] lg:text-[32px] leading-[110%] tracking-[-0.02em] text-white">
+                                            {school.label}
+                                        </h2>
+                                        <div className="flex-1 h-[1px] bg-[#25317D] opacity-60" />
+                                    </div>
+
+                                    {/* Desktop: 4-col grid */}
+                                    <div className="hidden lg:grid w-full max-w-[1320px] mx-auto grid-cols-4 gap-x-[20px] gap-y-[20px]">
+                                        {school.mentors.map((m) => (
+                                            <MentorCard key={m._id} mentor={m} />
+                                        ))}
+                                    </div>
+
+                                    {/* Mobile/tablet: single column */}
+                                    <div className="lg:hidden w-full max-w-[343px] mx-auto flex flex-col gap-[20px]">
+                                        {school.mentors.map((m) => (
+                                            <MentorCard key={m._id} mentor={m} />
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     )}
                 </section>
             </div>

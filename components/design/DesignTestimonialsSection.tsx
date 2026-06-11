@@ -10,26 +10,6 @@ const SERIF = '"IvyPresto Display", serif';
 
 type Testimonial = { id: string; quote: string; name: string };
 
-const FALLBACK_ITEMS: Testimonial[] = [
-    {
-        id: "1",
-        quote:
-            "HACA is more than just a design school — it's a space where creativity finds direction and imagination meets discipline. The faculty here are not only talented professionals but also incredibly supportive mentors who encourage pushing boundaries and thinking beyond trends.",
-        name: "CK Ajmal Ali",
-    },
-    {
-        id: "2",
-        quote:
-            "The hands-on projects and critique sessions changed how I see design. I left with a portfolio I was proud to show and clarity on where I want to grow next.",
-        name: "Student name",
-    },
-    {
-        id: "3",
-        quote:
-            "Between studio time and mentor feedback, it never felt theoretical. Every week pushed my craft forward in a way online tutorials never did.",
-        name: "Student name",
-    },
-];
 
 type StackOrder = [number, number, number];
 const INITIAL_ORDER: StackOrder = [0, 1, 2];
@@ -329,7 +309,7 @@ function DesktopCardStack({
 
                 return (
                     <motion.div
-                        key={item.id}
+                        key={itemIndex}
                         animate={isDeparting ? {
                             // Target the back-slot geometry via spring (same as normal)
                             width: L.w, height: L.h,
@@ -528,7 +508,7 @@ function MobileCardStack({
 
                 return (
                     <motion.div
-                        key={item.id}
+                        key={itemIndex}
                         animate={isDeparting ? {
                             top: L.top, left: L.left, right: L.right, bottom: L.bottom,
                             rotate: L.rotate,
@@ -656,10 +636,9 @@ function MobileCardStack({
 
 // ── Main section ─────────────────────────────────────────────────────────────
 
-type DeckFrames = { prev: StackOrder; current: StackOrder };
-
 export function DesignTestimonialsSection() {
-    const [items, setItems] = useState<Testimonial[]>([]);
+    const [allItems, setAllItems] = useState<Testimonial[]>([]);
+    const [frontIndex, setFrontIndex] = useState(0);
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
@@ -674,44 +653,46 @@ export function DesignTestimonialsSection() {
                         name: t.name,
                     })
                 ) as Testimonial[];
-                if (raw.length > 0) {
-                    // Stack requires exactly 3 items; pad with fallback if fewer
-                    const padded = [...raw];
-                    while (padded.length < 3) padded.push(FALLBACK_ITEMS[padded.length % FALLBACK_ITEMS.length]);
-                    setItems(padded.slice(0, 3));
-                }
+                setAllItems(raw);
                 setLoaded(true);
             })
             .catch(() => setLoaded(true));
     }, []);
 
     const reducedMotion = useReducedMotion() ?? false;
-    const [deck, setDeck] = useState<DeckFrames>(() => ({
-        prev: INITIAL_ORDER,
-        current: INITIAL_ORDER,
-    }));
     const [direction, setDirection] = useState<1 | -1>(1);
 
-    const order = deck.current;
-    const prevOrder = deck.prev;
+    const N = allItems.length;
 
-    const frontItem = items[order[0]];
+    // Always derive exactly 3 display items by cycling through allItems
+    const displayItems: Testimonial[] = N > 0 ? [
+        allItems[frontIndex % N],
+        allItems[(frontIndex + 1) % N],
+        allItems[(frontIndex + 2) % N],
+    ] : [];
+
+    // StackOrder stays fixed — position is determined by displayItems window, not deck rotation
+    const order = INITIAL_ORDER;
+    const prevOrder = INITIAL_ORDER;
+
+    const frontItem = displayItems[0];
 
     const testimonialsRegionLabel = useMemo(
-        () => `Testimonials. Top card: ${items[order[0]]?.name ?? ""}.`,
-        [order, items]
+        () => `Testimonials. Top card: ${displayItems[0]?.name ?? ""}.`,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [displayItems[0]?.name]
     );
 
     const next = useCallback(() => {
         setDirection(1);
-        setDeck(({ current }) => ({ prev: current, current: rotateDeckForward(current) }));
-    }, []);
+        setFrontIndex(i => (i + 1) % (N || 1));
+    }, [N]);
     const prevCb = useCallback(() => {
         setDirection(-1);
-        setDeck(({ current }) => ({ prev: current, current: rotateDeckBackward(current) }));
-    }, []);
+        setFrontIndex(i => (i - 1 + (N || 1)) % (N || 1));
+    }, [N]);
 
-    if (!loaded || items.length === 0) return null;
+    if (!loaded || allItems.length === 0) return null;
 
     return (
         <section
@@ -751,7 +732,7 @@ export function DesignTestimonialsSection() {
                                 direction={direction}
                                 onPrev={prevCb}
                                 onNext={next}
-                                items={items}
+                                items={displayItems}
                             />
                         </div>
                         <div className="hidden lg:block">
@@ -763,7 +744,7 @@ export function DesignTestimonialsSection() {
                                 direction={direction}
                                 onPrev={prevCb}
                                 onNext={next}
-                                items={items}
+                                items={displayItems}
                             />
                         </div>
                     </div>

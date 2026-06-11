@@ -116,8 +116,8 @@ export function MarketingTestimonialsSection() {
                     </h2>
                 </header>
 
-                <div className="relative flex w-full min-w-0 flex-1 flex-col items-center justify-center">
-                    <div className="relative mx-auto w-full max-w-[min(100%,940px)] pt-[clamp(26px,3.2vw,36px)]">
+                <div className="relative flex w-full min-w-0 flex-1 flex-col items-center justify-center lg:justify-end lg:pb-6">
+                    <div className="relative mx-auto w-full max-w-[min(100%,940px)] pt-[clamp(26px,3.2vw,36px)] lg:max-w-[800px] lg:mt-6">
                         {/* Quote mark — bg matches section so it "cuts" the card border */}
                         <motion.div
                             className="pointer-events-none absolute left-[clamp(18px,2.6vw,30px)] top-[calc(clamp(26px,3.2vw,36px)-6px)] z-10 -translate-y-[80%] px-2"
@@ -142,7 +142,7 @@ export function MarketingTestimonialsSection() {
                                 rounded-[20px] bg-transparent
                                 px-[clamp(16px,2.2vw,20px)] pb-[clamp(16px,2.2vw,20px)] pt-[clamp(20px,2.8vw,30px)]
                                 gap-[clamp(16px,2.4vw,26px)]
-                                lg:h-[312px] lg:w-[940px] lg:px-[20px] lg:pb-[20px] lg:pt-[30px] lg:gap-[26px]
+                                lg:h-[270px] lg:w-[800px] lg:px-[20px] lg:pb-[20px] lg:pt-[26px] lg:gap-[22px]
                             "
                             style={{ border: "1px solid", borderColor: "var(--tf-border, #000000)", transition: `border-color ${COLOR_TRANSITION}` }}
                         >
@@ -150,7 +150,7 @@ export function MarketingTestimonialsSection() {
                                 className="
                                     m-0 text-left font-['Satoshi',sans-serif] font-medium tracking-normal text-[clamp(14px,1.8vw,18px)]
                                     leading-[1.45]
-                                    lg:h-[169px] lg:w-[900px] lg:text-[24px] lg:leading-[1]
+                                    lg:h-[132px] lg:w-[min(100%,720px)] lg:text-[20px] lg:leading-[1.35]
                                     overflow-hidden
                                 "
                                 style={{ color: "var(--tf-text, #000000)", transition: `color ${COLOR_TRANSITION}` }}

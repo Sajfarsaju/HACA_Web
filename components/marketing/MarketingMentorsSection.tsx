@@ -12,18 +12,12 @@ type Mentor = {
     imageSrc: string
 }
 
-const FALLBACK_MENTORS: Mentor[] = [
-    { name: "Hima", role: "Google Ads Mentor", imageSrc: "/photos/schools/marketing/mentors/hima.svg" },
-    { name: "Arshad", role: "Business Development Mentor", imageSrc: "/photos/schools/marketing/mentors/arshad.svg" },
-    { name: "Jawadha", role: "Social Media Marketing Mentor", imageSrc: "/photos/schools/marketing/mentors/jawadha.svg" },
-    { name: "Minhaj", role: "Creative Strategy Mentor", imageSrc: "/photos/schools/marketing/mentors/minhaj.svg" },
-]
 
 function MentorCard({ mentor }: { mentor: Mentor }) {
     return (
-        <article className="mx-0 flex w-[343px] max-w-[343px] flex-col gap-[10px] max-lg:h-auto sm:mx-auto sm:w-full sm:max-w-[343px] lg:h-auto lg:max-w-[308px]">
+        <article className="flex w-[clamp(220px,22vw,300px)] flex-shrink-0 flex-col gap-[10px]">
             <div
-                className="relative w-full overflow-hidden aspect-[308/340] rounded-[16.7px] lg:rounded-[15px]"
+                className="relative w-full overflow-hidden aspect-[308/340] rounded-[15px]"
                 style={{ backgroundColor: CARD_BG }}
             >
                 <Image
@@ -31,7 +25,7 @@ function MentorCard({ mentor }: { mentor: Mentor }) {
                     alt={`${mentor.name}, ${mentor.role}`}
                     fill
                     className="object-contain object-bottom"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    sizes="300px"
                 />
             </div>
             <div className="flex min-h-0 flex-col gap-1 text-left">
@@ -39,12 +33,12 @@ function MentorCard({ mentor }: { mentor: Mentor }) {
                     className="
                         m-0 font-bold tracking-normal
                         [font-family:'Darker_Grotesque',sans-serif]
-                        text-[clamp(1.25rem,2.6vw,1.5rem)] leading-[1.05]
+                        text-[clamp(1.1rem,1.8vw,1.4rem)] leading-[1.05]
                     "
                 >
                     {mentor.name}
                 </h3>
-                <p className="m-0 font-['Satoshi',sans-serif] text-[clamp(13px,1.4vw,15px)] font-bold leading-snug text-[#6B6B6B]">
+                <p className="m-0 font-['Satoshi',sans-serif] text-[clamp(12px,1.1vw,14px)] font-bold leading-snug text-[#6B6B6B]">
                     {mentor.role}
                 </p>
             </div>
@@ -52,13 +46,10 @@ function MentorCard({ mentor }: { mentor: Mentor }) {
     )
 }
 
-const MOBILE_MAX = 639
 const IDLE_RESUME_MS = 1600
-/** ~72s feel for a wide track; scales with content width */
-const AUTO_SCROLL_PX_PER_SEC = 14
+const AUTO_SCROLL_PX_PER_SEC = 40
 
-function MarketingMentorsMobileMarquee({ mentors }: { mentors: Mentor[] }) {
-    const MENTORS = mentors
+function MentorMarquee({ mentors }: { mentors: Mentor[] }) {
     const scrollerRef = useRef<HTMLDivElement>(null)
     const pausedByUserRef = useRef(false)
     const rafRef = useRef<number>(0)
@@ -70,11 +61,8 @@ function MarketingMentorsMobileMarquee({ mentors }: { mentors: Mentor[] }) {
         if (!el) return
 
         const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)")
-        const mqMobile = window.matchMedia(`(max-width: ${MOBILE_MAX}px)`)
 
-        /** Logical scroll in [0, loop half); survives rounding & async scroll events */
         let pos = el.scrollLeft
-        /** Last scrollLeft we applied — scroll events that match this are ours, not the user */
         let expectedScrollLeft = el.scrollLeft
         const TOLERANCE_PX = 4
 
@@ -131,7 +119,7 @@ function MarketingMentorsMobileMarquee({ mentors }: { mentors: Mentor[] }) {
         }
 
         const tick = (ts: number) => {
-            if (!mqMobile.matches || mqReduce.matches) {
+            if (mqReduce.matches) {
                 rafRef.current = requestAnimationFrame(tick)
                 return
             }
@@ -140,9 +128,7 @@ function MarketingMentorsMobileMarquee({ mentors }: { mentors: Mentor[] }) {
             lastTsRef.current = ts
             const dt = last == null ? 0 : Math.min((ts - last) / 1000, 0.05)
 
-            if (!pausedByUserRef.current && dt > 0) {
-                driveScroll(dt)
-            }
+            if (!pausedByUserRef.current && dt > 0) driveScroll(dt)
 
             rafRef.current = requestAnimationFrame(tick)
         }
@@ -157,7 +143,6 @@ function MarketingMentorsMobileMarquee({ mentors }: { mentors: Mentor[] }) {
 
         el.addEventListener("scroll", onScroll, { passive: true })
         el.addEventListener("wheel", onWheel, { passive: true })
-
         rafRef.current = requestAnimationFrame(tick)
 
         const onReduceChange = () => {
@@ -177,22 +162,13 @@ function MarketingMentorsMobileMarquee({ mentors }: { mentors: Mentor[] }) {
     return (
         <div
             ref={scrollerRef}
-            className="
-                sm:hidden w-full min-w-0 overflow-y-hidden overflow-x-scroll
-                [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-                motion-reduce:overflow-x-auto motion-reduce:[-ms-overflow-style:none] motion-reduce:[scrollbar-width:none] motion-reduce:[&::-webkit-scrollbar]:hidden
-            "
+            className="w-full min-w-0 overflow-y-hidden overflow-x-scroll [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             aria-label="Mentors"
-            style={{
-                touchAction: "pan-x",
-                WebkitOverflowScrolling: "touch",
-            }}
+            style={{ touchAction: "pan-x", WebkitOverflowScrolling: "touch" }}
         >
             <div className="flex w-max flex-row items-stretch gap-6">
-                {[...MENTORS, ...MENTORS].map((mentor, idx) => (
-                    <div key={`${mentor.name}-${idx}`} className="min-w-0 flex-none">
-                        <MentorCard mentor={mentor} />
-                    </div>
+                {[...mentors, ...mentors].map((mentor, idx) => (
+                    <MentorCard key={`${mentor.name}-${idx}`} mentor={mentor} />
                 ))}
             </div>
         </div>
@@ -264,24 +240,7 @@ export function MarketingMentorsSection() {
                     </h2>
                 </header>
 
-                {/* Mobile: auto-scroll + manual swipe; pauses while user scrolls, resumes after idle */}
-                <MarketingMentorsMobileMarquee mentors={MENTORS} />
-
-                {/* sm+: grid (unchanged) */}
-                <ul
-                    className="
-                        hidden sm:grid m-0 w-full list-none p-0
-                        sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10
-                        lg:grid-cols-3 lg:gap-x-8 lg:gap-y-10
-                        xl:grid-cols-4
-                    "
-                >
-                    {MENTORS.map((mentor) => (
-                        <li key={mentor.name} className="min-w-0">
-                            <MentorCard mentor={mentor} />
-                        </li>
-                    ))}
-                </ul>
+                <MentorMarquee mentors={MENTORS} />
             </div>
 
         </section>

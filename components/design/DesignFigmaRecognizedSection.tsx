@@ -2,14 +2,13 @@
 
 import Image from "next/image";
 import { ALT } from "@/lib/image-alt-text";
-import { useEffect, useState } from "react";
 
-const BLOCK_IMAGES = [
+const BLOCK_IMAGES: string[] = [
     "/photos/schools/design/Blocks.svg",
     "/photos/schools/design/Blocks%20(1).svg",
     "/photos/schools/design/Blocks%20(2).svg",
     "/photos/schools/design/Blocks%20(3).svg",
-] as const;
+];
 
 const FIGMA_ICON = "/photos/schools/design/skill-icons_figma-dark.svg";
 const POINTER_ICON = "/photos/schools/design/lsicon_pointer-filled.svg";
@@ -24,58 +23,7 @@ const CORNER_SQUARES = {
     br: "#0ACF83",
 } as const;
 
-// Two-layer (A/B) state per tile — enables flash-free crossfade
-type TileState = {
-    layers: [string, string];
-    active: 0 | 1;
-};
-
-function shuffleDifferent(srcs: string[]): string[] {
-    const next = [...srcs];
-    for (let i = next.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [next[i], next[j]] = [next[j], next[i]];
-    }
-    return next.every((v, i) => v === srcs[i])
-        ? [srcs[1], srcs[2], srcs[3], srcs[0]]
-        : next;
-}
-
-// Stagger delay (ms) per tile index for a premium cascading feel
-const TILE_DELAY = [0, 120, 60, 180] as const;
-
 export function DesignFigmaRecognizedSection() {
-    const prefersReducedMotion = usePrefersReducedMotion();
-
-    const [tiles, setTiles] = useState<TileState[]>(() =>
-        BLOCK_IMAGES.map((src) => ({
-            layers: [src, src] as [string, string],
-            active: 0 as 0 | 1,
-        }))
-    );
-
-    useEffect(() => {
-        if (prefersReducedMotion) return;
-
-        const INTERVAL_MS = 4500;
-
-        const doShuffle = () => {
-            setTiles((prev) => {
-                const currentSrcs = prev.map((t) => t.layers[t.active]);
-                const newSrcs = shuffleDifferent(currentSrcs);
-                return prev.map((tile, i) => {
-                    if (newSrcs[i] === tile.layers[tile.active]) return tile;
-                    const next = (1 - tile.active) as 0 | 1;
-                    const layers = [...tile.layers] as [string, string];
-                    layers[next] = newSrcs[i];
-                    return { layers, active: next };
-                });
-            });
-        };
-
-        const id = setInterval(doShuffle, INTERVAL_MS);
-        return () => clearInterval(id);
-    }, [prefersReducedMotion]);
 
     return (
         <section
@@ -98,7 +46,7 @@ export function DesignFigmaRecognizedSection() {
                         lg:mx-0 lg:aspect-auto lg:h-[504.2643127441406px] lg:w-[504.2643127441406px] lg:max-w-none
                     "
                 >
-                    {tiles.map((tile, idx) => (
+                    {BLOCK_IMAGES.map((src, idx) => (
                         <div
                             key={idx}
                             className={[
@@ -109,21 +57,13 @@ export function DesignFigmaRecognizedSection() {
                                 .filter(Boolean)
                                 .join(" ")}
                         >
-                            {([0, 1] as const).map((layerIdx) => (
-                                <Image
-                                    key={layerIdx}
-                                    src={tile.layers[layerIdx]}
-                                    alt={ALT.figmaShowcase}
-                                    fill
-                                    className="object-cover object-center"
-                                    style={{
-                                        opacity: tile.active === layerIdx ? 1 : 0,
-                                        transition: "opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)",
-                                        transitionDelay: `${TILE_DELAY[idx]}ms`,
-                                    }}
-                                    sizes="(min-width: 1024px) 252px, 50vw"
-                                />
-                            ))}
+                            <Image
+                                src={src}
+                                alt={ALT.figmaShowcase}
+                                fill
+                                className="object-cover object-center"
+                                sizes="(min-width: 1024px) 252px, 50vw"
+                            />
                         </div>
                     ))}
                 </div>
@@ -263,16 +203,3 @@ function Corners({ size }: { size: number }) {
     );
 }
 
-function usePrefersReducedMotion() {
-    const [reduced, setReduced] = useState(false);
-
-    useEffect(() => {
-        const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const onChange = () => setReduced(mq.matches);
-        onChange();
-        mq.addEventListener?.("change", onChange);
-        return () => mq.removeEventListener?.("change", onChange);
-    }, []);
-
-    return reduced;
-}

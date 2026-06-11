@@ -553,7 +553,7 @@ export default function TechHero() {
                     >
                         {/* Stat 1 */}
                         <div className="flex items-center gap-[12px] relative opacity-100 rotate-0 w-auto h-[50px]">
-                            <CountUp target={200} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={false} startAnimation={statsVisible} />
+                            <CountUp target={500} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={false} startAnimation={statsVisible} />
                             <span className="flex flex-col justify-center font-outfit font-normal text-[18px] leading-[1.1] tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-left">
                                 <span>Students</span>
                                 <span>Learned</span>
@@ -760,7 +760,7 @@ export default function TechHero() {
                         >
                             <div className="w-[235px] h-[134px] flex flex-col gap-[10px]">
                                 <div className="w-full h-[38px] flex gap-[14px] items-center justify-center opacity-100 rotate-0">
-                                    <CountUp target={200} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
+                                    <CountUp target={500} suffix="+" desktopW={96} desktopH={50} desktopFs={40} mobileW={72} mobileH={38} mobileFs={30} isMobile={true} startAnimation={statsVisible} />
                                     <span className="flex items-center h-[23px] font-outfit font-normal text-[18px] leading-none tracking-[-0.2px] text-[#F7F7F7] opacity-100 text-center whitespace-nowrap">Students Learned</span>
                                 </div>
                                 <div className="w-full h-[38px] flex gap-[14px] items-center justify-center opacity-100 rotate-0">

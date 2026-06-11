@@ -251,10 +251,12 @@ export function TechCulture() {
                     <motion.div variants={item} className="flex gap-[6px] w-full" style={{ aspectRatio: "343/140" }}>
                         <BentoCell
                             label="Culture Photo D"
+                            imgSrc={src(3)}
                             style={{ flex: "138 0 0%", borderRadius: "9.83px" }}
                         />
                         <BentoCell
                             label="Culture Photo E"
+                            imgSrc={src(4)}
                             style={{ flex: "199 0 0%", borderRadius: "6.69px" }}
                         />
                     </motion.div>
@@ -263,10 +265,12 @@ export function TechCulture() {
                     <motion.div variants={item} className="flex gap-[6px] w-full" style={{ aspectRatio: "343/130" }}>
                         <BentoCell
                             label="Culture Photo H"
+                            imgSrc={src(7)}
                             style={{ flex: "168 0 0%", borderRadius: "5.93px" }}
                         />
                         <BentoCell
                             label="Culture Photo I"
+                            imgSrc={src(8)}
                             style={{ flex: "169 0 0%", borderRadius: "5.93px" }}
                         />
                     </motion.div>

@@ -1,72 +1,66 @@
 "use client"
 
 import Image from "next/image"
+import { useEffect, useState, type ReactNode } from "react"
 import { motion, type TargetAndTransition } from "framer-motion"
 
 import { DesignSplitArrowCta } from "./DesignSplitArrowCta"
 import { ENQUIRE_URL } from "@/lib/enquire"
 
-// ── Timing matches DesignWhyCreativitySection exactly ─────────────────────────
-const ANIM_DUR  = 0.7
-const COOLDOWN  = 1
-const N_DECOS   = 4
-const RPT_DELAY = (N_DECOS - 1) * ANIM_DUR + COOLDOWN   // 3.1 s
+// ── Sequential timing ─────────────────────────────────────────────────────────
+const ANIM_DUR  = 1.0   // each effect plays for 1 s
+const SEQ_GAP   = 0.5   // pause between each icon's trigger
+const COOLDOWN  = 2.5   // rest after all 4 before the loop restarts
 
-const decoDelay = (idx: number) =>
-    idx === 0 ? 0 : COOLDOWN + idx * ANIM_DUR
+// total cycle = 4×ANIM_DUR + 3×SEQ_GAP + COOLDOWN = 8 s
+// repeatDelay  = cycle − ANIM_DUR = 7 s  (so the next fire aligns perfectly)
+const RPT_DELAY = 3 * (ANIM_DUR + SEQ_GAP) + COOLDOWN   // 7.0 s
+const seqDelay  = (idx: number) => idx * (ANIM_DUR + SEQ_GAP)
 
-// ── Per-decoration animations ─────────────────────────────────────────────────
-// 0 – Concepts  : color shift (hue-rotate)
-// 1 – Tools     : fill + stroke (scale + saturate + hue)
-// 2 – Talent    : color shift (opposite hue direction)
-// 3 – End       : rotate 180° and back
+const EASE_SPRING = [0.22, 1, 0.36, 1] as [number, number, number, number]
+
+// ── Per-decoration animations — one-by-one sequential ────────────────────────
+// 0 – Concepts  : opacity fade out & in  (ghostly, elegant)
+// 1 – Tools     : scale enlarge then shrink back  (feels alive, elastic)
+// 2 – Talent    : handled by ColorCyclingDeco (state-driven, no flash-back)
+// 3 – End       : full 360° smooth spin  (satisfying, polished)
 const DECO_ANIM: Array<{ animate: TargetAndTransition; transition: object }> = [
     {
-        animate: {
-            filter: ["brightness(1)", "brightness(0)", "brightness(1)"],
-        },
+        animate: { opacity: [1, 0.08, 1] },
         transition: {
             duration: ANIM_DUR, ease: "easeInOut",
-            repeat: Infinity, repeatDelay: RPT_DELAY, delay: decoDelay(0),
+            repeat: Infinity, repeatDelay: RPT_DELAY, delay: seqDelay(0),
         },
     },
     {
-        animate: {
-            filter: [
-                "hue-rotate(0deg) saturate(1)",
-                "hue-rotate(140deg) saturate(4)",
-                "hue-rotate(0deg) saturate(1)",
-            ],
-        },
+        animate: { scale: [1, 1.22, 1] },
         transition: {
-            duration: ANIM_DUR, ease: "easeInOut",
-            repeat: Infinity, repeatDelay: RPT_DELAY, delay: decoDelay(1),
+            duration: ANIM_DUR, ease: EASE_SPRING,
+            repeat: Infinity, repeatDelay: RPT_DELAY, delay: seqDelay(1),
         },
     },
+    { animate: {}, transition: {} }, // placeholder — slot 2 uses ColorCyclingDeco
     {
-        animate: {
-            filter: [
-                "hue-rotate(0deg) brightness(1)",
-                "hue-rotate(-140deg) brightness(1.2)",
-                "hue-rotate(0deg) brightness(1)",
-            ],
-        },
+        animate: { rotate: [0, 360] },
         transition: {
-            duration: ANIM_DUR, ease: "easeInOut",
-            repeat: Infinity, repeatDelay: RPT_DELAY, delay: decoDelay(2),
-        },
-    },
-    {
-        animate: {
-            scaleX: [1, -1, -1, 1],
-        },
-        transition: {
-            duration: ANIM_DUR, ease: "easeInOut",
-            times: [0, 0.42, 0.58, 1],
-            repeat: Infinity, repeatDelay: RPT_DELAY, delay: decoDelay(3),
+            duration: ANIM_DUR, ease: EASE_SPRING,
+            repeat: Infinity, repeatDelay: RPT_DELAY, delay: seqDelay(3),
         },
     },
 ]
+
+// ── Color-cycling constants ───────────────────────────────────────────────────
+// One new hue per full cycle; no flash-back to original within the same lap
+const TALENT_FILTERS = [
+    "hue-rotate(0deg) saturate(1)",
+    "hue-rotate(60deg) saturate(2.2)",
+    "hue-rotate(150deg) saturate(2.2)",
+    "hue-rotate(220deg) saturate(2.2)",
+    "hue-rotate(280deg) saturate(2.2)",
+    "hue-rotate(330deg) saturate(2.2)",
+]
+const CYCLE_MS         = (4 * ANIM_DUR + 3 * SEQ_GAP + COOLDOWN) * 1000  // 8 000 ms
+const TALENT_START_MS  = seqDelay(2) * 1000                                // 3 000 ms
 
 export function DesignEnterCreativeZoneSection() {
     const font = '"VC Nudge Trial Normal", sans-serif'
@@ -128,6 +122,7 @@ export function DesignEnterCreativeZoneSection() {
                             decoH={desktopDecoSize}
                             gap={desktopGap}
                             decoIdx={2}
+                            decoNode={<ColorCyclingDeco decoSrc={decoTalent} wVal={desktopDecoSize} hVal={desktopDecoSize} />}
                         />
                         <span
                             className="text-[#0A0A0A] whitespace-nowrap"
@@ -196,11 +191,7 @@ export function DesignEnterCreativeZoneSection() {
                             >
                                 Talent
                             </span>
-                            <InlineDeco
-                                decoSrc={decoTalent}
-                                size={mobileDecoSize}
-                                decoIdx={2}
-                            />
+                            <ColorCyclingDeco decoSrc={decoTalent} wVal={mobileDecoSize} hVal={mobileDecoSize} />
                             <span
                                 className="text-[#0A0A0A]"
                                 style={{ fontFamily: font, fontWeight: 500, fontSize: mobileTextSize, lineHeight: "120%", letterSpacing: 0 }}
@@ -248,6 +239,41 @@ export function DesignEnterCreativeZoneSection() {
 /*  Sub-components                                             */
 /* ─────────────────────────────────────────────────────────── */
 
+function ColorCyclingDeco({ decoSrc, wVal, hVal }: { decoSrc: string; wVal: string; hVal: string }) {
+    const [idx, setIdx] = useState(0)
+
+    useEffect(() => {
+        let i = 0
+        let intervalId: ReturnType<typeof setInterval>
+
+        const timerId = setTimeout(() => {
+            i = (i + 1) % TALENT_FILTERS.length
+            setIdx(i)
+            intervalId = setInterval(() => {
+                i = (i + 1) % TALENT_FILTERS.length
+                setIdx(i)
+            }, CYCLE_MS)
+        }, TALENT_START_MS)
+
+        return () => {
+            clearTimeout(timerId)
+            clearInterval(intervalId)
+        }
+    }, [])
+
+    return (
+        <motion.span
+            className="relative shrink-0 inline-block"
+            style={{ width: wVal, height: hVal, zIndex: 10 }}
+            animate={{ filter: TALENT_FILTERS[idx] }}
+            transition={{ duration: ANIM_DUR, ease: "easeInOut" }}
+            aria-hidden="true"
+        >
+            <Image src={decoSrc} alt="" aria-hidden="true" fill className="object-contain" />
+        </motion.span>
+    )
+}
+
 function InlineDeco({
     decoSrc, w, h, size, decoIdx,
 }: {
@@ -270,11 +296,11 @@ function InlineDeco({
 }
 
 function WordWithDeco({
-    label, font, textSize, decoSrc, decoW, decoH, gap, decoIdx,
+    label, font, textSize, decoSrc, decoW, decoH, gap, decoIdx, decoNode,
 }: {
     label: string; font: string; textSize: string
     decoSrc: string; decoW: string; decoH: string; gap: string
-    decoIdx: number
+    decoIdx: number; decoNode?: ReactNode
 }) {
     const anim = DECO_ANIM[decoIdx]
     return (
@@ -285,15 +311,17 @@ function WordWithDeco({
             >
                 {label}
             </span>
-            <motion.span
-                className="relative shrink-0 inline-block"
-                style={{ width: decoW, height: decoH, zIndex: 10 }}
-                animate={anim.animate}
-                transition={anim.transition}
-                aria-hidden="true"
-            >
-                <Image src={decoSrc} alt="" aria-hidden="true" fill className="object-contain" />
-            </motion.span>
+            {decoNode ?? (
+                <motion.span
+                    className="relative shrink-0 inline-block"
+                    style={{ width: decoW, height: decoH, zIndex: 10 }}
+                    animate={anim.animate}
+                    transition={anim.transition}
+                    aria-hidden="true"
+                >
+                    <Image src={decoSrc} alt="" aria-hidden="true" fill className="object-contain" />
+                </motion.span>
+            )}
         </span>
     )
 }
