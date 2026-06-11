@@ -11,11 +11,23 @@ import type { MarketingPlacementItem } from "@/lib/marketing-placements"
 
 const ACCENT = "#0066FF"
 
+function ensureMinLength<T>(arr: T[], minLen: number): T[] {
+    if (arr.length === 0) return arr
+    let result = [...arr]
+    while (result.length < minLen) result = [...result, ...arr]
+    return result
+}
+
+function buildMarqueeRow(items: MarketingPlacementItem[], minLen = 6): MarketingPlacementItem[] {
+    const base = ensureMinLength(items, minLen)
+    return [...base, ...base]
+}
+
 function PlacementCard({ item }: { item: MarketingPlacementItem }) {
     return (
         <div
             className="
-                relative w-full min-w-0 overflow-hidden bg-[#E8F1FF] rounded-[7.88px]
+                relative w-full min-w-0 shrink-0 overflow-hidden bg-[#E8F1FF] rounded-[7.88px]
                 aspect-[243/280]
                 md:aspect-auto md:h-[240px] md:w-[208px]
                 lg:h-[279.7px] lg:w-[243.35px]
@@ -167,6 +179,10 @@ export function MarketingPlacementsSection({ items }: { items: MarketingPlacemen
         window.dispatchEvent(new CustomEvent("marketing-page-color", { detail: { isDark } }))
     }, [isDark])
 
+    const midpoint = Math.ceil(items.length / 2)
+    const marqueeRow1 = buildMarqueeRow(items.slice(0, midpoint))
+    const marqueeRow2 = buildMarqueeRow(items.slice(midpoint))
+
     return (
         <section
             ref={sectionRef}
@@ -224,24 +240,56 @@ export function MarketingPlacementsSection({ items }: { items: MarketingPlacemen
                     ))}
                 </div>
 
-                {/* md+: 2-row horizontal scroller */}
-                <div
-                    className="
-                        hidden w-full min-w-0 overflow-x-auto overflow-y-hidden md:block
-                        [scrollbar-width:none] [-ms-overflow-style:none]
-                        [&::-webkit-scrollbar]:hidden
-                    "
-                >
-                    <div className="flex w-max flex-col gap-y-5 py-2 sm:gap-y-7 lg:gap-y-8">
-                        <div className="flex w-max flex-row-reverse gap-x-4 sm:gap-x-6 lg:gap-x-8">
-                            {items.slice(0, Math.ceil(items.length / 2)).map((card) => (
-                                <PlacementCard key={card._id} item={card} />
-                            ))}
+                {/* md+: 2-row auto-scroll marquee — row 1 right, row 2 left; pause on hover */}
+                <div className="mkt-placements-marquee hidden w-full min-w-0 md:block">
+                    <style>{`
+                        @keyframes mkt-placements-marquee-right {
+                            0% { transform: translateX(-50%); }
+                            100% { transform: translateX(0); }
+                        }
+                        @keyframes mkt-placements-marquee-left {
+                            0% { transform: translateX(0); }
+                            100% { transform: translateX(-50%); }
+                        }
+                        .mkt-placements-row1-track {
+                            animation: mkt-placements-marquee-right 48s linear infinite;
+                            will-change: transform;
+                        }
+                        .mkt-placements-row2-track {
+                            animation: mkt-placements-marquee-left 52s linear infinite;
+                            will-change: transform;
+                        }
+                        .mkt-placements-row1-viewport:hover .mkt-placements-row1-track {
+                            animation-play-state: paused;
+                        }
+                        .mkt-placements-row2-viewport:hover .mkt-placements-row2-track {
+                            animation-play-state: paused;
+                        }
+                        @media (prefers-reduced-motion: reduce) {
+                            .mkt-placements-row1-track,
+                            .mkt-placements-row2-track {
+                                animation: none;
+                                transform: none;
+                            }
+                        }
+                    `}</style>
+                    <p className="sr-only">
+                        Animated showcase of student placement success stories. Cards scroll continuously; hover to pause.
+                    </p>
+                    <div className="flex w-full flex-col gap-y-5 py-2 sm:gap-y-7 lg:gap-y-8">
+                        <div className="mkt-placements-row1-viewport w-full min-w-0 overflow-hidden">
+                            <div className="mkt-placements-row1-track flex w-max flex-row gap-x-4 sm:gap-x-6 lg:gap-x-8">
+                                {marqueeRow1.map((card, i) => (
+                                    <PlacementCard key={`r1-${i}-${card._id}`} item={card} />
+                                ))}
+                            </div>
                         </div>
-                        <div className="flex w-max flex-row gap-x-4 sm:gap-x-6 lg:gap-x-8">
-                            {items.slice(Math.ceil(items.length / 2)).map((card) => (
-                                <PlacementCard key={card._id} item={card} />
-                            ))}
+                        <div className="mkt-placements-row2-viewport w-full min-w-0 overflow-hidden">
+                            <div className="mkt-placements-row2-track flex w-max flex-row gap-x-4 sm:gap-x-6 lg:gap-x-8">
+                                {marqueeRow2.map((card, i) => (
+                                    <PlacementCard key={`r2-${i}-${card._id}`} item={card} />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

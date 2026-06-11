@@ -58,6 +58,7 @@ export const COURSES_DATA: Course[] = [
             "AI Engineer"
         ]
     },
+    /*
     {
         slug: "data-science-with-gen-ai",
         title: "Data Science with Gen AI",
@@ -65,7 +66,7 @@ export const COURSES_DATA: Course[] = [
         titleLine2: "Gen AI",
         duration: "5 Months + 1 Month Project",
         mode: "Online / Offline",
-        description: "This course teaches you how data science and AI work together. You'll start from the basics and slowly learn how computers analyse data and make predictions. \nYou'll work on real data, build smart models, and learn how Generative AI is used in real applications today. By the end of the course, you'll complete a major project that shows your skills clearly.",
+        description: "This course teaches you how data science and AI work together. You’ll start from the basics and slowly learn how computers analyse data and make predictions. \nYou’ll work on real data, build smart models, and learn how Generative AI is used in real applications today. By the end of the course, you’ll complete a major project that shows your skills clearly.",
         label: "Flagship Program",
         labelImage: "/photos/Tech/Frame 1984078075 (1).svg",
         learnItems: [
@@ -110,6 +111,7 @@ export const COURSES_DATA: Course[] = [
             "Automation Consultant"
         ]
     },
+    */
     {
         slug: "dashboard-mastery-power-bi-excel",
         title: "Dashboard Mastery in Power BI + Excel Course",
@@ -136,6 +138,7 @@ export const COURSES_DATA: Course[] = [
             "Business Analyst (Entry Level)"
         ]
     },
+    /*
     {
         slug: "applied-ai-for-beginners",
         title: "Applied AI for Beginners",
@@ -160,4 +163,5 @@ export const COURSES_DATA: Course[] = [
             "AI Operations Assistant"
         ]
     }
+    */
 ];

@@ -13,6 +13,8 @@ type Slide = {
     image: string | null;
 };
 
+const MOBILE_TEXT_LIMIT  = 150;
+const DESKTOP_TEXT_LIMIT = 280;
 
 // ── Premium card variants — whole card animates as one unit ─────────────────
 const cardVariants = {
@@ -59,6 +61,111 @@ function ArrowBtn({ onClick, disabled, label, isPrev }: {
     );
 }
 
+// ── Read More text — expands in place, card stays fixed height (scrollable) ──
+function ReadMoreText({ text, limit, textStyle }: {
+    text: string;
+    limit: number;
+    textStyle?: React.CSSProperties;
+}) {
+    const [expanded, setExpanded] = useState(false);
+    const isLong = text.length > limit;
+    const displayed = !isLong || expanded ? text : text.slice(0, limit).trimEnd() + "…";
+
+    return (
+        <div>
+            <p style={{ margin: 0, ...textStyle }}>{displayed}</p>
+            {isLong && (
+                <button
+                    type="button"
+                    onClick={() => setExpanded(e => !e)}
+                    style={{
+                        background: "none",
+                        border: "none",
+                        padding: 0,
+                        marginTop: "8px",
+                        cursor: "pointer",
+                        fontFamily: "var(--font-outfit)",
+                        fontSize: textStyle?.fontSize ?? "14px",
+                        fontWeight: 500,
+                        color: "#A78BFA",
+                        display: "inline-block",
+                    }}
+                >
+                    {expanded ? "Read less" : "Read more"}
+                </button>
+            )}
+        </div>
+    );
+}
+
+// ── Letter avatar (shared fallback) ─────────────────────────────────────────
+function LetterAvatar({ name, size, fontSize }: { name: string; size: number; fontSize: number }) {
+    const letter = name.trim().charAt(0).toUpperCase();
+    return (
+        <div
+            className="flex items-center justify-center font-semibold text-white shrink-0"
+            style={{
+                width: size,
+                height: size,
+                borderRadius: "50%",
+                background: "linear-gradient(135deg, #FF5600 0%, #694AFF 100%)",
+                fontFamily: "var(--font-outfit)",
+                fontSize,
+            }}
+            aria-label={name}
+        >
+            {letter}
+        </div>
+    );
+}
+
+// ── Mobile avatar (40px) with image + letter fallback ───────────────────────
+function MobileAvatar({ slide }: { slide: Slide }) {
+    const [error, setError] = useState(false);
+
+    if (!slide.image || error) {
+        return <LetterAvatar name={slide.name} size={40} fontSize={16} />;
+    }
+    return (
+        <div className="w-[40px] h-[40px] rounded-full overflow-hidden relative shrink-0">
+            <Image
+                src={slide.image}
+                alt={slide.name}
+                fill
+                className="object-cover"
+                onError={() => setError(true)}
+            />
+        </div>
+    );
+}
+
+// ── Desktop person card content with image + letter fallback ─────────────────
+function PersonCard({ slide }: { slide: Slide }) {
+    const [error, setError] = useState(false);
+    const showFallback = !slide.image || error;
+
+    return (
+        <>
+            {!showFallback && (
+                <Image
+                    src={slide.image!}
+                    alt={slide.name}
+                    fill
+                    className="object-cover"
+                    onError={() => setError(true)}
+                />
+            )}
+            {showFallback && (
+                <div className="flex flex-col items-center gap-3 z-10">
+                    <LetterAvatar name={slide.name} size={72} fontSize={28} />
+                    <span className="font-outfit text-white text-[15px] font-medium text-center px-3">{slide.name}</span>
+                    <span className="font-outfit text-[#A7A7A7] text-[13px] text-center px-3">{slide.subtitle}</span>
+                </div>
+            )}
+        </>
+    );
+}
+
 // ── TechBlogs ───────────────────────────────────────────────────────────────
 export function TechBlogs() {
     const [slides, setSlides] = useState<Slide[]>([]);
@@ -93,8 +200,6 @@ export function TechBlogs() {
 
     const prev = useCallback(() => { if (index > 0)                      goTo(index - 1, -1); }, [index, goTo]);
     const next = useCallback(() => { if (index < slides.length - 1)      goTo(index + 1,  1); }, [index, slides.length, goTo]);
-
-    // Manual navigation only (no auto-advance)
 
     if (!loaded || slides.length === 0) return null;
 
@@ -141,7 +246,7 @@ export function TechBlogs() {
                 </div>
 
                 {/* ── Center: animated whole card ── */}
-                <div className="relative max-lg:w-full max-lg:flex max-lg:flex-col max-lg:items-center max-lg:gap-[20px] min-w-0">
+                <div className="relative max-lg:w-full max-lg:flex max-lg:flex-col max-lg:items-center max-lg:gap-[20px] min-w-0 lg:shrink-0 lg:w-[clamp(360px,32vw,447px)]">
 
                     {/* Background Gradient — static, not animated */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none w-[250%] max-w-[1400px] aspect-[1/1] min-w-[800px] opacity-90">
@@ -157,7 +262,8 @@ export function TechBlogs() {
                             animate="center"
                             exit="exit"
                             transition={enterTransition}
-                            className="w-full max-w-[343px] h-[369.16px] rounded-[17.57px] lg:w-full lg:max-w-[clamp(360px,32vw,447px)] lg:h-auto lg:aspect-[447.75/485] lg:rounded-[22px] relative z-10"
+                            /* ── Fixed heights — card never grows; inner text scrolls ── */
+                            className="w-full max-w-[343px] h-[369.16px] rounded-[17.57px] lg:w-full lg:max-w-[clamp(360px,32vw,447px)] lg:h-[clamp(390px,34.7vw,485px)] lg:rounded-[22px] lg:shrink-0 relative z-10"
                             style={{
                                 background: "rgba(255, 255, 255, 0.08)",
                                 boxShadow: "0px 4px 4px 0px #00000040",
@@ -183,34 +289,61 @@ export function TechBlogs() {
                                 style={{
                                     position: "absolute", inset: 0,
                                     background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 100%)",
-                                    zIndex: -1,
+                                    zIndex: 1,
+                                    pointerEvents: "none",
                                 }}
                             />
 
                             {/* Quote icon */}
-                            <div style={{ position: "absolute", top: "8%", left: "9%", zIndex: 6 }}>
+                            <div style={{ position: "absolute", top: "8%", left: "9%", zIndex: 6, pointerEvents: "none" }}>
                                 <Image src="/photos/schools/tech/blogQuote.svg" alt="quote" width={48} height={48} />
                             </div>
 
-                            {/* Desktop text */}
-                            <div className="hidden lg:flex w-[85%] mx-auto h-full items-center justify-center">
-                                <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "150%", color: "#FFFFFF" }}>
-                                    {slide.text}
-                                </p>
+                            {/* ── Desktop: scrollable text fills card ── */}
+                            <div
+                                className="hidden lg:flex flex-col relative z-[2] h-full w-full"
+                                style={{ paddingTop: "80px", paddingBottom: "36px" }}
+                            >
+                                <div
+                                    className="w-[85%] mx-auto flex-1 overflow-y-auto"
+                                    style={{
+                                        scrollbarWidth: "thin",
+                                        scrollbarColor: "rgba(167,139,250,0.3) transparent",
+                                    }}
+                                >
+                                    <ReadMoreText
+                                        key={`desktop-text-${index}`}
+                                        text={slide.text}
+                                        limit={DESKTOP_TEXT_LIMIT}
+                                        textStyle={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "150%", color: "#FFFFFF" }}
+                                    />
+                                </div>
                             </div>
 
-                            {/* Mobile layout */}
+                            {/* ── Mobile: text scrolls, avatar pinned to bottom ── */}
                             <div
                                 className="lg:hidden absolute inset-0 flex flex-col px-[8%]"
-                                style={{ paddingTop: "88px", paddingBottom: "16px", justifyContent: "space-between" }}
+                                style={{ paddingTop: "88px", paddingBottom: "16px" }}
                             >
-                                <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: "14px", lineHeight: "150%", color: "#FFFFFF" }}>
-                                    {slide.text}
-                                </p>
-                                <div className="flex items-center shrink-0" style={{ gap: "10px", marginTop: "10px" }}>
-                                    <div className="w-[40px] h-[40px] rounded-full overflow-hidden relative shrink-0 bg-white/10">
-                                        {slide.image && <Image src={slide.image} alt={slide.name} fill className="object-cover" />}
-                                    </div>
+                                {/* Scrollable text area */}
+                                <div
+                                    className="flex-1 overflow-y-auto"
+                                    style={{
+                                        scrollbarWidth: "thin",
+                                        scrollbarColor: "rgba(167,139,250,0.3) transparent",
+                                    }}
+                                >
+                                    <ReadMoreText
+                                        key={`mobile-text-${index}`}
+                                        text={slide.text}
+                                        limit={MOBILE_TEXT_LIMIT}
+                                        textStyle={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: "14px", lineHeight: "150%", color: "#FFFFFF" }}
+                                    />
+                                </div>
+
+                                {/* Avatar — always visible at the bottom */}
+                                <div className="flex items-center shrink-0 mt-[10px]" style={{ gap: "10px" }}>
+                                    <MobileAvatar key={`mob-avatar-${index}`} slide={slide} />
                                     <div className="flex flex-col justify-center gap-1">
                                         <span className="font-outfit text-white text-[14px] leading-none font-medium">{slide.name}</span>
                                         <span className="font-outfit text-[#A7A7A7] text-[12px] leading-none">{slide.subtitle}</span>
@@ -237,7 +370,7 @@ export function TechBlogs() {
                         animate="center"
                         exit="exit"
                         transition={exitTransition}
-                        className="hidden lg:flex w-full max-w-[clamp(220px,22vw,309px)] items-center justify-center min-w-0 relative flex-col gap-4"
+                        className="hidden lg:flex w-full max-w-[clamp(220px,22vw,309px)] shrink-0 items-center justify-center min-w-0 relative flex-col gap-4"
                         style={{
                             aspectRatio: "309 / 318",
                             background: "rgba(255, 255, 255, 0.03)",
@@ -246,15 +379,7 @@ export function TechBlogs() {
                             overflow: "hidden",
                         }}
                     >
-                        {slide.image ? (
-                            <Image src={slide.image} alt={slide.name} fill className="object-cover" />
-                        ) : (
-                            <div className="flex flex-col items-center gap-2">
-                                <div className="w-[64px] h-[64px] rounded-full bg-white/10" />
-                                <span className="font-outfit text-white text-[15px] font-medium">{slide.name}</span>
-                                <span className="font-outfit text-[#A7A7A7] text-[13px]">{slide.subtitle}</span>
-                            </div>
-                        )}
+                        <PersonCard key={`person-card-${index}`} slide={slide} />
                     </motion.div>
                 </AnimatePresence>
             </div>
