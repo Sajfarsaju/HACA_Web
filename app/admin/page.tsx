@@ -9,6 +9,7 @@ import { CultureAdminSection } from "@/components/admin/CultureAdminSection";
 import { FounderVideosAdminSection } from "@/components/admin/FounderVideosAdminSection";
 import { MarketingCareerWinsAdminSection } from "@/components/admin/MarketingCareerWinsAdminSection";
 import { TestimonialsAdminSection } from "@/components/admin/TestimonialsAdminSection";
+import { WebinarsAdminSection } from "@/components/admin/WebinarsAdminSection";
 import {
   PLACEMENT_SCHOOL_OPTIONS,
   type PlacementSchoolName,
@@ -152,7 +153,7 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null);
 
   // ── Active admin tab
-  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "mentors" | "culture" | "videos" | "mktVideos" | "testimonials">(
+  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "mentors" | "culture" | "videos" | "mktVideos" | "testimonials" | "webinars">(
     "placements"
   );
 
@@ -1290,6 +1291,18 @@ export default function AdminPage() {
               }`}
             >
               Testimonials
+            </button>
+            <button
+              type="button"
+              id="tab-webinars"
+              onClick={() => setActiveTab("webinars")}
+              className={`rounded-xl px-5 py-2.5 text-sm font-medium transition ${
+                activeTab === "webinars"
+                  ? "bg-white/15 text-white shadow-sm"
+                  : "text-[#9aa3b8] hover:text-white"
+              }`}
+            >
+              Webinars
             </button>
           </div>
 
@@ -2478,6 +2491,15 @@ export default function AdminPage() {
           {/* ── Testimonials Tab ── */}
           {activeTab === "testimonials" && token && (
             <TestimonialsAdminSection
+              token={token}
+              backendUrl={backendUrl}
+              showToast={showToast}
+            />
+          )}
+
+          {/* ── Webinars Tab ── */}
+          {activeTab === "webinars" && token && (
+            <WebinarsAdminSection
               token={token}
               backendUrl={backendUrl}
               showToast={showToast}
