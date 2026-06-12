@@ -120,8 +120,8 @@ export const COURSES_DATA: Course[] = [
         duration: "6 Weeks",
         mode: "Online",
         description: "This course focuses on teaching you how to create clear dashboards and reports using Excel and Power BI. You'll learn how companies track performance and present numbers in an easy-to-understand way.\n You'll work with real data, clean it properly, and turn it into charts and dashboards that help managers make decisions. This course is perfect for beginners starting their data journey.",
-        label: "Masterclass",
-        labelImage: "/photos/Tech/Frame 13.svg",
+        label: "Flagship Program",
+        labelImage: "/photos/Tech/Frame 1984078075 (1).svg",
         learnItems: [
             "Excel basics to advanced formulas",
             "Cleaning and organising data",

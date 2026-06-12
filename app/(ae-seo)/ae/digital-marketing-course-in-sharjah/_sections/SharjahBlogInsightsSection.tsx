@@ -2,25 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { MarketingCtaArrowCircle } from "@/components/marketing/MarketingCtaArrowCircle";
+import { fetchPublicBlogs } from "@/lib/blog-api";
+import type { BlogPost } from "@/lib/blog-data";
 
 const HEADING_ID = "sharjah-blog-insights-heading";
-const VIEW_MORE_HREF = "/blog";
-const CARD_IMAGE_SRC = "/photos/schools/marketing/ZcJAlPgAi41q3RtmnhrDwOeQ46A.png.webp";
-
-type PlaceholderPost = {
-    id: string;
-    category: string;
-    dateLabel: string;
-    dateIso: string;
-    title: string;
-    href: string;
-};
-
-const PLACEHOLDER_POSTS: PlaceholderPost[] = [
-    { id: "p-1", category: "Graphic Design", dateLabel: "Aug 19, 2025", dateIso: "2025-08-19", title: "A Complete Guide on How to Design a Logo in Photoshop", href: VIEW_MORE_HREF },
-    { id: "p-2", category: "Graphic Design", dateLabel: "Aug 19, 2025", dateIso: "2025-08-19", title: "A Complete Guide on How to Design a Logo in Photoshop", href: VIEW_MORE_HREF },
-    { id: "p-3", category: "Graphic Design", dateLabel: "Aug 19, 2025", dateIso: "2025-08-19", title: "A Complete Guide on How to Design a Logo in Photoshop", href: VIEW_MORE_HREF },
-];
+const BLOG_HREF = "/blog";
+const FALLBACK_IMAGE = "/photos/schools/marketing/ZcJAlPgAi41q3RtmnhrDwOeQ46A.png.webp";
 
 function ChevronRight({ className }: { className?: string }) {
     return (
@@ -33,7 +20,7 @@ function ChevronRight({ className }: { className?: string }) {
 function ViewMoreLink() {
     return (
         <Link
-            href={VIEW_MORE_HREF}
+            href={BLOG_HREF}
             className="
                 group relative inline-flex w-fit shrink-0 cursor-pointer items-center no-underline
                 max-lg:h-[44px] max-lg:gap-[7.33px] max-lg:rounded-full max-lg:bg-[#E8F1FF] max-lg:pl-[14px] max-lg:pr-0
@@ -62,16 +49,21 @@ function ViewMoreLink() {
     );
 }
 
-function BlogCard({ post }: { post: PlaceholderPost }) {
+function BlogCard({ post }: { post: BlogPost }) {
+    const href = `/blog/${post.slug}`;
+    const imgSrc = post.bannerUrl || FALLBACK_IMAGE;
+
     return (
-        <article className="box-border flex h-[444px] w-full min-w-0 flex-col bg-[#E6EFFF] gap-[17px] rounded-[17px] p-[17px] lg:h-[512px] lg:gap-5 lg:rounded-[20px] lg:p-5">
-            <div className="relative w-full shrink-0 overflow-hidden rounded-[12px] bg-white h-[239px] lg:h-[276px] lg:rounded-[14px]">
+        <article className="box-border flex w-full min-w-0 flex-col bg-[#E6EFFF] gap-[17px] rounded-[17px] p-[17px] lg:gap-5 lg:rounded-[20px] lg:p-5">
+            {/* Banner — 16:9 ratio, consistent on every screen size */}
+            <div className="relative w-full shrink-0 overflow-hidden rounded-[12px] bg-white aspect-[16/9] lg:rounded-[14px]">
                 <Image
-                    src={CARD_IMAGE_SRC}
+                    src={imgSrc}
                     alt={post.title}
                     fill
                     className="object-cover object-center"
                     sizes="(max-width: 1024px) 100vw, 347px"
+                    unoptimized={imgSrc.startsWith("http")}
                 />
             </div>
 
@@ -82,20 +74,20 @@ function BlogCard({ post }: { post: PlaceholderPost }) {
                             {post.category}
                         </span>
                         <span className="size-[3.5px] shrink-0 rounded-full bg-black lg:size-1" aria-hidden />
-                        <time dateTime={post.dateIso} className="font-['Satoshi',sans-serif] text-[14px] font-medium text-black lg:text-[16px]">
-                            {post.dateLabel}
+                        <time dateTime={post.date} className="font-['Satoshi',sans-serif] text-[14px] font-medium text-black lg:text-[16px]">
+                            {post.date}
                         </time>
                     </div>
 
                     <h3 className="m-0 line-clamp-2 min-h-0 w-full text-left font-bold text-black [font-family:'Darker_Grotesque',sans-serif] text-[22px] leading-[1.18] lg:text-[26px] lg:leading-[1.15]">
-                        <Link href={post.href} className="text-inherit no-underline hover:underline">
+                        <Link href={href} className="text-inherit no-underline hover:underline">
                             {post.title}
                         </Link>
                     </h3>
                 </div>
 
                 <Link
-                    href={post.href}
+                    href={href}
                     className="mt-auto inline-flex h-[23px] shrink-0 items-center gap-1 self-start font-['Satoshi',sans-serif] text-[14px] font-medium text-black no-underline hover:underline lg:h-[26px] lg:text-[15px]"
                 >
                     Read Full Blog
@@ -106,7 +98,10 @@ function BlogCard({ post }: { post: PlaceholderPost }) {
     );
 }
 
-export function SharjahBlogInsightsSection() {
+export async function SharjahBlogInsightsSection() {
+    const allBlogs = await fetchPublicBlogs();
+    const posts = allBlogs.filter((b) => b.category === "Marketing").slice(0, 3);
+
     return (
         <section
             id="sharjah-blog-insights"
@@ -147,19 +142,21 @@ export function SharjahBlogInsightsSection() {
                 </div>
 
                 {/* Blog cards — 3 column desktop, single on mobile */}
-                <ul
-                    className="m-0 flex w-full min-w-0 list-none flex-col gap-[17px] p-0 lg:grid lg:grid-cols-3 lg:gap-[30px]"
-                    aria-label="Marketing blog posts and insights"
-                >
-                    {PLACEHOLDER_POSTS.map((post, index) => (
-                        <li
-                            key={post.id}
-                            className={["w-full min-w-0", index > 0 ? "hidden lg:block" : ""].filter(Boolean).join(" ")}
-                        >
-                            <BlogCard post={post} />
-                        </li>
-                    ))}
-                </ul>
+                {posts.length > 0 && (
+                    <ul
+                        className="m-0 flex w-full min-w-0 list-none flex-col gap-[17px] p-0 lg:grid lg:grid-cols-3 lg:gap-[30px]"
+                        aria-label="Marketing blog posts and insights"
+                    >
+                        {posts.map((post, index) => (
+                            <li
+                                key={post.id}
+                                className={["w-full min-w-0", index > 0 ? "hidden lg:block" : ""].filter(Boolean).join(" ")}
+                            >
+                                <BlogCard post={post} />
+                            </li>
+                        ))}
+                    </ul>
+                )}
 
                 {/* View More CTA */}
                 <div className="flex w-full shrink-0 items-center justify-center">
