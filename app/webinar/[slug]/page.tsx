@@ -11,7 +11,6 @@ type WebinarData = {
 
 type FormState = {
   name: string;
-  email: string;
   phone: string;
   profession: string;
 };
@@ -22,7 +21,7 @@ export default function WebinarPage() {
 
   const [webinar, setWebinar] = useState<WebinarData | null>(null);
   const [notFound, setNotFound] = useState(false);
-  const [form, setForm] = useState<FormState>({ name: "", email: "", phone: "", profession: "" });
+  const [form, setForm] = useState<FormState>({ name: "", phone: "", profession: "" });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -64,7 +63,7 @@ export default function WebinarPage() {
 
   if (notFound) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#080810" }}>
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center space-y-3">
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: "18px", color: "rgba(255,255,255,0.5)" }}>
             This webinar is no longer available.
@@ -76,7 +75,7 @@ export default function WebinarPage() {
 
   if (!webinar) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#080810" }}>
+      <div className="min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-10 h-10 rounded-full border-2 border-t-transparent animate-spin"
             style={{ borderColor: "rgba(105,74,255,0.5)", borderTopColor: "transparent" }} />
@@ -89,46 +88,27 @@ export default function WebinarPage() {
   }
 
   return (
-    <div
-      className="min-h-screen w-full flex flex-col lg:flex-row"
-      style={{ background: "#080810" }}
-    >
-      {/* ── Ambient glows ── */}
-      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse 60% 50% at 25% 50%, rgba(105,74,255,0.09) 0%, transparent 70%)",
-        }} />
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse 40% 40% at 80% 20%, rgba(255,86,0,0.05) 0%, transparent 70%)",
-        }} />
-      </div>
+    <div className="min-h-screen w-full flex flex-col lg:flex-row">
 
       {/* ══ LEFT — Banner image ══ */}
-      <div className="relative lg:sticky lg:top-0 lg:h-screen lg:w-[55%] w-full shrink-0 overflow-hidden">
-        {/* Mobile: aspect ratio container */}
-        <div className="lg:hidden w-full" style={{ aspectRatio: "4/3", position: "relative" }}>
-          {webinar.bannerUrl ? (
-            <Image
-              src={webinar.bannerUrl}
-              alt={webinar.title}
-              fill
-              className="object-cover object-center"
-              priority
-              unoptimized
-            />
-          ) : (
-            <div className="w-full h-full" style={{ background: "rgba(105,74,255,0.08)" }} />
-          )}
-          {/* Bottom fade */}
-          <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
-            style={{ background: "linear-gradient(to bottom, transparent, #080810)" }} />
-        </div>
+      <div className="relative lg:sticky lg:top-0 lg:h-screen lg:w-[55%] w-full shrink-0 lg:overflow-hidden">
 
-        {/* Desktop: full height sticky */}
+        {/* Mobile: full image, natural proportions */}
+        {webinar.bannerUrl && (
+          <Image
+            src={webinar.bannerUrl}
+            alt={webinar.title}
+            width={1200}
+            height={1200}
+            className="lg:hidden w-full h-auto"
+            priority
+            unoptimized
+          />
+        )}
+
+        {/* Desktop: fill the sticky column */}
         <div className="hidden lg:block w-full h-full relative">
-          {webinar.bannerUrl ? (
+          {webinar.bannerUrl && (
             <Image
               src={webinar.bannerUrl}
               alt={webinar.title}
@@ -137,15 +117,7 @@ export default function WebinarPage() {
               priority
               unoptimized
             />
-          ) : (
-            <div className="w-full h-full" style={{ background: "rgba(105,74,255,0.08)" }} />
           )}
-          {/* Right-side fade into form panel */}
-          <div className="absolute inset-y-0 right-0 w-24 pointer-events-none"
-            style={{ background: "linear-gradient(to right, transparent, #080810)" }} />
-          {/* Bottom fade */}
-          <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none"
-            style={{ background: "linear-gradient(to bottom, transparent, #080810)" }} />
           {/* HACA badge on image */}
           <div className="absolute top-6 left-6 z-10">
             <Image
@@ -210,14 +182,6 @@ export default function WebinarPage() {
               onChange={handleChange}
             />
             <FormField
-              label="Email Address"
-              name="email"
-              type="email"
-              placeholder="you@example.com"
-              value={form.email}
-              onChange={handleChange}
-            />
-            <FormField
               label="Phone Number"
               name="phone"
               type="tel"
@@ -255,8 +219,8 @@ export default function WebinarPage() {
               style={{
                 fontFamily: "var(--font-outfit)",
                 fontSize: "15px",
-                background: "linear-gradient(135deg, #FF5600 0%, #694AFF 100%)",
-                boxShadow: submitting ? "none" : "0 6px 32px rgba(105,74,255,0.35)",
+                background: submitting ? "#1ea952" : "#25D366",
+                boxShadow: submitting ? "none" : "0 6px 32px rgba(37,211,102,0.35)",
               }}
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
