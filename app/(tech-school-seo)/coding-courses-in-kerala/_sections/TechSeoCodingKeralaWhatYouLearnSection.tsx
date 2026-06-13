@@ -6,23 +6,36 @@ import { TECH_SEO_PAGE_BG } from "@/lib/tech-school-seo";
 
 import { TechSeoSectionBottomRule } from "./TechSeoSectionBottomRule";
 
-type LearnModule = {
+// ── Data ──────────────────────────────────────────────────────────────────────
+
+type Module = {
     id: string;
-    moduleLabel: string;
-    shortTitle: string;
+    tabLabel: string;
+    title: string;
     description: string;
-    topicsLabel: string;
     bullets: readonly string[];
-    variant?: "default" | "capstone";
 };
 
-const LEARN_MODULES: readonly LearnModule[] = [
+type ProjectItem = {
+    id: string;
+    name: string;
+    description?: string;
+    bullets?: readonly string[];
+};
+
+type ProjectGroup = {
+    id: string;
+    title: string;
+    items: readonly ProjectItem[];
+};
+
+const MODULES: readonly Module[] = [
     {
         id: "module-1",
-        moduleLabel: "Module 1",
-        shortTitle: "Frontend Development",
-        description: "Build responsive user interfaces that look and perform like real production applications.",
-        topicsLabel: "Topics include:",
+        tabLabel: "Module 1",
+        title: "Frontend Development",
+        description:
+            "Build responsive user interfaces that look and perform like real production applications",
         bullets: [
             "HTML5 and CSS3",
             "Responsive Design",
@@ -35,10 +48,9 @@ const LEARN_MODULES: readonly LearnModule[] = [
     },
     {
         id: "module-2",
-        moduleLabel: "Module 2",
-        shortTitle: "Backend Development",
+        tabLabel: "Module 2",
+        title: "Backend Development",
         description: "Learn how real backend systems are built and deployed.",
-        topicsLabel: "Topics include:",
         bullets: [
             "Node.js Fundamentals",
             "Express.js Framework",
@@ -51,10 +63,10 @@ const LEARN_MODULES: readonly LearnModule[] = [
     },
     {
         id: "module-3",
-        moduleLabel: "Module 3",
-        shortTitle: "Database Development",
-        description: "Understand how large scale applications manage and process data.",
-        topicsLabel: "Topics include:",
+        tabLabel: "Module 3",
+        title: "Database Development",
+        description:
+            "Understand how large scale applications manage and process data.",
         bullets: [
             "MongoDB",
             "Mongoose",
@@ -66,10 +78,10 @@ const LEARN_MODULES: readonly LearnModule[] = [
     },
     {
         id: "module-4",
-        moduleLabel: "Module 4",
-        shortTitle: "AI Integration",
-        description: "Move beyond traditional coding and create AI powered products.",
-        topicsLabel: "Topics include:",
+        tabLabel: "Module 4",
+        title: "AI Integration",
+        description:
+            "Move beyond traditional coding and create AI powered products.",
         bullets: [
             "AI Fundamentals",
             "Large Language Models",
@@ -80,22 +92,47 @@ const LEARN_MODULES: readonly LearnModule[] = [
             "Admin Workflow Automation",
         ],
     },
+];
+
+const PROJECT_GROUPS: readonly ProjectGroup[] = [
     {
-        id: "capstone",
-        moduleLabel: "Capstone",
-        shortTitle: "Capstone Project",
-        description: "Build a complete MERN + AI application and showcase your skills to employers.",
-        topicsLabel: "You will:",
-        bullets: [
-            "Build a complete MERN stack application",
-            "Integrate AI features using Gemini API",
-            "Deploy the full application online",
-            "Build a portfolio-ready project",
-            "Demonstrate end-to-end development skills",
+        id: "major-projects",
+        title: "Major Portfolio Projects",
+        items: [
+            {
+                id: "social-media",
+                name: "MERN Social Media Platform",
+                description:
+                    "Build authentication systems, profiles, messaging, feeds, comments and deployment workflows.",
+            },
+            {
+                id: "ecommerce",
+                name: "AI-Powered E-Commerce Platform",
+                description: "Create an advanced application with:",
+                bullets: [
+                    "AI Chatbot Support",
+                    "Smart Product Search",
+                    "Payment Gateway Integration",
+                    "Admin Automation Features",
+                    "Deployment Ready Architecture",
+                ],
+            },
         ],
-        variant: "capstone",
+    },
+    {
+        id: "mini-projects",
+        title: "Mini Projects",
+        items: [
+            { id: "html-clone",   name: "Website Clone using HTML and CSS" },
+            { id: "js-crud",      name: "JavaScript CRUD Application" },
+            { id: "react-crud",   name: "React CRUD Platform" },
+            { id: "rest-api",     name: "REST API Project" },
+            { id: "mongodb-proj", name: "MongoDB Integration Project" },
+        ],
     },
 ];
+
+// ── Shared primitives ─────────────────────────────────────────────────────────
 
 function ChevronDown({ open }: { open: boolean }) {
     return (
@@ -118,65 +155,57 @@ function ChevronDown({ open }: { open: boolean }) {
     );
 }
 
-const PANEL_STYLE = {
-    backgroundColor: "rgba(217,217,217,0.1)",
-    boxShadow: "0px 3.11px 3.11px 0px #00000040",
-    backdropFilter: "blur(9.33px)",
-} as const;
+const ROW_BG = { backgroundColor: "#11062D", boxShadow: "0px 3px 3px 0px #00000040" } as const;
+const PANEL_BG = { backgroundColor: "rgba(17,6,45,0.85)", boxShadow: "0px 3px 3px 0px #00000040" } as const;
+const TAB_RADIUS = { borderTopLeftRadius: "10px", borderTopRightRadius: "10px" } as const;
+const ROW_RADIUS = { borderTopRightRadius: "16px", borderBottomRightRadius: "16px", borderBottomLeftRadius: "16px" } as const;
 
-function ModuleAccordion({
-    module,
+function AccordionCard({
+    tabLabel,
+    title,
     open,
     onToggle,
-    idPrefix = "",
+    btnId,
+    panelId,
+    children,
 }: {
-    module: LearnModule;
+    tabLabel: string;
+    title: string;
     open: boolean;
     onToggle: () => void;
-    idPrefix?: string;
+    btnId: string;
+    panelId: string;
+    children: React.ReactNode;
 }) {
-    const panelId = `${idPrefix}${module.id}-panel`;
-    const btnId = `${idPrefix}${module.id}-btn`;
-
     return (
-        <div className="w-full min-w-0">
-            <div className="flex w-full flex-col">
-                <div
-                    className="flex h-10 w-[85px] shrink-0 items-center px-[10px]"
-                    style={{ backgroundColor: "#321362", borderTopRightRadius: "10px" }}
-                >
-                    <span
-                        className="whitespace-nowrap text-[16px] font-medium leading-[125%] text-white"
-                        style={{ fontFamily: "Satoshi, sans-serif" }}
-                    >
-                        {module.moduleLabel}
-                    </span>
-                </div>
-
-                <button
-                    id={btnId}
-                    type="button"
-                    onClick={onToggle}
-                    className="flex h-10 w-full items-center justify-between gap-2 px-[10px] text-left text-white"
-                    style={{
-                        ...PANEL_STYLE,
-                        borderTopRightRadius: "16px",
-                        borderBottomRightRadius: "16px",
-                        borderBottomLeftRadius: "16px",
-                    }}
-                    aria-expanded={open}
-                    aria-controls={panelId}
-                >
-                    <span
-                        className="min-w-0 truncate text-[16px] font-medium leading-[125%]"
-                        style={{ fontFamily: "Satoshi, sans-serif" }}
-                    >
-                        {module.shortTitle}
-                    </span>
-                    <ChevronDown open={open} />
-                </button>
+        <div className="w-full">
+            {/* Purple tab */}
+            <div
+                className="flex h-[34px] w-fit items-center px-[10px]"
+                style={{ backgroundColor: "#321362", ...TAB_RADIUS }}
+            >
+                <span className="whitespace-nowrap font-manrope text-[14px] font-medium leading-[125%] text-white">
+                    {tabLabel}
+                </span>
             </div>
 
+            {/* Row button */}
+            <button
+                id={btnId}
+                type="button"
+                onClick={onToggle}
+                className="flex h-[52px] w-full items-center justify-between gap-2 px-[14px] text-left text-white"
+                style={{ ...ROW_BG, ...ROW_RADIUS }}
+                aria-expanded={open}
+                aria-controls={panelId}
+            >
+                <span className="min-w-0 truncate font-manrope text-[16px] font-medium leading-[125%]">
+                    {title}
+                </span>
+                <ChevronDown open={open} />
+            </button>
+
+            {/* Animated panel */}
             <div
                 id={panelId}
                 role="region"
@@ -185,35 +214,8 @@ function ModuleAccordion({
                 style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
             >
                 <div className="overflow-hidden">
-                    <div
-                        className="mt-1.5 rounded-[12px] p-4"
-                        style={PANEL_STYLE}
-                    >
-                        <div className="flex flex-col gap-2.5">
-                            <p
-                                className="m-0 text-[14px] font-normal leading-[140%] text-[#FFFFFFB2]"
-                                style={{ fontFamily: "Satoshi, sans-serif" }}
-                            >
-                                {module.description}
-                            </p>
-                            <p
-                                className="m-0 text-[14px] font-semibold leading-[120%] text-[#FFFFFFB2]"
-                                style={{ fontFamily: "Satoshi, sans-serif" }}
-                            >
-                                {module.topicsLabel}
-                            </p>
-                            <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
-                                {module.bullets.map((bullet) => (
-                                    <li
-                                        key={bullet}
-                                        className="m-0 text-[14px] font-normal leading-[120%] text-[#FFFFFFB2] before:mr-1.5 before:font-light before:content-['•']"
-                                        style={{ fontFamily: "Satoshi, sans-serif" }}
-                                    >
-                                        {bullet}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                    <div className="mt-1.5 rounded-[12px] p-4" style={PANEL_BG}>
+                        {children}
                     </div>
                 </div>
             </div>
@@ -221,116 +223,144 @@ function ModuleAccordion({
     );
 }
 
-function ModuleGroup({
-    modules,
-    gap,
-    className = "",
-    idPrefix = "",
-}: {
-    modules: LearnModule[];
-    gap: string;
-    className?: string;
-    idPrefix?: string;
-}) {
+// ── Module accordion stack ────────────────────────────────────────────────────
+
+function ModuleStack({ idPrefix }: { idPrefix: string }) {
     const [openId, setOpenId] = useState<string | null>(null);
+    const toggle = (id: string) => setOpenId((p) => (p === id ? null : id));
 
     return (
-        <div className={`flex flex-col ${gap} ${className}`}>
-            {modules.map((m) => (
-                <ModuleAccordion
-                    key={m.id}
-                    module={m}
-                    open={openId === m.id}
-                    onToggle={() => setOpenId((prev) => (prev === m.id ? null : m.id))}
-                    idPrefix={idPrefix}
-                />
+        <div className="flex flex-col gap-[16px]">
+            {MODULES.map((mod) => (
+                <AccordionCard
+                    key={mod.id}
+                    tabLabel={mod.tabLabel}
+                    title={mod.title}
+                    open={openId === mod.id}
+                    onToggle={() => toggle(mod.id)}
+                    btnId={`${idPrefix}${mod.id}-btn`}
+                    panelId={`${idPrefix}${mod.id}-panel`}
+                >
+                    <div className="flex flex-col gap-2.5">
+                        <p className="m-0 font-manrope text-[14px] font-normal leading-[140%] text-[#FFFFFFB2]">
+                            {mod.description}
+                        </p>
+                        <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
+                            {mod.bullets.map((b) => (
+                                <li
+                                    key={b}
+                                    className="m-0 font-manrope text-[14px] font-normal leading-[120%] text-[#FFFFFFB2] before:mr-1.5 before:font-light before:content-['•']"
+                                >
+                                    {b}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </AccordionCard>
             ))}
         </div>
     );
 }
 
-function CapstoneCard({ module }: { module: LearnModule }) {
+// ── Project accordion stack ───────────────────────────────────────────────────
+
+function ProjectStack({ idPrefix }: { idPrefix: string }) {
+    const [openId, setOpenId] = useState<string | null>(null);
+    const toggle = (id: string) => setOpenId((p) => (p === id ? null : id));
+
     return (
-        <article
-            className="relative flex min-h-[250px] w-full flex-col gap-5 overflow-hidden rounded-[22px] p-5 shadow-[0px_4px_4px_0px_#00000040] backdrop-blur-[12px] lg:col-span-3 lg:min-h-[200px] lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:px-[60px] lg:py-8"
-            style={{ backgroundColor: TECH_SEO_PAGE_BG }}
-        >
-            <span
-                className="pointer-events-none absolute z-0 -bottom-36 left-1/2 h-[420px] w-[420px] -translate-x-1/2"
-                style={{
-                    background:
-                        "radial-gradient(circle at center, #8F37FF59 0%, rgba(143,55,255,0.22) 28%, rgba(143,55,255,0.1) 48%, rgba(143,55,255,0.04) 62%, transparent 72%)",
-                }}
-                aria-hidden
-            />
-
-            <div className="relative z-[1] flex w-full max-w-[303px] flex-col gap-2.5 lg:max-w-[342px] lg:shrink-0">
-                <h3 className="m-0 font-manrope text-2xl font-semibold leading-[120%] text-white lg:text-[30px]">
-                    Capstone Project
-                </h3>
-                <p className="m-0 text-center font-manrope text-base font-normal leading-[100%] text-[#FFFFFFB2] lg:text-left lg:text-lg">
-                    Bring together everything you&apos;ve learned.
-                </p>
-            </div>
-
-            <div className="relative z-[1] flex w-full flex-col gap-2.5 lg:ml-auto lg:w-fit lg:max-w-[480px] lg:shrink-0 lg:self-center">
-                <p className="m-0 font-manrope text-base font-semibold leading-[120%] text-[#FFFFFFB2]">
-                    {module.topicsLabel}
-                </p>
-                <ul className="m-0 flex list-none flex-col gap-2 p-0">
-                    {module.bullets.map((bullet) => (
-                        <li
-                            key={bullet}
-                            className="m-0 font-manrope text-base font-normal leading-[120%] text-[#FFFFFFB2] before:mr-1.5 before:font-light before:content-['•']"
-                        >
-                            {bullet}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </article>
+        <div className="flex flex-col gap-[16px]">
+            {PROJECT_GROUPS.map((group) => (
+                <AccordionCard
+                    key={group.id}
+                    tabLabel="Projects"
+                    title={group.title}
+                    open={openId === group.id}
+                    onToggle={() => toggle(group.id)}
+                    btnId={`${idPrefix}${group.id}-btn`}
+                    panelId={`${idPrefix}${group.id}-panel`}
+                >
+                    <div className="flex flex-col gap-3">
+                        {group.items.map((item) => (
+                            <div key={item.id} className="flex flex-col gap-1.5">
+                                <p className="m-0 font-manrope text-[14px] font-semibold leading-[120%] text-white">
+                                    {item.name}
+                                </p>
+                                {item.description && (
+                                    <p className="m-0 font-manrope text-[14px] font-normal leading-[140%] text-[#FFFFFFB2]">
+                                        {item.description}
+                                    </p>
+                                )}
+                                {item.bullets && (
+                                    <ul className="m-0 flex list-none flex-col gap-1 p-0">
+                                        {item.bullets.map((b) => (
+                                            <li
+                                                key={b}
+                                                className="m-0 font-manrope text-[13px] font-normal leading-[120%] text-[#FFFFFFB2] before:mr-1.5 before:font-light before:content-['•']"
+                                            >
+                                                {b}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </AccordionCard>
+            ))}
+        </div>
     );
 }
 
+// ── Section ───────────────────────────────────────────────────────────────────
+
 export function TechSeoCodingKeralaWhatYouLearnSection() {
-    const regularModules = LEARN_MODULES.filter((m) => m.variant !== "capstone");
-    const capstone = LEARN_MODULES.find((m) => m.variant === "capstone")!;
-
-    const col1 = regularModules.filter((_, i) => i % 2 === 0);
-    const col2 = regularModules.filter((_, i) => i % 2 === 1);
-
     return (
         <section
-            className="mx-auto w-full max-w-[1440px] bg-transparent"
+            className="mx-auto w-full max-w-[1440px]"
+            style={{ backgroundColor: TECH_SEO_PAGE_BG }}
             aria-labelledby="coding-kerala-what-you-learn-heading"
         >
-            <div className="box-border flex w-full flex-col gap-[30px] px-[clamp(16px,4.16vw,60px)] py-5 md:gap-[30px] lg:gap-[60px] lg:py-5">
+            <div className="flex flex-col gap-[30px] px-5 py-10 lg:gap-[40px] lg:px-[60px] lg:py-[60px]">
+
+                {/* Section heading */}
                 <h2
                     id="coding-kerala-what-you-learn-heading"
-                    className="m-0 mx-auto w-full max-w-[303px] text-center font-manrope text-[26px] font-semibold leading-[120%] text-white lg:max-w-[700px] lg:text-[40px]"
+                    className="m-0 mx-auto w-full max-w-[303px] text-center font-manrope text-[26px] font-semibold leading-[120%] text-white lg:max-w-[600px] lg:text-[40px]"
                 >
                     What You Will Learn in Our Flagship Program
                 </h2>
 
-                {/* Desktop: 2 independent flex columns */}
-                <div className="hidden lg:flex lg:w-full lg:flex-col lg:gap-[35px]">
-                    <div className="flex w-full gap-[35px]">
-                        <ModuleGroup modules={col1} gap="gap-[35px]" className="flex-1" idPrefix="d1-" />
-                        <ModuleGroup modules={col2} gap="gap-[35px]" className="flex-1" idPrefix="d2-" />
+                {/* ── Mobile layout ── */}
+                <div className="flex flex-col gap-[16px] lg:hidden">
+                    <ModuleStack idPrefix="mob-" />
+                    <hr className="mt-[14px] border-t border-[#FFFFFF1A]" />
+                    <h3 className="m-0 font-manrope text-[22px] font-semibold leading-[120%] text-white">
+                        Build Projects That Employers Actually Want To See
+                    </h3>
+                    <ProjectStack idPrefix="mob-proj-" />
+                </div>
+
+                {/* ── Desktop layout ── */}
+                <div className="hidden lg:flex lg:gap-[40px]">
+
+                    {/* Left: all 4 modules */}
+                    <div className="flex-1">
+                        <ModuleStack idPrefix="desk-" />
                     </div>
-                    <CapstoneCard module={capstone} />
-                </div>
 
-                {/* Mobile: flat ordered list */}
-                <div className="flex flex-col gap-[30px] lg:hidden">
-                    <ModuleGroup modules={regularModules} gap="gap-[30px]" idPrefix="mob-" />
-                    <CapstoneCard module={capstone} />
-                </div>
-
-                <div className="lg:hidden">
-                    <TechSeoSectionBottomRule inset />
+                    {/* Right: build projects heading + project accordions */}
+                    <div className="flex flex-1 flex-col gap-[20px]">
+                        <h3 className="m-0 font-manrope text-[30px] font-semibold leading-[120%] text-white">
+                            Build Projects That Employers Actually Want To See
+                        </h3>
+                        <hr className="border-t border-[#FFFFFF1A]" />
+                        <ProjectStack idPrefix="desk-proj-" />
+                    </div>
                 </div>
             </div>
+
+            <TechSeoSectionBottomRule />
         </section>
     );
 }

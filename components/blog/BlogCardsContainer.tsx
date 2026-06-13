@@ -81,6 +81,7 @@ function BlogCard({
                     fill
                     className="object-cover"
                     sizes="(max-width: 767px) min(335px, calc(100vw - 40px)), (max-width: 1023px) 33vw, 407px"
+                    unoptimized={Boolean(blog.bannerUrl?.startsWith("http"))}
                 />
             </div>
 

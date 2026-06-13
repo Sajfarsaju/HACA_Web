@@ -4,15 +4,16 @@ import {
 } from "@/lib/tech-school-seo";
 
 import { TechSeoCodingKeralaHeroSection } from "./_sections/TechSeoCodingKeralaHeroSection";
+import { TechSeoCodingKeralaIntroStatsSection } from "./_sections/TechSeoCodingKeralaIntroStatsSection";
 import { TechSeoCodingKeralaFlagshipSection } from "./_sections/TechSeoCodingKeralaFlagshipSection";
 import { TechSeoCodingKeralaDifferentSection } from "./_sections/TechSeoCodingKeralaDifferentSection";
 import { TechSeoCodingKeralaWhatYouLearnSection } from "./_sections/TechSeoCodingKeralaWhatYouLearnSection";
-import { TechSeoCodingKeralaProjectsSection } from "./_sections/TechSeoCodingKeralaProjectsSection";
 import { TechSeoCodingKeralaToolsSection } from "./_sections/TechSeoCodingKeralaToolsSection";
 import { TechSeoCodingKeralaCareerOutcomesSection } from "./_sections/TechSeoCodingKeralaCareerOutcomesSection";
 import { TechSeoCodingKeralaLearnersSection } from "./_sections/TechSeoCodingKeralaLearnersSection";
 import { TechSeoCodingKeralaEnrollCtaSection } from "./_sections/TechSeoCodingKeralaEnrollCtaSection";
 import { TechSeoCodingKeralaExploreCoursesSection } from "./_sections/TechSeoCodingKeralaExploreCoursesSection";
+import { TechSeoCodingKeralaMentorsSection } from "./_sections/TechSeoCodingKeralaMentorsSection";
 import { TechSeoCodingKeralaWhyChooseSection } from "./_sections/TechSeoCodingKeralaWhyChooseSection";
 import { TechSeoCodingKeralaWhoCanJoinSection } from "./_sections/TechSeoCodingKeralaWhoCanJoinSection";
 import { TechSeoCodingKeralaSuccessStoriesSection } from "./_sections/TechSeoCodingKeralaSuccessStoriesSection";
@@ -32,18 +33,19 @@ export default function CodingCoursesInKeralaPage() {
             />
             <div className="w-full bg-[#000010]">
                 <TechSeoCodingKeralaHeroSection />
+                <TechSeoCodingKeralaIntroStatsSection />
                 <TechSeoCodingKeralaFlagshipSection />
                 <TechSeoCodingKeralaDifferentSection />
+                <TechSeoCodingKeralaSuccessStoriesSection />
                 <TechSeoCodingKeralaWhatYouLearnSection />
-                <TechSeoCodingKeralaProjectsSection />
-                <TechSeoCodingKeralaToolsSection />
-                <TechSeoCodingKeralaCareerOutcomesSection />
-                <TechSeoCodingKeralaLearnersSection />
                 <TechSeoCodingKeralaEnrollCtaSection />
+                <TechSeoCodingKeralaToolsSection />
                 <TechSeoCodingKeralaExploreCoursesSection />
+                <TechSeoCodingKeralaMentorsSection />
                 <TechSeoCodingKeralaWhyChooseSection />
                 <TechSeoCodingKeralaWhoCanJoinSection />
-                <TechSeoCodingKeralaSuccessStoriesSection />
+                <TechSeoCodingKeralaCareerOutcomesSection />
+                <TechSeoCodingKeralaLearnersSection />
                 <TechSeoCodingKeralaFaqSection />
                 <TechSeoCodingKeralaBottomCtaSection />
             </div>

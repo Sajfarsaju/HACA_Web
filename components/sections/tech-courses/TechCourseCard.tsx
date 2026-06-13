@@ -35,7 +35,7 @@ export function TechCourseCard({ course, showLabel = false }: TechCourseCardProp
                 </div>
                 <div className="course-duration-col">
                     <span className="course-duration-label">Duration</span>
-                    <span className="course-duration-value">{course.duration}</span>
+                    <span className="course-duration-value" style={{ whiteSpace: "pre-line" }}>{course.duration}</span>
                     <span className="course-mode">Mode: {course.mode}</span>
                 </div>
             </div>

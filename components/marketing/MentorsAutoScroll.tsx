@@ -25,6 +25,7 @@ function MentorCard({ mentor }: { mentor: MentorItem }) {
                         fill
                         className="object-contain object-bottom"
                         sizes="(max-width:1024px) 200px, 250px"
+                        unoptimized={mentor.imageSrc.startsWith("http")}
                     />
                 </div>
                 <div className="flex min-h-0 flex-col gap-1 text-left">

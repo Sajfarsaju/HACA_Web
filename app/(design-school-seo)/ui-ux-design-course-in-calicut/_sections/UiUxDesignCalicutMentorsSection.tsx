@@ -70,10 +70,11 @@ function MentorFigure({ mentor }: { mentor: MentorEntry }) {
                             fill
                             className="object-cover object-center mix-blend-multiply"
                             sizes="(max-width: 1024px) 180px, 410px"
+                            unoptimized={mentor.photoSrc.startsWith("http")}
                         />
                     </>
                 ) : (
-                    <Image src={mentor.photoSrc} alt={alt} fill className="object-cover object-center" sizes="(max-width: 1024px) 180px, 410px" />
+                    <Image src={mentor.photoSrc} alt={alt} fill className="object-cover object-center" sizes="(max-width: 1024px) 180px, 410px" unoptimized={mentor.photoSrc.startsWith("http")} />
                 )}
             </div>
 

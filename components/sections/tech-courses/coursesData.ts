@@ -2,6 +2,43 @@ import type { Course } from "./types";
 
 export const COURSES_DATA: Course[] = [
     {
+        slug: "mern-ai-full-stack-developer-program",
+        title: "MERN + AI Full Stack Developer Program",
+        titleLine1: "MERN + AI Full Stack",
+        titleLine2: "Developer Program",
+        duration: "5 Months Training +\n1 Month Capstone Project",
+        mode: "Online / Offline",
+        description: "This course teaches you how to build complete web applications from scratch using modern frontend and backend technologies. You will learn how websites and web applications work, how data is stored and managed, and how different parts of an application connect together.\nStarting from the basics, you'll learn to create responsive websites, build dynamic user interfaces, develop secure backend systems, manage databases, and integrate Artificial Intelligence into web applications. Through hands-on projects and real-world development practices, you will gain the skills needed to build industry-level applications and become a job-ready Full Stack Developer.",
+        label: "Flagship Program",
+        labelImage: "/photos/Tech/Frame 1984078075 (1).svg",
+        learnItems: [
+            "HTML5, CSS3, Responsive Web Design",
+            "JavaScript fundamentals and modern ES6+ features",
+            "DOM manipulation and API integration",
+            "React.js, Hooks, Routing, Context API, and Redux",
+            "Tailwind CSS and modern UI development",
+            "Node.js and Express.js backend development",
+            "REST API creation and integration",
+            "Authentication and authorization using JWT",
+            "MongoDB database management with Mongoose",
+            "File upload, payment gateway integration, and deployment",
+            "AI fundamentals and Large Language Models (LLMs)",
+            "Gemini API integration and AI chatbot development",
+            "Prompt engineering and AI-powered search features",
+            "Building complete MERN and AI-powered applications"
+        ],
+        careerRoles: [
+            "MERN Stack Developer",
+            "Full Stack Web Developer",
+            "Frontend Developer",
+            "Backend Developer",
+            "AI Web Application Developer",
+            "Web Application Engineer",
+            "Software Developer",
+            "Freelance Full Stack Developer"
+        ]
+    },
+    {
         slug: "advanced-data-analytics-with-ai",
         title: "Advanced Data Analytics with AI",
         titleLine1: "Advanced Data",

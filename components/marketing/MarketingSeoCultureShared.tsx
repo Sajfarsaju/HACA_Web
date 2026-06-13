@@ -73,6 +73,7 @@ export function MarketingSeoCultureShared({ subtitle, schoolName }: Props) {
                             fill
                             className="object-cover object-center"
                             sizes={`${tile.width}px`}
+                            unoptimized
                         />
                     ) : (
                         <div
