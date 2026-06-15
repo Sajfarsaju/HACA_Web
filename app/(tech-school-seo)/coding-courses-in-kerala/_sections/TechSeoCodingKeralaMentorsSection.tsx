@@ -21,8 +21,7 @@ export function TechSeoCodingKeralaMentorsSection() {
                         Meet Your Mentors
                     </h2>
                     <p className="m-0 w-full max-w-[343px] font-manrope text-sm font-normal leading-[120%] tracking-[-0.2px] text-[#C6C6C6B2] lg:max-w-[1349px] lg:text-lg lg:leading-[33.6px]">
-                        You&apos;ll learn from people who&apos;ve built products, written code, and solved
-                        real problems.
+                        Gain practical insights from experts working across development, AI, and digital innovation.
                     </p>
                 </div>
 

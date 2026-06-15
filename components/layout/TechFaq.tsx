@@ -1,29 +1,38 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 
-const FAQ_DATA = [
+const FAQ_DATA: Array<{ question: string; answer: string; answerNode?: React.ReactNode }> = [
     {
-        question: "Which course should I start with as a beginner?",
-        answer: "Start with Applied AI for Beginners or Advanced Data Analytics with AI. They're perfect entry points."
+        question: "Do I need a tech background or prior coding experience to begin?",
+        answer: "No, it doesn't matter whether you have a tech background or prior coding experience. You'll be trained from scratch and guided step-by-step to build industry-relevant skills."
     },
     {
         question: "Do you offer placement support after course completion?",
-        answer: "Yes, we provide assured placement assistance, including resume reviews, mock interviews, and access to our network of hiring partners. Plus, the projects you complete during your cohort sessions become part of your portfolio, giving you proof of skill when applying for jobs."
+        answer: "We provide assured placement assistance to all our graduates, including resume building, mock interviews, access to our network of hiring partners, and portfolio development."
     },
     {
         question: "What is cohort-based learning, and how does it work here?",
-        answer: "Cohort-based learning means you'll learn together with a small group of peers. You'll brainstorm, build projects, solve problems, and get direct mentor feedback."
+        answer: "Cohort-based learning means you'll learn alongside a small group of peers. You'll collaborate on projects, brainstorm ideas, solve problems, and receive personalised learning support with direct mentor feedback."
     },
     {
         question: "Are these courses available online or offline?",
-        answer: "Both options are available. You can join our online tech courses if you prefer flexible learning, or attend classes offline at our campus for a more immersive experience."
+        answer: "",
+        answerNode: (
+            <span>
+                We offer both online and offline options to fit your lifestyle.<br /><br />
+                <span className="italic">
+                    <strong className="not-italic font-semibold">Online:</strong> Join live sessions from anywhere with flexible scheduling, perfect if you&apos;re working or prefer remote learning.<br /><br />
+                    <strong className="not-italic font-semibold">Offline:</strong> Attend in-person classes at our campus for an immersive, hands-on experience with direct access to mentors and peers.
+                </span>
+            </span>
+        ),
     },
     {
         question: "How do I showcase my work after the course?",
-        answer: "You'll build a portfolio with your projects and GitHub code, perfect for job interviews and freelance work."
+        answer: "By the end of your program, you'll have a solid portfolio with real-world projects and GitHub code. This portfolio becomes your proof of skill, essential for job interviews, freelance opportunities, and career advancement."
     }
 ];
 
@@ -150,8 +159,8 @@ export function TechFaq() {
                                     openIndex === index ? "max-h-[300px] mt-4 opacity-100" : "max-h-0 opacity-0"
                                 }`}
                             >
-                                <p className="font-outfit font-normal text-[12px] md:text-[16px] leading-[128%] tracking-normal text-[#FFFFFF]">
-                                    {item.answer}
+                                <p className="font-outfit font-normal text-[12px] md:text-[16px] leading-[128%] tracking-normal text-[#FFFFFF] whitespace-pre-line">
+                                    {item.answerNode ?? item.answer}
                                 </p>
                             </div>
                         </div>

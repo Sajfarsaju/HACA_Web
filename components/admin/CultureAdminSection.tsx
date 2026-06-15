@@ -117,7 +117,7 @@ function SlotTile({
             title={`Slot ${label} — click to upload`}
         >
             {imageUrl && (
-                <Image src={imageUrl} alt={`Culture slot ${label}`} fill sizes="200px" className="object-cover object-center" />
+                <Image src={imageUrl} alt={`Culture slot ${label}`} fill sizes="200px" className="object-cover object-center" unoptimized />
             )}
             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
                 <span className="text-white text-xs font-medium">
@@ -154,7 +154,7 @@ function AbsSlot({
             title={`Slot ${slot + 1} — click to upload`}
         >
             {imageUrl
-                ? <Image src={imageUrl} alt="" fill sizes="200px" className="object-cover object-center" />
+                ? <Image src={imageUrl} alt="" fill sizes="200px" className="object-cover object-center" unoptimized />
                 : <div className="absolute inset-0" style={{ background: GRADIENTS[slot % GRADIENTS.length] }} />
             }
             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">

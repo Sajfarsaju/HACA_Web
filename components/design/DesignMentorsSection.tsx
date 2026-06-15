@@ -315,6 +315,7 @@ function MentorCardView({ mentor }: { mentor: MentorCard }) {
                     fill
                     className="object-cover"
                     style={{ opacity: 1 }}
+                    unoptimized={mentor.photoSrc.startsWith("http")}
                 />
             </div>
 

@@ -31,6 +31,7 @@ function CultureAbsTile({ src, alt, left, top, width, height, priority, radius =
                 sizes={`${Math.ceil(width)}px`}
                 className="object-cover"
                 priority={priority}
+                unoptimized={src.startsWith("http")}
             />
         </div>
     )

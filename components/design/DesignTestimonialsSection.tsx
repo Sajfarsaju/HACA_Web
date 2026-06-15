@@ -671,9 +671,8 @@ export function DesignTestimonialsSection() {
         allItems[(frontIndex + 2) % N],
     ] : [];
 
-    // StackOrder stays fixed — position is determined by displayItems window, not deck rotation
-    const order = INITIAL_ORDER;
-    const prevOrder = INITIAL_ORDER;
+    const [order, setOrder] = useState<StackOrder>(INITIAL_ORDER);
+    const [prevOrder, setPrevOrder] = useState<StackOrder>(INITIAL_ORDER);
 
     const frontItem = displayItems[0];
 
@@ -685,12 +684,16 @@ export function DesignTestimonialsSection() {
 
     const next = useCallback(() => {
         setDirection(1);
+        setPrevOrder(order);
+        setOrder(rotateDeckForward(order));
         setFrontIndex(i => (i + 1) % (N || 1));
-    }, [N]);
+    }, [N, order]);
     const prevCb = useCallback(() => {
         setDirection(-1);
+        setPrevOrder(order);
+        setOrder(rotateDeckBackward(order));
         setFrontIndex(i => (i - 1 + (N || 1)) % (N || 1));
-    }, [N]);
+    }, [N, order]);
 
     if (!loaded || allItems.length === 0) return null;
 

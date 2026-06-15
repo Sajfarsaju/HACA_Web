@@ -1,14 +1,6 @@
-import Image from "next/image";
 import { fetchPublicMentors } from "@/lib/mentors-api";
-
-const CARD_BG = "#E8F0FE";
-
-type MentorItem = {
-    id: string;
-    name: string;
-    role: string;
-    imageSrc: string;
-};
+import { MentorsAutoScroll } from "./MentorsAutoScroll";
+import type { MentorItem } from "./MentorsAutoScroll";
 
 const FALLBACK_MENTORS: MentorItem[] = [
     {
@@ -100,52 +92,7 @@ export async function MarketingMentorsSectionShared() {
                     </p>
                 </header>
 
-                <ul
-                    className="
-                        m-0 grid w-full list-none grid-cols-1 gap-8 p-0
-                        sm:grid-cols-2
-                        lg:grid-cols-4 lg:gap-x-8 lg:gap-y-10
-                    "
-                >
-                    {mentors.map((mentor) => (
-                        <li key={mentor.id} className="min-w-0">
-                            <article className="flex flex-col gap-[10px]">
-                                <div
-                                    className="relative aspect-square w-full overflow-hidden rounded-[16px] lg:rounded-[16px]"
-                                    style={{ backgroundColor: CARD_BG }}
-                                >
-                                    <Image
-                                        src={mentor.imageSrc}
-                                        alt={`${mentor.name}, ${mentor.role} at HACA Marketing School`}
-                                        fill
-                                        className="object-contain object-bottom"
-                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                                    />
-                                </div>
-                                <div className="flex min-h-0 flex-col gap-1 text-left">
-                                    <h3
-                                        className="
-                                            m-0 font-bold tracking-normal text-black
-                                            [font-family:'Satoshi',sans-serif]
-                                            text-[clamp(1.125rem,2.2vw,1.25rem)] leading-tight
-                                        "
-                                    >
-                                        {mentor.name}
-                                    </h3>
-                                    <p
-                                        className="
-                                            m-0 font-medium leading-snug text-[#6B6B6B]
-                                            [font-family:'Satoshi',sans-serif]
-                                            text-[clamp(13px,1.4vw,15px)]
-                                        "
-                                    >
-                                        {mentor.role}
-                                    </p>
-                                </div>
-                            </article>
-                        </li>
-                    ))}
-                </ul>
+                <MentorsAutoScroll mentors={mentors} />
             </div>
         </section>
     );

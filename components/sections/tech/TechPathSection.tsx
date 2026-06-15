@@ -8,6 +8,15 @@ import { techCourseHref, TECH_COURSES_PAGE } from "@/lib/tech-courses";
 
 const COURSES = [
     {
+        slug: "mern-ai-full-stack-developer-program",
+        title: "MERN + AI Full Stack Developer Program",
+        duration: "5 Months Training + 1 Month Capstone",
+        location: "Online / Offline",
+        description: "Build complete web applications from scratch using the MERN stack and integrate AI features with the Gemini API. From responsive frontends to secure backends, you'll graduate with real projects and job-ready skills.",
+        bgImage: "/photos/Tech/Rectangle 3.svg",
+        titleWidth: "325px"
+    },
+    {
         slug: "advanced-data-analytics-with-ai",
         title: "Advanced Data Analytics with AI",
         duration: "5 Months + 1 Month Project",

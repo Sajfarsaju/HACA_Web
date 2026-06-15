@@ -60,6 +60,7 @@ function PhotoCard({ src, grow, height, radius }: { src: string; grow: number; h
                     className="object-cover object-center"
                     sizes="(max-width: 1024px) 50vw, 25vw"
                     loading="lazy"
+                    unoptimized
                     onError={() => setErr(true)}
                 />
             )}

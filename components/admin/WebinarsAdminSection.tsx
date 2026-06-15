@@ -234,7 +234,7 @@ export function WebinarsAdminSection({ token, backendUrl, showToast }: Props) {
               {/* Thumbnail */}
               <div className="shrink-0 w-16 h-16 rounded-xl overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
                 {w.bannerUrl ? (
-                  <Image src={w.bannerUrl} alt={w.title} width={64} height={64} className="w-full h-full object-cover" />
+                  <Image src={w.bannerUrl} alt={w.title} width={64} height={64} className="w-full h-full object-cover" unoptimized />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-white/20 text-xs">No image</div>
                 )}
