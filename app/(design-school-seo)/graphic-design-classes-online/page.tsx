@@ -7,11 +7,11 @@ import { GraphicDesignOnlineWhoIsThisForSection } from "./_sections/GraphicDesig
 import { GraphicDesignOnlineCareerSection } from "./_sections/GraphicDesignOnlineCareerSection";
 import { GraphicDesignOnlineExploreProgramsSection } from "./_sections/GraphicDesignOnlineExploreProgramsSection";
 import { GraphicDesignOnlineWhyDesignSchoolSection } from "./_sections/GraphicDesignOnlineWhyDesignSchoolSection";
+import { GraphicDesignOnlineFigmaRecognizedSection } from "./_sections/GraphicDesignOnlineFigmaRecognizedSection";
+import { GraphicDesignOnlinePortfolioShowcaseSection } from "./_sections/GraphicDesignOnlinePortfolioShowcaseSection";
 import { GraphicDesignOnlineToolsSection } from "./_sections/GraphicDesignOnlineToolsSection";
 import { GraphicDesignOnlineTestimonialsSection } from "./_sections/GraphicDesignOnlineTestimonialsSection";
 import { GraphicDesignOnlineMentorsSection } from "./_sections/GraphicDesignOnlineMentorsSection";
-import { GraphicDesigningCalicutStudentsWorkSection } from "@/components/design/GraphicDesigningCalicutStudentsWorkSection";
-import { DesignStoriesInsightsSection } from "@/components/design/DesignStoriesInsightsSection";
 import { DesignSeoCultureGrid } from "@/components/design/DesignSeoCultureGrid";
 import { DesignSeoFaqList, type FaqItem } from "@/components/design/DesignSeoFaqList";
 import { DesignSchoolFooter } from "@/components/design/DesignSchoolFooter";
@@ -27,19 +27,19 @@ const ONLINE_FAQS: FaqItem[] = [
     {
         id: "gd-online-faq-1",
         q: "Which is the best online graphic design course for beginners?",
-        plusColor: "#8F56FF",
+        plusColor: "#29C76B",
         a: "The best online graphic design courses for beginners are those that focus on practical learning, mentorship, portfolio building, and real projects instead of only teaching software tools. At HACA Design School, students learn through a structured process designed to make graphic design easy, even for complete beginners.",
     },
     {
         id: "gd-online-faq-2",
         q: "Can I get a graphic design certificate in this online course?",
-        plusColor: "#FF5C00",
+        plusColor: "#29C76B",
         a: "Yes, after completing our course, you'll receive a graphic design certificate that validates your learning and can strengthen your resume or portfolio.",
     },
     {
         id: "gd-online-faq-3",
         q: "Can I learn graphic design without experience?",
-        plusColor: "#2592FF",
+        plusColor: "#29C76B",
         a: "Absolutely, you can learn graphic design without prior experience. HACA's online graphic design course starts with fundamentals and gradually builds practical skills.",
     },
     {
@@ -51,13 +51,13 @@ const ONLINE_FAQS: FaqItem[] = [
     {
         id: "gd-online-faq-5",
         q: "Does HACA Design School provide placement support?",
-        plusColor: "#F25555",
+        plusColor: "#29C76B",
         a: "Yes. HACA Design School offers placement support, resume guidance, interview preparation, and career assistance to help students explore creative opportunities after completing the course.",
     },
     {
         id: "gd-online-faq-6",
         q: "Is a portfolio more important than a certificate in graphic design?",
-        plusColor: "#FF5659",
+        plusColor: "#29C76B",
         a: "Both are valuable, but in graphic design, your portfolio often matters more because it shows your practical skills, creativity, and thinking process. That's why HACA Design School focuses on portfolio building from the beginning.",
     },
 ];
@@ -77,11 +77,8 @@ export default function GraphicDesignClassesOnlinePage() {
             <GraphicDesignOnlineMentorsSection />
             <GraphicDesignOnlineExploreProgramsSection />
             <GraphicDesignOnlineWhyDesignSchoolSection />
-            <GraphicDesigningCalicutStudentsWorkSection />
-
-            <div className="w-full bg-[#FCFCFC] flex justify-center">
-                <DesignStoriesInsightsSection font={DESIGN_HEADING_FONT} serif={DESIGN_SERIF_FONT} />
-            </div>
+            <GraphicDesignOnlineFigmaRecognizedSection />
+            <GraphicDesignOnlinePortfolioShowcaseSection />
 
             {/* Culture section */}
             <section className="w-full bg-[#FCFCFC] flex justify-center" aria-label="Learning community">
@@ -121,7 +118,7 @@ export default function GraphicDesignClassesOnlinePage() {
 
             {/* FAQ section */}
             <section className="w-full bg-[#FCFCFC] flex justify-center" aria-label="FAQ">
-                <div className="w-full max-w-[1440px] flex flex-col px-5 py-10 gap-8 lg:flex-row lg:justify-between lg:px-[60px] lg:py-[60px]">
+                <div className="w-full max-w-[1440px] flex flex-col px-5 py-10 gap-8 lg:flex-row lg:items-center lg:justify-between lg:px-[60px] lg:py-[60px]">
                     <div className="w-full flex justify-start">
                         <div className="w-full max-w-[500px] lg:w-[clamp(320px,34vw,500px)]">
                             <h2

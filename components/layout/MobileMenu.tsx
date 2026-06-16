@@ -125,6 +125,14 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     >
                         <span className={`font-rethink font-normal text-[clamp(20px,6vw,24px)] leading-[100%] tracking-tight ${isActive("/blog") ? "text-[#FFFFFF]" : "text-[#A7ADBE]"}`}>Blogs</span>
                     </Link>
+
+                    <Link
+                        href="/case-studies"
+                        onClick={handleLinkClick}
+                        className={`w-fit min-w-[98px] h-[44px] flex items-center justify-center p-[10px_16px] gap-[10px] rounded-[18px] border no-underline transition-all duration-200 ease group ${isActive("/case-studies") ? "bg-[#131839] border-[#232D6B]" : "bg-transparent border-transparent"}`}
+                    >
+                        <span className={`font-rethink font-normal text-[clamp(20px,6vw,24px)] leading-[100%] tracking-tight ${isActive("/case-studies") ? "text-[#FFFFFF]" : "text-[#A7ADBE]"}`}>Case Studies</span>
+                    </Link>
                 </nav>
             </div>
 

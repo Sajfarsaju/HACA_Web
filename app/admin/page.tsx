@@ -10,10 +10,12 @@ import { FounderVideosAdminSection } from "@/components/admin/FounderVideosAdmin
 import { MarketingCareerWinsAdminSection } from "@/components/admin/MarketingCareerWinsAdminSection";
 import { TestimonialsAdminSection } from "@/components/admin/TestimonialsAdminSection";
 import { WebinarsAdminSection } from "@/components/admin/WebinarsAdminSection";
+import { CaseStudiesAdminSection } from "@/components/admin/CaseStudiesAdminSection";
 import {
   PLACEMENT_SCHOOL_OPTIONS,
   type PlacementSchoolName,
 } from "@/lib/placementConstants";
+import { sanitizeSlug } from "@/lib/slug";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -153,7 +155,7 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null);
 
   // ── Active admin tab
-  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "mentors" | "culture" | "videos" | "mktVideos" | "testimonials" | "webinars">(
+  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "caseStudies" | "mentors" | "culture" | "videos" | "mktVideos" | "testimonials" | "webinars">(
     "placements"
   );
 
@@ -188,6 +190,7 @@ export default function AdminPage() {
   // ── Blogs state
   const [blogs, setBlogs] = useState<BlogDoc[]>([]);
   const [blogTitle, setBlogTitle] = useState("");
+  const [blogSlug, setBlogSlug] = useState("");
   const [blogAuthorName, setBlogAuthorName] = useState("");
   const [blogAuthorRole, setBlogAuthorRole] = useState("");
   const [blogAuthorBio, setBlogAuthorBio] = useState("");
@@ -502,6 +505,7 @@ export default function AdminPage() {
 
   function resetBlogForm() {
     setBlogTitle("");
+    setBlogSlug("");
     setBlogAuthorName("");
     setBlogAuthorRole("");
     setBlogAuthorBio("");
@@ -532,6 +536,7 @@ export default function AdminPage() {
       const data = res.data;
       const b: BlogDoc = data.blog ?? data.item ?? (data._id ? data : blog);
       setBlogTitle(b.title || "");
+      setBlogSlug(b.slug || "");
       setBlogAuthorName(b.authorName || "");
       setBlogAuthorRole(b.authorRole || "");
       setBlogAuthorBio(b.authorBio || "");
@@ -546,6 +551,7 @@ export default function AdminPage() {
     } catch {
       // Fall back to data already in the list
       setBlogTitle(blog.title || "");
+      setBlogSlug(blog.slug || "");
       setBlogAuthorName(blog.authorName || "");
       setBlogAuthorRole(blog.authorRole || "");
       setBlogAuthorBio(blog.authorBio || "");
@@ -572,6 +578,11 @@ export default function AdminPage() {
       showToast("Please fill in the blog title.");
       return;
     }
+    const finalBlogSlug = sanitizeSlug(blogSlug);
+    if (!finalBlogSlug) {
+      showToast("Please enter a custom URL for this blog.");
+      return;
+    }
     if (!blogAuthorName.trim()) {
       showToast("Please fill in the author name.");
       return;
@@ -585,6 +596,7 @@ export default function AdminPage() {
     try {
       const form = new FormData();
       form.append("title", blogTitle.trim());
+      form.append("slug", finalBlogSlug);
       form.append("authorName", blogAuthorName.trim());
       form.append("authorRole", blogAuthorRole.trim());
       form.append("authorBio", blogAuthorBio.trim());
@@ -1234,6 +1246,18 @@ export default function AdminPage() {
             </button>
             <button
               type="button"
+              id="tab-caseStudies"
+              onClick={() => setActiveTab("caseStudies")}
+              className={`rounded-xl px-5 py-2.5 text-sm font-medium transition ${
+                activeTab === "caseStudies"
+                  ? "bg-white/15 text-white shadow-sm"
+                  : "text-[#9aa3b8] hover:text-white"
+              }`}
+            >
+              Case Studies
+            </button>
+            <button
+              type="button"
               id="tab-mentors"
               onClick={() => setActiveTab("mentors")}
               className={`rounded-xl px-5 py-2.5 text-sm font-medium transition ${
@@ -1792,6 +1816,25 @@ export default function AdminPage() {
                     />
                   </div>
 
+                  {/* Row 1b: Custom URL (slug) */}
+                  <div className="space-y-2">
+                    <label htmlFor="blog-slug" className="text-xs font-medium text-[#A7ADBE]">
+                      Custom URL <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      id="blog-slug"
+                      required
+                      className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
+                      value={blogSlug}
+                      onChange={(e) => setBlogSlug(e.target.value)}
+                      onBlur={() => setBlogSlug((prev) => sanitizeSlug(prev))}
+                      placeholder="e.g. must-have-marketing-skills-2025"
+                    />
+                    <p className="text-[11px] text-[#6b7280]">
+                      Will be published at: /blog/{sanitizeSlug(blogSlug) || "your-slug-here"}
+                    </p>
+                  </div>
+
                   {/* Row 2: Author picker from existing blogs */}
                   {(() => {
                     const seen = new Set<string>();
@@ -2233,6 +2276,15 @@ export default function AdminPage() {
                 )}
               </section>
             </div>
+          )}
+
+          {/* ── Case Studies Tab ── */}
+          {activeTab === "caseStudies" && token && (
+            <CaseStudiesAdminSection
+              token={token}
+              backendUrl={backendUrl}
+              showToast={showToast}
+            />
           )}
 
           {/* ── Mentors Tab ── */}

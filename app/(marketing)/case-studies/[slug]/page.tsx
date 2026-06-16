@@ -6,10 +6,9 @@ import { InThisArticle } from "@/components/blog/InThisArticle"
 import { BlogAuthorBio } from "@/components/blog/BlogAuthorBio"
 import { BlogShareButtons } from "@/components/blog/BlogShareButtons"
 import { SectionReveal } from "@/components/animations/SectionReveal"
-import type { BlogPost, FaqItem } from "@/lib/blog-data"
-import { fetchPublicBlogs } from "@/lib/blog-api"
+import type { CaseStudy } from "@/lib/case-study-data"
+import { fetchPublicCaseStudies } from "@/lib/case-study-api"
 import { BlogRenderer } from "@/components/blog/BlogRenderer"
-import { BlogFAQSection } from "@/components/blog/BlogFAQSection"
 
 const BLOG_COVER_IMAGE = "/photos/main/blog cover.webp"
 
@@ -36,26 +35,20 @@ function extractTocFromHtml(html: string) {
     })).filter((item) => item.label)
 }
 
-function parseFaqs(raw: unknown): FaqItem[] | undefined {
-    if (Array.isArray(raw) && raw.length > 0) return raw as FaqItem[]
-    if (typeof raw === "string" && raw.trim().startsWith("[")) {
-        try {
-            const parsed = JSON.parse(raw)
-            if (Array.isArray(parsed) && parsed.length > 0) return parsed as FaqItem[]
-        } catch { /* ignore */ }
-    }
-    return undefined
+function getYouTubeEmbedUrl(url: string): string | null {
+    const m = url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/)
+    return m ? `https://www.youtube.com/embed/${m[1]}` : null
 }
 
-async function getDynamicBlog(slug: string): Promise<BlogPost | null> {
+async function getDynamicCaseStudy(slug: string): Promise<CaseStudy | null> {
     try {
         const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:5000"
-        const res = await fetch(`${backendUrl}/api/admin/public-blogs/${slug}`, { next: { revalidate: 0 } })
+        const res = await fetch(`${backendUrl}/api/admin/public-case-studies/${slug}`, { next: { revalidate: 0 } })
         if (!res.ok) return null
         const data = await res.json()
 
-        // Handle multiple response shapes: { blog }, { item }, or the object itself
-        const b = data.blog ?? data.item ?? (data._id ? data : null)
+        // Handle multiple response shapes: { item }, or the object itself
+        const b = data.item ?? (data._id ? data : null)
         if (!b) return null
 
         const blocks = Array.isArray(b.blocks) && b.blocks.length > 0 ? b.blocks : undefined
@@ -86,11 +79,13 @@ async function getDynamicBlog(slug: string): Promise<BlogPost | null> {
             date = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
         }
 
+        const school = typeof b.school === "string" ? b.school : ""
+
         return {
             id: b._id,
             slug: b.slug || b._id,
-            category: b.category || "General",
-            categorySlug: (b.category || "general").toLowerCase(),
+            school,
+            schoolSlug: school.toLowerCase().replace(/\s+/g, "-"),
             date,
             title: b.title || "Untitled",
             author: b.authorName || b.author || "",
@@ -98,44 +93,47 @@ async function getDynamicBlog(slug: string): Promise<BlogPost | null> {
             authorPhotoUrl: b.authorPhotoUrl || b.authorPhoto || undefined,
             authorBio: b.authorBio || undefined,
             readTime: b.readTime || "5 Mins",
+            studentName: b.studentName || undefined,
+            batch: b.batch || undefined,
+            youtubeUrl: b.youtubeUrl || undefined,
             bannerUrl: b.bannerUrl || b.coverUrl || b.imageUrl || b.coverImage || undefined,
             content: b.content || "",
             blocks,
             toc,
-            faqs: parseFaqs(b.faqs),
             metaTitle: b.metaTitle || undefined,
             metaDescription: b.metaDescription || undefined,
             bannerAlt: b.bannerAlt || undefined,
         }
     } catch (err) {
-        console.error("[getDynamicBlog] fetch error:", err)
+        console.error("[getDynamicCaseStudy] fetch error:", err)
         return null
     }
 }
 
 export async function generateStaticParams() {
-    const blogs = await fetchPublicBlogs()
-    return blogs.map((post) => ({ slug: post.slug }))
+    const items = await fetchPublicCaseStudies()
+    return items.map((item) => ({ slug: item.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params
-    const post = await getDynamicBlog(slug)
+    const post = await getDynamicCaseStudy(slug)
 
-    if (!post) return { title: "Blog | HACA" }
+    if (!post) return { title: "Case Study | HACA" }
     return {
-        title: post.metaTitle || `${post.title} | HACA Blog`,
-        description: post.metaDescription || `Read ${post.title} on the HACA blog.`,
+        title: post.metaTitle || `${post.title} | HACA Case Study`,
+        description: post.metaDescription || `Read ${post.title} on the HACA case studies page.`,
     }
 }
 
-export default async function BlogDetailPage({ params }: Props) {
+export default async function CaseStudyDetailPage({ params }: Props) {
     const { slug } = await params
-    const post = await getDynamicBlog(slug)
+    const post = await getDynamicCaseStudy(slug)
 
     if (!post) notFound()
 
     const coverImageSrc = post.bannerUrl || BLOG_COVER_IMAGE
+    const youtubeEmbedUrl = post.youtubeUrl ? getYouTubeEmbedUrl(post.youtubeUrl) : null
 
     return (
         <div className="font-rethink w-full min-h-screen bg-transparent overflow-x-hidden flex flex-col gap-2.5 md:gap-2.5 pt-2.5 md:pt-10 lg:pt-0">
@@ -149,7 +147,7 @@ export default async function BlogDetailPage({ params }: Props) {
                         {/* Tag pill - mobile: py-1 px-3, desktop: py-2 px-3 - horizontally centered */}
                         <div className="w-fit inline-flex items-center gap-2.5 py-1 px-3 md:py-2 md:px-3 rounded-[100px] bg-[#FFFFFF1A] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)]">
                             <span className="font-rethink font-semibold text-[14px] md:text-[16px] leading-[25.5px] text-center text-[#A7ADBE]">
-                                Blog &gt; {post.category}
+                                {post.school || "Case Study"}{post.studentName ? ` > ${post.studentName}` : ""}
                             </span>
                         </div>
 
@@ -179,6 +177,22 @@ export default async function BlogDetailPage({ params }: Props) {
                                 </span>
                             </div>
                         </div>
+
+                        {/* Student / batch meta — case-study specific */}
+                        {(post.studentName || post.batch) && (
+                            <div className="flex flex-row items-center justify-center gap-3 md:gap-5 w-full flex-wrap">
+                                {post.studentName && (
+                                    <span className="font-rethink font-medium text-[#A7ADBE] text-[12px] sm:text-[14px] md:text-[16px] leading-[25.5px]">
+                                        Student: <span className="text-white">{post.studentName}</span>
+                                    </span>
+                                )}
+                                {post.batch && (
+                                    <span className="font-rethink font-medium text-[#A7ADBE] text-[12px] sm:text-[14px] md:text-[16px] leading-[25.5px]">
+                                        Batch: <span className="text-white">{post.batch}</span>
+                                    </span>
+                                )}
+                            </div>
+                        )}
                     </div>
                     </SectionReveal>
 
@@ -186,7 +200,7 @@ export default async function BlogDetailPage({ params }: Props) {
                     <div className="flex flex-col lg:flex-row gap-4 sm:gap-5 lg:gap-10 w-full items-start">
                         {/* Left column (desktop) / stacks first on mobile */}
                         <div className="flex flex-col gap-4 sm:gap-5 lg:gap-6 w-full lg:flex-1 min-w-0">
-                            {/* Blog photo - card style */}
+                            {/* Case study photo - card style */}
                             <SectionReveal sectionIndex={1}>
                             <div className="w-full max-w-[871px] mx-auto lg:mx-0">
                                 <div className="relative w-full aspect-[871/514] overflow-hidden rounded-[10.63px] sm:rounded-[14px] md:rounded-[18px] lg:rounded-[20px] bg-white shadow-lg">
@@ -202,7 +216,25 @@ export default async function BlogDetailPage({ params }: Props) {
                                 </div>
                             </div>
                             </SectionReveal>
-                            {/* Third container - main blog content (desktop) */}
+
+                            {/* Optional YouTube embed */}
+                            {youtubeEmbedUrl && (
+                                <SectionReveal sectionIndex={2}>
+                                <div className="w-full max-w-[871px] mx-auto lg:mx-0">
+                                    <div className="relative w-full aspect-video overflow-hidden rounded-[14px] sm:rounded-[18px] lg:rounded-[20px] bg-black shadow-lg">
+                                        <iframe
+                                            src={youtubeEmbedUrl}
+                                            title={post.title}
+                                            className="absolute inset-0 h-full w-full"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                        />
+                                    </div>
+                                </div>
+                                </SectionReveal>
+                            )}
+
+                            {/* Third container - main content (desktop) */}
                             <div className="hidden lg:flex flex-col gap-[30px] w-full max-w-[878px] mx-auto lg:mx-0">
                                 <div>
                                     {post.blocks && post.blocks.length > 0 ? (
@@ -251,15 +283,6 @@ export default async function BlogDetailPage({ params }: Props) {
                         </div>
                     </div>
                 </div>
-
-                {/* FAQ section — below the article, only when blog has FAQ data */}
-                {post.faqs && post.faqs.length > 0 && (
-                    <SectionReveal>
-                        <div className="w-full max-w-[878px] mx-auto lg:mx-0 pb-4">
-                            <BlogFAQSection faqs={post.faqs} />
-                        </div>
-                    </SectionReveal>
-                )}
             </div>
 
         </div>

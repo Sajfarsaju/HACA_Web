@@ -3,7 +3,9 @@ import {
     SchoolPlacementSection,
     type PlacementItem,
 } from "@/components/success-story/SchoolPlacementSection";
+import { CaseStudyBannerMarquee } from "@/components/success-story/CaseStudyBannerMarquee";
 import { fetchPlacementGroups } from "@/lib/placements-api";
+import { fetchPublicCaseStudies } from "@/lib/case-study-api";
 import { buildSitePageMetadata } from "@/lib/site-page-metadata";
 
 export const metadata = buildSitePageMetadata({
@@ -17,6 +19,7 @@ const SCHOOL_NAMES = ["Marketing School", "Design School", "Tech School", "UAE S
 
 export default async function SuccessStoryPage() {
     const placementGroups = await fetchPlacementGroups();
+    const caseStudies = await fetchPublicCaseStudies();
 
     return (
         <div
@@ -40,6 +43,8 @@ export default async function SuccessStoryPage() {
                             agencies, brands, and studios.
                         </p>
                     </div>
+
+                    <CaseStudyBannerMarquee items={caseStudies} />
 
                     <div className="flex flex-col gap-12 sm:gap-16 md:gap-20 lg:gap-[80px] w-full items-center">
                         {SCHOOL_NAMES.map((schoolName) => {
