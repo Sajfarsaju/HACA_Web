@@ -1,16 +1,15 @@
 ﻿import { GraphicDesignOnlineHeroSection } from "./_sections/GraphicDesignOnlineHeroSection";
-import { GraphicDesignOnlineStatsSection } from "./_sections/GraphicDesignOnlineStatsSection";
 import { GraphicDesignOnlineWhyChooseSection } from "./_sections/GraphicDesignOnlineWhyChooseSection";
 import { GraphicDesignOnlineCurriculumSection } from "./_sections/GraphicDesignOnlineCurriculumSection";
 import { GraphicDesignOnlineAchieveSection } from "./_sections/GraphicDesignOnlineAchieveSection";
+import { GraphicDesignOnlineStudentsWorkSection } from "./_sections/GraphicDesignOnlineStudentsWorkSection";
 import { GraphicDesignOnlineWhoIsThisForSection } from "./_sections/GraphicDesignOnlineWhoIsThisForSection";
 import { GraphicDesignOnlineCareerSection } from "./_sections/GraphicDesignOnlineCareerSection";
 import { GraphicDesignOnlineExploreProgramsSection } from "./_sections/GraphicDesignOnlineExploreProgramsSection";
 import { GraphicDesignOnlineWhyDesignSchoolSection } from "./_sections/GraphicDesignOnlineWhyDesignSchoolSection";
-import { GraphicDesigningKeralaToolsSection } from "@/app/(design-school-seo)/graphic-designing-course-in-kerala/_sections/GraphicDesigningKeralaToolsSection";
-import { GraphicDesigningCalicutBrandsSection } from "@/components/design/GraphicDesigningCalicutBrandsSection";
-import { GraphicDesigningCalicutTestimonialsSection } from "@/components/design/GraphicDesigningCalicutTestimonialsSection";
-import { GraphicDesigningCalicutMentorsSection } from "@/components/design/GraphicDesigningCalicutMentorsSection";
+import { GraphicDesignOnlineToolsSection } from "./_sections/GraphicDesignOnlineToolsSection";
+import { GraphicDesignOnlineTestimonialsSection } from "./_sections/GraphicDesignOnlineTestimonialsSection";
+import { GraphicDesignOnlineMentorsSection } from "./_sections/GraphicDesignOnlineMentorsSection";
 import { GraphicDesigningCalicutStudentsWorkSection } from "@/components/design/GraphicDesigningCalicutStudentsWorkSection";
 import { DesignStoriesInsightsSection } from "@/components/design/DesignStoriesInsightsSection";
 import { DesignSeoCultureGrid } from "@/components/design/DesignSeoCultureGrid";
@@ -67,16 +66,15 @@ export default function GraphicDesignClassesOnlinePage() {
     return (
         <>
             <GraphicDesignOnlineHeroSection />
-            <GraphicDesignOnlineStatsSection />
             <GraphicDesignOnlineWhyChooseSection />
             <GraphicDesignOnlineCurriculumSection />
-            <GraphicDesigningKeralaToolsSection />
+            <GraphicDesignOnlineToolsSection />
             <GraphicDesignOnlineAchieveSection />
-            <GraphicDesigningCalicutBrandsSection />
-            <GraphicDesigningCalicutTestimonialsSection />
+            <GraphicDesignOnlineStudentsWorkSection />
+            <GraphicDesignOnlineTestimonialsSection />
             <GraphicDesignOnlineWhoIsThisForSection />
             <GraphicDesignOnlineCareerSection />
-            <GraphicDesigningCalicutMentorsSection />
+            <GraphicDesignOnlineMentorsSection />
             <GraphicDesignOnlineExploreProgramsSection />
             <GraphicDesignOnlineWhyDesignSchoolSection />
             <GraphicDesigningCalicutStudentsWorkSection />

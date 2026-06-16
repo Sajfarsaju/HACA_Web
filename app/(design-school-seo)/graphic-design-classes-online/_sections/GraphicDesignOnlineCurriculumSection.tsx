@@ -1,27 +1,12 @@
-"use client";
-
-import { useState } from "react";
-
 const vc = '"VC Nudge Trial Normal", sans-serif' as const;
 
-type CurriculumItem = {
-    id: string;
-    title: string;
-    description: string;
-};
-
-type CurriculumGroup = {
-    id: string;
-    category: string;
-    accentColor: string;
-    items: CurriculumItem[];
-};
+type CurriculumItem = { id: string; title: string; description: string };
+type CurriculumGroup = { id: string; category: string; items: CurriculumItem[] };
 
 const CURRICULUM: CurriculumGroup[] = [
     {
         id: "foundations",
         category: "Design Foundations",
-        accentColor: "#FF5C00",
         items: [
             {
                 id: "intro-design",
@@ -53,7 +38,6 @@ const CURRICULUM: CurriculumGroup[] = [
     {
         id: "creative-skills",
         category: "Creative Skills",
-        accentColor: "#8F56FF",
         items: [
             {
                 id: "image-manipulation",
@@ -70,7 +54,6 @@ const CURRICULUM: CurriculumGroup[] = [
     {
         id: "bonus",
         category: "Bonus Learning",
-        accentColor: "#29C76B",
         items: [
             {
                 id: "logo-design",
@@ -96,91 +79,50 @@ const CURRICULUM: CurriculumGroup[] = [
     },
 ];
 
-function ChevronDown({ open }: { open: boolean }) {
+function CategoryLabel({ label }: { label: string }) {
     return (
-        <svg
-            className={`shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden
-        >
-            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-    );
-}
-
-function CurriculumItemRow({ item, open, onToggle, accentColor }: {
-    item: CurriculumItem;
-    open: boolean;
-    onToggle: () => void;
-    accentColor: string;
-}) {
-    const panelId = `gd-online-curr-${item.id}-panel`;
-    const btnId = `gd-online-curr-${item.id}-btn`;
-    return (
-        <div className="border-b border-black/08" style={{ borderColor: "rgba(0,0,0,0.08)" }}>
-            <button
-                id={btnId}
-                type="button"
-                onClick={onToggle}
-                className="flex w-full items-center justify-between gap-4 py-4 text-left"
-                aria-expanded={open}
-                aria-controls={panelId}
+        <div className="flex items-center gap-[10px]">
+            <span
+                className="shrink-0 rounded-full bg-[#29C76B]"
+                style={{ width: "4px", height: "22px" }}
+                aria-hidden
+            />
+            {/* mobile: 24px / desktop: 30px — weight 500 / line-height 115% */}
+            <span
+                className="text-black text-[24px] lg:text-[30px]"
+                style={{ fontFamily: vc, fontWeight: 500, lineHeight: "115%" }}
             >
-                <span
-                    className="text-[15px] font-medium leading-[130%] text-black lg:text-[17px]"
-                    style={{ fontFamily: vc }}
-                >
-                    {item.title}
-                </span>
-                <ChevronDown open={open} />
-            </button>
-            <div
-                id={panelId}
-                role="region"
-                aria-labelledby={btnId}
-                className="grid transition-[grid-template-rows] duration-300 ease-out"
-                style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-            >
-                <div className="overflow-hidden">
-                    <p
-                        className="m-0 pb-4 text-[14px] leading-[155%] text-black/60 lg:text-[15px]"
-                        style={{ fontFamily: vc }}
-                    >
-                        {item.description}
-                    </p>
-                </div>
-            </div>
+                {label}
+            </span>
         </div>
     );
 }
 
-function CurriculumGroup({ group }: { group: CurriculumGroup }) {
-    const [openId, setOpenId] = useState<string | null>(null);
+function CurriculumCard({ group }: { group: CurriculumGroup }) {
     return (
-        <div className="flex w-full flex-col gap-0 rounded-2xl border border-black/08 overflow-hidden" style={{ borderColor: "rgba(0,0,0,0.08)" }}>
-            <div
-                className="flex items-center gap-3 px-5 py-4"
-                style={{ backgroundColor: group.accentColor }}
-            >
-                <span
-                    className="text-[14px] font-semibold uppercase tracking-[0.08em] text-white lg:text-[15px]"
-                    style={{ fontFamily: vc }}
-                >
-                    {group.category}
-                </span>
-            </div>
-            <div className="flex flex-col px-5">
+        <div
+            className="w-full overflow-hidden rounded-[20px]"
+            style={{ backgroundColor: "#0D0D0D", padding: "20px" }}
+        >
+            {/* gap: 25px between items, no dividers */}
+            <div className="flex flex-col gap-[25px]">
                 {group.items.map((item) => (
-                    <CurriculumItemRow
-                        key={item.id}
-                        item={item}
-                        open={openId === item.id}
-                        onToggle={() => setOpenId((p) => (p === item.id ? null : item.id))}
-                        accentColor={group.accentColor}
-                    />
+                    <div key={item.id} className="flex flex-col gap-[6px]">
+                        {/* title: mobile 20px / desktop 22px — weight 500 / line-height 115% */}
+                        <p
+                            className="m-0 text-white text-[20px] lg:text-[22px]"
+                            style={{ fontFamily: vc, fontWeight: 500, lineHeight: "115%" }}
+                        >
+                            {item.title}
+                        </p>
+                        {/* description: 16px / weight 400 / line-height 115% — same on all screens */}
+                        <p
+                            className="m-0 text-white/60"
+                            style={{ fontFamily: vc, fontWeight: 400, fontSize: "16px", lineHeight: "115%" }}
+                        >
+                            {item.description}
+                        </p>
+                    </div>
                 ))}
             </div>
         </div>
@@ -188,37 +130,72 @@ function CurriculumGroup({ group }: { group: CurriculumGroup }) {
 }
 
 export function GraphicDesignOnlineCurriculumSection() {
+    const [foundations, creativeSkills, bonus] = CURRICULUM;
+
     return (
-        <section className="w-full bg-[#FCFCFC]" aria-labelledby="gd-online-curriculum-heading">
+        <section className="w-full bg-white" aria-labelledby="gd-online-curriculum-heading">
             <div className="mx-auto box-border w-full max-w-[1440px] px-5 py-10 lg:px-[60px] lg:py-[60px]">
-                <div className="flex w-full flex-col gap-8 lg:gap-[50px]">
-                    <div className="flex flex-col gap-3">
+                <div className="flex w-full flex-col items-center gap-[40px] lg:gap-[50px]">
+
+                    {/* Heading + subtitle — centered */}
+                    <div className="flex flex-col items-center gap-[12px] text-center">
                         <h2
                             id="gd-online-curriculum-heading"
-                            className="m-0 w-full max-w-[700px] text-black"
+                            className="m-0 text-center text-black"
                             style={{
                                 fontFamily: vc,
                                 fontWeight: 600,
-                                fontSize: "clamp(26px, 3.5vw, 45px)",
+                                fontSize: "clamp(30px, 4.5vw, 60px)",
                                 lineHeight: "110%",
                                 letterSpacing: "-0.02em",
                             }}
                         >
-                            What You&apos;ll Learn in This Online Graphic Designing Course
+                            <span className="lg:hidden">
+                                What You&apos;ll Learn in<br />This Online Graphic<br />Designing Course
+                            </span>
+                            <span className="hidden lg:inline">
+                                What You&apos;ll Learn in This Online<br />Graphic Designing Course
+                            </span>
                         </h2>
                         <p
-                            className="m-0 max-w-[680px] text-[15px] leading-[155%] text-black/60 lg:text-[16px]"
-                            style={{ fontFamily: vc }}
+                            className="m-0 max-w-[680px] text-center text-black/60"
+                            style={{ fontFamily: vc, fontWeight: 400, fontSize: "16px", lineHeight: "155%" }}
                         >
                             This course focuses on helping you understand how visual communication works before jumping into tools. You&apos;ll gradually move from fundamentals to practical creative execution.
                         </p>
                     </div>
 
-                    <div className="flex w-full flex-col gap-5 lg:grid lg:grid-cols-3 lg:gap-6">
+                    {/* Mobile — all groups stacked */}
+                    <div className="flex w-full flex-col gap-[24px] lg:hidden">
                         {CURRICULUM.map((group) => (
-                            <CurriculumGroup key={group.id} group={group} />
+                            <div key={group.id} className="flex flex-col gap-[14px]">
+                                <CategoryLabel label={group.category} />
+                                <CurriculumCard group={group} />
+                            </div>
                         ))}
                     </div>
+
+                    {/* Desktop — 2 columns */}
+                    <div className="hidden w-full gap-[30px] lg:grid lg:grid-cols-2">
+                        {/* Left: Design Foundations — self-center aligns it to the mid-point of the right column */}
+                        <div className="flex flex-col gap-[18px] self-center">
+                            <CategoryLabel label={foundations.category} />
+                            <CurriculumCard group={foundations} />
+                        </div>
+
+                        {/* Right: Creative Skills + Bonus Learning stacked */}
+                        <div className="flex flex-col gap-[30px]">
+                            <div className="flex flex-col gap-[18px]">
+                                <CategoryLabel label={creativeSkills.category} />
+                                <CurriculumCard group={creativeSkills} />
+                            </div>
+                            <div className="flex flex-col gap-[18px]">
+                                <CategoryLabel label={bonus.category} />
+                                <CurriculumCard group={bonus} />
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>

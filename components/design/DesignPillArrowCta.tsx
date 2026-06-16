@@ -9,6 +9,7 @@ const vc = '"VC Nudge Trial Normal", sans-serif' as const;
 const VARIANT = {
     purple: { border: "#8F56FF", fill: "#8F56FF" },
     orange: { border: "#FF5C00", fill: "#FF5C00" },
+    green:  { border: "#29C76B", fill: "#29C76B" },
 } as const;
 
 export type DesignPillArrowVariant = keyof typeof VARIANT;
@@ -32,7 +33,7 @@ export function DesignPillArrowCta({ label, href, variant, ariaLabel, size = "de
     const { border: borderColor, fill: circleBg } = VARIANT[variant];
     const compact = size === "compact";
 
-    const pillHoverBg = variant === "purple" ? "group-hover:bg-[#8F56FF]" : "group-hover:bg-[#FF5C00]";
+    const pillHoverBg = variant === "purple" ? "group-hover:bg-[#8F56FF]" : variant === "green" ? "group-hover:bg-[#29C76B]" : "group-hover:bg-[#FF5C00]";
 
     const pill = (
         <span
@@ -50,7 +51,8 @@ export function DesignPillArrowCta({ label, href, variant, ariaLabel, size = "de
         >
             <span
                 className={[
-                    "text-[#000000] leading-none whitespace-nowrap transition-colors duration-300 group-hover:text-white",
+                    "text-[#000000]",
+                    "leading-none whitespace-nowrap transition-colors duration-300 group-hover:text-white",
                     compact ? "text-[14px]" : "text-[17.78px]",
                 ].join(" ")}
             >
