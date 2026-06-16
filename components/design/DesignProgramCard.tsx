@@ -49,6 +49,7 @@ export interface DesignProgramCardProps {
     href: string;
     underline?: UnderlineConfig;
     decoration?: DecorationConfig;
+    hideTools?: boolean;
 }
 
 function ToolGrid({ tools, size, gap }: { tools: ToolItem[]; size: number; gap: number }) {
@@ -72,7 +73,7 @@ function ToolGrid({ tools, size, gap }: { tools: ToolItem[]; size: number; gap: 
 export function DesignProgramCard({
     bgColor, dividerColor, buttonColor, mobileCardHeight,
     mode, duration, titleLine1, titleLine2, description,
-    tools, photoSrc, photoConfig, href, underline, decoration,
+    tools, photoSrc, photoConfig, href, underline, decoration, hideTools,
 }: DesignProgramCardProps) {
     const font = '"VC Nudge Trial Normal", sans-serif';
     const cardMobileH = mobileCardHeight ?? 760;
@@ -179,7 +180,7 @@ export function DesignProgramCard({
                             )}
 
                             <h2
-                                className="m-0 text-white"
+                                className="m-0 text-white whitespace-nowrap"
                                 style={{ fontFamily: font, fontWeight: 500, lineHeight: "110%", fontSize: "52px" }}
                             >
                                 {titleLine1}
@@ -224,6 +225,7 @@ export function DesignProgramCard({
 
                     {/* Tools + button row */}
                     <div className="mt-auto flex items-end justify-between gap-[20px]">
+                        {!hideTools && (
                         <div className="flex flex-col gap-[10px]">
                             <span className="text-white leading-none"
                                   style={{ fontFamily: font, fontWeight: 500, fontSize: "14px" }}>
@@ -231,6 +233,7 @@ export function DesignProgramCard({
                             </span>
                             <ToolGrid tools={tools} size={38} gap={8} />
                         </div>
+                        )}
 
                         <Link
                             href={href}
@@ -287,7 +290,7 @@ export function DesignProgramCard({
                                 </div>
                             )}
 
-                            <h2 className="m-0 text-white"
+                            <h2 className="m-0 text-white lg:whitespace-nowrap"
                                 style={{ fontFamily: font, fontWeight: 500, lineHeight: "110%", fontSize: "clamp(28px,4.86vw,70px)" }}>
                                 {titleLine1}
                                 <br />
@@ -320,6 +323,7 @@ export function DesignProgramCard({
                 </div>
 
                 {/* Tools */}
+                {!hideTools && (
                 <div className="flex flex-col gap-[8px] lg:gap-[clamp(8px,0.9vw,13px)]">
                     <span className="text-white leading-none"
                           style={{ fontFamily: font, fontWeight: 500, fontSize: "clamp(12px,1.11vw,16px)" }}>
@@ -328,6 +332,7 @@ export function DesignProgramCard({
                     <div className="lg:hidden"><ToolGrid tools={tools} size={34} gap={7} /></div>
                     <div className="hidden lg:block"><ToolGrid tools={tools} size={45} gap={9} /></div>
                 </div>
+                )}
             </div>
 
             {/* ── Photo — mobile ── */}

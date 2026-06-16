@@ -119,6 +119,7 @@ const PROGRAMS: DesignProgramCardProps[] = [
         description:
             "Master the art of brand storytelling, logo design, and visual identity, ideal for designers who want to specialise in branding fast.",
         tools: DUMMY_TOOLS,
+        hideTools: true,
         photoSrc: "/photos/schools/design/program 3 photo.webp",
         photoConfig: {
             desktop: { top: -110, left: 620, width: 760, height: 840 },

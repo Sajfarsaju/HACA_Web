@@ -195,9 +195,6 @@ export function GraphicDesigningCalicutStudentsWorkingSection() {
                         }}
                     >
                         <div className="relative w-full min-w-0">
-                            {/*
-                              Viewport is width-bounded (w-full min-w-0); inner row is w-max so scrollWidth > clientWidth.
-                            */}
                             <div
                                 ref={scrollRef}
                                 className="gd-calicut-students-cards-scroll w-full min-w-0 cursor-grab overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth select-none"
