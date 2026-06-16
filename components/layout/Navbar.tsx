@@ -147,6 +147,15 @@ export function Navbar() {
                     >
                         <span className={`font-rethink font-medium text-[18px] leading-[27px] max-[1200px]:text-[16px] max-[1024px]:text-[14px] max-[900px]:text-[13px] transition-colors duration-200 ${pathname === "/blog" ? "text-[#FFFFFF]" : "text-[#A7ADBE] group-hover:text-[#FFFFFF]"}`}>Blogs</span>
                     </Link>
+
+                    {/* Case Studies */}
+                    <Link
+                        href="/case-studies"
+                        className={`flex items-center justify-center p-[12px_16px] rounded-[100px] no-underline whitespace-nowrap cursor-pointer transition-all duration-200 ease max-[1200px]:p-[10px_14px] max-[1024px]:p-[8px_10px] max-[900px]:p-[4px_8px] group ${pathname === "/case-studies" ? "bg-[#131839] !border !border-[#1F275F]" : "bg-transparent border-none border-transparent"}`}
+                        onClick={closeDropdown}
+                    >
+                        <span className={`font-rethink font-medium text-[18px] leading-[27px] max-[1200px]:text-[16px] max-[1024px]:text-[14px] max-[900px]:text-[13px] transition-colors duration-200 ${pathname === "/case-studies" ? "text-[#FFFFFF]" : "text-[#A7ADBE] group-hover:text-[#FFFFFF]"}`}>Case Studies</span>
+                    </Link>
                 </nav>
 
                 {/* Enquire Now Button - Desktop only */}
