@@ -552,6 +552,7 @@ export function CaseStudiesAdminSection({ token, backendUrl, showToast }: Props)
               onChange={(html) => setForm((f) => ({ ...f, content: html }))}
               onImageUpload={handleImageUpload}
               onVideoUpload={handleVideoUpload}
+              showToast={showToast}
             />
           </div>
 
