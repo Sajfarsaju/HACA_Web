@@ -80,6 +80,7 @@ type MentorDoc = {
   cloudinaryPublicId: string;
   schoolName: string;
   linkedinUrl?: string | null;
+  filterColor?: string | null;
   order: number;
   createdAt: string;
 };
@@ -115,6 +116,15 @@ type MentorSchoolName = (typeof MENTOR_SCHOOL_OPTIONS)[number];
 const MENTOR_SCHOOL_LABEL: Record<string, string> = {
   "HACA": "Top Mentors in HACA",
 };
+
+/** Card overlay tint options — only selectable/required for Design School mentors. */
+const DESIGN_MENTOR_FILTER_COLORS = [
+  { name: "Orange", hex: "#FF5C00" },
+  { name: "Green", hex: "#29C76B" },
+  { name: "Purple", hex: "#8F56FF" },
+  { name: "Blue", hex: "#2592FF" },
+  { name: "Red", hex: "#FF5659" },
+] as const;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -221,6 +231,7 @@ export default function AdminPage() {
   const [mentorName, setMentorName] = useState("");
   const [mentorDesignation, setMentorDesignation] = useState("");
   const [mentorLinkedinUrl, setMentorLinkedinUrl] = useState("");
+  const [mentorFilterColor, setMentorFilterColor] = useState("");
   const [mentorPhotoFile, setMentorPhotoFile] = useState<File | null>(null);
   const [mentorPhotoCropOpen, setMentorPhotoCropOpen] = useState(false);
   const [mentorPhotoCropSrc, setMentorPhotoCropSrc] = useState<string | null>(null);
@@ -871,6 +882,10 @@ export default function AdminPage() {
       setError("Designation is required.");
       return;
     }
+    if (mentorSchoolName === "Design School" && !mentorFilterColor) {
+      setError("Please select a card filter color for Design School mentors.");
+      return;
+    }
     setError(null);
     setLoading(true);
     try {
@@ -880,12 +895,14 @@ export default function AdminPage() {
       form.append("designation", mentorDesignation.trim());
       form.append("schoolName", mentorSchoolName);
       if (mentorLinkedinUrl.trim()) form.append("linkedinUrl", mentorLinkedinUrl.trim());
+      if (mentorSchoolName === "Design School") form.append("filterColor", mentorFilterColor);
       await axios.post(`${backendUrl}/api/admin/mentors`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMentorName("");
       setMentorDesignation("");
       setMentorLinkedinUrl("");
+      setMentorFilterColor("");
       setMentorPhotoFile(null);
       setMentorSchoolName("HACA");
       await refreshMentors(token);
@@ -921,6 +938,7 @@ export default function AdminPage() {
     setMentorDesignation(mentor.designation);
     setMentorSchoolName(mentor.schoolName as MentorSchoolName);
     setMentorLinkedinUrl(mentor.linkedinUrl ?? "");
+    setMentorFilterColor(mentor.filterColor ?? "");
     setMentorPhotoFile(null);
     mentorFormSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -932,6 +950,7 @@ export default function AdminPage() {
     setMentorDesignation("");
     setMentorSchoolName("HACA");
     setMentorLinkedinUrl("");
+    setMentorFilterColor("");
     setMentorPhotoFile(null);
   }
 
@@ -940,6 +959,10 @@ export default function AdminPage() {
     if (!token || !editingMentorId) return;
     if (!mentorName.trim()) { setError("Name is required."); return; }
     if (!mentorDesignation.trim()) { setError("Designation is required."); return; }
+    if (mentorSchoolName === "Design School" && !mentorFilterColor) {
+      setError("Please select a card filter color for Design School mentors.");
+      return;
+    }
     setError(null);
     setLoading(true);
     try {
@@ -948,6 +971,7 @@ export default function AdminPage() {
       form.append("designation", mentorDesignation.trim());
       form.append("schoolName", mentorSchoolName);
       form.append("linkedinUrl", mentorLinkedinUrl.trim());
+      form.append("filterColor", mentorSchoolName === "Design School" ? mentorFilterColor : "");
       if (mentorPhotoFile) form.append("photo", mentorPhotoFile);
       await axios.put(`${backendUrl}/api/admin/mentors/${editingMentorId}`, form, {
         headers: { Authorization: `Bearer ${token}` },
@@ -2088,6 +2112,7 @@ export default function AdminPage() {
                       onChange={setBlogContent}
                       onImageUpload={handleBlogImageUpload}
                       onVideoUpload={handleBlogVideoUpload}
+                      showToast={showToast}
                     />
                   </div>
 
@@ -2385,6 +2410,26 @@ export default function AdminPage() {
                       ))}
                     </select>
                   </div>
+
+                  {/* Card filter color — Design School mentor cards only */}
+                  {mentorSchoolName === "Design School" && (
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-medium text-[#A7ADBE]">
+                        Card filter color <span className="text-red-400">*</span>
+                      </label>
+                      <select
+                        className="w-full rounded-xl border border-white/20 bg-[#1a1f2e] px-4 py-3 text-sm text-white outline-none transition focus:border-[#4C75FF]/55 focus:ring-2 focus:ring-[#4C75FF]/25"
+                        value={mentorFilterColor}
+                        onChange={(e) => setMentorFilterColor(e.target.value)}
+                        required
+                      >
+                        <option value="" disabled>Select a color…</option>
+                        {DESIGN_MENTOR_FILTER_COLORS.map(({ name, hex }) => (
+                          <option key={hex} value={hex}>{name}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
 
                   {/* LinkedIn URL */}
                   <div className="flex flex-col gap-1.5">

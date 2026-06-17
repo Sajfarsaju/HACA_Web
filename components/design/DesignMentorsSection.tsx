@@ -53,12 +53,13 @@ export function DesignMentorsSection() {
             .then((r) => (r.ok ? r.json() : null))
             .then((data) => {
                 const mentors = Array.isArray(data?.mentors)
-                    ? data.mentors.map((m: { _id: string; name: string; designation: string; photoUrl: string }, i: number) => ({
+                    ? data.mentors.map((m: { _id: string; name: string; designation: string; photoUrl: string; filterColor?: string | null }, i: number) => ({
                           id: m._id,
                           name: m.name,
                           designation: m.designation,
                           photoSrc: m.photoUrl,
-                          filterColor: FILTER_COLORS[i % FILTER_COLORS.length],
+                          // Admin-selected color (Design School mentors); falls back to by-position assignment for any legacy mentor without one set.
+                          filterColor: m.filterColor || FILTER_COLORS[i % FILTER_COLORS.length],
                       }))
                     : null;
                 if (mentors && mentors.length > 0) setMENTORS(mentors);

@@ -10,7 +10,16 @@ import { TableRow } from "@tiptap/extension-table-row";
 import { TableHeader } from "@tiptap/extension-table-header";
 import { TableCell } from "@tiptap/extension-table-cell";
 import { PlacementCropModal } from "@/components/admin/PlacementCropModal";
+import { ImageAltTextModal } from "@/components/admin/ImageAltTextModal";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+/** "my-photo_01.jpg" → "My photo 01" — a friendlier starting point than the raw filename. */
+function humanizeFilename(name: string): string {
+  const base = name.replace(/\.[^/.]+$/, "");
+  const spaced = base.replace(/[-_]+/g, " ").trim();
+  if (!spaced) return "";
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+}
 
 // ── Custom VideoEmbed TipTap node ─────────────────────────────────────────────
 // Renders as <video> for uploaded files or <iframe> for YouTube/Vimeo embeds.
@@ -84,6 +93,8 @@ export interface BlogEditorProps {
    * If omitted, only URL-based video embeds are available.
    */
   onVideoUpload?: (file: File) => Promise<string>;
+  /** Used to notify the admin when images are inserted in bulk (e.g. pasted) without an alt-text prompt. */
+  showToast?: (msg: string, type?: "success" | "error") => void;
 }
 
 // ── Toolbar button ────────────────────────────────────────────────────────────
@@ -120,15 +131,24 @@ function ToolbarBtn({
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload }: BlogEditorProps) {
+export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload, showToast }: BlogEditorProps) {
   const fileInputRef      = useRef<HTMLInputElement>(null);
   const videoFileInputRef = useRef<HTMLInputElement>(null);
   const uploadingRef      = useRef(false);
   const [videoUploading, setVideoUploading] = useState(false);
+  const [, setSelectionTick] = useState(0); // forces re-render so toolbar reflects image selection
 
   // Crop modal state — used for toolbar image button and single-file pastes
   const [cropOpen, setCropOpen] = useState(false);
   const [cropSrc, setCropSrc]   = useState<string | null>(null);
+
+  // Alt-text modal state — shown right after a single image is inserted, and reused
+  // to edit alt text on any already-inserted image (e.g. ones pasted in bulk).
+  const [altModalOpen, setAltModalOpen]   = useState(false);
+  const [altModalMode, setAltModalMode]   = useState<"insert" | "edit">("insert");
+  const [altModalValue, setAltModalValue] = useState("");
+  const [altModalImageSrc, setAltModalImageSrc] = useState<string | null>(null);
+  const [pendingImageUrl, setPendingImageUrl] = useState<string | null>(null);
 
   const editor = useEditor({
     extensions: [
@@ -170,6 +190,9 @@ export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload }: Bl
     },
     onUpdate({ editor }) {
       onChange(editor.getHTML());
+    },
+    onSelectionUpdate() {
+      setSelectionTick((t) => t + 1);
     },
     immediatelyRender: false,
   });
@@ -216,7 +239,7 @@ export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload }: Bl
     [onImageUpload]
   );
 
-  // After cropping → upload → insert
+  // After cropping → upload → ask for alt text → insert
   const handleCropped = useCallback(
     async (file: File) => {
       setCropOpen(false);
@@ -225,7 +248,13 @@ export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload }: Bl
       uploadingRef.current = true;
       try {
         const url = await onImageUpload(file);
-        if (url) editor.chain().focus().setImage({ src: url, alt: file.name }).run();
+        if (url) {
+          setPendingImageUrl(url);
+          setAltModalValue(humanizeFilename(file.name));
+          setAltModalImageSrc(url);
+          setAltModalMode("insert");
+          setAltModalOpen(true);
+        }
       } catch (err) {
         console.error("Image upload failed:", err);
       } finally {
@@ -234,6 +263,38 @@ export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload }: Bl
     },
     [editor, onImageUpload]
   );
+
+  // ── Alt-text modal — used both right after insert and to edit an existing image ──
+  const closeAltModal = useCallback(() => {
+    setAltModalOpen(false);
+    setPendingImageUrl(null);
+    setAltModalImageSrc(null);
+  }, []);
+
+  const confirmAltModal = useCallback(
+    (typedValue: string) => {
+      if (!editor) return;
+      const altText = typedValue.trim();
+      if (altModalMode === "insert" && pendingImageUrl) {
+        editor.chain().focus().setImage({ src: pendingImageUrl, alt: altText }).run();
+      } else if (altModalMode === "edit") {
+        editor.chain().focus().updateAttributes("image", { alt: altText }).run();
+      }
+      setAltModalOpen(false);
+      setPendingImageUrl(null);
+      setAltModalImageSrc(null);
+    },
+    [editor, altModalMode, pendingImageUrl]
+  );
+
+  const openEditAltText = useCallback(() => {
+    if (!editor) return;
+    const attrs = editor.getAttributes("image");
+    setAltModalValue((attrs.alt as string) || "");
+    setAltModalImageSrc((attrs.src as string) || null);
+    setAltModalMode("edit");
+    setAltModalOpen(true);
+  }, [editor]);
 
   // ── Video — insert by URL (YouTube/Vimeo) ────────────────────────────────────
   const insertVideoUrl = useCallback(() => {
@@ -309,9 +370,10 @@ export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload }: Bl
       event.preventDefault();
       const parsed = new DOMParser().parseFromString(html, "text/html");
       const imgs = Array.from(parsed.querySelectorAll("img"));
+      let insertedCount = 0;
 
       await Promise.all(
-        imgs.map(async (img) => {
+        imgs.map(async (img, i) => {
           const src = img.getAttribute("src") ?? "";
           if (!src) { img.remove(); return; }
           try {
@@ -319,29 +381,57 @@ export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload }: Bl
             if (!res.ok) throw new Error("fetch-failed");
             const blob = await res.blob();
             const ext = blob.type.split("/")[1] || "png";
-            const file = new File([blob], `pasted-image.${ext}`, { type: blob.type });
+            const file = new File([blob], `pasted-image-${i + 1}.${ext}`, { type: blob.type });
             const uploadedUrl = await onImageUpload(file);
-            if (uploadedUrl) img.setAttribute("src", uploadedUrl);
-            else img.remove();
+            if (uploadedUrl) {
+              img.setAttribute("src", uploadedUrl);
+              // Bulk-pasted images aren't prompted for alt text individually — fall back to
+              // a friendlier default so they're never left with a meaningless source alt.
+              if (!img.getAttribute("alt")?.trim()) {
+                img.setAttribute("alt", humanizeFilename(file.name));
+              }
+              insertedCount++;
+            } else {
+              img.remove();
+            }
           } catch {
             // CORS / network failure — keep original src as fallback
+            insertedCount++;
           }
         })
       );
 
       editor.chain().focus().insertContent(parsed.body.innerHTML).run();
+
+      if (insertedCount > 0) {
+        showToast?.(
+          `Pasted ${insertedCount} image${insertedCount > 1 ? "s" : ""}. Click an image, then use “Alt text” in the toolbar to describe it for accessibility & SEO.`,
+          "success"
+        );
+      }
     };
 
     dom.addEventListener("paste", handlePaste);
     return () => dom.removeEventListener("paste", handlePaste);
-  }, [editor, onImageUpload]);
+  }, [editor, onImageUpload, showToast]);
 
   if (!editor) return null;
 
   const inTable = editor.isActive("table");
+  const imageSelected = editor.isActive("image");
 
   return (
     <>
+      {/* Alt-text modal — shown right after inserting an image, and reused to edit alt text on any image already in the content */}
+      <ImageAltTextModal
+        open={altModalOpen}
+        mode={altModalMode}
+        initialValue={altModalValue}
+        imageSrc={altModalImageSrc}
+        onCancel={closeAltModal}
+        onConfirm={confirmAltModal}
+      />
+
       {/* Crop modal — shown when user picks or pastes a single image */}
       {cropSrc && (
         <PlacementCropModal
@@ -456,6 +546,11 @@ export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload }: Bl
                 🖼 Image
               </ToolbarBtn>
             </>
+          )}
+          {imageSelected && (
+            <ToolbarBtn title="Edit alt text for the selected image" onClick={openEditAltText}>
+              ✎ Alt text
+            </ToolbarBtn>
           )}
 
           {/* Video */}
