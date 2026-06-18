@@ -1,4 +1,3 @@
-﻿import type { CSSProperties } from "react";
 import Image from "next/image";
 import { DesignPillArrowCta } from "@/components/design/DesignPillArrowCta";
 
@@ -9,25 +8,10 @@ const PROGRAM_IMAGE_SRC =
 
 const HERO_ILLUSTRATION_W = 500;
 
-const INTRO_BOLD_PHRASE: CSSProperties = {
-    fontFamily: vc,
-    fontWeight: 700,
-    fontStyle: "normal",
-    lineHeight: "125%",
-    letterSpacing: "0",
-    fontSize: "inherit",
-};
-
-const INTRO_P1_DESKTOP =
+const INTRO_P1 =
     "At Design School by HACA, our Graphic Designing Course in Kerala is created for students, beginners, freelancers, and aspiring creatives who want skills that go beyond learning software.";
 
-const INTRO_P2_DESKTOP =
-    "Step into a hands-on learning experience where you master Graphic Design, Branding, Motion Graphics, Video Editing, and UI/UX Design under one program. Designed to feel like a real creative agency, the course gives you practical exposure, industry projects, and the confidence to build a strong creative career.";
-
-const INTRO_P1_MOBILE =
-    "At Design School by HACA, our Graphic Designing Course in Kerala is created for students, beginners, freelancers, and aspiring creatives who want skills that go beyond learning software.";
-
-const INTRO_P2_MOBILE =
+const INTRO_P2 =
     "Step into a hands-on learning experience where you master Graphic Design, Branding, Motion Graphics, Video Editing, and UI/UX Design under one program. Designed to feel like a real creative agency, the course gives you practical exposure, industry projects, and the confidence to build a strong creative career.";
 
 export function GraphicDesigningKeralaHeroSection() {
@@ -52,8 +36,8 @@ export function GraphicDesigningKeralaHeroSection() {
                     <div
                         className={[
                             "relative z-[20] m-0 flex flex-col gap-3 text-left text-[#0A0A0A] lg:hidden",
-                            "w-full max-w-[min(360px,100%)]",
-                            "text-[14px] leading-[125%] tracking-normal",
+                            "w-full max-w-[343px]",
+                            "text-[12px] leading-[19px]",
                         ].join(" ")}
                         style={{
                             fontFamily: vc,
@@ -62,27 +46,8 @@ export function GraphicDesigningKeralaHeroSection() {
                             letterSpacing: "0",
                         }}
                     >
-                        <p className="m-0">{INTRO_P1_MOBILE}</p>
-                        <p className="m-0">{INTRO_P2_MOBILE}</p>
-                    </div>
-                    {/* Intro — desktop */}
-                    <div
-                        className={[
-                            "hidden lg:flex lg:flex-col lg:gap-4 absolute left-0 top-0 z-[20] m-0 text-left text-[#0A0A0A]",
-                            "lg:text-[14px] lg:tracking-normal",
-                            "lg:max-xl:w-[305px] lg:max-xl:max-w-[305px]",
-                            "xl:w-[305px] xl:max-w-[305px]",
-                        ].join(" ")}
-                        style={{
-                            fontFamily: vc,
-                            fontWeight: 400,
-                            fontStyle: "normal",
-                            lineHeight: "125%",
-                            letterSpacing: "0",
-                        }}
-                    >
-                        <p className="m-0">{INTRO_P1_DESKTOP}</p>
-                        <p className="m-0">{INTRO_P2_DESKTOP}</p>
+                        <p className="m-0">{INTRO_P1}</p>
+                        <p className="m-0">{INTRO_P2}</p>
                     </div>
 
                     {/* Illustration */}
@@ -90,11 +55,13 @@ export function GraphicDesigningKeralaHeroSection() {
                         className={[
                             "pointer-events-none relative z-[5]",
                             "mx-auto translate-y-[6px]",
-                            "w-[min(420px,_88vw)]",
+                            "w-full",
                             "sm:translate-y-[8px] sm:w-[min(460px,_86vw)]",
                             "md:translate-y-[12px] md:w-[min(520px,_78vw)]",
-                            "lg:translate-y-0 lg:left-[168px] lg:max-xl:top-[40px] lg:max-xl:bottom-0 lg:w-[clamp(376px,_44vw,_560px)] lg:max-xl:max-w-[560px]",
-                            "xl:left-[196px] xl:top-[45px] xl:w-[500px] xl:max-w-[500px]",
+                            /* lg-xl: illustration anchored to left edge */
+                            "lg:translate-y-0 lg:left-0 lg:max-xl:top-0 lg:max-xl:bottom-0 lg:w-[clamp(340px,38vw,520px)] lg:max-xl:max-w-[520px]",
+                            /* xl+: illustration on far left */
+                            "xl:left-0 xl:top-0 xl:w-[520px] xl:max-w-[520px]",
                             "lg:absolute",
                         ].join(" ")}
                     >
@@ -105,11 +72,13 @@ export function GraphicDesigningKeralaHeroSection() {
                             height={707}
                             className={[
                                 "h-auto w-full object-contain",
-                                "object-center object-top max-h-[min(320px,_44svh)]",
+                                "object-center object-top max-h-[min(420px,_60svh)]",
                                 "sm:max-h-[min(380px,_46svh)]",
                                 "md:max-h-[min(420px,_48svh)]",
                                 "lg:max-h-none lg:object-left",
+                                /* lg-xl: fill the stretched container and anchor to bottom */
                                 "lg:max-xl:h-full lg:max-xl:object-left-bottom",
+                                /* Large desktop: nudge drawable slightly lower vs top-aligned crop */
                                 "xl:translate-y-[6px]",
                             ].join(" ")}
                             sizes="(max-width: 1024px) 88vw, (max-width: 1279px) 560px, 500px"
@@ -123,9 +92,9 @@ export function GraphicDesigningKeralaHeroSection() {
                             className="m-0 w-full uppercase text-black"
                             style={{
                                 fontFamily: vc,
-                                fontWeight: 600,
+                                fontWeight: 500,
                                 fontStyle: "normal",
-                                fontSize: "14px",
+                                fontSize: "18px",
                                 lineHeight: "125%",
                                 letterSpacing: "0",
                             }}
@@ -133,21 +102,17 @@ export function GraphicDesigningKeralaHeroSection() {
                             WHY LEARN JUST ONE SKILL?
                         </p>
                         <h1
-                            className="m-0 mt-2 w-full max-w-[min(320px,100%)] text-black"
+                            className="m-0 mt-2 w-full text-black"
                             style={{
                                 fontFamily: vc,
-                                fontWeight: 600,
+                                fontWeight: 500,
                                 fontStyle: "normal",
-                                fontSize: "clamp(34px, 10.2vw, 44px)",
-                                lineHeight: "112%",
+                                fontSize: "35px",
+                                lineHeight: "120%",
                                 letterSpacing: "-0.02em",
                             }}
                         >
-                            Join the Most Career-Focused
-                            <br />
-                            Graphic Designing Course
-                            <br />
-                            in Kerala
+                            Join the Most Career-Focused Graphic Designing Course in Kerala
                         </h1>
 
                         <div className="mt-5 flex w-full max-w-[min(320px,100%)] flex-col items-start gap-4">
@@ -167,32 +132,45 @@ export function GraphicDesigningKeralaHeroSection() {
                         className={[
                             "hidden lg:flex absolute right-0 z-[15] max-w-full flex-col items-start",
                             "bottom-0",
-                            "gap-2 lg:max-xl:gap-[9px] xl:gap-[10px]",
+                            "gap-[20px]",
                             "w-full",
-                            "lg:w-full lg:max-xl:max-w-[min(318px,_calc(100vw-120px-636px))] xl:max-w-[614px]",
-                            "lg:max-xl:right-8",
+                            /* lg-xl: width after illustration (520px) + gap */
+                            "lg:w-full lg:max-xl:max-w-[calc(100%-540px)] xl:max-w-[700px]",
+                            "lg:max-xl:right-0",
                         ].join(" ")}
                     >
                         <p
-                            className={[
-                                "m-0 w-full uppercase leading-[125%] text-black",
-                                "lg:max-xl:text-[18px] xl:text-[20px]",
-                            ].join(" ")}
-                            style={{ fontFamily: vc, fontWeight: 600 }}
+                            className="m-0 w-full uppercase text-[20px] leading-[125%] text-black"
+                            style={{ fontFamily: vc, fontWeight: 500, letterSpacing: "0" }}
                         >
-                            Why learn just one skill?
+                            WHY LEARN JUST ONE SKILL?
                         </p>
                         <h1
                             className={[
                                 "m-0 w-full leading-[110%] tracking-[-0.02em] text-black",
-                                "lg:max-xl:text-[clamp(22px,_1.65vw_+_13px,_28px)] xl:text-[55px]",
+                                "lg:max-xl:text-[clamp(32px,_4vw,_50px)] xl:text-[55px]",
                             ].join(" ")}
-                            style={{ fontFamily: vc, fontWeight: 600 }}
+                            style={{ fontFamily: vc, fontWeight: 500 }}
                         >
                             Join the Most Career-Focused Graphic Designing Course in Kerala
                         </h1>
 
-                        <div className="mt-2 flex w-full flex-wrap items-center justify-start gap-5">
+                        <div className="flex flex-col gap-3">
+                            <p
+                                className="m-0 w-full text-[14px] leading-[125%] text-black"
+                                style={{ fontFamily: vc, fontWeight: 400, letterSpacing: "0" }}
+                            >
+                                {INTRO_P1}
+                            </p>
+                            <p
+                                className="m-0 w-full text-[14px] leading-[125%] text-black"
+                                style={{ fontFamily: vc, fontWeight: 400, letterSpacing: "0" }}
+                            >
+                                {INTRO_P2}
+                            </p>
+                        </div>
+
+                        <div className="flex w-full flex-wrap items-center justify-start gap-5">
                             <DesignPillArrowCta
                                 label="Have Questions? Call Now"
                                 href="tel:+918031332470"

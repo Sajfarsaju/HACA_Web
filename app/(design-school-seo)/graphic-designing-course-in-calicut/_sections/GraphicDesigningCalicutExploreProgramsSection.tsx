@@ -1,6 +1,5 @@
 "use client";
 
-
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -23,6 +22,15 @@ type ProgramCard = {
     titleMaxWidthClassName?: string;
     descriptionMaxWidthClassName?: string;
     href: string;
+    // Mobile positioning (Figma values)
+    mobileImgW: number;
+    mobileImgH: number;
+    mobileImgTop: number;
+    mobileImgLeft: number;
+    mobileContentTop: number;
+    mobileContentLeft: number;
+    mobileContentW: number;
+    mobileContentGap: number;
 };
 
 const PROGRAMS: ProgramCard[] = [
@@ -43,6 +51,14 @@ const PROGRAMS: ProgramCard[] = [
         titleMaxWidthClassName: "max-w-[150px] lg:max-w-[190px] xl:max-w-[280px]",
         descriptionMaxWidthClassName: "max-w-[150px] lg:max-w-[190px] xl:max-w-[280px]",
         href: "/design-school/courses/ai-graphic-design",
+        mobileImgW: 240,
+        mobileImgH: 353.705810546875,
+        mobileImgTop: 123.08,
+        mobileImgLeft: -41.86,
+        mobileContentTop: 37.08,
+        mobileContentLeft: 141,
+        mobileContentW: 188,
+        mobileContentGap: 10,
     },
     {
         id: "video-edit",
@@ -61,6 +77,14 @@ const PROGRAMS: ProgramCard[] = [
         titleMaxWidthClassName: "max-w-[115px] lg:max-w-[165px] xl:max-w-[250px]",
         descriptionMaxWidthClassName: "max-w-[115px] lg:max-w-[165px] xl:max-w-[250px]",
         href: "/design-school/courses/program-5",
+        mobileImgW: 216.703125,
+        mobileImgH: 280.9114685058594,
+        mobileImgTop: 67.19,
+        mobileImgLeft: -55.02,
+        mobileContentTop: 120.55,
+        mobileContentLeft: 160.37,
+        mobileContentW: 170.1171875,
+        mobileContentGap: 10.47,
     },
     {
         id: "uiux",
@@ -80,6 +104,14 @@ const PROGRAMS: ProgramCard[] = [
         titleMaxWidthClassName: "max-w-[150px] lg:max-w-[200px] xl:max-w-[300px]",
         descriptionMaxWidthClassName: "max-w-[150px] lg:max-w-[200px] xl:max-w-[310px]",
         href: "/design-school/courses/program-4",
+        mobileImgW: 198.90625,
+        mobileImgH: 379.6111755371094,
+        mobileImgTop: 96,
+        mobileImgLeft: 166,
+        mobileContentTop: 56.73,
+        mobileContentLeft: 11.7,
+        mobileContentW: 170.1171875,
+        mobileContentGap: 10,
     },
     {
         id: "branding",
@@ -98,8 +130,16 @@ const PROGRAMS: ProgramCard[] = [
         titleMaxWidthClassName: "max-w-[150px] lg:max-w-[210px] xl:max-w-[320px]",
         descriptionMaxWidthClassName: "max-w-[150px] lg:max-w-[210px] xl:max-w-[320px]",
         href: "/design-school/courses/program-3",
+        mobileImgW: 366.40625,
+        mobileImgH: 176.0089569091797,
+        mobileImgTop: -17.06,
+        mobileImgLeft: 101,
+        mobileContentTop: 159.34,
+        mobileContentLeft: 15.7,
+        mobileContentW: 230,
+        mobileContentGap: 10,
     },
-] as const;
+];
 
 const BADGE_CSS = `
 .graphic-explore-badge-pill {
@@ -169,6 +209,7 @@ function ExploreBadge({ mode, duration, accent }: { mode: string; duration: stri
     );
 }
 
+// Desktop enquire button (unchanged)
 function EnquireButton({ bg, fg }: { bg: string; fg: string }) {
     return (
         <div className="inline-flex items-center rounded-[999px] pl-4 pr-2 py-2" style={{ backgroundColor: bg, color: fg }}>
@@ -185,6 +226,46 @@ function EnquireButton({ bg, fg }: { bg: string; fg: string }) {
     );
 }
 
+// Mobile enquire button — Figma: 126×40, radius 26.82px, padding 10px, gap 6px
+function MobileEnquireButton({ bg, fg }: { bg: string; fg: string }) {
+    return (
+        <div
+            className="inline-flex items-center"
+            style={{
+                width: 126,
+                height: 40,
+                borderRadius: 26.82,
+                padding: 10,
+                gap: 6,
+                backgroundColor: bg,
+                color: fg,
+                boxSizing: "border-box",
+                flexShrink: 0,
+            }}
+        >
+            <span
+                style={{
+                    fontFamily: vc,
+                    fontWeight: 500,
+                    fontSize: 12,
+                    lineHeight: "100%",
+                    whiteSpace: "nowrap",
+                    flex: 1,
+                }}
+            >
+                Enquire Now
+            </span>
+            <Image
+                src="/photos/schools/design/arrow_cool_down.svg"
+                alt=""
+                width={14}
+                height={14}
+                aria-hidden
+            />
+        </div>
+    );
+}
+
 function ProgramCardView(p: ProgramCard) {
     const titleLines = p.title.split("\n");
     return (
@@ -194,11 +275,84 @@ function ProgramCardView(p: ProgramCard) {
                 "group relative flex flex-col w-full overflow-hidden",
                 "rounded-[19.17px]",
                 "w-full lg:mx-auto lg:max-w-[640px]",
-                "min-h-[316px] lg:min-h-[clamp(420px,42vw,604px)]",
+                // Mobile: fixed height so absolutely-positioned content is contained
+                // Desktop: height driven by flex content
+                "min-h-[340px] lg:min-h-[clamp(420px,42vw,604px)]",
             ].join(" ")}
             style={{ backgroundColor: p.bg }}
         >
-            <div className="relative z-[2] flex flex-1 w-full flex-col gap-4 p-[20px] xl:p-[30px]">
+            {/* ── Mobile layout (hidden on lg+) ─────────────────────────────── */}
+
+            {/* Mobile image */}
+            <div
+                className="lg:hidden absolute pointer-events-none select-none"
+                style={{
+                    top: p.mobileImgTop,
+                    left: p.mobileImgLeft,
+                    width: p.mobileImgW,
+                    height: p.mobileImgH,
+                    zIndex: 1,
+                }}
+                aria-hidden
+            >
+                <Image
+                    src={p.imageSrc}
+                    alt=""
+                    fill
+                    className={p.imageObjectClassName}
+                    style={p.imageStyle}
+                    sizes="240px"
+                />
+            </div>
+
+            {/* Mobile content: heading + paragraph + button */}
+            <div
+                className="lg:hidden absolute flex flex-col"
+                style={{
+                    top: p.mobileContentTop,
+                    left: p.mobileContentLeft,
+                    width: p.mobileContentW,
+                    gap: p.mobileContentGap,
+                    zIndex: 2,
+                }}
+            >
+                <h3
+                    style={{
+                        margin: 0,
+                        fontFamily: vc,
+                        fontWeight: 500,
+                        fontStyle: "normal",
+                        fontSize: 22,
+                        lineHeight: "110%",
+                        letterSpacing: "-0.02em",
+                        color: "#ffffff",
+                        whiteSpace: "pre-line",
+                    }}
+                >
+                    {titleLines.join("\n")}
+                </h3>
+
+                <p
+                    style={{
+                        margin: 0,
+                        fontFamily: vc,
+                        fontWeight: 400,
+                        fontStyle: "normal",
+                        fontSize: 12,
+                        lineHeight: "120%",
+                        letterSpacing: "-0.03em",
+                        color: "rgba(255,255,255,0.85)",
+                    }}
+                >
+                    {p.description}
+                </p>
+
+                <MobileEnquireButton bg={p.button.bg} fg={p.button.fg} />
+            </div>
+
+            {/* ── Desktop layout (hidden below lg) — unchanged ──────────────── */}
+
+            <div className="hidden lg:flex relative z-[2] flex-1 w-full flex-col gap-4 p-[20px] xl:p-[30px]">
                 <ExploreBadge mode={p.badge.mode} duration={p.badge.duration} accent={p.bg} />
 
                 <div className={["flex w-full flex-col gap-3", p.contentWrapClassName].join(" ")}>
@@ -230,13 +384,15 @@ function ProgramCardView(p: ProgramCard) {
                 </div>
             </div>
 
+            {/* Hover overlay (both breakpoints) */}
             <div
                 className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
                 style={{ background: "linear-gradient(0deg, rgba(0,0,0,0.10), rgba(0,0,0,0.10))" }}
                 aria-hidden
             />
 
-            <div className={p.imageWrapClassName} aria-hidden>
+            {/* Desktop image (hidden below lg) */}
+            <div className={["hidden lg:block", p.imageWrapClassName].join(" ")} aria-hidden>
                 <Image
                     src={p.imageSrc}
                     alt={p.imageAlt}

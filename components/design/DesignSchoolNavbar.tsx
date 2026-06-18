@@ -25,6 +25,7 @@ const ACTIVE_LINK_COLORS: Record<(typeof NAV_LINKS)[number]["href"], string> = {
 } as const;
 
 const VIDEO_CALICUT_THEME = "#655CC5";
+const GD_ONLINE_THEME = "#29C76B";
 
 const ARROW_PATH =
     "M30.5555 16.6667L20.8333 26.3889L18.8541 24.4444L25.243 18.0555L15.2777 18.0555L15.2777 15.2778L25.243 15.2778L18.8888 8.88888L20.8333 6.94444L30.5555 16.6667ZM12.4999 18.0555L8.33327 18.0555L8.33327 15.2778L12.4999 15.2778L12.4999 18.0555ZM5.55549 18.0555L2.77771 18.0555L2.77771 15.2778L5.55549 15.2778L5.55549 18.0555Z";
@@ -34,7 +35,7 @@ const ARROW_OUTWARD_PATH =
 
 const FONT = '"VC Nudge Trial Normal", sans-serif';
 
-export type DesignSchoolNavbarVariant = "default" | "video-calicut";
+export type DesignSchoolNavbarVariant = "default" | "video-calicut" | "gd-online";
 
 type DesignSchoolNavbarProps = {
     variant?: DesignSchoolNavbarVariant;
@@ -64,7 +65,11 @@ function VideoCalicutContactUsButton({ onClick }: { onClick?: () => void }) {
     );
 }
 
-function MobileContactUsButton({ onClick }: { onClick?: () => void }) {
+function MobileContactUsButton({ onClick, theme = "#FF5C00" }: { onClick?: () => void; theme?: string }) {
+    const isGreen = theme === GD_ONLINE_THEME;
+    const borderClass = isGreen ? "border-[#29C76B]" : "border-[#FF5C00]";
+    const hoverBgClass = isGreen ? "group-hover:bg-[#29C76B]" : "group-hover:bg-[#FF5C00]";
+    const circleBgClass = isGreen ? "bg-[#29C76B]" : "bg-[#FF5C00]";
     return (
         <Link
             href={ENQUIRE_URL}
@@ -73,14 +78,14 @@ function MobileContactUsButton({ onClick }: { onClick?: () => void }) {
             aria-label="Contact Us"
         >
             <span
-                className="flex h-full flex-1 items-center justify-center rounded-[50px] border border-[#FF5C00] bg-transparent px-[26px] transition-colors duration-300 group-hover:bg-[#FF5C00]"
+                className={`flex h-full flex-1 items-center justify-center rounded-[50px] border ${borderClass} bg-transparent px-[26px] transition-colors duration-300 ${hoverBgClass}`}
                 style={{ fontFamily: FONT, fontWeight: 550, fontSize: 16 }}
             >
                 <span className="leading-none whitespace-nowrap text-[#000000] transition-colors duration-300 group-hover:text-white">
                     Contact Us
                 </span>
             </span>
-            <span className="relative h-[47.57px] w-[47.57px] shrink-0 overflow-hidden rounded-full bg-[#FF5C00]">
+            <span className={`relative h-[47.57px] w-[47.57px] shrink-0 overflow-hidden rounded-full ${circleBgClass}`}>
                 <span className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0 -translate-x-[36px]">
                     <svg viewBox="0 0 34 34" fill="none" style={{ width: 26, height: 26 }} aria-hidden>
                         <path d={ARROW_PATH} fill="white" />
@@ -100,6 +105,7 @@ type MobileMenuProps = {
     isOpen: boolean;
     onClose: () => void;
     isVideoCalicut: boolean;
+    isGdOnline: boolean;
     getActiveColor: (href: (typeof NAV_LINKS)[number]["href"]) => string;
     isLinkActive: (href: (typeof NAV_LINKS)[number]["href"]) => boolean;
 };
@@ -108,6 +114,7 @@ function DesignSchoolMobileMenu({
     isOpen,
     onClose,
     isVideoCalicut,
+    isGdOnline,
     getActiveColor,
     isLinkActive,
 }: MobileMenuProps) {
@@ -135,7 +142,7 @@ function DesignSchoolMobileMenu({
                     {isVideoCalicut ? (
                         <VideoCalicutContactUsButton onClick={onClose} />
                     ) : (
-                        <MobileContactUsButton onClick={onClose} />
+                        <MobileContactUsButton onClick={onClose} theme={isGdOnline ? GD_ONLINE_THEME : "#FF5C00"} />
                     )}
                 </div>
 
@@ -190,6 +197,7 @@ function DesignSchoolMobileMenu({
 export function DesignSchoolNavbar({ variant = "default" }: DesignSchoolNavbarProps) {
     const pathname = usePathname() ?? "";
     const isVideoCalicut = variant === "video-calicut";
+    const isGdOnline = variant === "gd-online";
     const onDesignSchoolSeoLanding = isDesignSchoolSeoPath(pathname);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -248,7 +256,7 @@ export function DesignSchoolNavbar({ variant = "default" }: DesignSchoolNavbarPr
                                 href={link.href}
                                 className={[
                                     "h-[22px] whitespace-nowrap text-[16px] leading-[100%] transition-colors",
-                                    isActive ? "italic" : "text-[#000000] hover:text-[#FF5C00]",
+                                    isActive ? "italic" : isGdOnline ? "text-[#000000] hover:text-[#29C76B]" : "text-[#000000] hover:text-[#FF5C00]",
                                 ].join(" ")}
                                 style={{
                                     fontFamily: FONT,
@@ -270,7 +278,7 @@ export function DesignSchoolNavbar({ variant = "default" }: DesignSchoolNavbarPr
                     <div className="group hidden h-[60.5556px] w-[230.2222px] cursor-pointer flex-row items-center gap-[5.56px] lg:flex">
                         <Link
                             href={ENQUIRE_URL}
-                            className="flex h-[60.5556px] w-[164.67px] items-center justify-center rounded-[50px] border-[1.11px] border-[#FF5C00] bg-transparent px-[33.33px] py-[17.78px] transition-colors duration-300 group-hover:bg-[#FF5C00] no-underline"
+                            className={`flex h-[60.5556px] w-[164.67px] items-center justify-center rounded-[50px] border-[1.11px] ${isGdOnline ? "border-[#29C76B] group-hover:bg-[#29C76B]" : "border-[#FF5C00] group-hover:bg-[#FF5C00]"} bg-transparent px-[33.33px] py-[17.78px] transition-colors duration-300 no-underline`}
                             style={{ fontFamily: FONT }}
                         >
                             <span
@@ -282,7 +290,7 @@ export function DesignSchoolNavbar({ variant = "default" }: DesignSchoolNavbarPr
                         </Link>
                         <Link
                             href={ENQUIRE_URL}
-                            className="relative h-[60px] w-[60px] shrink-0 cursor-pointer overflow-hidden rounded-full bg-[#FF5C00]"
+                            className={`relative h-[60px] w-[60px] shrink-0 cursor-pointer overflow-hidden rounded-full ${isGdOnline ? "bg-[#29C76B]" : "bg-[#FF5C00]"}`}
                             aria-label="Contact Us"
                         >
                             <span className="absolute top-[13.89px] left-[13.89px] h-[33.33px] w-[33.33px] -translate-x-[45.56px] transition-transform duration-300 group-hover:translate-x-0">
@@ -316,6 +324,7 @@ export function DesignSchoolNavbar({ variant = "default" }: DesignSchoolNavbarPr
                 isOpen={isMobileMenuOpen}
                 onClose={closeMobileMenu}
                 isVideoCalicut={isVideoCalicut}
+                isGdOnline={isGdOnline}
                 getActiveColor={getActiveColor}
                 isLinkActive={isLinkActive}
             />
