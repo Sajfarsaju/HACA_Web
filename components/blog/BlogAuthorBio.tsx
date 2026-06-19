@@ -8,7 +8,7 @@ type Props = {
 }
 
 const DEFAULT_BIO =
-    "Deepna KV is an SEO content writer and copywriter with over 3 years of experience. She has worked with over 25 clients across India and the UAE, creating SEO content and copywriting assets such as blogs, website pages, landing pages, and UX copy for industries including marketing, technology, finance, design, hospitality, and real estate."
+    "Deepna KV is an SEO content writer and copywriter with over 3 years of experience. She has worked with over 25 clients across India and the UAE, creating SEO content and copywriting assets such as blogs, website pages, landing pages, and UX copy for industries including marketing, technology, design, hospitality, and real estate."
 
 export function BlogAuthorBio({ author, authorRole, authorPhotoUrl, bio = DEFAULT_BIO }: Props) {
     const initial = author?.[0] ?? "D"

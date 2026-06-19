@@ -15,7 +15,7 @@ export function CoursesPageClient() {
                     Courses
                 </h1>
                 <p className="w-full font-rethink font-bold text-[clamp(14px,1.4vw,20px)] leading-[clamp(17px,2.1vw,34px)] text-center text-[#A7ADBE] m-0">
-                    We offer practical upskilling courses in digital marketing, tech, finance, and design.
+                    We offer practical upskilling courses in digital marketing, tech, and design.
                     Explore your options below, choose the path that fits your goals, and start building the
                     career you’ve been thinking about.
                 </p>

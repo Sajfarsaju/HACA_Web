@@ -8,9 +8,9 @@ import {
 import { buildSitePageMetadata } from "@/lib/site-page-metadata";
 
 export const metadata = buildSitePageMetadata({
-  title: "HACA | Digital Marketing, Tech, Finance & Design Courses",
+  title: "HACA | Digital Marketing, Tech & Design Courses",
   description:
-    "Build real-world skills with practical courses in digital marketing, technology, finance, and design. Learn through hands-on projects and industry-focused training.",
+    "Build real-world skills with practical courses in digital marketing, technology, and design. Learn through hands-on projects and industry-focused training.",
   canonical: "https://harisandcoacademy.com/",
   openGraphType: "website",
 });
