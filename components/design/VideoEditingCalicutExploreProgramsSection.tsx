@@ -13,6 +13,7 @@ type ProgramCard = {
     badge: { mode: string; duration: string };
     title: string;
     description: string;
+    button: { bg: string; fg: string };
     imageSrc?: string;
     imageAlt?: string;
     hideImage?: boolean;
@@ -26,6 +27,18 @@ type ProgramCard = {
     titleMaxWidthClassName?: string;
     descriptionMaxWidthClassName?: string;
     href: string;
+    // Mobile positioning (Figma values)
+    mobileImgW: number;
+    mobileImgH: number;
+    mobileImgTop: number;
+    mobileImgLeft: number;
+    mobileContentTop: number;
+    mobileContentLeft: number;
+    mobileContentW: number;
+    mobileContentGap: number;
+    mobileImgWrapStyle?: React.CSSProperties;
+    mobileHeadingW?: number;
+    mobileParagraphW?: number;
 };
 
 const IMG_1309 = `/photos/schools/design/09dc2ab4736f03590e12a5a8084a79c961b2f925 (1).webp`;
@@ -39,6 +52,7 @@ const PROGRAMS: ProgramCard[] = [
         title: "Creative Design and\nCommunication",
         description:
             "This offline flagship CDC course supports you in learning graphic design, video editing, UI/UX, and more, while also offering opportunities to work on real projects through a one-month internship opportunity.",
+        button: { bg: "#29C76B", fg: "#FFFFFF" },
         imageSrc: IMG_1309,
         imageAlt: "Creative Design and Communication",
         imageWrapClassName: [
@@ -53,6 +67,15 @@ const PROGRAMS: ProgramCard[] = [
         titleMaxWidthClassName: "max-w-[340px] lg:max-w-[380px]",
         descriptionMaxWidthClassName: "max-w-[280px]",
         href: "/design-school/courses/creative-design",
+        mobileImgW: 250,
+        mobileImgH: 260.36,
+        mobileImgTop: 115,
+        mobileImgLeft: 155,
+        mobileContentTop: 49.73,
+        mobileContentLeft: 15.7,
+        mobileContentW: 170.1171875,
+        mobileContentGap: 10.47,
+        mobileHeadingW: 280,
     },
     {
         id: "ai-graphic",
@@ -61,9 +84,9 @@ const PROGRAMS: ProgramCard[] = [
         title: "AI Integrated\nGraphic Design",
         description:
             "Discover the fundamentals of contemporary graphic design in this online course, perfect for beginners and those looking to switch careers, all from the comfort of your home.",
+        button: { bg: "#FF5C00", fg: "#FFFFFF" },
         imageSrc: "/photos/schools/design/60b47d2800c7e3eca0f8d38692662a973f3b73b0.webp",
         imageAlt: "AI Integrated Graphic Design",
-        // Mobile: ~60% scale of xl desktop values. lg+: original xl values unchanged.
         imageWrapClassName:
             "absolute bottom-[-90px] left-[-48px] z-[1] w-[264px] h-[300px] lg:bottom-[-150px] lg:left-[-80px] lg:w-[440px] lg:h-[500px] pointer-events-none select-none",
         imageObjectClassName: "object-contain object-left-bottom",
@@ -72,6 +95,14 @@ const PROGRAMS: ProgramCard[] = [
         titleMaxWidthClassName: "max-w-[168px] lg:max-w-[280px]",
         descriptionMaxWidthClassName: "max-w-[168px] lg:max-w-[280px]",
         href: "/design-school/courses/ai-graphic-design",
+        mobileImgW: 240,
+        mobileImgH: 353.705810546875,
+        mobileImgTop: 123.08,
+        mobileImgLeft: -41.86,
+        mobileContentTop: 37.08,
+        mobileContentLeft: 141,
+        mobileContentW: 188,
+        mobileContentGap: 10,
     },
     {
         id: "uiux",
@@ -80,9 +111,9 @@ const PROGRAMS: ProgramCard[] = [
         title: "UI/UX Design +\nAI Program",
         description:
             "Learn how to create intuitive digital experiences by exploring design thinking, wireframing, and prototyping, perfect for aspiring app and web designers.",
+        button: { bg: "#2592FF", fg: "#FFFFFF" },
         imageSrc: "/photos/schools/design/efaa9dd8679f63c251e45143e7c74c5afcb821ae.webp",
         imageAlt: "UI/UX Design + AI Program",
-        // Mobile: ~60% scale of xl desktop values. lg+: original xl values unchanged.
         imageWrapClassName:
             "absolute bottom-[-132px] right-[-220px] z-[1] w-[372px] h-[396px] lg:bottom-[-220px] lg:right-[-320px] lg:w-[620px] lg:h-[660px] pointer-events-none select-none",
         imageWrapStyle: { transform: "scaleX(-1)" },
@@ -91,6 +122,14 @@ const PROGRAMS: ProgramCard[] = [
         titleMaxWidthClassName: "max-w-[180px] lg:max-w-[300px]",
         descriptionMaxWidthClassName: "max-w-[186px] lg:max-w-[310px]",
         href: "/design-school/courses/program-4",
+        mobileImgW: 212,
+        mobileImgH: 404.71,
+        mobileImgTop: 78,
+        mobileImgLeft: 185,
+        mobileContentTop: 56.73,
+        mobileContentLeft: 11.7,
+        mobileContentW: 170.1171875,
+        mobileContentGap: 10,
     },
     {
         id: "branding",
@@ -99,9 +138,9 @@ const PROGRAMS: ProgramCard[] = [
         title: "Branding and\nIdentity Design",
         description:
             "Quickly master brand storytelling, logo creation, and visual identity development in this focused online bootcamp, ideal for designers aiming to specialise in branding.",
+        button: { bg: "#8F56FF", fg: "#FFFFFF" },
         imageSrc: "/photos/schools/design/4bb434c3142cc5e13672d6cf063a4a96bdff02c0.webp",
         imageAlt: "Branding and Identity Design",
-        // Mobile: ~60% scale of xl desktop values. lg+: original xl values unchanged.
         imageWrapClassName:
             "absolute top-0 right-[-60px] z-[1] w-[348px] h-[258px] lg:right-[-100px] lg:w-[580px] lg:h-[430px] pointer-events-none select-none",
         imageObjectClassName: "object-contain object-right-top",
@@ -110,8 +149,16 @@ const PROGRAMS: ProgramCard[] = [
         titleMaxWidthClassName: "max-w-[192px] lg:max-w-[320px]",
         descriptionMaxWidthClassName: "max-w-[192px] lg:max-w-[320px]",
         href: "/design-school/courses/program-3",
+        mobileImgW: 366.40625,
+        mobileImgH: 176.0089569091797,
+        mobileImgTop: -17.06,
+        mobileImgLeft: 101,
+        mobileContentTop: 159.34,
+        mobileContentLeft: 15.7,
+        mobileContentW: 230,
+        mobileContentGap: 10,
     },
-] as const;
+];
 
 const BADGE_CSS = `
 .explore-badge-pill {
@@ -213,6 +260,75 @@ function KnowMoreButton() {
     );
 }
 
+// Mobile badge pill — Figma: 114.22×26.47px, top:12.96, left:13.49
+function MobileBadgePill({ mode, duration, accent }: { mode: string; duration: string; accent: string }) {
+    return (
+        <div
+            style={{
+                display: "inline-flex",
+                alignItems: "center",
+                width: 114.21875,
+                height: 26.46875,
+                paddingTop: 5.23,
+                paddingBottom: 5.23,
+                paddingLeft: 8.38,
+                paddingRight: 8.38,
+                gap: 5.23,
+                borderRadius: 63.34,
+                border: `0.52px solid ${accent}`,
+                backgroundColor: "#ffffff",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
+                boxSizing: "border-box",
+            }}
+        >
+            <span style={{ fontFamily: vc, fontWeight: 500, fontSize: 12, lineHeight: "100%", letterSpacing: 0, color: "#000000", flex: 1, textAlign: "center" }}>{mode}</span>
+            <span style={{ width: 0, height: 10, borderLeft: `0.52px solid ${accent}`, flexShrink: 0, alignSelf: "center" }} aria-hidden />
+            <span style={{ fontFamily: vc, fontWeight: 500, fontSize: 12, lineHeight: "100%", letterSpacing: 0, color: "#000000", flex: 1, textAlign: "center" }}>{duration}</span>
+        </div>
+    );
+}
+
+// Mobile enquire button — Figma: 126×40, radius 26.82px, padding 10px, gap 6px
+function MobileEnquireButton({ bg, fg }: { bg: string; fg: string }) {
+    return (
+        <div
+            className="inline-flex items-center"
+            style={{
+                width: 126,
+                height: 40,
+                borderRadius: 26.82,
+                padding: 10,
+                gap: 6,
+                backgroundColor: bg,
+                color: fg,
+                boxSizing: "border-box",
+                flexShrink: 0,
+            }}
+        >
+            <span
+                style={{
+                    fontFamily: vc,
+                    fontWeight: 500,
+                    fontSize: 12,
+                    lineHeight: "100%",
+                    whiteSpace: "nowrap",
+                    flex: 1,
+                }}
+            >
+                Enquire Now
+            </span>
+            <Image
+                src="/photos/schools/design/arrow_cool_down.svg"
+                alt=""
+                width={14}
+                height={14}
+                aria-hidden
+            />
+        </div>
+    );
+}
+
 function ProgramCardView(p: ProgramCard) {
     const titleLines = p.title.split("\n");
     return (
@@ -222,11 +338,90 @@ function ProgramCardView(p: ProgramCard) {
                 "group relative flex flex-col w-full overflow-hidden",
                 "rounded-[19.17px]",
                 "w-full lg:mx-auto lg:max-w-[640px]",
-                "min-h-[316px] lg:min-h-[clamp(420px,42vw,604px)]",
+                "min-h-[340px] lg:min-h-[clamp(420px,42vw,604px)]",
             ].join(" ")}
             style={{ backgroundColor: p.bg }}
         >
-            <div className="relative z-[2] flex flex-1 w-full flex-col gap-4 p-[20px] xl:p-[30px]">
+            {/* ── Mobile layout (hidden on lg+) ─────────────────────────────── */}
+
+            {/* Mobile badge pill */}
+            <div className="lg:hidden absolute pointer-events-none" style={{ top: 12.96, left: 13.49, zIndex: 3 }}>
+                <MobileBadgePill mode={p.badge.mode} duration={p.badge.duration} accent={p.bg} />
+            </div>
+
+            {/* Mobile image */}
+            <div
+                className="lg:hidden absolute pointer-events-none select-none"
+                style={{
+                    top: p.mobileImgTop,
+                    left: p.mobileImgLeft,
+                    width: p.mobileImgW,
+                    height: p.mobileImgH,
+                    zIndex: 1,
+                    ...p.imageWrapStyle,
+                    ...p.mobileImgWrapStyle,
+                }}
+                aria-hidden
+            >
+                <Image
+                    src={p.imageSrc ?? ""}
+                    alt=""
+                    fill
+                    className={p.imageObjectClassName}
+                    sizes="240px"
+                />
+            </div>
+
+            {/* Mobile content: heading + paragraph + button */}
+            <div
+                className="lg:hidden absolute flex flex-col"
+                style={{
+                    top: p.mobileContentTop,
+                    left: p.mobileContentLeft,
+                    width: p.mobileContentW,
+                    gap: p.mobileContentGap,
+                    zIndex: 2,
+                }}
+            >
+                <h3
+                    style={{
+                        margin: 0,
+                        fontFamily: vc,
+                        fontWeight: 500,
+                        fontStyle: "normal",
+                        fontSize: 22,
+                        lineHeight: "110%",
+                        letterSpacing: "-0.02em",
+                        color: "#ffffff",
+                        whiteSpace: "pre-line",
+                        ...(p.mobileHeadingW ? { width: p.mobileHeadingW } : {}),
+                    }}
+                >
+                    {titleLines.join("\n")}
+                </h3>
+
+                <p
+                    style={{
+                        margin: 0,
+                        fontFamily: vc,
+                        fontWeight: 400,
+                        fontStyle: "normal",
+                        fontSize: 12,
+                        lineHeight: "120%",
+                        letterSpacing: "-0.03em",
+                        color: "rgba(255,255,255,0.85)",
+                        ...(p.mobileParagraphW ? { width: p.mobileParagraphW } : {}),
+                    }}
+                >
+                    {p.description}
+                </p>
+
+                <MobileEnquireButton bg={p.button.bg} fg={p.button.fg} />
+            </div>
+
+            {/* ── Desktop layout (hidden below lg) — unchanged ──────────────── */}
+
+            <div className="hidden lg:flex relative z-[2] flex-1 w-full flex-col gap-4 p-[20px] xl:p-[30px]">
                 <ExploreBadge mode={p.badge.mode} duration={p.badge.duration} accent={p.bg} />
 
                 <div
@@ -270,15 +465,17 @@ function ProgramCardView(p: ProgramCard) {
                 </div>
             </div>
 
+            {/* Hover overlay (both breakpoints) */}
             <div
                 className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
                 style={{ background: "linear-gradient(0deg, rgba(0,0,0,0.10), rgba(0,0,0,0.10))" }}
                 aria-hidden
             />
 
+            {/* Desktop image (hidden below lg) */}
             {!p.hideImage && p.imageSrc ? (
                 <div
-                    className={p.imageWrapClassName}
+                    className={["hidden lg:block", p.imageWrapClassName].join(" ")}
                     style={p.imageWrapStyle}
                     aria-hidden
                 >

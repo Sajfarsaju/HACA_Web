@@ -82,7 +82,7 @@ export function GraphicDesigningCalicutFigmaRecognizedSection() {
 
                             <p
                                 id="calicut-figma-recognized-heading"
-                                className="relative z-10 m-0 max-w-[min(100%,479.8644714355469px)] text-center text-[clamp(20px,6.5vw,26px)] leading-[120%] text-white lg:text-[clamp(30px,3vw,39.99px)]"
+                                className="relative z-10 m-0 max-w-[min(100%,479.8644714355469px)] text-center text-[24px] leading-[120%] text-white lg:text-[clamp(30px,3vw,39.99px)]"
                                 style={{
                                     fontFamily: FONT_BODY,
                                     fontWeight: 500,

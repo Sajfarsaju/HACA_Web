@@ -351,7 +351,7 @@ export default function GraphicDesigningCourseInKeralaPage() {
                         className="flex w-full flex-col items-center justify-center gap-[20px]"
                         style={{ width: "100%", maxWidth: 896 }}
                     >
-                        <div className="flex w-full flex-col items-center justify-center gap-[20px] lg:gap-[20px]">
+                        <div className="flex w-full flex-col items-center justify-center gap-[20px] lg:gap-[48px]">
                             <h2 className="m-0 w-full lg:flex lg:h-[98px] lg:max-w-[896px] lg:items-center lg:justify-center">
                                 <span className="lg:hidden" style={DESIGN_SEO_JOIN_TITLE_MOBILE_STYLE}>
                                     Don&apos;t Just <br />
@@ -363,7 +363,7 @@ export default function GraphicDesigningCourseInKeralaPage() {
                             </h2>
 
                             <div
-                                className="flex w-full flex-col items-center lg:flex-row lg:justify-center"
+                                className="flex w-full flex-col items-center lg:flex-row lg:flex-nowrap lg:justify-center lg:items-center"
                                 style={{ gap: 8.16, maxWidth: 888.2645874023438 }}
                             >
                                 <div
@@ -377,7 +377,7 @@ export default function GraphicDesigningCourseInKeralaPage() {
                                         <Image src={LIVE_IT_SVG} alt="" aria-hidden width={49} height={48} className="block w-[48.97581481933594px] h-[48.18134307861328px]" />
                                         <span style={{ fontFamily: DESIGN_HEADING_FONT, fontWeight: 500, lineHeight: "120%" }}>
                                             <span className="lg:hidden" style={{ fontSize: 35 }}>Live it.</span>
-                                            <span className="hidden lg:inline" style={{ fontSize: 56 }}>Live it.</span>
+                                            <span className="hidden lg:inline whitespace-nowrap" style={{ fontSize: 56 }}>Live it.</span>
                                         </span>
                                     </div>
                                 </div>
@@ -392,7 +392,7 @@ export default function GraphicDesigningCourseInKeralaPage() {
                                         <Image src={CREATE_IT_SVG} alt="" aria-hidden width={49} height={50} className="block w-[48.97581481933594px] h-[50.33625793457031px]" />
                                         <span style={{ fontFamily: DESIGN_HEADING_FONT, fontWeight: 500, lineHeight: "120%" }}>
                                             <span className="lg:hidden" style={{ fontSize: 35 }}>Create it.</span>
-                                            <span className="hidden lg:inline" style={{ fontSize: 56 }}>Create it.</span>
+                                            <span className="hidden lg:inline whitespace-nowrap" style={{ fontSize: 56 }}>Create it.</span>
                                         </span>
                                     </div>
                                 </div>
@@ -407,7 +407,7 @@ export default function GraphicDesigningCourseInKeralaPage() {
                                         <Image src={OWN_IT_SVG} alt="" aria-hidden width={49} height={55} className="block w-[48.97581481933594px] h-[54.50560760498047px]" />
                                         <span style={{ fontFamily: DESIGN_HEADING_FONT, fontWeight: 500, lineHeight: "120%" }}>
                                             <span className="lg:hidden" style={{ fontSize: 35 }}>Own it.</span>
-                                            <span className="hidden lg:inline" style={{ fontSize: 56 }}>Own it.</span>
+                                            <span className="hidden lg:inline whitespace-nowrap" style={{ fontSize: 56 }}>Own it.</span>
                                         </span>
                                     </div>
                                 </div>
