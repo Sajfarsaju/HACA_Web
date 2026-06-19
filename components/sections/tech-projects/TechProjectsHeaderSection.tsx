@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { TECH_PROJECTS_HERO_DESC } from "./copy";
 
-type ProjectCategory = "all" | "web-application" | "automation";
+type ProjectCategory = "all" | "python" | "mern" | "data-ai";
 type SortOrder = "latest" | "oldest";
 
 interface TechProjectsHeaderSectionProps {
@@ -15,6 +15,15 @@ interface TechProjectsHeaderSectionProps {
     onSortOrderChange: (value: SortOrder) => void;
 }
 
+const CATEGORY_LABELS: Record<ProjectCategory, string> = {
+    all:      "All",
+    python:   "Python",
+    mern:     "MERN",
+    "data-ai": "Data Analytics & AI",
+};
+
+const CATEGORY_CYCLE: ProjectCategory[] = ["all", "python", "mern", "data-ai"];
+
 export function TechProjectsHeaderSection({
     searchQuery,
     onSearchChange,
@@ -23,13 +32,9 @@ export function TechProjectsHeaderSection({
     sortOrder,
     onSortOrderChange,
 }: TechProjectsHeaderSectionProps) {
-    const currentCategoryLabel =
-        category === "all" ? "All" : category === "web-application" ? "Web Application" : "Automation";
-
     const cycleCategory = () => {
-        if (category === "all") onCategoryChange("web-application");
-        else if (category === "web-application") onCategoryChange("automation");
-        else onCategoryChange("all");
+        const idx = CATEGORY_CYCLE.indexOf(category);
+        onCategoryChange(CATEGORY_CYCLE[(idx + 1) % CATEGORY_CYCLE.length]);
     };
 
     return (
@@ -105,38 +110,42 @@ export function TechProjectsHeaderSection({
                             gap: 12,
                         }}
                     >
-                        {/* Category pill — cycles between All / Web Application / Automation */}
+                        {/* Category pill — cycles through All / Python / MERN / Data Analytics & AI */}
                         <button
                             type="button"
                             className="tech-projects-toolbar-mobile-all"
                             onClick={cycleCategory}
                             style={{
-                                width: 120,
+                                flex: 1,
                                 height: 40,
-                                padding: "9.54px 17.88px",
+                                padding: "9.54px 12px",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "space-between",
-                                gap: 10,
+                                gap: 8,
                                 borderRadius: 8.94,
                                 boxSizing: "border-box",
                                 background: "#D9D9D91A",
                                 border: "none",
                                 cursor: "pointer",
+                                minWidth: 0,
                             }}
                         >
                             <span
                                 style={{
                                     fontFamily: "'Outfit', sans-serif",
                                     fontWeight: 400,
-                                    fontSize: 14,
+                                    fontSize: 13,
                                     lineHeight: "100%",
                                     color: "#FFFFFF",
+                                    whiteSpace: "nowrap",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
                                 }}
                             >
-                                {currentCategoryLabel}
+                                {CATEGORY_LABELS[category]}
                             </span>
-                            <div style={{ width: 17.92, height: 17.92, position: "relative" }}>
+                            <div style={{ width: 17.92, height: 17.92, position: "relative", flexShrink: 0 }}>
                                 <Image
                                     src="/photos/Tech/iconamoon_arrow-up-2-light.svg"
                                     alt="" aria-hidden="true"
@@ -159,6 +168,7 @@ export function TechProjectsHeaderSection({
                                 borderRadius: 8.94,
                                 boxSizing: "border-box",
                                 background: "#D9D9D91A",
+                                flexShrink: 0,
                             }}
                         >
                             <button
@@ -231,6 +241,7 @@ export function TechProjectsHeaderSection({
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
+                        gap: 16,
                     }}
                 >
                     {/* Desktop search */}
@@ -249,6 +260,7 @@ export function TechProjectsHeaderSection({
                             backdropFilter: "blur(12px)",
                             WebkitBackdropFilter: "blur(12px)",
                             boxSizing: "border-box",
+                            flexShrink: 0,
                         }}
                     >
                         <div style={{ width: 24, height: 24, position: "relative", flexShrink: 0 }}>
@@ -278,21 +290,21 @@ export function TechProjectsHeaderSection({
                         />
                     </div>
 
-                    {/* Category filters */}
+                    {/* Category filters: All | Python | MERN | Data Analytics & AI */}
                     <div
                         className="tech-projects-toolbar-filters"
                         style={{
-                            width: 542,
+                            flex: 1,
                             height: 52,
                             borderRadius: 15,
                             paddingTop: 16,
-                            paddingRight: 30,
+                            paddingRight: 24,
                             paddingBottom: 16,
-                            paddingLeft: 30,
+                            paddingLeft: 24,
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
-                            gap: 12,
+                            gap: 8,
                             background: "#D9D9D91A",
                             backdropFilter: "blur(12px)",
                             WebkitBackdropFilter: "blur(12px)",
@@ -300,85 +312,41 @@ export function TechProjectsHeaderSection({
                             boxSizing: "border-box",
                         }}
                     >
-                        <button
-                            type="button"
-                            onClick={() => onCategoryChange("all")}
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "flex-start",
-                                fontFamily: "'Outfit', sans-serif",
-                                fontWeight: 400,
-                                fontSize: 18,
-                                lineHeight: "100%",
-                                textAlign: "left",
-                                background: "transparent",
-                                color: category === "all" ? "#FFFFFF" : "#A7A7A7",
-                                padding: "4px 8px",
-                                height: 30,
-                                boxSizing: "border-box",
-                                flexShrink: 0,
-                                border: "none",
-                                cursor: "pointer",
-                            }}
-                        >
-                            All
-                        </button>
-                        <div style={{ width: 1, height: 22, position: "relative", flexShrink: 0, display: "flex", alignItems: "center" }}>
-                            <Image src="/photos/Tech/Vector 4.svg" alt="" aria-hidden="true" fill style={{ objectFit: "cover" }} />
-                        </div>
-                        <button
-                            type="button"
-                            onClick={() => onCategoryChange("web-application")}
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                fontFamily: "'Outfit', sans-serif",
-                                fontWeight: 400,
-                                fontSize: 18,
-                                lineHeight: "100%",
-                                textAlign: "center",
-                                color: category === "web-application" ? "#FFFFFF" : "#A7A7A7",
-                                padding: "4px 8px",
-                                whiteSpace: "nowrap",
-                                height: 30,
-                                boxSizing: "border-box",
-                                flexShrink: 0,
-                                border: "none",
-                                background: "transparent",
-                                cursor: "pointer",
-                            }}
-                        >
-                            Web Application
-                        </button>
-                        <div style={{ width: 1, height: 22, position: "relative", flexShrink: 0, display: "flex", alignItems: "center" }}>
-                            <Image src="/photos/Tech/Vector 4.svg" alt="" aria-hidden="true" fill style={{ objectFit: "cover" }} />
-                        </div>
-                        <button
-                            type="button"
-                            onClick={() => onCategoryChange("automation")}
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "flex-start",
-                                fontFamily: "'Outfit', sans-serif",
-                                fontWeight: 400,
-                                fontSize: 18,
-                                lineHeight: "100%",
-                                textAlign: "left",
-                                color: category === "automation" ? "#FFFFFF" : "#A7A7A7",
-                                padding: "4px 8px",
-                                height: 30,
-                                boxSizing: "border-box",
-                                flexShrink: 0,
-                                border: "none",
-                                background: "transparent",
-                                cursor: "pointer",
-                            }}
-                        >
-                            Automation
-                        </button>
+                        {CATEGORY_CYCLE.map((cat, i) => (
+                            <>
+                                <button
+                                    key={cat}
+                                    type="button"
+                                    onClick={() => onCategoryChange(cat)}
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        fontFamily: "'Outfit', sans-serif",
+                                        fontWeight: 400,
+                                        fontSize: 16,
+                                        lineHeight: "100%",
+                                        textAlign: "center",
+                                        background: "transparent",
+                                        color: category === cat ? "#FFFFFF" : "#A7A7A7",
+                                        padding: "4px 8px",
+                                        height: 30,
+                                        boxSizing: "border-box",
+                                        flexShrink: 0,
+                                        border: "none",
+                                        cursor: "pointer",
+                                        whiteSpace: "nowrap",
+                                    }}
+                                >
+                                    {CATEGORY_LABELS[cat]}
+                                </button>
+                                {i < CATEGORY_CYCLE.length - 1 && (
+                                    <div key={`divider-${i}`} style={{ width: 1, height: 22, position: "relative", flexShrink: 0, display: "flex", alignItems: "center" }}>
+                                        <Image src="/photos/Tech/Vector 4.svg" alt="" aria-hidden="true" fill style={{ objectFit: "cover" }} />
+                                    </div>
+                                )}
+                            </>
+                        ))}
                     </div>
 
                     {/* Sort: Latest / Oldest */}
@@ -400,6 +368,7 @@ export function TechProjectsHeaderSection({
                             backdropFilter: "blur(12px)",
                             WebkitBackdropFilter: "blur(12px)",
                             boxShadow: "0px 4px 12px 0px #00000040",
+                            flexShrink: 0,
                         }}
                     >
                         <button
@@ -447,4 +416,3 @@ export function TechProjectsHeaderSection({
         </div>
     );
 }
-

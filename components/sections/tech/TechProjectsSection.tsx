@@ -4,23 +4,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { useInView } from "framer-motion";
 
+const pImg = (name: string) => `/photos/Tech/projects/${encodeURIComponent(name)}.webp`;
+
 const BASE_PROJECTS = [
-    {
-        src: "/photos/Tech/Rectangle 6.svg",
-        desc: "Easily book a ride anytime and anywhere with a smooth and reliable experience."
-    },
-    {
-        src: "/photos/Tech/Rectangle 6.svg",
-        desc: "Build scalable and responsive interfaces tailored to your organization needs."
-    },
-    {
-        src: "/photos/Tech/Rectangle 6.svg",
-        desc: "Design data-driven analytical dashboards for modern business intelligence."
-    },
-    {
-        src: "/photos/Tech/Rectangle 6.svg",
-        desc: "Automate complex workflows and save valuable time using AI agents."
-    }
+    { src: pImg("SecondHome"),                                              desc: "A hotel search platform that fetches real-time listings, pricing, and ratings through external hotel APIs." },
+    { src: pImg("RoadAssist"),                                              desc: "A roadside assistance platform for emergency fuel delivery, towing, and puncture repair during breakdowns." },
+    { src: pImg("Where In The World"),                                      desc: "A country explorer app to discover nations, filter regions, and view geographical data via REST Countries API." },
+    { src: pImg("PWD Portal"),                                              desc: "A digital complaint system for road maintenance where citizens report issues and track repair progress." },
+    { src: pImg("Find Your Travel Partner"),                                desc: "A carpooling platform that connects travelers heading the same direction to share rides and reduce costs." },
+    { src: pImg("AI-Integrated E-Commerce Platform"),                       desc: "An AI-powered e-commerce platform with smart product discovery, Gemini chatbot, and a full admin dashboard." },
+    { src: pImg("MusicPlay"),                                               desc: "A full-stack music streaming platform with playlists, sleep timer, cloud uploads, and dark & light mode." },
+    { src: pImg("ShoppingCart"),                                            desc: "A modern e-commerce frontend with product browsing, Redux-powered cart management, and state persistence." },
+    { src: pImg("Portfolio"),                                               desc: "An animated personal portfolio showcasing projects, skills, and experience through interactive design." },
+    { src: pImg("Real-time Weather Analysis Dashboard"),                    desc: "An interactive Power BI dashboard displaying temperature trends, air quality, rainfall, and weather forecasts." },
+    { src: pImg("Fitness Management Dashboard"),                            desc: "A fitness analytics dashboard monitoring gym operations, member performance, revenue, and client growth." },
+    { src: pImg("SLA Key Metrics Performance Dashboard"),                   desc: "A business intelligence dashboard measuring SLA achievement across service categories and regions." },
+    { src: pImg("Electric Vehicle Data Analysis Dashboard"),                desc: "A Tableau dashboard visualising EV adoption trends, manufacturer performance, and regional growth across the US." },
+    { src: pImg("Real-Time E-Commerce Dashboard & Customer Churn Prediction"), desc: "A real-time analytics solution tracking sales performance and predicting customer churn with ML." },
+    { src: pImg("Book Recommender System Using Machine Learning"),           desc: "A recommendation engine suggesting books based on user preferences through similarity analysis algorithms." },
+    { src: pImg("Anchor – Customer Churn Analysis App"),                    desc: "A Streamlit churn prediction app helping businesses identify at-risk customers and improve retention." },
+    { src: pImg("Sales & Revenue Dashboard for December 2025"),             desc: "A sales intelligence dashboard built on real client data to analyse revenue, payments, and team performance." },
 ];
 
 const PROJECTS = BASE_PROJECTS;
@@ -242,7 +245,7 @@ export function TechProjectsSection() {
 
                             <div className="flex flex-col items-center gap-[13px] w-full">
                                 <div className="font-outfit font-normal text-[64px] leading-[130%] text-white text-center m-0 max-md:text-[48px]">
-                                    <CountUp target={10} suffix="+" startAnimation={statsVisible} />
+                                    <CountUp target={17} suffix="+" startAnimation={statsVisible} />
                                 </div>
                                 <div className="font-outfit font-extralight text-[20px] leading-[130%] tracking-[0.5em] uppercase text-white text-center m-0 max-md:text-[16px] max-md:tracking-[0.3em]">Projects</div>
                             </div>

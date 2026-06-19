@@ -64,7 +64,7 @@ export function Navbar() {
             } max-[1440px]:px-[40px] max-[1200px]:px-[30px] max-[1024px]:px-[20px] max-[1024px]:pt-[25px] max-[900px]:!px-[15px] max-md:!pt-[18px] max-md:!px-[20px] max-md:!pb-[40px]`}
         >
             {/* Inner container */}
-            <div className="flex justify-between items-center pt-[30px] pb-0 max-[1024px]:pt-[20px] max-md:pt-0">
+            <div className="relative flex justify-between items-center pt-[30px] pb-0 max-[1024px]:pt-[20px] max-md:pt-0">
                 {/* Logo */}
                 <Link href="/" className="flex flex-row items-center shrink-0" onClick={closeDropdown}>
                     <Image
@@ -79,7 +79,7 @@ export function Navbar() {
                 </Link>
 
                 {/* Desktop Nav Buttons Container */}
-                <nav className="flex flex-row items-center rounded-[100px] border border-[#232D6B] p-[8px] gap-0 shrink-0 bg-[rgba(13,17,45,0.4)] backdrop-blur-[10px] max-[900px]:p-[4px] max-md:!hidden">
+                <nav className="absolute left-1/2 -translate-x-1/2 flex flex-row items-center rounded-[100px] border border-[#232D6B] p-[8px] gap-0 shrink-0 bg-[rgba(13,17,45,0.4)] backdrop-blur-[10px] max-[900px]:p-[4px] max-md:!hidden">
                     {/* Home */}
                     <Link
                         href="/"

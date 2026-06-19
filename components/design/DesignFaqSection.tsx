@@ -34,7 +34,7 @@ const FAQ_ITEMS: FaqItem[] = [
                 >
                     Kerala’s leading digital marketing agencies.
                 </a>{" "}
-                Every course here is designed inside a real agency environment, so instead of just learning theories, you work on live projects, real brands, and hands-on campaigns. That’s what makes HACA one of the most career-focused institutes in Kerala for digital marketing, design, tech, and finance.
+                Every course here is designed inside a real agency environment, so instead of just learning theories, you work on live projects, real brands, and hands-on campaigns. That’s what makes HACA one of the most career-focused institutes in Kerala for digital marketing, design, and tech
             </>
         ),
     },
@@ -42,7 +42,7 @@ const FAQ_ITEMS: FaqItem[] = [
         id: "design-faq-2",
         q: "Which courses are offered at HACA?",
         plusColor: "#FF5C00",
-        a: "We currently have four schools under HACA: Marketing, Design, Tech, and Finance. Each one focuses on building practical, job-ready skills through hands-on training and real-world experience.",
+        a: "We currently have four schools under HACA: Marketing, Design, and tech. Each one focuses on building practical, job-ready skills through hands-on training and real-world experience.",
     },
     {
         id: "design-faq-3",

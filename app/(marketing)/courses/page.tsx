@@ -4,7 +4,7 @@ import { CoursesPageClient } from "@/components/courses/CoursesPageClient"
 export const metadata: Metadata = {
     title: "Courses | HACA",
     description:
-        "Explore practical upskilling courses in digital marketing, tech, finance, and design at HACA.",
+        "Explore practical upskilling courses in digital marketing, tech, and design at HACA.",
 }
 
 export default function CoursesPage() {
