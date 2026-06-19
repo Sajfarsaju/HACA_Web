@@ -88,6 +88,8 @@ const CORE_PAGES: Array<{ path: string; priority?: number; changeFrequency?: Cha
     { path: "/design-school/courses", priority: 0.8 },
     { path: "/design-school/projects", priority: 0.75 },
     { path: "/design-school/success-story", priority: 0.75 },
+    { path: "/enquire", priority: 0.85, changeFrequency: "monthly" },
+    { path: "/case-studies", priority: 0.75 },
     { path: "/tech-school", priority: 0.9 },
     { path: "/tech-school/tech-courses", priority: 0.8 },
     { path: "/tech-school/tech-projects", priority: 0.75 },
