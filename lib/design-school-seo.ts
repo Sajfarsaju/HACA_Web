@@ -110,37 +110,6 @@ export const DESIGN_SCHOOL_SEO_PAGES: Record<DesignSchoolSeoSlug, PageSeo> = {
             "Connects naturally with our graphic design and branding programs if you want a broader creative profile",
         ],
     },
-    "introduction-to-graphic-design": {
-        title: "Introduction to Graphic Design - Haris & Co Academy",
-        description:
-            "As graphic design is a practical creative ability best learned by hands-on experience, the best course for graphic design in Calicut would be offline.",
-        eyebrow: "Unleash your creativity",
-        h1: "Learn graphic design online from the ground up",
-        intro: [
-            "Perfect if you want a structured first step before committing to a longer program. Sessions balance foundations—layout, composition, type, colour—with tool confidence in Photoshop and Illustrator.",
-            "Bonus modules touch creative ads, personal branding, and a LinkedIn masterclass so you can talk about your work as clearly as you design it.",
-        ],
-        highlights: [
-            "Modules on layout, branding communication, manipulation, and creative design",
-            "Exposure to Midjourney and DALL·E as ideation assistants—not replacements for craft",
-            "Natural bridge into our deeper Creative Design & Communication or AI graphic programs",
-        ],
-    },
-    "creative-design-and-communication": {
-        title: "Creative Design and Communication - Haris & Co Academy",
-        description: "0",
-        eyebrow: "Design School from the house of HACA",
-        h1: "Creative design & communication flagship program",
-        intro: [
-            "This is the umbrella experience that ties visual storytelling, identity, motion, interface craft, and editing into one coherent creative education—how modern studios actually staff projects.",
-            "Book a demo to see the workspace culture, mentor bench, and the kind of portfolio reviews you will live with for five intensive months.",
-        ],
-        highlights: [
-            "Major projects spanning graphic, motion, video, UI/UX, and brand design",
-            "Leadership visibility from Design School heads and specialist mentors",
-            "Scholarship, E-Cell, and alumni community touchpoints shared across HACA",
-        ],
-    },
 };
 
 export function buildDesignSchoolSeoMetadata(slug: DesignSchoolSeoSlug): Metadata {
