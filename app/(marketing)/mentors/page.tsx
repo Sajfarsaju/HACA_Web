@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: "Mentors | HACA",
     description:
         "A team of passionate creatives, marketers, designers, and developers dedicated to sharing industry knowledge, practical skills, and career-building guidance.",
+    robots: { index: true, follow: true },
 };
 
 type Mentor = {

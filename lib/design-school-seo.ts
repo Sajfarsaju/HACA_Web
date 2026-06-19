@@ -10,8 +10,6 @@ export const DESIGN_SCHOOL_SEO_PATHS = [
     "/video-editing-course-in-calicut",
     "/graphic-designing-course-in-calicut",
     "/ui-ux-design-course-in-calicut",
-    "/introduction-to-graphic-design",
-    "/creative-design-and-communication",
 ] as const;
 
 export type DesignSchoolSeoPath = (typeof DESIGN_SCHOOL_SEO_PATHS)[number];

@@ -2,7 +2,6 @@ import { MetadataRoute } from "next";
 import { DESIGN_SCHOOL_SEO_PATHS } from "@/lib/design-school-seo";
 import {
     DIGITAL_MARKETING_CALICUT_SEO_PATH,
-    DIGITAL_MARKETING_ERNAKULAM_SEO_PATH,
     DIGITAL_MARKETING_KANNUR_SEO_PATH,
     DIGITAL_MARKETING_KASARAGOD_SEO_PATH,
     DIGITAL_MARKETING_KERALA_SEO_PATH,
@@ -15,8 +14,6 @@ import {
     DIGITAL_MARKETING_WAYANAD_SEO_PATH,
     DIGITAL_MARKETING_DUBAI_SEO_PATH,
     DIGITAL_MARKETING_SHARJAH_SEO_PATH,
-    DIGITAL_MARKETING_KOTTAYAM_SEO_PATH,
-    DIGITAL_MARKETING_ALAPPUZHA_SEO_PATH,
     DIGITAL_MARKETING_MALAYALAM_SEO_PATH,
     ONLINE_DIGITAL_MARKETING_INDIA_SEO_PATH,
     HACA_AE_SEO_PATH,
@@ -56,12 +53,9 @@ const MARKETING_SEO_PATHS = [
     DIGITAL_MARKETING_KOCHI_SEO_PATH,
     DIGITAL_MARKETING_MALAPPURAM_SEO_PATH,
     DIGITAL_MARKETING_THRISSUR_SEO_PATH,
-    DIGITAL_MARKETING_ERNAKULAM_SEO_PATH,
     HACA_AE_SEO_PATH,
     DIGITAL_MARKETING_DUBAI_SEO_PATH,
     DIGITAL_MARKETING_SHARJAH_SEO_PATH,
-    DIGITAL_MARKETING_KOTTAYAM_SEO_PATH,
-    DIGITAL_MARKETING_ALAPPUZHA_SEO_PATH,
     DIGITAL_MARKETING_MALAYALAM_SEO_PATH,
     ONLINE_DIGITAL_MARKETING_INDIA_SEO_PATH,
 ] as const;
@@ -75,8 +69,7 @@ const TECH_SEO_PATHS = [
 const CORE_PAGES: Array<{ path: string; priority?: number; changeFrequency?: ChangeFrequency }> = [
     { path: "", priority: 1, changeFrequency: "daily" },
     { path: "/about", priority: 0.7 },
-    { path: "/solutions", priority: 0.7 },
-    { path: "/pricing", priority: 0.7 },
+    { path: "/mentors", priority: 0.7 },
     { path: "/contact", priority: 0.7 },
     { path: "/courses", priority: 0.75 },
     { path: "/blog", priority: 0.85, changeFrequency: "daily" },
@@ -95,8 +88,6 @@ const CORE_PAGES: Array<{ path: string; priority?: number; changeFrequency?: Cha
     { path: "/tech-school/tech-projects", priority: 0.75 },
     { path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" },
     { path: "/terms-conditions", priority: 0.3, changeFrequency: "yearly" },
-    { path: "/legal/privacy", priority: 0.3, changeFrequency: "yearly" },
-    { path: "/legal/terms", priority: 0.3, changeFrequency: "yearly" },
 ];
 
 async function getBlogSlugs(): Promise<string[]> {
