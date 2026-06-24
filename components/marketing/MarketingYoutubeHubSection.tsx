@@ -129,14 +129,14 @@ export function MarketingYoutubeHubSection() {
                 <header className="flex w-full min-w-0 flex-col gap-5 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
                     <div className="flex shrink-0 items-center gap-[clamp(10px,1.5vw,14px)] lg:pt-2">
                         <span className="h-[10px] w-[10px] shrink-0 rounded-full lg:h-3 lg:w-3" style={{ backgroundColor: ACCENT }} aria-hidden />
-                        <p className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal" style={{ color: "var(--cy-text, #000000)", transition: "color 0.55s ease" }}>
+                        <p className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal" style={{ color: "var(--mp-text, #ffffff)", transition: "color 0.55s ease" }}>
                             Youtube Hub
                         </p>
                     </div>
                     <h2
                         id="marketing-youtube-hub-heading"
                         className="w-full min-w-0 max-w-full text-left font-semibold tracking-normal [font-family:'Darker_Grotesque',sans-serif] text-[clamp(1.75rem,4.8vw,3.125rem)] leading-[1.05] lg:ml-auto lg:flex lg:max-w-[min(100%,720px)] lg:justify-end lg:text-left lg:leading-[1.08]"
-                        style={{ color: "var(--cy-text, #000000)", transition: "color 0.55s ease" }}
+                        style={{ color: "var(--mp-text, #ffffff)", transition: "color 0.55s ease" }}
                     >
                         <span className="inline-block text-left">
                             <span className="block lg:hidden">What We Build. How We</span>

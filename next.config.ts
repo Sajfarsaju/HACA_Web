@@ -134,6 +134,32 @@ const nextConfig: NextConfig = {
         destination: "/design-school",
         permanent: false,
       },
+      // Blog URL redirects — old category-prefixed or shortened slugs
+      {
+        source: "/blog/design-school/15-best-figma-plugins",
+        destination: "/blog/15-best-figma-plugins",
+        permanent: true,
+      },
+      {
+        source: "/blog/what-is-quality-score-in-google-ads",
+        destination: "/blog/what-is-quality-score-in-google-ads-how-to-improve-it",
+        permanent: true,
+      },
+      {
+        source: "/blog/career-guidance/skills-vs-college-degree-which-one-actually-gets-you-a-job-in-2026",
+        destination: "/blog/skills-vs-college-degree-which-one-actually-gets-you-a-job-in-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/design-school/top-5-graphic-design-courses",
+        destination: "/blog/top-5-graphic-design-courses",
+        permanent: true,
+      },
+      {
+        source: "/blog/digital-marketing/what-are-the-advantages-of-crm",
+        destination: "/blog/what-are-the-advantages-of-crm",
+        permanent: true,
+      },
     ];
   },
 };

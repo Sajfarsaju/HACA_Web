@@ -35,8 +35,7 @@ function HeroCtaButton({
 export function TechSeoCodingKeralaHeroSection() {
     return (
         <section
-            className="relative mx-auto box-border w-full max-w-[1441px] overflow-x-clip"
-            style={{ backgroundColor: TECH_SEO_PAGE_BG }}
+            className="relative mx-auto box-border w-full max-w-[1441px] overflow-x-clip bg-transparent z-10"
             aria-labelledby="coding-kerala-hero-heading"
         >
             <div className="relative flex flex-col px-5 pb-10 pt-6 lg:min-h-[700px] lg:px-[60px] lg:pb-[60px] lg:pt-10">

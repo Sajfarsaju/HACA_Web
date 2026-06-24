@@ -27,7 +27,7 @@ export default function PythonCourseInCalicutPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <div className="w-full bg-[#000010]">
+            <div className="w-full bg-transparent">
                 <TechSeoPythonCalicutHeroSection />
                 <TechSeoPythonCalicutDifferentSection />
                 <TechSeoPythonCalicutSuccessStoriesSection />

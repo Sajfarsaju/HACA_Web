@@ -198,6 +198,18 @@ export function TechFooter({ variant = "default" }: TechFooterProps) {
 
                         <div className="flex flex-col gap-[clamp(8px,1vw,12px)]">
                             <h3 className="font-outfit font-medium text-[clamp(14px,1.2vw,18px)] leading-[1.2] tracking-[-0.02em] text-[#A7A7A7]">
+                                Tech School (Kozhikode)
+                            </h3>
+                            <p className="font-outfit font-medium text-[clamp(12px,1vw,16px)] text-[#FFFFFF] leading-[1.4] tracking-normal max-w-[239px]">
+                                HACA Tech School,<br />
+                                at Waha Center,<br />
+                                Near HP Petrol Pump Panniyankara,<br />
+                                Kozhikode, Kerala 673003
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col gap-[clamp(8px,1vw,12px)]">
+                            <h3 className="font-outfit font-medium text-[clamp(14px,1.2vw,18px)] leading-[1.2] tracking-[-0.02em] text-[#A7A7A7]">
                                 Phone Number
                             </h3>
                             <p className="font-outfit font-medium text-[clamp(12px,1vw,16px)] text-[#FFFFFF] leading-[1.2] tracking-normal">
