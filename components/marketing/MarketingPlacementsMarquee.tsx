@@ -93,8 +93,7 @@ export function MarketingPlacementsMarquee() {
     const [apiItems, setApiItems] = useState<PlacementItem[]>([]);
 
     useEffect(() => {
-        const url = `${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/placements/grouped`;
-        fetch(url)
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:5000"}/api/placements/grouped`)
             .then((r) => (r.ok ? r.json() : null))
             .then((data) => {
                 const group = data?.groups?.find(

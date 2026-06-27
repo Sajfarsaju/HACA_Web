@@ -31,10 +31,6 @@ const PROJECTS = BASE_PROJECTS;
 /** Start on second item when possible so a left peek exists (index 0 alone leaves the left side empty). */
 const INITIAL_PROJECT_INDEX = Math.min(1, PROJECTS.length - 1);
 
-/** Linear slide index (finite list). Do not wrap — circular math caused wrong-way slides after we removed infinite looping. */
-function getOffset(index: number, active: number) {
-    return index - active;
-}
 
 function CountUp({
     target,
@@ -136,100 +132,51 @@ export function TechProjectsSection() {
 
                         {/* Left Card: Project Show (Sliding Carousel) */}
                         <div
-                            className="tech-projects-card-gradient relative bg-[#D9D9D91A] rounded-[22px] shadow-[0px_2.18px_2.18px_0px_rgba(0,0,0,0.25)] backdrop-blur-[6.5px] flex flex-col w-full max-w-[650px] h-[428px] p-[20px] max-md:p-[16px] max-md:h-[340px] max-sm:h-[328px] overflow-hidden"
+                            className="tech-projects-card-gradient relative bg-[#D9D9D91A] rounded-[22px] shadow-[0px_2.18px_2.18px_0px_rgba(0,0,0,0.25)] backdrop-blur-[6.5px] flex flex-col w-full max-w-[650px] p-[20px] gap-[16px] max-md:p-[16px] max-md:gap-[12px]"
                         >
-
-                            {/* Inner Sliding Track wrapper */}
-                            <div className="relative w-full h-full flex flex-col justify-between overflow-hidden">
-                                <div className="relative w-full h-full flex items-center">
-                                    {PROJECTS.map((proj, i) => {
-                                        const offset = getOffset(i, activeProject);
-                                        const isVisible = Math.abs(offset) <= 1;
-
-                                        return (
-                                            <div
-                                                key={i}
-                                                className="absolute inset-0 flex flex-col gap-[20px] max-md:gap-[12px]"
-                                                style={{
-                                                    transform: `translateX(${offset * 105}%) translateZ(0)`,
-                                                    opacity: isVisible ? 1 : 0,
-                                                    pointerEvents: offset === 0 ? "auto" : "none",
-                                                    zIndex: offset === 0 ? 2 : Math.max(0, 1 - Math.abs(offset)),
-                                                    transition:
-                                                        "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.45s ease",
-                                                }}
-                                                aria-hidden={offset !== 0}
-                                            >
-                                                <div className="relative w-full h-[309px] rounded-[22px] overflow-hidden shrink-0 max-md:h-[220px]">
-                                                    <Image
-                                                        src={proj.src}
-                                                        fill
-                                                        alt="Project Screenshot"
-                                                        className="object-cover rounded-[22px]"
-                                                    />
-                                                </div>
-                                                <div className="w-full flex justify-between items-center gap-3">
-                                                    <p className="w-[330px] font-outfit font-light text-[18px] leading-none text-white m-0 max-md:w-auto max-md:flex-1 max-md:text-[16px] max-md:text-left max-md:px-0">
-                                                        {proj.desc}
-                                                    </p>
-                                                    {/* Desktop spacer to keep text left aligned while arrows sit on the right */}
-                                                    <div className="w-[103px] hidden md:block shrink-0"></div>
-                                                    {/* Mobile arrows — keep on right of text */}
-                                                    <div className="flex gap-[10px] items-center shrink-0 md:hidden">
-                                                        <button
-                                                            onClick={() => {
-                                                                if (!canPrev) return;
-                                                                prevProject();
-                                                            }}
-                                                            disabled={!canPrev}
-                                                            aria-disabled={!canPrev}
-                                                            className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] rotate-[-180deg] opacity-70 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
-                                                            aria-label="Previous project"
-                                                        >
-                                                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" aria-hidden="true" className="object-contain" />
-                                                        </button>
-                                                        <button
-                                                            onClick={() => {
-                                                                if (!canNext) return;
-                                                                nextProject();
-                                                            }}
-                                                            disabled={!canNext}
-                                                            aria-disabled={!canNext}
-                                                            className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] opacity-100 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
-                                                            aria-label="Next project"
-                                                        >
-                                                            <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" aria-hidden="true" className="object-contain" />
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
+                            {/* Sliding image track — overflow-hidden clips off-screen slides */}
+                            <div className="w-full overflow-hidden rounded-[22px]">
+                                <div
+                                    className="flex will-change-transform"
+                                    style={{
+                                        transform: `translateX(-${activeProject * 100}%)`,
+                                        transition: "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                                    }}
+                                >
+                                    {PROJECTS.map((proj, i) => (
+                                        <div key={i} className="relative min-w-full aspect-video">
+                                            <Image
+                                                src={proj.src}
+                                                fill
+                                                alt="Project Screenshot"
+                                                className="object-cover"
+                                                sizes="(max-width: 1024px) calc(100vw - 56px), 610px"
+                                                loading={i <= INITIAL_PROJECT_INDEX + 1 ? "eager" : "lazy"}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
+                            </div>
 
-                                {/* Fixed Navigation Arrows */}
-                                <div className="absolute bottom-0 right-0 hidden md:flex gap-[10px] items-center z-20">
+                            {/* Description + Navigation */}
+                            <div className="flex justify-between items-center gap-3">
+                                <p className="font-outfit font-light text-[18px] leading-[1.4] text-white m-0 flex-1 max-md:text-[14px]">
+                                    {PROJECTS[activeProject].desc}
+                                </p>
+                                <div className="flex gap-[10px] items-center shrink-0">
                                     <button
-                                        onClick={() => {
-                                            if (!canPrev) return;
-                                            prevProject();
-                                        }}
+                                        onClick={prevProject}
                                         disabled={!canPrev}
-                                        aria-disabled={!canPrev}
-                                        className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] rotate-[-180deg] opacity-70 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                                         aria-label="Previous project"
+                                        className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] rotate-[-180deg] opacity-70 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                                     >
                                         <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" aria-hidden="true" className="object-contain" />
                                     </button>
                                     <button
-                                        onClick={() => {
-                                            if (!canNext) return;
-                                            nextProject();
-                                        }}
+                                        onClick={nextProject}
                                         disabled={!canNext}
-                                        aria-disabled={!canNext}
-                                        className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] opacity-100 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                                         aria-label="Next project"
+                                        className="relative bg-transparent border-none p-0 w-[46.67px] h-[46.67px] opacity-100 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-80 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:opacity-30"
                                     >
                                         <Image src="/photos/Tech/Active Arowmark.svg" fill alt="" aria-hidden="true" className="object-contain" />
                                     </button>
@@ -240,12 +187,12 @@ export function TechProjectsSection() {
                         {/* Right Card: Stats */}
                         <div
                             ref={statsRef}
-                            className="tech-projects-card-gradient relative bg-[#D9D9D91A] rounded-[22px] shadow-[0px_2.18px_2.18px_0px_rgba(0,0,0,0.25)] backdrop-blur-[6.5px] flex flex-col w-full max-w-[650px] h-[428px] py-[35px] px-[100px] gap-[44px] justify-center items-center max-lg:px-[40px] max-md:px-[20px] max-md:h-[396px] max-md:py-[40px] overflow-hidden"
+                            className="tech-projects-card-gradient relative bg-[#D9D9D91A] rounded-[22px] shadow-[0px_2.18px_2.18px_0px_rgba(0,0,0,0.25)] backdrop-blur-[6.5px] flex flex-col w-full max-w-[650px] min-h-[428px] py-[35px] px-[100px] gap-[44px] justify-center items-center max-lg:px-[40px] max-md:px-[20px] max-md:min-h-[396px] max-md:py-[40px] overflow-hidden"
                         >
 
                             <div className="flex flex-col items-center gap-[13px] w-full">
                                 <div className="font-outfit font-normal text-[64px] leading-[130%] text-white text-center m-0 max-md:text-[48px]">
-                                    <CountUp target={17} suffix="+" startAnimation={statsVisible} />
+                                    <CountUp target={500} suffix="+" startAnimation={statsVisible} />
                                 </div>
                                 <div className="font-outfit font-extralight text-[20px] leading-[130%] tracking-[0.5em] uppercase text-white text-center m-0 max-md:text-[16px] max-md:tracking-[0.3em]">Projects</div>
                             </div>
@@ -256,7 +203,7 @@ export function TechProjectsSection() {
                                 <div className="font-outfit font-normal text-[64px] leading-[130%] text-white text-center m-0 max-md:text-[48px]">
                                     <CountUp target={250} suffix="+" startAnimation={statsVisible} />
                                 </div>
-                                <div className="font-outfit font-extralight text-[20px] leading-[130%] tracking-[0.5em] uppercase text-white text-center m-0 max-md:text-[16px] max-md:tracking-[0.3em]">Hours of work</div>
+                                <div className="font-outfit font-extralight text-[20px] leading-[130%] tracking-[0.5em] uppercase text-white text-center m-0 max-md:text-[16px] max-md:tracking-[0.3em]">Hours of Learning</div>
                             </div>
 
                         </div>

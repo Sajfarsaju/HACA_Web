@@ -145,24 +145,23 @@ function PersonCard({ slide }: { slide: Slide }) {
     const showFallback = !slide.image || error;
 
     return (
-        <>
-            {!showFallback && (
-                <Image
-                    src={slide.image!}
-                    alt={slide.name}
-                    fill
-                    className="object-cover"
-                    onError={() => setError(true)}
-                />
-            )}
-            {showFallback && (
-                <div className="flex flex-col items-center gap-3 z-10">
-                    <LetterAvatar name={slide.name} size={72} fontSize={28} />
-                    <span className="font-outfit text-white text-[15px] font-medium text-center px-3">{slide.name}</span>
-                    <span className="font-outfit text-[#A7A7A7] text-[13px] text-center px-3">{slide.subtitle}</span>
+        <div className="flex flex-col items-center gap-4 z-10 px-4">
+            {showFallback ? (
+                <LetterAvatar name={slide.name} size={120} fontSize={44} />
+            ) : (
+                <div className="w-[120px] h-[120px] rounded-full overflow-hidden relative shrink-0">
+                    <Image
+                        src={slide.image!}
+                        alt={slide.name}
+                        fill
+                        className="object-cover"
+                        onError={() => setError(true)}
+                    />
                 </div>
             )}
-        </>
+            <span className="font-outfit text-white text-[15px] font-medium text-center">{slide.name}</span>
+            <span className="font-outfit text-[#A7A7A7] text-[13px] text-center">{slide.subtitle}</span>
+        </div>
     );
 }
 
@@ -376,7 +375,6 @@ export function TechBlogs() {
                             background: "rgba(255, 255, 255, 0.03)",
                             borderRadius: "22px",
                             border: "1px solid rgba(255, 255, 255, 0.05)",
-                            overflow: "hidden",
                         }}
                     >
                         <PersonCard key={`person-card-${index}`} slide={slide} />

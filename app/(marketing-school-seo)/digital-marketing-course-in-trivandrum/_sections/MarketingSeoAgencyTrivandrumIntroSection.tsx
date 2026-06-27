@@ -1,24 +1,8 @@
-import Image from "next/image";
-import { partnerLogoAltFromFilename } from "@/lib/image-alt-text";
+import { HiringPartnersGrid } from "@/components/marketing/HiringPartnersGrid";
+import { TRIVANDRUM_LOGOS } from "@/lib/hiring-partners";
 
 const HEADING_ID = "marketing-trivandrum-agency-heading";
 
-/** Grid order: row-major, same sequence as design handoff. */
-const PARTNER_LOGO_FILES = [
-    "Frame 15.svg",
-    "Frame 17.svg",
-    "Frame 18.svg",
-    "Frame 24.svg",
-    "image 1.svg",
-    "image 2.svg",
-    "image 5.svg",
-    "image.svg",
-    "Rectangle.svg",
-] as const;
-
-function partnerLogoSrc(filename: (typeof PARTNER_LOGO_FILES)[number]) {
-    return `/photos/schools/marketing/${encodeURIComponent(filename)}`;
-}
 
 export function MarketingSeoAgencyTrivandrumIntroSection() {
     return (
@@ -60,39 +44,7 @@ export function MarketingSeoAgencyTrivandrumIntroSection() {
 
                 {/* Second container: 3×3 logo grid */}
                 <div className="w-full shrink-0 lg:mx-0 lg:mt-0 lg:w-[680px] lg:max-w-[680px]">
-                    <div className="box-border overflow-hidden rounded-none border-[0.46px] border-[#B2B2B24D] lg:border-[0.93px]">
-                        <div
-                            className="grid h-[184.227px] w-full grid-cols-3 grid-rows-3 lg:h-[373.953px]"
-                            role="list"
-                            aria-label="Brand logos for internship collaborations"
-                        >
-                            {PARTNER_LOGO_FILES.map((filename, index) => {
-                                const col = index % 3;
-                                const row = Math.floor(index / 3);
-                                const showRight = col < 2;
-                                const showBottom = row < 2;
-                                return (
-                                    <div
-                                        key={filename}
-                                        role="listitem"
-                                        className={[
-                                            "relative flex min-h-0 min-w-0 items-center justify-center bg-black px-2 py-2 lg:px-4 lg:py-4",
-                                            showRight ? "border-r-[0.46px] border-[#B2B2B24D] lg:border-r-[0.93px]" : "",
-                                            showBottom ? "border-b-[0.46px] border-[#B2B2B24D] lg:border-b-[0.93px]" : "",
-                                        ].join(" ")}
-                                    >
-                                        <Image
-                                            src={partnerLogoSrc(filename)} alt={partnerLogoAltFromFilename(filename)}
-                                            width={160}
-                                            height={48}
-                                            className="h-auto max-h-[15px] w-auto max-w-[min(100px,28vw)] object-contain object-center brightness-0 invert lg:max-h-[31px] lg:max-w-[129px]"
-                                            sizes="(max-width: 1023px) 100px, 130px"
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
+                    <HiringPartnersGrid logos={TRIVANDRUM_LOGOS} />
                 </div>
             </div>
         </section>
