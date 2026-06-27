@@ -25,6 +25,8 @@ const SCHOOLS: { key: string; label: string }[] = [
     { key: "Design School",    label: "Design School"    },
     { key: "Marketing School", label: "Marketing School" },
     { key: "Tech School",      label: "Tech School"      },
+    { key: "UAE School",       label: "UAE School"       },
+    { key: "UAE Guest",        label: "Guest Mentors"    },
 ];
 
 async function getMentorsBySchool(school: string): Promise<Mentor[]> {

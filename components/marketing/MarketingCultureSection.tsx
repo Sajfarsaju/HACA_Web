@@ -141,7 +141,7 @@ export function MarketingCultureSection() {
                         />
                         <p
                             className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
-                            style={{ color: "var(--cy-text, #FFFFFF)", transition: "color 0.55s ease" }}
+                            style={{ color: "var(--mp-text, #ffffff)", transition: "color 0.55s ease" }}
                         >
                             Culture
                         </p>
@@ -155,7 +155,7 @@ export function MarketingCultureSection() {
                             text-[clamp(1.75rem,4.8vw,3.125rem)] leading-[1.05]
                             lg:ml-auto lg:flex lg:max-w-[min(100%,720px)] lg:justify-end lg:text-left lg:leading-[1.08]
                         "
-                        style={{ color: "var(--cy-text, #FFFFFF)", transition: "color 0.55s ease" }}
+                        style={{ color: "var(--mp-text, #ffffff)", transition: "color 0.55s ease" }}
                     >
                         <span className="inline-block text-left">
                             <span className="block">The Energy Here Feels</span>

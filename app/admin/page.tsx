@@ -109,12 +109,16 @@ const MENTOR_SCHOOL_OPTIONS = [
   "Design School",
   "Tech School",
   "Finance School",
+  "UAE School",
+  "UAE Guest",
 ] as const;
 
 type MentorSchoolName = (typeof MENTOR_SCHOOL_OPTIONS)[number];
 
 const MENTOR_SCHOOL_LABEL: Record<string, string> = {
   "HACA": "Top Mentors in HACA",
+  "UAE School": "UAE School Mentors",
+  "UAE Guest": "UAE Guest Experts",
 };
 
 /** Card overlay tint options — only selectable/required for Design School mentors. */

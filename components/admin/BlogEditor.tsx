@@ -446,7 +446,7 @@ export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload, show
         />
       )}
 
-      <div className="overflow-hidden rounded-xl border border-white/20 bg-white/[0.07] backdrop-blur-sm">
+      <div className="rounded-xl border border-white/20 bg-white/[0.07] backdrop-blur-sm overflow-y-auto" style={{ maxHeight: "80vh" }}>
         {/* Hidden file inputs */}
         {onImageUpload && (
           <input
@@ -468,7 +468,7 @@ export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload, show
         )}
 
         {/* Toolbar */}
-        <div className="flex flex-wrap items-center gap-1 border-b border-white/12 bg-white/[0.04] px-3 py-2">
+        <div className="sticky top-0 z-10 flex flex-wrap items-center gap-1 border-b border-white/12 bg-[#0d0f1f] backdrop-blur-xl px-3 py-2 rounded-t-xl">
           {/* Headings */}
           <ToolbarBtn
             title="Heading 1"

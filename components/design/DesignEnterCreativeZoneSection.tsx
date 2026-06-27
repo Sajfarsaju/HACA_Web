@@ -41,7 +41,7 @@ const DECO_ANIM: Array<{ animate: TargetAndTransition; transition: object }> = [
     },
     { animate: {}, transition: {} }, // placeholder — slot 2 uses ColorCyclingDeco
     {
-        animate: { rotate: [0, 360] },
+        animate: { scaleX: [1, -1, 1] },
         transition: {
             duration: ANIM_DUR, ease: EASE_SPRING,
             repeat: Infinity, repeatDelay: RPT_DELAY, delay: seqDelay(3),

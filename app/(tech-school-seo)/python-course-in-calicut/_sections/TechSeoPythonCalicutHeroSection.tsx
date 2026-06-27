@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
 import { TECH_SEO_PAGE_BG } from "@/lib/tech-school-seo";
@@ -95,8 +95,7 @@ function HeroCtaButton({
 export function TechSeoPythonCalicutHeroSection() {
     return (
         <section
-            className="relative mx-auto box-border w-full max-w-[1441px] overflow-x-clip"
-            style={{ backgroundColor: TECH_SEO_PAGE_BG }}
+            className="relative mx-auto box-border w-full max-w-[1441px] overflow-x-clip bg-transparent z-10"
             aria-labelledby="python-calicut-hero-heading"
         >
             <div className="relative flex min-h-[754px] w-full flex-col gap-5 px-4 py-5 md:flex-row md:items-start md:justify-between md:gap-6 md:px-8 lg:min-h-0 lg:flex-col lg:gap-5 lg:overflow-visible lg:px-[60px] lg:pb-0 lg:pt-10">

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { TechMenuOverlay } from "@/components/sections/tech/TechMenuOverlay";
 import { ENQUIRE_URL } from "@/lib/enquire";
@@ -24,16 +24,31 @@ const TECH_NAV_LINKS = [
 export function TechSchoolNavbar() {
     const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
     const isSeoPage = isTechSchoolSeoPath(pathname);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+        };
+        handleScroll(); // Check on mount
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
         <>
             <header
                 className={[
                     "sticky top-0 z-40 w-full shrink-0",
-                    isSeoPage ? "bg-[#000010]" : "bg-[#111111]",
+                    isSeoPage ? "bg-transparent" : "bg-[#111111]",
                 ].join(" ")}
-                style={{ backgroundColor: isSeoPage ? TECH_SEO_PAGE_BG : "#111111" }}
+                style={{
+                    backgroundColor: isSeoPage ? (isScrolled ? "rgba(0, 0, 16, 0.85)" : "transparent") : "#111111",
+                    backdropFilter: isSeoPage && isScrolled ? "blur(12px)" : "none",
+                    WebkitBackdropFilter: isSeoPage && isScrolled ? "blur(12px)" : "none",
+                    transition: "background-color 0.3s ease, backdrop-filter 0.3s ease",
+                }}
             >
                 <div className="mx-auto box-border flex w-full max-w-[1440px] items-center justify-between px-[clamp(16px,4.16vw,60px)] py-5 md:min-h-[99px] md:py-0 md:pt-[55px] md:pb-0">
                     <Link href="/tech-school" className="relative block h-[23px] w-[130px] shrink-0 md:h-[36px] md:w-[203px]">

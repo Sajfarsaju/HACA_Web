@@ -8,5 +8,5 @@ export const WHATSAPP_CHAT_URL = _wa(
 
 /** AE / UAE pages only */
 export const WHATSAPP_AE_URL = _wa(
-    "Hi HACA Academy! I’m interested in the Digital Marketing Course in UAE. Could you please share more details about the program?"
+    "Hi HACA! I’m interested in the Digital Marketing Course in UAE. Could you please share more details?"
 );
