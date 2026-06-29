@@ -169,7 +169,7 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null);
 
   // ── Active admin tab
-  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "caseStudies" | "mentors" | "culture" | "videos" | "mktVideos" | "testimonials" | "webinars">(
+  const [activeTab, setActiveTab] = useState<"placements" | "courses" | "blogs" | "caseStudies" | "mentors" | "culture" | "videos" | "mktVideos" | "testimonials" | "webinars" | "linkedIn">(
     "placements"
   );
 
@@ -228,6 +228,11 @@ export default function AdminPage() {
   const blogFormRef = useRef<HTMLElement>(null);
   // Author picker
   const [selectedAuthorId, setSelectedAuthorId] = useState<string>("");
+
+  // ── LinkedIn Posts state
+  const [linkedInPosts, setLinkedInPosts] = useState<{ _id: string; url: string; embedUrl: string }[]>([]);
+  const [linkedInUrl, setLinkedInUrl] = useState("");
+  const [linkedInLoading, setLinkedInLoading] = useState(false);
 
   // ── Mentors state
   const [mentors, setMentors] = useState<MentorDoc[]>([]);
@@ -319,8 +324,59 @@ export default function AdminPage() {
     refreshCourses(token);
     refreshBlogs(token);
     refreshMentors(token);
+    refreshLinkedInPosts(token);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  async function refreshLinkedInPosts(currentToken: string) {
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/admin/linkedin-posts`, {
+        headers: { Authorization: `Bearer ${currentToken}` },
+      });
+      setLinkedInPosts(data.posts || []);
+    } catch {
+      // don't interrupt UX
+    }
+  }
+
+  async function handleAddLinkedInPost(e: React.FormEvent) {
+    e.preventDefault();
+    if (!token) return;
+    if (!linkedInUrl.trim()) {
+      setError("Please enter a LinkedIn post URL.");
+      return;
+    }
+    setLinkedInLoading(true);
+    setError(null);
+    try {
+      await axios.post(
+        `${backendUrl}/api/admin/linkedin-posts`,
+        { url: linkedInUrl.trim() },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setLinkedInUrl("");
+      await refreshLinkedInPosts(token);
+      showToast("LinkedIn post added!", "success");
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { error?: string } } })?.response?.data?.error;
+      setError(msg || "Failed to add LinkedIn post.");
+    } finally {
+      setLinkedInLoading(false);
+    }
+  }
+
+  async function handleDeleteLinkedInPost(id: string) {
+    if (!token) return;
+    try {
+      await axios.delete(`${backendUrl}/api/admin/linkedin-posts/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      await refreshLinkedInPosts(token);
+      showToast("Deleted.", "success");
+    } catch {
+      setError("Failed to delete post.");
+    }
+  }
 
   // ─── Placements actions ──────────────────────────────────────────────────────
 
@@ -1355,6 +1411,18 @@ export default function AdminPage() {
               }`}
             >
               Webinars
+            </button>
+            <button
+              type="button"
+              id="tab-linkedIn"
+              onClick={() => setActiveTab("linkedIn")}
+              className={`rounded-xl px-5 py-2.5 text-sm font-medium transition ${
+                activeTab === "linkedIn"
+                  ? "bg-white/15 text-white shadow-sm"
+                  : "text-[#9aa3b8] hover:text-white"
+              }`}
+            >
+              LinkedIn Posts
             </button>
           </div>
 
@@ -2605,6 +2673,84 @@ export default function AdminPage() {
               backendUrl={backendUrl}
               showToast={showToast}
             />
+          )}
+
+          {/* ── LinkedIn Posts Tab ── */}
+          {activeTab === "linkedIn" && (
+            <div className="space-y-8">
+              {/* Add form */}
+              <section className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
+                <div className="mb-6 border-b border-white/12 pb-6">
+                  <h2 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
+                    Add LinkedIn Post
+                  </h2>
+                  <p className="mt-1 text-sm text-[#9aa3b8]">
+                    Paste the regular LinkedIn post URL — the embed URL is generated automatically.
+                  </p>
+                </div>
+                <form onSubmit={handleAddLinkedInPost} className="flex flex-col gap-4 sm:flex-row sm:items-end">
+                  <div className="flex-1 flex flex-col gap-1.5">
+                    <label htmlFor="li-url" className="text-sm font-medium text-[#9aa3b8]">
+                      LinkedIn Post URL
+                    </label>
+                    <input
+                      id="li-url"
+                      type="url"
+                      value={linkedInUrl}
+                      onChange={(e) => setLinkedInUrl(e.target.value)}
+                      placeholder="https://www.linkedin.com/posts/..."
+                      className="rounded-xl border border-white/15 bg-white/[0.07] px-4 py-2.5 text-sm text-white placeholder:text-[#9aa3b8] outline-none focus:border-blue-500/60"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={linkedInLoading}
+                    className="shrink-0 rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:opacity-50"
+                  >
+                    {linkedInLoading ? "Adding…" : "Add Post"}
+                  </button>
+                </form>
+                {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
+              </section>
+
+              {/* Post list */}
+              <section className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
+                <h2 className="mb-5 font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
+                  Uploaded Posts ({linkedInPosts.length})
+                </h2>
+                {linkedInPosts.length === 0 ? (
+                  <p className="text-sm text-[#9aa3b8]">No LinkedIn posts added yet.</p>
+                ) : (
+                  <ul className="flex flex-col gap-3">
+                    {linkedInPosts.map((post, idx) => (
+                      <li
+                        key={post._id}
+                        className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3"
+                      >
+                        <div className="flex min-w-0 flex-col gap-0.5">
+                          <span className="text-xs font-medium text-[#9aa3b8]">#{idx + 1}</span>
+                          <a
+                            href={post.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="truncate text-sm text-blue-400 hover:underline"
+                          >
+                            {post.url}
+                          </a>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteLinkedInPost(post._id)}
+                          className="shrink-0 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-400 transition hover:bg-red-500/20"
+                        >
+                          Delete
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            </div>
           )}
         </div>
       )}
