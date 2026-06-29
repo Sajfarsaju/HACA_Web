@@ -42,7 +42,6 @@ export default function HacaDubaiDigitalMarketingPage() {
             <DubaiLearnerStoriesSection />
             <DubaiMentorsSection />
             <DubaiGuestExpertsSection />
-            <DubaiGuestExpertsSection />
             <DubaiStudentResultsSection />
             <DubaiRecognizedSection />
             <DubaiBlogInsightsSection />
