@@ -43,7 +43,7 @@ export default function MarketingCoursesPage() {
                     </section>
 
                     {/* Basic to Advanced Course Card */}
-                    <section className="w-full max-w-[345px] md:max-w-[1320px] h-auto lg:min-h-[584px] p-[20px_16px] md:p-[20px_30px] gap-[20px] bg-[#E6EFFF] rounded-[20px] flex flex-col justify-start items-start transition-all">
+                    <section id="course-basic-advanced-offline" className="w-full max-w-[345px] md:max-w-[1320px] h-auto lg:min-h-[584px] p-[20px_16px] md:p-[20px_30px] gap-[20px] bg-[#E6EFFF] rounded-[20px] flex flex-col justify-start items-start transition-all">
                         <div className="flex flex-col gap-[14px] w-full">
                             <h2 
                                 className="text-[#000000] m-0 text-left text-[24px] md:text-[44px] leading-[85%] w-full max-w-[313px] md:max-w-[631px] min-h-[52px] md:min-h-[81px] transition-all"
@@ -154,7 +154,7 @@ export default function MarketingCoursesPage() {
                     </section>
 
                     {/* Performance Marketing Mastery Course Card */}
-                    <section className="w-full max-w-[345px] md:max-w-[1320px] h-auto lg:min-h-[542px] p-[20px_16px] md:p-[20px_30px] gap-[20px] bg-[#E6EFFF] rounded-[20px] flex flex-col justify-start items-start transition-all">
+                    <section id="course-basic-advanced-online" className="w-full max-w-[345px] md:max-w-[1320px] h-auto lg:min-h-[542px] p-[20px_16px] md:p-[20px_30px] gap-[20px] bg-[#E6EFFF] rounded-[20px] flex flex-col justify-start items-start transition-all">
                         <div className="flex flex-col gap-[14px] w-full">
                             <h2 
                                 className="text-[#000000] m-0 text-left text-[24px] md:text-[44px] leading-[85%] w-full max-w-[313px] md:max-w-[631px] min-h-[52px] md:min-h-[81px] transition-all"
@@ -257,7 +257,7 @@ export default function MarketingCoursesPage() {
                     </section>
                     
                     {/* Performance Marketing Mastery Course Card */}
-                    <section className="w-full max-w-[345px] md:max-w-[1320px] h-auto lg:min-h-[498px] p-[20px_16px] md:p-[20px_30px] gap-[20px] bg-[#E6EFFF] rounded-[20px] flex flex-col justify-start items-start transition-all">
+                    <section id="course-performance-marketing" className="w-full max-w-[345px] md:max-w-[1320px] h-auto lg:min-h-[498px] p-[20px_16px] md:p-[20px_30px] gap-[20px] bg-[#E6EFFF] rounded-[20px] flex flex-col justify-start items-start transition-all">
                         <div className="flex flex-col gap-[14px] w-full">
                             <h2 
                                 className="text-[#000000] m-0 text-left text-[24px] md:text-[44px] leading-[85%] w-full max-w-[313px] md:max-w-[631px] min-h-[52px] md:min-h-[81px] transition-all"
@@ -355,7 +355,7 @@ export default function MarketingCoursesPage() {
                     </section>
 
                     {/* Content Creation & Social Media Mastery Course Card */}
-                    <section className="w-full max-w-[345px] md:max-w-[1320px] h-auto lg:min-h-[518px] p-[20px_16px] md:p-[20px_30px] gap-[20px] bg-[#E6EFFF] rounded-[20px] flex flex-col justify-start items-start transition-all">
+                    <section id="course-content-social-media" className="w-full max-w-[345px] md:max-w-[1320px] h-auto lg:min-h-[518px] p-[20px_16px] md:p-[20px_30px] gap-[20px] bg-[#E6EFFF] rounded-[20px] flex flex-col justify-start items-start transition-all">
                         <div className="flex flex-col gap-[14px] w-full">
                             <h2 
                                 className="text-[#000000] m-0 text-left text-[24px] md:text-[44px] leading-[85%] w-full max-w-[313px] md:max-w-[631px] min-h-[52px] md:min-h-[81px] transition-all"

@@ -7,8 +7,8 @@ export function DubaiMentorsSection() {
             headingId="dubai-mentors-heading"
             heading={
                 <>
-                    <span className="block">Learn Directly From Mentor</span>
-                    <span className="block">Practitioners</span>
+                    <span className="block">Learn Directly From</span>
+                    <span className="block">Mentor Practitioners</span>
                 </>
             }
             introCopy="Learn from professionals who have worked with Kairali TMT, Walkaroo, TCS, Care n Cure Pharmacy, Volkswagen and other brands."

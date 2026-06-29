@@ -182,7 +182,6 @@ export function AeExclusiveBenefitsSection() {
                             Learn beyond classrooms through Brand War, TGIF (Debate Room, Agency Files, Purple Cow),
                             Founder Interview activities, and two guest sessions every month.
                         </CardBody>
-                        <LearnMoreLink href="/enquire" ariaLabel="Learn more about Live Events & Industry Activities" className="mt-0" />
                         <CardImage src={CARD2_IMAGE} alt="HACA live industry event and student activities" />
                     </BenefitCardShell>
 

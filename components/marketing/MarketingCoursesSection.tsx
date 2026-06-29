@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 
 type CourseRow = {
     /** Duration pill: `mode | duration` (e.g. Online | 5 Months). Omit `duration` for a single label. */
@@ -7,6 +8,7 @@ type CourseRow = {
     titleMobile: string
     descriptionLines: readonly [string, string, string]
     group?: "main" | "mastery"
+    href: string
 }
 
 const ACCENT = "#0066FF"
@@ -17,11 +19,12 @@ const COURSES: CourseRow[] = [
         titleLines: ["Basic to Advanced AI-", "integrated Digital", "Marketing Program"],
         titleMobile: "Basic to Advanced AI-integrated Digital Marketing Program",
         descriptionLines: [
-            "Learn in person with hands-on training and real work experience. This includes",
+            "his includes",
             "5 months of advanced training with the latest AI tools, plus 1 month focused",
             "internship on a special skill.",
         ],
         group: "main",
+        href: "/marketing-school/courses#course-basic-advanced-offline",
     },
     {
         pill: { mode: "Online", duration: "5 Months" },
@@ -33,6 +36,7 @@ const COURSES: CourseRow[] = [
             "during the day.",
         ],
         group: "main",
+        href: "/marketing-school/courses#course-basic-advanced-online",
     },
     {
         pill: { mode: "Online", duration: "2 Months" },
@@ -44,6 +48,7 @@ const COURSES: CourseRow[] = [
             "time.",
         ],
         group: "mastery",
+        href: "/marketing-school/courses#course-performance-marketing",
     },
     {
         pill: { mode: "Coming Soon" },
@@ -55,6 +60,7 @@ const COURSES: CourseRow[] = [
             "content planning.",
         ],
         group: "mastery",
+        href: "/marketing-school/courses#course-content-social-media",
     },
 ]
 
@@ -170,7 +176,7 @@ export function MarketingCoursesSection() {
                         />
                         <p
                             className="font-['Satoshi',sans-serif] text-[clamp(14px,1.5vw,16px)] font-medium leading-none tracking-normal"
-                                                    >
+                        >
                             Courses
                         </p>
                     </div>
@@ -182,7 +188,7 @@ export function MarketingCoursesSection() {
                             text-[clamp(1.5rem,5vw,3.125rem)] leading-[1.08]
                             lg:ml-auto lg:max-w-[min(100%,720px)] lg:leading-[1.08]
                         "
-                                            >
+                    >
                         <span className="lg:hidden">
                             We&apos;ve Career-Focused
                             <br />
@@ -200,14 +206,15 @@ export function MarketingCoursesSection() {
                     {COURSES.map((course, idx) => (
                         <React.Fragment key={course.titleMobile}>
                             {course.group === "mastery" &&
-                            (idx === 2 ||
-                                (idx > 0 && COURSES[idx - 1]?.group !== "mastery")) ? (
+                                (idx === 2 ||
+                                    (idx > 0 && COURSES[idx - 1]?.group !== "mastery")) ? (
                                 null
                             ) : null}
-                        <article className="course-row group relative border-b border-[#3a3a3a] transition-[border-color] duration-300 ease-out lg:hover:border-transparent lg:focus-within:border-transparent">
-                            <div
-                                className="
-                                    relative cursor-pointer rounded-[16px] px-0 py-6
+                            <article className="course-row group relative border-b border-[#3a3a3a] transition-[border-color] duration-300 ease-out lg:hover:border-transparent lg:focus-within:border-transparent">
+                                <Link
+                                    href={course.href}
+                                    className="
+                                    block relative cursor-pointer rounded-[16px] px-0 py-6 no-underline
                                     transition-[background-color,color] duration-300 ease-out
                                     lg:group-hover:bg-[#0066FF] lg:group-focus-within:bg-[#0066FF]
                                     focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0066FF]
@@ -215,18 +222,17 @@ export function MarketingCoursesSection() {
                                     lg:-mx-[clamp(16px,4.16vw,60px)] lg:px-[clamp(16px,4.16vw,60px)]
                                     lg:py-[clamp(22px,3vw,34px)]
                                 "
-                                tabIndex={0}
-                            >
-                                <div
-                                    className="
+                                >
+                                    <div
+                                        className="
                                         grid w-full min-w-0 grid-cols-1 gap-6
                                         lg:grid-cols-[minmax(0,42%)_minmax(0,1fr)] lg:items-stretch lg:gap-x-[clamp(32px,4.5vw,56px)]
                                     "
-                                >
-                                    <div className="flex min-w-0 flex-col items-start justify-center lg:justify-start lg:self-start">
-                                        <DurationPill mode={course.pill.mode} duration={course.pill.duration} />
-                                        <h3
-                                            className="
+                                    >
+                                        <div className="flex min-w-0 flex-col items-start justify-center lg:justify-start lg:self-start">
+                                            <DurationPill mode={course.pill.mode} duration={course.pill.duration} />
+                                            <h3
+                                                className="
                                                 course-text mt-4 w-full min-w-0 text-left tracking-normal
                                                 transition-colors duration-300 ease-out
                                                 [font-family:'Darker_Grotesque',sans-serif]
@@ -235,50 +241,50 @@ export function MarketingCoursesSection() {
                                                 lg:mt-[18px] lg:font-bold lg:text-[clamp(1.125rem,4.2vw,2.125rem)] lg:leading-[1.12]
                                                 lg:group-hover:text-white lg:group-focus-within:text-white
                                             "
-                                                                                    >
-                                            <span className="lg:hidden">{course.titleMobile}</span>
-                                            <span className="hidden lg:inline">
-                                                {course.titleLines.map((line, i) => (
-                                                    <React.Fragment key={`${line}-${i}`}>
-                                                        {line}
-                                                        {i < course.titleLines.length - 1 ? (
-                                                            <><br aria-hidden /></>
-                                                        ) : null}
-                                                    </React.Fragment>
-                                                ))}
-                                            </span>
-                                        </h3>
-                                    </div>
+                                            >
+                                                <span className="lg:hidden">{course.titleMobile}</span>
+                                                <span className="hidden lg:inline">
+                                                    {course.titleLines.map((line, i) => (
+                                                        <React.Fragment key={`${line}-${i}`}>
+                                                            {line}
+                                                            {i < course.titleLines.length - 1 ? (
+                                                                <><br aria-hidden /></>
+                                                            ) : null}
+                                                        </React.Fragment>
+                                                    ))}
+                                                </span>
+                                            </h3>
+                                        </div>
 
-                                    <div
-                                        className="
+                                        <div
+                                            className="
                                             flex w-full min-w-0 max-w-[min(100%,681.225px)] flex-col items-stretch gap-4
                                             lg:ml-auto lg:h-full lg:min-h-[66px] lg:max-w-[min(100%,681.225px)] lg:justify-end lg:gap-6
                                             lg:pr-[clamp(56px,8vw,88px)]
                                         "
-                                    >
-                                        <p
-                                            className="
+                                        >
+                                            <p
+                                                className="
                                                 course-text m-0 w-full min-w-0 whitespace-pre-line lg:whitespace-normal text-left
                                                 font-['Satoshi',sans-serif] text-[16px] font-medium leading-[1.5] tracking-normal
                                                 transition-colors duration-300 ease-out
                                                 lg:min-h-[72px] lg:max-w-[572px] lg:w-full lg:shrink lg:leading-[1.45]
                                                 lg:group-hover:text-white lg:group-focus-within:text-white
                                             "
-                                                                                    >
-                                            {course.descriptionLines.join("\n")}
-                                        </p>
-                                        <div className="flex w-full justify-start lg:hidden">
-                                            <KnowMorePill />
+                                            >
+                                                {course.descriptionLines.join("\n")}
+                                            </p>
+                                            <div className="flex w-full justify-start lg:hidden">
+                                                <KnowMorePill />
+                                            </div>
                                         </div>
                                     </div>
+                                </Link>
+                                {/* Arrow — inside the card padding, right-aligned with the content edge */}
+                                <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 lg:right-[clamp(16px,4.16vw,60px)] lg:top-auto lg:bottom-[clamp(36px,4.2vw,52px)] lg:flex lg:translate-y-0 lg:items-center">
+                                    <CourseRowArrows />
                                 </div>
-                            </div>
-                            {/* Arrow — inside the card padding, right-aligned with the content edge */}
-                            <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 lg:right-[clamp(16px,4.16vw,60px)] lg:top-auto lg:bottom-[clamp(36px,4.2vw,52px)] lg:flex lg:translate-y-0 lg:items-center">
-                                <CourseRowArrows />
-                            </div>
-                        </article>
+                            </article>
                         </React.Fragment>
                     ))}
                 </div>
