@@ -346,10 +346,6 @@ export default function TechProjectsPage() {
                         <section className="w-full max-w-[1320px] flex flex-col gap-10">
                             {/* Section heading */}
                             <div className="flex flex-col gap-3">
-                                <div
-                                    className="w-10 h-1 rounded-full"
-                                    style={{ background: section.accent }}
-                                />
                                 <h2
                                     className="m-0 font-outfit font-semibold text-white"
                                     style={{ fontSize: "clamp(22px, 3vw, 34px)", lineHeight: "1.2" }}
@@ -379,21 +375,6 @@ export default function TechProjectsPage() {
                                                 className="object-cover"
                                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 440px"
                                             />
-                                            {/* Category badge */}
-                                            <span
-                                                className="absolute top-3 left-3 font-outfit font-semibold"
-                                                style={{
-                                                    fontSize: "11px",
-                                                    padding: "4px 10px",
-                                                    borderRadius: "100px",
-                                                    background: "rgba(0,0,0,0.65)",
-                                                    backdropFilter: "blur(8px)",
-                                                    color: section.accent,
-                                                    border: `1px solid ${section.accent}55`,
-                                                }}
-                                            >
-                                                {card.category}
-                                            </span>
                                         </div>
 
                                         {/* Content */}

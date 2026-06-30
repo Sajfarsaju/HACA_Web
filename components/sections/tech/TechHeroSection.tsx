@@ -454,7 +454,7 @@ export default function TechHero() {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="HACA Tech School on Instagram"
-                            className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px] hover:opacity-100 transition-opacity"
+                            className="group w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px] hover:opacity-100 hover:border-white transition-all duration-200"
                         >
                             <Image
                                 src="/photos/Tech/Social Icons.svg"
@@ -462,6 +462,7 @@ export default function TechHero() {
                                 width={18}
                                 height={18}
                                 style={{ objectFit: "contain" }}
+                                className="transition-all duration-200 group-hover:brightness-0 group-hover:invert"
                             />
                         </a>
 
@@ -471,7 +472,7 @@ export default function TechHero() {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="HACA Tech School on YouTube"
-                            className="w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px] hover:opacity-100 transition-opacity"
+                            className="group w-[36px] h-[36px] rounded-[55px] border-[0.38px] border-white/40 opacity-80 flex items-center justify-center p-[9px] hover:opacity-100 hover:border-white transition-all duration-200"
                         >
                             <Image
                                 src="/photos/Tech/mdi_youtube.svg"
@@ -479,6 +480,7 @@ export default function TechHero() {
                                 width={18}
                                 height={18}
                                 style={{ objectFit: "contain" }}
+                                className="transition-all duration-200 group-hover:brightness-0 group-hover:invert"
                             />
                         </a>
                     </motion.div>

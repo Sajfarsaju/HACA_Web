@@ -5,8 +5,7 @@ const CATEGORIES = [
     { id: "marketing", label: "Marketing" },
     { id: "design", label: "Design" },
     { id: "tech", label: "Tech" },
-    { id: "finance", label: "Finance" },
-    { id: "career-guidance", label: "Career Guidance" },
+    { id: "general", label: "General" },
 ] as const
 
 export function BlogCategoryFilter({

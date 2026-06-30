@@ -128,6 +128,14 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
                 {/* Center: module accordion */}
                 <div className="flex flex-col gap-[44px] px-4 sm:px-6 lg:px-8 pb-2">
                     <div className="mx-auto flex w-full max-w-[1102px] flex-col gap-[17.62px]">
+                        {/* What You'll Learn pill */}
+                        <div className="flex w-full justify-center">
+                            <div className="inline-flex max-w-full items-center justify-center rounded-[20px] sm:rounded-[88.12px] border border-white/10 bg-[#FFFFFF1A] px-[14.1px] py-[7.05px] shadow-[0px_0.88px_0.88px_0px_#0003124D,0px_7.05px_9.61px_0px_#0003121F] backdrop-blur-[5.29px]">
+                                <span className="font-rethink font-semibold text-center text-[16px] sm:text-[20px] leading-[22.47px] text-[#A7ADBE]">
+                                    What You&apos;ll Learn
+                                </span>
+                            </div>
+                        </div>
                         {modules.map((mod) => (
                             <ModuleCard
                                 key={mod.id}
@@ -140,6 +148,25 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
                         ))}
                     </div>
                 </div>
+
+                {/* Final Outcome section */}
+                {course.finalOutcome && course.finalOutcome.trim() && (
+                    <div className="px-4 sm:px-6 lg:px-8 pb-2">
+                        <div className="mx-auto flex w-full max-w-[1102px] flex-col gap-[17.62px]">
+                            <div className="flex w-full justify-center">
+                                <div className="inline-flex max-w-full items-center justify-center rounded-[20px] sm:rounded-[88.12px] border border-white/10 bg-[#FFFFFF1A] px-[14.1px] py-[7.05px] shadow-[0px_0.88px_0.88px_0px_#0003124D,0px_7.05px_9.61px_0px_#0003121F] backdrop-blur-[5.29px]">
+                                    <span className="font-rethink font-semibold text-center text-[16px] sm:text-[20px] leading-[22.47px] text-[#A7ADBE]">
+                                        Final Outcome
+                                    </span>
+                                </div>
+                            </div>
+                            <div
+                                className="prose prose-invert max-w-none text-[#A7ADBE] prose-headings:text-white prose-h2:text-xl prose-h2:font-semibold prose-h3:text-lg prose-h3:font-semibold prose-p:text-[#A7ADBE] prose-li:text-[#A7ADBE] prose-ul:list-disc prose-ol:list-decimal"
+                                dangerouslySetInnerHTML={{ __html: course.finalOutcome }}
+                            />
+                        </div>
+                    </div>
+                )}
 
                 <CourseToolsMarquee />
                 <CourseBottomSeatSection amount={course.amount} originalAmount={course.originalAmount} />
@@ -272,9 +299,10 @@ function ModuleCard({
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="overflow-hidden"
                     >
-                        <div className="px-[29.96px] pb-[26.44px] pt-0 font-manrope text-[15px] sm:text-[16px] leading-[160%] text-[#A7ADBE]">
-                            {mod.content}
-                        </div>
+                        <div
+                            className="px-[29.96px] pb-[26.44px] pt-0 font-manrope text-[15px] sm:text-[16px] leading-[160%] text-[#A7ADBE] prose prose-invert max-w-none prose-headings:text-white prose-h2:text-xl prose-h2:font-bold prose-h2:leading-tight prose-h3:text-lg prose-h3:font-semibold prose-h3:leading-tight prose-p:text-[#A7ADBE] prose-li:text-[#A7ADBE] prose-ul:list-disc prose-ol:list-decimal"
+                            dangerouslySetInnerHTML={{ __html: mod.content }}
+                        />
                     </motion.div>
                 )}
             </AnimatePresence>
