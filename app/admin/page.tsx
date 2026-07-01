@@ -834,12 +834,8 @@ export default function AdminPage() {
     if (!token) return;
 
     // Validate main course fields
-    if (
-      !courseName.trim() ||
-      !courseTrainingDuration.trim() ||
-      !courseInternshipDuration.trim()
-    ) {
-      setError("Please fill in course name, training duration, and internship duration.");
+    if (!courseName.trim() || !courseTrainingDuration.trim()) {
+      setError("Please fill in course name and training duration.");
       return;
     }
 
@@ -862,7 +858,10 @@ export default function AdminPage() {
         content: m.content.trim(),
       }));
 
-      const trainingSummary = `${courseTrainingDuration.trim()} · ${courseInternshipDuration.trim()}`;
+      const internship = courseInternshipDuration.trim();
+      const trainingSummary = internship
+        ? `${courseTrainingDuration.trim()} · ${internship}`
+        : courseTrainingDuration.trim();
       const payload = {
         schoolName: courseSchoolName,
         mode: courseMode,
@@ -1721,11 +1720,10 @@ export default function AdminPage() {
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="course-internship" className="text-xs font-medium text-[#A7ADBE]">
-                        Internship duration <span className="text-red-400">*</span>
+                        Internship duration <span className="text-[#6b7280]">(optional)</span>
                       </label>
                       <input
                         id="course-internship"
-                        required
                         className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
                         value={courseInternshipDuration}
                         onChange={(e) => setCourseInternshipDuration(e.target.value)}
