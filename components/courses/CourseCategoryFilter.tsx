@@ -5,7 +5,6 @@ const COURSE_CATEGORIES = [
     { id: "marketing", label: "Marketing" },
     { id: "design", label: "Design" },
     { id: "tech", label: "Tech" },
-    { id: "finance", label: "Finance" },
 ] as const
 
 export function CourseCategoryFilter({

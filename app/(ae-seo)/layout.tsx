@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MarketingFooter } from "@/components/marketing/MarketingFooter";
+import { AeFooter } from "@/components/ae/AeFooter";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { MarketingPageColorLayer } from "@/components/marketing/MarketingPageColorLayer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
@@ -16,7 +16,7 @@ export default function AeSeoGroupLayout({
             <main className="flex min-h-0 w-full flex-col overflow-x-hidden">
                 <MarketingNavbar />
                 {children}
-                <MarketingFooter />
+                <AeFooter />
             </main>
             <WhatsAppButton href={WHATSAPP_AE_URL} />
         </MarketingPageColorLayer>

@@ -153,7 +153,7 @@ export function TechIntroSection() {
                             <span
                                 key={`p1-${idx}`}
                                 style={{
-                                    color: idx < revealedCount ? "#ffffff" : "#A7A7A7",
+                                    color: idx < revealedCount ? "#ffffff" : "#2e2e2e",
                                     transition: "color 0.35s ease",
                                 }}
                             >
@@ -167,7 +167,7 @@ export function TechIntroSection() {
                                 <span
                                     key={`p2-${idx}`}
                                     style={{
-                                        color: globalIdx < revealedCount ? "#ffffff" : "#A7A7A7",
+                                        color: globalIdx < revealedCount ? "#ffffff" : "#2e2e2e",
                                         transition: "color 0.35s ease",
                                     }}
                                 >

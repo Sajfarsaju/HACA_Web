@@ -13,6 +13,7 @@ export type Course = {
     amount?: string            // Current price, e.g. "₹80,000"
     originalAmount?: string    // Struck-through original price, e.g. "₹85,000"
     modules?: CourseModule[]   // DB-driven modules (overrides static lookup)
+    finalOutcome?: string      // Rich-text HTML for the Final Outcome section
 }
 
 export type CourseModule = {

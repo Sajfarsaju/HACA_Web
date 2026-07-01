@@ -1,26 +1,17 @@
 ﻿"use client";
 
-import React, { useState, useRef, useEffect } from "react"
+import React, { useRef, useEffect, useState } from "react"
+import Image from "next/image"
 import { PressLogos } from "@/components/sections/PressLogos"
 import { MarketingStatsSection } from "@/components/marketing/MarketingStatsSection"
 import { MarketingApproachSection } from "@/components/marketing/MarketingApproachSection"
-import Image from "next/image"
-import { ALT } from "@/lib/image-alt-text";
-import { useScroll, useMotionValueEvent } from "framer-motion"
+import { ALT } from "@/lib/image-alt-text"
+import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 
 export function MarketingImpactSection() {
     const [isPlaying, setIsPlaying] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
     const wrapperRef = useRef<HTMLElement>(null);
-    const VIDEO_SRC = "";
-
-    const togglePlay = () => {
-        if (videoRef.current) {
-            if (isPlaying) videoRef.current.pause();
-            else videoRef.current.play();
-            setIsPlaying(!isPlaying);
-        }
-    };
+    const videoContainerRef = useRef<HTMLDivElement>(null);
 
     const { scrollYProgress } = useScroll({
         target: wrapperRef,
@@ -29,10 +20,20 @@ export function MarketingImpactSection() {
     const [isDark, setIsDark] = useState(false);
     useMotionValueEvent(scrollYProgress, "change", (v) => setIsDark(v > 0.08));
 
-
     useEffect(() => {
         window.dispatchEvent(new CustomEvent("marketing-page-color", { detail: { isDark } }));
     }, [isDark]);
+
+    useEffect(() => {
+        if (!isPlaying) return;
+        function handleClickOutside(e: MouseEvent) {
+            if (videoContainerRef.current && !videoContainerRef.current.contains(e.target as Node)) {
+                setIsPlaying(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [isPlaying]);
 
     return (
         <section
@@ -225,46 +226,59 @@ export function MarketingImpactSection() {
 
                     {/* Video Container Portion */}
                     <div className="video-section-wrapper flex w-full min-w-0 max-w-[1320px] flex-col self-stretch items-stretch">
-                        <div className="video-container">
-                            {/* Background photo */}
-                            <div className="absolute inset-0 z-0">
-                                <Image
-                                    src="/photos/main/Rectangle 2.webp"
-                                    alt={ALT.marketingImpactVideo}
-                                    fill
-                                    className="object-cover object-center"
-                                    priority
+                        <div ref={videoContainerRef} className="video-container relative overflow-hidden">
+                            {isPlaying ? (
+                                <iframe
+                                    src="https://www.youtube.com/embed/y-iyA5UXJLk?rel=0&modestbranding=1&autoplay=1"
+                                    title="Marketing School — application demonstration"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    style={{ width: "100%", height: "100%", border: "none" }}
                                 />
-                            </div>
+                            ) : (
+                                <>
+                                    {/* YouTube thumbnail poster — reduced opacity */}
+                                    <div className="absolute inset-0 z-0 opacity-60">
+                                        <Image
+                                            src="https://img.youtube.com/vi/y-iyA5UXJLk/maxresdefault.jpg"
+                                            alt={ALT.marketingImpactVideo}
+                                            fill
+                                            className="object-cover object-center"
+                                            priority
+                                        />
+                                    </div>
+                                    {/* Smooth glow on hover via CSS — Motion handles scale separately */}
+                                    <style>{`
+                                        .play-svg-btn {
+                                            transition: filter 0.5s ease;
+                                        }
+                                        .play-svg-btn:hover {
+                                            filter: drop-shadow(0 0 18px rgba(255,255,255,0.5));
+                                        }
+                                    `}</style>
 
-                            <video
-                                ref={videoRef}
-                                className={`video-element relative z-1 transition-opacity duration-300 ${isPlaying ? "opacity-100" : "opacity-0"}`}
-                                style={{ pointerEvents: isPlaying ? "auto" : "none" }}
-                                playsInline
-                                loop
-                                onPlay={() => setIsPlaying(true)}
-                                onPause={() => setIsPlaying(false)}
-                                aria-label="Marketing application demonstration video"
-                            >
-                                {VIDEO_SRC ? <source src={VIDEO_SRC} type="video/mp4" /> : null}
-                                Your browser does not support the video tag.
-                            </video>
-
-                            <button
-                                className="play-pause-btn"
-                                onClick={togglePlay}
-                                aria-label={isPlaying ? "Pause video" : "Play video"}
-                            >
-                                <div className="relative w-full h-full">
-                                    <Image
-                                        src="/photos/schools/marketing/play-pause-btn.svg"
-                                        alt="" aria-hidden="true"
-                                        fill
-                                        className="object-contain"
-                                    />
-                                </div>
-                            </button>
+                                    {/* Wrapper handles centering; Motion only scales so transform doesn't conflict */}
+                                    <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", zIndex: 10, width: "clamp(158.55px, 12.8vw, 184px)", height: "clamp(51.61px, 4.2vw, 60px)" }}>
+                                        <motion.button
+                                            className="play-svg-btn"
+                                            onClick={() => setIsPlaying(true)}
+                                            aria-label="Play video"
+                                            style={{ width: "100%", height: "100%", background: "transparent", border: "none", padding: 0, cursor: "pointer", position: "relative" }}
+                                            whileHover={{ scale: 1.08 }}
+                                            whileTap={{ scale: 0.94 }}
+                                            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                        >
+                                            <Image
+                                                src="/photos/schools/marketing/play-pause-btn.svg"
+                                                alt=""
+                                                aria-hidden="true"
+                                                fill
+                                                className="object-contain"
+                                            />
+                                        </motion.button>
+                                    </div>
+                                </>
+                            )}
                         </div>
 
                         <div className="impact-stats-block mt-[clamp(16px,2.5vw,28px)] w-full min-w-0 shrink-0 px-0">

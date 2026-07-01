@@ -119,16 +119,23 @@ export function AeLinkedInPostsStrip({ sectionId, headingId, heading, subheading
                             posts.map((post) => (
                                 <li
                                     key={post._id}
-                                    className="shrink-0 w-[340px] lg:w-[504px]"
+                                    className="
+                                        shrink-0 overflow-x-hidden overflow-y-auto
+                                        w-[194px] h-[218px] rounded-[3.88px]
+                                        lg:w-[400px] lg:h-[450px] lg:rounded-[8px]
+                                        border border-[#e0e0e0]
+                                        [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+                                    "
                                 >
                                     <iframe
                                         src={post.embedUrl}
-                                        height="570"
                                         width="100%"
+                                        height="700"
                                         frameBorder="0"
                                         allowFullScreen
                                         title="LinkedIn post"
-                                        className="block rounded-[3.88px] lg:rounded-[8px] border-0"
+                                        scrolling="no"
+                                        className="block border-0 w-full pointer-events-none"
                                     />
                                 </li>
                             ))}

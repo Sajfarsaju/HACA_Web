@@ -3,7 +3,7 @@ const _wa = (text: string) => `${_BASE}&text=${encodeURIComponent(text)}`;
 
 /** Generic – used on all pages except AE/UAE */
 export const WHATSAPP_CHAT_URL = _wa(
-    "Hi HACA Academy, I’m interested in joining a course. Could you please share the courses you offer"
+    "Hi HACA, I’m interested in joining a course. Could you please share the courses you offer"
 );
 
 /** AE / UAE pages only */

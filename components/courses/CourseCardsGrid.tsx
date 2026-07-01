@@ -34,6 +34,7 @@ async function fetchCoursesFromApi(): Promise<Course[]> {
                           (m, i) => ({ ...m, id: i + 1 })
                       )
                     : undefined,
+                finalOutcome: typeof c.finalOutcome === "string" ? c.finalOutcome : undefined,
             })
         )
         return items

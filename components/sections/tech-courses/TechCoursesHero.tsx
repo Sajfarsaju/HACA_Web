@@ -101,7 +101,7 @@ export function TechCoursesHero({ scale }: TechCoursesHeroProps) {
                         >
                             {[1, 2, 3, 4].map((i) => (
                                 <div key={i} className="flex items-center gap-[30px] shrink-0">
-                                    <span style={{ width: "20px", height: "32px", color: "#FFFFFF", fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: "40px", display: "flex", alignItems: "center", justifyContent: "center" }}>*</span>
+                                    <span style={{ color: "#FFFFFF", fontSize: "20px", lineHeight: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>★</span>
                                     <span style={{ width: "726px", height: "24px", color: "#FFFFFF", fontFamily: "'Outfit', sans-serif", fontWeight: 500, fontSize: "20px", display: "flex", alignItems: "center" }}>Enroll in our flagship programs and get the Applied AI Course worth ₹10,000 FREE</span>
                                 </div>
                             ))}

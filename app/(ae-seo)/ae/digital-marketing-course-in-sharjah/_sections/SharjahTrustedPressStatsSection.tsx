@@ -6,44 +6,44 @@ import React from "react";
 
 const PRESS_LOGOS = [
     {
-        key: "tedx",
-        src: "/photos/main/tedx.svg",
-        alt: "TEDx",
+        key: "logo-1",
+        src: "/photos/schools/ae/image 99.svg",
+        alt: "Featured Publication",
         wrapperClass:
-            "flex h-[clamp(36px,5vw,52px)] shrink-0 items-center justify-center w-[clamp(56px,7vw,88px)] max-md:w-[56px]",
+            "flex h-[clamp(36px,5vw,52px)] shrink-0 items-center justify-center w-[clamp(100px,12vw,180px)] max-md:w-[min(100px,28vw)]",
         width: 240,
-        height: 81,
-        imgClass: "h-auto w-full max-h-[40px] object-contain object-center opacity-95",
+        height: 80,
+        imgClass: "h-auto w-full max-h-[48px] object-contain object-center opacity-95",
+    },
+    {
+        key: "logo-2",
+        src: "/photos/schools/ae/logo 1.svg",
+        alt: "Featured Publication",
+        wrapperClass:
+            "flex h-[clamp(36px,5vw,52px)] shrink-0 items-center justify-center w-[clamp(100px,12vw,180px)] max-md:w-[min(100px,28vw)]",
+        width: 240,
+        height: 80,
+        imgClass: "h-auto w-full max-h-[48px] object-contain object-center opacity-95",
     },
     {
         key: "khaleej-times",
-        src: "/photos/ae/khaleej-times.svg",
+        src: "/photos/schools/ae/khaleej-times-vector-logo 1.svg",
         alt: "Khaleej Times",
         wrapperClass:
             "flex h-[clamp(28px,4vw,40px)] shrink-0 items-center justify-center w-[clamp(120px,14vw,200px)] max-md:w-[min(115px,28vw)]",
-        width: 230,
-        height: 40,
-        imgClass: "h-auto w-full object-contain brightness-0 invert opacity-95",
+        width: 240,
+        height: 60,
+        imgClass: "h-auto w-full object-contain opacity-95",
     },
     {
-        key: "ads-world",
-        src: "/photos/ae/ads-world.svg",
-        alt: "Ads:World",
-        wrapperClass:
-            "flex h-[clamp(28px,4vw,40px)] shrink-0 items-center justify-center w-[clamp(100px,12vw,170px)] max-md:w-[min(100px,28vw)]",
-        width: 192,
-        height: 40,
-        imgClass: "h-auto w-full object-contain brightness-0 invert opacity-95",
-    },
-    {
-        key: "gulf-suprabhaatham",
-        src: "/photos/main/press new 1.svg",
+        key: "suprabhaatham",
+        src: "/photos/schools/ae/suprabhaatham 1.svg",
         alt: "Gulf Suprabhaatham",
         wrapperClass:
             "flex h-[clamp(28px,4vw,40px)] shrink-0 items-center justify-center w-[clamp(88px,10vw,150px)] max-md:w-[min(85px,26vw)]",
-        width: 160,
-        height: 40,
-        imgClass: "h-auto w-full object-contain brightness-0 invert opacity-95",
+        width: 180,
+        height: 60,
+        imgClass: "h-auto w-full object-contain opacity-95",
     },
 ] as const;
 

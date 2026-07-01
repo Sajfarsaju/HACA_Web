@@ -80,7 +80,7 @@ function BlogInsightCard({ post }: { post: BlogItem }) {
     const imgSrc = post.bannerUrl || FALLBACK_IMG;
 
     return (
-        <article className="box-border flex w-full min-w-0 flex-col bg-[#E6EFFF] opacity-100 gap-[17.31px] rounded-[17.31px] p-[17.31px] lg:w-full lg:gap-5 lg:rounded-[20px] lg:p-5">
+        <article className="box-border flex w-full min-w-0 flex-col bg-[#E6EFFF] opacity-100 gap-[17.31px] rounded-[17.31px] p-[17.31px] lg:w-full lg:gap-5 lg:rounded-[20px] lg:p-5 transition-transform duration-300 hover:scale-[1.04] cursor-pointer">
             <div className="relative w-full shrink-0 overflow-hidden rounded-[12.12px] bg-white aspect-[871/514] lg:rounded-[14px]">
                 <Image
                     src={imgSrc}
@@ -103,12 +103,12 @@ function BlogInsightCard({ post }: { post: BlogItem }) {
                         </time>
                     </div>
                     <h3 className="m-0 line-clamp-2 min-h-0 w-full text-left font-bold tracking-normal text-black [font-family:'Darker_Grotesque',sans-serif] text-[22px] leading-[25.97px] lg:text-[26px] lg:leading-[30px]">
-                        <Link href={href} className="text-inherit no-underline hover:underline">
+                        <Link href={href} className="text-inherit no-underline">
                             {post.title}
                         </Link>
                     </h3>
                 </div>
-                <Link href={href} className="mt-auto inline-flex h-[23px] min-w-[91px] shrink-0 items-center gap-1 self-start font-['Satoshi',sans-serif] text-[14px] font-medium leading-[22.07px] tracking-normal text-black no-underline hover:underline lg:h-[26px] lg:min-w-[100px] lg:text-[15.5px] lg:leading-[25.5px]">
+                <Link href={href} className="mt-auto inline-flex h-[23px] min-w-[91px] shrink-0 items-center gap-1 self-start font-['Satoshi',sans-serif] text-[14px] font-medium leading-[22.07px] tracking-normal text-black no-underline lg:h-[26px] lg:min-w-[100px] lg:text-[15.5px] lg:leading-[25.5px]">
                     Read Full Blog
                     <ChevronRight className="mt-px shrink-0" />
                 </Link>

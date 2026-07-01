@@ -34,7 +34,6 @@ type PlacementGroup = {
 };
 
 type CourseModule = {
-  label: string;
   title: string;
   content: string;
 };
@@ -47,8 +46,8 @@ type CourseDoc = {
   category: string;
   trainingSummary: string;
   popupHeading: string;
-  amount: string;
-  originalAmount: string;
+  toolsLearn: string;
+  finalOutcome: string;
   modules: CourseModule[];
   createdAt: string;
 };
@@ -89,7 +88,6 @@ const BLOG_CATEGORY_OPTIONS = [
   "Marketing",
   "Tech",
   "Design",
-  "Finance",
   "General",
 ] as const;
 
@@ -111,6 +109,7 @@ const MENTOR_SCHOOL_OPTIONS = [
   "Finance School",
   "UAE School",
   "UAE Guest",
+  "Marketing India Guest",
 ] as const;
 
 type MentorSchoolName = (typeof MENTOR_SCHOOL_OPTIONS)[number];
@@ -151,7 +150,7 @@ const schoolAccent: Record<string, string> = {
   "UAE School": "from-amber-500/12 to-yellow-500/6 ring-amber-400/25",
 };
 
-const EMPTY_MODULE: CourseModule = { label: "", title: "", content: "" };
+const EMPTY_MODULE: CourseModule = { title: "", content: "" };
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -189,14 +188,15 @@ export default function AdminPage() {
 
   // ── Courses state
   const [courses, setCourses] = useState<CourseDoc[]>([]);
+  const [editingCourseId, setEditingCourseId] = useState<string | null>(null);
+  const courseFormRef = useRef<HTMLElement>(null);
   const [courseSchoolName, setCourseSchoolName] =
     useState<CourseSchoolName>("Marketing School");
   const [courseMode, setCourseMode] = useState<"Online" | "Offline">("Offline");
   const [courseName, setCourseName] = useState("");
   const [courseTrainingDuration, setCourseTrainingDuration] = useState("");
   const [courseInternshipDuration, setCourseInternshipDuration] = useState("");
-  const [courseAmount, setCourseAmount] = useState("");
-  const [courseOriginalAmount, setCourseOriginalAmount] = useState("");
+  const [courseFinalOutcome, setCourseFinalOutcome] = useState("");
   const [courseModules, setCourseModules] = useState<CourseModule[]>([
     { ...EMPTY_MODULE },
   ]);
@@ -796,6 +796,39 @@ export default function AdminPage() {
     );
   }
 
+  function resetCourseForm() {
+    setCourseName("");
+    setCourseTrainingDuration("");
+    setCourseInternshipDuration("");
+    setCourseFinalOutcome("");
+    setCourseModules([{ ...EMPTY_MODULE }]);
+    setCourseSchoolName("Marketing School");
+    setCourseMode("Offline");
+    setEditingCourseId(null);
+  }
+
+  function handleEditCourse(course: CourseDoc) {
+    const parts = course.trainingSummary.split(" · ");
+    setCourseTrainingDuration(parts[0] || "");
+    setCourseInternshipDuration(parts[1] || "");
+    setCourseSchoolName(course.schoolName as CourseSchoolName);
+    setCourseMode(course.mode as "Online" | "Offline");
+    setCourseName(course.name);
+    setCourseFinalOutcome(course.finalOutcome || "");
+    setCourseModules(
+      course.modules.length > 0
+        ? course.modules.map((m) => ({ title: m.title, content: m.content }))
+        : [{ ...EMPTY_MODULE }]
+    );
+    setEditingCourseId(course._id);
+    courseFormRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function handleCancelCourseEdit() {
+    resetCourseForm();
+    courseFormRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   async function handleCourseSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!token) return;
@@ -804,16 +837,15 @@ export default function AdminPage() {
     if (
       !courseName.trim() ||
       !courseTrainingDuration.trim() ||
-      !courseInternshipDuration.trim() ||
-      !courseAmount.trim()
+      !courseInternshipDuration.trim()
     ) {
-      setError("Please fill in course name, training, internship, and amount.");
+      setError("Please fill in course name, training duration, and internship duration.");
       return;
     }
 
-    // Validate modules: Title and Content are now the only inputs needed
+    const isEmptyHtml = (html: string) => !html || html.replace(/<[^>]*>/g, "").trim() === "";
     const validModules = courseModules.filter(
-      (m) => m.title.trim() && m.content.trim()
+      (m) => m.title.trim() && !isEmptyHtml(m.content)
     );
 
     if (validModules.length === 0) {
@@ -824,44 +856,41 @@ export default function AdminPage() {
     setError(null);
     setLoading(true);
     try {
-      // Automatically generate labels for each module based on its position
-      const apiModules = validModules.map((m, idx) => ({
-        label: `Module ${idx + 1}`,
+      const apiModules = validModules.map((m) => ({
+        label: "",
         title: m.title.trim(),
         content: m.content.trim(),
       }));
 
       const trainingSummary = `${courseTrainingDuration.trim()} · ${courseInternshipDuration.trim()}`;
+      const payload = {
+        schoolName: courseSchoolName,
+        mode: courseMode,
+        name: courseName.trim(),
+        popupHeading: courseName.trim(),
+        trainingSummary,
+        finalOutcome: courseFinalOutcome,
+        modules: apiModules,
+      };
 
-      await axios.post(
-        `${backendUrl}/api/admin/courses`,
-        {
-          schoolName: courseSchoolName,
-          mode: courseMode,
-          name: courseName.trim(),
-          popupHeading: courseName.trim(), // Synchronized with name
-          trainingSummary: trainingSummary,
-          amount: courseAmount.trim().startsWith("₹") ? courseAmount.trim() : `₹${courseAmount.trim()}`,
-          originalAmount: courseOriginalAmount.trim() 
-            ? (courseOriginalAmount.trim().startsWith("₹") ? courseOriginalAmount.trim() : `₹${courseOriginalAmount.trim()}`)
-            : "",
-          modules: apiModules,
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      if (editingCourseId) {
+        await axios.put(
+          `${backendUrl}/api/admin/courses/${editingCourseId}`,
+          payload,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      } else {
+        await axios.post(
+          `${backendUrl}/api/admin/courses`,
+          payload,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      }
 
-      // Reset form
-      setCourseName("");
-      setCourseTrainingDuration("");
-      setCourseInternshipDuration("");
-      setCourseAmount("");
-      setCourseOriginalAmount("");
-      setCourseModules([{ ...EMPTY_MODULE }]);
-      setCourseSchoolName("Marketing School");
-      setCourseMode("Offline");
+      resetCourseForm();
       await refreshCourses(token);
     } catch (e: unknown) {
-      setError(getApiErrorMessage(e, "Course upload failed"));
+      setError(getApiErrorMessage(e, editingCourseId ? "Course update failed" : "Course upload failed"));
     } finally {
       setLoading(false);
     }
@@ -1593,15 +1622,28 @@ export default function AdminPage() {
           {/* ── Courses Tab ── */}
           {activeTab === "courses" && (
             <div className="space-y-10">
-              {/* New course form */}
-              <section className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
-                <div className="mb-6 border-b border-white/12 pb-6">
-                  <h2 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
-                    New course
-                  </h2>
-                  <p className="mt-1 text-sm text-[#9aa3b8]">
-                    Fill in the details below. The course will appear on the public site immediately.
-                  </p>
+              {/* New / Edit course form */}
+              <section ref={courseFormRef} className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/[0.09] to-white/[0.02] p-6 backdrop-blur-md sm:p-8">
+                <div className="mb-6 border-b border-white/12 pb-6 flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="font-[family-name:var(--font-manrope)] text-lg font-semibold text-white">
+                      {editingCourseId ? "Edit course" : "New course"}
+                    </h2>
+                    <p className="mt-1 text-sm text-[#9aa3b8]">
+                      {editingCourseId
+                        ? "Update the course details and click Save changes."
+                        : "Fill in the details below. The course will appear on the public site immediately."}
+                    </p>
+                  </div>
+                  {editingCourseId && (
+                    <button
+                      type="button"
+                      onClick={handleCancelCourseEdit}
+                      className="shrink-0 rounded-lg border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-[#A7ADBE] transition hover:bg-white/10 hover:text-white"
+                    >
+                      ✕ Cancel edit
+                    </button>
+                  )}
                 </div>
 
                 <form onSubmit={handleCourseSubmit} className="space-y-8">
@@ -1692,63 +1734,30 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                   {/* Row 4: Amount + Original amount */}
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <label htmlFor="course-amount" className="text-xs font-medium text-[#A7ADBE]">
-                        Course amount <span className="text-red-400">*</span>{" "}
-                        <span className="font-normal text-[#8890a0]">(in ₹)</span>
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#A7ADBE]">₹</span>
-                        <input
-                          id="course-amount"
-                          required
-                          className="w-full rounded-xl border border-white/20 bg-white/10 pl-8 pr-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
-                          value={courseAmount.replace("₹", "")}
-                          onChange={(e) => setCourseAmount(e.target.value)}
-                          placeholder="80,000"
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor="course-original-amount" className="text-xs font-medium text-[#A7ADBE]">
-                        Original amount{" "}
-                        <span className="font-normal text-[#8890a0]">(struck-through, in ₹)</span>
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#A7ADBE]">₹</span>
-                        <input
-                          id="course-original-amount"
-                          className="w-full rounded-xl border border-white/20 bg-white/10 pl-8 pr-4 py-3 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/45 focus:ring-2 focus:ring-[#4C75FF]/20"
-                          value={courseOriginalAmount.replace("₹", "")}
-                          onChange={(e) => setCourseOriginalAmount(e.target.value)}
-                          placeholder="85,000"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
                   {/* Modules */}
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between gap-3">
-                      <div>
-                        <p className="text-xs font-medium text-[#A7ADBE]">
-                          Modules <span className="text-red-400">*</span>
-                        </p>
+                    <div className="flex flex-col items-center gap-2 w-full">
+                      <div className="flex w-full justify-center">
+                        <div className="inline-flex max-w-full items-center justify-center rounded-[20px] sm:rounded-[88px] border border-white/10 bg-[#FFFFFF1A] px-[14px] py-[7px] shadow-[0px_1px_1px_0px_#0003124D,0px_7px_10px_0px_#0003121F] backdrop-blur-[5px]">
+                          <span className="font-rethink font-semibold text-center text-[16px] sm:text-[18px] leading-[22px] text-[#A7ADBE]">
+                            What You&apos;ll Learn
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex w-full items-center justify-between gap-3">
                         <p className="text-[11px] text-[#8890a0]">
                           Each module appears as an accordion item in the course popup
                         </p>
+                        {courseModules.length < 10 && (
+                          <button
+                            type="button"
+                            onClick={addModule}
+                            className="shrink-0 rounded-lg border border-white/20 bg-white/[0.08] px-3 py-1.5 text-xs font-medium text-[#d1d5e0] transition hover:bg-white/15"
+                          >
+                            + Add module
+                          </button>
+                        )}
                       </div>
-                      {courseModules.length < 10 && (
-                        <button
-                          type="button"
-                          onClick={addModule}
-                          className="shrink-0 rounded-lg border border-white/20 bg-white/[0.08] px-3 py-1.5 text-xs font-medium text-[#d1d5e0] transition hover:bg-white/15"
-                        >
-                          + Add module
-                        </button>
-                      )}
                     </div>
 
                     <div className="space-y-4">
@@ -1757,10 +1766,7 @@ export default function AdminPage() {
                           key={idx}
                           className="rounded-xl border border-white/12 bg-white/[0.04] p-4 space-y-3"
                         >
-                          <div className="flex items-center justify-between gap-3">
-                            <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#9aa3b8]">
-                              Module {idx + 1}
-                            </span>
+                          <div className="flex items-center justify-end gap-3">
                             {courseModules.length > 1 && (
                               <button
                                 type="button"
@@ -1779,15 +1785,31 @@ export default function AdminPage() {
                               onChange={(e) => updateModule(idx, "title", e.target.value)}
                             />
                           </div>
-                          <textarea
-                            rows={2}
-                            className="w-full resize-none rounded-lg border border-white/15 bg-white/[0.07] px-3 py-2.5 text-sm text-white placeholder:text-[#6b7280] outline-none transition focus:border-[#4C75FF]/40 focus:ring-1 focus:ring-[#4C75FF]/20"
-                            placeholder="Content — brief description of what students learn in this module"
-                            value={mod.content}
-                            onChange={(e) => updateModule(idx, "content", e.target.value)}
-                          />
+                          <div className="rounded-lg border border-white/15 bg-white/[0.07] overflow-hidden">
+                            <BlogEditor
+                              value={mod.content}
+                              onChange={(html) => updateModule(idx, "content", html)}
+                            />
+                          </div>
                         </div>
                       ))}
+                    </div>
+                  </div>
+
+                  {/* Final Outcome */}
+                  <div className="space-y-3">
+                    <div className="flex w-full justify-center">
+                      <div className="inline-flex max-w-full items-center justify-center rounded-[20px] sm:rounded-[88px] border border-white/10 bg-[#FFFFFF1A] px-[14px] py-[7px] shadow-[0px_1px_1px_0px_#0003124D,0px_7px_10px_0px_#0003121F] backdrop-blur-[5px]">
+                        <span className="font-rethink font-semibold text-center text-[16px] sm:text-[18px] leading-[22px] text-[#A7ADBE]">
+                          Final Outcome
+                        </span>
+                      </div>
+                    </div>
+                    <div className="rounded-xl border border-white/20 bg-white/10 overflow-hidden">
+                      <BlogEditor
+                        value={courseFinalOutcome}
+                        onChange={setCourseFinalOutcome}
+                      />
                     </div>
                   </div>
 
@@ -1797,7 +1819,9 @@ export default function AdminPage() {
                     disabled={loading}
                     className="w-full rounded-xl bg-gradient-to-r from-[#4C75FF] to-[#3558e6] py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:brightness-110 disabled:opacity-40"
                   >
-                    {loading ? "Publishing…" : "Publish course"}
+                    {loading
+                      ? editingCourseId ? "Saving…" : "Publishing…"
+                      : editingCourseId ? "Save changes" : "Publish course"}
                   </button>
                 </form>
               </section>
@@ -1843,24 +1867,25 @@ export default function AdminPage() {
                               {course.name}
                             </p>
                             <p className="text-xs text-[#9aa3b8]">{course.trainingSummary}</p>
-                            <p className="text-xs text-[#9aa3b8]">
-                              Amount:{" "}
-                              <span className="font-medium text-emerald-300/90">{course.amount}</span>
-                              {course.originalAmount ? (
-                                <span className="ml-1 line-through text-[#9aa3b8]">
-                                  {course.originalAmount}
-                                </span>
-                              ) : null}
-                            </p>
                           </div>
-                          <button
-                            type="button"
-                            className="shrink-0 self-start rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18"
-                            onClick={() => handleDeleteCourse(course._id)}
-                            disabled={loading}
-                          >
-                            Delete
-                          </button>
+                          <div className="flex shrink-0 self-start gap-2">
+                            <button
+                              type="button"
+                              className="rounded-lg border border-[#4C75FF]/40 bg-[#4C75FF]/10 px-3 py-1.5 text-xs font-medium text-[#7fa8ff] transition hover:bg-[#4C75FF]/20"
+                              onClick={() => handleEditCourse(course)}
+                              disabled={loading}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              type="button"
+                              className="rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18"
+                              onClick={() => handleDeleteCourse(course._id)}
+                              disabled={loading}
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </div>
                       </article>
                     ))}

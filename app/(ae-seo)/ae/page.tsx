@@ -42,7 +42,6 @@ export default function HacaAePage() {
             <AeLearnerStoriesSection />
             <AeMentorsSection />
             <AeGuestExpertsSection />
-            <AeGuestExpertsSection />
             <AeStudentResultsSection />
             <AeRecognizedSection />
             <AeBlogInsightsSection />

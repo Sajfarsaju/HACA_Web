@@ -1,18 +1,6 @@
-import Image from "next/image";
+import { AeHiringLogoGrid } from "@/components/ae/AeHiringLogoGrid";
 
 const HEADING_ID = "dubai-hiring-network-heading";
-
-const PARTNER_LOGOS = [
-    { file: "tcs.svg",            alt: "TCS – Tata Consultancy Services" },
-    { file: "arada.svg",          alt: "ARADA" },
-    { file: "med7.svg",           alt: "MED7 Healthcare Group" },
-    { file: "danube.svg",         alt: "Danube" },
-    { file: "flipkart.svg",       alt: "Flipkart" },
-    { file: "hotpack.svg",        alt: "Hotpack" },
-    { file: "francis-alukkas.svg",alt: "Francis Alukkas" },
-    { file: "walkaroo.svg",       alt: "Walkaroo" },
-    { file: "popees.svg",         alt: "Popees Baby Care" },
-] as const;
 
 export function DubaiHiringNetworkSection() {
     return (
@@ -52,43 +40,7 @@ export function DubaiHiringNetworkSection() {
                     Logos shown represent a selection of brands and organizations our graduates have been placed with or collaborated with.
                 </p>
 
-                {/* Right: 3×3 logo grid */}
-                <div className="w-full shrink-0 lg:mx-0 lg:mt-0 lg:w-[680px] lg:max-w-[680px]">
-                    <div className="box-border overflow-hidden rounded-none border-[0.46px] border-[#B2B2B24D] lg:border-[0.93px]">
-                        <div
-                            className="grid h-[184.227px] w-full grid-cols-3 grid-rows-3 lg:h-[373.953px]"
-                            role="list"
-                            aria-label="Hiring partner logos"
-                        >
-                            {PARTNER_LOGOS.map(({ file, alt }, index) => {
-                                const col = index % 3;
-                                const row = Math.floor(index / 3);
-                                const showRight  = col < 2;
-                                const showBottom = row < 2;
-                                return (
-                                    <div
-                                        key={file}
-                                        role="listitem"
-                                        className={[
-                                            "relative flex min-h-0 min-w-0 items-center justify-center bg-black px-2 py-2 lg:px-4 lg:py-4",
-                                            showRight  ? "border-r-[0.46px] border-[#B2B2B24D] lg:border-r-[0.93px]" : "",
-                                            showBottom ? "border-b-[0.46px] border-[#B2B2B24D] lg:border-b-[0.93px]" : "",
-                                        ].join(" ")}
-                                    >
-                                        <Image
-                                            src={`/photos/ae/${file}`}
-                                            alt={alt}
-                                            width={160}
-                                            height={48}
-                                            className="h-auto max-h-[15px] w-auto max-w-[min(100px,28vw)] object-contain object-center brightness-0 invert lg:max-h-[31px] lg:max-w-[129px]"
-                                            sizes="(max-width: 1023px) 100px, 130px"
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
+                <AeHiringLogoGrid />
 
             </div>
         </section>

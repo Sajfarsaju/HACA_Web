@@ -69,15 +69,15 @@ export function TechCourseCard({ course, showLabel = false }: TechCourseCardProp
                 </div>
                 <Link
                     href={ENQUIRE_URL}
-                    className="course-btn-wrap block no-underline"
+                    className="course-btn-wrap group relative flex items-center justify-center no-underline overflow-hidden bg-white"
                     aria-label="Enquire now"
                 >
-                    <Image
-                        src="/photos/Tech/Link - Regular (1).svg"
-                        alt="Enquire Now"
-                        fill
-                        style={{ objectFit: "contain" }}
-                    />
+                    <span className="absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                        Enquire Now
+                    </span>
+                    <span className="pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center font-outfit font-semibold text-[14px] leading-none text-[#1a1a1a] whitespace-nowrap translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                        Enquire Now
+                    </span>
                 </Link>
             </div>
         </div>

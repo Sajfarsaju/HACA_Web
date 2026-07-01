@@ -53,7 +53,7 @@ function MentorCard({ mentor }: { mentor: MentorItem }) {
     );
 }
 
-export function MentorsAutoScroll({ mentors }: { mentors: MentorItem[] }) {
+export function MentorsAutoScroll({ mentors, ariaLabel = "Mentors" }: { mentors: MentorItem[]; ariaLabel?: string }) {
     const ref = useRef<HTMLUListElement>(null);
     const paused = useRef(false);
     const raf = useRef<number | undefined>(undefined);
@@ -92,7 +92,7 @@ export function MentorsAutoScroll({ mentors }: { mentors: MentorItem[] }) {
                 m-0 flex w-full list-none flex-row gap-6 overflow-x-auto p-0
                 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
             "
-            aria-label="Marketing school mentors"
+            aria-label={ariaLabel}
         >
             {doubled.map((mentor, i) => (
                 <MentorCard key={`${mentor.id}-${i}`} mentor={mentor} />
