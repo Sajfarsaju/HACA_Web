@@ -895,6 +895,24 @@ export default function AdminPage() {
     }
   }
 
+  async function handleMoveCourse(idx: number, direction: -1 | 1) {
+    if (!token) return;
+    const newIdx = idx + direction;
+    if (newIdx < 0 || newIdx >= courses.length) return;
+    const reordered = [...courses];
+    [reordered[idx], reordered[newIdx]] = [reordered[newIdx], reordered[idx]];
+    setCourses(reordered);
+    try {
+      await axios.put(
+        `${backendUrl}/api/admin/courses/reorder`,
+        { ids: reordered.map((c) => c._id) },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    } catch {
+      await refreshCourses(token);
+    }
+  }
+
   async function handleDeleteCourse(id: string) {
     if (!token) return;
     setError(null);
@@ -1841,12 +1859,31 @@ export default function AdminPage() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {courses.map((course) => (
+                    {courses.map((course, idx) => (
                       <article
                         key={course._id}
                         className="rounded-2xl border border-white/12 bg-white/[0.06] p-5 backdrop-blur-sm transition hover:border-white/20"
                       >
                         <div className="flex flex-wrap items-start justify-between gap-4">
+                          {/* Order controls */}
+                          <div className="flex shrink-0 flex-col gap-1 self-center">
+                            <button
+                              type="button"
+                              onClick={() => handleMoveCourse(idx, -1)}
+                              disabled={idx === 0 || loading}
+                              className="rounded border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[11px] text-[#A7ADBE] transition hover:bg-white/12 disabled:opacity-25"
+                              title="Move up"
+                            >▲</button>
+                            <span className="text-center text-[10px] text-[#6b7280]">{idx + 1}</span>
+                            <button
+                              type="button"
+                              onClick={() => handleMoveCourse(idx, 1)}
+                              disabled={idx === courses.length - 1 || loading}
+                              className="rounded border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[11px] text-[#A7ADBE] transition hover:bg-white/12 disabled:opacity-25"
+                              title="Move down"
+                            >▼</button>
+                          </div>
+
                           <div className="min-w-0 flex-1 space-y-1">
                             <div className="flex flex-wrap items-center gap-2">
                               <span

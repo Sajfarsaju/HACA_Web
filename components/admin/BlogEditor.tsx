@@ -178,11 +178,11 @@ export function BlogEditor({ value, onChange, onImageUpload, onVideoUpload, show
     editorProps: {
       attributes: {
         class:
-          "min-h-[260px] px-4 py-3 text-sm text-white outline-none prose prose-invert max-w-none " +
+          "min-h-[260px] px-4 py-3 text-[16px] text-white outline-none prose prose-invert max-w-none " +
           "prose-headings:text-white prose-p:text-[#d1d5e0] prose-li:text-[#d1d5e0] " +
-          "prose-h1:text-3xl prose-h1:font-bold prose-h1:leading-tight " +
-          "prose-h2:text-2xl prose-h2:font-bold prose-h2:leading-tight " +
-          "prose-h3:text-xl prose-h3:font-semibold prose-h3:leading-tight " +
+          "prose-h1:text-[44px] prose-h1:font-bold prose-h1:leading-tight " +
+          "prose-h2:text-[30px] prose-h2:font-bold prose-h2:leading-tight " +
+          "prose-h3:text-[22px] prose-h3:font-semibold prose-h3:leading-tight " +
           "prose-ul:list-disc prose-ol:list-decimal prose-ul:pl-5 prose-ol:pl-5 " +
           "prose-blockquote:border-l-2 prose-blockquote:border-[#4C75FF]/50 prose-blockquote:pl-3 prose-blockquote:italic prose-blockquote:text-[#d1d5e0] " +
           "prose-img:w-full prose-img:h-auto prose-img:rounded-lg",

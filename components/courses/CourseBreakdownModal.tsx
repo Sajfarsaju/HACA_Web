@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from "react"
 const ENQUIRE_URL = "/enquire"
 import type { Course, CourseModule } from "@/lib/courseCatalog"
 import { formatCourseBadgeLine, getModulesForCourse } from "@/lib/courseCatalog"
-import { CourseToolsMarquee } from "@/components/courses/CourseToolsMarquee"
+// import { CourseToolsMarquee } from "@/components/courses/CourseToolsMarquee"
 
 type CourseBreakdownModalProps = {
     course: Course | null
@@ -161,14 +161,14 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
                                 </div>
                             </div>
                             <div
-                                className="prose prose-invert max-w-none text-[#A7ADBE] prose-headings:text-white prose-h2:text-xl prose-h2:font-semibold prose-h3:text-lg prose-h3:font-semibold prose-p:text-[#A7ADBE] prose-li:text-[#A7ADBE] prose-ul:list-disc prose-ol:list-decimal"
+                                className="prose prose-invert max-w-none text-[#A7ADBE] text-[14px] sm:text-[16px] prose-headings:text-white [&_h1]:text-[30px] sm:[&_h1]:text-[44px] [&_h1]:font-bold [&_h1]:leading-tight [&_h2]:text-[22px] sm:[&_h2]:text-[30px] [&_h2]:font-bold [&_h2]:leading-tight [&_h3]:text-[18px] sm:[&_h3]:text-[22px] [&_h3]:font-semibold [&_h3]:leading-tight prose-p:text-[#A7ADBE] prose-li:text-[#A7ADBE] prose-ul:list-disc prose-ol:list-decimal"
                                 dangerouslySetInnerHTML={{ __html: course.finalOutcome }}
                             />
                         </div>
                     </div>
                 )}
 
-                <CourseToolsMarquee />
+                {/* <CourseToolsMarquee /> */}
                 <CourseBottomSeatSection amount={course.amount} originalAmount={course.originalAmount} />
                 </div>
                 </div>
@@ -300,7 +300,7 @@ function ModuleCard({
                         className="overflow-hidden"
                     >
                         <div
-                            className="px-[29.96px] pb-[26.44px] pt-0 font-manrope text-[15px] sm:text-[16px] leading-[160%] text-[#A7ADBE] prose prose-invert max-w-none prose-headings:text-white prose-h2:text-xl prose-h2:font-bold prose-h2:leading-tight prose-h3:text-lg prose-h3:font-semibold prose-h3:leading-tight prose-p:text-[#A7ADBE] prose-li:text-[#A7ADBE] prose-ul:list-disc prose-ol:list-decimal"
+                            className="px-[29.96px] pb-[26.44px] pt-0 font-manrope leading-[160%] text-[#A7ADBE] prose prose-invert max-w-none text-[14px] sm:text-[16px] prose-headings:text-white [&_h1]:text-[30px] sm:[&_h1]:text-[44px] [&_h1]:font-bold [&_h1]:leading-tight [&_h2]:text-[22px] sm:[&_h2]:text-[30px] [&_h2]:font-bold [&_h2]:leading-tight [&_h3]:text-[18px] sm:[&_h3]:text-[22px] [&_h3]:font-semibold [&_h3]:leading-tight prose-p:text-[#A7ADBE] prose-li:text-[#A7ADBE] prose-ul:list-disc prose-ol:list-decimal"
                             dangerouslySetInnerHTML={{ __html: mod.content }}
                         />
                     </motion.div>
