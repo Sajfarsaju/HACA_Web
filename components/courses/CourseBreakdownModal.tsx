@@ -149,8 +149,8 @@ export function CourseBreakdownModal({ course, onClose }: CourseBreakdownModalPr
                     </div>
                 </div>
 
-                {/* Final Outcome section */}
-                {course.finalOutcome && course.finalOutcome.trim() && (
+                {/* Final Outcome section — only when content exists (strips HTML tags to catch empty TipTap output like <p></p>) */}
+                {course.finalOutcome && course.finalOutcome.replace(/<[^>]*>/g, "").trim() && (
                     <div className="px-4 sm:px-6 lg:px-8 pb-2">
                         <div className="mx-auto flex w-full max-w-[1102px] flex-col gap-[17.62px]">
                             <div className="flex w-full justify-center">
