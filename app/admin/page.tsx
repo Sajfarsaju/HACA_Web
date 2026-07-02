@@ -3,6 +3,21 @@
 import Image from "next/image";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+  arrayMove,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { PlacementCropModal } from "@/components/admin/PlacementCropModal";
 import { BlogEditor } from "@/components/admin/BlogEditor";
 import { CultureAdminSection } from "@/components/admin/CultureAdminSection";
@@ -151,6 +166,270 @@ const schoolAccent: Record<string, string> = {
 };
 
 const EMPTY_MODULE: CourseModule = { title: "", content: "" };
+
+// ─── Drag-and-drop sortable course card ───────────────────────────────────────
+
+function CourseSortableItem({
+  course,
+  loading,
+  schoolAccent,
+  onEdit,
+  onDelete,
+}: {
+  course: CourseDoc;
+  loading: boolean;
+  schoolAccent: Record<string, string>;
+  onEdit: (c: CourseDoc) => void;
+  onDelete: (id: string) => void;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: course._id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.4 : 1,
+    zIndex: isDragging ? 50 : undefined,
+  };
+
+  return (
+    <article
+      ref={setNodeRef}
+      style={style}
+      className="rounded-2xl border border-white/12 bg-white/[0.06] p-5 backdrop-blur-sm transition hover:border-white/20"
+    >
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        {/* Drag handle */}
+        <div
+          {...attributes}
+          {...listeners}
+          className="flex shrink-0 cursor-grab items-center self-center rounded-lg border border-white/10 bg-white/[0.04] px-2 py-2 text-[#6b7280] transition hover:bg-white/10 hover:text-[#A7ADBE] active:cursor-grabbing"
+          title="Drag to reorder"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+            <circle cx="4" cy="3" r="1.2" />
+            <circle cx="10" cy="3" r="1.2" />
+            <circle cx="4" cy="7" r="1.2" />
+            <circle cx="10" cy="7" r="1.2" />
+            <circle cx="4" cy="11" r="1.2" />
+            <circle cx="10" cy="11" r="1.2" />
+          </svg>
+        </div>
+
+        <div className="min-w-0 flex-1 space-y-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <span
+              className={`rounded-full border border-white/15 bg-white/[0.08] px-2.5 py-0.5 text-[11px] font-medium text-[#A7ADBE] ${schoolAccent[course.schoolName] ? "bg-gradient-to-r " + schoolAccent[course.schoolName] : ""}`}
+            >
+              {course.schoolName}
+            </span>
+            <span className="rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-0.5 text-[11px] text-[#9aa3b8]">
+              {course.mode}
+            </span>
+            <span className="rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-0.5 text-[11px] text-[#9aa3b8]">
+              {course.modules.length} module{course.modules.length !== 1 ? "s" : ""}
+            </span>
+          </div>
+          <p className="truncate text-sm font-semibold text-white">{course.name}</p>
+          <p className="text-xs text-[#9aa3b8]">{course.trainingSummary}</p>
+        </div>
+
+        <div className="flex shrink-0 self-start gap-2">
+          <button
+            type="button"
+            className="rounded-lg border border-[#4C75FF]/40 bg-[#4C75FF]/10 px-3 py-1.5 text-xs font-medium text-[#7fa8ff] transition hover:bg-[#4C75FF]/20"
+            onClick={() => onEdit(course)}
+            disabled={loading}
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            className="rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18"
+            onClick={() => onDelete(course._id)}
+            disabled={loading}
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function CourseSortableList({
+  courses,
+  loading,
+  schoolAccent,
+  onReorder,
+  onEdit,
+  onDelete,
+}: {
+  courses: CourseDoc[];
+  loading: boolean;
+  schoolAccent: Record<string, string>;
+  onReorder: (reordered: CourseDoc[]) => void;
+  onEdit: (c: CourseDoc) => void;
+  onDelete: (id: string) => void;
+}) {
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
+  );
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    const oldIndex = courses.findIndex((c) => c._id === active.id);
+    const newIndex = courses.findIndex((c) => c._id === over.id);
+    onReorder(arrayMove(courses, oldIndex, newIndex));
+  }
+
+  return (
+    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <SortableContext items={courses.map((c) => c._id)} strategy={verticalListSortingStrategy}>
+        <div className="space-y-4">
+          {courses.map((course) => (
+            <CourseSortableItem
+              key={course._id}
+              course={course}
+              loading={loading}
+              schoolAccent={schoolAccent}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
+          ))}
+        </div>
+      </SortableContext>
+    </DndContext>
+  );
+}
+
+// ─── Drag-and-drop sortable blog card (5-column grid) ─────────────────────────
+
+function BlogSortableItem({
+  blog,
+  loading,
+  isEditing,
+  onEdit,
+  onDelete,
+}: {
+  blog: BlogDoc;
+  loading: boolean;
+  isEditing: boolean;
+  onEdit: (b: BlogDoc) => void;
+  onDelete: (b: BlogDoc) => void;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: blog._id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.4 : 1,
+    zIndex: isDragging ? 50 : undefined,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} className="flex flex-col rounded-2xl border border-white/12 bg-white/[0.06] overflow-hidden backdrop-blur-sm transition hover:border-white/20 group">
+      {/* Drag handle + banner */}
+      <div className="relative aspect-[16/9] bg-white/[0.04]">
+        {blog.bannerUrl ? (
+          <img src={blog.bannerUrl} alt={blog.bannerAlt || blog.title} className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-[#4b5563] text-xs">No image</div>
+        )}
+        {/* Drag handle overlay */}
+        <div
+          {...attributes}
+          {...listeners}
+          className="absolute top-2 left-2 cursor-grab active:cursor-grabbing rounded-lg border border-white/20 bg-black/50 backdrop-blur-sm p-1.5 text-white/60 hover:text-white transition opacity-0 group-hover:opacity-100"
+          title="Drag to reorder"
+        >
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
+            <circle cx="4" cy="3" r="1.2" /><circle cx="10" cy="3" r="1.2" />
+            <circle cx="4" cy="7" r="1.2" /><circle cx="10" cy="7" r="1.2" />
+            <circle cx="4" cy="11" r="1.2" /><circle cx="10" cy="11" r="1.2" />
+          </svg>
+        </div>
+        {isEditing && (
+          <div className="absolute top-2 right-2 rounded-full border border-amber-400/30 bg-amber-500/80 px-2 py-0.5 text-[10px] font-medium text-white">
+            Editing
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col gap-2 p-3 flex-1">
+        <span className="self-start rounded-full border border-violet-400/25 bg-violet-500/10 px-2 py-0.5 text-[10px] font-medium text-violet-300">
+          {blog.category}
+        </span>
+        <p className="text-xs font-semibold text-white leading-snug line-clamp-2">{blog.title}</p>
+        <p className="text-[10px] text-[#9aa3b8] truncate">{blog.authorName}</p>
+        <div className="flex gap-1.5 mt-auto pt-1">
+          <button
+            type="button"
+            className="flex-1 rounded-lg border border-[#4C75FF]/40 bg-[#4C75FF]/10 py-1 text-[10px] font-medium text-[#7fa8ff] transition hover:bg-[#4C75FF]/20 disabled:opacity-40"
+            onClick={() => onEdit(blog)}
+            disabled={loading}
+          >Edit</button>
+          <button
+            type="button"
+            className="flex-1 rounded-lg border border-red-400/35 bg-red-500/10 py-1 text-[10px] font-medium text-red-100 transition hover:bg-red-500/18 disabled:opacity-40"
+            onClick={() => onDelete(blog)}
+            disabled={loading}
+          >Delete</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BlogSortableGrid({
+  blogs,
+  loading,
+  editingBlogId,
+  onReorder,
+  onEdit,
+  onDelete,
+}: {
+  blogs: BlogDoc[];
+  loading: boolean;
+  editingBlogId: string | null;
+  onReorder: (reordered: BlogDoc[]) => void;
+  onEdit: (b: BlogDoc) => void;
+  onDelete: (b: BlogDoc) => void;
+}) {
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
+  );
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    const oldIndex = blogs.findIndex((b) => b._id === active.id);
+    const newIndex = blogs.findIndex((b) => b._id === over.id);
+    onReorder(arrayMove(blogs, oldIndex, newIndex));
+  }
+
+  return (
+    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <SortableContext items={blogs.map((b) => b._id)} strategy={verticalListSortingStrategy}>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {blogs.map((blog) => (
+            <BlogSortableItem
+              key={blog._id}
+              blog={blog}
+              loading={loading}
+              isEditing={editingBlogId === blog._id}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
+          ))}
+        </div>
+      </SortableContext>
+    </DndContext>
+  );
+}
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -895,24 +1174,6 @@ export default function AdminPage() {
     }
   }
 
-  async function handleMoveCourse(idx: number, direction: -1 | 1) {
-    if (!token) return;
-    const newIdx = idx + direction;
-    if (newIdx < 0 || newIdx >= courses.length) return;
-    const reordered = [...courses];
-    [reordered[idx], reordered[newIdx]] = [reordered[newIdx], reordered[idx]];
-    setCourses(reordered);
-    try {
-      await axios.put(
-        `${backendUrl}/api/admin/courses/reorder`,
-        { ids: reordered.map((c) => c._id) },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-    } catch {
-      await refreshCourses(token);
-    }
-  }
-
   async function handleDeleteCourse(id: string) {
     if (!token) return;
     setError(null);
@@ -1199,16 +1460,6 @@ export default function AdminPage() {
           </button>
         </div>
       )}
-
-      <div className="mb-8 sm:mb-10">
-        <h1 className="font-[family-name:var(--font-manrope)] text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-          Dashboard
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#A7ADBE]">
-          Manage placement images and courses. Changes publish instantly to the
-          public site.
-        </p>
-      </div>
 
       {error ? (
         <div
@@ -1858,73 +2109,26 @@ export default function AdminPage() {
                     No courses published yet. Add your first course above.
                   </div>
                 ) : (
-                  <div className="space-y-4">
-                    {courses.map((course, idx) => (
-                      <article
-                        key={course._id}
-                        className="rounded-2xl border border-white/12 bg-white/[0.06] p-5 backdrop-blur-sm transition hover:border-white/20"
-                      >
-                        <div className="flex flex-wrap items-start justify-between gap-4">
-                          {/* Order controls */}
-                          <div className="flex shrink-0 flex-col gap-1 self-center">
-                            <button
-                              type="button"
-                              onClick={() => handleMoveCourse(idx, -1)}
-                              disabled={idx === 0 || loading}
-                              className="rounded border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[11px] text-[#A7ADBE] transition hover:bg-white/12 disabled:opacity-25"
-                              title="Move up"
-                            >▲</button>
-                            <span className="text-center text-[10px] text-[#6b7280]">{idx + 1}</span>
-                            <button
-                              type="button"
-                              onClick={() => handleMoveCourse(idx, 1)}
-                              disabled={idx === courses.length - 1 || loading}
-                              className="rounded border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[11px] text-[#A7ADBE] transition hover:bg-white/12 disabled:opacity-25"
-                              title="Move down"
-                            >▼</button>
-                          </div>
-
-                          <div className="min-w-0 flex-1 space-y-1">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span
-                                className={`rounded-full border border-white/15 bg-white/[0.08] px-2.5 py-0.5 text-[11px] font-medium text-[#A7ADBE] ${schoolAccent[course.schoolName] ? "bg-gradient-to-r " + schoolAccent[course.schoolName] : ""}`}
-                              >
-                                {course.schoolName}
-                              </span>
-                              <span className="rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-0.5 text-[11px] text-[#9aa3b8]">
-                                {course.mode}
-                              </span>
-                              <span className="rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-0.5 text-[11px] text-[#9aa3b8]">
-                                {course.modules.length} module{course.modules.length !== 1 ? "s" : ""}
-                              </span>
-                            </div>
-                            <p className="truncate text-sm font-semibold text-white">
-                              {course.name}
-                            </p>
-                            <p className="text-xs text-[#9aa3b8]">{course.trainingSummary}</p>
-                          </div>
-                          <div className="flex shrink-0 self-start gap-2">
-                            <button
-                              type="button"
-                              className="rounded-lg border border-[#4C75FF]/40 bg-[#4C75FF]/10 px-3 py-1.5 text-xs font-medium text-[#7fa8ff] transition hover:bg-[#4C75FF]/20"
-                              onClick={() => handleEditCourse(course)}
-                              disabled={loading}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              type="button"
-                              className="rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18"
-                              onClick={() => handleDeleteCourse(course._id)}
-                              disabled={loading}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
+                  <CourseSortableList
+                    courses={courses}
+                    loading={loading}
+                    schoolAccent={schoolAccent}
+                    onReorder={async (reordered) => {
+                      if (!token) return;
+                      setCourses(reordered);
+                      try {
+                        await axios.put(
+                          `${backendUrl}/api/admin/courses/reorder`,
+                          { ids: reordered.map((c) => c._id) },
+                          { headers: { Authorization: `Bearer ${token}` } }
+                        );
+                      } catch {
+                        await refreshCourses(token);
+                      }
+                    }}
+                    onEdit={handleEditCourse}
+                    onDelete={handleDeleteCourse}
+                  />
                 )}
               </section>
             </div>
@@ -2380,56 +2584,27 @@ export default function AdminPage() {
                     No blogs published yet. Write your first article above.
                   </div>
                 ) : (
-                  <div className="space-y-4">
-                    {blogs.map((blog) => (
-                      <article
-                        key={blog._id}
-                        className="rounded-2xl border border-white/12 bg-white/[0.06] p-5 backdrop-blur-sm transition hover:border-white/20"
-                      >
-                        <div className="flex flex-wrap items-start justify-between gap-4">
-                          <div className="min-w-0 flex-1 space-y-1.5">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span className="rounded-full border border-violet-400/25 bg-violet-500/10 px-2.5 py-0.5 text-[11px] font-medium text-violet-300">
-                                {blog.category}
-                              </span>
-                              {blog.readTime && (
-                                <span className="rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-0.5 text-[11px] text-[#9aa3b8]">
-                                  {blog.readTime}
-                                </span>
-                              )}
-                              {editingBlogId === blog._id && (
-                                <span className="rounded-full border border-amber-400/30 bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-medium text-amber-300">
-                                  Editing
-                                </span>
-                              )}
-                            </div>
-                            <p className="truncate text-sm font-semibold text-white">{blog.title}</p>
-                            <p className="text-xs text-[#9aa3b8]">
-                              {blog.authorName}{blog.authorRole ? ` · ${blog.authorRole}` : ""}
-                            </p>
-                          </div>
-                          <div className="flex shrink-0 items-center gap-2">
-                            <button
-                              type="button"
-                              className="rounded-lg border border-[#4C75FF]/35 bg-[#4C75FF]/10 px-3 py-1.5 text-xs font-medium text-[#7fa0ff] transition hover:bg-[#4C75FF]/20 disabled:opacity-40"
-                              onClick={() => handleEditBlog(blog)}
-                              disabled={loading}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              type="button"
-                              className="rounded-lg border border-red-400/35 bg-red-500/10 px-3 py-1.5 text-xs font-medium text-red-100 transition hover:bg-red-500/18 disabled:opacity-40"
-                              onClick={() => setConfirmDialog({ label: blog.title, onConfirm: () => handleDeleteBlog(blog._id) })}
-                              disabled={loading}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
+                  <BlogSortableGrid
+                    blogs={blogs}
+                    loading={loading}
+                    editingBlogId={editingBlogId}
+                    onReorder={async (reordered) => {
+                      if (!token) return;
+                      setBlogs(reordered);
+                      try {
+                        await axios.put(
+                          `${backendUrl}/api/admin/blogs/reorder`,
+                          { ids: reordered.map((b) => b._id) },
+                          { headers: { Authorization: `Bearer ${token}` } }
+                        );
+                      } catch {
+                        const res = await axios.get(`${backendUrl}/api/admin/blogs`, { headers: { Authorization: `Bearer ${token}` } });
+                        setBlogs(res.data.items || []);
+                      }
+                    }}
+                    onEdit={handleEditBlog}
+                    onDelete={(blog) => setConfirmDialog({ label: blog.title, onConfirm: () => handleDeleteBlog(blog._id) })}
+                  />
                 )}
               </section>
             </div>

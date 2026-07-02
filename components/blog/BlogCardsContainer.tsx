@@ -11,7 +11,7 @@ function filterByCategory(items: BlogPost[], activeCategory: string) {
 }
 
 const cardLinkClass =
-    "w-full flex flex-col bg-transparent border border-[#25317d] box-border overflow-hidden max-md:w-[min(335px,calc(100vw-40px))] rounded-[clamp(12px,1.2vw,20px)] gap-[clamp(12px,1.2vw,20px)] p-[clamp(6px,0.8vw,10px)] max-md:border-[0.82px] transition-transform duration-200 ease-out hover:scale-[1.03] active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4C75FF]/80"
+    "w-full h-full flex flex-col bg-transparent border border-[#25317d] box-border overflow-hidden max-md:w-[min(335px,calc(100vw-40px))] rounded-[clamp(12px,1.2vw,20px)] gap-[clamp(12px,1.2vw,20px)] p-[clamp(6px,0.8vw,10px)] max-md:border-[0.82px] transition-transform duration-200 ease-out hover:scale-[1.03] active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4C75FF]/80"
 
 export function BlogCardsContainer({ activeCategory, blogs }: { activeCategory: string, blogs: BlogPost[] }) {
     const filtered = filterByCategory(blogs, activeCategory)
@@ -21,7 +21,7 @@ export function BlogCardsContainer({ activeCategory, blogs }: { activeCategory: 
             {/* Tablet & desktop: 3 rows × 3 columns, responsive gap and card size */}
             <div className="hidden md:grid w-full max-w-[1320px] mx-auto grid-cols-3 gap-x-[clamp(16px,2vw,26px)] gap-y-[clamp(16px,2vw,26px)]">
                 {filtered.map((blog, index) => (
-                    <div key={blog.id} className="min-w-0 w-full">
+                    <div key={blog.id} className="min-w-0 w-full h-full">
                         <AnimatedBlogCard blog={blog} index={index} />
                     </div>
                 ))}
@@ -52,6 +52,7 @@ function AnimatedBlogCard({
 
     return (
         <motion.div
+            className="h-full"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.18, margin: "0px 0px -10% 0px" }}
@@ -85,8 +86,8 @@ function BlogCard({
                 />
             </div>
 
-            {/* Card body: no flex-1 so height is content-only; no mt-auto on link so no gap above button */}
-            <div className="w-full flex flex-col gap-[clamp(14px,1.5vw,23px)] px-[clamp(8px,1vw,16px)] pb-[clamp(12px,1.2vw,20px)] pt-0 box-border">
+            {/* Card body: flex-1 so it fills remaining height; button pinned to bottom via mt-auto */}
+            <div className="w-full flex-1 flex flex-col gap-[clamp(14px,1.5vw,23px)] px-[clamp(8px,1vw,16px)] pb-[clamp(12px,1.2vw,20px)] pt-0 box-border">
                 <div className="flex flex-col gap-[clamp(10px,1vw,16px)]">
                     <div className="flex flex-row items-center justify-between gap-[clamp(6px,0.6vw,10px)]">
                         <span className="font-rethink font-medium leading-[100%] bg-[rgba(255,255,255,0.10)] backdrop-blur-[6px] shadow-[0px_1px_1px_0px_rgba(0,3,18,0.30),0px_8px_10.9px_0px_rgba(0,3,18,0.12)] rounded-[100px] whitespace-nowrap text-[#A7ADBE] text-[clamp(12px,1.1vw,16px)] py-[clamp(5px,0.5vw,8px)] px-[clamp(10px,1vw,16px)]">
@@ -100,7 +101,7 @@ function BlogCard({
                         {blog.title}
                     </h3>
                 </div>
-                <span className="inline-flex items-center w-fit pointer-events-none" aria-hidden="true">
+                <span className="inline-flex items-center w-fit pointer-events-none mt-auto" aria-hidden="true">
                     <Image
                         src="/photos/main/read full blog.svg"
                         alt="" aria-hidden="true"
